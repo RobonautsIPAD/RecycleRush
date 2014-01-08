@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:UltimateAscent.xcodeproj">
+      location = "self:AerialAssist.xcodeproj">
    </FileRef>
 </Workspace>

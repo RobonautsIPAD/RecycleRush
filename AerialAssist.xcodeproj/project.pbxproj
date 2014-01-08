@@ -23,24 +23,18 @@
 		2F137CFC18537B6E00D87F30 /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF318537B6E00D87F30 /* MatchData.m */; };
 		2F137CFD18537B6E00D87F30 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF518537B6E00D87F30 /* Photo.m */; };
 		2F137CFE18537B6E00D87F30 /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF718537B6E00D87F30 /* Regional.m */; };
-		2F137D0D18537B7F00D87F30 /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0018537B7F00D87F30 /* SettingsData.m */; };
-		2F137D0E18537B7F00D87F30 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0218537B7F00D87F30 /* Statistics.m */; };
 		2F137D0F18537B7F00D87F30 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0418537B7F00D87F30 /* TeamData.m */; };
 		2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */; };
-		2F137D1118537B7F00D87F30 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0818537B7F00D87F30 /* TeamScore.m */; };
-		2F137D1218537B7F00D87F30 /* Tournament.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0A18537B7F00D87F30 /* Tournament.m */; };
-		2F137D1318537B7F00D87F30 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0C18537B7F00D87F30 /* TournamentData.m */; };
-		2F137D1A18537B8B00D87F30 /* UltimateAscent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1418537B8B00D87F30 /* UltimateAscent.xcdatamodeld */; };
+		2F137D1A18537B8B00D87F30 /* AerialAssist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1418537B8B00D87F30 /* AerialAssist.xcdatamodeld */; };
 		2F137D1D18537E5E00D87F30 /* DriveTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1C18537E5E00D87F30 /* DriveTypeDictionary.m */; };
 		2F137D2018537E7700D87F30 /* AddTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1F18537E7700D87F30 /* AddTeamViewController.m */; };
 		2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F17D54716BA092B00DC81C1 /* TournamentList.csv */; };
 		2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */; };
-		2F267D4C1815A02700198E96 /* UltimateAscent_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F267D4B1815A02700198E96 /* UltimateAscent_ipad.storyboard */; };
+		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F30EABC16A0EB4F0026B258 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABB16A0EB4F0026B258 /* UIKit.framework */; };
 		2F30EABE16A0EB4F0026B258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABD16A0EB4F0026B258 /* Foundation.framework */; };
 		2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */; };
 		2F30EAC216A0EB4F0026B258 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EAC116A0EB4F0026B258 /* CoreData.framework */; };
-		2F30EAC816A0EB4F0026B258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAC616A0EB4F0026B258 /* InfoPlist.strings */; };
 		2F30EAE516A100060026B258 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE416A100060026B258 /* Default.png */; };
 		2F30EAE716A100170026B258 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE616A100170026B258 /* Default@2x.png */; };
 		2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE816A100250026B258 /* Default-568h@2x.png */; };
@@ -48,25 +42,24 @@
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
 		2F340CC017A1FB9C006674C3 /* iPhoneMatchXferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
-		2F47E38516DFE17400609A3E /* TournamentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F47E38416DFE17400609A3E /* TournamentPickerController.m */; };
+		2F472F01187600E7008B39A0 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F472F00187600E7008B39A0 /* AerialAssist.sqlite */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
 		2F4E01F016BA10C80092DC86 /* Settings.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F4E01EF16BA10C80092DC86 /* Settings.csv */; };
 		2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */; };
 		2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */; };
-		2F52217E185143EB000979C5 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F52217D185143EB000979C5 /* Settings.m */; };
 		2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F56B531170517F70093A976 /* CalculateTeamStats.m */; };
 		2F56B56A17052B900093A976 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56917052B900093A976 /* CoreLocation.framework */; };
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
 		2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D64BE179212EB0028F57D /* LucienNumberObject.m */; };
-		2F621F25170DE91300D2ABD1 /* iDeviceExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F24170DE91200D2ABD1 /* iDeviceExportViewController.m */; };
-		2F621F28170DEC9F00D2ABD1 /* SyncMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F27170DEC9E00D2ABD1 /* SyncMatchListViewController.m */; };
 		2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */; };
-		2F621F2D170E18CA00D2ABD1 /* UltimateAscent_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F621F2C170E18CA00D2ABD1 /* UltimateAscent_iphone.storyboard */; };
+		2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */; };
 		2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F67D4281728815300FA04CF /* InitialDefaults.plist */; };
 		2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A0E5B178A2D66001A114F /* ValuePromptViewController.m */; };
 		2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6AE6EF16AD93D1005A24C5 /* 2013_logo.png */; };
+		2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */; };
+		2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8002D818551326008F031C /* SettingsAndPreferences.m */; };
 		2F80CB0617012821000A2BB8 /* TeamRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CB0517012821000A2BB8 /* TeamRecordObject.m */; };
 		2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88648D16B76B1700867385 /* AlliancePickerController.m */; };
 		2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88648F16B76B1700867385 /* MainScoutingPageViewController.m */; };
@@ -77,9 +70,15 @@
 		2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88649916B76B1700867385 /* TeamPickerController.m */; };
 		2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8864A116B76DAB00867385 /* LoadCSVData.m */; };
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
+		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F99088C1787860700EEFFCE /* T0973_img001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F99088B1787860700EEFFCE /* T0973_img001.jpg */; };
+		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
+		2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA28B5E1879B1C40039C28D /* InfoPlist.strings */; };
+		2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48318637970003A2661 /* SyncOptionDictionary.m */; };
+		2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */; };
+		2FB16332185E3FB3005DC7CF /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB16331185E3FB3005DC7CF /* TeamScore.m */; };
+		2FB16338185E5F5D005DC7CF /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB16337185E5F5D005DC7CF /* TournamentData.m */; };
 		2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB29C8216F9620700086C08 /* FieldDrawingViewController.m */; };
-		2FB3A4B816CEC05000E895E5 /* TournamentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4B716CEC05000E895E5 /* TournamentViewController.m */; };
 		2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */; };
 		2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */; };
 		2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC18EAB16A202FD00D42251 /* parseCSV.m */; };
@@ -105,11 +104,13 @@
 		2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FE16CC29B600884191 /* Small White Button.jpg */; };
 		2FD7E9E716E8C3540075533C /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7E9E616E8C3540075533C /* TeamList.csv */; };
 		2FD7E9E916E8DA130075533C /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7E9E816E8DA130075533C /* MatchList.csv */; };
+		2FEA1078187DE1ED008F89F6 /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA1077187DE1ED008F89F6 /* AerialAssist_ipad.storyboard */; };
 		2FEBE13116F226B40094E2C3 /* MatchResults.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FEBE13016F226B40094E2C3 /* MatchResults.csv */; };
 		2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF6800717261BA30003F86A /* CFNetwork.framework */; };
 		2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAE1B316D29B9600B180F9 /* AlertPromptViewController.m */; };
 		2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAE1BA16D3235600B180F9 /* MatchTypeDictionary.m */; };
 		2FFAE1C816D51BDD00B180F9 /* robonauts app banner original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFAE1C716D51BDD00B180F9 /* robonauts app banner original.jpg */; };
+		2FFC493918560F68009A391E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC493818560F68009A391E /* SettingsViewController.m */; };
 		2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */; };
 		2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */; };
 /* End PBXBuildFile section */
@@ -147,24 +148,14 @@
 		2F137CF518537B6E00D87F30 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModels/Photo.m; sourceTree = "<group>"; };
 		2F137CF618537B6E00D87F30 /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Regional.h; path = DataModels/Regional.h; sourceTree = "<group>"; };
 		2F137CF718537B6E00D87F30 /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Regional.m; path = DataModels/Regional.m; sourceTree = "<group>"; };
-		2F137CFF18537B7F00D87F30 /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsData.h; path = DataModels/SettingsData.h; sourceTree = "<group>"; };
-		2F137D0018537B7F00D87F30 /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsData.m; path = DataModels/SettingsData.m; sourceTree = "<group>"; };
-		2F137D0118537B7F00D87F30 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Statistics.h; path = DataModels/Statistics.h; sourceTree = "<group>"; };
-		2F137D0218537B7F00D87F30 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Statistics.m; path = DataModels/Statistics.m; sourceTree = "<group>"; };
 		2F137D0318537B7F00D87F30 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
 		2F137D0418537B7F00D87F30 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
 		2F137D0518537B7F00D87F30 /* TeamDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDataInterfaces.h; path = DataModels/TeamDataInterfaces.h; sourceTree = "<group>"; };
 		2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDataInterfaces.m; path = DataModels/TeamDataInterfaces.m; sourceTree = "<group>"; };
-		2F137D0718537B7F00D87F30 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
-		2F137D0818537B7F00D87F30 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
-		2F137D0918537B7F00D87F30 /* Tournament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tournament.h; path = DataModels/Tournament.h; sourceTree = "<group>"; };
-		2F137D0A18537B7F00D87F30 /* Tournament.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tournament.m; path = DataModels/Tournament.m; sourceTree = "<group>"; };
-		2F137D0B18537B7F00D87F30 /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentData.h; path = DataModels/TournamentData.h; sourceTree = "<group>"; };
-		2F137D0C18537B7F00D87F30 /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentData.m; path = DataModels/TournamentData.m; sourceTree = "<group>"; };
-		2F137D1518537B8B00D87F30 /* UltimateAscent 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 2.xcdatamodel"; sourceTree = "<group>"; };
-		2F137D1618537B8B00D87F30 /* UltimateAscent 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 3.xcdatamodel"; sourceTree = "<group>"; };
-		2F137D1818537B8B00D87F30 /* UltimateAscent 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 5.xcdatamodel"; sourceTree = "<group>"; };
-		2F137D1918537B8B00D87F30 /* UltimateAscent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltimateAscent.xcdatamodel; sourceTree = "<group>"; };
+		2F137D1518537B8B00D87F30 /* AerialAssist 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AerialAssist 2.xcdatamodel"; sourceTree = "<group>"; };
+		2F137D1618537B8B00D87F30 /* AerialAssist 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AerialAssist 3.xcdatamodel"; sourceTree = "<group>"; };
+		2F137D1818537B8B00D87F30 /* AerialAssist 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AerialAssist 5.xcdatamodel"; sourceTree = "<group>"; };
+		2F137D1918537B8B00D87F30 /* AerialAssist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AerialAssist.xcdatamodel; sourceTree = "<group>"; };
 		2F137D1B18537E5D00D87F30 /* DriveTypeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DriveTypeDictionary.h; path = Utilities/DriveTypeDictionary.h; sourceTree = "<group>"; };
 		2F137D1C18537E5E00D87F30 /* DriveTypeDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DriveTypeDictionary.m; path = Utilities/DriveTypeDictionary.m; sourceTree = "<group>"; };
 		2F137D1E18537E7700D87F30 /* AddTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddTeamViewController.h; path = TeamScouting/AddTeamViewController.h; sourceTree = "<group>"; };
@@ -172,13 +163,12 @@
 		2F17D54716BA092B00DC81C1 /* TournamentList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TournamentList.csv; path = Resources/TournamentList.csv; sourceTree = "<group>"; };
 		2F21C5CD170BCC31008A3C24 /* ImportDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDataViewController.h; path = DataImport/ImportDataViewController.h; sourceTree = "<group>"; };
 		2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDataViewController.m; path = DataImport/ImportDataViewController.m; sourceTree = "<group>"; };
-		2F267D4B1815A02700198E96 /* UltimateAscent_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UltimateAscent_ipad.storyboard; sourceTree = "<group>"; };
-		2F30EAB716A0EB4F0026B258 /* UltimateAscent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UltimateAscent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2F30EAB716A0EB4F0026B258 /* AerialAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AerialAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F30EABB16A0EB4F0026B258 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F30EABD16A0EB4F0026B258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2F30EAC116A0EB4F0026B258 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		2F30EAC716A0EB4F0026B258 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F30EAE416A100060026B258 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		2F30EAE616A100170026B258 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
 		2F30EAE816A100250026B258 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -189,8 +179,7 @@
 		2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPhoneMatchXferViewController.m; path = DataTransfer/iPhoneMatchXferViewController.m; sourceTree = "<group>"; };
 		2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMatchViewController.h; path = MatchScouting/AddMatchViewController.h; sourceTree = "<group>"; };
 		2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMatchViewController.m; path = MatchScouting/AddMatchViewController.m; sourceTree = "<group>"; };
-		2F47E38316DFE17300609A3E /* TournamentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentPickerController.h; path = SetUp/TournamentPickerController.h; sourceTree = "<group>"; };
-		2F47E38416DFE17400609A3E /* TournamentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentPickerController.m; path = SetUp/TournamentPickerController.m; sourceTree = "<group>"; };
+		2F472F00187600E7008B39A0 /* AerialAssist.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = AerialAssist.sqlite; path = Resources/AerialAssist.sqlite; sourceTree = "<group>"; };
 		2F4CD04217122E1600428859 /* PopUpPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopUpPickerViewController.h; path = Utilities/PopUpPickerViewController.h; sourceTree = "<group>"; };
 		2F4CD04317122E1600428859 /* PopUpPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopUpPickerViewController.m; path = Utilities/PopUpPickerViewController.m; sourceTree = "<group>"; };
 		2F4E01EF16BA10C80092DC86 /* Settings.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Settings.csv; path = Resources/Settings.csv; sourceTree = "<group>"; };
@@ -198,8 +187,6 @@
 		2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncResultsViewController.m; path = DataTransfer/SyncResultsViewController.m; sourceTree = "<group>"; };
 		2F50BF9B16F2DD65004569F2 /* MatchResultsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchResultsObject.h; path = DataTransfer/MatchResultsObject.h; sourceTree = "<group>"; };
 		2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchResultsObject.m; path = DataTransfer/MatchResultsObject.m; sourceTree = "<group>"; };
-		2F52217C185143EB000979C5 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = SetUp/Settings.h; sourceTree = "<group>"; };
-		2F52217D185143EB000979C5 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = SetUp/Settings.m; sourceTree = "<group>"; };
 		2F56B530170517F70093A976 /* CalculateTeamStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateTeamStats.h; path = MatchAnalysis/CalculateTeamStats.h; sourceTree = "<group>"; };
 		2F56B531170517F70093A976 /* CalculateTeamStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculateTeamStats.m; path = MatchAnalysis/CalculateTeamStats.m; sourceTree = "<group>"; };
 		2F56B56917052B900093A976 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -208,17 +195,16 @@
 		2F56B56F17052BDA0093A976 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2F5D64BD179212EB0028F57D /* LucienNumberObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienNumberObject.h; path = MatchAnalysis/LucienNumberObject.h; sourceTree = "<group>"; };
 		2F5D64BE179212EB0028F57D /* LucienNumberObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienNumberObject.m; path = MatchAnalysis/LucienNumberObject.m; sourceTree = "<group>"; };
-		2F621F23170DE91200D2ABD1 /* iDeviceExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iDeviceExportViewController.h; path = DataExport/iDeviceExportViewController.h; sourceTree = "<group>"; };
-		2F621F24170DE91200D2ABD1 /* iDeviceExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iDeviceExportViewController.m; path = DataExport/iDeviceExportViewController.m; sourceTree = "<group>"; };
-		2F621F26170DEC9E00D2ABD1 /* SyncMatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncMatchListViewController.h; path = DataTransfer/SyncMatchListViewController.h; sourceTree = "<group>"; };
-		2F621F27170DEC9E00D2ABD1 /* SyncMatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncMatchListViewController.m; path = DataTransfer/SyncMatchListViewController.m; sourceTree = "<group>"; };
 		2F621F29170DF2FE00D2ABD1 /* ImportDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDeviceViewController.h; path = DataImport/ImportDeviceViewController.h; sourceTree = "<group>"; };
 		2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDeviceViewController.m; path = DataImport/ImportDeviceViewController.m; sourceTree = "<group>"; };
-		2F621F2C170E18CA00D2ABD1 /* UltimateAscent_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UltimateAscent_iphone.storyboard; path = MainApp/UltimateAscent_iphone.storyboard; sourceTree = "<group>"; };
+		2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_iphone.storyboard; path = MainApp/AerialAssist_iphone.storyboard; sourceTree = "<group>"; };
 		2F67D4281728815300FA04CF /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = InitialDefaults.plist; path = Resources/InitialDefaults.plist; sourceTree = "<group>"; };
 		2F6A0E5A178A2D66001A114F /* ValuePromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValuePromptViewController.h; path = Utilities/ValuePromptViewController.h; sourceTree = "<group>"; };
 		2F6A0E5B178A2D66001A114F /* ValuePromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValuePromptViewController.m; path = Utilities/ValuePromptViewController.m; sourceTree = "<group>"; };
 		2F6AE6EF16AD93D1005A24C5 /* 2013_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2013_logo.png; path = Resources/2013_logo.png; sourceTree = "<group>"; };
+		2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Robonauts.AerialAssist.plist; path = Resources/Robonauts.AerialAssist.plist; sourceTree = "<group>"; };
+		2F8002D718551326008F031C /* SettingsAndPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsAndPreferences.h; path = MainApp/SettingsAndPreferences.h; sourceTree = "<group>"; };
+		2F8002D818551326008F031C /* SettingsAndPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsAndPreferences.m; path = MainApp/SettingsAndPreferences.m; sourceTree = "<group>"; };
 		2F80CB0417012821000A2BB8 /* TeamRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamRecordObject.h; path = DataTransfer/TeamRecordObject.h; sourceTree = "<group>"; };
 		2F80CB0517012821000A2BB8 /* TeamRecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamRecordObject.m; path = DataTransfer/TeamRecordObject.m; sourceTree = "<group>"; };
 		2F88648C16B76B1700867385 /* AlliancePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlliancePickerController.h; path = MatchScouting/AlliancePickerController.h; sourceTree = "<group>"; };
@@ -237,17 +223,28 @@
 		2F88649916B76B1700867385 /* TeamPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamPickerController.m; path = MatchScouting/TeamPickerController.m; sourceTree = "<group>"; };
 		2F8864A116B76DAB00867385 /* LoadCSVData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadCSVData.m; path = DataImport/LoadCSVData.m; sourceTree = "<group>"; };
 		2F8FC25F16E999E500992F85 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = DataTransfer/TabletSyncViewController.h; sourceTree = "<group>"; };
+		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F99088B1787860700EEFFCE /* T0973_img001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = T0973_img001.jpg; path = Resources/T0973_img001.jpg; sourceTree = "<group>"; };
+		2F9E5377186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALAssetsLibrary+CustomPhotoAlbum.h"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALAssetsLibrary+CustomPhotoAlbum.m"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		2FA28B5F1879B1C40039C28D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		2FAFB48218637970003A2661 /* SyncOptionDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncOptionDictionary.h; path = Utilities/SyncOptionDictionary.h; sourceTree = "<group>"; };
+		2FAFB48318637970003A2661 /* SyncOptionDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncOptionDictionary.m; path = Utilities/SyncOptionDictionary.m; sourceTree = "<group>"; };
+		2FAFB48518637AB6003A2661 /* SyncTypeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncTypeDictionary.h; path = Utilities/SyncTypeDictionary.h; sourceTree = "<group>"; };
+		2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncTypeDictionary.m; path = Utilities/SyncTypeDictionary.m; sourceTree = "<group>"; };
+		2FB16330185E3FB3005DC7CF /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
+		2FB16331185E3FB3005DC7CF /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
+		2FB16336185E5F5D005DC7CF /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentData.h; path = DataModels/TournamentData.h; sourceTree = "<group>"; };
+		2FB16337185E5F5D005DC7CF /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentData.m; path = DataModels/TournamentData.m; sourceTree = "<group>"; };
 		2FB29C8116F9620700086C08 /* FieldDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawingViewController.h; path = MatchAnalysis/FieldDrawingViewController.h; sourceTree = "<group>"; };
 		2FB29C8216F9620700086C08 /* FieldDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawingViewController.m; path = MatchAnalysis/FieldDrawingViewController.m; sourceTree = "<group>"; };
-		2FB3A4B616CEC05000E895E5 /* TournamentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentViewController.h; path = SetUp/TournamentViewController.h; sourceTree = "<group>"; };
-		2FB3A4B716CEC05000E895E5 /* TournamentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentViewController.m; path = SetUp/TournamentViewController.m; sourceTree = "<group>"; };
 		2FB3A4BF16CEC17C00E895E5 /* MatchAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchAnalysisViewController.h; path = MatchAnalysis/MatchAnalysisViewController.h; sourceTree = "<group>"; };
 		2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchAnalysisViewController.m; path = MatchAnalysis/MatchAnalysisViewController.m; sourceTree = "<group>"; };
 		2FB3A4C516CF044C00E895E5 /* RossPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RossPageViewController.h; path = MatchAnalysis/RossPageViewController.h; sourceTree = "<group>"; };
 		2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RossPageViewController.m; path = MatchAnalysis/RossPageViewController.m; sourceTree = "<group>"; };
-		2FC18E9F16A1F9A900D42251 /* UltimateAscent-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UltimateAscent-Info.plist"; path = "MainApp/UltimateAscent-Info.plist"; sourceTree = "<group>"; };
-		2FC18EA016A1F9A900D42251 /* UltimateAscent-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UltimateAscent-Prefix.pch"; path = "MainApp/UltimateAscent-Prefix.pch"; sourceTree = "<group>"; };
+		2FC18E9F16A1F9A900D42251 /* AerialAssist-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AerialAssist-Info.plist"; path = "MainApp/AerialAssist-Info.plist"; sourceTree = "<group>"; };
+		2FC18EA016A1F9A900D42251 /* AerialAssist-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AerialAssist-Prefix.pch"; path = "MainApp/AerialAssist-Prefix.pch"; sourceTree = "<group>"; };
 		2FC18EA716A202FD00D42251 /* AddRecordResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddRecordResults.h; path = DataImport/AddRecordResults.h; sourceTree = "<group>"; };
 		2FC18EA816A202FD00D42251 /* LoadCSVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadCSVData.h; path = DataImport/LoadCSVData.h; sourceTree = "<group>"; };
 		2FC18EAA16A202FD00D42251 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = DataImport/parseCSV.h; sourceTree = "<group>"; };
@@ -281,6 +278,7 @@
 		2FCE54FE16CC29B600884191 /* Small White Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small White Button.jpg"; path = "Resources/Small White Button.jpg"; sourceTree = "<group>"; };
 		2FD7E9E616E8C3540075533C /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = Resources/TeamList.csv; sourceTree = "<group>"; };
 		2FD7E9E816E8DA130075533C /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = Resources/MatchList.csv; sourceTree = "<group>"; };
+		2FEA1077187DE1ED008F89F6 /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
 		2FEBE13016F226B40094E2C3 /* MatchResults.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchResults.csv; path = Resources/MatchResults.csv; sourceTree = "<group>"; };
 		2FF6800717261BA30003F86A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2FFAE1B216D29B9600B180F9 /* AlertPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertPromptViewController.h; path = Utilities/AlertPromptViewController.h; sourceTree = "<group>"; };
@@ -288,6 +286,8 @@
 		2FFAE1B916D3235600B180F9 /* MatchTypeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchTypeDictionary.h; path = Utilities/MatchTypeDictionary.h; sourceTree = "<group>"; };
 		2FFAE1BA16D3235600B180F9 /* MatchTypeDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchTypeDictionary.m; path = Utilities/MatchTypeDictionary.m; sourceTree = "<group>"; };
 		2FFAE1C716D51BDD00B180F9 /* robonauts app banner original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner original.jpg"; path = "Resources/robonauts app banner original.jpg"; sourceTree = "<group>"; };
+		2FFC493718560F68009A391E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = SetUp/SettingsViewController.h; sourceTree = "<group>"; };
+		2FFC493818560F68009A391E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = SetUp/SettingsViewController.m; sourceTree = "<group>"; };
 		2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Grey Button.jpg"; path = "Resources/Small Grey Button.jpg"; sourceTree = "<group>"; };
 		2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "Resources/robonauts app banner.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -297,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
 				2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */,
 				2F56B57017052BDB0093A976 /* Security.framework in Frameworks */,
 				2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */,
@@ -317,7 +318,7 @@
 		2F30EAAC16A0EB4F0026B258 = {
 			isa = PBXGroup;
 			children = (
-				2F30EAC316A0EB4F0026B258 /* UltimateAscent */,
+				2F30EAC316A0EB4F0026B258 /* AerialAssist */,
 				2F30EABA16A0EB4F0026B258 /* Frameworks */,
 				2F30EAB816A0EB4F0026B258 /* Products */,
 			);
@@ -326,7 +327,7 @@
 		2F30EAB816A0EB4F0026B258 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F30EAB716A0EB4F0026B258 /* UltimateAscent.app */,
+				2F30EAB716A0EB4F0026B258 /* AerialAssist.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -334,6 +335,7 @@
 		2F30EABA16A0EB4F0026B258 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */,
 				2F56B56F17052BDA0093A976 /* Security.framework */,
 				2F56B56B17052BB30093A976 /* MobileCoreServices.framework */,
 				2F56B56917052B900093A976 /* CoreLocation.framework */,
@@ -349,7 +351,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2F30EAC316A0EB4F0026B258 /* UltimateAscent */ = {
+		2F30EAC316A0EB4F0026B258 /* AerialAssist */ = {
 			isa = PBXGroup;
 			children = (
 				2F50BF9716F2D799004569F2 /* Data Transfer */,
@@ -366,15 +368,16 @@
 				2F30EAE316A0F66F0026B258 /* Resources */,
 				2F30EAC416A0EB4F0026B258 /* Supporting Files */,
 			);
-			path = UltimateAscent;
+			name = AerialAssist;
+			path = AerialAssist;
 			sourceTree = "<group>";
 		};
 		2F30EAC416A0EB4F0026B258 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2FC18E9F16A1F9A900D42251 /* UltimateAscent-Info.plist */,
-				2FC18EA016A1F9A900D42251 /* UltimateAscent-Prefix.pch */,
-				2F30EAC616A0EB4F0026B258 /* InfoPlist.strings */,
+				2FA28B5E1879B1C40039C28D /* InfoPlist.strings */,
+				2FC18E9F16A1F9A900D42251 /* AerialAssist-Info.plist */,
+				2FC18EA016A1F9A900D42251 /* AerialAssist-Prefix.pch */,
 				2F30EAE416A100060026B258 /* Default.png */,
 				2F30EAE616A100170026B258 /* Default@2x.png */,
 				2F30EAE816A100250026B258 /* Default-568h@2x.png */,
@@ -387,8 +390,6 @@
 			children = (
 				2FC18F0E16A215EA00D42251 /* DownloadPageViewController.h */,
 				2FC18F0F16A215EA00D42251 /* DownloadPageViewController.m */,
-				2F621F23170DE91200D2ABD1 /* iDeviceExportViewController.h */,
-				2F621F24170DE91200D2ABD1 /* iDeviceExportViewController.m */,
 			);
 			name = "Data Export";
 			sourceTree = "<group>";
@@ -434,19 +435,13 @@
 		2F30EAE116A0F5150026B258 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				2F137D1418537B8B00D87F30 /* UltimateAscent.xcdatamodeld */,
-				2F137CFF18537B7F00D87F30 /* SettingsData.h */,
-				2F137D0018537B7F00D87F30 /* SettingsData.m */,
-				2F137D0118537B7F00D87F30 /* Statistics.h */,
-				2F137D0218537B7F00D87F30 /* Statistics.m */,
+				2F137D1418537B8B00D87F30 /* AerialAssist.xcdatamodeld */,
+				2FB16336185E5F5D005DC7CF /* TournamentData.h */,
+				2FB16337185E5F5D005DC7CF /* TournamentData.m */,
+				2FB16330185E3FB3005DC7CF /* TeamScore.h */,
+				2FB16331185E3FB3005DC7CF /* TeamScore.m */,
 				2F137D0318537B7F00D87F30 /* TeamData.h */,
 				2F137D0418537B7F00D87F30 /* TeamData.m */,
-				2F137D0718537B7F00D87F30 /* TeamScore.h */,
-				2F137D0818537B7F00D87F30 /* TeamScore.m */,
-				2F137D0918537B7F00D87F30 /* Tournament.h */,
-				2F137D0A18537B7F00D87F30 /* Tournament.m */,
-				2F137D0B18537B7F00D87F30 /* TournamentData.h */,
-				2F137D0C18537B7F00D87F30 /* TournamentData.m */,
 				2F137CEA18537B6E00D87F30 /* CreateMatch.h */,
 				2F137CEB18537B6E00D87F30 /* CreateMatch.m */,
 				2F137CEC18537B6E00D87F30 /* CreateSettings.h */,
@@ -479,8 +474,10 @@
 				2F30EAEA16A100850026B258 /* main.m */,
 				2F13339D170E20CD006669FF /* iPhoneMainViewController.h */,
 				2F13339E170E20CD006669FF /* iPhoneMainViewController.m */,
-				2F621F2C170E18CA00D2ABD1 /* UltimateAscent_iphone.storyboard */,
-				2F267D4B1815A02700198E96 /* UltimateAscent_ipad.storyboard */,
+				2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */,
+				2FEA1077187DE1ED008F89F6 /* AerialAssist_ipad.storyboard */,
+				2F8002D718551326008F031C /* SettingsAndPreferences.h */,
+				2F8002D818551326008F031C /* SettingsAndPreferences.m */,
 			);
 			name = "Main App";
 			sourceTree = "<group>";
@@ -488,6 +485,8 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F472F00187600E7008B39A0 /* AerialAssist.sqlite */,
+				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
 				2F99088B1787860700EEFFCE /* T0973_img001.jpg */,
 				2F67D4281728815300FA04CF /* InitialDefaults.plist */,
 				2FEBE13016F226B40094E2C3 /* MatchResults.csv */,
@@ -524,6 +523,8 @@
 		2F50BF9716F2D799004569F2 /* Data Transfer */ = {
 			isa = PBXGroup;
 			children = (
+				2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */,
+				2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */,
 				2F06F98B1724B17F002C947D /* NetworkManager.h */,
 				2F06F98C1724B180002C947D /* NetworkManager.m */,
 				2F50BF9816F2D7A9004569F2 /* SyncResultsViewController.h */,
@@ -532,8 +533,6 @@
 				2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */,
 				2F80CB0417012821000A2BB8 /* TeamRecordObject.h */,
 				2F80CB0517012821000A2BB8 /* TeamRecordObject.m */,
-				2F621F26170DEC9E00D2ABD1 /* SyncMatchListViewController.h */,
-				2F621F27170DEC9E00D2ABD1 /* SyncMatchListViewController.m */,
 				2F06F98817248EE8002C947D /* ftpTransferViewController.h */,
 				2F06F98917248EE8002C947D /* ftpTransferViewController.m */,
 				2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */,
@@ -545,12 +544,12 @@
 		2F88648716B7688A00867385 /* Match Scouting */ = {
 			isa = PBXGroup;
 			children = (
+				2F88648E16B76B1700867385 /* MainScoutingPageViewController.h */,
+				2F88648F16B76B1700867385 /* MainScoutingPageViewController.m */,
 				2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */,
 				2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */,
 				2F88648C16B76B1700867385 /* AlliancePickerController.h */,
 				2F88648D16B76B1700867385 /* AlliancePickerController.m */,
-				2F88648E16B76B1700867385 /* MainScoutingPageViewController.h */,
-				2F88648F16B76B1700867385 /* MainScoutingPageViewController.m */,
 				2F88649016B76B1700867385 /* MatchDetailViewController.h */,
 				2F88649116B76B1700867385 /* MatchDetailViewController.m */,
 				2F88649216B76B1700867385 /* MatchListViewController.h */,
@@ -593,12 +592,8 @@
 		2FB3A4B516CEC00600E895E5 /* SetUp */ = {
 			isa = PBXGroup;
 			children = (
-				2FB3A4B616CEC05000E895E5 /* TournamentViewController.h */,
-				2FB3A4B716CEC05000E895E5 /* TournamentViewController.m */,
-				2F47E38316DFE17300609A3E /* TournamentPickerController.h */,
-				2F47E38416DFE17400609A3E /* TournamentPickerController.m */,
-				2F52217C185143EB000979C5 /* Settings.h */,
-				2F52217D185143EB000979C5 /* Settings.m */,
+				2FFC493718560F68009A391E /* SettingsViewController.h */,
+				2FFC493818560F68009A391E /* SettingsViewController.m */,
 			);
 			name = SetUp;
 			sourceTree = "<group>";
@@ -606,6 +601,8 @@
 		2FFAE1B016D29B8200B180F9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2F9E5377186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 				2F137D1B18537E5D00D87F30 /* DriveTypeDictionary.h */,
 				2F137D1C18537E5E00D87F30 /* DriveTypeDictionary.m */,
 				2FFAE1B216D29B9600B180F9 /* AlertPromptViewController.h */,
@@ -616,6 +613,10 @@
 				2F4CD04317122E1600428859 /* PopUpPickerViewController.m */,
 				2F6A0E5A178A2D66001A114F /* ValuePromptViewController.h */,
 				2F6A0E5B178A2D66001A114F /* ValuePromptViewController.m */,
+				2FAFB48218637970003A2661 /* SyncOptionDictionary.h */,
+				2FAFB48318637970003A2661 /* SyncOptionDictionary.m */,
+				2FAFB48518637AB6003A2661 /* SyncTypeDictionary.h */,
+				2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -623,9 +624,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2F30EAB616A0EB4F0026B258 /* UltimateAscent */ = {
+		2F30EAB616A0EB4F0026B258 /* AerialAssist */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F30EADA16A0EB4F0026B258 /* Build configuration list for PBXNativeTarget "UltimateAscent" */;
+			buildConfigurationList = 2F30EADA16A0EB4F0026B258 /* Build configuration list for PBXNativeTarget "AerialAssist" */;
 			buildPhases = (
 				2F30EAB316A0EB4F0026B258 /* Sources */,
 				2F30EAB416A0EB4F0026B258 /* Frameworks */,
@@ -635,9 +636,9 @@
 			);
 			dependencies = (
 			);
-			name = UltimateAscent;
-			productName = UltimateAscent;
-			productReference = 2F30EAB716A0EB4F0026B258 /* UltimateAscent.app */;
+			name = AerialAssist;
+			productName = AerialAssist;
+			productReference = 2F30EAB716A0EB4F0026B258 /* AerialAssist.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -649,7 +650,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = FRC;
 			};
-			buildConfigurationList = 2F30EAB116A0EB4F0026B258 /* Build configuration list for PBXProject "UltimateAscent" */;
+			buildConfigurationList = 2F30EAB116A0EB4F0026B258 /* Build configuration list for PBXProject "AerialAssist" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -661,7 +662,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2F30EAB616A0EB4F0026B258 /* UltimateAscent */,
+				2F30EAB616A0EB4F0026B258 /* AerialAssist */,
 			);
 		};
 /* End PBXProject section */
@@ -671,13 +672,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F30EAC816A0EB4F0026B258 /* InfoPlist.strings in Resources */,
+				2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */,
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,
 				2FC18EEB16A2083500D42251 /* button_robonaut_gold.png in Resources */,
 				2FC18EEC16A2083500D42251 /* cell_robonaut_gold.png in Resources */,
+				2FEA1078187DE1ED008F89F6 /* AerialAssist_ipad.storyboard in Resources */,
 				2FC18EED16A2083500D42251 /* dataMarker.csv in Resources */,
 				2FC18EF116A2083500D42251 /* Gold Fade.gif in Resources */,
 				2FC18EF416A2083500D42251 /* nasalization rg.ttf in Resources */,
@@ -699,10 +701,11 @@
 				2FD7E9E716E8C3540075533C /* TeamList.csv in Resources */,
 				2FD7E9E916E8DA130075533C /* MatchList.csv in Resources */,
 				2FEBE13116F226B40094E2C3 /* MatchResults.csv in Resources */,
-				2F621F2D170E18CA00D2ABD1 /* UltimateAscent_iphone.storyboard in Resources */,
+				2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */,
+				2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */,
+				2F472F01187600E7008B39A0 /* AerialAssist.sqlite in Resources */,
 				2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */,
 				2F99088C1787860700EEFFCE /* T0973_img001.jpg in Resources */,
-				2F267D4C1815A02700198E96 /* UltimateAscent_ipad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,13 +725,14 @@
 				2FC18F0D16A212CE00D42251 /* SetUpPageViewController.m in Sources */,
 				2FC18F1016A215EA00D42251 /* DownloadPageViewController.m in Sources */,
 				2FC18F1316A21AA900D42251 /* DataManager.m in Sources */,
+				2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */,
 				21F72D6016A78135000B99AB /* TeamListViewController.m in Sources */,
 				21EBC7D716B358D000CBFDFD /* TeamDetailViewController.m in Sources */,
+				2FFC493918560F68009A391E /* SettingsViewController.m in Sources */,
 				2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
-				2F137D1118537B7F00D87F30 /* TeamScore.m in Sources */,
-				2F137D1318537B7F00D87F30 /* TournamentData.m in Sources */,
+				2FB16338185E5F5D005DC7CF /* TournamentData.m in Sources */,
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2F137CFB18537B6E00D87F30 /* CreateTournament.m in Sources */,
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
@@ -736,40 +740,37 @@
 				2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */,
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,
 				2F137CF818537B6E00D87F30 /* CreateMatch.m in Sources */,
-				2FB3A4B816CEC05000E895E5 /* TournamentViewController.m in Sources */,
 				2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */,
 				2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */,
+				2FB16332185E3FB3005DC7CF /* TeamScore.m in Sources */,
 				2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */,
 				2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
-				2F137D1218537B7F00D87F30 /* Tournament.m in Sources */,
-				2F47E38516DFE17400609A3E /* TournamentPickerController.m in Sources */,
-				2F137D0E18537B7F00D87F30 /* Statistics.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
 				2F137CFD18537B6E00D87F30 /* Photo.m in Sources */,
-				2F137D1A18537B8B00D87F30 /* UltimateAscent.xcdatamodeld in Sources */,
+				2F137D1A18537B8B00D87F30 /* AerialAssist.xcdatamodeld in Sources */,
 				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
 				2F137CF918537B6E00D87F30 /* CreateSettings.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,
+				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
 				2F80CB0617012821000A2BB8 /* TeamRecordObject.m in Sources */,
+				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
 				2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */,
+				2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				2F137CFE18537B6E00D87F30 /* Regional.m in Sources */,
 				2F137D1D18537E5E00D87F30 /* DriveTypeDictionary.m in Sources */,
-				2F621F25170DE91300D2ABD1 /* iDeviceExportViewController.m in Sources */,
 				2F137CFA18537B6E00D87F30 /* CreateTeam.m in Sources */,
-				2F621F28170DEC9F00D2ABD1 /* SyncMatchListViewController.m in Sources */,
 				2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */,
 				2F13339F170E20CD006669FF /* iPhoneMainViewController.m in Sources */,
-				2F137D0D18537B7F00D87F30 /* SettingsData.m in Sources */,
 				2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */,
 				2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */,
+				2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */,
 				2F06F98D1724B180002C947D /* NetworkManager.m in Sources */,
 				2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */,
 				2F137D0F18537B7F00D87F30 /* TeamData.m in Sources */,
-				2F52217E185143EB000979C5 /* Settings.m in Sources */,
 				2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */,
 				2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */,
 				2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */,
@@ -781,12 +782,13 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2F30EAC616A0EB4F0026B258 /* InfoPlist.strings */ = {
+		2FA28B5E1879B1C40039C28D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2F30EAC716A0EB4F0026B258 /* en */,
+				2FA28B5F1879B1C40039C28D /* en */,
 			);
 			name = InfoPlist.strings;
+			path = en.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -848,15 +850,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UltimateAscent/MainApp/UltimateAscent-Prefix.pch";
-				INFOPLIST_FILE = "UltimateAscent/MainApp/UltimateAscent-Info.plist";
+				GCC_PREFIX_HEADER = "AerialAssist/MainApp/AerialAssist-Prefix.pch";
+				INFOPLIST_FILE = "AerialAssist/MainApp/AerialAssist-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/UltimateAscent/StackMob-v1.3.0\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AerialAssist;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -865,15 +864,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UltimateAscent/MainApp/UltimateAscent-Prefix.pch";
-				INFOPLIST_FILE = "UltimateAscent/MainApp/UltimateAscent-Info.plist";
+				GCC_PREFIX_HEADER = "AerialAssist/MainApp/AerialAssist-Prefix.pch";
+				INFOPLIST_FILE = "AerialAssist/MainApp/AerialAssist-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/UltimateAscent/StackMob-v1.3.0\"",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AerialAssist;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -881,7 +877,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F30EAB116A0EB4F0026B258 /* Build configuration list for PBXProject "UltimateAscent" */ = {
+		2F30EAB116A0EB4F0026B258 /* Build configuration list for PBXProject "AerialAssist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F30EAD816A0EB4F0026B258 /* Debug */,
@@ -890,7 +886,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F30EADA16A0EB4F0026B258 /* Build configuration list for PBXNativeTarget "UltimateAscent" */ = {
+		2F30EADA16A0EB4F0026B258 /* Build configuration list for PBXNativeTarget "AerialAssist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F30EADB16A0EB4F0026B258 /* Debug */,
@@ -902,17 +898,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2F137D1418537B8B00D87F30 /* UltimateAscent.xcdatamodeld */ = {
+		2F137D1418537B8B00D87F30 /* AerialAssist.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2F137D1518537B8B00D87F30 /* UltimateAscent 2.xcdatamodel */,
-				2F137D1618537B8B00D87F30 /* UltimateAscent 3.xcdatamodel */,
-				2F137D1818537B8B00D87F30 /* UltimateAscent 5.xcdatamodel */,
-				2F137D1918537B8B00D87F30 /* UltimateAscent.xcdatamodel */,
+				2F137D1518537B8B00D87F30 /* AerialAssist 2.xcdatamodel */,
+				2F137D1618537B8B00D87F30 /* AerialAssist 3.xcdatamodel */,
+				2F137D1818537B8B00D87F30 /* AerialAssist 5.xcdatamodel */,
+				2F137D1918537B8B00D87F30 /* AerialAssist.xcdatamodel */,
 			);
-			currentVersion = 2F137D1818537B8B00D87F30 /* UltimateAscent 5.xcdatamodel */;
-			name = UltimateAscent.xcdatamodeld;
-			path = DataModels/UltimateAscent.xcdatamodeld;
+			currentVersion = 2F137D1818537B8B00D87F30 /* AerialAssist 5.xcdatamodel */;
+			name = AerialAssist.xcdatamodeld;
+			path = DataModels/AerialAssist.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
