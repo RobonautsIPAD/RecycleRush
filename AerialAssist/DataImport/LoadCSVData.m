@@ -46,9 +46,6 @@
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"TournamentList" ofType:@"csv"];
         [self loadTournamentFile:filePath];
 
-        filePath = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"csv"];
-        [self loadSettingsFile:filePath];
-
         filePath = [[NSBundle mainBundle] pathForResource:@"TeamList" ofType:@"csv"];
         [self loadTeamFile:filePath];
 

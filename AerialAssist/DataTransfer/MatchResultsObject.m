@@ -99,7 +99,7 @@
     self.wallPickUp4 = score.wallPickUp4;
     self.match = score.match.number;
     self.matchType = score.match.matchType;
-    self.tournament = score.tournament.name;
+    self.tournament = score.tournamentName;
     self.team = score.team.number;
     
 /*    NSString *baseDrawingPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",self.drawingPath, score.fieldDrawing]];

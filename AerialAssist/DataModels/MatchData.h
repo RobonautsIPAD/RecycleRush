@@ -1,9 +1,9 @@
 //
 //  MatchData.h
-// Robonauts Scouting
+//  AerialAssist
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 1/10/14.
+//  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSNumber * matchTypeSection;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * redScore;
-@property (nonatomic, retain) NSString * tournament;
+@property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSSet *score;
 @end
 

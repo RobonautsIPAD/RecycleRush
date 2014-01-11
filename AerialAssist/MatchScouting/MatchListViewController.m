@@ -446,7 +446,7 @@
         
         [fetchRequest setSortDescriptors:sortDescriptors];
         // Add the search for tournament name
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournament CONTAINS %@", tournamentName];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
         [fetchRequest setPredicate:pred];
         [fetchRequest setFetchBatchSize:20];
         

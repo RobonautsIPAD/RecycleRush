@@ -72,8 +72,8 @@
     }
     
     prefs = [NSUserDefaults standardUserDefaults];
-    if (_match.tournament) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Detail", _match.tournament];
+    if (_match.tournamentName) {
+        self.title =  [NSString stringWithFormat:@"%@ Match Detail", _match.tournamentName];
     }
     else {
         self.title = @"Match Detail";
@@ -171,7 +171,7 @@
     [fetchRequest setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"number == %@ AND matchType == %@ and tournament CONTAINS %@", number, matchType, _match.tournament];
+                              @"number == %@ AND matchType == %@ and tournamentName = %@", number, matchType, _match.tournamentName];
     [fetchRequest setPredicate:predicate];
     
     NSArray *matchData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -383,7 +383,7 @@
 -(BOOL)editTeam:(int)teamNumber forScore:(TeamScore *)score{
     // NSLog(@"EditTeam");
     // Get team data object for team number
-    TeamData *team = [self getTeam:teamNumber forTournament:_match.tournament];
+    TeamData *team = [self getTeam:teamNumber forTournament:_match.tournamentName];
     // NSLog(@"Team data = %@", team);
     if (!team) return 0;
     // check score to see if it is allocated

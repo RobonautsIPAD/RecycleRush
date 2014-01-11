@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 1/8/14.
+//  Created by FRC on 1/10/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import "FieldDrawing.h"
 #import "MatchData.h"
 #import "TeamData.h"
-#import "TournamentData.h"
 
 
 @implementation TeamScore
@@ -61,9 +60,8 @@
 @dynamic wallPickUp2;
 @dynamic wallPickUp3;
 @dynamic wallPickUp4;
+@dynamic fieldDrawing;
 @dynamic match;
 @dynamic team;
-@dynamic tournament;
-@dynamic fieldDrawing;
 
 @end

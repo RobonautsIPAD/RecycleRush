@@ -1,9 +1,9 @@
 //
 //  MatchData.m
-// Robonauts Scouting
+//  AerialAssist
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 1/10/14.
+//  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "MatchData.h"
@@ -17,7 +17,7 @@
 @dynamic matchTypeSection;
 @dynamic number;
 @dynamic redScore;
-@dynamic tournament;
+@dynamic tournamentName;
 @dynamic score;
 
 @end

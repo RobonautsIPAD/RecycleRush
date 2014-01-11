@@ -171,7 +171,7 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
     
     // Add the search for tournament name
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournament CONTAINS %@", tournamentName];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
     [fetchRequest setPredicate:pred];
     [fetchRequest setSortDescriptors:sortDescriptors];
      NSArray *matchData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -200,7 +200,7 @@
                 score = [scoreData objectAtIndex:3];
                 r1 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                     NSLog(@"danielle = %@", csvDanielleData);
@@ -208,39 +208,39 @@
                 score = [scoreData objectAtIndex:4];
                 r2 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                 }
                 score = [scoreData objectAtIndex:5];
                 r3 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                }
                 score = [scoreData objectAtIndex:0];
                 b1 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                 }
                 score = [scoreData objectAtIndex:1];
                 b2 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                }
                 score = [scoreData objectAtIndex:2];
                 b3 = (score.team.number == nil) ? @"0" : [NSString stringWithFormat:@"%d", [score.team.number intValue]];
                 if ([score.saved intValue]) {
-                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournament, match.matchType, match.number];
+                    csvData = [csvData stringByAppendingFormat:@"%@, %@, %@,", match.tournamentName, match.matchType, match.number];
                     csvData = [csvData stringByAppendingString:[self buildMatchCSVOutput:score]];
                     csvDanielleData = [csvDanielleData stringByAppendingString:[self buildDanielleMatchCSVOutput:match forTeam:score]];
                 }
-                csvList = [csvList stringByAppendingFormat:@"%@, %@, %@, %@, %@, %@, %@, %@,\"%@\", %@, %@\n", match.number, r1, r2, r3, b1, b2, b3, match.matchType, match.tournament, match.redScore, match.blueScore];
+                csvList = [csvList stringByAppendingFormat:@"%@, %@, %@, %@, %@, %@, %@, %@,\"%@\", %@, %@\n", match.number, r1, r2, r3, b1, b2, b3, match.matchType, match.tournamentName, match.redScore, match.blueScore];
 
             }
            [csvList writeToFile:fileListPath

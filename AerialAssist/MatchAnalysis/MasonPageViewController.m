@@ -843,7 +843,7 @@
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         // Add the search for tournament name
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournament CONTAINS %@", tournamentName];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
         [fetchRequest setPredicate:pred];
         [fetchRequest setSortDescriptors:sortDescriptors];
         

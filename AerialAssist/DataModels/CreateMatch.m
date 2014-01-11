@@ -175,7 +175,7 @@
         [match addScoreObject:[self AddScore:blue1 forAlliance:@"Blue 1" forTournament:tournamentRecord]];
         [match addScoreObject:[self AddScore:blue2 forAlliance:@"Blue 2" forTournament:tournamentRecord]];
         [match addScoreObject:[self AddScore:blue3 forAlliance:@"Blue 3" forTournament:tournamentRecord]];
-        match.tournament = tournament;
+        match.tournamentName = tournament;
         match.redScore = redScore;
         match.blueScore = blueScore;
         //    NSLog(@"Adding New Match = %@, Tournament = %@, Type = %@, Section = %@", match.number, match.tournament, match.matchType, match.matchTypeSection);
@@ -271,7 +271,7 @@
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
     }
-    [teamScore setTournament:tournamentRecord]; // Set Relationship!!!
+    [teamScore setTournamentName:tournamentRecord.name];
     // NSLog(@"   For Team = %@", teamScore.team);
     /*    if (!teamScore.teamInfo) {
      teamScore.teamInfo = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
@@ -431,7 +431,7 @@
     [match addScoreObject:[self CreateScore:blue1 forAlliance:@"Blue 1"]];
     [match addScoreObject:[self CreateScore:blue2 forAlliance:@"Blue 2"]];
     [match addScoreObject:[self CreateScore:blue3 forAlliance:@"Blue 3"]];
-    match.tournament = tournament;
+    match.tournamentName = tournament;
     match.redScore = redScore;
     match.blueScore = blueScore;
 //    NSLog(@"Adding New Match = %@, Tournament = %@, Type = %@, Section = %@", match.number, match.tournament, match.matchType, match.matchTypeSection);
@@ -451,7 +451,7 @@
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
     } 
-    [teamScore setTournament:tournamentRecord]; // Set Relationship!!!
+    [teamScore setTournamentName:tournamentRecord.name]; 
      // NSLog(@"   For Team = %@", teamScore.team);
 /*    if (!teamScore.teamInfo) {
         teamScore.teamInfo = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData" 
@@ -474,7 +474,7 @@
     [fetchRequest setEntity:entity];
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"number == %@ AND matchType == %@ and tournament CONTAINS %@", matchNumber, type, tournament];
+                              @"number == %@ AND matchType == %@ and tournamentName = %@", matchNumber, type, tournament];
     [fetchRequest setPredicate:predicate];   
 
     NSArray *matchData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -614,11 +614,11 @@
     
     for (int i=0; i<[matchData count]; i++) {
         MatchData *match = [matchData objectAtIndex:i];
-        NSLog(@"Tournament = %@", match.tournament);
+        NSLog(@"Tournament = %@", match.tournamentName);
         NSArray *allScores = [match.score allObjects];
         for (int j=0; j<[allScores count]; j++) {
             TeamScore *score = [allScores objectAtIndex:j];
-            score.tournamentName = match.tournament;
+            score.tournamentName = match.tournamentName;
             NSLog(@"score tourney = %@", score.tournamentName);
         }
         if (![managedObjectContext save:&error]) {

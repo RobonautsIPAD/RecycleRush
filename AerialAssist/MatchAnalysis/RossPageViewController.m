@@ -132,7 +132,7 @@
     r1MatchTeleOp = [[NSMutableArray alloc] init];
     for (int i=0; i<[red1Matches count]; i++) {
         TeamScore *matchScore = [red1Matches objectAtIndex:i];
-        NSLog(@"Tournament = %@, Team = %@, Match = %@, Type = %@", matchScore.tournament.name, matchScore.team.number, matchScore.match.number, matchScore.match.matchType);
+        NSLog(@"Tournament = %@, Team = %@, Match = %@, Type = %@", matchScore.tournamentName, matchScore.team.number, matchScore.match.number, matchScore.match.matchType);
         [r1Matches addObject:matchScore.match.number];
         [r1MatchTypes addObject:matchScore.match.matchType];
         [r1MatchAuton addObject:matchScore.autonShotsMade];

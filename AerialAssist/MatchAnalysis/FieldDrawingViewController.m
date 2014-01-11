@@ -77,8 +77,8 @@
     [super viewDidLoad];
     currentIndex = _startingIndex;
     currentScore = [_teamScores objectAtIndex:currentIndex];
-    if (currentScore.tournament) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Analysis", currentScore.tournament.name];
+    if (currentScore.tournamentName) {
+        self.title =  [NSString stringWithFormat:@"%@ Match Analysis", currentScore.tournamentName];
     }
     else {
         self.title = @"Match Analysis";

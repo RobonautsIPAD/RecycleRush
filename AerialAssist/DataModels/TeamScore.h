@@ -2,14 +2,14 @@
 //  TeamScore.h
 //  AerialAssist
 //
-//  Created by FRC on 1/8/14.
+//  Created by FRC on 1/10/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class FieldDrawing, MatchData, TeamData, TournamentData;
+@class FieldDrawing, MatchData, TeamData;
 
 @interface TeamScore : NSManagedObject
 
@@ -59,9 +59,8 @@
 @property (nonatomic, retain) NSNumber * wallPickUp2;
 @property (nonatomic, retain) NSNumber * wallPickUp3;
 @property (nonatomic, retain) NSNumber * wallPickUp4;
+@property (nonatomic, retain) FieldDrawing *fieldDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) TeamData *team;
-@property (nonatomic, retain) TournamentData *tournament;
-@property (nonatomic, retain) FieldDrawing *fieldDrawing;
 
 @end
