@@ -1,0 +1,58 @@
+//
+// Prefix header for all source files of the 'AerialAssist' target in the 'AerialAssist' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+
+#define TEST_MODE
+
+typedef enum {
+    Practice,
+	Seeding,
+    Elimination,
+    Testing,
+    Other,
+} MatchType;
+
+typedef enum {
+    DriveUnknown = -1,
+    Mech,
+    Omni,
+    Swerve,
+    Traction,
+    Multi,
+    Tank,
+    WestCoast
+} DriveType;
+
+typedef enum {
+    SyncTeams,
+    SyncTournaments,
+    SyncMatches,
+    SyncMatchList
+} SyncType;
+
+typedef enum {
+    SyncAll,
+    SyncAllSavedHere,
+    SyncAllSavedSince,
+} SyncOptions;
+
+typedef enum {
+	Scouter,     // This is a scounting iPad
+	Master,      // This is the master iPad
+} BlueToothType;
+
+#endif
+

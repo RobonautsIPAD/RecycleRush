@@ -13,7 +13,6 @@
 		2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98917248EE8002C947D /* ftpTransferViewController.m */; };
 		2F06F98D1724B180002C947D /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98C1724B180002C947D /* NetworkManager.m */; };
 		2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98F1724CB70002C947D /* LucienPageViewController.m */; };
-		2F0CF6BA187E3EBD0000D6F6 /* UltimateAscent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6B5187E3EBD0000D6F6 /* UltimateAscent.xcdatamodeld */; };
 		2F0CF6BE187E40660000D6F6 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6BD187E40660000D6F6 /* TeamScore.m */; };
 		2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */; };
 		2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E3A7416D7FB4D00A359D5 /* DefensePickerController.m */; };
@@ -54,6 +53,7 @@
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
+		2F5C104118806C1300FAD6EA /* RobonautsScouting.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C103F18806C1300FAD6EA /* RobonautsScouting.xcdatamodeld */; };
 		2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D64BE179212EB0028F57D /* LucienNumberObject.m */; };
 		2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */; };
 		2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */; };
@@ -129,14 +129,8 @@
 		2F06F98C1724B180002C947D /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = DataTransfer/NetworkManager.m; sourceTree = "<group>"; };
 		2F06F98E1724CB70002C947D /* LucienPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienPageViewController.h; path = MatchAnalysis/LucienPageViewController.h; sourceTree = "<group>"; };
 		2F06F98F1724CB70002C947D /* LucienPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienPageViewController.m; path = MatchAnalysis/LucienPageViewController.m; sourceTree = "<group>"; };
-		2F0CF6B6187E3EBD0000D6F6 /* UltimateAscent 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 2.xcdatamodel"; sourceTree = "<group>"; };
-		2F0CF6B7187E3EBD0000D6F6 /* UltimateAscent 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 3.xcdatamodel"; sourceTree = "<group>"; };
-		2F0CF6B8187E3EBD0000D6F6 /* UltimateAscent 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "UltimateAscent 7.xcdatamodel"; sourceTree = "<group>"; };
-		2F0CF6B9187E3EBD0000D6F6 /* UltimateAscent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UltimateAscent.xcdatamodel; sourceTree = "<group>"; };
-		2F0CF6BB187E40380000D6F6 /* UltimateAscent 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UltimateAscent 6.xcdatamodel"; sourceTree = "<group>"; };
 		2F0CF6BC187E40660000D6F6 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
 		2F0CF6BD187E40660000D6F6 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
-		2F0CF6C2187E41D90000D6F6 /* UltimateAscent 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UltimateAscent 7.xcdatamodel"; sourceTree = "<group>"; };
 		2F0CF6C3187E42900000D6F6 /* FieldDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawing.h; path = DataModels/FieldDrawing.h; sourceTree = "<group>"; };
 		2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawing.m; path = DataModels/FieldDrawing.m; sourceTree = "<group>"; };
 		2F0E3A7316D7FB4C00A359D5 /* DefensePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefensePickerController.h; path = MatchScouting/DefensePickerController.h; sourceTree = "<group>"; };
@@ -200,6 +194,7 @@
 		2F56B56B17052BB30093A976 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F56B56D17052BC80093A976 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F56B56F17052BDA0093A976 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2F5C104018806C1300FAD6EA /* RobonautsScouting.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RobonautsScouting.xcdatamodel; sourceTree = "<group>"; };
 		2F5D64BD179212EB0028F57D /* LucienNumberObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienNumberObject.h; path = MatchAnalysis/LucienNumberObject.h; sourceTree = "<group>"; };
 		2F5D64BE179212EB0028F57D /* LucienNumberObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienNumberObject.m; path = MatchAnalysis/LucienNumberObject.m; sourceTree = "<group>"; };
 		2F621F29170DF2FE00D2ABD1 /* ImportDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDeviceViewController.h; path = DataImport/ImportDeviceViewController.h; sourceTree = "<group>"; };
@@ -439,7 +434,7 @@
 		2F30EAE116A0F5150026B258 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				2F0CF6B5187E3EBD0000D6F6 /* UltimateAscent.xcdatamodeld */,
+				2F5C103F18806C1300FAD6EA /* RobonautsScouting.xcdatamodeld */,
 				2F0CF6C3187E42900000D6F6 /* FieldDrawing.h */,
 				2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */,
 				2F0CF6BC187E40660000D6F6 /* TeamScore.h */,
@@ -738,7 +733,6 @@
 				2FFC493918560F68009A391E /* SettingsViewController.m in Sources */,
 				2F0CF6BE187E40660000D6F6 /* TeamScore.m in Sources */,
 				2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */,
-				2F0CF6BA187E3EBD0000D6F6 /* UltimateAscent.xcdatamodeld in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
 				2FB16338185E5F5D005DC7CF /* TournamentData.m in Sources */,
@@ -762,6 +756,7 @@
 				2F137CF918537B6E00D87F30 /* CreateSettings.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
+				2F5C104118806C1300FAD6EA /* RobonautsScouting.xcdatamodeld in Sources */,
 				2F80CB0617012821000A2BB8 /* TeamRecordObject.m in Sources */,
 				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
@@ -905,19 +900,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2F0CF6B5187E3EBD0000D6F6 /* UltimateAscent.xcdatamodeld */ = {
+		2F5C103F18806C1300FAD6EA /* RobonautsScouting.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2F0CF6C2187E41D90000D6F6 /* UltimateAscent 7.xcdatamodel */,
-				2F0CF6BB187E40380000D6F6 /* UltimateAscent 6.xcdatamodel */,
-				2F0CF6B6187E3EBD0000D6F6 /* UltimateAscent 2.xcdatamodel */,
-				2F0CF6B7187E3EBD0000D6F6 /* UltimateAscent 3.xcdatamodel */,
-				2F0CF6B8187E3EBD0000D6F6 /* UltimateAscent 7.xcdatamodel */,
-				2F0CF6B9187E3EBD0000D6F6 /* UltimateAscent.xcdatamodel */,
+				2F5C104018806C1300FAD6EA /* RobonautsScouting.xcdatamodel */,
 			);
-			currentVersion = 2F0CF6B8187E3EBD0000D6F6 /* UltimateAscent 7.xcdatamodel */;
-			name = UltimateAscent.xcdatamodeld;
-			path = DataModels/UltimateAscent.xcdatamodeld;
+			currentVersion = 2F5C104018806C1300FAD6EA /* RobonautsScouting.xcdatamodel */;
+			name = RobonautsScouting.xcdatamodeld;
+			path = DataModels/RobonautsScouting.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
