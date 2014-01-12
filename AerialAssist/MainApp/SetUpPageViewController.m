@@ -102,6 +102,55 @@
     _dataManager = nil;
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    switch(toInterfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            //( , , , )
+            self.mainLogo.frame = CGRectMake(0, -50, 1024, 255);
+            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+            self.settingsButton.frame = CGRectMake(550, 225, 400, 68);
+            self.matchSetUpButton.frame = CGRectMake(550, 325, 400, 68);
+            self.importDataButton.frame = CGRectMake(550, 425, 400, 68);
+            self.exportDataButton.frame = CGRectMake(550, 525, 400, 68);
+            self.splashPicture.frame = CGRectMake(50, 243, 468, 330);
+            self.pictureCaption.frame = CGRectMake(50, 581, 468, 39);
+            break;
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.mainLogo.frame = CGRectMake(-20, 0, 285, 960);
+            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+            self.settingsButton.frame = CGRectMake(325, 125, 400, 68);
+            self.matchSetUpButton.frame = CGRectMake(325, 225, 400, 68);
+            self.importDataButton.frame = CGRectMake(325, 325, 400, 68);
+            self.exportDataButton.frame = CGRectMake(325, 425, 400, 68);
+            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
+            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
+            break;
+        default:
+            break;
+    }
+}
+
+/*
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     switch (interfaceOrientation) {
@@ -133,5 +182,7 @@
    // Return YES for supported orientations
 	return YES;
 }
+ 
+*/
 
 @end

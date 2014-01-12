@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7EF12DF9-51F3-45F5-A1A5-CBCC8E8EAD44</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AerialAssist</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</key>
+		<string>https://github.com/RobonautsIPAD/AerialAssist.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AerialAssist.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/RobonautsIPAD/AerialAssist.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AerialAssist</string>
+		</dict>
+	</array>
+</dict>
+</plist>

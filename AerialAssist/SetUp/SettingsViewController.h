@@ -19,10 +19,16 @@
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
 @property (nonatomic, strong) SettingsData *settings;
-@property (nonatomic, weak) IBOutlet UIButton *adminButton;
-@property (nonatomic, weak) IBOutlet UIButton *overrideButton;
-@property (nonatomic, weak) IBOutlet UIButton *bluetoothButton;
+@property (nonatomic, weak) IBOutlet UITextField *adminText;
+@property (nonatomic, weak) IBOutlet UITextField *overrideText;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *bluetoothButton;
 @property (nonatomic, weak) IBOutlet UILabel *tournamentLabel;
+@property (nonatomic, weak) IBOutlet UILabel *allianceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *adminLabel;
+@property (nonatomic, weak) IBOutlet UILabel *overideLabel;
+@property (nonatomic, weak) IBOutlet UILabel *modeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+
 
 // Tournament Picker
 @property (nonatomic, weak) IBOutlet UIButton *tournamentButton;

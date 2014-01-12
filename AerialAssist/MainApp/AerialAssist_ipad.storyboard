@@ -9,7 +9,7 @@
         <scene sceneID="ol3-RZ-ij7">
             <objects>
                 <viewController id="7nm-2U-oN4" customClass="SplashPageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="e73-z9-DSP">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="e73-z9-DSP">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -646,7 +646,7 @@
         <scene sceneID="pDI-Wp-1eW">
             <objects>
                 <viewController id="jO0-sC-Asm" customClass="SetUpPageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MHi-oB-dXD">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="MHi-oB-dXD">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -731,7 +731,7 @@
         <scene sceneID="O3r-km-jjh">
             <objects>
                 <viewController id="WBb-6A-oWA" customClass="MainScoutingPageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="NVv-ep-wPb">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NVv-ep-wPb">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -1358,7 +1358,7 @@
         <scene sceneID="9uX-o1-wIq">
             <objects>
                 <viewController id="IC0-8Z-knh" customClass="SettingsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="r9u-JY-TLj">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="r9u-JY-TLj">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -1428,7 +1428,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C6t-jV-Mfh">
-                                <rect key="frame" x="340" y="383" width="173" height="29"/>
+                                <rect key="frame" x="340" y="379" width="173" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1460,9 +1460,6 @@
                                     <segment title="Test"/>
                                     <segment title="Tournament"/>
                                 </segments>
-                                <connections>
-                                    <action selector="modeSelectionChanged:" destination="IC0-8Z-knh" eventType="valueChanged" id="BZV-67-2L5"/>
-                                </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="5uB-ht-ZSe">
                                 <rect key="frame" x="530" y="437" width="161" height="30"/>
@@ -1478,9 +1475,17 @@
                     <navigationItem key="navigationItem" id="UFg-pp-hVh"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="adminLabel" destination="RYu-MM-WCl" id="DNz-5r-FSk"/>
+                        <outlet property="adminText" destination="zgx-Un-rcQ" id="n9b-i4-x6s"/>
                         <outlet property="allianceButton" destination="49Z-04-8Pc" id="FVm-fB-6sK"/>
+                        <outlet property="allianceLabel" destination="rd0-1c-zBt" id="6BG-43-y63"/>
+                        <outlet property="bluetoothButton" destination="5uB-ht-ZSe" id="UrL-f4-sZz"/>
+                        <outlet property="bluetoothLabel" destination="bE3-jq-Np3" id="XSR-xU-Wrz"/>
                         <outlet property="mainLogo" destination="55f-y1-ALK" id="ztA-ro-pv3"/>
-                        <outlet property="modeSegment" destination="5uB-ht-ZSe" id="tjN-fJ-KGu"/>
+                        <outlet property="modeLabel" destination="C6t-jV-Mfh" id="aVc-20-VZ7"/>
+                        <outlet property="modeSegment" destination="ueb-S3-4rq" id="Rps-C5-kHU"/>
+                        <outlet property="overideLabel" destination="dad-wO-gu7" id="CU2-6h-uh2"/>
+                        <outlet property="overrideText" destination="I4E-Z7-bQl" id="yLL-2c-g2c"/>
                         <outlet property="pictureCaption" destination="b7l-7H-eZu" id="YuJ-KJ-LHM"/>
                         <outlet property="splashPicture" destination="wZ1-Z4-siJ" id="cGT-kd-W0b"/>
                         <outlet property="tournamentButton" destination="Wnc-Ex-Rw9" id="eEL-Lt-9Vv"/>
@@ -1618,9 +1623,10 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
                                 <rect key="frame" x="0.0" y="22" width="768" height="44"/>
@@ -2290,7 +2296,7 @@
         <scene sceneID="eVS-XA-5k6">
             <objects>
                 <viewController id="Svo-Ej-nRw" customClass="MatchAnalysisViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lJg-R7-d7N">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="lJg-R7-d7N">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -3796,7 +3802,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -3888,6 +3894,7 @@
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Match" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -3922,7 +3929,7 @@
             <objects>
                 <viewController id="rCL-DE-Sx9" customClass="MatchDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1jO-E5-jgJ">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Aq2-BS-C03" userLabel="Text Field - Red 1">
@@ -4042,6 +4049,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="I32-xv-f5E"/>
                     <connections>
@@ -4089,7 +4097,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="npl-Y5-KtP"/>
+        <segue reference="6V1-MF-63T"/>
         <segue reference="0QU-hg-CV0"/>
         <segue reference="M4x-HG-6MQ"/>
     </inferredMetricsTieBreakers>

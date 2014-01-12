@@ -40,13 +40,20 @@
 
 
 @synthesize modeSegment = _modeSegment;
-@synthesize adminButton;
-@synthesize overrideButton;
+@synthesize adminText;
+@synthesize overrideText;
 @synthesize bluetoothButton;
 
 // User access control
 @synthesize alertPrompt = _alertPrompt;
 @synthesize alertPromptPopover = _alertPromptPopover;
+
+//labels
+@synthesize allianceLabel;
+@synthesize adminLabel;
+@synthesize overideLabel;
+@synthesize modeLabel;
+@synthesize bluetoothLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -281,6 +288,7 @@
     }
 }
 
+/*
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -316,11 +324,75 @@
 	return YES;
 }
 
+*/
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    switch(toInterfaceOrientation){
+        case UIInterfaceOrientationLandscapeRight:
+        case UIInterfaceOrientationLandscapeLeft:
+            self.mainLogo.frame = CGRectMake(0, -50, 1024, 255);
+            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+             self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
+            self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
+            self.tournamentButton.frame = CGRectMake(770, 230, 208, 44);
+            self.allianceButton.frame = CGRectMake(770, 305, 208, 44);
+            self.adminText.frame = CGRectMake(770, 380, 208, 30);
+            self.overrideText.frame = CGRectMake(770, 440, 208, 30);
+            self.modeSegment.frame = CGRectMake(770, 500, 208, 30);
+            self.bluetoothButton.frame = CGRectMake(770, 560, 208, 30);
+            self.tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
+            self.allianceLabel.frame = CGRectMake(580, 315, 144, 21);
+            self.adminLabel.frame = CGRectMake(580, 385, 144, 21);
+            self.overideLabel.frame = CGRectMake(580, 440, 173, 29);
+            self.modeLabel.frame = CGRectMake(580, 500, 173, 29);
+            self.bluetoothLabel.frame = CGRectMake(580, 560, 173, 29);
+            break;
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.mainLogo.frame = CGRectMake(0, 0, 285, 960);
+            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
+            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
+            self.tournamentButton.frame = CGRectMake(530, 73, 208, 44);
+            self.allianceButton.frame = CGRectMake(530, 151, 208, 44);
+            self.adminText.frame = CGRectMake(530, 235, 208, 30);
+            self.overrideText.frame = CGRectMake(530, 305, 208, 30);
+            self.modeSegment.frame = CGRectMake(530, 376, 208, 30);
+            self.bluetoothButton.frame = CGRectMake(530, 437, 208, 30);
+            self.tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
+            self.allianceLabel.frame = CGRectMake(340, 158, 144, 21);
+            self.adminLabel.frame = CGRectMake(340, 235, 144, 21);
+            self.overideLabel.frame = CGRectMake(340, 305, 173, 29);
+            self.modeLabel.frame = CGRectMake(340, 379, 173, 29);
+            self.bluetoothLabel.frame = CGRectMake(340, 435, 173, 29);
+            break;
+        default:
+            break;
+    }
+    
+}
 
 /**
  Returns the path to the application's Documents directory.
  */
-- (NSString *)applicationDocumentsDirectory {
+-(NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
