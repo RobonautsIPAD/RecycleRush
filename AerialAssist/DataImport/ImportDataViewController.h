@@ -12,7 +12,7 @@
 
 @interface ImportDataViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, weak) IBOutlet UIButton *importSMButton;
+@property (nonatomic, weak) IBOutlet UIButton *importUSFirstButton;
 @property (nonatomic, weak) IBOutlet UIButton *importMatchList;
 
 @end

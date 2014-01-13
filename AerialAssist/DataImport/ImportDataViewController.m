@@ -16,7 +16,7 @@
     NSString *tournamentName;
 }
 @synthesize dataManager = _dataManager;
-@synthesize importSMButton = _importSMButton;
+@synthesize importUSFirstButton = _importUSFirstButton;
 @synthesize importMatchList = _importMatchList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,8 +44,8 @@
         self.title = @"Import";
     }
     
-    [_importSMButton setTitle:@"Import from Stack Mob" forState:UIControlStateNormal];
-    _importSMButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
+    [_importUSFirstButton setTitle:@"Import from US First" forState:UIControlStateNormal];
+    _importUSFirstButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
     [_importMatchList setTitle:@"Xfer Match List from iDevice" forState:UIControlStateNormal];
     _importMatchList.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
 }

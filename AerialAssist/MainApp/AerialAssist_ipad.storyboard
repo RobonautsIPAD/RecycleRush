@@ -1629,10 +1629,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="GcZ-FA-vXA">
-                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -3776,6 +3776,9 @@
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="iHf-Ay-CP9" kind="push" id="P1b-QM-eYn"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TWb-ol-uPd">
                                 <rect key="frame" x="293" y="189" width="400" height="68"/>
@@ -3790,12 +3793,27 @@
                     <navigationItem key="navigationItem" id="FO7-zm-HrP"/>
                     <connections>
                         <outlet property="importMatchList" destination="TWb-ol-uPd" id="RR0-b1-a0Q"/>
-                        <outlet property="importSMButton" destination="RKT-VW-RTk" id="jDA-zA-KGJ"/>
+                        <outlet property="importUSFirstButton" destination="RKT-VW-RTk" id="1Kz-iT-Kzu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1In-Qj-dQm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2050" y="-1718"/>
+        </scene>
+        <!--ImportUS First View Controller-->
+        <scene sceneID="7NX-vP-23S">
+            <objects>
+                <viewController id="iHf-Ay-CP9" customClass="ImportUSFirstViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="78l-kc-xua">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="unf-kI-9XD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9kq-aD-5up" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2978" y="-1712"/>
         </scene>
         <!--Add Match View Controller - Add Match-->
         <scene sceneID="trm-SN-wHY">
