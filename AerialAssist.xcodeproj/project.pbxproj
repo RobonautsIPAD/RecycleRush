@@ -18,7 +18,6 @@
 		2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F12350216FB71E200DBF4B0 /* MasonPageViewController.m */; };
 		2F13339F170E20CD006669FF /* iPhoneMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F13339E170E20CD006669FF /* iPhoneMainViewController.m */; };
 		2F137CF818537B6E00D87F30 /* CreateMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CEB18537B6E00D87F30 /* CreateMatch.m */; };
-		2F137CF918537B6E00D87F30 /* CreateSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CED18537B6E00D87F30 /* CreateSettings.m */; };
 		2F137CFA18537B6E00D87F30 /* CreateTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CEF18537B6E00D87F30 /* CreateTeam.m */; };
 		2F137CFB18537B6E00D87F30 /* CreateTournament.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF118537B6E00D87F30 /* CreateTournament.m */; };
 		2F137CFD18537B6E00D87F30 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF518537B6E00D87F30 /* Photo.m */; };
@@ -43,7 +42,6 @@
 		2F340CC017A1FB9C006674C3 /* iPhoneMatchXferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
-		2F44958B1884800B0095DCAB /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F44958A1884800B0095DCAB /* SettingsData.m */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
 		2F4E01F016BA10C80092DC86 /* Settings.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F4E01EF16BA10C80092DC86 /* Settings.csv */; };
 		2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */; };
@@ -140,8 +138,6 @@
 		2F13339E170E20CD006669FF /* iPhoneMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPhoneMainViewController.m; path = MainApp/iPhoneMainViewController.m; sourceTree = "<group>"; };
 		2F137CEA18537B6E00D87F30 /* CreateMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateMatch.h; path = DataModels/CreateMatch.h; sourceTree = "<group>"; };
 		2F137CEB18537B6E00D87F30 /* CreateMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateMatch.m; path = DataModels/CreateMatch.m; sourceTree = "<group>"; };
-		2F137CEC18537B6E00D87F30 /* CreateSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateSettings.h; path = DataModels/CreateSettings.h; sourceTree = "<group>"; };
-		2F137CED18537B6E00D87F30 /* CreateSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateSettings.m; path = DataModels/CreateSettings.m; sourceTree = "<group>"; };
 		2F137CEE18537B6E00D87F30 /* CreateTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTeam.h; path = DataModels/CreateTeam.h; sourceTree = "<group>"; };
 		2F137CEF18537B6E00D87F30 /* CreateTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTeam.m; path = DataModels/CreateTeam.m; sourceTree = "<group>"; };
 		2F137CF018537B6E00D87F30 /* CreateTournament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTournament.h; path = DataModels/CreateTournament.h; sourceTree = "<group>"; };
@@ -179,8 +175,6 @@
 		2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMatchViewController.h; path = MatchScouting/AddMatchViewController.h; sourceTree = "<group>"; };
 		2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMatchViewController.m; path = MatchScouting/AddMatchViewController.m; sourceTree = "<group>"; };
 		2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
-		2F4495891884800B0095DCAB /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsData.h; path = DataModels/SettingsData.h; sourceTree = "<group>"; };
-		2F44958A1884800B0095DCAB /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsData.m; path = DataModels/SettingsData.m; sourceTree = "<group>"; };
 		2F4CD04217122E1600428859 /* PopUpPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopUpPickerViewController.h; path = Utilities/PopUpPickerViewController.h; sourceTree = "<group>"; };
 		2F4CD04317122E1600428859 /* PopUpPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopUpPickerViewController.m; path = Utilities/PopUpPickerViewController.m; sourceTree = "<group>"; };
 		2F4E01EF16BA10C80092DC86 /* Settings.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Settings.csv; path = Resources/Settings.csv; sourceTree = "<group>"; };
@@ -453,10 +447,6 @@
 				2F137D0418537B7F00D87F30 /* TeamData.m */,
 				2F137CEA18537B6E00D87F30 /* CreateMatch.h */,
 				2F137CEB18537B6E00D87F30 /* CreateMatch.m */,
-				2F137CEC18537B6E00D87F30 /* CreateSettings.h */,
-				2F137CED18537B6E00D87F30 /* CreateSettings.m */,
-				2F4495891884800B0095DCAB /* SettingsData.h */,
-				2F44958A1884800B0095DCAB /* SettingsData.m */,
 				2F137CEE18537B6E00D87F30 /* CreateTeam.h */,
 				2F137CEF18537B6E00D87F30 /* CreateTeam.m */,
 				2F137CF018537B6E00D87F30 /* CreateTournament.h */,
@@ -753,11 +743,9 @@
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
-				2F44958B1884800B0095DCAB /* SettingsData.m in Sources */,
 				2F137CFD18537B6E00D87F30 /* Photo.m in Sources */,
 				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
-				2F137CF918537B6E00D87F30 /* CreateSettings.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,
 				2F6F10151880E29700378728 /* TournamentData.m in Sources */,
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
