@@ -17,5 +17,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *matchSetUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *matchScoutingButton;
 @property (nonatomic, weak) IBOutlet UIButton *matchAnalysisButton;
+@property (nonatomic, weak) IBOutlet UIButton *tournamentAnalysisButton;
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 @end

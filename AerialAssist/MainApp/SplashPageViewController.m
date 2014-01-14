@@ -20,6 +20,7 @@
 @synthesize matchScoutingButton = _matchScoutingButton;
 @synthesize matchAnalysisButton = _matchAnalysisButton;
 @synthesize splashPicture = _splashPicture;
+@synthesize tournamentAnalysisButton = _tournamentAnalysisButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,14 +67,17 @@
     [_teamScoutingButton setTitle:@"Team/Pit Scouting" forState:UIControlStateNormal];
     _teamScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     // Set Font and Text for Tournament Set Up Button
-    [_matchSetUpButton setTitle:@"Data Handling" forState:UIControlStateNormal];
+    [_matchSetUpButton setTitle:@"SetUp" forState:UIControlStateNormal];
     _matchSetUpButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     // Set Font and Text for Match Scouting Up Button
     [_matchScoutingButton setTitle:@"Match Scouting" forState:UIControlStateNormal];
     _matchScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     // Set Font and Text for Match Analysis Button
-    [_matchAnalysisButton setTitle:@"Match analysis" forState:UIControlStateNormal];
+    [_matchAnalysisButton setTitle:@"Match Analysis" forState:UIControlStateNormal];
     _matchAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+    //set Font and Text for Tournament Analysis Button
+    [_tournamentAnalysisButton setTitle:@"Tournament Analysis" forState:UIControlStateNormal];
+    _tournamentAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     [super viewDidLoad];
 }
 
@@ -125,6 +129,7 @@
             self.matchSetUpButton.frame = CGRectMake(550, 315, 400, 68);
             self.matchScoutingButton.frame = CGRectMake(550, 415, 400, 68);
             self.matchAnalysisButton.frame = CGRectMake(550, 515, 400, 68);
+            self.tournamentAnalysisButton.frame =CGRectMake(550, 615, 400, 68);
             self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
             self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
             break;
@@ -132,12 +137,14 @@
         case UIInterfaceOrientationPortraitUpsideDown:
             self.mainLogo.frame = CGRectMake(-20, 0, 285, 960);
             [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            self.teamScoutingButton.frame = CGRectMake(325, 125, 400, 68);
-            self.matchSetUpButton.frame = CGRectMake(325, 225, 400, 68);
-            self.matchScoutingButton.frame = CGRectMake(325, 325, 400, 68);
-            self.matchAnalysisButton.frame = CGRectMake(325, 425, 400, 68);
+            self.teamScoutingButton.frame = CGRectMake(325, 25, 400, 68);
+            self.matchSetUpButton.frame = CGRectMake(325, 125, 400, 68);
+            self.matchScoutingButton.frame = CGRectMake(325, 225, 400, 68);
+            self.matchAnalysisButton.frame = CGRectMake(325, 325, 400, 68);
+            self.tournamentAnalysisButton.frame =CGRectMake(325, 425, 400, 68);
             self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
             self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
+            
             break;
         default:
             break;

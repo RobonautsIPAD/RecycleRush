@@ -18,7 +18,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAE-EC-1wz">
-                                <rect key="frame" x="325" y="125" width="400" height="68"/>
+                                <rect key="frame" x="325" y="50" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gyL-zM-4xJ">
-                                <rect key="frame" x="325" y="225" width="400" height="68"/>
+                                <rect key="frame" x="325" y="145" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YhQ-tx-sI9">
-                                <rect key="frame" x="325" y="325" width="400" height="68"/>
+                                <rect key="frame" x="325" y="242" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jhg-et-JJx">
-                                <rect key="frame" x="325" y="425" width="400" height="68"/>
+                                <rect key="frame" x="325" y="340" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -72,6 +72,17 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VA4-hl-vIf">
+                                <rect key="frame" x="325" y="433" width="400" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="SuG-LP-eqy" kind="push" id="jpl-ed-tkE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
@@ -84,6 +95,7 @@
                         <outlet property="pictureCaption" destination="hcM-O9-dAs" id="ufy-39-DIg"/>
                         <outlet property="splashPicture" destination="LIX-OB-TXE" id="k39-bq-KGL"/>
                         <outlet property="teamScoutingButton" destination="wAE-EC-1wz" id="YGu-ka-bE1"/>
+                        <outlet property="tournamentAnalysisButton" destination="VA4-hl-vIf" id="Y1Y-PJ-IHC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P15-P3-DSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -169,6 +181,95 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PMd-6z-EmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-434" y="-2859"/>
+        </scene>
+        <!--Tournament Analysis View Controller - Tournament Analysis View Controller-->
+        <scene sceneID="UoR-3R-F17">
+            <objects>
+                <viewController title="Tournament Analysis View Controller" id="SuG-LP-eqy" customClass="TournamentAnalysisViewController" sceneMemberID="viewController">
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="bN4-g4-vz3">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="B8K-X8-ic7">
+                                <rect key="frame" x="0.0" y="0.0" width="285" height="960"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="photo.JPG" id="ddz-OA-l7w">
+                                <rect key="frame" x="294" y="579" width="468" height="330"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Caption" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="7qI-Z6-www" userLabel="Label -Image">
+                                <rect key="frame" x="294" y="916" width="468" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VPt-NG-Acn">
+                                <rect key="frame" x="328" y="89" width="400" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="smL-wy-wEE" kind="push" id="Ofk-bm-5rz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bVJ-Gr-yGz">
+                                <rect key="frame" x="328" y="273" width="400" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="8Ip-0z-ATI" kind="push" id="V35-QX-fH1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OTk-a2-OIB">
+                                <rect key="frame" x="328" y="470" width="400" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Vpx-S4-nE1" kind="push" id="C7t-b4-KFw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="27o-yR-q16"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <outlet property="lucianPageButton" destination="bVJ-Gr-yGz" id="6OT-9O-mvP"/>
+                        <outlet property="mainLogo" destination="B8K-X8-ic7" id="QzI-tt-oN8"/>
+                        <outlet property="masonPageButton" destination="VPt-NG-Acn" id="KtP-ov-KJ0"/>
+                        <outlet property="pictureCaption" destination="7qI-Z6-www" id="BtS-yq-yVv"/>
+                        <outlet property="ridleyPageButton" destination="OTk-a2-OIB" id="ifC-5K-py0"/>
+                        <outlet property="splashPicture" destination="ddz-OA-l7w" id="b31-23-UDc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FYx-d2-GMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2684" y="-1831"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="wkD-WI-lNc">
+            <objects>
+                <viewController id="Vpx-S4-nE1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IQh-c3-Tqa">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="0.43421096170000001" blue="0.7873584052" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="R8p-fg-Hy9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QOO-IG-9HI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1770" y="-2514"/>
         </scene>
         <!--Team List View Controller-->
         <scene sceneID="POy-92-07b">
@@ -273,7 +374,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLW-NJ-lpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-614" y="-1676"/>
+            <point key="canvasLocation" x="-342" y="-1524"/>
         </scene>
         <!--Field Drawing View Controller-->
         <scene sceneID="wZi-u7-xkK">
@@ -640,7 +741,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djI-Iw-32O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1589" y="1498"/>
+            <point key="canvasLocation" x="-1229" y="1650"/>
         </scene>
         <!--Set Up Page View Controller-->
         <scene sceneID="pDI-Wp-1eW">
@@ -1445,13 +1546,13 @@
                                 <rect key="frame" x="530" y="235" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="I4E-Z7-bQl">
                                 <rect key="frame" x="530" y="305" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ueb-S3-4rq">
                                 <rect key="frame" x="530" y="376" width="208" height="30"/>
@@ -2352,7 +2453,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4a-q9-JNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2951" y="753"/>
+            <point key="canvasLocation" x="-3521" y="729"/>
         </scene>
         <!--Lucien Page View Controller-->
         <scene sceneID="nbW-1T-hv3">
@@ -3075,7 +3176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jxr-8b-C9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2136" y="558"/>
+            <point key="canvasLocation" x="-1768" y="534"/>
         </scene>
         <!--Team Detail View Controller-->
         <scene sceneID="MXA-hn-hOu">
@@ -4109,14 +4210,17 @@
         <image name="button_robonaut_gold.png" width="518" height="194"/>
         <image name="photo.JPG" width="640" height="478"/>
     </resources>
+    <color key="tintColor" red="1" green="0.43421096170000001" blue="0.7873584052" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6V1-MF-63T"/>
+        <segue reference="Ofk-bm-5rz"/>
+        <segue reference="V35-QX-fH1"/>
+        <segue reference="TkS-kf-3fo"/>
         <segue reference="0QU-hg-CV0"/>
-        <segue reference="M4x-HG-6MQ"/>
+        <segue reference="6V1-MF-63T"/>
     </inferredMetricsTieBreakers>
 </document>
