@@ -28,6 +28,7 @@
     NSString *photoPath;
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *deviceName;
 }
 
 @synthesize dataManager = _dataManager;
@@ -102,6 +103,7 @@
     NSLog(@"TeamDetail Unload");
     prefs = nil;
     tournamentName = nil;
+    deviceName = nil;
     matchList = nil;
     driveDictionary = nil;
     popUp = nil;
@@ -132,6 +134,7 @@
 
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
+    deviceName = [prefs objectForKey:@"deviceName"];
     _numberLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     [self SetTextBoxDefaults:_nameTextField];
     [self SetTextBoxDefaults:_shootingLevel];
@@ -169,6 +172,23 @@
     }
 
     [self showTeam];
+}
+
+-(void)setDataChange {
+    _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    _team.savedBy = deviceName;
+    NSLog(@"Saved by:%@\tTime = %@", _team.savedBy, _team.saved);
+    dataChange = TRUE;
+}
+
+-(void)checkDataStatus {
+    if (dataChange) {
+        NSError *error;
+        if (![_dataManager.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        dataChange = NO;
+    }
 }
 
 -(void)createRegionalHeader {
@@ -296,17 +316,6 @@
     [self showTeam];
 }
 
--(void)checkDataStatus {
-    if (dataChange) {
-        _team.saved = [NSNumber numberWithInt:1];
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        dataChange = NO;
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self checkDataStatus];
@@ -361,7 +370,7 @@
         if ([newIntake isEqualToString:[_intakeList objectAtIndex:i]]) {
             [_intakeType setTitle:newIntake forState:UIControlStateNormal];
             _team.intake = [NSNumber numberWithInt:(i-1)];
-            dataChange = YES;
+            [self setDataChange];
             break;
         }
     }
@@ -372,7 +381,7 @@
         if ([newDriveType isEqualToString:[_driveTypeList objectAtIndex:i]]) {
             [_driveType setTitle:newDriveType forState:UIControlStateNormal];
             _team.driveTrainType = [NSNumber numberWithInt:(i-1)];
-            dataChange = YES;
+            [self setDataChange];
             break;
         }
     }
@@ -383,7 +392,7 @@
         if ([newClimbZone isEqualToString:[_climbZoneList objectAtIndex:i]]) {
             [_climbZone setTitle:newClimbZone forState:UIControlStateNormal];
             _team.climbLevel = [NSNumber numberWithInt:(i-1)];
-            dataChange = YES;
+            [self setDataChange];
             break;
         }
     }
@@ -408,7 +417,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    dataChange = YES;
+    [self setDataChange];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -474,7 +483,7 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    dataChange = YES;
+    [self setDataChange];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {

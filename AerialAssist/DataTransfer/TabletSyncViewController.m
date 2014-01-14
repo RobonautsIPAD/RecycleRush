@@ -21,8 +21,8 @@
 @end
 
 @implementation TabletSyncViewController {
-    UIView *headerView;
-    UIView *headerView2;
+    UIView *sendHeader;
+    UIView *receiveHeader;
     NSMutableArray *receivedMatches;
     NSMutableArray *receivedMatchTypes;
     NSMutableArray *receivedTeams;
@@ -32,6 +32,7 @@
     SyncTypeDictionary *syncTypeDictionary;
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSNumber *teamDataSync;
 }
 
 @synthesize dataManager = _dataManager;
@@ -63,11 +64,11 @@ GKPeerPickerController *picker;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    NSLog(@"TeamList Unload");
+    NSLog(@"TableSync Unload");
     prefs = nil;
     tournamentName = nil;
-    headerView = nil;
-    headerView2 = nil;
+    sendHeader = nil;
+    receiveHeader = nil;
     _fetchedResultsController = nil;
     _dataManager = nil;
 }
@@ -82,10 +83,10 @@ GKPeerPickerController *picker;
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Synchronization", tournamentName];
+        self.title =  [NSString stringWithFormat:@"%@ Synchronization", tournamentName];
     }
     else {
-        self.title = @"Match Synchronization";
+        self.title = @"Synchronization";
     }
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
@@ -103,33 +104,6 @@ GKPeerPickerController *picker;
     [_peerName setHidden:YES];
     [_sendDataTable setHidden:YES];
     [_receiveDataTable setHidden:YES];
-    headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
-    headerView.backgroundColor = [UIColor lightGrayColor];
-    headerView.opaque = YES;
-    
-    headerView2 = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
-    headerView2.backgroundColor = [UIColor orangeColor];
-    headerView2.opaque = YES;
- 
-	UILabel *matchLabel = [[UILabel alloc] initWithFrame:CGRectMake(9, 11, 55, 21)];
-	matchLabel.text = @"Match";
-    matchLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:matchLabel];
-    
- 	UILabel *matchTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 11, 65, 21)];
-	matchTypeLabel.text = @"Type";
-    matchTypeLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:matchTypeLabel];
-
-    UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 11, 65, 21)];
-	teamLabel.text = @"Team";
-    teamLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:teamLabel];
-
-    UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 11, 65, 21)];
-	syncLabel.text = @"Synced";
-    syncLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:syncLabel];
 
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     _syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
@@ -138,6 +112,36 @@ GKPeerPickerController *picker;
     syncTypeDictionary = [[SyncTypeDictionary alloc] init];
     _syncTypeList = [[syncTypeDictionary getSyncTypes] mutableCopy];
     [_syncTypeButton setTitle:[syncTypeDictionary getSyncTypeString:_syncType] forState:UIControlStateNormal];
+}
+
+-(void)setHeaders {
+    sendHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
+    sendHeader.backgroundColor = [UIColor lightGrayColor];
+    sendHeader.opaque = YES;
+    
+    receiveHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
+    receiveHeader.backgroundColor = [UIColor orangeColor];
+    receiveHeader.opaque = YES;
+    
+	UILabel *matchLabel = [[UILabel alloc] initWithFrame:CGRectMake(9, 11, 55, 21)];
+	matchLabel.text = @"Match";
+    matchLabel.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:matchLabel];
+    
+ 	UILabel *matchTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 11, 65, 21)];
+	matchTypeLabel.text = @"Type";
+    matchTypeLabel.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:matchTypeLabel];
+    
+    UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 11, 65, 21)];
+	teamLabel.text = @"Team";
+    teamLabel.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:teamLabel];
+    
+    UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 11, 65, 21)];
+	syncLabel.text = @"Synced";
+    syncLabel.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:syncLabel];
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -440,9 +444,9 @@ GKPeerPickerController *picker;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (tableView == _receiveDataTable) {
-        return headerView2;
+        return receiveHeader;
     }
-    else return headerView;
+    else return sendHeader;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

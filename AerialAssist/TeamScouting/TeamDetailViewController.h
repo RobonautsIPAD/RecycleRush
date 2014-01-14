@@ -65,6 +65,7 @@
 -(void)changeIntake:(NSString *)newIntake;
 -(void)changeDriveType:(NSString *)newDriveType;
 -(void)changeClimbZone:(NSString *)newClimbZone;
+-(void)setDataChange;
 
 -(void)createRegionalHeader;
 -(void)createMatchHeader;

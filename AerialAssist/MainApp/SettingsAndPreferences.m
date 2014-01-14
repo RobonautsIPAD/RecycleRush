@@ -43,10 +43,26 @@
         prefs = [NSUserDefaults standardUserDefaults];        
     }
     
+    NSString *teamDataSync = [prefs objectForKey:@"teamDataSync"];
+    if (teamDataSync == nil) {
+        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"teamDataSync"];
+    }
+
+    NSString *matchScheduleSync = [prefs objectForKey:@"matchScheduleSync"];
+    if (matchScheduleSync == nil) {
+        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"matchScheduleSync"];
+    }
+
+    NSString *matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
+    if (matchResultsSync == nil) {
+        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"matchResultsSync"];
+    }
+
     // It is easier to just set these than check to see if they are set right and
     // set them if they are not.
     [prefs setObject:appName forKey:@"appName"];
     [prefs setObject:game forKey:@"game"];
+    [prefs setObject:[[UIDevice currentDevice] name] forKey:@"deviceName"];
     [prefs synchronize];
 }
 

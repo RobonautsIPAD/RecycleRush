@@ -42,6 +42,7 @@
 -(void)changeSyncOption:(NSString *)newSyncOption;
 
 -(IBAction)syncChanged:(id)sender;
+-(void)setHeaders;
 
 @property (nonatomic, retain) AlertPromptViewController *alertPrompt;
 @property (nonatomic, retain) UIPopoverController *alertPromptPopover;
