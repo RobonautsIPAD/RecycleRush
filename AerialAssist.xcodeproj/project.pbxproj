@@ -58,6 +58,8 @@
 		2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F67D4281728815300FA04CF /* InitialDefaults.plist */; };
 		2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6A0E5B178A2D66001A114F /* ValuePromptViewController.m */; };
 		2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F6AE6EF16AD93D1005A24C5 /* 2013_logo.png */; };
+		2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D01EE1884B32400F0635C /* TournamentAnalysisViewController.m */; };
+		2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */; };
 		2F6F100F1880E24E00378728 /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F100E1880E24E00378728 /* MatchData.m */; };
 		2F6F10121880E29600378728 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F10111880E29600378728 /* TeamScore.m */; };
 		2F6F10151880E29700378728 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F10141880E29700378728 /* TournamentData.m */; };
@@ -199,6 +201,10 @@
 		2F6A0E5A178A2D66001A114F /* ValuePromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValuePromptViewController.h; path = Utilities/ValuePromptViewController.h; sourceTree = "<group>"; };
 		2F6A0E5B178A2D66001A114F /* ValuePromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValuePromptViewController.m; path = Utilities/ValuePromptViewController.m; sourceTree = "<group>"; };
 		2F6AE6EF16AD93D1005A24C5 /* 2013_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2013_logo.png; path = Resources/2013_logo.png; sourceTree = "<group>"; };
+		2F6D01ED1884B32400F0635C /* TournamentAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentAnalysisViewController.h; path = MatchAnalysis/TournamentAnalysisViewController.h; sourceTree = "<group>"; };
+		2F6D01EE1884B32400F0635C /* TournamentAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentAnalysisViewController.m; path = MatchAnalysis/TournamentAnalysisViewController.m; sourceTree = "<group>"; };
+		2F6D01F01884C88E00F0635C /* RidleyPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RidleyPageViewController.h; path = MatchAnalysis/RidleyPageViewController.h; sourceTree = "<group>"; };
+		2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RidleyPageViewController.m; path = MatchAnalysis/RidleyPageViewController.m; sourceTree = "<group>"; };
 		2F6F100D1880E24E00378728 /* MatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchData.h; path = DataModels/MatchData.h; sourceTree = "<group>"; };
 		2F6F100E1880E24E00378728 /* MatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchData.m; path = DataModels/MatchData.m; sourceTree = "<group>"; };
 		2F6F10101880E29600378728 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
@@ -567,6 +573,10 @@
 		2FB3A4B016CEB7C400E895E5 /* Match Analysis */ = {
 			isa = PBXGroup;
 			children = (
+				2F6D01F01884C88E00F0635C /* RidleyPageViewController.h */,
+				2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */,
+				2F6D01ED1884B32400F0635C /* TournamentAnalysisViewController.h */,
+				2F6D01EE1884B32400F0635C /* TournamentAnalysisViewController.m */,
 				2F042011181F19D4003B994B /* LucienTableViewController.h */,
 				2F042012181F19D4003B994B /* LucienTableViewController.m */,
 				2F56B530170517F70093A976 /* CalculateTeamStats.h */,
@@ -728,6 +738,7 @@
 				2FFC493918560F68009A391E /* SettingsViewController.m in Sources */,
 				2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
+				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2F137CFB18537B6E00D87F30 /* CreateTournament.m in Sources */,
@@ -766,6 +777,7 @@
 				2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */,
 				2F06F98D1724B180002C947D /* NetworkManager.m in Sources */,
 				2F146EEB1880E0B300B76B32 /* AerialAssist.xcdatamodeld in Sources */,
+				2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */,
 				2F6F100F1880E24E00378728 /* MatchData.m in Sources */,
 				2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */,
 				2F137D0F18537B7F00D87F30 /* TeamData.m in Sources */,
