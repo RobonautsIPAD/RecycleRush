@@ -22,7 +22,13 @@
 
 @implementation TabletSyncViewController {
     UIView *sendHeader;
+    UILabel *sendLabel1;
+    UILabel *sendLabel2;
+    UILabel *sendLabel3;
     UIView *receiveHeader;
+    UILabel *receiveLabel1;
+    UILabel *receiveLabel2;
+    UILabel *receiveLabel3;
     NSMutableArray *receivedMatches;
     NSMutableArray *receivedMatchTypes;
     NSMutableArray *receivedTeams;
@@ -75,6 +81,8 @@ GKPeerPickerController *picker;
 
 - (void)viewDidLoad
 {
+    //    if ([[prefs objectForKey:@"bluetooth"] isEqualToString:@"Scouter"]) {
+
     [super viewDidLoad];
     NSError *error = nil;
     if (!_dataManager) {
@@ -104,6 +112,8 @@ GKPeerPickerController *picker;
     [_peerName setHidden:YES];
     [_sendDataTable setHidden:YES];
     [_receiveDataTable setHidden:YES];
+    
+    [self createHeaders];
 
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     _syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
@@ -114,30 +124,48 @@ GKPeerPickerController *picker;
     [_syncTypeButton setTitle:[syncTypeDictionary getSyncTypeString:_syncType] forState:UIControlStateNormal];
 }
 
--(void)setHeaders {
+-(void)createHeaders {
     sendHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
     sendHeader.backgroundColor = [UIColor lightGrayColor];
     sendHeader.opaque = YES;
-    
+
+    sendLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(9, 11, 55, 21)];
+    sendLabel1.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:sendLabel1];
+
+    sendLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(85, 11, 65, 21)];
+    sendLabel2.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:sendLabel2];
+
+    sendLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(195, 11, 65, 21)];
+    sendLabel3.backgroundColor = [UIColor clearColor];
+    [sendHeader addSubview:sendLabel3];
+ 
     receiveHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,282,50)];
     receiveHeader.backgroundColor = [UIColor orangeColor];
     receiveHeader.opaque = YES;
     
-	UILabel *matchLabel = [[UILabel alloc] initWithFrame:CGRectMake(9, 11, 55, 21)];
-	matchLabel.text = @"Match";
-    matchLabel.backgroundColor = [UIColor clearColor];
-    [sendHeader addSubview:matchLabel];
+    [self setHeaders];
+}
+
+-(void)setHeaders {
+    if (_syncType == SyncMatchList || _syncType == SyncMatchResults) {
+        sendLabel1.text = @"Match";
+        sendLabel2.text = @"Type";
+        sendLabel3.text = @"Team";
+    }
+    else if (_syncType == SyncTeams) {
+        sendLabel1.text = @"Team Number";
+        sendLabel2.text = @"Team Name";
+        sendLabel3.text = @"";
+    }
+    else if (_syncType == SyncTournaments) {
+        sendLabel1.text = @"Tournament";
+        sendLabel2.text = @"";
+        sendLabel3.text = @"";
+    }
     
- 	UILabel *matchTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 11, 65, 21)];
-	matchTypeLabel.text = @"Type";
-    matchTypeLabel.backgroundColor = [UIColor clearColor];
-    [sendHeader addSubview:matchTypeLabel];
-    
-    UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(195, 11, 65, 21)];
-	teamLabel.text = @"Team";
-    teamLabel.backgroundColor = [UIColor clearColor];
-    [sendHeader addSubview:teamLabel];
-    
+   
     UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 11, 65, 21)];
 	syncLabel.text = @"Synced";
     syncLabel.backgroundColor = [UIColor clearColor];
@@ -594,7 +622,7 @@ GKPeerPickerController *picker;
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         NSLog(@"Fix this");
  //       NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament = %@", settings.tournament];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ANY tournament.name = %@) AND (saved == 1)", tournamentName];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ANY tournamentName = %@) AND (saved == 1)", tournamentName];
         [fetchRequest setPredicate:pred];
         [fetchRequest setSortDescriptors:sortDescriptors];
         

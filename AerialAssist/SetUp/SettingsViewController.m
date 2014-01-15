@@ -24,7 +24,7 @@
 @synthesize mainLogo = _mainLogo;
 @synthesize splashPicture = _splashPicture;
 @synthesize pictureCaption = _pictureCaption;
-@synthesize settings = _settings;
+
 // Tournament Picking
 @synthesize tournamentData = _tournamentData;
 @synthesize tournamentLabel = _tournamentLabel;
@@ -32,28 +32,31 @@
 @synthesize tournamentPicker = _tournamentPicker;
 @synthesize tournamentList = _tournamentList;
 @synthesize tournamentPickerPopover = _tournamentPickerPopover;
+
 // Alliance Picker
 @synthesize allianceButton = _allianceButton;
 @synthesize alliancePicker = _alliancePicker;
 @synthesize allianceList = _allianceList;
 @synthesize alliancePickerPopover = _alliancePickerPopover;
 
-
+// Mode Selection
 @synthesize modeSegment = _modeSegment;
-@synthesize adminText;
-@synthesize overrideText;
-@synthesize bluetoothButton;
+
+// Bluetooth Selection
+@synthesize bluetoothSegment = _bluetoothSegment;
 
 // User access control
+@synthesize adminText = _adminText;
+@synthesize overrideText = _overrideText;
 @synthesize alertPrompt = _alertPrompt;
 @synthesize alertPromptPopover = _alertPromptPopover;
 
 //labels
-@synthesize allianceLabel;
-@synthesize adminLabel;
-@synthesize overideLabel;
-@synthesize modeLabel;
-@synthesize bluetoothLabel;
+@synthesize allianceLabel = _allianceLabel;
+@synthesize adminLabel = _adminLabel;
+@synthesize overideLabel = _overideLabel;
+@synthesize modeLabel = _modeLabel;
+@synthesize bluetoothLabel = _bluetoothLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,35 +87,10 @@
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
-/*
-  
-    // Set Font and Text for Match Set-Up Button
-    [matchSetUpButton setTitle:@"Match List" forState:UIControlStateNormal];
-    matchSetUpButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-    
-    // Set Font and Text for Import Data Button
-    [importDataButton setTitle:@"Import Data" forState:UIControlStateNormal];
-    importDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-    
-    // Set Font and Text for Export Data Button
-    [exportDataButton setTitle:@"Export Data" forState:UIControlStateNormal];
-    exportDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];*/
     self.title = @"iPad Set-Up Page";
 
     prefs = [NSUserDefaults standardUserDefaults];
-    
-/*    [prefs setObject:@"Red 1" forKey:@"alliance"];
-    [prefs setObject:@"bluefish" forKey:@"adminCode"];
-    [prefs setObject:@"118over" forKey:@"overrideCode"];
-    [prefs setObject:@"Test" forKey:@"mode"];*/
-/*    // saving an NSString
-    [prefs setObject:settings.tournament.name forKey:@"tournament"];
-    [prefs setObject:settings.alliance forKey:@"alliance"];
-    [prefs setObject:settings.master forKey:@"master"];
-    [prefs setObject:settings.mode forKey:@"mode"];
-    [prefs setObject:settings.adminCode forKey:@"adminCode"];
-    [prefs setObject:settings.overrideCode forKey:@"overrideCode"];
-*/
+
    // Set Font and Text for Tournament Set-Up Button
     [_tournamentButton setTitle:[prefs objectForKey:@"tournament"] forState:UIControlStateNormal];
     _tournamentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:18.0];
@@ -152,6 +130,13 @@
         _modeSegment.selectedSegmentIndex = 1;
     }
 
+    // Set Bluetooth segment
+    if ([[prefs objectForKey:@"bluetooth"] isEqualToString:@"Scouter"]) {
+        _bluetoothSegment.selectedSegmentIndex = 0;
+    }
+    else {
+        _bluetoothSegment.selectedSegmentIndex = 1;
+    }
 }
 
 -(IBAction)TournamentSelectionChanged:(id)sender {
@@ -170,7 +155,7 @@
                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)pickerSelected:(NSString *)newPick {
+-(void)pickerSelected:(NSString *)newPick {
     NSLog(@"Picker = %@", newPick);
     if (popUp == _tournamentButton) {
         [self tournamentSelected:newPick];
@@ -180,7 +165,7 @@
     }
 }
 
-- (void)tournamentSelected:(NSString *)newTournament {
+-(void)tournamentSelected:(NSString *)newTournament {
     [self.tournamentPickerPopover dismissPopoverAnimated:YES];
     for (int i = 0 ; i < [_tournamentList count] ; i++) {
         if ([newTournament isEqualToString:[_tournamentList objectAtIndex:i]]) {
@@ -224,7 +209,7 @@
                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)allianceSelected:(NSString *)newAlliance {
+-(void)allianceSelected:(NSString *)newAlliance {
     [self.alliancePickerPopover dismissPopoverAnimated:YES];
     for (int i = 0 ; i < [_allianceList count] ; i++) {
         if ([newAlliance isEqualToString:[_allianceList objectAtIndex:i]]) {
@@ -234,7 +219,6 @@
         }
     }
 }
-
 
 -(void)checkAdminCode:(UIButton *)button {
    // NSLog(@"Check override");
@@ -251,7 +235,7 @@
     return;
 }
 
-- (void)passCodeResult:(NSString *)passCodeAttempt {
+-(void)passCodeResult:(NSString *)passCodeAttempt {
     [self.alertPromptPopover dismissPopoverAnimated:YES];
     switch (overrideMode) {
         case OverrideAllianceSelection:
@@ -266,7 +250,7 @@
     overrideMode = NoOverride;
 }
 
-- (IBAction)modeSelectionChanged:(id)sender {
+-(IBAction)modeSelectionChanged:(id)sender {
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
     int current;
     current = segmentedControl.selectedSegmentIndex;
@@ -279,7 +263,22 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (IBAction)bluetoothSelectionChanged:(id)sender {
+    NSLog(@"Bluetooth selection change");
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    int current;
+    current = segmentedControl.selectedSegmentIndex;
+    
+    if (current == 0) {
+        [prefs setObject:@"Scouter" forKey:@"bluetooth"];
+    }
+    else {
+        [prefs setObject:@"Master" forKey:@"bluetooth"];
+    }
+}
+
+
+-(void) viewWillDisappear:(BOOL)animated
 {
     //    NSLog(@"viewWillDisappear");
     NSError *error;
@@ -340,48 +339,48 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     switch(toInterfaceOrientation){
         case UIInterfaceOrientationLandscapeRight:
         case UIInterfaceOrientationLandscapeLeft:
-            self.mainLogo.frame = CGRectMake(0, -50, 1024, 255);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-             self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
-            self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
-            self.tournamentButton.frame = CGRectMake(770, 230, 208, 44);
-            self.allianceButton.frame = CGRectMake(770, 305, 208, 44);
-            self.adminText.frame = CGRectMake(770, 380, 208, 30);
-            self.overrideText.frame = CGRectMake(770, 440, 208, 30);
-            self.modeSegment.frame = CGRectMake(770, 500, 208, 30);
-            self.bluetoothButton.frame = CGRectMake(770, 560, 208, 30);
-            self.tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
-            self.allianceLabel.frame = CGRectMake(580, 315, 144, 21);
-            self.adminLabel.frame = CGRectMake(580, 385, 144, 21);
-            self.overideLabel.frame = CGRectMake(580, 440, 173, 29);
-            self.modeLabel.frame = CGRectMake(580, 500, 173, 29);
-            self.bluetoothLabel.frame = CGRectMake(580, 560, 173, 29);
+            _mainLogo.frame = CGRectMake(0, -50, 1024, 255);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+             _splashPicture.frame = CGRectMake(50, 233, 468, 330);
+            _pictureCaption.frame = CGRectMake(50, 571, 468, 39);
+            _tournamentButton.frame = CGRectMake(770, 230, 208, 44);
+            _allianceButton.frame = CGRectMake(770, 305, 208, 44);
+            _adminText.frame = CGRectMake(770, 380, 208, 30);
+            _overrideText.frame = CGRectMake(770, 440, 208, 30);
+            _modeSegment.frame = CGRectMake(770, 500, 208, 30);
+            _bluetoothSegment.frame = CGRectMake(770, 560, 208, 30);
+            _tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
+            _allianceLabel.frame = CGRectMake(580, 315, 144, 21);
+            _adminLabel.frame = CGRectMake(580, 385, 144, 21);
+            _overideLabel.frame = CGRectMake(580, 440, 173, 29);
+            _modeLabel.frame = CGRectMake(580, 500, 173, 29);
+            _bluetoothLabel.frame = CGRectMake(580, 560, 173, 29);
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
-            self.mainLogo.frame = CGRectMake(0, 0, 285, 960);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
-            self.tournamentButton.frame = CGRectMake(530, 73, 208, 44);
-            self.allianceButton.frame = CGRectMake(530, 151, 208, 44);
-            self.adminText.frame = CGRectMake(530, 235, 208, 30);
-            self.overrideText.frame = CGRectMake(530, 305, 208, 30);
-            self.modeSegment.frame = CGRectMake(530, 376, 208, 30);
-            self.bluetoothButton.frame = CGRectMake(530, 437, 208, 30);
-            self.tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
-            self.allianceLabel.frame = CGRectMake(340, 158, 144, 21);
-            self.adminLabel.frame = CGRectMake(340, 235, 144, 21);
-            self.overideLabel.frame = CGRectMake(340, 305, 173, 29);
-            self.modeLabel.frame = CGRectMake(340, 379, 173, 29);
-            self.bluetoothLabel.frame = CGRectMake(340, 435, 173, 29);
+            _mainLogo.frame = CGRectMake(0, 0, 285, 960);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+            _splashPicture.frame = CGRectMake(293, 563, 468, 330);
+            _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
+            _tournamentButton.frame = CGRectMake(530, 73, 208, 44);
+            _allianceButton.frame = CGRectMake(530, 151, 208, 44);
+            _adminText.frame = CGRectMake(530, 235, 208, 30);
+            _overrideText.frame = CGRectMake(530, 305, 208, 30);
+            _modeSegment.frame = CGRectMake(530, 376, 208, 30);
+            _bluetoothSegment.frame = CGRectMake(530, 437, 208, 30);
+            _tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
+            _allianceLabel.frame = CGRectMake(340, 158, 144, 21);
+            _adminLabel.frame = CGRectMake(340, 235, 144, 21);
+            _overideLabel.frame = CGRectMake(340, 305, 173, 29);
+            _modeLabel.frame = CGRectMake(340, 379, 173, 29);
+            _bluetoothLabel.frame = CGRectMake(340, 435, 173, 29);
             break;
         default:
             break;

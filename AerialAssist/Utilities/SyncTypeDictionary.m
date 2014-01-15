@@ -17,7 +17,7 @@
 	if ((self = [super init])) {
         NSArray *keys = [NSArray arrayWithObjects:[NSNumber numberWithInt:SyncTeams],
                          [NSNumber numberWithInt:SyncTournaments],
-                         [NSNumber numberWithInt:SyncMatches],
+                         [NSNumber numberWithInt:SyncMatchResults],
                          [NSNumber numberWithInt:SyncMatchList],
                          nil];
         

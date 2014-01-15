@@ -39,7 +39,7 @@ typedef enum {
 typedef enum {
     SyncTeams,
     SyncTournaments,
-    SyncMatches,
+    SyncMatchResults,
     SyncMatchList
 } SyncType;
 

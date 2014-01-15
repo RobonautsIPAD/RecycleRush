@@ -43,6 +43,7 @@
 
 -(IBAction)syncChanged:(id)sender;
 -(void)setHeaders;
+-(void)createHeaders;
 
 @property (nonatomic, retain) AlertPromptViewController *alertPrompt;
 @property (nonatomic, retain) UIPopoverController *alertPromptPopover;

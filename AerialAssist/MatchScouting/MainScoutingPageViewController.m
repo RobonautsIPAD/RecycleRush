@@ -1115,8 +1115,8 @@
     }
     else {
         [segue.destinationViewController setDataManager:_dataManager];
-        [segue.destinationViewController setSyncOption:SyncAll];
-        [segue.destinationViewController setSyncType:SyncMatches];
+        [segue.destinationViewController setSyncOption:SyncAllSavedSince];
+        [segue.destinationViewController setSyncType:SyncMatchList];
     }
 }
 

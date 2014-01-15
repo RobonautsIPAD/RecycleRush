@@ -256,10 +256,10 @@
             </objects>
             <point key="canvasLocation" x="-2684" y="-1831"/>
         </scene>
-        <!--View Controller-->
+        <!--Ridley Page View Controller-->
         <scene sceneID="wkD-WI-lNc">
             <objects>
-                <viewController id="Vpx-S4-nE1" sceneMemberID="viewController">
+                <viewController id="Vpx-S4-nE1" customClass="RidleyPageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IQh-c3-Tqa">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1561,14 +1561,20 @@
                                     <segment title="Test"/>
                                     <segment title="Tournament"/>
                                 </segments>
+                                <connections>
+                                    <action selector="modeSelectionChanged:" destination="IC0-8Z-knh" eventType="valueChanged" id="Be8-gk-VhR"/>
+                                </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="5uB-ht-ZSe">
                                 <rect key="frame" x="530" y="437" width="161" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Scouter"/>
+                                    <segment title="Master"/>
                                 </segments>
+                                <connections>
+                                    <action selector="bluetoothSelectionChanged:" destination="IC0-8Z-knh" eventType="valueChanged" id="JNP-hc-iXF"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1580,8 +1586,8 @@
                         <outlet property="adminText" destination="zgx-Un-rcQ" id="n9b-i4-x6s"/>
                         <outlet property="allianceButton" destination="49Z-04-8Pc" id="FVm-fB-6sK"/>
                         <outlet property="allianceLabel" destination="rd0-1c-zBt" id="6BG-43-y63"/>
-                        <outlet property="bluetoothButton" destination="5uB-ht-ZSe" id="UrL-f4-sZz"/>
                         <outlet property="bluetoothLabel" destination="bE3-jq-Np3" id="XSR-xU-Wrz"/>
+                        <outlet property="bluetoothSegment" destination="5uB-ht-ZSe" id="k57-hl-w8n"/>
                         <outlet property="mainLogo" destination="55f-y1-ALK" id="ztA-ro-pv3"/>
                         <outlet property="modeLabel" destination="C6t-jV-Mfh" id="aVc-20-VZ7"/>
                         <outlet property="modeSegment" destination="ueb-S3-4rq" id="Rps-C5-kHU"/>
@@ -1730,10 +1736,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="GcZ-FA-vXA">
-                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -1868,6 +1874,9 @@
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="foR-gV-UYn" kind="push" identifier="Sync" id="sxF-M5-0ia"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="elh-Um-nzT">
                                 <rect key="frame" x="375" y="395" width="296" height="70"/>
@@ -4210,7 +4219,6 @@
         <image name="button_robonaut_gold.png" width="518" height="194"/>
         <image name="photo.JPG" width="640" height="478"/>
     </resources>
-    <color key="tintColor" red="1" green="0.43421096170000001" blue="0.7873584052" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -4218,9 +4226,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ofk-bm-5rz"/>
-        <segue reference="V35-QX-fH1"/>
-        <segue reference="TkS-kf-3fo"/>
         <segue reference="0QU-hg-CV0"/>
         <segue reference="6V1-MF-63T"/>
+        <segue reference="73l-5i-erv"/>
+        <segue reference="V35-QX-fH1"/>
+        <segue reference="TkS-kf-3fo"/>
     </inferredMetricsTieBreakers>
 </document>
