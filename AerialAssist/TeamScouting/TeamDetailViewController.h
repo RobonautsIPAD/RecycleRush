@@ -22,7 +22,7 @@
 @property (nonatomic, strong) TeamData *team;
 @property (nonatomic, weak) IBOutlet UIButton *prevTeamButton;
 @property (nonatomic, weak) IBOutlet UIButton *nextTeamButton;
-@property (nonatomic, weak) IBOutlet UILabel *numberLabel;
+@property (nonatomic, weak) IBOutlet UITextField *numberText;
 @property (nonatomic, weak) IBOutlet UITextField *nameTextField;
 @property (nonatomic, weak) IBOutlet UITextView *notesViewField;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -78,6 +78,6 @@
 -(IBAction)useCameraRoll: (id)sender;
 -(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
-
+-(IBAction)MatchNumberChanged;
 
 @end

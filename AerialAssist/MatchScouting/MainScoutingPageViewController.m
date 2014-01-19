@@ -554,7 +554,7 @@
 }
 
 -(IBAction)MatchTypeSelectionChanged:(id)sender {
-    //    NSLog(@"matchTypeSelectionChanged");
+      // NSLog(@"matchTypeSelectionChanged");
     [self CheckDataStatus];
     if (matchTypePicker == nil) {
         self.matchTypePicker = [[MatchTypePickerController alloc] 
@@ -636,7 +636,8 @@
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[_fetchedResultsController sections] objectAtIndex:sectionIndex];
     int nmatches = [sectionInfo numberOfObjects];
-    if (matchField > nmatches) { /* Ooops, not that many matches */
+    if (matchField > nmatches) {
+        /* Ooops, not that many matches */
         // For now, just change the match field to the last match in the section
         matchField = nmatches;
     }

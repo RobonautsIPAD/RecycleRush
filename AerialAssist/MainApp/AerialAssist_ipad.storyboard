@@ -1736,10 +1736,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="GcZ-FA-vXA">
-                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -3206,13 +3206,6 @@
                                 <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="eXu-Y0-KJq" userLabel="Label - Team Number">
-                                <rect key="frame" x="446" y="5" width="109" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="LzP-qm-k7C">
                                 <rect key="frame" x="545" y="6" width="133" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3348,7 +3341,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="34" sectionHeaderHeight="22" sectionFooterHeight="22" id="HBG-SB-cm1" userLabel="Regional Table View">
-                                <rect key="frame" x="6" y="529" width="1007" height="167"/>
+                                <rect key="frame" x="6" y="523" width="1007" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -3360,56 +3353,56 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Week" lineBreakMode="tailTruncation" minimumFontSize="10" id="h4I-C5-hKj">
-                                                    <rect key="frame" x="37" y="11" width="44" height="21"/>
+                                                    <rect key="frame" x="127" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" text="Regional" lineBreakMode="tailTruncation" numberOfLines="3" minimumFontSize="10" id="1on-mR-cml">
-                                                    <rect key="frame" x="95" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="205" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="30" contentMode="left" text="Rank" lineBreakMode="tailTruncation" minimumFontSize="10" id="pBK-mh-5aB">
-                                                    <rect key="frame" x="220" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="305" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="40" contentMode="left" text="Stuff 4" lineBreakMode="tailTruncation" minimumFontSize="10" id="PkN-8N-RzI">
-                                                    <rect key="frame" x="280" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="375" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="50" contentMode="left" text="Stuff 5" lineBreakMode="tailTruncation" minimumFontSize="10" id="SiS-Zy-7G5">
-                                                    <rect key="frame" x="385" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="455" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="60" contentMode="left" text="Stuff 6" lineBreakMode="tailTruncation" minimumFontSize="10" id="GG1-TZ-w1U">
-                                                    <rect key="frame" x="460" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="545" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="70" contentMode="left" text="Stuff 7" lineBreakMode="tailTruncation" minimumFontSize="10" id="NW7-YV-fFH">
-                                                    <rect key="frame" x="555" y="11" width="225" height="21"/>
+                                                    <rect key="frame" x="635" y="11" width="225" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="80" contentMode="left" text="Stuff 8" lineBreakMode="tailTruncation" minimumFontSize="10" id="AxJ-n3-VQI">
-                                                    <rect key="frame" x="730" y="11" width="200" height="21"/>
+                                                    <rect key="frame" x="805" y="11" width="59" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -3556,7 +3549,7 @@
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="yXt-Sf-dW4">
-                                <rect key="frame" x="6" y="403" width="505" height="118"/>
+                                <rect key="frame" x="6" y="403" width="421" height="112"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -3612,7 +3605,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2Qd-wZ-YT7">
-                                <rect key="frame" x="947" y="665" width="57" height="28"/>
+                                <rect key="frame" x="525" y="441" width="57" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3628,7 +3621,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mji-Qb-Ii1">
-                                <rect key="frame" x="880" y="665" width="57" height="28"/>
+                                <rect key="frame" x="446" y="441" width="57" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Prev">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3643,6 +3636,16 @@
                                     <action selector="PrevButton" destination="kha-eL-sUY" eventType="touchUpInside" id="6bb-UK-fLA"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Team #" minimumFontSize="17" id="rn6-Oc-X7B">
+                                <rect key="frame" x="440" y="6" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <action selector="MatchNumberChanged" destination="kha-eL-sUY" eventType="editingDidEnd" id="MSw-Cw-u1t"/>
+                                    <outlet property="delegate" destination="kha-eL-sUY" id="ubq-vK-AyQ"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -3663,7 +3666,7 @@
                         <outlet property="nameTextField" destination="f8Z-55-ogu" id="UWj-AN-Mws"/>
                         <outlet property="nextTeamButton" destination="2Qd-wZ-YT7" id="ZHD-ok-Yxz"/>
                         <outlet property="notesViewField" destination="yXt-Sf-dW4" id="vgU-zc-RFy"/>
-                        <outlet property="numberLabel" destination="eXu-Y0-KJq" id="hcd-ZO-JVg"/>
+                        <outlet property="numberText" destination="rn6-Oc-X7B" id="JFI-rM-n9P"/>
                         <outlet property="nwheels" destination="kft-V6-xjZ" id="1pa-SK-YJD"/>
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="regionalInfo" destination="HBG-SB-cm1" id="4BN-9c-hog"/>
@@ -4225,11 +4228,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ofk-bm-5rz"/>
         <segue reference="0QU-hg-CV0"/>
+        <segue reference="Ofk-bm-5rz"/>
+        <segue reference="V35-QX-fH1"/>
         <segue reference="6V1-MF-63T"/>
         <segue reference="73l-5i-erv"/>
-        <segue reference="V35-QX-fH1"/>
-        <segue reference="TkS-kf-3fo"/>
+        <segue reference="M4x-HG-6MQ"/>
     </inferredMetricsTieBreakers>
 </document>

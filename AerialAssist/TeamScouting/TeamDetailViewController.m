@@ -51,7 +51,7 @@
 @synthesize climbZoneList = _climbZoneList;
 @synthesize climbZone = _climbZone;
 
-@synthesize numberLabel = _numberLabel;
+@synthesize numberText = _numberText;
 @synthesize nameTextField = _nameTextField;
 @synthesize notesViewField = _notesViewField;
 @synthesize shootingLevel = _shootingLevel;
@@ -135,7 +135,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
-    _numberLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+    _numberText.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     [self SetTextBoxDefaults:_nameTextField];
     [self SetTextBoxDefaults:_shootingLevel];
     [self SetTextBoxDefaults:_auton];
@@ -261,7 +261,7 @@
 
 -(void)showTeam {
     self.title = [NSString stringWithFormat:@"%d - %@", [_team.number intValue], _team.name];
-    _numberLabel.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
+    _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
     _nameTextField.text = _team.name;
     _notesViewField.text = _team.notes;
     _shootingLevel.text = _team.shootsTo;
@@ -289,6 +289,7 @@
     [self getPhoto];
     dataChange = NO;
 }
+
 
 -(NSInteger)getNumberOfTeams {
     return [[[_fetchedResultsController sections] objectAtIndex:0] numberOfObjects];
@@ -468,7 +469,7 @@
     if ([resultingString length] == 0) {
         return true;
     }
-    if (textField == _cims || textField == _nwheels) {
+    if (textField == _cims || textField == _nwheels || textField == _numberText) {
         NSInteger holder;
         NSScanner *scan = [NSScanner scannerWithString: resultingString];
         
@@ -725,6 +726,25 @@
     if (teamScore.blue3) return teamScore.blue3; */
     
     return nil; 
+}
+
+-(IBAction)MatchNumberChanged {
+     NSLog(@"TeamNumberChanged");
+    [self checkDataStatus];
+    int currentTeam = [_numberText.text intValue];
+    printf("%d", currentTeam);
+    for(int x = 0; x < [self getNumberOfTeams]; x++){
+        NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
+        TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
+        
+        if([team.number intValue] == currentTeam){
+            _teamIndex = teamIndex;
+            _team = team;
+            [self showTeam];
+            break;
+            //printf("%d", [team.number intValue]);
+        }
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

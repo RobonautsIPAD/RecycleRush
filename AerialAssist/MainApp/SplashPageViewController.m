@@ -123,27 +123,27 @@
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
             //( , , , )
-            self.mainLogo.frame = CGRectMake(0, -50, 1024, 285);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            self.teamScoutingButton.frame = CGRectMake(550, 215, 400, 68);
-            self.matchSetUpButton.frame = CGRectMake(550, 315, 400, 68);
-            self.matchScoutingButton.frame = CGRectMake(550, 415, 400, 68);
-            self.matchAnalysisButton.frame = CGRectMake(550, 515, 400, 68);
-            self.tournamentAnalysisButton.frame =CGRectMake(550, 615, 400, 68);
-            self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
-            self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
+            _mainLogo.frame = CGRectMake(0, -50, 1024, 285);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+            _teamScoutingButton.frame = CGRectMake(550, 215, 400, 68);
+            _matchSetUpButton.frame = CGRectMake(550, 315, 400, 68);
+            _matchScoutingButton.frame = CGRectMake(550, 415, 400, 68);
+            _matchAnalysisButton.frame = CGRectMake(550, 515, 400, 68);
+            _tournamentAnalysisButton.frame =CGRectMake(550, 615, 400, 68);
+            _splashPicture.frame = CGRectMake(50, 233, 468, 330);
+            _pictureCaption.frame = CGRectMake(50, 571, 468, 39);
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
-            self.mainLogo.frame = CGRectMake(-20, 0, 285, 960);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            self.teamScoutingButton.frame = CGRectMake(325, 25, 400, 68);
-            self.matchSetUpButton.frame = CGRectMake(325, 125, 400, 68);
-            self.matchScoutingButton.frame = CGRectMake(325, 225, 400, 68);
-            self.matchAnalysisButton.frame = CGRectMake(325, 325, 400, 68);
-            self.tournamentAnalysisButton.frame =CGRectMake(325, 425, 400, 68);
-            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
+            _mainLogo.frame = CGRectMake(-20, 0, 285, 960);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+            _teamScoutingButton.frame = CGRectMake(325, 25, 400, 68);
+            _matchSetUpButton.frame = CGRectMake(325, 125, 400, 68);
+            _matchScoutingButton.frame = CGRectMake(325, 225, 400, 68);
+            _matchAnalysisButton.frame = CGRectMake(325, 325, 400, 68);
+            _tournamentAnalysisButton.frame =CGRectMake(325, 425, 400, 68);
+            _splashPicture.frame = CGRectMake(293, 563, 468, 330);
+            _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
             
             break;
         default:
