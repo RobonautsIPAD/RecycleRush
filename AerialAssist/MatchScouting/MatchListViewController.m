@@ -362,9 +362,22 @@
 
 	UILabel *redScoreLabel = (UILabel *)[cell viewWithTag:80];
     redScoreLabel.text = [NSString stringWithFormat:@"%d", [info.redScore intValue]];
+    if ([info.redScore intValue] == -1) {
+        redScoreLabel.text = @"";
+    }
+    else {
+        redScoreLabel.text = [NSString stringWithFormat:@"%d", [info.redScore intValue]];
+    }
+    
 	UILabel *blueScoreLabel = (UILabel *)[cell viewWithTag:90];
     blueScoreLabel.text = [NSString stringWithFormat:@"%d", [info.blueScore intValue]];
-}    
+    if ([info.blueScore intValue] == -1) {
+        blueScoreLabel.text = @"";
+    }
+    else {
+        blueScoreLabel.text = [NSString stringWithFormat:@"%d", [info.blueScore intValue]];
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {    
