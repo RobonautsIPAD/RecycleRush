@@ -12,6 +12,7 @@
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
+#import "TeamDataInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
 #import "MatchResultsObject.h"
@@ -38,7 +39,12 @@
     SyncTypeDictionary *syncTypeDictionary;
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *deviceName;
+    BlueToothType *bluetoothType;
     NSNumber *teamDataSync;
+    NSArray *teamList;
+    NSArray *filteredTeamList;
+    TeamDataInterfaces *teamDataPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -96,6 +102,12 @@ GKPeerPickerController *picker;
     else {
         self.title = @"Synchronization";
     }
+
+    NSLog(@"sync option = %d", _syncOption);
+    bluetoothType = [[prefs objectForKey:@"bluetooth"] intValue];
+    teamDataSync = [prefs objectForKey:@"teamDataSync"];
+    deviceName = [prefs objectForKey:@"deviceName"];
+
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
@@ -110,8 +122,15 @@ GKPeerPickerController *picker;
     [_disconnectButton setHidden:YES];
     [_peerLabel setHidden:YES];
     [_peerName setHidden:YES];
-    [_sendDataTable setHidden:YES];
-    [_receiveDataTable setHidden:YES];
+    
+    if (bluetoothType == Scouter) {
+        [_sendDataTable setHidden:NO];
+        [_receiveDataTable setHidden:YES];
+    }
+    else {
+        [_sendDataTable setHidden:YES];
+        [_receiveDataTable setHidden:NO];
+    }
     
     [self createHeaders];
 
@@ -149,27 +168,71 @@ GKPeerPickerController *picker;
 }
 
 -(void)setHeaders {
-    if (_syncType == SyncMatchList || _syncType == SyncMatchResults) {
-        sendLabel1.text = @"Match";
-        sendLabel2.text = @"Type";
-        sendLabel3.text = @"Team";
+    switch (_syncType) {
+        case SyncMatchList:
+        case SyncMatchResults:
+            sendLabel1.text = @"Match";
+            sendLabel2.text = @"Type";
+            sendLabel3.text = @"Team";
+            break;
+        case SyncTeams:
+            sendLabel1.text = @"Team Number";
+            sendLabel2.text = @"Team Name";
+            sendLabel3.text = @"";
+            [self createTeamList];
+            break;
+        case SyncTournaments:
+            sendLabel1.text = @"Tournament";
+            sendLabel2.text = @"";
+            sendLabel3.text = @"";
+        default:
+            break;
+//        [_sendDataTable reloadData];
     }
-    else if (_syncType == SyncTeams) {
-        sendLabel1.text = @"Team Number";
-        sendLabel2.text = @"Team Name";
-        sendLabel3.text = @"";
-    }
-    else if (_syncType == SyncTournaments) {
-        sendLabel1.text = @"Tournament";
-        sendLabel2.text = @"";
-        sendLabel3.text = @"";
-    }
-    
    
     UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 11, 65, 21)];
-	syncLabel.text = @"Synced";
+	syncLabel.text = @"";
     syncLabel.backgroundColor = [UIColor clearColor];
     [sendHeader addSubview:syncLabel];
+}
+
+-(void)createTeamList {
+    if (!teamList) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
+        [fetchRequest setPredicate:pred];
+        teamList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];        
+    }
+
+    NSPredicate *pred;
+    filteredTeamList = [NSArray arrayWithArray:teamList];
+    switch (_syncOption) {
+        case SyncAll:
+            filteredTeamList = [NSArray arrayWithArray:teamList];
+            break;
+        case SyncAllSavedHere:
+            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
+            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
+            break;
+        case SyncAllSavedSince:
+            pred = [NSPredicate predicateWithFormat:@"saved > %@", teamDataSync];
+            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
+            break;
+        default:
+            filteredTeamList = [NSArray arrayWithArray:teamList];
+            break;
+    }
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
+    filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
+    [_sendDataTable reloadData];
+    NSLog(@"create team list remove");
+    [self createDataPackage];
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -219,9 +282,12 @@ GKPeerPickerController *picker;
     for (int i = 0 ; i < [_syncOptionList count] ; i++) {
         if ([newSyncOption isEqualToString:[_syncOptionList objectAtIndex:i]]) {
             [_syncOptionButton setTitle:newSyncOption forState:UIControlStateNormal];
-            _syncOption = i-1;
+            _syncOption = i;
             break;
         }
+    }
+    if (_syncType == SyncTeams) {
+        [self createTeamList];
     }
 }
 
@@ -229,10 +295,11 @@ GKPeerPickerController *picker;
     for (int i = 0 ; i < [_syncTypeList count] ; i++) {
         if ([newSyncType isEqualToString:[_syncTypeList objectAtIndex:i]]) {
             [_syncTypeButton setTitle:newSyncType forState:UIControlStateNormal];
-            _syncType = i-1;
+            _syncType = i;
             break;
         }
     }
+    [self setHeaders];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -259,6 +326,30 @@ GKPeerPickerController *picker;
     
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
+}
+
+-(void) createDataPackage {
+    switch (_syncType) {
+        case SyncTournaments:
+            break;
+        case SyncTeams:
+            if (!teamDataPackage) {
+                teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+            }
+            for (int i=0; i<[filteredTeamList count]; i++) {
+                TeamData *team = [filteredTeamList objectAtIndex:i];
+                NSData *myData = [teamDataPackage packageTeamForXFer:team];
+         //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+            }
+            break;
+        case SyncMatchList:
+            break;
+        case SyncMatchResults:
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)peerPickerController:(GKPeerPickerController *)picker
@@ -504,6 +595,7 @@ GKPeerPickerController *picker;
 {
     // Return the number of rows in the section.
     if (tableView == _sendDataTable) {
+        if (_syncType == SyncTeams) return [filteredTeamList count];
         id <NSFetchedResultsSectionInfo> sectionInfo =
         [[_fetchedResultsController sections] objectAtIndex:section];
     
@@ -514,23 +606,33 @@ GKPeerPickerController *picker;
     }
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+- (void)configureTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TeamData *team = [filteredTeamList objectAtIndex:indexPath.row];
     // Configure the cell...
     // Set a background for the cell
     
-	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
-	numberLabel.text = [NSString stringWithFormat:@"%d", [info.match.number intValue]];
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     
-	UILabel *matchTypeLabel = (UILabel *)[cell viewWithTag:20];
-    matchTypeLabel.text = info.match.matchType;
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = team.name;
     
-	UILabel *teamLabel = (UILabel *)[cell viewWithTag:30];
-    teamLabel.text = [NSString stringWithFormat:@"%d", [info.team.number intValue]];
-
-	UILabel *syncLabel = (UILabel *)[cell viewWithTag:40];
-    syncLabel.text = ([info.synced intValue] == 0) ? @"N" : @"Y";
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
 }
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    switch (_syncType) {
+        case SyncTeams:
+            [self configureTeamCell:cell atIndexPath:indexPath];
+            break;
+            
+        default:
+            break;
+    }}
 
 - (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell...

@@ -44,12 +44,16 @@
 -(IBAction)syncChanged:(id)sender;
 -(void)setHeaders;
 -(void)createHeaders;
+-(void)createTeamList;
 
 @property (nonatomic, retain) AlertPromptViewController *alertPrompt;
 @property (nonatomic, retain) UIPopoverController *alertPromptPopover;
 
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;
+//-(IBAction) createDataPackage:(id) sender;
+-(void) createDataPackage;
+
 -(BOOL)addMatchScore:(MatchResultsObject *) xferData;
 -(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score;
 

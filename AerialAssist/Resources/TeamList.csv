@@ -1,60 +1,70 @@
-Team Number, Team Name, tournament, driveTrainType, intake, wheelDiameter, cims, minHeight, maxHeight, shooterHeight, pyramidDump, climbLevel, climbSpeed, notes
-57, Leopards, Lone Star Regional,2,1,6.0,2,60.0,60,0,0,1,2.0," ""able to shoot in all goals but first"""
-118, Robonauts, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-148, Robowranglers, Lone Star Regional,1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-192, GRT, Lone Star Regional,4,2,0.0,0,0.0,0,0,-1,1,10.0," """""
-231, High Voltage, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-418, Purple Haze, Lone Star Regional,0,1,6.0,2,29.0,29,0,0,1,5.0," ""maybe second with 30 sec"""
-441, DEVIL DOGS, Lone Star Regional,3,1,6.0,2,44.0,50,0,0,0,0.0," ""  6wd"""
-457, Grease Monkeys, Lone Star Regional,4,1,0.0,0,0.0,0,0,0,1,0.0," """""
-624, CRyptonite, Lone Star Regional,3,2,8.0,2,27.0,27,0,1,1,0.0," ""shoot into pyramid goals"
-653, NOSIDE, Lone Star Regional,0,1,8.0,2,30.5,30,0,1,0,0.0," """""
-704, Warriors, Lone Star Regional,2,2,6.0,1,28.0,0,0,1,1,0.0," ""pick up upside down disks though not preferred.. 6 wheel: 1 omni and 2 regular wheels"
-1255, Blarglefish, Lone Star Regional,4,1,6.0,1,32.0,32,0,0,1,0.0," ""6 wheel drive train"
-1429, TEAM KAOS, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-1477, Texas Torque, Lone Star Regional,-1,2,4.0,2,28.0,45,0,0,1,0.0," ""could tweak and shoot"
-1801, The Dapper Dans, Lone Star Regional,-1,1,6.0,2,0.0,0,0,-1,-1,0.0," ""6 wheels"
-1865, RoboBuffs, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-2438, Iobotics, Lone Star Regional,0,0,6.0,2,60.0,60,0,0,1,5.0," ""dump frisbees into first goal"""
-2582, PantherBots, Lone Star Regional,4,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-2585, Scitobors, Lone Star Regional,4,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-2587, DiscoBots, Lone Star Regional,-1,1,4.0,2,0.0,0,0,-1,-1,0.0," """""
-2737, Wizards, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-2789, TeXplosion, Lone Star Regional,3,1,6.0,2,28.0,60,0,0,1,5.0," ""only able to dunk frisbee into first goal"
-2881, Lady Cans, Lone Star Regional,3,1,8.0,1,35.0,35,0,-1,0,0.0," ""shoot in any goal"
-2882, Nuts n Boltz, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-2936, Gatorzillas, Lone Star Regional,3,1,4.0,1,60.0,60,0,1,2,0.0," ""6 wheel drive"
-2982, Phoenix Metal, Lone Star Regional,3,1,6.0,2,52.0,52,0,0,0,0.0," ""collect disks into a pan that lowers and dumps into low"
-3035, Droid Rage, Lone Star Regional,0,1,8.0,2,40.0,40,0,0,0,0.0," ""first goal possibly second"""
-3103, Iron Plaid, Lone Star Regional,3,1,6.0,1,27.0,45,0,1,1,5.0," ""4 wheel drives"
-3305, Parkland MATS, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-3335, Cy-Borgs, Lone Star Regional,3,1,6.0,1,59.0,59,0,0,1,0.0," ""4 wheel drive"
-3481, Bronc Botz, Lone Star Regional,3,1,4.0,3,29.0,58,0,1,-1,0.0," ""will attempt to go 30"
-3516, RoboChiefs, Lone Star Regional,4,1,6.0,1,60.0,60,0,0,2,20.0," ""d-bot does not shoot"""
-3526, Blue Ignition, Lone Star Regional,4,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-3612, GearHogs, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-3666, Bolton Bear Bots, Lone Star Regional,4,1,6.0,1,42.0,42,0,1,1,0.0," ""6 wheel drive train"
-3672, Robo TORS, Lone Star Regional,3,1,6.0,1,30.0,30,0,1,1,0.0," ""caster wheels in front"""
-3696, C.A.R.D.S, Lone Star Regional,4,1,8.0,1,27.0,60,0,0,0,0.0," ""4 friction wheels"
-3728, Iron Panda, Lone Star Regional,4,1,6.0,2,38.0,38,0,0,0,0.0," ""2 omnis and one any mark (6 wheels)"
-3730, Nu-Bots, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0,
-3735, Klein Bots, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0,
-3741, CoreGIX, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-3833, The FIRST 3833, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-3847, Spectrum, Lone Star Regional,4,0,4.0,3,28.0,84,0,1,1,0.0," ""split arcade 8 wheels"""
-3961, MBA Execs, Lone Star Regional,4,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4000, Texsquad, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4155, SHARC, Lone Star Regional,4,1,6.0,2,36.0,36,0,0,1,0.0," ""shoot top"
-4280, N-Gen, Lone Star Regional,2,1,6.0,2,28.0,0,0,1,1,10.0," ""still debating on height"
-4295, PURE ENERGY, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4328, Furious Falcons, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4346, Crimson Dragons, Lone Star Regional,4,1,6.0,1,34.0,34,0,1,1,0.0," ""4 wheel drive"
-4355, CPBOT, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4587, Falcons, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4589, AdamasBots, Lone Star Regional,4,1,6.0,1,37.75,53,0,0,1,25.0," ""dumping robot into lower goal"
-4639, Spartan, Lone Star Regional,3,1,6.0,2,53.75,53,0,0,1,7.5," ""hold 4"
-4672, Youth in Black, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4679, Dragonators, Lone Star Regional,-1,-1,0.0,0,0.0,0,0,-1,-1,0.0," """""
-4689, ROyal BOTS, Lone Star Regional,3,1,6.0,2,37.0,37,0,0,1,15.0," ""shoot in all three depending on locatioms"""
-4731, monarch-e, Lone Star Regional,4,1,6.0,1,42.0,42,0,0,0,0.0," ""can hold three frisbees"
-4746, Alpha Gear, Lone Star Regional,3,0,6.0,1,54.0,54,0,0,0,0.0," ""shoots only in low goal"
+Team Number, Team Name, tournament
+57, Leopards, Alamo Regional 
+118, Robonauts, Alamo Regional 
+148, Robowranglers, Alamo Regional 
+190, Gompei and the H.E.R.D., Alamo Regional 
+231, High Voltage, Alamo Regional 
+422, Mech Tech Dragons, Alamo Regional 
+441, DEVIL DOGS, Alamo Regional 
+457, Grease Monkeys, Alamo Regional 
+499, Toltechs, Alamo Regional 
+624, CRyptonite, Alamo Regional 
+653, NOSIDE, Alamo Regional 
+704, Warriors, Alamo Regional 
+1255, Blarglefish, Alamo Regional 
+1642, D1G1T4L Supremacy, Alamo Regional 
+2158, ausTIN CANs, Alamo Regional 
+2190, Team Hero, Alamo Regional 
+2386, Trojans, Alamo Regional 
+2468, Team Appreciate, Alamo Regional 
+2721, Blue mite, Alamo Regional 
+2789, TEXplosion, Alamo Regional 
+2805, The Wolf Pack, Alamo Regional 
+2833, Roboscorpions, Alamo Regional 
+2881, Lady Cans, Alamo Regional 
+2936, Gatorzillas, Alamo Regional 
+2952, Brackenbots, Alamo Regional 
+2966, XM, Alamo Regional 
+2969, Hurricane Robotics, Alamo Regional 
+2982, Phoenix Metal, Alamo Regional 
+2985, Tech Know Logic, Alamo Regional 
+3008, Falcons, Alamo Regional 
+3029, T-STEM Titans, Alamo Regional 
+3035, Droid Rage, Alamo Regional 
+3080, So-Called Robotics, Alamo Regional 
+3103, Iron Plaid, Alamo Regional 
+3240, Team Orion, Alamo Regional 
+3305, Parkland MATS, Alamo Regional 
+3320, Miracles & Machines (M&Ms), Alamo Regional 
+3335, Cy-Ranch Cy-Borgs, Alamo Regional 
+3337, Panthrobotics, Alamo Regional 
+3345, Metal Jackets, Alamo Regional 
+3366, Plowbots, Alamo Regional 
+3410, LIFE, Alamo Regional 
+3481, Bronc Botz, Alamo Regional 
+3561, RoboRaiders, Alamo Regional 
+3614, The Love Machine, Alamo Regional 
+3666, Bolton Bear Bots, Alamo Regional 
+3679, rattlers, Alamo Regional 
+3700, Bot-cats, Alamo Regional 
+3743, Eagle Bots, Alamo Regional 
+3802, RoboPOP, Alamo Regional 
+3999, Shadetree Robotics, Alamo Regional 
+4063, TriKzR4Kidz, Alamo Regional 
+4219, R4 Robo Riders, Alamo Regional 
+4259, Robo Dragons, Alamo Regional 
+4332, EHS RoboCats, Alamo Regional 
+4351, Broncobots, Alamo Regional 
+4378, Dark Knights, Alamo Regional 
+4412, Stallions, Alamo Regional 
+4558, Jagernauts, Alamo Regional 
+4597, SABERBOTS, Alamo Regional 
+4610, BearTecs, Alamo Regional 
+4670, The Fighting Mongeese, Alamo Regional 
+4696, RoboAzTechs, Alamo Regional 
+4747, Millennium Falcons, Alamo Regional 
+4981, Grifftechs, Alamo Regional 
+5052, RoboLobos, Alamo Regional 
+5079, LGS, Alamo Regional 
+5103, Jagernauts, Alamo Regional 
+5241, Apaches, Alamo Regional 

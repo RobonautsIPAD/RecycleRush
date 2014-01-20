@@ -131,11 +131,11 @@
     }
 
     // Set Bluetooth segment
-    if ([[prefs objectForKey:@"bluetooth"] isEqualToString:@"Scouter"]) {
-        _bluetoothSegment.selectedSegmentIndex = 0;
+    if ([[prefs objectForKey:@"bluetooth"] intValue] == Scouter) {
+        _bluetoothSegment.selectedSegmentIndex = Scouter;
     }
     else {
-        _bluetoothSegment.selectedSegmentIndex = 1;
+        _bluetoothSegment.selectedSegmentIndex = Master;
     }
 }
 
@@ -268,15 +268,14 @@
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
     int current;
     current = segmentedControl.selectedSegmentIndex;
-    
+
     if (current == 0) {
-        [prefs setObject:@"Scouter" forKey:@"bluetooth"];
+        [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
     }
     else {
-        [prefs setObject:@"Master" forKey:@"bluetooth"];
+        [prefs setObject:[NSNumber numberWithInt:Master] forKey:@"bluetooth"];
     }
 }
-
 
 -(void) viewWillDisappear:(BOOL)animated
 {

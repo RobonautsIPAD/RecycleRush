@@ -79,6 +79,9 @@
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
+
+    if (![csvContent count]) return;
+
     if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Tournament"]) {
         CreateTournament *tournament = [[CreateTournament alloc] initWithDataManager:_dataManager];
         int c;
@@ -97,6 +100,9 @@
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
+
+    if (![csvContent count]) return;
+
     if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Team Number"]) {
         TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
         int c;
@@ -143,6 +149,9 @@
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
+
+    if (![csvContent count]) return;
+
     if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Match"]) {
         CreateMatch *match = [[CreateMatch alloc] initWithDataManager:_dataManager];
         int c;
@@ -161,6 +170,9 @@
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
+
+    if (![csvContent count]) return;
+
     if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Tournament"]) {
         CreateMatch *match = [[CreateMatch alloc] initWithDataManager:_dataManager];
         int c;

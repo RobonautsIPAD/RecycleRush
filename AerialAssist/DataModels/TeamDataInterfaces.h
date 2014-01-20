@@ -32,7 +32,7 @@
 -(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament;
 -(NSString *) outputFormat:(NSAttributeType)type forValue:data;
 -(void)setTeamDefaults:(TeamData *)blankTeam;
-
+-(NSData *)packageTeamForXFer:(TeamData *)team;
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;
 #endif

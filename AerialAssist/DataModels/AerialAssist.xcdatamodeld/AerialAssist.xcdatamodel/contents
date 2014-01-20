@@ -154,7 +154,11 @@
         <relationship name="match" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="team" inverseEntity="TeamScore" syncable="YES"/>
         <relationship name="photoList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="teamPhoto" inverseEntity="Photo" syncable="YES"/>
         <relationship name="regional" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
-        <relationship name="tournament" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TournamentData" inverseName="teams" inverseEntity="TournamentData" syncable="YES"/>
+        <relationship name="tournament" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TournamentData" inverseName="teams" inverseEntity="TournamentData" syncable="YES">
+            <userInfo>
+                <entry key="key" value="tournament, tournament data"/>
+            </userInfo>
+        </relationship>
     </entity>
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="alliance" optional="YES" attributeType="String" maxValueString="7" syncable="YES"/>

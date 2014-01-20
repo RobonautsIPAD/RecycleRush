@@ -59,11 +59,7 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
-{
-    NSLog(@"team data remove");
-//    TeamDataInterfaces *teamDataMigrate = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-//    [teamDataMigrate migrateTeamData];
-    
+{    
     NSError *error = nil;
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];

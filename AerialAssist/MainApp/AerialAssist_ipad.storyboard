@@ -1736,10 +1736,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="GcZ-FA-vXA">
-                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -4225,11 +4225,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ofk-bm-5rz"/>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="6V1-MF-63T"/>
         <segue reference="73l-5i-erv"/>
+        <segue reference="0QU-hg-CV0"/>
+        <segue reference="M4x-HG-6MQ"/>
+        <segue reference="Ofk-bm-5rz"/>
         <segue reference="V35-QX-fH1"/>
-        <segue reference="TkS-kf-3fo"/>
     </inferredMetricsTieBreakers>
 </document>

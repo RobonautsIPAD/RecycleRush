@@ -246,6 +246,53 @@
     }
 }
 
+-(NSData *)packageTeamForXFer:(TeamData *)team {
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    NSDictionary *attributes = [[team entity] attributesByName];
+    for (NSString *item in attributes) {
+        if ([team valueForKey:item]) {
+            [keyList addObject:item];
+            [valueList addObject:[team valueForKey:item]];
+        }
+    }
+
+    NSArray *allTournaments = [team.tournament allObjects];
+    NSMutableArray *tournamentNames = [NSMutableArray array];
+    for (int i=0; i<[allTournaments count]; i++) {
+        [tournamentNames addObject:[[allTournaments objectAtIndex:i] valueForKey:@"name"]];
+    }
+    [keyList addObject:@"tournament"];
+    [valueList addObject:tournamentNames];
+
+/*
+    NSArray *allRegionals = [team.regional allObjects];
+    NSMutableArray *regionalData = [NSMutableArray array];
+    for (int i=0; i<[allRegionals count]; i++) {
+        [tournamentNames addObject:[[allRegionals objectAtIndex:i] valueForKey:@"name"]];
+    }
+    [keyList addObject:allRegionals];
+    [valueList addObject:[team valueForKey:@"regional"]];
+*/
+    NSArray *allPhotos = [team.photoList allObjects];
+    NSMutableArray *photoNames = [NSMutableArray array];
+    for (int i=0; i<[allPhotos count]; i++) {
+        [photoNames addObject:[[allPhotos objectAtIndex:i] valueForKey:@"name"]];
+    }
+    [keyList addObject:@"photoList"];
+    [valueList addObject:photoNames];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    NSLog(@"Dictionary = %@", dictionary);
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+    //     To decode when I unpack
+    //     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:myData];
+
+    
+    return myData;
+}
+
+
 -(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament {
     NSLog(@"Export teams to csv");
     NSString *csvString;

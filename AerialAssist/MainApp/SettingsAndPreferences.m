@@ -43,7 +43,7 @@
         prefs = [NSUserDefaults standardUserDefaults];        
     }
     
-    NSString *teamDataSync = [prefs objectForKey:@"teamDataSync"];
+    NSNumber *teamDataSync = [prefs objectForKey:@"teamDataSync"];
     if (teamDataSync == nil) {
         [prefs setObject:[NSNumber numberWithInt:0] forKey:@"teamDataSync"];
     }
@@ -56,6 +56,11 @@
     NSString *matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
     if (matchResultsSync == nil) {
         [prefs setObject:[NSNumber numberWithInt:0] forKey:@"matchResultsSync"];
+    }
+
+    NSNumber *bluetoothType = [prefs objectForKey:@"bluetooth"];
+    if (bluetoothType == nil) {
+        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"bluetooth"];
     }
 
     // It is easier to just set these than check to see if they are set right and
