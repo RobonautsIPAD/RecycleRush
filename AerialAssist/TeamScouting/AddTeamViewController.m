@@ -20,6 +20,9 @@
 @synthesize teamNumberTextField = _teamNumberTextField;
 @synthesize teamNameTextField = _teamNameTextField;
 @synthesize delegate = _delegate;
+@synthesize splashPicture =_splashPicture;
+@synthesize mainLogo = _mainLogo;
+@synthesize pictureCaption = _pictureCaption;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +38,12 @@
     [super viewDidLoad];
     self.title =  @"Add Team";
 	// Do any additional setup after loading the view.
+    
+    // Display the Robotnauts Banner
+    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+    // Display the Label for the Picture
+    _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _pictureCaption.text = @"Just Hangin' Out";
 }
 
 - (void)viewDidUnload {
@@ -94,6 +103,40 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    switch(toInterfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            //( , , , )
+            _mainLogo.frame = CGRectMake(0, 0, 1024, 285);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+            _splashPicture.frame = CGRectMake(23, 308, 468, 330);
+            _pictureCaption.frame = CGRectMake(23, 646, 468, 39);
+            break;
+        default:
+            break;
+            
+    }
 }
 
 @end

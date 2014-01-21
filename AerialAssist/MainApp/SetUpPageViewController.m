@@ -107,6 +107,7 @@
     return YES;
 }
 
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -120,6 +121,8 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    NSLog(@"IOS Version = IOS 6.1");
     
     switch(toInterfaceOrientation) {
         case UIInterfaceOrientationLandscapeLeft:
@@ -149,6 +152,7 @@
             break;
     }
 }
+
 
 /*
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
