@@ -14,6 +14,7 @@
 #import "MatchData.h"
 #import "DataManager.h"
 #import "Regional.h"
+#import "Photo.h"
 #import "DriveTypeDictionary.h"
 #import "FieldDrawingViewController.h"
 
@@ -122,6 +123,7 @@
     regionalList = nil;
     regionalHeader = nil;
     matchHeader = nil;
+    _imageView = nil;
 }
 
 
@@ -131,6 +133,8 @@
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoSaved:) name:@"photoSaved" object:nil];
 
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -566,54 +570,17 @@
 }
 
 -(void)savePhoto: (UIImage *)image {
-//    [_dataManager savePhotoToAlbum:image];
+    [_dataManager savePhotoToAlbum:image];
+}
 
-    // Check if robot directory exists, if not, create it  
-    if (![[NSFileManager defaultManager] fileExistsAtPath:photoPath isDirectory:NO]) {
-        if (![[NSFileManager defaultManager]createDirectoryAtPath:photoPath 
-                                      withIntermediateDirectories: YES 
-                                                       attributes: nil 
-                                                            error: NULL]) {
-            NSLog(@"Dreadful error creating directory to save photos");
-            return;
-        }
-    }
-    // Create paths to output images
-    NSString *number;
-    if ([_team.number intValue] < 100) {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [_team.number intValue]]];
-    } else if ( [_team.number intValue] < 1000) {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [_team.number intValue]]];
-    } else {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
-    }
-    //    NSString  *imgName = [NSString stringWithFormat:@"%d", [_team.number intValue], @"img001"];
-//    NSString  *pngPath = [photoPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_img001.png", number]];
-    NSString  *jpgPath;
-    NSError *fileError;
-    NSArray *dirList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:photoPath error:&fileError];
-    int dirCount = [dirList count];
-    if (dirCount) {
-        if (dirCount < 10) {
-            jpgPath = [photoPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_img00%d.jpg", number, dirCount+1]];
-        } else if (dirCount < 100) {
-            jpgPath = [photoPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_img0%d.jpg", number, dirCount+1]];
-        }
-        else {
-            jpgPath = [photoPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_img%d.jpg", number, dirCount+1]];
-        }
-    }
-    else {
-        jpgPath = [photoPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_img001.jpg", number]];
-    }
-    // NSLog(@"jpgPath = %@", jpgPath);
-    // Write a UIImage to JPEG with minimum compression (best quality)
-    // The value 'image' must be a UIImage object
-    // The value '1.0' represents image compression quality as value from 0.0 to 1.0
-    [UIImageJPEGRepresentation(image, 1.0) writeToFile:jpgPath atomically:YES];
-    
-    // Write image to PNG
- //   [UIImagePNGRepresentation(image) writeToFile:pngPath atomically:YES]; 
+-(void)photoSaved:(NSNotification *)notification {
+    NSString *passedString = [[notification userInfo] objectForKey:@"photoName"];
+    NSLog(@"Photo saved = %@", passedString);
+    _team.primePhoto = passedString;
+    Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
+                                                             inManagedObjectContext:_dataManager.managedObjectContext];
+    photoRecord.name = passedString;
+    [_team addPhotoListObject:photoRecord];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

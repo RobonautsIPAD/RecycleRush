@@ -374,7 +374,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLW-NJ-lpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-342" y="-1524"/>
+            <point key="canvasLocation" x="-722" y="-1824"/>
         </scene>
         <!--Field Drawing View Controller-->
         <scene sceneID="wZi-u7-xkK">
@@ -4228,11 +4228,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6V1-MF-63T"/>
         <segue reference="73l-5i-erv"/>
-        <segue reference="0QU-hg-CV0"/>
+        <segue reference="6V1-MF-63T"/>
+        <segue reference="2PU-1e-EUe"/>
         <segue reference="M4x-HG-6MQ"/>
-        <segue reference="Ofk-bm-5rz"/>
         <segue reference="V35-QX-fH1"/>
+        <segue reference="Ofk-bm-5rz"/>
     </inferredMetricsTieBreakers>
 </document>
