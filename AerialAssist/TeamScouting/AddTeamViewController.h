@@ -17,6 +17,9 @@
 @property (nonatomic, weak) id<AddTeamDelegate> delegate;
 @property (nonatomic, weak) IBOutlet UITextField *teamNumberTextField;
 @property (nonatomic, weak) IBOutlet UITextField *teamNameTextField;
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 
 - (IBAction)cancelVC:(id)sender;
 - (IBAction)addAction:(id)sender;
