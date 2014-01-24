@@ -10,8 +10,8 @@
             <objects>
                 <viewController id="7nm-2U-oN4" customClass="SplashPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zm8-iS-f36"/>
-                        <viewControllerLayoutGuide type="bottom" id="BiA-Zu-8fM"/>
+                        <viewControllerLayoutGuide type="top" id="SXE-Fl-3v6"/>
+                        <viewControllerLayoutGuide type="bottom" id="jvn-ib-HPG"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="e73-z9-DSP">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -129,8 +129,8 @@
             <objects>
                 <viewController id="mzW-iW-Rm3" customClass="AddTeamViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hqi-Pz-3EB"/>
-                        <viewControllerLayoutGuide type="bottom" id="0lf-dw-DeJ"/>
+                        <viewControllerLayoutGuide type="top" id="rAY-1l-Azp"/>
+                        <viewControllerLayoutGuide type="bottom" id="BEz-VF-bq8"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="HH5-jk-LWc">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -219,8 +219,8 @@
             <objects>
                 <viewController title="Tournament Analysis View Controller" id="SuG-LP-eqy" customClass="TournamentAnalysisViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ObF-C3-Rzh"/>
-                        <viewControllerLayoutGuide type="bottom" id="NTd-h2-xuj"/>
+                        <viewControllerLayoutGuide type="top" id="9yv-Nz-GoS"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cp4-w5-uNb"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="bN4-g4-vz3">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -297,8 +297,8 @@
             <objects>
                 <viewController id="Vpx-S4-nE1" customClass="RidleyPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6ja-cG-wsV"/>
-                        <viewControllerLayoutGuide type="bottom" id="vUb-LA-voi"/>
+                        <viewControllerLayoutGuide type="top" id="pfp-bM-m0e"/>
+                        <viewControllerLayoutGuide type="bottom" id="nsB-ch-soU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IQh-c3-Tqa">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -421,8 +421,8 @@
             <objects>
                 <viewController id="jao-sa-2Tp" userLabel="Field Drawing View Controller" customClass="FieldDrawingViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9eM-9y-Lpu"/>
-                        <viewControllerLayoutGuide type="bottom" id="fov-8H-3Pz"/>
+                        <viewControllerLayoutGuide type="top" id="wLM-D1-wKB"/>
+                        <viewControllerLayoutGuide type="bottom" id="ca0-3h-au0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xya-gI-ebY">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -792,8 +792,8 @@
             <objects>
                 <viewController id="jO0-sC-Asm" customClass="SetUpPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="I3g-rn-rkT"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nsf-sY-KYT"/>
+                        <viewControllerLayoutGuide type="top" id="O1p-HA-MOz"/>
+                        <viewControllerLayoutGuide type="bottom" id="3i2-NZ-IgO"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="MHi-oB-dXD">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -881,8 +881,8 @@
             <objects>
                 <viewController id="WBb-6A-oWA" customClass="MainScoutingPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Suk-fP-0Es"/>
-                        <viewControllerLayoutGuide type="bottom" id="F6S-Tw-Zzm"/>
+                        <viewControllerLayoutGuide type="top" id="Nwz-WR-T0V"/>
+                        <viewControllerLayoutGuide type="bottom" id="ryk-6E-5XD"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NVv-ep-wPb">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -1512,8 +1512,8 @@
             <objects>
                 <viewController id="IC0-8Z-knh" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xWp-8W-rgf"/>
-                        <viewControllerLayoutGuide type="bottom" id="rmI-7Z-dvS"/>
+                        <viewControllerLayoutGuide type="top" id="D9p-sK-xLB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fmm-mG-odz"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="r9u-JY-TLj">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -1664,8 +1664,8 @@
             <objects>
                 <viewController id="Hgm-qx-ZsO" customClass="ftpTransferViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cyx-kZ-mbb"/>
-                        <viewControllerLayoutGuide type="bottom" id="7N3-42-8gT"/>
+                        <viewControllerLayoutGuide type="top" id="Zfb-JG-RPn"/>
+                        <viewControllerLayoutGuide type="bottom" id="R5C-ik-wMm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xqy-ww-xAg">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -1790,16 +1790,15 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="GcZ-FA-vXA">
-                                    <rect key="frame" x="0.0" y="0.0" width="991" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="735" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" fixedFrame="YES" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="kE5-oR-KPc">
@@ -1901,8 +1900,8 @@
             <objects>
                 <viewController id="4ra-8V-FJ1" customClass="DownloadPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="syV-3U-UZp"/>
-                        <viewControllerLayoutGuide type="bottom" id="DrH-6d-sEw"/>
+                        <viewControllerLayoutGuide type="top" id="s7L-gP-5dq"/>
+                        <viewControllerLayoutGuide type="bottom" id="jJk-ee-qZb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3Zd-08-x84">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -2014,8 +2013,8 @@
             <objects>
                 <viewController id="smL-wy-wEE" customClass="MasonPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="x66-jk-cel"/>
-                        <viewControllerLayoutGuide type="bottom" id="20E-p2-zFf"/>
+                        <viewControllerLayoutGuide type="top" id="wrO-sP-SoQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="9jJ-K3-hWP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="35J-YI-CJY">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -2475,8 +2474,8 @@
             <objects>
                 <viewController id="Svo-Ej-nRw" customClass="MatchAnalysisViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="MTo-lR-uLT"/>
-                        <viewControllerLayoutGuide type="bottom" id="Th5-aZ-uRP"/>
+                        <viewControllerLayoutGuide type="top" id="nFZ-Sj-yPh"/>
+                        <viewControllerLayoutGuide type="bottom" id="3QR-IJ-kR5"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="lJg-R7-d7N">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -2541,8 +2540,8 @@
             <objects>
                 <viewController id="8Ip-0z-ATI" customClass="LucienPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PVm-A0-mB9"/>
-                        <viewControllerLayoutGuide type="bottom" id="sCw-Xf-HbK"/>
+                        <viewControllerLayoutGuide type="top" id="QqW-xp-JJp"/>
+                        <viewControllerLayoutGuide type="bottom" id="wia-HA-LGl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dml-uq-Fqt">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -3020,8 +3019,8 @@
             <objects>
                 <viewController id="F6T-N4-qDS" customClass="RossPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2gH-rl-kgf"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZBe-89-UwD"/>
+                        <viewControllerLayoutGuide type="top" id="bxV-3X-jkG"/>
+                        <viewControllerLayoutGuide type="bottom" id="waW-jm-G0w"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZRQ-Ky-b6u">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -3272,8 +3271,8 @@
             <objects>
                 <viewController id="kha-eL-sUY" customClass="TeamDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pDi-B8-VYa"/>
-                        <viewControllerLayoutGuide type="bottom" id="HtK-Bp-PYx"/>
+                        <viewControllerLayoutGuide type="top" id="OYZ-jk-Xqe"/>
+                        <viewControllerLayoutGuide type="bottom" id="d8C-fN-BCi"/>
                     </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3wH-iB-M0S">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -3769,8 +3768,8 @@
             <objects>
                 <viewController id="foR-gV-UYn" customClass="TabletSyncViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kUp-PE-fWw"/>
-                        <viewControllerLayoutGuide type="bottom" id="p1V-dW-ljJ"/>
+                        <viewControllerLayoutGuide type="top" id="BYN-ZG-7dR"/>
+                        <viewControllerLayoutGuide type="bottom" id="8UR-AB-5VX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yv6-Aq-5Dj">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
@@ -3968,8 +3967,8 @@
             <objects>
                 <viewController id="85j-Gf-6rf" customClass="ImportDataViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IFM-dk-QOk"/>
-                        <viewControllerLayoutGuide type="bottom" id="h41-DJ-hGc"/>
+                        <viewControllerLayoutGuide type="top" id="pQT-Q4-GfL"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sfc-IC-gOW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hbI-XU-Lc7">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -4010,8 +4009,8 @@
             <objects>
                 <viewController id="iHf-Ay-CP9" customClass="ImportUSFirstViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lGe-FO-xHV"/>
-                        <viewControllerLayoutGuide type="bottom" id="mNU-OX-quL"/>
+                        <viewControllerLayoutGuide type="top" id="431-7h-knz"/>
+                        <viewControllerLayoutGuide type="bottom" id="enK-WW-rH5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="78l-kc-xua">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
@@ -4029,15 +4028,15 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Jev-G2-TpE"/>
-                        <viewControllerLayoutGuide type="bottom" id="meE-pr-QJ3"/>
+                        <viewControllerLayoutGuide type="top" id="0ct-4n-5dt"/>
+                        <viewControllerLayoutGuide type="bottom" id="2L8-bH-fzO"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                    <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tHa-09-JEe">
-                                <rect key="frame" x="66" y="97" width="236" height="30"/>
+                                <rect key="frame" x="354" y="157" width="296" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4046,8 +4045,9 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfh-GT-f9u">
-                                <rect key="frame" x="66" y="148" width="236" height="48"/>
+                                <rect key="frame" x="354" y="195" width="296" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Match Type">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -4056,14 +4056,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Red" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cjb-1M-EFx">
-                                <rect key="frame" x="221" y="241" width="42" height="21"/>
+                                <rect key="frame" x="553" y="349" width="97" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCL-wn-H5O">
-                                <rect key="frame" x="200" y="278" width="97" height="30"/>
+                                <rect key="frame" x="553" y="386" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4072,7 +4072,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 2" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IKq-Gs-jY7">
-                                <rect key="frame" x="200" y="323" width="97" height="30"/>
+                                <rect key="frame" x="553" y="431" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4081,7 +4081,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 3" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fhd-TR-KER">
-                                <rect key="frame" x="200" y="371" width="97" height="30"/>
+                                <rect key="frame" x="553" y="479" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4090,14 +4090,14 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Blue" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hlx-LZ-OQa">
-                                <rect key="frame" x="72" y="241" width="42" height="21"/>
+                                <rect key="frame" x="354" y="349" width="97" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0ra-ZW-VRz">
-                                <rect key="frame" x="51" y="278" width="97" height="30"/>
+                                <rect key="frame" x="354" y="386" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4106,7 +4106,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 2" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uOJ-Md-884">
-                                <rect key="frame" x="51" y="323" width="97" height="30"/>
+                                <rect key="frame" x="354" y="431" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4115,7 +4115,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="team 3" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xsa-ss-2zg">
-                                <rect key="frame" x="51" y="371" width="97" height="30"/>
+                                <rect key="frame" x="354" y="479" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -4123,9 +4123,23 @@
                                     <outlet property="delegate" destination="Rrs-46-XsF" id="AsX-MF-q9m"/>
                                 </connections>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="photo.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="r4Z-yO-gEp">
+                                <rect key="frame" x="278" y="577" width="468" height="330"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAL-rZ-1vc">
+                                <rect key="frame" x="-24" y="64" width="285" height="960"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jTr-tJ-dHm">
+                                <rect key="frame" x="281" y="946" width="468" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Match" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -4159,11 +4173,11 @@
             <objects>
                 <viewController id="rCL-DE-Sx9" customClass="MatchDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5uc-Z0-2cX"/>
-                        <viewControllerLayoutGuide type="bottom" id="B8E-SW-ukg"/>
+                        <viewControllerLayoutGuide type="top" id="XBw-kn-kop"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jvt-TG-iZ0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1jO-E5-jgJ">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Aq2-BS-C03" userLabel="Text Field - Red 1">
@@ -4283,7 +4297,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="I32-xv-f5E"/>
                     <connections>
@@ -4332,11 +4345,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6V1-MF-63T"/>
         <segue reference="73l-5i-erv"/>
         <segue reference="0QU-hg-CV0"/>
-        <segue reference="M4x-HG-6MQ"/>
-        <segue reference="Ofk-bm-5rz"/>
         <segue reference="V35-QX-fH1"/>
+        <segue reference="Ofk-bm-5rz"/>
+        <segue reference="TkS-kf-3fo"/>
+        <segue reference="npl-Y5-KtP"/>
     </inferredMetricsTieBreakers>
 </document>
