@@ -3,7 +3,7 @@
 // Robonauts Scouting
 //
 //  Created by Kris Pettinger on 6/24/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __RobonautsScouting__. All rights reserved.
 //
 
 #import "TeamDetailViewController.h"
@@ -19,17 +19,17 @@
 #import "FieldDrawingViewController.h"
 
 @implementation TeamDetailViewController {
-    NSArray *matchList;
-    DriveTypeDictionary *driveDictionary;
-    id popUp;
-    BOOL dataChange;
-    UIView *regionalHeader;
-    NSArray *regionalList;
-    UIView *matchHeader;
-    NSString *photoPath;
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
+    DriveTypeDictionary *driveDictionary;
+    UIView *matchHeader;
+    NSArray *matchList;
+    UIView *regionalHeader;
+    NSArray *regionalList;
+    NSString *photoPath;
+    id popUp;
+    BOOL dataChange;
 }
 
 @synthesize dataManager = _dataManager;
@@ -55,6 +55,7 @@
 @synthesize numberText = _numberText;
 @synthesize nameTextField = _nameTextField;
 @synthesize notesViewField = _notesViewField;
+
 @synthesize shootingLevel = _shootingLevel;
 @synthesize auton = _auton;
 @synthesize maxHeight = _maxHeight;
@@ -101,18 +102,23 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    NSLog(@"TeamDetail Unload");
+    //  Variables declared in the .m
     prefs = nil;
     tournamentName = nil;
     deviceName = nil;
-    matchList = nil;
     driveDictionary = nil;
+    matchHeader = nil;
+    matchList = nil;
+    regionalList = nil;
+    regionalHeader = nil;
+    photoPath = nil;
     popUp = nil;
+
+    //  Variables declared in the .h
     _dataManager = nil;
     _fetchedResultsController = nil;
-    _team = nil;
     _teamIndex = nil;
-    photoPath = nil;
+    _team = nil;
     _pictureController = nil;
     _driveTypePicker = nil;
     _driveTypeList = nil;
@@ -120,26 +126,27 @@
     _intakeList = nil;
     _climbZonePicker = nil;
     _climbZoneList = nil;
-    regionalList = nil;
-    regionalHeader = nil;
-    matchHeader = nil;
-    _imageView = nil;
 }
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    // Check to make sure the data manager has been initialized
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
 
+    // Set the notification to receive information after a photo has been saved
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoSaved:) name:@"photoSaved" object:nil];
 
+    // Get the preferences needed for this VC
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
-    _numberText.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+
+    // Set defaults for all the text boxes
+    [self SetTextBoxDefaults:_numberText];
     [self SetTextBoxDefaults:_nameTextField];
     [self SetTextBoxDefaults:_shootingLevel];
     [self SetTextBoxDefaults:_auton];
@@ -149,12 +156,18 @@
     [self SetTextBoxDefaults:_nwheels];
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
+
+//    Undecided about the take photo and choose photo buttons. We are
+//    probably going to look into finding the camera button that most apps
+//    that access the camera use.
 //    [takePhotoBtn setTitle:@"Take Photo" forState:UIControlStateNormal];
 //    takePhotoBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
 
+    // Initialize the headers for the regional and match tables
     [self createRegionalHeader];
     [self createMatchHeader];
     
+    // Initialize the choices for the pop-up menus.
     driveDictionary = [[DriveTypeDictionary alloc] init];
     _driveTypeList = [[driveDictionary getDriveTypes] mutableCopy];
     _intakeList = [[NSMutableArray alloc] initWithObjects:@"Unknown", @"Floor", @"Human", @"Both", nil];
@@ -165,6 +178,10 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    // Team Detail can be reached from different views. If the parent VC is Team List VC, then
+    //  the whole team list is passed in through the fetchedResultsController, so the prev and next
+    //  buttons are activated. If the parent is the Mason VC, then only just one team is passed in, so
+    //  there are no next and previous teams in the list, so the buttons should be hidden.
     if (_fetchedResultsController && _teamIndex) {
         _team = [_fetchedResultsController objectAtIndexPath:_teamIndex];
         [_prevTeamButton setHidden:NO];
@@ -179,6 +196,8 @@
 }
 
 -(void)setDataChange {
+    //  A change to one of the database fields has been detected. Set the time tag for the
+    //  saved filed and set the device name into the field to indicated who made the change.
     _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     _team.savedBy = deviceName;
     NSLog(@"Saved by:%@\tTime = %@", _team.savedBy, _team.saved);
@@ -186,6 +205,8 @@
 }
 
 -(void)checkDataStatus {
+    // Check to see if a data change has been made. If so, save the database.
+    // At some point, we really need to decide on real error handling.
     if (dataChange) {
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
@@ -196,6 +217,7 @@
 }
 
 -(void)createRegionalHeader {
+    // Header for the regional data table
     regionalHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,35)];
     regionalHeader.backgroundColor = [UIColor lightGrayColor];
     regionalHeader.opaque = YES;
@@ -242,6 +264,7 @@
 }
 
 -(void)createMatchHeader {
+    // Header for the match list table
     matchHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     matchHeader.backgroundColor = [UIColor lightGrayColor];
     matchHeader.opaque = YES;
@@ -264,6 +287,7 @@
 }
 
 -(void)showTeam {
+    //  Set the display fields for the currently selected team.
     self.title = [NSString stringWithFormat:@"%d - %@", [_team.number intValue], _team.name];
     _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
     _nameTextField.text = _team.name;
@@ -300,6 +324,7 @@
 }
 
 -(IBAction)PrevButton {
+    //  Access the previous team in the list
     [self checkDataStatus];
     NSInteger nteams = [self getNumberOfTeams];
     NSInteger row = _teamIndex.row;
@@ -311,6 +336,7 @@
 }
 
 -(IBAction)NextButton {
+    //  Access the next team in the list
     [self checkDataStatus];
     NSInteger nteams = [self getNumberOfTeams];
     NSInteger row = _teamIndex.row;
@@ -328,6 +354,8 @@
 }
 
 -(IBAction)detailChanged:(id)sender {
+    // One of the pop-up menus has been selected. Determine which one
+    //  and push the correct pop-up VC
     UIButton * PressedButton = (UIButton*)sender;
     if (PressedButton == _intakeType) {
         popUp = _intakeType;
@@ -371,6 +399,7 @@
 }
 
 -(void)changeIntake:(NSString *)newIntake {
+    // The user has changed the intake type
    for (int i = 0 ; i < [_intakeList count] ; i++) {
         if ([newIntake isEqualToString:[_intakeList objectAtIndex:i]]) {
             [_intakeType setTitle:newIntake forState:UIControlStateNormal];
@@ -382,6 +411,7 @@
 }
 
 -(void)changeDriveType:(NSString *)newDriveType {
+    // The user has changed the drive train type
     for (int i = 0 ; i < [_driveTypeList count] ; i++) {
         if ([newDriveType isEqualToString:[_driveTypeList objectAtIndex:i]]) {
             [_driveType setTitle:newDriveType forState:UIControlStateNormal];
@@ -393,6 +423,7 @@
 }
 
 -(void)changeClimbZone:(NSString *)newClimbZone {
+    // The user has changed the climb zone
     for (int i = 0 ; i < [_climbZoneList count] ; i++) {
         if ([newClimbZone isEqualToString:[_climbZoneList objectAtIndex:i]]) {
             [_climbZone setTitle:newClimbZone forState:UIControlStateNormal];
@@ -404,6 +435,8 @@
 }
 
 - (void)pickerSelected:(NSString *)newPick {
+    // The user has made a selection on one of the pop-ups. Dismiss the pop-up
+    //  and call the correct method to change the right field.
     if (popUp == _driveType) {
         [_drivePickerPopover dismissPopoverAnimated:YES];
         _drivePickerPopover = nil;
@@ -464,7 +497,7 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
+    // Limit these text fields to numbers only.
     if (textField == _nameTextField || textField == _wheelType || textField == _shootingLevel)  return YES;
     
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
@@ -499,25 +532,23 @@
     return YES;
 }
 
--(IBAction) useCamera: (id)sender
-{   NSLog(@"Take photo");
+-(IBAction) useCamera: (id)sender {
+    //  Use the camera to take a new robot photo
+    NSLog(@"Take photo");
     if ([UIImagePickerController isSourceTypeAvailable:
          UIImagePickerControllerSourceTypeCamera])
     {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        //          imagePicker.mediaTypes = [NSArray arrayWithObjects:
-        //                                    (NSString *) kUTTypeImage,
-        //                                    nil];
                   imagePicker.allowsEditing = NO;
         [self presentModalViewController:imagePicker
                                 animated:YES];
-         //         newMedia = YES;
     }
 }
 
 -(void)getPhoto {
+    // Load the picture for the display. Need to change this to use the new album stuff implemented
+    //  last week.
     NSError *fileError = nil;
     NSArray *dirList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:photoPath error:&fileError];
     int dirCount = [dirList count];
@@ -525,10 +556,6 @@
         NSString  *jpgPath = [photoPath stringByAppendingPathComponent:[dirList objectAtIndex:(dirCount-1)]];
         [_imageView setImage:[UIImage imageWithContentsOfFile:jpgPath]];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        NSLog(@"Team detail ------- change this");
-        [self savePhoto:_imageView.image];
-
     }
 }
 
@@ -540,14 +567,12 @@
         if ([UIImagePickerController isSourceTypeAvailable:
              UIImagePickerControllerSourceTypeSavedPhotosAlbum])
         {
+            //  The user has chosen to pick an existing picture from a photo album.
             UIImagePickerController *imagePicker =
             [[UIImagePickerController alloc] init];
             imagePicker.delegate = self;
             imagePicker.sourceType =
             UIImagePickerControllerSourceTypePhotoLibrary;
-            //            imagePicker.mediaTypes = [NSArray arrayWithObjects:
-            //                                      (NSString *) kUTTypeImage,
-            //                                      nil];
             imagePicker.allowsEditing = NO;
             
             self.pictureController = [[UIPopoverController alloc]
@@ -557,7 +582,6 @@
             
             [_pictureController presentPopoverFromRect:_choosePhotoBtn.bounds inView:_choosePhotoBtn
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            //            newMedia = NO;
         }
     }
 }
@@ -570,12 +594,19 @@
 }
 
 -(void)savePhoto: (UIImage *)image {
+    // Save the photo to an album via ALAssetLibrary. Album will have the APPNAME stored in the preferences
     [_dataManager savePhotoToAlbum:image];
 }
 
 -(void)photoSaved:(NSNotification *)notification {
+    // The photo has been saved. A notification was sent from the ALAsset save function letting
+    //  us find out what the photo name was. The names are saved in the database so that we
+    //  have a list of all the photos for this robot.
     NSString *passedString = [[notification userInfo] objectForKey:@"photoName"];
     NSLog(@"Photo saved = %@", passedString);
+    // For now, set the primePhoto that will appear in the imageView to the last photo taken.
+    //  Once we add the photo collection viewer to allow us to select from the photo list,
+    //  this will need to be changed.
     _team.primePhoto = passedString;
     Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
                                                              inManagedObjectContext:_dataManager.managedObjectContext];
@@ -584,6 +615,8 @@
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Segue occurs when the user selects a match out of the match list table. Receiving
+    //  VC is the FieldDrawing VC.
     NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
     [segue.destinationViewController setTeamScores:matchList];
     [segue.destinationViewController setStartingIndex:indexPath.row];
@@ -620,12 +653,6 @@
 
 - (void)configureRegionalCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Regional *regional = [regionalList objectAtIndex:indexPath.row];
-       // Configure the cell...
-       // Set a background for the cell
-     // UIImageView *tableBackground = [[UIImageView alloc] initWithFrame:cell.frame];
-     // UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
-     // tableBackground.image = image;
-    //  cell.backgroundView = imageView; Change Varable Name "soon" 
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
 	label1.text = [NSString stringWithFormat:@"%d", [regional.week intValue]];
@@ -685,6 +712,7 @@
 }
 
 -(MatchData *)getMatchData: (TeamScore *) teamScore {
+    // Future plans
 /*  if (teamScore.red1) return teamScore.red1;
     if (teamScore.red2) return teamScore.red2;
     if (teamScore.red3) return teamScore.red3;
@@ -696,6 +724,7 @@
 }
 
 -(IBAction)MatchNumberChanged {
+    // The user has typed a new team number in the field. Access that team and display it.
      NSLog(@"TeamNumberChanged");
     [self checkDataStatus];
     int currentTeam = [_numberText.text intValue];
@@ -703,13 +732,11 @@
     for(int x = 0; x < [self getNumberOfTeams]; x++){
         NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
         TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
-        
         if([team.number intValue] == currentTeam){
             _teamIndex = teamIndex;
             _team = team;
             [self showTeam];
             break;
-            //printf("%d", [team.number intValue]);
         }
     }
 }
