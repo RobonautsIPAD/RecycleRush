@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="C3f-kE-sTi">
     <dependencies>
-        <deployment version="1280" defaultVersion="1280" identifier="iOS"/>
+        <deployment version="1536" defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
@@ -9,10 +9,6 @@
         <scene sceneID="ol3-RZ-ij7">
             <objects>
                 <viewController id="7nm-2U-oN4" customClass="SplashPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SXE-Fl-3v6"/>
-                        <viewControllerLayoutGuide type="bottom" id="jvn-ib-HPG"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="e73-z9-DSP">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -128,10 +124,6 @@
         <scene sceneID="3O5-TQ-IrJ">
             <objects>
                 <viewController id="mzW-iW-Rm3" customClass="AddTeamViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rAY-1l-Azp"/>
-                        <viewControllerLayoutGuide type="bottom" id="BEz-VF-bq8"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="HH5-jk-LWc">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -218,10 +210,6 @@
         <scene sceneID="UoR-3R-F17">
             <objects>
                 <viewController title="Tournament Analysis View Controller" id="SuG-LP-eqy" customClass="TournamentAnalysisViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9yv-Nz-GoS"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cp4-w5-uNb"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="bN4-g4-vz3">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -296,10 +284,6 @@
         <scene sceneID="wkD-WI-lNc">
             <objects>
                 <viewController id="Vpx-S4-nE1" customClass="RidleyPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pfp-bM-m0e"/>
-                        <viewControllerLayoutGuide type="bottom" id="nsB-ch-soU"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IQh-c3-Tqa">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -420,10 +404,6 @@
         <scene sceneID="wZi-u7-xkK">
             <objects>
                 <viewController id="jao-sa-2Tp" userLabel="Field Drawing View Controller" customClass="FieldDrawingViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wLM-D1-wKB"/>
-                        <viewControllerLayoutGuide type="bottom" id="ca0-3h-au0"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xya-gI-ebY">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -791,10 +771,6 @@
         <scene sceneID="pDI-Wp-1eW">
             <objects>
                 <viewController id="jO0-sC-Asm" customClass="SetUpPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O1p-HA-MOz"/>
-                        <viewControllerLayoutGuide type="bottom" id="3i2-NZ-IgO"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="MHi-oB-dXD">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -880,10 +856,6 @@
         <scene sceneID="O3r-km-jjh">
             <objects>
                 <viewController id="WBb-6A-oWA" customClass="MainScoutingPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Nwz-WR-T0V"/>
-                        <viewControllerLayoutGuide type="bottom" id="ryk-6E-5XD"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NVv-ep-wPb">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -938,7 +910,7 @@
                                 <rect key="frame" x="884" y="378" width="60" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Pyr">
+                                <state key="normal" title="Truss">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -1007,15 +979,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Medium" lineBreakMode="tailTruncation" minimumFontSize="10" id="2r3-Xa-CM9" userLabel="Label - TeleOp Medium">
-                                <rect key="frame" x="959" y="161" width="55" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Blocked" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="2r3-Xa-CM9" userLabel="Label - TeleOp Medium">
+                                <rect key="frame" x="957" y="161" width="65" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Medium" lineBreakMode="tailTruncation" minimumFontSize="10" id="8hI-Cd-LNF" userLabel="Label - Auton Medium">
-                                <rect key="frame" x="887" y="161" width="55" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Blocked" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="8hI-Cd-LNF" userLabel="Label - Auton Medium">
+                                <rect key="frame" x="885" y="161" width="65" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1061,7 +1033,7 @@
                                 <rect key="frame" x="954" y="184" width="60" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Medium">
+                                <state key="normal" title="Blocked">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1072,7 +1044,7 @@
                                 <rect key="frame" x="886" y="184" width="60" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Medium">
+                                <state key="normal" title="Blocked">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1373,7 +1345,7 @@
                                     <action selector="matchResetRequest:" destination="WBb-6A-oWA" eventType="touchUpInside" id="9Av-SH-iUm"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Pyramid" lineBreakMode="tailTruncation" minimumFontSize="10" id="MPC-OW-Bh9" userLabel="Label - TeleOp Missed">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Truss" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="MPC-OW-Bh9" userLabel="Label - TeleOp Missed">
                                 <rect key="frame" x="886" y="358" width="56" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
@@ -1425,8 +1397,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Passes" lineBreakMode="tailTruncation" minimumFontSize="10" id="dcx-sv-6hz">
-                                <rect key="frame" x="959" y="357" width="60" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Passes" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="dcx-sv-6hz">
+                                <rect key="frame" x="957" y="357" width="60" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1511,10 +1483,6 @@
         <scene sceneID="9uX-o1-wIq">
             <objects>
                 <viewController id="IC0-8Z-knh" customClass="SettingsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="D9p-sK-xLB"/>
-                        <viewControllerLayoutGuide type="bottom" id="Fmm-mG-odz"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="r9u-JY-TLj">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1663,10 +1631,6 @@
         <scene sceneID="AmT-5X-kbe">
             <objects>
                 <viewController id="Hgm-qx-ZsO" customClass="ftpTransferViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Zfb-JG-RPn"/>
-                        <viewControllerLayoutGuide type="bottom" id="R5C-ik-wMm"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xqy-ww-xAg">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1790,9 +1754,10 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
                                 <rect key="frame" x="0.0" y="22" width="768" height="44"/>
@@ -1899,10 +1864,6 @@
         <scene sceneID="etA-7t-4Bv">
             <objects>
                 <viewController id="4ra-8V-FJ1" customClass="DownloadPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="s7L-gP-5dq"/>
-                        <viewControllerLayoutGuide type="bottom" id="jJk-ee-qZb"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3Zd-08-x84">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2011,10 +1972,6 @@
         <scene sceneID="e9q-Pg-dA5">
             <objects>
                 <viewController id="smL-wy-wEE" customClass="MasonPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wrO-sP-SoQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="9jJ-K3-hWP"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="35J-YI-CJY">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2472,10 +2429,6 @@
         <scene sceneID="eVS-XA-5k6">
             <objects>
                 <viewController id="Svo-Ej-nRw" customClass="MatchAnalysisViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nFZ-Sj-yPh"/>
-                        <viewControllerLayoutGuide type="bottom" id="3QR-IJ-kR5"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="lJg-R7-d7N">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2538,10 +2491,6 @@
         <scene sceneID="nbW-1T-hv3">
             <objects>
                 <viewController id="8Ip-0z-ATI" customClass="LucienPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QqW-xp-JJp"/>
-                        <viewControllerLayoutGuide type="bottom" id="wia-HA-LGl"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dml-uq-Fqt">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3017,10 +2966,6 @@
         <scene sceneID="Q7s-72-nIi">
             <objects>
                 <viewController id="F6T-N4-qDS" customClass="RossPageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bxV-3X-jkG"/>
-                        <viewControllerLayoutGuide type="bottom" id="waW-jm-G0w"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZRQ-Ky-b6u">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3269,10 +3214,6 @@
         <scene sceneID="MXA-hn-hOu">
             <objects>
                 <viewController id="kha-eL-sUY" customClass="TeamDetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OYZ-jk-Xqe"/>
-                        <viewControllerLayoutGuide type="bottom" id="d8C-fN-BCi"/>
-                    </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3wH-iB-M0S">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3766,10 +3707,6 @@
         <scene sceneID="nQF-EJ-XUJ">
             <objects>
                 <viewController id="foR-gV-UYn" customClass="TabletSyncViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BYN-ZG-7dR"/>
-                        <viewControllerLayoutGuide type="bottom" id="8UR-AB-5VX"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yv6-Aq-5Dj">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3965,10 +3902,6 @@
         <scene sceneID="faH-C8-geZ">
             <objects>
                 <viewController id="85j-Gf-6rf" customClass="ImportDataViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pQT-Q4-GfL"/>
-                        <viewControllerLayoutGuide type="bottom" id="Sfc-IC-gOW"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hbI-XU-Lc7">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4007,10 +3940,6 @@
         <scene sceneID="7NX-vP-23S">
             <objects>
                 <viewController id="iHf-Ay-CP9" customClass="ImportUSFirstViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="431-7h-knz"/>
-                        <viewControllerLayoutGuide type="bottom" id="enK-WW-rH5"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="78l-kc-xua">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4026,12 +3955,8 @@
         <scene sceneID="trm-SN-wHY">
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0ct-4n-5dt"/>
-                        <viewControllerLayoutGuide type="bottom" id="2L8-bH-fzO"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tHa-09-JEe">
@@ -4139,6 +4064,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Match" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -4171,12 +4097,8 @@
         <scene sceneID="bea-eZ-Om3">
             <objects>
                 <viewController id="rCL-DE-Sx9" customClass="MatchDetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XBw-kn-kop"/>
-                        <viewControllerLayoutGuide type="bottom" id="Jvt-TG-iZ0"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1jO-E5-jgJ">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Aq2-BS-C03" userLabel="Text Field - Red 1">
@@ -4296,6 +4218,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="I32-xv-f5E"/>
                     <connections>
@@ -4344,11 +4267,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="73l-5i-erv"/>
-        <segue reference="0QU-hg-CV0"/>
-        <segue reference="V35-QX-fH1"/>
         <segue reference="Ofk-bm-5rz"/>
+        <segue reference="V35-QX-fH1"/>
         <segue reference="TkS-kf-3fo"/>
-        <segue reference="npl-Y5-KtP"/>
+        <segue reference="0QU-hg-CV0"/>
+        <segue reference="73l-5i-erv"/>
+        <segue reference="6V1-MF-63T"/>
     </inferredMetricsTieBreakers>
 </document>
