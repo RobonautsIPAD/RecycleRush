@@ -28,7 +28,6 @@
 		2F137D2018537E7700D87F30 /* AddTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1F18537E7700D87F30 /* AddTeamViewController.m */; };
 		2F146EEB1880E0B300B76B32 /* AerialAssist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */; };
 		2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F17D54716BA092B00DC81C1 /* TournamentList.csv */; };
-		2F1BAE2618909AAB0070574C /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F1BAE2518909AAB0070574C /* MatchList.csv */; };
 		2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F30EABC16A0EB4F0026B258 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABB16A0EB4F0026B258 /* UIKit.framework */; };
@@ -156,7 +155,6 @@
 		2F137D1F18537E7700D87F30 /* AddTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddTeamViewController.m; path = TeamScouting/AddTeamViewController.m; sourceTree = "<group>"; };
 		2F146EEA1880E0B300B76B32 /* AerialAssist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AerialAssist.xcdatamodel; sourceTree = "<group>"; };
 		2F17D54716BA092B00DC81C1 /* TournamentList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TournamentList.csv; path = Resources/TournamentList.csv; sourceTree = "<group>"; };
-		2F1BAE2518909AAB0070574C /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = Resources/MatchList.csv; sourceTree = "<group>"; };
 		2F21C5CD170BCC31008A3C24 /* ImportDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDataViewController.h; path = DataImport/ImportDataViewController.h; sourceTree = "<group>"; };
 		2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDataViewController.m; path = DataImport/ImportDataViewController.m; sourceTree = "<group>"; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -486,7 +484,6 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F1BAE2518909AAB0070574C /* MatchList.csv */,
 				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
 				2F99088B1787860700EEFFCE /* T0973_img001.jpg */,
 				2F67D4281728815300FA04CF /* InitialDefaults.plist */,
@@ -678,7 +675,6 @@
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
-				2F1BAE2618909AAB0070574C /* MatchList.csv in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,
 				2FC18EEB16A2083500D42251 /* button_robonaut_gold.png in Resources */,
 				2FC18EEC16A2083500D42251 /* cell_robonaut_gold.png in Resources */,
