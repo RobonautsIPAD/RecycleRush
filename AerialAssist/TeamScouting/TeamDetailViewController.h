@@ -78,6 +78,8 @@
 -(IBAction)useCameraRoll: (id)sender;
 -(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
+-(void)photoSaved:(NSNotification *)notification;
+
 -(IBAction)MatchNumberChanged;
 
 @end

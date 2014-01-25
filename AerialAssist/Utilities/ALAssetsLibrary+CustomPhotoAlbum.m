@@ -25,7 +25,7 @@
                           [self addAssetURL: assetURL 
                                     toAlbum:albumName 
                         withCompletionBlock:completionBlock];
-                          
+      
                       }];
 }
 
@@ -49,10 +49,12 @@
                                                   
                                           //add photo to the target album
                                           [group addAsset: asset];
-                                          
+         
                                           //run the completion block
                                           completionBlock(nil);
-                                          
+                                          NSLog(@"filename %@", asset.defaultRepresentation.filename);
+                                          [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:asset.defaultRepresentation.filename forKey:@"photoName"]]];
+
                                       } failureBlock: completionBlock];
 
                                 //album was found, bail out of the method
@@ -74,9 +76,12 @@
 
                                                                             //add photo to the newly created album
                                                                             [group addAsset: asset];
-                                                                            
+      
                                                                             //call the completion block
                                                                             completionBlock(nil);
+                                                                            NSLog(@"filename %@", asset.defaultRepresentation.filename);
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:asset.defaultRepresentation.filename forKey:@"photoName"]]];
+
 
                                                                         } failureBlock: completionBlock];
                                                           
@@ -87,7 +92,7 @@
                             }
                             
                         } failureBlock: completionBlock];
-    
+
 }
 
 @end
