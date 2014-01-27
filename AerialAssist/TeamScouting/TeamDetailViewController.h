@@ -79,6 +79,7 @@
 -(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;
+-(void)photoRetrieved:(NSNotification *)notification;
 
 -(IBAction)MatchNumberChanged;
 

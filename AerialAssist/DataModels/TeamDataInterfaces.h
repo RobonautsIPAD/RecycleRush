@@ -15,7 +15,8 @@
 
 @interface TeamDataInterfaces : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, strong) NSMutableDictionary *teamDataDictionary;
+@property (nonatomic, strong) NSDictionary *teamDataAttributes;
+@property (nonatomic, strong) NSDictionary *teamDataProperties;
 @property (nonatomic, strong) NSMutableDictionary *regionalDictionary;
 
 -(id)initWithDataManager:(DataManager *)initManager;
@@ -33,6 +34,7 @@
 -(NSString *) outputFormat:(NSAttributeType)type forValue:data;
 -(void)setTeamDefaults:(TeamData *)blankTeam;
 -(NSData *)packageTeamForXFer:(TeamData *)team;
+-(TeamData *)unpackageTeamForXFer:(NSData *)xferData;
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;
 #endif

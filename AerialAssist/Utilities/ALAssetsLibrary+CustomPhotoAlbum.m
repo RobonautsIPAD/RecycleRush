@@ -9,6 +9,39 @@
 
 @implementation ALAssetsLibrary(CustomPhotoAlbum)
 
+UIImage *fetchedPhoto;
+
+
+-(void)getImage:(NSURL*)assetURL withCompletionBlock:(SaveImageCompletion)completionBlock {
+    NSLog(@"asset URL = %@", assetURL);
+    [self assetForURL:assetURL
+     resultBlock:resultblock
+    failureBlock:failureblock];
+}
+
+ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+{
+    
+    // get the image
+    ALAssetRepresentation *rep = [myasset defaultRepresentation];
+    CGImageRef iref = [rep fullResolutionImage];
+    if (iref) {
+        NSLog(@"asset default = %@", rep.filename);
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:[UIImage imageWithCGImage:iref] forKey:@"photoImage"]]];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"photoImage"]]];
+    }
+};
+
+ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+{
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"photoImage"]]];
+    
+    NSLog(@"booya, cant get image - %@",[myerror localizedDescription]);
+};
+
+
 -(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
 {
     //write the image data to the assets library (camera roll)
@@ -52,8 +85,8 @@
          
                                           //run the completion block
                                           completionBlock(nil);
-                                          NSLog(@"filename %@", asset.defaultRepresentation.filename);
-                                          [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:asset.defaultRepresentation.filename forKey:@"photoName"]]];
+                                          NSLog(@"filename %@", assetURL);
+                                          [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
 
                                       } failureBlock: completionBlock];
 
@@ -79,8 +112,8 @@
       
                                                                             //call the completion block
                                                                             completionBlock(nil);
-                                                                            NSLog(@"filename %@", asset.defaultRepresentation.filename);
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:asset.defaultRepresentation.filename forKey:@"photoName"]]];
+                                                                            NSLog(@"filename %@", assetURL);
+                                                                            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
 
 
                                                                         } failureBlock: completionBlock];

@@ -15,6 +15,8 @@
 
 @implementation TeamDataInterfaces
 @synthesize dataManager = _dataManager;
+@synthesize teamDataAttributes = _teamDataAttributes;
+@synthesize teamDataProperties = _teamDataProperties;
 
 - (id)initWithDataManager:(DataManager *)initManager {
 	if ((self = [super init]))
@@ -28,6 +30,8 @@
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }
+    
+    NSLog(@"addTeam - need to add saveBy and saved values");
     
     // Check to make sure tournament exists, if not, error out
     TournamentData *tournamentRecord = [[[CreateTournament alloc] initWithDataManager:_dataManager] GetTournament:tournamentName];
@@ -106,9 +110,9 @@
         [self setTeamDefaults:team];        
         [team setValue:teamNumber forKey:@"number"];
     }
-    NSDictionary *properties = [[team entity] propertiesByName];
+    if (!_teamDataProperties) _teamDataProperties = [[team entity] propertiesByName];
     for (int i=1; i<[data count]; i++) {
-        [self setTeamValue:team forHeader:[headers objectAtIndex:i] withValue:[data objectAtIndex:i] withProperties:properties];
+        [self setTeamValue:team forHeader:[headers objectAtIndex:i] withValue:[data objectAtIndex:i] withProperties:_teamDataProperties];
     }
     //    NSLog(@"Team = %@", team);
     NSError *error;
@@ -249,8 +253,8 @@
 -(NSData *)packageTeamForXFer:(TeamData *)team {
     NSMutableArray *keyList = [NSMutableArray array];
     NSMutableArray *valueList = [NSMutableArray array];
-    NSDictionary *attributes = [[team entity] attributesByName];
-    for (NSString *item in attributes) {
+    if (!_teamDataAttributes) _teamDataAttributes = [[team entity] attributesByName];
+    for (NSString *item in _teamDataAttributes) {
         if ([team valueForKey:item]) {
             [keyList addObject:item];
             [valueList addObject:[team valueForKey:item]];
@@ -283,13 +287,41 @@
     [valueList addObject:photoNames];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"Dictionary = %@", dictionary);
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    //     To decode when I unpack
-    //     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:myData];
-
     
     return myData;
+}
+
+-(TeamData *)unpackageTeamForXFer:(NSData *)xferData {
+    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    //     Assign unpacked data to the team record
+    //     Return team record
+    NSNumber *teamNumber = [myDictionary objectForKey:@"number"];
+    if (!teamNumber) return nil;
+    
+    TeamData *teamRecord = [self getTeam:teamNumber];
+    if (!teamRecord) {
+        teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
+                                             inManagedObjectContext:_dataManager.managedObjectContext];
+        NSLog(@"print team record and see if the defaults are set");
+        //        [self setTeamDefaults:team];
+        [teamRecord setValue:teamNumber forKey:@"number"];
+    }
+    // Create the property dictionary if it hasn't been created yet
+    if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
+
+    // Cycle through each object in the transfer data dictionary
+    for (NSString *key in myDictionary) {
+        if ([key isEqualToString:@"number"]) continue; // We have already processed team number
+        // if key is attribute check to see if sending value is default - probably don't want to save if default
+        // if key is property, brach to photoList or tournamentList to decode
+        id value = [_teamDataProperties valueForKey:key];
+        if ([value isKindOfClass:[NSAttributeDescription class]]) {
+            NSLog(@"key = %@, value = %@", key, value);
+        }
+        // object at key = [myDictionary objectForKey:key]
+    }
+    return nil;
 }
 
 
@@ -419,7 +451,8 @@
 - (void)dealloc
 {
     _dataManager = nil;
-    _teamDataDictionary = nil;
+    _teamDataAttributes = nil;
+    _teamDataProperties = nil;
     _regionalDictionary = nil;
 #ifdef TEST_MODE
 	NSLog(@"dealloc %@", self);

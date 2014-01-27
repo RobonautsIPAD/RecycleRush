@@ -67,7 +67,14 @@
             NSLog(@"Big error: %@", [error description]);
         }
     }];
-    
+}
+
+-(void)getPhotoFromAlbum:(NSURL *)photoURL {
+    [self.photoLibrary getImage:photoURL withCompletionBlock:^(NSError *error) {
+        if (error!=nil) {
+            NSLog(@"Big error: %@", [error description]);
+        }
+    }];
 }
 
 #pragma mark - Core Data stack

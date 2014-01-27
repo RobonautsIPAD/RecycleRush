@@ -32,7 +32,6 @@
     UILabel *receiveLabel3;
     NSMutableArray *receivedMatches;
     NSMutableArray *receivedMatchTypes;
-    NSMutableArray *receivedTeams;
     MatchResultsObject *dataFromTransfer;
     id popUp;
     SyncOptionDictionary *syncOptionDictionary;
@@ -44,6 +43,7 @@
     NSNumber *teamDataSync;
     NSArray *teamList;
     NSArray *filteredTeamList;
+    NSMutableArray *receivedTeamList;
     TeamDataInterfaces *teamDataPackage;
 }
 
@@ -174,17 +174,26 @@ GKPeerPickerController *picker;
             sendLabel1.text = @"Match";
             sendLabel2.text = @"Type";
             sendLabel3.text = @"Team";
+            receiveLabel1.text = @"Match";
+            receiveLabel2.text = @"Type";
+            receiveLabel3.text = @"Team";
             break;
         case SyncTeams:
             sendLabel1.text = @"Team Number";
             sendLabel2.text = @"Team Name";
             sendLabel3.text = @"";
+            receiveLabel1.text = @"Team Number";
+            receiveLabel2.text = @"Team Name";
+            receiveLabel3.text = @"";
             [self createTeamList];
             break;
         case SyncTournaments:
             sendLabel1.text = @"Tournament";
             sendLabel2.text = @"";
             sendLabel3.text = @"";
+            receiveLabel1.text = @"Tournament";
+            receiveLabel2.text = @"";
+            receiveLabel3.text = @"";
         default:
             break;
 //        [_sendDataTable reloadData];
@@ -339,7 +348,9 @@ GKPeerPickerController *picker;
             for (int i=0; i<[filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
                 NSData *myData = [teamDataPackage packageTeamForXFer:team];
+                [self mySendDataToPeers:myData];
          //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+                TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
             }
             break;
         case SyncMatchList:
@@ -407,7 +418,25 @@ GKPeerPickerController *picker;
            inSession:(GKSession *)session
              context:(void *)context {
     
-    dataFromTransfer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    [_sendDataTable setHidden:YES];
+    [_receiveDataTable setHidden:NO];
+    switch (_syncType) {
+        case SyncTournaments:
+            break;
+        case SyncTeams:
+            if (receivedTeamList == nil) {
+                receivedTeamList = [NSMutableArray array];
+            }
+//            TeamData *team = [teamDataPackage unpackageTeamForXFer:data];
+            break;
+        case SyncMatchList:
+            break;
+        case SyncMatchResults:
+            break;
+        default:
+            break;
+    }
+/*    dataFromTransfer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     //---convert the NSData to NSString---
     if (receivedMatches == nil) {
         receivedMatches = [NSMutableArray array];
@@ -433,7 +462,7 @@ GKPeerPickerController *picker;
                                               cancelButtonTitle:@"No"
                                               otherButtonTitles:@"Yes", nil];
         [alert show];
-    }
+    }*/
 }
 
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error {
@@ -447,7 +476,7 @@ GKPeerPickerController *picker;
         if ([self addMatchScore:dataFromTransfer]) {
             [receivedMatches addObject:dataFromTransfer.match];
             [receivedMatchTypes addObject:dataFromTransfer.matchType];
-            [receivedTeams addObject:dataFromTransfer.team];
+            [receivedTeamList addObject:dataFromTransfer.team];
             [_receiveDataTable reloadData];
         }        
     }
@@ -645,7 +674,7 @@ GKPeerPickerController *picker;
     matchTypeLabel.text = [receivedMatchTypes objectAtIndex:indexPath.row];
     
 	UILabel *teamLabel = (UILabel *)[cell viewWithTag:30];
-    teamLabel.text = [NSString stringWithFormat:@"%d", [[receivedTeams objectAtIndex:indexPath.row] intValue]];
+    teamLabel.text = [NSString stringWithFormat:@"%d", [[receivedTeamList objectAtIndex:indexPath.row] intValue]];
     
 	UILabel *syncLabel = (UILabel *)[cell viewWithTag:40];
     syncLabel.text = @"";   //([info.synced intValue] == 0) ? @"N" : @"Y";

@@ -140,6 +140,9 @@
     // Set the notification to receive information after a photo has been saved
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoSaved:) name:@"photoSaved" object:nil];
 
+    // Set the notification to receive information after a photo has been retrieved
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(photoRetrieved:) name:@"photoRetrieved" object:nil];
+
     // Get the preferences needed for this VC
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -549,14 +552,19 @@
 -(void)getPhoto {
     // Load the picture for the display. Need to change this to use the new album stuff implemented
     //  last week.
-    NSError *fileError = nil;
-    NSArray *dirList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:photoPath error:&fileError];
-    int dirCount = [dirList count];
-    if (dirCount) {
-        NSString  *jpgPath = [photoPath stringByAppendingPathComponent:[dirList objectAtIndex:(dirCount-1)]];
-        [_imageView setImage:[UIImage imageWithContentsOfFile:jpgPath]];
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    NSLog(@"Get photo = %@", _team.primePhoto);
+    if (_team.primePhoto) {
+        [_dataManager getPhotoFromAlbum:[NSURL URLWithString:_team.primePhoto]];
     }
+    else {
+        _imageView.image = nil;
+    }
+}
+
+-(void)photoRetrieved:(NSNotification *)notification {
+    NSLog(@"Photo retrieved");
+    UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
+    _imageView.image = fetchedImage;
 }
 
 - (IBAction) useCameraRoll: (id)sender
@@ -602,16 +610,18 @@
     // The photo has been saved. A notification was sent from the ALAsset save function letting
     //  us find out what the photo name was. The names are saved in the database so that we
     //  have a list of all the photos for this robot.
-    NSString *passedString = [[notification userInfo] objectForKey:@"photoName"];
-    NSLog(@"Photo saved = %@", passedString);
+    NSURL *passedURL = [[notification userInfo] objectForKey:@"photoName"];
+    NSLog(@"Photo saved = %@", passedURL);
     // For now, set the primePhoto that will appear in the imageView to the last photo taken.
     //  Once we add the photo collection viewer to allow us to select from the photo list,
     //  this will need to be changed.
-    _team.primePhoto = passedString;
+    _team.primePhoto = [passedURL absoluteString];
+    NSLog(@"Prime Photo string = %@", _team.primePhoto);
     Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
                                                              inManagedObjectContext:_dataManager.managedObjectContext];
-    photoRecord.name = passedString;
+    photoRecord.name = [passedURL absoluteString];
     [_team addPhotoListObject:photoRecord];
+    [self setDataChange];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

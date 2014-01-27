@@ -17,7 +17,6 @@
 -(void)loadCSVDataFromBundle;
 -(void)handleOpenURL:(NSURL *)url;
 -(void)loadTournamentFile:(NSString *)filePath;
--(void)loadSettingsFile:(NSString *)filePath;
 -(void)loadTeamFile:(NSString *)filePath;
 -(void)loadTeamHistory:(NSString *)filePath;
 -(void)loadMatchFile:(NSString *)filePath;
