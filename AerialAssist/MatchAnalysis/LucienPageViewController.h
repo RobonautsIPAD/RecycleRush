@@ -13,6 +13,9 @@
 @class PopUpPickerViewController;
 
 @interface LucienPageViewController : UIViewController <UITextFieldDelegate, PopUpPickerDelegate>
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UILabel *labelText;
+
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) PopUpPickerViewController *averagePicker;
 @property (nonatomic, strong) NSMutableArray *averageList;
