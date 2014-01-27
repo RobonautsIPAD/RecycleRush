@@ -30,6 +30,10 @@
     id popUp;
     NSMutableArray *lucienList;
 }
+
+@synthesize mainLogo = _mainLogo;
+@synthesize labelText = _labelText;
+
 @synthesize dataManager = _dataManager;
 @synthesize averagePicker = _averagePicker;
 @synthesize averageList = _averageList;
@@ -78,6 +82,14 @@
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
+    
+    // Display the Robotnauts Banner
+    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+    // Display the Label for the Picture
+    _labelText.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _labelText.text = @"Just Hangin' Out";
+    
+    
     
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -543,4 +555,35 @@
     [self setCalculateButton:nil];
     [super viewDidUnload];
 }
+
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    switch(toInterfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+            //( , , , )
+            _mainLogo.frame = CGRectMake(0, -74, 1024, 285);
+            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+            _labelText.frame = CGRectMake(20, 538, 372, 21);
+            break;
+        default:
+            break;
+            
+    }
+}
+
+
 @end
