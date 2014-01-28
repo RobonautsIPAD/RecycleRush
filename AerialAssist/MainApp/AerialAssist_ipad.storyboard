@@ -389,6 +389,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="d7u-6F-fg8">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="uDk-wF-8Oz">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="C5Z-9v-nko" kind="modal" identifier="Add" id="nhj-Oo-vdS"/>
                             </connections>
@@ -1952,12 +1953,16 @@
         <scene sceneID="PvB-tc-fQH">
             <objects>
                 <navigationController id="C3f-kE-sTi" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="d7C-1d-qzy">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -3346,40 +3351,6 @@
                                 <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SMs-I1-Zum">
-                                <rect key="frame" x="20" y="350" width="110" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Take Photo">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="useCamera:" destination="kha-eL-sUY" eventType="touchUpInside" id="WS5-Zd-E07"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="slo-FJ-jss">
-                                <rect key="frame" x="223" y="350" width="120" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Choose Photo">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="useCameraRoll:" destination="kha-eL-sUY" eventType="touchUpInside" id="abD-dJ-6Iu"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="34" sectionHeaderHeight="22" sectionFooterHeight="22" id="HBG-SB-cm1" userLabel="Regional Table View">
                                 <rect key="frame" x="6" y="523" width="1007" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3647,6 +3618,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2Qd-wZ-YT7">
                                 <rect key="frame" x="525" y="441" width="57" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3663,6 +3635,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mji-Qb-Ii1">
                                 <rect key="frame" x="446" y="441" width="57" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Prev">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3686,6 +3659,18 @@
                                     <outlet property="delegate" destination="kha-eL-sUY" id="ubq-vK-AyQ"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPO-D8-BGh">
+                                <rect key="frame" x="154" y="347" width="48" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="ios-7-camera-icon.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleUploadPhotoTouch:" destination="kha-eL-sUY" eventType="touchUpInside" id="LKt-B7-mIn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -3694,7 +3679,6 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="auton" destination="gGD-z9-mjD" id="2DK-gD-iEW"/>
-                        <outlet property="choosePhotoBtn" destination="slo-FJ-jss" id="EC7-4Z-CPQ"/>
                         <outlet property="cims" destination="dq0-BF-pWc" id="zHW-1d-Alf"/>
                         <outlet property="climbZone" destination="8lZ-e0-gcn" id="3vC-ux-Cme"/>
                         <outlet property="driveType" destination="l1o-0h-XZn" id="E2h-mt-cV9"/>
@@ -3711,7 +3695,6 @@
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="regionalInfo" destination="HBG-SB-cm1" id="4BN-9c-hog"/>
                         <outlet property="shootingLevel" destination="8Mh-H3-pJN" id="9ze-eZ-LAR"/>
-                        <outlet property="takePhotoBtn" destination="SMs-I1-Zum" id="oFM-Vx-qbj"/>
                         <outlet property="wheelDiameter" destination="SSI-1E-5zy" id="oSa-pF-haS"/>
                         <outlet property="wheelType" destination="wyf-1F-gQY" id="R2m-Mg-ZmU"/>
                     </connections>
@@ -4275,6 +4258,7 @@
     <resources>
         <image name="2013_field.png" width="749" height="375"/>
         <image name="button_robonaut_gold.png" width="518" height="194"/>
+        <image name="ios-7-camera-icon.png" width="256" height="256"/>
         <image name="photo.JPG" width="640" height="478"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4286,9 +4270,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="4dV-Hm-ZKh"/>
         <segue reference="WZF-Vv-yie"/>
-        <segue reference="TkS-kf-3fo"/>
         <segue reference="6V1-MF-63T"/>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="73l-5i-erv"/>
+        <segue reference="2PU-1e-EUe"/>
+        <segue reference="M4x-HG-6MQ"/>
     </inferredMetricsTieBreakers>
 </document>

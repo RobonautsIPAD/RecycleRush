@@ -56,6 +56,8 @@
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
 
+@property (nonatomic, weak) UIImagePickerController *mediaPicker;
+
 -(IBAction)PrevButton;
 -(IBAction)NextButton;
 -(void)checkDataStatus;
@@ -74,8 +76,9 @@
 //-(void)SetTextBoxDefaults:(UITextField *)textField;
 -(MatchData *)getMatchData: (TeamScore *) teamScore;
 
--(IBAction)useCamera: (id)sender;
--(IBAction)useCameraRoll: (id)sender;
+-(void)useCamera;
+-(void)useCameraRoll;
+-(IBAction)handleUploadPhotoTouch:(id)sender;
 -(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;

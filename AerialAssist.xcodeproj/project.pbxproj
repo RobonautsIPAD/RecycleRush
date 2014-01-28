@@ -100,6 +100,7 @@
 		2FC18F1316A21AA900D42251 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC18F1216A21AA900D42251 /* DataManager.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FC5D8C916C473820043F68A /* 2013_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC5D8C816C473820043F68A /* 2013_field.png */; };
+		2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */; };
 		2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FCD9FE8189338F500422F97 /* MatchList.csv */; };
 		2FCE54FA16CC271A00884191 /* Small Blue Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54F816CC271A00884191 /* Small Blue Button.jpg */; };
 		2FCE54FB16CC271A00884191 /* Small Red Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54F916CC271A00884191 /* Small Red Button.jpg */; };
@@ -274,6 +275,7 @@
 		2FC18F1216A21AA900D42251 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = DataManagement/DataManager.m; sourceTree = "<group>"; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2FC5D8C816C473820043F68A /* 2013_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2013_field.png; path = Resources/2013_field.png; sourceTree = "<group>"; };
+		2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ios-7-camera-icon.png"; path = "Resources/ios-7-camera-icon.png"; sourceTree = "<group>"; };
 		2FCD9FE8189338F500422F97 /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = Resources/MatchList.csv; sourceTree = "<group>"; };
 		2FCE54F816CC271A00884191 /* Small Blue Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Blue Button.jpg"; path = "Resources/Small Blue Button.jpg"; sourceTree = "<group>"; };
 		2FCE54F916CC271A00884191 /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
 				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
 				2F99088B1787860700EEFFCE /* T0973_img001.jpg */,
@@ -677,6 +680,7 @@
 				2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */,
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
+				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,

@@ -72,6 +72,7 @@
 
 @synthesize matchInfo = _matchInfo;
 @synthesize regionalInfo = _regionalInfo;
+@synthesize mediaPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -535,7 +536,7 @@
     return YES;
 }
 
--(IBAction) useCamera: (id)sender {
+-(void) useCamera {
     //  Use the camera to take a new robot photo
     NSLog(@"Take photo");
     if ([UIImagePickerController isSourceTypeAvailable:
@@ -567,7 +568,7 @@
     _imageView.image = fetchedImage;
 }
 
-- (IBAction) useCameraRoll: (id)sender
+- (void) useCameraRoll
 {
     if ([self.pictureController isPopoverVisible]) {
         [self.pictureController dismissPopoverAnimated:YES];
@@ -600,6 +601,37 @@
     [self.pictureController dismissPopoverAnimated:true];
     [picker dismissModalViewControllerAnimated:YES];
 }
+
+
+- (IBAction)handleUploadPhotoTouch:(id)sender {
+    mediaPicker = [[UIImagePickerController alloc] init];
+    [mediaPicker setDelegate:self];
+    mediaPicker.allowsEditing = YES;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Take photo", @"Choose Existing", nil];
+        [actionSheet showInView:self.view];
+    } else {
+        mediaPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentModalViewController:mediaPicker animated:YES];
+    }
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self useCamera];
+    } else if (buttonIndex == 1) {
+        [self useCameraRoll];
+    }
+    
+    [self presentModalViewController:mediaPicker animated:YES];
+}
+
 
 -(void)savePhoto: (UIImage *)image {
     // Save the photo to an album via ALAssetLibrary. Album will have the APPNAME stored in the preferences
