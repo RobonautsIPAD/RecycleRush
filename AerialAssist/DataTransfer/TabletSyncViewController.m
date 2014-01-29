@@ -57,6 +57,7 @@
 @synthesize receiveDataTable = _receiveDataTable;
 @synthesize connectButton = _connectButton;
 @synthesize disconnectButton = _disconnectButton;
+@synthesize sendButton = _sendButton;
 @synthesize peerLabel = _peerLabel;
 @synthesize peerName = _peerName;
 @synthesize alertPrompt = _alertPrompt;
@@ -133,6 +134,10 @@ GKPeerPickerController *picker;
     }
     
     [self createHeaders];
+
+    if (!teamDataPackage) {
+        teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+    }
 
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     _syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
@@ -240,8 +245,6 @@ GKPeerPickerController *picker;
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
     filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
     [_sendDataTable reloadData];
-    NSLog(@"create team list remove");
-    [self createDataPackage];
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -337,20 +340,16 @@ GKPeerPickerController *picker;
     [_disconnectButton setHidden:YES];
 }
 
--(void) createDataPackage {
+-(IBAction) createDataPackage:(id) sender {
     switch (_syncType) {
         case SyncTournaments:
             break;
         case SyncTeams:
-            if (!teamDataPackage) {
-                teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-            }
             for (int i=0; i<[filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
                 NSData *myData = [teamDataPackage packageTeamForXFer:team];
                 [self mySendDataToPeers:myData];
          //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
-                TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
             }
             break;
         case SyncMatchList:
@@ -423,11 +422,13 @@ GKPeerPickerController *picker;
     switch (_syncType) {
         case SyncTournaments:
             break;
-        case SyncTeams:
+        case SyncTeams: {
             if (receivedTeamList == nil) {
                 receivedTeamList = [NSMutableArray array];
             }
-//            TeamData *team = [teamDataPackage unpackageTeamForXFer:data];
+            TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
+            if (teamReceived) [receivedTeamList addObject:teamReceived];
+        }
             break;
         case SyncMatchList:
             break;

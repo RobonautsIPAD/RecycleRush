@@ -3877,6 +3877,16 @@
                                     <action selector="syncChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="DoY-2T-SpC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ov7-uN-24R">
+                                <rect key="frame" x="748" y="168" width="36" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createDataPackage:" destination="foR-gV-UYn" eventType="touchUpInside" id="U2o-74-bgG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -3889,6 +3899,7 @@
                         <outlet property="peerLabel" destination="hQj-Cq-DZr" id="k9j-m6-dPY"/>
                         <outlet property="peerName" destination="D6A-SZ-HGE" id="KbL-YB-IhG"/>
                         <outlet property="receiveDataTable" destination="seS-2h-gus" id="TAM-4q-hCe"/>
+                        <outlet property="sendButton" destination="ov7-uN-24R" id="N15-40-1w7"/>
                         <outlet property="sendDataTable" destination="LkK-3d-kSN" id="FTd-nD-Mko"/>
                         <outlet property="syncOptionButton" destination="FU6-7v-h1v" id="o7y-Bo-pEu"/>
                         <outlet property="syncTypeButton" destination="kwh-gC-Usm" id="L3n-GH-6c8"/>

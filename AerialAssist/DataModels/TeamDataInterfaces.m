@@ -317,11 +317,17 @@
         // if key is property, brach to photoList or tournamentList to decode
         id value = [_teamDataProperties valueForKey:key];
         if ([value isKindOfClass:[NSAttributeDescription class]]) {
+            NSLog(@"unpackage team data add check for default values.");
             NSLog(@"key = %@, value = %@", key, value);
+            [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
         }
-        // object at key = [myDictionary objectForKey:key]
     }
-    return nil;
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    
+    return teamRecord;
 }
 
 

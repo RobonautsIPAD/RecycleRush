@@ -26,6 +26,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *receiveDataTable;
 @property (nonatomic, weak) IBOutlet UIButton *connectButton;
 @property (nonatomic, weak) IBOutlet UIButton *disconnectButton;
+@property (nonatomic, weak) IBOutlet UIButton *sendButton;
 @property (nonatomic, weak) IBOutlet UILabel *peerLabel;
 @property (nonatomic, weak) IBOutlet UILabel *peerName;
 
@@ -51,8 +52,7 @@
 
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;
-//-(IBAction) createDataPackage:(id) sender;
--(void) createDataPackage;
+-(IBAction) createDataPackage:(id) sender;
 
 -(BOOL)addMatchScore:(MatchResultsObject *) xferData;
 -(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score;
