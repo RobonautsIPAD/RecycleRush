@@ -67,12 +67,11 @@
 
 @synthesize pictureController = _pictureController;
 @synthesize imageView = _imageView;
-@synthesize choosePhotoBtn = _choosePhotoBtn;
-@synthesize takePhotoBtn = _takePhotoBtn;
+@synthesize cameraBtn = _cameraBtn;
+@synthesize imagePickerController = _imagePickerController;
 
 @synthesize matchInfo = _matchInfo;
 @synthesize regionalInfo = _regionalInfo;
-@synthesize mediaPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -536,20 +535,6 @@
     return YES;
 }
 
--(void) useCamera {
-    //  Use the camera to take a new robot photo
-    NSLog(@"Take photo");
-    if ([UIImagePickerController isSourceTypeAvailable:
-         UIImagePickerControllerSourceTypeCamera])
-    {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-                  imagePicker.allowsEditing = NO;
-        [self presentModalViewController:imagePicker
-                                animated:YES];
-    }
-}
-
 -(void)getPhoto {
     // Load the picture for the display. Need to change this to use the new album stuff implemented
     //  last week.
@@ -568,68 +553,70 @@
     _imageView.image = fetchedImage;
 }
 
-- (void) useCameraRoll
-{
-    if ([self.pictureController isPopoverVisible]) {
-        [self.pictureController dismissPopoverAnimated:YES];
-    } else {
-        if ([UIImagePickerController isSourceTypeAvailable:
-             UIImagePickerControllerSourceTypeSavedPhotosAlbum])
-        {
-            //  The user has chosen to pick an existing picture from a photo album.
-            UIImagePickerController *imagePicker =
-            [[UIImagePickerController alloc] init];
-            imagePicker.delegate = self;
-            imagePicker.sourceType =
-            UIImagePickerControllerSourceTypePhotoLibrary;
-            imagePicker.allowsEditing = NO;
-            
-            self.pictureController = [[UIPopoverController alloc]
-                                      initWithContentViewController:imagePicker];
-            
-            _pictureController.delegate = self;
-            
-            [_pictureController presentPopoverFromRect:_choosePhotoBtn.bounds inView:_choosePhotoBtn
-                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
+-(void) takePhoto {
+    //  Use the camera to take a new robot photo
+    NSLog(@"Take photo");
+    if (!_imagePickerController) {
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        _imagePickerController.delegate = self;
     }
+    if ([UIImagePickerController isSourceTypeAvailable:
+         UIImagePickerControllerSourceTypeCamera]) {
+        _imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    }
+    
+    if (!_pictureController) {
+        _pictureController = [[UIPopoverController alloc]
+                              initWithContentViewController:_imagePickerController];
+        _pictureController.delegate = self;
+    }
+    [_pictureController presentPopoverFromRect:_cameraBtn.bounds inView:_cameraBtn
+                      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)choosePhoto {
+    if (!_imagePickerController) {
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        _imagePickerController.delegate = self;
+    }
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    
+    if (!_pictureController) {
+        _pictureController = [[UIPopoverController alloc]
+                                  initWithContentViewController:_imagePickerController];
+        _pictureController.delegate = self;
+    }
+    [_pictureController presentPopoverFromRect:_cameraBtn.bounds inView:_cameraBtn
+                      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
 	_imageView.image = img;
     [self savePhoto:img];
     [self.pictureController dismissPopoverAnimated:true];
+    NSLog(@"image picker finish");
     [picker dismissModalViewControllerAnimated:YES];
 }
 
 
-- (IBAction)handleUploadPhotoTouch:(id)sender {
-    mediaPicker = [[UIImagePickerController alloc] init];
-    [mediaPicker setDelegate:self];
-    mediaPicker.allowsEditing = YES;
+- (IBAction)photoControllerActionSheet:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                 delegate:self
-                                                        cancelButtonTitle:@"Cancel"
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"Take photo", @"Choose Existing", nil];
-        [actionSheet showInView:self.view];
-    } else {
-        mediaPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentModalViewController:mediaPicker animated:YES];
-    }
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault; [actionSheet showInView:_cameraBtn];
 }
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        [self useCamera];
+        [self takePhoto];
     } else if (buttonIndex == 1) {
-        [self useCameraRoll];
+        [self choosePhoto];
     }
-    
-    [self presentModalViewController:mediaPicker animated:YES];
 }
 
 

@@ -14,7 +14,7 @@
 @class MatchData;
 @class TeamScore;
 
-@interface TeamDetailViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate, UITableViewDelegate, UITableViewDataSource, PopUpPickerDelegate>
+@interface TeamDetailViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, PopUpPickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -37,8 +37,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *wheelDiameter;
 @property (nonatomic, weak) IBOutlet UIButton *driveType;
 @property (nonatomic, weak) IBOutlet UITextField *cims;
-@property (nonatomic, weak) IBOutlet UIButton *choosePhotoBtn;
-@property (nonatomic, weak) IBOutlet UIButton *takePhotoBtn;
+@property (nonatomic, weak) IBOutlet UIButton *cameraBtn;
 @property (nonatomic, strong) UIPopoverController *pictureController;
 
 @property (nonatomic, strong) PopUpPickerViewController *driveTypePicker;
@@ -56,7 +55,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
 
-@property (nonatomic, weak) UIImagePickerController *mediaPicker;
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 -(IBAction)PrevButton;
 -(IBAction)NextButton;
@@ -76,9 +75,9 @@
 //-(void)SetTextBoxDefaults:(UITextField *)textField;
 -(MatchData *)getMatchData: (TeamScore *) teamScore;
 
--(void)useCamera;
--(void)useCameraRoll;
--(IBAction)handleUploadPhotoTouch:(id)sender;
+-(void)takePhoto;
+-(void)choosePhoto;
+-(IBAction)photoControllerActionSheet:(id)sender;
 -(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;

@@ -3659,7 +3659,7 @@
                                     <outlet property="delegate" destination="kha-eL-sUY" id="ubq-vK-AyQ"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPO-D8-BGh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPO-D8-BGh" userLabel="Button - Camera">
                                 <rect key="frame" x="154" y="347" width="48" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3668,7 +3668,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleUploadPhotoTouch:" destination="kha-eL-sUY" eventType="touchUpInside" id="LKt-B7-mIn"/>
+                                    <action selector="photoControllerActionSheet:" destination="kha-eL-sUY" eventType="touchUpInside" id="Xog-pV-W7y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3679,6 +3679,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="auton" destination="gGD-z9-mjD" id="2DK-gD-iEW"/>
+                        <outlet property="cameraBtn" destination="YPO-D8-BGh" id="DPu-3S-2vc"/>
                         <outlet property="cims" destination="dq0-BF-pWc" id="zHW-1d-Alf"/>
                         <outlet property="climbZone" destination="8lZ-e0-gcn" id="3vC-ux-Cme"/>
                         <outlet property="driveType" destination="l1o-0h-XZn" id="E2h-mt-cV9"/>
