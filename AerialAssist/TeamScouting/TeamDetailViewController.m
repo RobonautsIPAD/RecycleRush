@@ -558,8 +558,9 @@
     NSLog(@"Take photo");
     if (!_imagePickerController) {
         _imagePickerController = [[UIImagePickerController alloc] init];
-        _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+ //       _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
         _imagePickerController.delegate = self;
+        _imagePickerController.allowsEditing = NO;
     }
     if ([UIImagePickerController isSourceTypeAvailable:
          UIImagePickerControllerSourceTypeCamera]) {
@@ -568,14 +569,16 @@
     else {
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     }
-    
+    [self presentModalViewController:_imagePickerController animated:YES];
+
+/*
     if (!_pictureController) {
         _pictureController = [[UIPopoverController alloc]
                               initWithContentViewController:_imagePickerController];
         _pictureController.delegate = self;
     }
     [_pictureController presentPopoverFromRect:_cameraBtn.bounds inView:_cameraBtn
-                      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES]; */
 }
 
 - (void)choosePhoto {
