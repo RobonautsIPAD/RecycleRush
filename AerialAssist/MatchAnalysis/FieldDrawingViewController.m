@@ -176,7 +176,7 @@
     else {
         // No field drawing set in data base. Set blank field image.
         NSLog(@"Error: No stored field drawing");
-        [_fieldImage setImage:[UIImage imageNamed:@"2013_field.png"]];
+        [_fieldImage setImage:[UIImage imageNamed:@"2014_field.png"]];
     }
 }
 

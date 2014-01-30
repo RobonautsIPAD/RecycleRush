@@ -1229,7 +1229,7 @@
     }
     else {
         // NSLog(@"Field Drawing= %@", currentTeam.fieldDrawing);
-        [fieldImage setImage:[UIImage imageNamed:@"2013_field.png"]];
+        [fieldImage setImage:[UIImage imageNamed:@"2014_field.png"]];
         drawMode = DrawOff;
     }
     [self drawModeSettings:drawMode];
