@@ -1958,10 +1958,10 @@
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
@@ -4280,11 +4280,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4dV-Hm-ZKh"/>
-        <segue reference="WZF-Vv-yie"/>
-        <segue reference="6V1-MF-63T"/>
-        <segue reference="73l-5i-erv"/>
-        <segue reference="2PU-1e-EUe"/>
         <segue reference="M4x-HG-6MQ"/>
+        <segue reference="0QU-hg-CV0"/>
+        <segue reference="WZF-Vv-yie"/>
+        <segue reference="4dV-Hm-ZKh"/>
+        <segue reference="73l-5i-erv"/>
+        <segue reference="6V1-MF-63T"/>
     </inferredMetricsTieBreakers>
 </document>

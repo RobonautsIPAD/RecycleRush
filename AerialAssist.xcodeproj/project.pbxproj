@@ -493,6 +493,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F97DDE31899E15900FA7B9D /* 2014_field.png */,
 				2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
 				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
@@ -699,6 +700,7 @@
 				2FC18EF616A2083500D42251 /* R Big Icon.png in Resources */,
 				2FC18EF716A2083500D42251 /* R Icon.png in Resources */,
 				2FC18EF916A2083500D42251 /* robonauts button.png in Resources */,
+				2F97DDE41899E15900FA7B9D /* 2014_field.png in Resources */,
 				2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */,
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
 				2FC5D8C916C473820043F68A /* 2013_field.png in Resources */,
