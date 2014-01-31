@@ -74,6 +74,7 @@
 		2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88649916B76B1700867385 /* TeamPickerController.m */; };
 		2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8864A116B76DAB00867385 /* LoadCSVData.m */; };
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
+		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
 		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F99088C1787860700EEFFCE /* T0973_img001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F99088B1787860700EEFFCE /* T0973_img001.jpg */; };
 		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
@@ -230,6 +231,8 @@
 		2F88649916B76B1700867385 /* TeamPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamPickerController.m; path = MatchScouting/TeamPickerController.m; sourceTree = "<group>"; };
 		2F8864A116B76DAB00867385 /* LoadCSVData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadCSVData.m; path = DataImport/LoadCSVData.m; sourceTree = "<group>"; };
 		2F8FC25F16E999E500992F85 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentDataInterfaces.h; path = DataModels/TournamentDataInterfaces.h; sourceTree = "<group>"; };
+		2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentDataInterfaces.m; path = DataModels/TournamentDataInterfaces.m; sourceTree = "<group>"; };
 		2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = DataTransfer/TabletSyncViewController.h; sourceTree = "<group>"; };
 		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F99088B1787860700EEFFCE /* T0973_img001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = T0973_img001.jpg; path = Resources/T0973_img001.jpg; sourceTree = "<group>"; };
@@ -440,6 +443,8 @@
 			children = (
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
 				2F6F10131880E29700378728 /* TournamentData.h */,
+				2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */,
+				2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */,
 				2F6F10141880E29700378728 /* TournamentData.m */,
 				2F6F10101880E29600378728 /* TeamScore.h */,
 				2F6F10111880E29600378728 /* TeamScore.m */,
@@ -751,6 +756,7 @@
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
 				2F137CFD18537B6E00D87F30 /* Photo.m in Sources */,
+				2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */,
 				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,

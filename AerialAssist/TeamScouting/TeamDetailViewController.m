@@ -160,6 +160,8 @@
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
 
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
 //    Undecided about the take photo and choose photo buttons. We are
 //    probably going to look into finding the camera button that most apps
 //    that access the camera use.
@@ -643,6 +645,7 @@
                                                              inManagedObjectContext:_dataManager.managedObjectContext];
     photoRecord.name = [passedURL absoluteString];
     [_team addPhotoListObject:photoRecord];
+    [self getPhoto];
     [self setDataChange];
 }
 

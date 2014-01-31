@@ -46,6 +46,7 @@
 -(void)setHeaders;
 -(void)createHeaders;
 -(void)createTeamList;
+-(void)createTournamentList;
 
 @property (nonatomic, retain) AlertPromptViewController *alertPrompt;
 @property (nonatomic, retain) UIPopoverController *alertPromptPopover;

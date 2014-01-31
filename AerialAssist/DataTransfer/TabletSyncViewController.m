@@ -13,6 +13,7 @@
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "TeamDataInterfaces.h"
+#import "TournamentDataInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
 #import "MatchResultsObject.h"
@@ -40,11 +41,17 @@
     NSString *tournamentName;
     NSString *deviceName;
     BlueToothType *bluetoothType;
+
     NSNumber *teamDataSync;
     NSArray *teamList;
     NSArray *filteredTeamList;
     NSMutableArray *receivedTeamList;
     TeamDataInterfaces *teamDataPackage;
+
+    NSArray *tournamentList;
+    NSMutableArray *filteredTournamentList;
+    NSArray *receivedTournamentList;
+    TournamentDataInterfaces *tournamentDataPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -139,6 +146,10 @@ GKPeerPickerController *picker;
         teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
     }
 
+    if (!tournamentDataPackage) {
+        tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
+    }
+
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     _syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
     [_syncOptionButton setTitle:[syncOptionDictionary getSyncOptionString:_syncOption] forState:UIControlStateNormal];
@@ -201,13 +212,34 @@ GKPeerPickerController *picker;
             receiveLabel3.text = @"";
         default:
             break;
-//        [_sendDataTable reloadData];
     }
    
     UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 11, 65, 21)];
 	syncLabel.text = @"";
     syncLabel.backgroundColor = [UIColor clearColor];
     [sendHeader addSubview:syncLabel];
+}
+
+-(void)createTournamentList {
+    if (!tournamentList) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        tournamentList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+    if (filteredTournamentList) {
+        [filteredTournamentList removeAllObjects];
+    }
+    else {
+        filteredTournamentList = [[NSMutableArray alloc] init];
+    }
+    for (int i=0; i<[tournamentList count]; i++) {
+        [filteredTournamentList addObject:[[tournamentList objectAtIndex:i] valueForKey:@"name"]];
+    }
+    [_sendDataTable reloadData];
 }
 
 -(void)createTeamList {
@@ -298,8 +330,17 @@ GKPeerPickerController *picker;
             break;
         }
     }
-    if (_syncType == SyncTeams) {
-        [self createTeamList];
+    switch (_syncType) {
+        case SyncTournaments:
+            [self createTournamentList];
+            break;
+            
+        case SyncTeams:
+            [self createTeamList];
+            break;
+            
+        default:
+            break;
     }
 }
 
@@ -312,6 +353,20 @@ GKPeerPickerController *picker;
         }
     }
     [self setHeaders];
+    switch (_syncType) {
+        case SyncTournaments:
+            [_syncOptionButton setHidden:YES];
+            [self createTournamentList];
+            break;
+            
+        case SyncTeams:
+            [_syncOptionButton setHidden:NO];
+            [self createTeamList];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -342,7 +397,10 @@ GKPeerPickerController *picker;
 
 -(IBAction) createDataPackage:(id) sender {
     switch (_syncType) {
-        case SyncTournaments:
+        case SyncTournaments: {
+                NSData *myData = [tournamentDataPackage packageTournamentsForXFer:filteredTournamentList];
+                [self mySendDataToPeers:myData];
+            }
             break;
         case SyncTeams:
             for (int i=0; i<[filteredTeamList count]; i++) {
@@ -607,6 +665,7 @@ GKPeerPickerController *picker;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView == _receiveDataTable) {
+        return 0;
     }
     if (tableView == _sendDataTable) {
         NSInteger count = [[_fetchedResultsController sections] count];
@@ -626,6 +685,7 @@ GKPeerPickerController *picker;
     // Return the number of rows in the section.
     if (tableView == _sendDataTable) {
         if (_syncType == SyncTeams) return [filteredTeamList count];
+        if (_syncType == SyncTournaments) return [filteredTournamentList count];
         id <NSFetchedResultsSectionInfo> sectionInfo =
         [[_fetchedResultsController sections] objectAtIndex:section];
     
@@ -634,6 +694,24 @@ GKPeerPickerController *picker;
     else {
         return [receivedMatches count];
     }
+}
+
+- (void)configureTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSString *tournament = [filteredTournamentList objectAtIndex:indexPath.row];
+    // Configure the cell...
+    // Set a background for the cell
+    
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = tournament;
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = @"";
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
 }
 
 - (void)configureTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -656,13 +734,17 @@ GKPeerPickerController *picker;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (_syncType) {
+        case SyncTournaments:
+            [self configureTournamentCell:cell atIndexPath:indexPath];
+            break;
         case SyncTeams:
             [self configureTeamCell:cell atIndexPath:indexPath];
             break;
             
         default:
             break;
-    }}
+    }
+}
 
 - (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell...
