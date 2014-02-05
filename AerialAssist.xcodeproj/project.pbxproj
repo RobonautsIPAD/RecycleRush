@@ -19,10 +19,7 @@
 		2F13339F170E20CD006669FF /* iPhoneMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F13339E170E20CD006669FF /* iPhoneMainViewController.m */; };
 		2F137CF818537B6E00D87F30 /* CreateMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CEB18537B6E00D87F30 /* CreateMatch.m */; };
 		2F137CFA18537B6E00D87F30 /* CreateTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CEF18537B6E00D87F30 /* CreateTeam.m */; };
-		2F137CFB18537B6E00D87F30 /* CreateTournament.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF118537B6E00D87F30 /* CreateTournament.m */; };
-		2F137CFD18537B6E00D87F30 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF518537B6E00D87F30 /* Photo.m */; };
 		2F137CFE18537B6E00D87F30 /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137CF718537B6E00D87F30 /* Regional.m */; };
-		2F137D0F18537B7F00D87F30 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0418537B7F00D87F30 /* TeamData.m */; };
 		2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */; };
 		2F137D1D18537E5E00D87F30 /* DriveTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1C18537E5E00D87F30 /* DriveTypeDictionary.m */; };
 		2F137D2018537E7700D87F30 /* AddTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F137D1F18537E7700D87F30 /* AddTeamViewController.m */; };
@@ -30,6 +27,7 @@
 		2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F17D54716BA092B00DC81C1 /* TournamentList.csv */; };
 		2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
+		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
 		2F30EABC16A0EB4F0026B258 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABB16A0EB4F0026B258 /* UIKit.framework */; };
 		2F30EABE16A0EB4F0026B258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABD16A0EB4F0026B258 /* Foundation.framework */; };
 		2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */; };
@@ -77,6 +75,8 @@
 		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
 		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F99088C1787860700EEFFCE /* T0973_img001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F99088B1787860700EEFFCE /* T0973_img001.jpg */; };
+		2F99C5F718A2E72F00469E15 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F99C5F618A2E72F00469E15 /* Photo.m */; };
+		2F99C5FD18A2E9AE00469E15 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F99C5FC18A2E9AE00469E15 /* TeamData.m */; };
 		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA28B5E1879B1C40039C28D /* InfoPlist.strings */; };
 		2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48318637970003A2661 /* SyncOptionDictionary.m */; };
@@ -142,14 +142,8 @@
 		2F137CEB18537B6E00D87F30 /* CreateMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateMatch.m; path = DataModels/CreateMatch.m; sourceTree = "<group>"; };
 		2F137CEE18537B6E00D87F30 /* CreateTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTeam.h; path = DataModels/CreateTeam.h; sourceTree = "<group>"; };
 		2F137CEF18537B6E00D87F30 /* CreateTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTeam.m; path = DataModels/CreateTeam.m; sourceTree = "<group>"; };
-		2F137CF018537B6E00D87F30 /* CreateTournament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTournament.h; path = DataModels/CreateTournament.h; sourceTree = "<group>"; };
-		2F137CF118537B6E00D87F30 /* CreateTournament.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTournament.m; path = DataModels/CreateTournament.m; sourceTree = "<group>"; };
-		2F137CF418537B6E00D87F30 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataModels/Photo.h; sourceTree = "<group>"; };
-		2F137CF518537B6E00D87F30 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModels/Photo.m; sourceTree = "<group>"; };
 		2F137CF618537B6E00D87F30 /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Regional.h; path = DataModels/Regional.h; sourceTree = "<group>"; };
 		2F137CF718537B6E00D87F30 /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Regional.m; path = DataModels/Regional.m; sourceTree = "<group>"; };
-		2F137D0318537B7F00D87F30 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
-		2F137D0418537B7F00D87F30 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
 		2F137D0518537B7F00D87F30 /* TeamDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDataInterfaces.h; path = DataModels/TeamDataInterfaces.h; sourceTree = "<group>"; };
 		2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamDataInterfaces.m; path = DataModels/TeamDataInterfaces.m; sourceTree = "<group>"; };
 		2F137D1B18537E5D00D87F30 /* DriveTypeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DriveTypeDictionary.h; path = Utilities/DriveTypeDictionary.h; sourceTree = "<group>"; };
@@ -161,6 +155,8 @@
 		2F21C5CD170BCC31008A3C24 /* ImportDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDataViewController.h; path = DataImport/ImportDataViewController.h; sourceTree = "<group>"; };
 		2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDataViewController.m; path = DataImport/ImportDataViewController.m; sourceTree = "<group>"; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		2F2C33C818A09E28003475C3 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		2F30EAB716A0EB4F0026B258 /* AerialAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AerialAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F30EABB16A0EB4F0026B258 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F30EABD16A0EB4F0026B258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -236,6 +232,10 @@
 		2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = DataTransfer/TabletSyncViewController.h; sourceTree = "<group>"; };
 		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F99088B1787860700EEFFCE /* T0973_img001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = T0973_img001.jpg; path = Resources/T0973_img001.jpg; sourceTree = "<group>"; };
+		2F99C5F518A2E72F00469E15 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataModels/Photo.h; sourceTree = "<group>"; };
+		2F99C5F618A2E72F00469E15 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModels/Photo.m; sourceTree = "<group>"; };
+		2F99C5FB18A2E9AE00469E15 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
+		2F99C5FC18A2E9AE00469E15 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
 		2F9E5377186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALAssetsLibrary+CustomPhotoAlbum.h"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALAssetsLibrary+CustomPhotoAlbum.m"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		2FA28B5F1879B1C40039C28D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -302,6 +302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
 				2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */,
 				2F56B57017052BDB0093A976 /* Security.framework in Frameworks */,
@@ -340,6 +341,8 @@
 		2F30EABA16A0EB4F0026B258 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F2C33C818A09E28003475C3 /* ImageIO.framework */,
+				2F2C33C618A09C24003475C3 /* CoreImage.framework */,
 				2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */,
 				2F56B56F17052BDA0093A976 /* Security.framework */,
 				2F56B56B17052BB30093A976 /* MobileCoreServices.framework */,
@@ -442,9 +445,11 @@
 			isa = PBXGroup;
 			children = (
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
+				2F99C5FB18A2E9AE00469E15 /* TeamData.h */,
+				2F99C5FC18A2E9AE00469E15 /* TeamData.m */,
+				2F99C5F518A2E72F00469E15 /* Photo.h */,
+				2F99C5F618A2E72F00469E15 /* Photo.m */,
 				2F6F10131880E29700378728 /* TournamentData.h */,
-				2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */,
-				2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */,
 				2F6F10141880E29700378728 /* TournamentData.m */,
 				2F6F10101880E29600378728 /* TeamScore.h */,
 				2F6F10111880E29600378728 /* TeamScore.m */,
@@ -452,18 +457,14 @@
 				2F6F100E1880E24E00378728 /* MatchData.m */,
 				2F0CF6C3187E42900000D6F6 /* FieldDrawing.h */,
 				2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */,
-				2F137D0318537B7F00D87F30 /* TeamData.h */,
-				2F137D0418537B7F00D87F30 /* TeamData.m */,
 				2F137CEA18537B6E00D87F30 /* CreateMatch.h */,
 				2F137CEB18537B6E00D87F30 /* CreateMatch.m */,
 				2F137CEE18537B6E00D87F30 /* CreateTeam.h */,
 				2F137CEF18537B6E00D87F30 /* CreateTeam.m */,
-				2F137CF018537B6E00D87F30 /* CreateTournament.h */,
-				2F137CF118537B6E00D87F30 /* CreateTournament.m */,
-				2F137CF418537B6E00D87F30 /* Photo.h */,
-				2F137CF518537B6E00D87F30 /* Photo.m */,
 				2F137CF618537B6E00D87F30 /* Regional.h */,
 				2F137CF718537B6E00D87F30 /* Regional.m */,
+				2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */,
+				2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */,
 				2F137D0518537B7F00D87F30 /* TeamDataInterfaces.h */,
 				2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */,
 			);
@@ -493,7 +494,6 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F97DDE31899E15900FA7B9D /* 2014_field.png */,
 				2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
 				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
@@ -700,7 +700,6 @@
 				2FC18EF616A2083500D42251 /* R Big Icon.png in Resources */,
 				2FC18EF716A2083500D42251 /* R Icon.png in Resources */,
 				2FC18EF916A2083500D42251 /* robonauts button.png in Resources */,
-				2F97DDE41899E15900FA7B9D /* 2014_field.png in Resources */,
 				2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */,
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
 				2FC5D8C916C473820043F68A /* 2013_field.png in Resources */,
@@ -744,20 +743,20 @@
 				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
-				2F137CFB18537B6E00D87F30 /* CreateTournament.m in Sources */,
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
 				2F88649F16B76B1700867385 /* RecordScorePickerController.m in Sources */,
 				2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */,
+				2F99C5F718A2E72F00469E15 /* Photo.m in Sources */,
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,
 				2F137CF818537B6E00D87F30 /* CreateMatch.m in Sources */,
 				2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */,
 				2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */,
+				2F99C5FD18A2E9AE00469E15 /* TeamData.m in Sources */,
 				2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */,
 				2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
-				2F137CFD18537B6E00D87F30 /* Photo.m in Sources */,
 				2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */,
 				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
@@ -784,7 +783,6 @@
 				2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */,
 				2F6F100F1880E24E00378728 /* MatchData.m in Sources */,
 				2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */,
-				2F137D0F18537B7F00D87F30 /* TeamData.m in Sources */,
 				2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */,
 				2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */,
 				2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */,

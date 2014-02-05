@@ -17,6 +17,8 @@
 #import "Photo.h"
 #import "DriveTypeDictionary.h"
 #import "FieldDrawingViewController.h"
+#import <ImageIO/ImageIO.h>
+#import <ImageIO/CGImageProperties.h>
 
 @implementation TeamDetailViewController {
     NSUserDefaults *prefs;
@@ -30,6 +32,8 @@
     NSString *photoPath;
     id popUp;
     BOOL dataChange;
+    NSMutableDictionary *EXIFDictionary;
+    NSMutableDictionary *TIFFDictionray;
 }
 
 @synthesize dataManager = _dataManager;
@@ -178,11 +182,6 @@
     _intakeList = [[NSMutableArray alloc] initWithObjects:@"Unknown", @"Floor", @"Human", @"Both", nil];
     _climbZoneList = [[NSMutableArray alloc] initWithObjects:@"Unknown", @"One", @"Two", @"Three", nil];
 
-    [super viewDidLoad];
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
     //  buttons are activated. If the parent is the Mason VC, then only just one team is passed in, so
@@ -196,8 +195,14 @@
         [_prevTeamButton setHidden:YES];
         [_nextTeamButton setHidden:YES];
     }
-
+    
     [self showTeam];
+
+    [super viewDidLoad];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
 }
 
 -(void)setDataChange {
@@ -319,6 +324,11 @@
     
     NSString *path = [NSString stringWithFormat:@"Library/RobotPhotos/%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
     photoPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
+    NSArray *list = [_team.photoList allObjects];
+    for (int i=0; i<[list count]; i++) {
+        Photo *photo = [list objectAtIndex:i];
+        NSLog(@"Photo list = %@", photo.assetURL);
+    }
     [self getPhoto];
     dataChange = NO;
 }
@@ -560,7 +570,6 @@
     NSLog(@"Take photo");
     if (!_imagePickerController) {
         _imagePickerController = [[UIImagePickerController alloc] init];
- //       _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
         _imagePickerController.delegate = self;
         _imagePickerController.allowsEditing = NO;
     }
@@ -572,15 +581,6 @@
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     }
     [self presentModalViewController:_imagePickerController animated:YES];
-
-/*
-    if (!_pictureController) {
-        _pictureController = [[UIPopoverController alloc]
-                              initWithContentViewController:_imagePickerController];
-        _pictureController.delegate = self;
-    }
-    [_pictureController presentPopoverFromRect:_cameraBtn.bounds inView:_cameraBtn
-                      permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES]; */
 }
 
 - (void)choosePhoto {
@@ -589,7 +589,7 @@
         _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
         _imagePickerController.delegate = self;
     }
-    _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;// UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     
     if (!_pictureController) {
         _pictureController = [[UIPopoverController alloc]
@@ -600,14 +600,34 @@
                       permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
-	_imageView.image = img;
-    [self savePhoto:img];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) {
+        [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
+    }
+    else {
+        [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
+    }
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
     [picker dismissModalViewControllerAnimated:YES];
 }
 
+-(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime {
+    if(!EXIFDictionary) {
+        //if the image does not have an EXIF dictionary (not all images do), then create one for us to use
+        EXIFDictionary = [NSMutableDictionary dictionary];
+    }
+    if(!TIFFDictionray) {
+        TIFFDictionray = [NSMutableDictionary dictionary];
+    }
+    [EXIFDictionary setObject:robotNumber forKey:(NSString*)kCGImagePropertyExifUserComment];
+    [TIFFDictionray setObject:prime forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
+
+    [metaData setObject:EXIFDictionary forKey:(NSString*)kCGImagePropertyExifDictionary];
+    [metaData setObject:TIFFDictionray forKey:(NSString*)kCGImagePropertyTIFFDictionary];
+
+}
 
 - (IBAction)photoControllerActionSheet:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
@@ -624,28 +644,18 @@
     }
 }
 
-
--(void)savePhoto: (UIImage *)image {
-    // Save the photo to an album via ALAssetLibrary. Album will have the APPNAME stored in the preferences
-    [_dataManager savePhotoToAlbum:image];
-}
-
 -(void)photoSaved:(NSNotification *)notification {
     // The photo has been saved. A notification was sent from the ALAsset save function letting
     //  us find out what the photo name was. The names are saved in the database so that we
     //  have a list of all the photos for this robot.
     NSURL *passedURL = [[notification userInfo] objectForKey:@"photoName"];
-    NSLog(@"Photo saved = %@", passedURL);
-    // For now, set the primePhoto that will appear in the imageView to the last photo taken.
-    //  Once we add the photo collection viewer to allow us to select from the photo list,
-    //  this will need to be changed.
     _team.primePhoto = [passedURL absoluteString];
     NSLog(@"Prime Photo string = %@", _team.primePhoto);
+    NSLog(@"Need to check if photo already exists");
     Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
                                                              inManagedObjectContext:_dataManager.managedObjectContext];
-    photoRecord.name = [passedURL absoluteString];
+    photoRecord.assetURL = [passedURL absoluteString];
     [_team addPhotoListObject:photoRecord];
-    [self getPhoto];
     [self setDataChange];
 }
 

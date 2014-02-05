@@ -53,7 +53,7 @@
     dictionary = nil;
     objects = nil;
 #ifdef TEST_MODE
-	NSLog(@"dealloc %@", self);
+//	NSLog(@"dealloc %@", self);
 #endif
 }
 @end

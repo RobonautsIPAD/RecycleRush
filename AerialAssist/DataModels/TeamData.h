@@ -1,9 +1,9 @@
 //
 //  TeamData.h
-// Robonauts Scouting
+//  AerialAssist
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 2/5/14.
+//  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -54,7 +54,6 @@
 @property (nonatomic, retain) NSSet *photoList;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournament;
-@property (nonatomic, retain) NSSet *tournamentList;
 @end
 
 @interface TeamData (CoreDataGeneratedAccessors)
@@ -78,10 +77,5 @@
 - (void)removeTournamentObject:(TournamentData *)value;
 - (void)addTournament:(NSSet *)values;
 - (void)removeTournament:(NSSet *)values;
-
-- (void)addTournamentListObject:(NSManagedObject *)value;
-- (void)removeTournamentListObject:(NSManagedObject *)value;
-- (void)addTournamentList:(NSSet *)values;
-- (void)removeTournamentList:(NSSet *)values;
 
 @end

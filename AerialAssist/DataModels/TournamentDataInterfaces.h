@@ -16,7 +16,7 @@
 @property (nonatomic, strong) DataManager *dataManager;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(AddRecordResults)createTournament:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
+-(AddRecordResults)createTournamentFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(TournamentData *)getTournament:(NSString *)name;
 
 -(NSData *)packageTournamentsForXFer:(NSMutableArray *)tournamentList;

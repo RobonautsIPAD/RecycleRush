@@ -37,8 +37,6 @@
 // fetch all score records for this tournament
     NSArray *allMatches = [team.match allObjects];
     if (![allMatches count]) return;
-    TeamScore *match = [allMatches objectAtIndex:0];
-    NSLog(@"Match tourney = %@", match.tournamentName);
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournament];
     NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];

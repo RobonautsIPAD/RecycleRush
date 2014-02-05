@@ -69,8 +69,16 @@
     }];
 }
 
--(void)getPhotoFromAlbum:(NSURL *)photoURL {
-    [self.photoLibrary getImage:photoURL withCompletionBlock:^(NSError *error) {
+-(void)addPhotoToAlbum:(NSURL*)assetURL {
+    [self.photoLibrary addImage:assetURL toAlbum:appName withCompletionBlock:^(NSError *error) {
+        if (error!=nil) {
+            NSLog(@"Big error: %@", [error description]);
+        }
+    }];
+}
+
+-(void)getPhotoFromAlbum:(NSURL *)photoURL; {
+    [self.photoLibrary getImageFromAssetURL:photoURL withCompletionBlock:^(NSError *error) {
         if (error!=nil) {
             NSLog(@"Big error: %@", [error description]);
         }
@@ -162,7 +170,7 @@
                              [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
-        
+
     // or not to migrate
 /*    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])*/

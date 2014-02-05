@@ -25,5 +25,6 @@
 -(BOOL)databaseExists;
 
 -(void)savePhotoToAlbum:(UIImage*)image;
+-(void)addPhotoToAlbum:(NSURL*)assetURL;
 -(void)getPhotoFromAlbum:(NSURL *)photoURL;
 @end

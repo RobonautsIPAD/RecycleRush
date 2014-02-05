@@ -1,9 +1,9 @@
 //
 //  TeamData.m
-// Robonauts Scouting
+//  AerialAssist
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 2/5/14.
+//  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "TeamData.h"
@@ -56,6 +56,5 @@
 @dynamic photoList;
 @dynamic regional;
 @dynamic tournament;
-@dynamic tournamentList;
 
 @end

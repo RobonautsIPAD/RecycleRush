@@ -1,9 +1,9 @@
 //
 //  Photo.m
-// Robonauts Scouting
+//  AerialAssist
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 2/5/14.
+//  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "Photo.h"
@@ -12,7 +12,7 @@
 
 @implementation Photo
 
-@dynamic name;
+@dynamic assetURL;
 @dynamic teamPhoto;
 
 @end

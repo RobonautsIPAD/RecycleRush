@@ -14,7 +14,7 @@
         <relationship name="score" optional="YES" toMany="YES" maxCount="6" deletionRule="Cascade" destinationEntity="TeamScore" inverseName="match" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assetURL" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="teamPhoto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="photoList" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="Regional" representedClassName="Regional" syncable="YES">
