@@ -38,6 +38,7 @@
 		2F30EAEB16A100850026B258 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAEA16A100850026B258 /* main.m */; };
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
 		2F340CC017A1FB9C006674C3 /* iPhoneMatchXferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */; };
+		2F38C35018A3203A0018D59C /* Small Red Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F38C34F18A3203A0018D59C /* Small Red Button.jpg */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
@@ -170,6 +171,7 @@
 		2F30EAED16A101AB0026B258 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MainApp/AppDelegate.m; sourceTree = "<group>"; };
 		2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPhoneMatchXferViewController.h; path = DataTransfer/iPhoneMatchXferViewController.h; sourceTree = "<group>"; };
 		2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPhoneMatchXferViewController.m; path = DataTransfer/iPhoneMatchXferViewController.m; sourceTree = "<group>"; };
+		2F38C34F18A3203A0018D59C /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
 		2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMatchViewController.h; path = MatchScouting/AddMatchViewController.h; sourceTree = "<group>"; };
 		2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMatchViewController.m; path = MatchScouting/AddMatchViewController.m; sourceTree = "<group>"; };
 		2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F38C34F18A3203A0018D59C /* Small Red Button.jpg */,
 				2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
 				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
@@ -693,6 +696,7 @@
 				2FC18EEB16A2083500D42251 /* button_robonaut_gold.png in Resources */,
 				2FC18EEC16A2083500D42251 /* cell_robonaut_gold.png in Resources */,
 				2FC18EED16A2083500D42251 /* dataMarker.csv in Resources */,
+				2F38C35018A3203A0018D59C /* Small Red Button.jpg in Resources */,
 				2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */,
 				2FC18EF116A2083500D42251 /* Gold Fade.gif in Resources */,
 				2FC18EF416A2083500D42251 /* nasalization rg.ttf in Resources */,

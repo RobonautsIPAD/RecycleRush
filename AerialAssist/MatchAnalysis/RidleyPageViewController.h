@@ -12,13 +12,17 @@
 @class DataManager;
 @class TeamData;
 
-@interface RidleyPageViewController : UIViewController <PopUpPickerDelegate>
+@interface RidleyPageViewController : UIViewController <PopUpPickerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) DataManager *dataManager;
 
 @property (nonatomic, weak) IBOutlet UIButton *first;
 @property (nonatomic, weak) IBOutlet UIButton *second;
 @property (nonatomic, weak) IBOutlet UIButton *third;
+
+@property (nonatomic, weak) IBOutlet UITableView *firstListTable;
+@property (nonatomic, weak) IBOutlet UITableView *secondListTable;
+@property (nonatomic, weak) IBOutlet UITableView *thirdListTable;
 
 @property (nonatomic, strong) PopUpPickerViewController *firstPicker;
 @property (nonatomic, strong) UIPopoverController *firstPickerPopover;

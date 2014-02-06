@@ -37,6 +37,9 @@
 @synthesize firstTeamList = _firstTeamList;
 @synthesize secondTeamList = _secondTeamList;
 @synthesize thirdTeamList = _thirdTeamList;
+@synthesize firstListTable = _firstListTable;
+@synthesize secondListTable = _secondListTable;
+@synthesize thirdListTable = _thirdListTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -151,6 +154,7 @@
             break;
         }
     }
+    [_firstListTable reloadData];
 }
 
 -(void)addSecondList:(NSString *)newSecondTeam {
@@ -163,6 +167,7 @@
             break;
         }
     }
+    [_secondListTable reloadData];
 }
 
 -(void)addThirdList:(NSString *)newThirdTeam {
@@ -175,6 +180,7 @@
             break;
         }
     }
+    [_thirdListTable reloadData];
 }
 
 
@@ -204,39 +210,96 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //TODO make IBOutlts for these!
-    if (tableView == _firstList){
+    if (tableView == _firstListTable){
         return [_firstTeamList count];
     }
-    else if (tableView == _secondList){
+    else if (tableView == _secondListTable){
         return [_secondTeamList count];
     }
     else{
         return [_thirdTeamList count];
     }
-        
+}
+
+- (void)configureFirstPickCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *info1 = [_firstTeamList objectAtIndex:indexPath.row];
+    NSLog(@"name = %@", info1);
+	UILabel *pickLabel1 = (UILabel *)[cell viewWithTag:10];
+	pickLabel1.text = [NSString stringWithFormat:@"%d", [info1 intValue]];
+
+}
+
+- (void)configureSecondPickCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *info2 = [_secondTeamList objectAtIndex:indexPath.row];
+    NSLog(@"name = %@", info2);
+	UILabel *pickLabel2 = (UILabel *)[cell viewWithTag:20];
+	pickLabel2.text = [NSString stringWithFormat:@"%d", [info2 intValue]];
     
 }
 
+- (void)configureThirdPickCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *info3 = [_thirdTeamList objectAtIndex:indexPath.row];
+    NSLog(@"name = %@", info3);
+	UILabel *pickLabel3 = (UILabel *)[cell viewWithTag:30];
+	pickLabel3.text = [NSString stringWithFormat:@"%d", [info3 intValue]];
+    
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView == _firstListTable){
+        if(editingStyle == UITableViewCellEditingStyleDelete)
+        {
+            [_firstTeamList removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
+    else if(tableView == _secondListTable){
+        if(editingStyle == UITableViewCellEditingStyleDelete)
+        {
+            [_secondTeamList removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+
+    }
+    else{
+        if(editingStyle == UITableViewCellEditingStyleDelete)
+        {
+            [_thirdTeamList removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-    if (tableView == _regionalInfo) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Regional"];
+    if (tableView == _firstListTable) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"FirstPick"];
         // Set up the cell...
-        [self configureRegionalCell:cell atIndexPath:indexPath];
+        NSLog(@"Filling Cell");
+        NSLog(@"Creating button");
+        [self configureFirstPickCell:cell atIndexPath:indexPath];
+        
     }
-    else if (tableView == _matchInfo) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MatchSchedule"];
+    else if (tableView == _secondListTable) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SecondPick"];
         // Set up the cell...
-        [self configureMatchCell:cell atIndexPath:indexPath];
+        [self configureSecondPickCell:cell atIndexPath:indexPath];
+    }
+    else if (tableView == _thirdListTable){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ThirdPick"];
+        //Set up the cell...
+        [self configureThirdPickCell:cell atIndexPath:indexPath];
     }
     
     return cell;
 }
-
 
 @end
