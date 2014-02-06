@@ -87,7 +87,7 @@
         int c;
         for (c = 1; c < [csvContent count]; c++) {
             // NSLog(@"loadTournamentFile:Tournament = %@", [[csvContent objectAtIndex: c] objectAtIndex:0]);
-            AddRecordResults results = [tournament createTournament:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
+            AddRecordResults results = [tournament createTournamentFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
             if (results != DB_ADDED) {
                 NSLog(@"Check database - Tournament Add Code %d", results);
             }

@@ -10,7 +10,7 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "TournamentData.h"
-#import "CreateTournament.h"
+#import "TournamentDataInterfaces.h"
 #import "Regional.h"
 
 @implementation TeamDataInterfaces
@@ -34,7 +34,7 @@
     NSLog(@"addTeam - need to add saveBy and saved values");
     
     // Check to make sure tournament exists, if not, error out
-    TournamentData *tournamentRecord = [[[CreateTournament alloc] initWithDataManager:_dataManager] GetTournament:tournamentName];
+    TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournamentName];
     if (!tournamentRecord) {
         NSString *msg = [NSString stringWithFormat:@"Tournament %@ does not exist", tournamentName];
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Add Alert"
@@ -46,7 +46,7 @@
         [prompt show];
         return nil;
     }
-    
+
     TeamData *teamRecord = [self getTeam:teamNumber];
     if (teamRecord) {
         // If team already exists, add it to the tournament
@@ -133,7 +133,7 @@
         NSRelationshipDescription *destination = [value inverseRelationship];
         if ([destination.entity.name isEqualToString:@"TournamentData"]) {
             // Check to make sure that the tournament exists in the TournamentData db
-            TournamentData *tournamentRecord = [[[CreateTournament alloc] initWithDataManager:_dataManager] GetTournament:data];
+            TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:data];
             if (tournamentRecord) {
                 // NSLog(@"Found = %@", tournamentRecord.name);
                 // Check to make sure this team does not already have this tournament
@@ -311,15 +311,23 @@
     if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
 
     // Cycle through each object in the transfer data dictionary
+    NSLog(@"unpackage team data add check for default values.");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
         // if key is attribute check to see if sending value is default - probably don't want to save if default
-        // if key is property, brach to photoList or tournamentList to decode
+        // if key is property, branch to photoList or tournamentList to decode
         id value = [_teamDataProperties valueForKey:key];
         if ([value isKindOfClass:[NSAttributeDescription class]]) {
-            NSLog(@"unpackage team data add check for default values.");
-            NSLog(@"key = %@, value = %@", key, value);
             [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+        }
+        else {   // This is a relationship property
+            NSRelationshipDescription *destination = [value inverseRelationship];
+            if ([destination.entity.name isEqualToString:@"TournamentData"]) {
+                // NSLog(@"T dictionary = %@", [myDictionary objectForKey:key]);
+                for (int i=0; i<[[myDictionary objectForKey:key] count]; i++) {
+                    [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
+                }
+             }
         }
     }
     NSError *error;
@@ -329,7 +337,11 @@
     
     return teamRecord;
 }
-
+// unpack tournament records
+// loop through array
+//      check tourney to make sure it is in the list -- method returning a tournament record
+//          if tournament record is null, then just keep going
+//          if tournament record is not null, then add it to the team record if it isn;t there already
 
 -(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament {
     NSLog(@"Export teams to csv");
@@ -376,6 +388,28 @@
         return ([data isEqualToString:@""] ? @"," : [NSString stringWithFormat:@",\"%@\"", data]);
     }
     else return [NSString stringWithFormat:@"%@", data];
+}
+
+-(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
+    NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);
+    // Check to make sure that the tournament exists in the TournamentData db
+    TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournamentName];
+    if (tournamentRecord) {
+        // NSLog(@"Found = %@", tournamentRecord.name);
+        // Check to make sure this team does not already have this tournament
+        NSArray *allTournaments = [team.tournament allObjects];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"name = %@", tournamentRecord.name];
+        NSArray *list = [allTournaments filteredArrayUsingPredicate:pred];
+        if (![list count]) {
+            // NSLog(@"Adding Tournament");
+            // NSLog(@"Team before T add = %@", team);
+            [team addTournamentObject:tournamentRecord];
+            // NSLog(@"Team after T add = %@", team);
+        }
+        else {
+            // NSLog(@"Tournament Exists, count = %d", [list count]);
+        }
+    }
 }
 
 -(Regional *)getRegionalRecord:(TeamData *)team forWeek:(NSNumber *)week {

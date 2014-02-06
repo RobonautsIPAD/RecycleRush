@@ -21,7 +21,7 @@
 	return self;
 }
 
--(AddRecordResults)createTournament:(NSMutableArray *)headers dataFields:(NSMutableArray *)data {
+-(AddRecordResults)createTournamentFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data {
     if (![data count]) return DB_ERROR;
     NSString *tournamentName;
     
@@ -61,7 +61,20 @@
 }
 
 -(NSArray *)unpackageTournamentsForXFer:(NSData *)xferData {
-    
+    NSArray *tournamentArray = (NSArray*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    for (int i=0; i<[tournamentArray count]; i++) {
+        TournamentData *tournament = [self getTournament:[tournamentArray objectAtIndex:i]];
+        if (!tournament) {
+            TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
+                                                                       inManagedObjectContext:_dataManager.managedObjectContext];
+            tournament.name = [tournamentArray objectAtIndex:i];
+            NSError *error;
+            if (![_dataManager.managedObjectContext save:&error]) {
+                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            }
+        }
+    }
+    return tournamentArray;
 }
 
 -(TournamentData *)getTournament:(NSString *)name {

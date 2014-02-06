@@ -35,6 +35,7 @@
 -(void)setTeamDefaults:(TeamData *)blankTeam;
 -(NSData *)packageTeamForXFer:(TeamData *)team;
 -(TeamData *)unpackageTeamForXFer:(NSData *)xferData;
+-(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;
 #endif

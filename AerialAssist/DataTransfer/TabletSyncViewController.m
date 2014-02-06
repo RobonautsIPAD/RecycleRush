@@ -42,16 +42,16 @@
     NSString *deviceName;
     BlueToothType *bluetoothType;
 
+    NSArray *tournamentList;
+    NSMutableArray *filteredTournamentList;
+    NSArray *receivedTournamentList;
+    TournamentDataInterfaces *tournamentDataPackage;
+
     NSNumber *teamDataSync;
     NSArray *teamList;
     NSArray *filteredTeamList;
     NSMutableArray *receivedTeamList;
     TeamDataInterfaces *teamDataPackage;
-
-    NSArray *tournamentList;
-    NSMutableArray *filteredTournamentList;
-    NSArray *receivedTournamentList;
-    TournamentDataInterfaces *tournamentDataPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -95,8 +95,6 @@ GKPeerPickerController *picker;
 
 - (void)viewDidLoad
 {
-    //    if ([[prefs objectForKey:@"bluetooth"] isEqualToString:@"Scouter"]) {
-
     [super viewDidLoad];
     NSError *error = nil;
     if (!_dataManager) {
@@ -444,8 +442,8 @@ GKPeerPickerController *picker;
     {
         case GKPeerStateConnected:
             NSLog(@"connected");
-            [_sendDataTable setHidden:NO];
-            [_receiveDataTable setHidden:NO];
+            // [_sendDataTable setHidden:NO];
+            // [_receiveDataTable setHidden:NO];
             break;
         case GKPeerStateDisconnected:
             NSLog(@"disconnected");
@@ -479,6 +477,7 @@ GKPeerPickerController *picker;
     [_receiveDataTable setHidden:NO];
     switch (_syncType) {
         case SyncTournaments:
+            receivedTournamentList = [tournamentDataPackage unpackageTournamentsForXFer:data];
             break;
         case SyncTeams: {
             if (receivedTeamList == nil) {
@@ -495,6 +494,9 @@ GKPeerPickerController *picker;
         default:
             break;
     }
+    
+    [_receiveDataTable reloadData];
+
 /*    dataFromTransfer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     //---convert the NSData to NSString---
     if (receivedMatches == nil) {
@@ -657,15 +659,13 @@ GKPeerPickerController *picker;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (tableView == _receiveDataTable) {
-    }
     return 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView == _receiveDataTable) {
-        return 0;
+        return 1;
     }
     if (tableView == _sendDataTable) {
         NSInteger count = [[_fetchedResultsController sections] count];
@@ -684,6 +684,7 @@ GKPeerPickerController *picker;
 {
     // Return the number of rows in the section.
     if (tableView == _sendDataTable) {
+        if (_sendDataTable.hidden) return 0;
         if (_syncType == SyncTeams) return [filteredTeamList count];
         if (_syncType == SyncTournaments) return [filteredTournamentList count];
         id <NSFetchedResultsSectionInfo> sectionInfo =
@@ -692,8 +693,10 @@ GKPeerPickerController *picker;
         return [sectionInfo numberOfObjects];
     }
     else {
-        return [receivedMatches count];
+        if (_receiveDataTable.hidden) return 0;
+        if (_syncType == SyncTournaments) return [receivedTournamentList count];
     }
+    return 0;
 }
 
 - (void)configureTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -746,22 +749,49 @@ GKPeerPickerController *picker;
     }
 }
 
-- (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    // Configure the cell...
-    // Set a background for the cell
+- (void)configureReceivedTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSString *tournament = [receivedTournamentList objectAtIndex:indexPath.row];
     
-	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
-	numberLabel.text = [NSString stringWithFormat:@"%d", [[receivedMatches objectAtIndex:indexPath.row] intValue]];
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = tournament;
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = @"";
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
 
-	UILabel *matchTypeLabel = (UILabel *)[cell viewWithTag:20];
-    matchTypeLabel.text = [receivedMatchTypes objectAtIndex:indexPath.row];
+- (void)configureReceivedTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TeamData *team = [receivedTeamList objectAtIndex:indexPath.row];
     
-	UILabel *teamLabel = (UILabel *)[cell viewWithTag:30];
-    teamLabel.text = [NSString stringWithFormat:@"%d", [[receivedTeamList objectAtIndex:indexPath.row] intValue]];
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     
-	UILabel *syncLabel = (UILabel *)[cell viewWithTag:40];
-    syncLabel.text = @"";   //([info.synced intValue] == 0) ? @"N" : @"Y";
- 
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = team.name;
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
+
+- (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    switch (_syncType) {
+        case SyncTournaments:
+            [self configureReceivedTournamentCell:cell atIndexPath:indexPath];
+            break;
+        case SyncTeams:
+            [self configureReceivedTeamCell:cell atIndexPath:indexPath];
+            break;
+        default:
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

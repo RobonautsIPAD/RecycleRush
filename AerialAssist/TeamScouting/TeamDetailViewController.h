@@ -78,11 +78,10 @@
 -(void)takePhoto;
 -(void)choosePhoto;
 -(IBAction)photoControllerActionSheet:(id)sender;
--(void)savePhoto: (UIImage *)image;
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;
 -(void)photoRetrieved:(NSNotification *)notification;
-
+-(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime;
 -(IBAction)MatchNumberChanged;
 
 @end
