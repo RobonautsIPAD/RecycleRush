@@ -311,7 +311,7 @@
     if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
 
     // Cycle through each object in the transfer data dictionary
-    NSLog(@"unpackage team data add check for default values.");
+    NSLog(@"unpackage team data add check for default values. Do something about received entry");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
         // if key is attribute check to see if sending value is default - probably don't want to save if default
