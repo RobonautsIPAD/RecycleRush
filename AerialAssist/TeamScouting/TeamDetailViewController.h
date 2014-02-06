@@ -81,6 +81,7 @@
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;
 -(void)photoRetrieved:(NSNotification *)notification;
+-(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset;
 -(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime;
 -(IBAction)MatchNumberChanged;
 
