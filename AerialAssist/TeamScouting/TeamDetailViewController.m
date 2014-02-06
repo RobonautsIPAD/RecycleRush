@@ -606,7 +606,10 @@
         [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
     }
     else {
+       // _team.primePhoto = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+       // [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto];
         [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
+       // [self setDataChange];
     }
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
@@ -651,10 +654,24 @@
     NSURL *passedURL = [[notification userInfo] objectForKey:@"photoName"];
     _team.primePhoto = [passedURL absoluteString];
     NSLog(@"Prime Photo string = %@", _team.primePhoto);
-    NSLog(@"Need to check if photo already exists");
-    Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo"
-                                                             inManagedObjectContext:_dataManager.managedObjectContext];
-    photoRecord.assetURL = [passedURL absoluteString];
+    [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto];
+    [self setDataChange];
+}
+
+-(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset {
+    Photo *photoRecord;
+    NSLog(@"Check if photo already exists");
+    NSArray *allPhotos = [team.photoList allObjects];
+    if ([allPhotos count]) {
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"assetURL = %@", photoAsset];
+        NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
+        if ([photo count]) return;
+        photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
+    }
+    else {
+        photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
+    }
+    photoRecord.assetURL = photoAsset;
     [_team addPhotoListObject:photoRecord];
     [self setDataChange];
 }

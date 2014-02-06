@@ -12,7 +12,7 @@
 UIImage *fetchedPhoto;
 
 -(void)getImageFromAssetURL:(NSURL*)assetURL withCompletionBlock:(SaveImageCompletion)completionBlock {
-    NSLog(@"asset URL = %@", assetURL);
+    // NSLog(@"asset URL = %@", assetURL);
     [self assetForURL:assetURL
           resultBlock:resultblock
          failureBlock:failureblock];
@@ -54,12 +54,10 @@ ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
     // get the image
     ALAssetRepresentation *rep = [myasset defaultRepresentation];
     CGImageRef iref = [rep fullResolutionImage];
-    NSLog(@"orientation = %d", [rep orientation]);
     ALAssetOrientation orientation = [rep orientation];
     UIImage *image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:1.0
                                     orientation:(UIImageOrientation)orientation];
     if (iref) {
-        NSLog(@"asset default = %@", rep.filename);
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:image forKey:@"photoImage"]]];
     }
     else {
@@ -127,7 +125,7 @@ ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
          
                                           //run the completion block
                                           completionBlock(nil);
-                                          NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
+                                          //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
                                           [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
 
                                       } failureBlock: completionBlock];
@@ -154,7 +152,7 @@ ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
       
                                                                             //call the completion block
                                                                             completionBlock(nil);
-                                                                            NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
+                                                                            //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
                                                                             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
 
                                                                         } failureBlock: completionBlock];
