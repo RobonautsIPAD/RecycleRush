@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 1/10/14.
+//  Created by FRC on 2/6/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -14,24 +14,26 @@
 
 @implementation TeamScore
 
+@dynamic airCatch;
+@dynamic airPasses;
 @dynamic alliance;
 @dynamic allianceSection;
-@dynamic autonHigh;
-@dynamic autonLow;
-@dynamic autonMid;
+@dynamic autonBlocks;
+@dynamic autonHighCold;
+@dynamic autonHighHot;
+@dynamic autonLowCold;
+@dynamic autonLowHot;
 @dynamic autonMissed;
+@dynamic autonMobility;
 @dynamic autonShotsMade;
-@dynamic blocks;
-@dynamic climbAttempt;
-@dynamic climbLevel;
-@dynamic climbTimer;
-@dynamic defenseRating;
+@dynamic defenseBlock;
+@dynamic defenseBullyRating;
 @dynamic driverRating;
+@dynamic floorPasses;
 @dynamic floorPickUp;
+@dynamic humanPickUp;
 @dynamic notes;
 @dynamic otherRating;
-@dynamic passes;
-@dynamic pyramid;
 @dynamic received;
 @dynamic robotSpeed;
 @dynamic saved;
@@ -47,14 +49,16 @@
 @dynamic sc9;
 @dynamic storedFieldDrawing;
 @dynamic synced;
+@dynamic teleOpBlocks;
 @dynamic teleOpHigh;
 @dynamic teleOpLow;
-@dynamic teleOpMid;
 @dynamic teleOpMissed;
 @dynamic teleOpShots;
 @dynamic totalAutonShots;
 @dynamic totalTeleOpShots;
 @dynamic tournamentName;
+@dynamic trussCatch;
+@dynamic trussThrow;
 @dynamic wallPickUp;
 @dynamic wallPickUp1;
 @dynamic wallPickUp2;

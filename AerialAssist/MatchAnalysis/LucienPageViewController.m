@@ -332,14 +332,14 @@
             if ( ([score.match.matchType isEqualToString:@"Seeding"]
                   || [score.match.matchType isEqualToString:@"Elimination"])
                 && ([score.saved intValue] || [score.synced intValue])) {
-                autonPoints = [score.autonHigh intValue]*6 + [score.autonMid intValue]*5 + [score.autonLow intValue]*4;
-                [autonList addObject:[NSNumber numberWithInt:autonPoints]];
-                teleOpPoints = [score.teleOpHigh intValue]*3 + [score.teleOpMid intValue]*2 + [score.teleOpLow intValue]*1;
+//                autonPoints = [score.autonHigh intValue]*6 + [score.autonMid intValue]*5 + [score.autonLow intValue]*4;
+//                [autonList addObject:[NSNumber numberWithInt:autonPoints]];
+//                teleOpPoints = [score.teleOpHigh intValue]*3 + [score.teleOpMid intValue]*2 + [score.teleOpLow intValue]*1;
                 [teleOpList addObject:[NSNumber numberWithInt:teleOpPoints]];
                 [drivingList addObject:score.driverRating];
-                [defenseList addObject:score.defenseRating];
+//                [defenseList addObject:score.defenseRating];
                 [speedList addObject:score.robotSpeed];
-                hangpoints = [score.climbLevel intValue]*10 + [score.pyramid intValue]*5;
+//                hangpoints = [score.climbLevel intValue]*10 + [score.pyramid intValue]*5;
                 [hangPointsList addObject:[NSNumber numberWithInt:hangpoints]];
             }
         }

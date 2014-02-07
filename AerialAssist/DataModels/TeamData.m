@@ -2,7 +2,7 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 2/5/14.
+//  Created by FRC on 2/6/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -18,14 +18,12 @@
 @dynamic auton;
 @dynamic cims;
 @dynamic climbLevel;
-@dynamic climbSpeed;
 @dynamic driveTrainType;
 @dynamic fthing1;
 @dynamic fthing2;
 @dynamic fthing3;
 @dynamic fthing4;
 @dynamic fthing5;
-@dynamic history;
 @dynamic intake;
 @dynamic maxHeight;
 @dynamic minHeight;
@@ -34,12 +32,10 @@
 @dynamic number;
 @dynamic nwheels;
 @dynamic primePhoto;
-@dynamic pyramidDump;
+@dynamic primePhotoDate;
 @dynamic received;
 @dynamic saved;
 @dynamic savedBy;
-@dynamic shooterHeight;
-@dynamic shootsTo;
 @dynamic sthing1;
 @dynamic sthing3;
 @dynamic sthing4;

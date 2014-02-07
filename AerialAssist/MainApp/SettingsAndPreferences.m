@@ -18,7 +18,7 @@
     NSString *fileName = [@"Robonauts" stringByAppendingFormat:@".%@.plist", appName];
     NSString *prefFile = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@", fileName]];
 
-    NSLog(@"Prefs file = %@", prefFile);
+    //NSLog(@"Prefs file = %@", prefFile);
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:prefFile]) {
         // Preferences doesn't already exist, so check for one in the main bundle

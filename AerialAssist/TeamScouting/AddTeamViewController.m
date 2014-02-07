@@ -52,11 +52,11 @@
 }
 
 - (IBAction)cancelVC:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (IBAction)addAction:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
     NSLog(@"Adding team %@", teamNumber);
     if (_delegate == nil) NSLog(@"no delegate");
     [_delegate teamAdded:teamNumber forName:teamName];

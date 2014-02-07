@@ -73,11 +73,11 @@
 }
 
 - (IBAction)cancelVC:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (IBAction)addAction:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
     NSLog(@"Adding match");
     NSLog(@"match = %@", newMatch);
     if (delegate == nil) NSLog(@"no delegate");

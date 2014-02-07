@@ -396,21 +396,21 @@
 }
 
 -(void)setScoreData:(TeamScore *)score {
-    score.autonHigh = [NSNumber numberWithInt:0];
-    score.autonMid = [NSNumber numberWithInt:0];
-    score.autonLow = [NSNumber numberWithInt:0];
+//    score.autonHigh = [NSNumber numberWithInt:0];
+//    score.autonMid = [NSNumber numberWithInt:0];
+//    score.autonLow = [NSNumber numberWithInt:0];
     score.autonMissed = [NSNumber numberWithInt:0];
     score.autonShotsMade = [NSNumber numberWithInt:0];
     score.totalAutonShots = [NSNumber numberWithInt:0];
     score.teleOpHigh = [NSNumber numberWithInt:0];
-    score.teleOpMid = [NSNumber numberWithInt:0];
+//    score.teleOpMid = [NSNumber numberWithInt:0];
     score.teleOpLow = [NSNumber numberWithInt:0];
     score.teleOpMissed = [NSNumber numberWithInt:0];
     score.teleOpShots = [NSNumber numberWithInt:0];
     score.totalTeleOpShots = [NSNumber numberWithInt:0];
-    score.pyramid = [NSNumber numberWithInt:0];
-    score.passes = [NSNumber numberWithInt:0];
-    score.blocks = [NSNumber numberWithInt:0];
+//    score.pyramid = [NSNumber numberWithInt:0];
+//    score.passes = [NSNumber numberWithInt:0];
+//    score.blocks = [NSNumber numberWithInt:0];
     score.wallPickUp = [NSNumber numberWithInt:0];
     score.wallPickUp1 = [NSNumber numberWithInt:0];
     score.wallPickUp2 = [NSNumber numberWithInt:0];
@@ -421,10 +421,10 @@
     score.notes = @"";
     score.saved = [NSNumber numberWithInt:0];
 //    score.fieldDrawing = nil;
-    score.defenseRating = [NSNumber numberWithInt:0];
-    score.climbLevel = [NSNumber numberWithInt:0];
-    score.climbAttempt = [NSNumber numberWithInt:0];
-    score.climbTimer = [NSNumber numberWithFloat:0.0];
+//    score.defenseRating = [NSNumber numberWithInt:0];
+//    score.climbLevel = [NSNumber numberWithInt:0];
+//    score.climbAttempt = [NSNumber numberWithInt:0];
+//    score.climbTimer = [NSNumber numberWithFloat:0.0];
 }
 
 -(TeamData *)getTeam:(int)teamNumber forTournament:(NSString *)tournament {

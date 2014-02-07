@@ -107,63 +107,56 @@ ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
     __block BOOL albumWasFound = NO;
     
     //search all photo albums in the library
-    [self enumerateGroupsWithTypes:ALAssetsGroupAlbum 
-                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-
-                            //compare the names of the albums
-                            if ([albumName compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
-                                
-                                //target album is found
-                                albumWasFound = YES;
-                                
-                                //get a hold of the photo's asset instance
-                                [self assetForURL: assetURL 
-                                      resultBlock:^(ALAsset *asset) {
-                                                  
-                                          //add photo to the target album
-                                          [group addAsset: asset];
+    [self enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        //compare the names of the albums
+        if ([albumName compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
+            //target album is found
+            albumWasFound = YES;
+            
+            //get a hold of the photo's asset instance
+            [self assetForURL: assetURL resultBlock:^(ALAsset *asset) {
+                //add photo to the target album
+                [group addAsset: asset];
          
-                                          //run the completion block
-                                          completionBlock(nil);
-                                          //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
-                                          [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
+                //run the completion block
+                completionBlock(nil);
+                //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObjects:@[assetURL, [asset valueForProperty:ALAssetPropertyDate]] forKeys:@[@"assetURL", @"photoDate"]]]];
+            } failureBlock: completionBlock];
 
-                                      } failureBlock: completionBlock];
-
-                                //album was found, bail out of the method
-                                return;
-                            }
+            //album was found, bail out of the method
+            return;
+        }
                             
-                            if (group==nil && albumWasFound==NO) {
-                                //photo albums are over, target album does not exist, thus create it
+        if (group==nil && albumWasFound==NO) {
+            //photo albums are over, target album does not exist, thus create it
                                 
-                                __weak ALAssetsLibrary* weakSelf = self;
+            __weak ALAssetsLibrary* weakSelf = self;
 
-                                //create new assets album
-                                [self addAssetsGroupAlbumWithName:albumName 
-                                                      resultBlock:^(ALAssetsGroup *group) {
+            //create new assets album
+            [self addAssetsGroupAlbumWithName:albumName resultBlock:^(ALAssetsGroup *group) {
                                                                   
-                                                          //get the photo's instance
-                                                          [weakSelf assetForURL: assetURL 
-                                                                        resultBlock:^(ALAsset *asset) {
+                //get the photo's instance
+                [weakSelf assetForURL: assetURL resultBlock:^(ALAsset *asset) {
 
-                                                                            //add photo to the newly created album
-                                                                            [group addAsset: asset];
+                    //add photo to the newly created album
+                    [group addAsset: asset];
       
-                                                                            //call the completion block
-                                                                            completionBlock(nil);
-                                                                            //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
-                                                                            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObject:assetURL forKey:@"photoName"]]];
+                    //call the completion block
+                    completionBlock(nil);
+                    //NSLog(@"creation date %@", [asset valueForProperty:ALAssetPropertyDate]);
+ //                   NSArray *objects = [NSArray arrayWithObjects:assetURL, [asset valueForProperty:ALAssetPropertyDate], nil];
+                    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoSaved" object:nil userInfo:[NSDictionary dictionaryWithObjects:@[assetURL, [asset valueForProperty:ALAssetPropertyDate]] forKeys:@[@"assetURL", @"photoDate"]]]];
 
-                                                                        } failureBlock: completionBlock];
-                                                          
-                                                      } failureBlock: completionBlock];
+                } failureBlock: completionBlock];
+                
+            } failureBlock: completionBlock];
 
-                                //should be the last iteration anyway, but just in case
-                                return;
-                            }
+            //should be the last iteration anyway, but just in case
+            return;
+        }
                             
-                        } failureBlock: completionBlock];
+    } failureBlock: completionBlock];
 
 }
 

@@ -64,6 +64,7 @@
 @synthesize drawingPath;
 
 - (id)initWithScore:(TeamScore *)score {
+    /*
     self.alliance = score.alliance;
     self.autonHigh = score.autonHigh;
     self.autonLow = score.autonLow;
@@ -100,7 +101,7 @@
     self.match = score.match.number;
     self.matchType = score.match.matchType;
     self.tournament = score.tournamentName;
-    self.team = score.team.number;
+    self.team = score.team.number;*/
     
 /*    NSString *baseDrawingPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",self.drawingPath, score.fieldDrawing]];
     self.fieldDrawingImage = UIImagePNGRepresentation([UIImage imageWithContentsOfFile:baseDrawingPath]);

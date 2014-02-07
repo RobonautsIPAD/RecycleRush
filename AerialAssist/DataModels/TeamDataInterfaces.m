@@ -77,7 +77,6 @@
         // If team does not exist, add it and add it to the tournament
         teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
                                              inManagedObjectContext:_dataManager.managedObjectContext];
-        [self setTeamDefaults:teamRecord];
         [teamRecord setValue:teamNumber forKey:@"number"];
         [teamRecord setValue:teamName forKey:@"name"];
         [teamRecord addTournamentObject:tournamentRecord];
@@ -107,7 +106,6 @@
     else {
         team = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
                                                        inManagedObjectContext:_dataManager.managedObjectContext];
-        [self setTeamDefaults:team];        
         [team setValue:teamNumber forKey:@"number"];
     }
     if (!_teamDataProperties) _teamDataProperties = [[team entity] propertiesByName];
@@ -255,7 +253,8 @@
     NSMutableArray *valueList = [NSMutableArray array];
     if (!_teamDataAttributes) _teamDataAttributes = [[team entity] attributesByName];
     for (NSString *item in _teamDataAttributes) {
-        if ([team valueForKey:item]) {
+        if ([team valueForKey:item] && [team valueForKey:item] != [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]) {
+            NSLog(@"%@ = %@, not equal to default = %@", item, [team valueForKey:item], [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]);
             [keyList addObject:item];
             [valueList addObject:[team valueForKey:item]];
         }
@@ -279,13 +278,18 @@
     [valueList addObject:[team valueForKey:@"regional"]];
 */
     NSArray *allPhotos = [team.photoList allObjects];
-    NSMutableArray *photoNames = [NSMutableArray array];
-    for (int i=0; i<[allPhotos count]; i++) {
-        [photoNames addObject:[[allPhotos objectAtIndex:i] valueForKey:@"name"]];
+    if ([allPhotos count]) {
+        NSMutableArray *photoDates = [NSMutableArray array];
+        for (int i=0; i<[allPhotos count]; i++) {
+            NSDate *date = [[allPhotos objectAtIndex:i] valueForKey:@"photoDate"];
+            if (date) {
+                [photoDates addObject:[[allPhotos objectAtIndex:i] valueForKey:@"photoDate"]];
+            }
+        }
+        [keyList addObject:@"photoList"];
+        [valueList addObject:photoDates];
     }
-    [keyList addObject:@"photoList"];
-    [valueList addObject:photoNames];
-    
+    NSLog(@"Key list = %@, value list = %@", keyList, valueList);
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
@@ -303,8 +307,6 @@
     if (!teamRecord) {
         teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
                                              inManagedObjectContext:_dataManager.managedObjectContext];
-        NSLog(@"print team record and see if the defaults are set");
-        //        [self setTeamDefaults:team];
         [teamRecord setValue:teamNumber forKey:@"number"];
     }
     // Create the property dictionary if it hasn't been created yet
@@ -314,7 +316,16 @@
     NSLog(@"unpackage team data add check for default values. Do something about received entry");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
-        // if key is attribute check to see if sending value is default - probably don't want to save if default
+        if ([key isEqualToString:@"primePhoto"]) continue; // The assetURL is not transferrable
+        if ([key isEqualToString:@"primePhotoDate"]) {
+            // Only do something with the prime photo date if there is not photo already
+            if (!teamRecord.primePhotoDate) {
+                teamRecord.primePhotoDate = [_teamDataProperties valueForKey:key];
+                NSLog(@"Enumerate to get the photo");
+// enumerate to get the photo
+            }
+            continue;
+        }
         // if key is property, branch to photoList or tournamentList to decode
         id value = [_teamDataProperties valueForKey:key];
         if ([value isKindOfClass:[NSAttributeDescription class]]) {
@@ -328,6 +339,8 @@
                     [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
                 }
              }
+            else if ([destination.entity.name isEqualToString:@"Photo"]) {
+            }
         }
     }
     NSError *error;
@@ -475,16 +488,16 @@
     blankTeam.name = @"";
     blankTeam.climbLevel = [NSNumber numberWithInt:-1];
     blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
-    blankTeam.history = @"";
+//    blankTeam.history = @"";
     blankTeam.intake = [NSNumber numberWithInt:-1];
-    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
+//    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
     blankTeam.notes = @"";
     blankTeam.wheelDiameter = [NSNumber numberWithFloat:0.0];
     blankTeam.cims = [NSNumber numberWithInt:0];
     blankTeam.minHeight = [NSNumber numberWithFloat:0.0];
     blankTeam.maxHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
+//    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
+//    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
     blankTeam.saved = [NSNumber numberWithInt:0];
 }
 

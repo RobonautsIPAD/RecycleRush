@@ -14,7 +14,6 @@
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "TournamentData.h"
-#import "CreateTeam.h"
 #include "MatchTypeDictionary.h"
 
 // Current Match Results File Order
@@ -266,7 +265,7 @@
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
     [teamScore setAlliance:alliance];
-    teamScore.climbAttempt = [NSNumber numberWithInt:0];
+//    teamScore.climbAttempt = [NSNumber numberWithInt:0];
     [teamScore setTeam:[self GetTeam:teamNumber]]; // Set Relationship!!!
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
@@ -347,17 +346,17 @@
                 case 27:
                     score.floorPickUp = [NSNumber numberWithInt:[[data objectAtIndex: 26] intValue]];
                 case 26:
-                    score.blocks = [NSNumber numberWithInt:[[data objectAtIndex: 25] intValue]];
+//                    score.blocks = [NSNumber numberWithInt:[[data objectAtIndex: 25] intValue]];
                 case 25:
-                    score.passes = [NSNumber numberWithInt:[[data objectAtIndex: 24] intValue]];
+//                    score.passes = [NSNumber numberWithInt:[[data objectAtIndex: 24] intValue]];
                 case 24:
-                    score.pyramid = [NSNumber numberWithInt:[[data objectAtIndex: 23] intValue]];
+//                    score.pyramid = [NSNumber numberWithInt:[[data objectAtIndex: 23] intValue]];
                 case 23:
-                    score.climbTimer = [NSNumber numberWithFloat:[[data objectAtIndex: 22] floatValue]];
+//                    score.climbTimer = [NSNumber numberWithFloat:[[data objectAtIndex: 22] floatValue]];
                 case 22:
-                    score.climbLevel = [NSNumber numberWithInt:[[data objectAtIndex: 21] intValue]];
+//                    score.climbLevel = [NSNumber numberWithInt:[[data objectAtIndex: 21] intValue]];
                 case 21:
-                    score.climbAttempt = [NSNumber numberWithInt:[[data objectAtIndex: 20] intValue]];
+//                    score.climbAttempt = [NSNumber numberWithInt:[[data objectAtIndex: 20] intValue]];
                 case 20:
                     score.totalTeleOpShots = [NSNumber numberWithInt:[[data objectAtIndex: 19] intValue]];
                 case 19:
@@ -367,7 +366,7 @@
                 case 17:
                     score.teleOpLow = [NSNumber numberWithInt:[[data objectAtIndex: 16] intValue]];
                 case 16:
-                    score.teleOpMid = [NSNumber numberWithInt:[[data objectAtIndex: 15] intValue]];
+//                    score.teleOpMid = [NSNumber numberWithInt:[[data objectAtIndex: 15] intValue]];
                 case 15:
                     score.teleOpHigh = [NSNumber numberWithInt:[[data objectAtIndex: 14] intValue]];
                 case 14:
@@ -377,13 +376,13 @@
                 case 12:
                     score.autonMissed = [NSNumber numberWithInt:[[data objectAtIndex: 11] intValue]];
                 case 11:
-                    score.autonLow = [NSNumber numberWithInt:[[data objectAtIndex: 10] intValue]];
+//                    score.autonLow = [NSNumber numberWithInt:[[data objectAtIndex: 10] intValue]];
                 case 10:
-                    score.autonMid = [NSNumber numberWithInt:[[data objectAtIndex: 9] intValue]];
+//                    score.autonMid = [NSNumber numberWithInt:[[data objectAtIndex: 9] intValue]];
                 case 9:
-                    score.autonHigh = [NSNumber numberWithInt:[[data objectAtIndex: 8] intValue]];
+//                    score.autonHigh = [NSNumber numberWithInt:[[data objectAtIndex: 8] intValue]];
                 case 8:
-                    score.defenseRating = [NSNumber numberWithInt:[[data objectAtIndex: 7] intValue]];
+//                    score.defenseRating = [NSNumber numberWithInt:[[data objectAtIndex: 7] intValue]];
                 case 7:
                     score.driverRating = [NSNumber numberWithInt:[[data objectAtIndex: 6] intValue]];
                 case 6:
@@ -445,7 +444,7 @@
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
     [teamScore setAlliance:alliance];
-    teamScore.climbAttempt = [NSNumber numberWithInt:0];
+//    teamScore.climbAttempt = [NSNumber numberWithInt:0];
     // Some day do better error checking
     [teamScore setTeam:[self GetTeam:teamNumber]]; // Set Relationship!!!
     if (!teamScore.team && [teamNumber intValue] !=0) {
@@ -588,16 +587,12 @@
     blankTeam.name = @"";
     blankTeam.climbLevel = [NSNumber numberWithInt:-1];
     blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
-    blankTeam.history = @"";
     blankTeam.intake = [NSNumber numberWithInt:-1];
-    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
     blankTeam.notes = @"";
     blankTeam.wheelDiameter = [NSNumber numberWithFloat:0.0];
     blankTeam.cims = [NSNumber numberWithInt:0];
     blankTeam.minHeight = [NSNumber numberWithFloat:0.0];
     blankTeam.maxHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
     blankTeam.saved = [NSNumber numberWithInt:0];
 }
 

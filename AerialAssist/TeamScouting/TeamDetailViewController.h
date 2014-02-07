@@ -14,7 +14,7 @@
 @class MatchData;
 @class TeamScore;
 
-@interface TeamDetailViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, PopUpPickerDelegate>
+@interface TeamDetailViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UIActionSheetDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, PopUpPickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -78,10 +78,11 @@
 -(void)takePhoto;
 -(void)choosePhoto;
 -(IBAction)photoControllerActionSheet:(id)sender;
+-(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)getPhoto;
 -(void)photoSaved:(NSNotification *)notification;
 -(void)photoRetrieved:(NSNotification *)notification;
--(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset;
+-(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset forDate:(NSDate *)photoDate;
 -(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime;
 -(IBAction)MatchNumberChanged;
 

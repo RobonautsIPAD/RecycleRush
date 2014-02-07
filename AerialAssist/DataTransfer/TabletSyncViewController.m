@@ -138,8 +138,6 @@ GKPeerPickerController *picker;
         [_receiveDataTable setHidden:NO];
     }
     
-    [self createHeaders];
-
     if (!teamDataPackage) {
         teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
     }
@@ -147,6 +145,8 @@ GKPeerPickerController *picker;
     if (!tournamentDataPackage) {
         tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
     }
+
+    [self createHeaders];
 
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     _syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
@@ -275,6 +275,10 @@ GKPeerPickerController *picker;
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
     filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
     [_sendDataTable reloadData];
+    NSLog(@"Remove this after testing team xfer");
+    NSData *myData = [teamDataPackage packageTeamForXFer:[filteredTeamList objectAtIndex:0]];
+    TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
+
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -579,6 +583,7 @@ GKPeerPickerController *picker;
 }
 
 -(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score {
+    /*
     score.alliance = xferData.alliance;
     score.autonHigh = xferData.autonHigh;
     score.autonLow = xferData.autonLow;
@@ -637,7 +642,7 @@ GKPeerPickerController *picker;
             NSLog(@"Dreadful error creating directory to save field drawings");
             return;
         }
-    }
+    }*/
 /*    baseDrawingPath = [baseDrawingPath stringByAppendingPathComponent:score.fieldDrawing];
     NSLog(@"score = %@", score);
     NSLog(@"base path = %@", baseDrawingPath);

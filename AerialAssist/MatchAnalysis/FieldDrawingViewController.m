@@ -140,31 +140,31 @@
     _notes.text = currentScore.notes;
     _autonScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.autonShotsMade intValue]];
     _autonScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalAutonShots intValue]];
-    _autonHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHigh intValue]];
-    _autonMed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMid intValue]];
-    _autonLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLow intValue]];
+//    _autonHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHigh intValue]];
+//    _autonMed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMid intValue]];
+//    _autonLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLow intValue]];
     _autonMissed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMissed intValue]];
     
     _teleOpScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpShots intValue]];
     _teleOpScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalTeleOpShots intValue]];
     _teleOpHigh.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpHigh intValue]];
-    _teleOpMed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMid intValue]];
+//    _teleOpMed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMid intValue]];
     _teleOpLow.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpLow intValue]];
     _teleOpMissed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMissed intValue]];
 
-    _pyramidGoals.text = [NSString stringWithFormat:@"%d", [currentScore.pyramid intValue]];
+//    _pyramidGoals.text = [NSString stringWithFormat:@"%d", [currentScore.pyramid intValue]];
     _wallPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp intValue]];
     _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp1 intValue]];
     _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp2 intValue]];
     _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp3 intValue]];
     _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp4 intValue]];
     _floorPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
-    _blocked.text = [NSString stringWithFormat:@"%d", [currentScore.blocks intValue]];
-    _discPassed.text = [NSString stringWithFormat:@"%d", [currentScore.passes intValue]];
-    _climbLevel.text = [NSString stringWithFormat:@"%d", [currentScore.climbLevel intValue]];
-    _climbAttempt.text = ([currentScore.climbAttempt intValue] == 0) ? @"N":@"Y";
-    int timer = [currentScore.climbTimer intValue];
-    _climbTime.text = [NSString stringWithFormat:@"%02d:%02d", timer/60, timer%60];
+//    _blocked.text = [NSString stringWithFormat:@"%d", [currentScore.blocks intValue]];
+//    _discPassed.text = [NSString stringWithFormat:@"%d", [currentScore.passes intValue]];
+//    _climbLevel.text = [NSString stringWithFormat:@"%d", [currentScore.climbLevel intValue]];
+//    _climbAttempt.text = ([currentScore.climbAttempt intValue] == 0) ? @"N":@"Y";
+//    int timer = [currentScore.climbTimer intValue];
+//    _climbTime.text = [NSString stringWithFormat:@"%02d:%02d", timer/60, timer%60];
     
     [self loadFieldDrawing];
 }

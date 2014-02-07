@@ -53,15 +53,15 @@
               || [match.match.matchType isEqualToString:@"Elimination"])
             && ([match.saved intValue] || [match.synced intValue])) {
             _nmatches++;
-            int points = [match.autonHigh intValue]*6 + [match.autonMid intValue]*5 + [match.autonLow intValue]*4;
-            _autonPoints += points;
-            points = [match.teleOpHigh intValue]*3 + [match.teleOpMid intValue]*2 + [match.teleOpLow intValue];
-            _teleOpPoints += points;
+//            int points = [match.autonHigh intValue]*6 + [match.autonMid intValue]*5 + [match.autonLow intValue]*4;
+//            _autonPoints += points;
+//            points = [match.teleOpHigh intValue]*3 + [match.teleOpMid intValue]*2 + [match.teleOpLow intValue];
+//            _teleOpPoints += points;
             driving += [match.driverRating intValue];
-            defense += [match.defenseRating intValue];
+//            defense += [match.defenseRating intValue];
             speed += [match.robotSpeed intValue];
-            hangLevel += [match.climbLevel floatValue];
-            _hangs = _hangs || [match.climbLevel intValue];
+//            hangLevel += [match.climbLevel floatValue];
+//            _hangs = _hangs || [match.climbLevel intValue];
         }
     }
     if (_nmatches) {

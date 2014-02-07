@@ -277,6 +277,7 @@ GKPeerPickerController *picker;
 }
 
 -(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score {
+    /*
     score.alliance = xferData.alliance;
     score.autonHigh = xferData.autonHigh;
     score.autonLow = xferData.autonLow;
@@ -335,7 +336,7 @@ GKPeerPickerController *picker;
             NSLog(@"Dreadful error creating directory to save field drawings");
             return;
         }
-    }
+    }*/
 /*    baseDrawingPath = [baseDrawingPath stringByAppendingPathComponent:score.fieldDrawing];
     NSLog(@"score = %@", score);
     NSLog(@"base path = %@", baseDrawingPath);

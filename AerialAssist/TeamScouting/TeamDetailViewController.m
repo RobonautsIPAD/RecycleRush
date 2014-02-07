@@ -20,6 +20,11 @@
 #import <ImageIO/ImageIO.h>
 #import <ImageIO/CGImageProperties.h>
 
+@interface TeamDetailViewController ()
+    @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
+@end
+
+
 @implementation TeamDetailViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
@@ -165,6 +170,10 @@
     [self SetTextBoxDefaults:_cims];
 
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UITapGestureRecognizer *photoTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
+    photoTapGestureRecognizer.numberOfTapsRequired = 1;
+    [_imageView addGestureRecognizer:photoTapGestureRecognizer];
+    [_photoCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
 
 //    Undecided about the take photo and choose photo buttons. We are
 //    probably going to look into finding the camera button that most apps
@@ -302,7 +311,7 @@
     _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
     _nameTextField.text = _team.name;
     _notesViewField.text = _team.notes;
-    _shootingLevel.text = _team.shootsTo;
+    _shootingLevel.text = @"";
     _auton.text = [NSString stringWithFormat:@"%d", [_team.auton intValue]];
     _minHeight.text = [NSString stringWithFormat:@"%.1f", [_team.minHeight floatValue]];
     _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
@@ -482,7 +491,7 @@
 		_team.auton = [NSNumber numberWithInt:[_auton.text floatValue]];
 	}
 	else if (textField == _shootingLevel) {
-		_team.shootsTo = _shootingLevel.text;
+	//	_team.shootsTo = @"";
 	}
 	else if (textField == _minHeight) {
 		_team.minHeight = [NSNumber numberWithFloat:[_minHeight.text floatValue]];
@@ -553,9 +562,11 @@
     NSLog(@"Get photo = %@", _team.primePhoto);
     if (_team.primePhoto) {
         [_dataManager getPhotoFromAlbum:[NSURL URLWithString:_team.primePhoto]];
+        _imageView.userInteractionEnabled = YES;
     }
     else {
         _imageView.image = nil;
+        _imageView.userInteractionEnabled = NO;
     }
 }
 
@@ -580,7 +591,7 @@
     else {
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     }
-    [self presentModalViewController:_imagePickerController animated:YES];
+    [self presentViewController:_imagePickerController animated:YES completion:Nil];
 }
 
 - (void)choosePhoto {
@@ -602,18 +613,16 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    _imageView.userInteractionEnabled = YES;
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) {
         [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
     }
     else {
-       // _team.primePhoto = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
-       // [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto];
         [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
-       // [self setDataChange];
     }
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:Nil];
 }
 
 -(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime {
@@ -635,9 +644,10 @@
 - (IBAction)photoControllerActionSheet:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
     
-    actionSheet.actionSheetStyle = UIActionSheetStyleDefault; [actionSheet showInView:_cameraBtn];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];
+//    [actionSheet showInView:_cameraBtn];
 }
-
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
@@ -651,16 +661,16 @@
     // The photo has been saved. A notification was sent from the ALAsset save function letting
     //  us find out what the photo name was. The names are saved in the database so that we
     //  have a list of all the photos for this robot.
-    NSURL *passedURL = [[notification userInfo] objectForKey:@"photoName"];
+    NSURL *passedURL = [[notification userInfo] objectForKey:@"assetURL"];
     _team.primePhoto = [passedURL absoluteString];
-    NSLog(@"Prime Photo string = %@", _team.primePhoto);
-    [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto];
+    _team.primePhotoDate = [[notification userInfo] objectForKey:@"photoDate"];
+    NSLog(@"Prime Photo string = %@\nDate = %@", _team.primePhoto, _team.primePhotoDate);
+    [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto forDate:_team.primePhotoDate];
     [self setDataChange];
 }
 
--(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset {
+-(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset forDate:(NSDate *)photoDate {
     Photo *photoRecord;
-    NSLog(@"Check if photo already exists");
     NSArray *allPhotos = [team.photoList allObjects];
     if ([allPhotos count]) {
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"assetURL = %@", photoAsset];
@@ -672,8 +682,50 @@
         photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
     }
     photoRecord.assetURL = photoAsset;
+    photoRecord.photoDate = photoDate;
     [_team addPhotoListObject:photoRecord];
     [self setDataChange];
+}
+
+-(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
+    NSLog(@"Photo tapped");
+}
+
+#pragma mark - UICollectionView Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    NSInteger photoCount = [_team.photoList count];
+    if (photoCount > 1) [_photoCollectionView setHidden:NO];
+    else [_photoCollectionView setHidden:YES];
+    return photoCount;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell " forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+// 1
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    NSString *searchTerm = self.searches[indexPath.section];
+//    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+    // 2
+//    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
+CGSize retval = CGSizeMake(100, 100);
+    retval.height += 35; retval.width += 35; return retval;
+}
+
+// 3
+- (UIEdgeInsets)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(50, 20, 50, 20);
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

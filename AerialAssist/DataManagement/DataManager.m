@@ -118,13 +118,12 @@
         return __managedObjectModel;
     }
     // To migrate
-    NSLog(@"Change when db rename is complete");
     NSString *path = [[NSBundle mainBundle] pathForResource:appName ofType:@"momd"];
     NSURL *momURL = [NSURL fileURLWithPath:path];
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
     
     // or not to migrate
-/*    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"UltimateAscent" withExtension:@"momd"];
+/*    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:appName withExtension:@"momd"];
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]; */
     
     return __managedObjectModel;

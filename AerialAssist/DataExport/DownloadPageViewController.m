@@ -279,26 +279,26 @@
                          teamScore.team.number,
                          match.number,
                          teamScore.autonMissed,
-                         teamScore.autonLow,
-                         teamScore.autonMid,
-                         teamScore.autonHigh,
+//                         teamScore.autonLow,
+//                         teamScore.autonMid,
+//                         teamScore.autonHigh,
                          teamScore.totalAutonShots,
                          teamScore.teleOpMissed,
                          teamScore.teleOpLow,
-                         teamScore.teleOpMid,
+//                         teamScore.teleOpMid,
                          teamScore.teleOpHigh,
-                         teamScore.pyramid,
+//                         teamScore.pyramid,
                          teamScore.totalTeleOpShots,
-                         teamScore.passes,
-                         teamScore.blocks,
+//                         teamScore.passes,
+//                         teamScore.blocks,
                          teamScore.wallPickUp,
                          teamScore.floorPickUp,
-                         teamScore.climbAttempt,
-                         ([teamScore.climbLevel intValue] == 0) ? @"N" : @"Y",      // Climb Success
-                         teamScore.climbTimer,
-                         teamScore.climbLevel,
+//                         teamScore.climbAttempt,
+//                         ([teamScore.climbLevel intValue] == 0) ? @"N" : @"Y",      // Climb Success
+//                         teamScore.climbTimer,
+//                         teamScore.climbLevel,
                          teamScore.driverRating,
-                         teamScore.defenseRating,
+//                         teamScore.defenseRating,
                          ([teamScore.team.minHeight floatValue] < 28.5) ? @"Y" : @"N",      // drive under pyramid
                          teamScore.team.maxHeight,
                          (teamScore.notes == nil) ? @"," : [NSString stringWithFormat:@",\"%@\"", teamScore.notes]];
@@ -320,25 +320,25 @@
                 teamScore.team.number,
                 teamScore.saved,
                 teamScore.driverRating,
-                teamScore.defenseRating,
-                teamScore.autonHigh,
-                teamScore.autonMid,
-                teamScore.autonLow,
+//                teamScore.defenseRating,
+//                teamScore.autonHigh,
+//                teamScore.autonMid,
+//                teamScore.autonLow,
                 teamScore.autonMissed,
                 teamScore.autonShotsMade,
                 teamScore.totalAutonShots,
                 teamScore.teleOpHigh,
-                teamScore.teleOpMid,
+//                teamScore.teleOpMid,
                 teamScore.teleOpLow,
                 teamScore.teleOpMissed,
                 teamScore.teleOpShots,
                 teamScore.totalTeleOpShots,
-                teamScore.climbAttempt,
-                teamScore.climbLevel,
-                teamScore.climbTimer,
-                teamScore.pyramid,
-                teamScore.passes,
-                teamScore.blocks,
+ //               teamScore.climbAttempt,
+ //               teamScore.climbLevel,
+ //               teamScore.climbTimer,
+ //               teamScore.pyramid,
+ //               teamScore.passes,
+ //               teamScore.blocks,
                 teamScore.floorPickUp,
                 teamScore.wallPickUp,
                 teamScore.wallPickUp1,
@@ -373,13 +373,13 @@
     else {
         NSLog(@"Error encoding data for email");
     }
-    [self presentModalViewController:picker animated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller
 		  didFinishWithResult:(MFMailComposeResult)result
 						error:(NSError *)error {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (void)pickerSelected:(NSString *)newPick {

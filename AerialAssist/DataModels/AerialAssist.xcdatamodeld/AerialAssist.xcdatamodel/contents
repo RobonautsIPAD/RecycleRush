@@ -15,6 +15,7 @@
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="assetURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="teamPhoto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="photoList" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="Regional" representedClassName="Regional" syncable="YES">
@@ -58,43 +59,36 @@
                 <entry key="output" value="Climb Level"/>
             </userInfo>
         </attribute>
-        <attribute name="climbSpeed" optional="YES" attributeType="Float" syncable="YES">
-            <userInfo>
-                <entry key="key" value="climb speed"/>
-                <entry key="output" value="Climb Speed"/>
-            </userInfo>
-        </attribute>
         <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="10" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="drive train type, drive train, drive, drivetrain type, drive traintype"/>
                 <entry key="output" value="Drive Train Type"/>
             </userInfo>
         </attribute>
-        <attribute name="fthing1" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="fthing2" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="history" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fthing1" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="fthing2" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="intaketype, intake type"/>
                 <entry key="output" value="Intake"/>
             </userInfo>
         </attribute>
-        <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+        <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="key" value="max height, maximum height"/>
                 <entry key="output" value="Maximum Height"/>
             </userInfo>
         </attribute>
-        <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+        <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="key" value="min height, minimum height"/>
                 <entry key="output" value="Minimum Height"/>
             </userInfo>
         </attribute>
-        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES">
             <userInfo>
                 <entry key="key" value="Team Name, teamname"/>
                 <entry key="output" value="Team Name"/>
@@ -118,17 +112,10 @@
             </userInfo>
         </attribute>
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pyramidDump" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="pyramid, pyramid dump, dump"/>
-                <entry key="output" value="Pyramid Dump"/>
-            </userInfo>
-        </attribute>
+        <attribute name="primePhotoDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
-        <attribute name="savedBy" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shooterHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="shootsTo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing4" optional="YES" attributeType="String" syncable="YES"/>
@@ -139,7 +126,7 @@
         <attribute name="thing3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+        <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="key" value="wheel diameter, diameter, wheel size, wheelsize"/>
                 <entry key="output" value="Wheel Diameter"/>
@@ -332,12 +319,12 @@
         <relationship name="teams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournament" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FieldDrawing" positionX="-452" positionY="-102" width="128" height="75"/>
-        <element name="MatchData" positionX="-279" positionY="-396" width="128" height="150"/>
-        <element name="Photo" positionX="70" positionY="-291" width="128" height="75"/>
-        <element name="Regional" positionX="61" positionY="-594" width="128" height="315"/>
-        <element name="TeamData" positionX="-108" positionY="-603" width="128" height="660"/>
-        <element name="TeamScore" positionX="-432" positionY="-1026" width="128" height="870"/>
-        <element name="TournamentData" positionX="-279" positionY="-567" width="128" height="75"/>
+        <element name="FieldDrawing" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MatchData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Photo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Regional" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TeamData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TeamScore" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TournamentData" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

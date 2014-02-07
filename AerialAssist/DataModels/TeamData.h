@@ -2,7 +2,7 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 2/5/14.
+//  Created by FRC on 2/6/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -16,14 +16,12 @@
 @property (nonatomic, retain) NSNumber * auton;
 @property (nonatomic, retain) NSNumber * cims;
 @property (nonatomic, retain) NSNumber * climbLevel;
-@property (nonatomic, retain) NSNumber * climbSpeed;
 @property (nonatomic, retain) NSNumber * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
 @property (nonatomic, retain) NSNumber * fthing3;
 @property (nonatomic, retain) NSNumber * fthing4;
 @property (nonatomic, retain) NSNumber * fthing5;
-@property (nonatomic, retain) NSString * history;
 @property (nonatomic, retain) NSNumber * intake;
 @property (nonatomic, retain) NSNumber * maxHeight;
 @property (nonatomic, retain) NSNumber * minHeight;
@@ -32,12 +30,10 @@
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * nwheels;
 @property (nonatomic, retain) NSString * primePhoto;
-@property (nonatomic, retain) NSNumber * pyramidDump;
+@property (nonatomic, retain) NSDate * primePhotoDate;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
-@property (nonatomic, retain) NSNumber * shooterHeight;
-@property (nonatomic, retain) NSString * shootsTo;
 @property (nonatomic, retain) NSString * sthing1;
 @property (nonatomic, retain) NSString * sthing3;
 @property (nonatomic, retain) NSString * sthing4;

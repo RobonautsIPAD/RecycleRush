@@ -93,13 +93,13 @@
             case 14:
                 team.notes = [data objectAtIndex: 13];
             case 13:
-                team.climbSpeed = [NSNumber numberWithFloat:[[data objectAtIndex:12] floatValue]];
+//                team.climbSpeed = [NSNumber numberWithFloat:[[data objectAtIndex:12] floatValue]];
             case 12:
                 team.climbLevel = [NSNumber numberWithInt:[[data objectAtIndex:11] intValue]];
             case 11:
-                team.pyramidDump = [NSNumber numberWithInt:[[data objectAtIndex:10] intValue]];
+//                team.pyramidDump = [NSNumber numberWithInt:[[data objectAtIndex:10] intValue]];
             case 10:
-                team.shooterHeight = [NSNumber numberWithFloat:[[data objectAtIndex:9] floatValue]];
+//                team.shooterHeight = [NSNumber numberWithFloat:[[data objectAtIndex:9] floatValue]];
             case 9:
                 team.maxHeight = [NSNumber numberWithFloat:[[data objectAtIndex:8] floatValue]];
             case 8:
@@ -272,16 +272,16 @@
     blankTeam.name = @"";
     blankTeam.climbLevel = [NSNumber numberWithInt:-1];
     blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
-    blankTeam.history = @"";
+//    blankTeam.history = @"";
     blankTeam.intake = [NSNumber numberWithInt:-1];
-    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
+//    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
     blankTeam.notes = @"";
     blankTeam.wheelDiameter = [NSNumber numberWithFloat:0.0];
     blankTeam.cims = [NSNumber numberWithInt:0];
     blankTeam.minHeight = [NSNumber numberWithFloat:0.0];
     blankTeam.maxHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
+//    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
+//    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
     blankTeam.saved = [NSNumber numberWithInt:0];
 }
 

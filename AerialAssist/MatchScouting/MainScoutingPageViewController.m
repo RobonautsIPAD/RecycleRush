@@ -709,7 +709,7 @@
 {
     defenseRating.value = roundf(defenseRating.value);
     dataChange = YES;
-    currentTeam.defenseRating = [NSNumber numberWithInt:defenseRating.value];
+//    currentTeam.defenseRating = [NSNumber numberWithInt:defenseRating.value];
 }
 
 -(IBAction)toggleForClimbAttempt: (id) sender {
@@ -717,10 +717,10 @@
     [UIView setAnimationDuration: 0.3];  
     dataChange = YES;
     if ([attemptedClimb isOn]) {
-        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
+//        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
     }
     else {
-        currentTeam.climbAttempt = [NSNumber numberWithInt:0];
+//        currentTeam.climbAttempt = [NSNumber numberWithInt:0];
     }
     [UIView commitAnimations];  
     
@@ -729,9 +729,9 @@
 - (void) setClimbSegment:(id)sender{
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
     dataChange = YES;
-    currentTeam.climbLevel = [NSNumber numberWithInt:segmentedControl.selectedSegmentIndex];
+//    currentTeam.climbLevel = [NSNumber numberWithInt:segmentedControl.selectedSegmentIndex];
     if (segmentedControl.selectedSegmentIndex) {
-        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
+//        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
         [attemptedClimb setOn:YES animated:YES];
     }
 }
@@ -790,8 +790,8 @@
     [teleOpMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMissed intValue]] forState:UIControlStateNormal];
 
     // Update the number of shots taken
-    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
-    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+//    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
    
     dataChange = YES;
 }
@@ -816,12 +816,12 @@
     [teleOpHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpHigh intValue]] forState:UIControlStateNormal];
 
     // Update the number of shots taken
-    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
-    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+//    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
-    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
+//    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
+//    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
@@ -841,16 +841,16 @@
         [self promptForValue:teleOpMediumButton];
         return;
     }
-    currentTeam.teleOpMid = [NSNumber numberWithInt:score];
-    [teleOpMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMid intValue]] forState:UIControlStateNormal];
+//    currentTeam.teleOpMid = [NSNumber numberWithInt:score];
+//    [teleOpMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMid intValue]] forState:UIControlStateNormal];
 
     // Update the number of shots taken
-    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
-    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+//    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
-    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
+//    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
+//    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
@@ -874,12 +874,12 @@
     [teleOpLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpLow intValue]] forState:UIControlStateNormal];
 
     // Update the number of shots taken
-    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
-    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+//    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
-    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
+//    total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpMid intValue] + [currentTeam.teleOpLow intValue];
+//    currentTeam.teleOpShots = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
@@ -903,8 +903,8 @@
     [autonMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMissed intValue]] forState:UIControlStateNormal];
 
     // Update the number of shots taken
-    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
-    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
+//    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
 
     dataChange = YES;
 }
@@ -937,15 +937,15 @@
         [self promptForValue:autonHighButton];
         return;
     }
-    currentTeam.autonHigh = [NSNumber numberWithInt:score];
-    [autonHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHigh intValue]] forState:UIControlStateNormal];
+//    currentTeam.autonHigh = [NSNumber numberWithInt:score];
+//    [autonHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHigh intValue]] forState:UIControlStateNormal];
     // Update the number of shots taken
-    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
-    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
+//    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
-    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
+//    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
+//    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
@@ -965,15 +965,15 @@
         [self promptForValue:autonMediumButton];
         return;
     }
-    currentTeam.autonMid = [NSNumber numberWithInt:score];
-    [autonMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMid intValue]] forState:UIControlStateNormal];
+//    currentTeam.autonMid = [NSNumber numberWithInt:score];
+//    [autonMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMid intValue]] forState:UIControlStateNormal];
     // Update the number of shots taken
-    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
-    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
+//    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
-    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
+//    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
+//    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
@@ -993,15 +993,15 @@
         [self promptForValue:autonLowButton];
         return;
     }
-    currentTeam.autonLow = [NSNumber numberWithInt:score];
-    [autonLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLow intValue]] forState:UIControlStateNormal];
+//    currentTeam.autonLow = [NSNumber numberWithInt:score];
+//    [autonLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLow intValue]] forState:UIControlStateNormal];
 
-    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
-    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+//    int total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue] + [currentTeam.autonMissed intValue];
+//    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
-    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
+//    total = [currentTeam.autonHigh intValue] + [currentTeam.autonMid intValue] + [currentTeam.autonLow intValue];
+//    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
     dataChange = YES;
     dataChange = YES;
 }
@@ -1010,8 +1010,8 @@
     // NSLog(@"Pyramid Goals");
     int score = [pyramidGoalsButton.titleLabel.text intValue];
     score++;
-    currentTeam.pyramid = [NSNumber numberWithInt:score];
-    [pyramidGoalsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.pyramid intValue]] forState:UIControlStateNormal];
+//    currentTeam.pyramid = [NSNumber numberWithInt:score];
+//    [pyramidGoalsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.pyramid intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 
@@ -1019,8 +1019,8 @@
     // NSLog(@"Passes Made");
     int score = [passesButton.titleLabel.text intValue];
     score++;
-    currentTeam.passes = [NSNumber numberWithInt:score];
-    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
+//    currentTeam.passes = [NSNumber numberWithInt:score];
+//    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 
@@ -1028,8 +1028,8 @@
     // NSLog(@"Blocked Shots");
     int score = [blocksButton.titleLabel.text intValue];
     score++;
-    currentTeam.blocks = [NSNumber numberWithInt:score];
-    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
+//    currentTeam.blocks = [NSNumber numberWithInt:score];
+//    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 
@@ -1093,9 +1093,9 @@
 -(IBAction)climbTimerStop:(id)sender {
     if (drawMode == DrawAuton || drawMode == DrawDefense || drawMode == DrawTeleop) {
         NSLog(@"Stop Timer %d", timerCount);
-        int newTimer = [currentTeam.climbTimer intValue] + timerCount;
-        currentTeam.climbTimer = [NSNumber numberWithInt:newTimer];
-        [climbTimerButton setTitle:[NSString stringWithFormat:@"%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
+//        int newTimer = [currentTeam.climbTimer intValue] + timerCount;
+//        currentTeam.climbTimer = [NSNumber numberWithInt:newTimer];
+//        [climbTimerButton setTitle:[NSString stringWithFormat:@"%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
     }
 }
 
@@ -1187,33 +1187,33 @@
    [teamNumber setTitle:[NSString stringWithFormat:@"%d", [currentTeam.team.number intValue]] forState:UIControlStateNormal];
     teamName.text = currentTeam.team.name;
     driverRating.value =  [currentTeam.driverRating floatValue];
-    defenseRating.value =  [currentTeam.defenseRating floatValue];
+//    defenseRating.value =  [currentTeam.defenseRating floatValue];
     _robotSpeed.value =  [currentTeam.robotSpeed floatValue];
-    if ([currentTeam.climbAttempt intValue] == 0) [attemptedClimb setOn:NO animated:YES];
-    else [attemptedClimb setOn:YES animated:YES];
+//    if ([currentTeam.climbAttempt intValue] == 0) [attemptedClimb setOn:NO animated:YES];
+//    else [attemptedClimb setOn:YES animated:YES];
 
     
-    double seconds = fmod([currentTeam.climbTimer floatValue], 60.0);
-    double minutes = fmod(trunc([currentTeam.climbTimer floatValue] / 60.0), 60.0);
-    [climbTimerButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
+//    double seconds = fmod([currentTeam.climbTimer floatValue], 60.0);
+//    double minutes = fmod(trunc([currentTeam.climbTimer floatValue] / 60.0), 60.0);
+//    [climbTimerButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
 
     
-    climbLevel.selectedSegmentIndex = [currentTeam.climbLevel intValue];
+//    climbLevel.selectedSegmentIndex = [currentTeam.climbLevel intValue];
 
     notes.text = currentTeam.notes;
     [alliance setTitle:[allianceList objectAtIndex:currentTeamIndex] forState:UIControlStateNormal];
     
     [teleOpMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMissed intValue]] forState:UIControlStateNormal];
     [teleOpHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpHigh intValue]] forState:UIControlStateNormal];
-    [teleOpMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMid intValue]] forState:UIControlStateNormal];
+//    [teleOpMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMid intValue]] forState:UIControlStateNormal];
     [teleOpLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpLow intValue]] forState:UIControlStateNormal];
     [autonMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMissed intValue]] forState:UIControlStateNormal];
-    [autonHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHigh intValue]] forState:UIControlStateNormal];
-    [autonMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMid intValue]] forState:UIControlStateNormal];
-    [autonLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLow intValue]] forState:UIControlStateNormal];
-    [pyramidGoalsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.pyramid intValue]] forState:UIControlStateNormal];
-    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
-    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
+//    [autonHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHigh intValue]] forState:UIControlStateNormal];
+//    [autonMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMid intValue]] forState:UIControlStateNormal];
+//    [autonLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLow intValue]] forState:UIControlStateNormal];
+//    [pyramidGoalsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.pyramid intValue]] forState:UIControlStateNormal];
+//    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
+//    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
     [wallPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp intValue]] forState:UIControlStateNormal];
     [wall1Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp1 intValue]] forState:UIControlStateNormal];
     [wall2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp2 intValue]] forState:UIControlStateNormal];
@@ -1623,21 +1623,21 @@
 -(void)matchReset {
     currentMatch.redScore = [NSNumber numberWithInt:-1];
     currentMatch.blueScore = [NSNumber numberWithInt:-1];
-    currentTeam.autonHigh = [NSNumber numberWithInt:0];
-    currentTeam.autonMid = [NSNumber numberWithInt:0];
-    currentTeam.autonLow = [NSNumber numberWithInt:0];
+//    currentTeam.autonHigh = [NSNumber numberWithInt:0];
+//    currentTeam.autonMid = [NSNumber numberWithInt:0];
+//    currentTeam.autonLow = [NSNumber numberWithInt:0];
     currentTeam.autonMissed = [NSNumber numberWithInt:0];
     currentTeam.autonShotsMade = [NSNumber numberWithInt:0];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:0];
     currentTeam.teleOpHigh = [NSNumber numberWithInt:0];
-    currentTeam.teleOpMid = [NSNumber numberWithInt:0];
+//    currentTeam.teleOpMid = [NSNumber numberWithInt:0];
     currentTeam.teleOpLow = [NSNumber numberWithInt:0];
     currentTeam.teleOpMissed = [NSNumber numberWithInt:0];
     currentTeam.teleOpShots = [NSNumber numberWithInt:0];
     currentTeam.totalTeleOpShots = [NSNumber numberWithInt:0];
-    currentTeam.pyramid = [NSNumber numberWithInt:0];
-    currentTeam.passes = [NSNumber numberWithInt:0];
-    currentTeam.blocks = [NSNumber numberWithInt:0];
+//    currentTeam.pyramid = [NSNumber numberWithInt:0];
+//    currentTeam.passes = [NSNumber numberWithInt:0];
+//    currentTeam.blocks = [NSNumber numberWithInt:0];
     currentTeam.wallPickUp = [NSNumber numberWithInt:0];
     currentTeam.wallPickUp1 = [NSNumber numberWithInt:0];
     currentTeam.wallPickUp2 = [NSNumber numberWithInt:0];
@@ -1649,10 +1649,10 @@
     currentTeam.notes = @"";
     currentTeam.saved = [NSNumber numberWithInt:0];
 //    currentTeam.fieldDrawing = nil;
-    currentTeam.defenseRating = [NSNumber numberWithInt:0];
-    currentTeam.climbLevel = [NSNumber numberWithInt:0];
-    currentTeam.climbAttempt = [NSNumber numberWithInt:0];
-    currentTeam.climbTimer = [NSNumber numberWithFloat:0.0];
+//    currentTeam.defenseRating = [NSNumber numberWithInt:0];
+//    currentTeam.climbLevel = [NSNumber numberWithInt:0];
+//    currentTeam.climbAttempt = [NSNumber numberWithInt:0];
+//    currentTeam.climbTimer = [NSNumber numberWithFloat:0.0];
     
     [self ShowTeam:teamIndex];   
 }
