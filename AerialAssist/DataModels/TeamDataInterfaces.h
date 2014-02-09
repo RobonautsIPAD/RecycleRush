@@ -12,6 +12,7 @@
 @class DataManager;
 @class TeamData;
 @class Regional;
+@class Photo;
 
 @interface TeamDataInterfaces : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
@@ -36,11 +37,11 @@
 -(NSData *)packageTeamForXFer:(TeamData *)team;
 -(TeamData *)unpackageTeamForXFer:(NSData *)xferData;
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
+-(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList;
+-(void)photoLookUp;
+
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;
 #endif
-
-//////////////////// Crap
--(void)migrateTeamData;
 
 @end

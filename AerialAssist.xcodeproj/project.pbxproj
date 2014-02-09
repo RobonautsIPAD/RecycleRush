@@ -13,6 +13,7 @@
 		2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98917248EE8002C947D /* ftpTransferViewController.m */; };
 		2F06F98D1724B180002C947D /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98C1724B180002C947D /* NetworkManager.m */; };
 		2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98F1724CB70002C947D /* LucienPageViewController.m */; };
+		2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B468718A5C031001FAF1D /* PhotoAttributes.m */; };
 		2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */; };
 		2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E3A7416D7FB4D00A359D5 /* DefensePickerController.m */; };
 		2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F12350216FB71E200DBF4B0 /* MasonPageViewController.m */; };
@@ -41,6 +42,7 @@
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
+		2F4D059A18A6CEC2005ED0AA /* FullSizeViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */; };
 		2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */; };
 		2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */; };
 		2F5511CC188480F40061EF82 /* ImportUSFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5511CB188480F40061EF82 /* ImportUSFirstViewController.m */; };
@@ -130,6 +132,8 @@
 		2F06F98C1724B180002C947D /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = DataTransfer/NetworkManager.m; sourceTree = "<group>"; };
 		2F06F98E1724CB70002C947D /* LucienPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienPageViewController.h; path = MatchAnalysis/LucienPageViewController.h; sourceTree = "<group>"; };
 		2F06F98F1724CB70002C947D /* LucienPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienPageViewController.m; path = MatchAnalysis/LucienPageViewController.m; sourceTree = "<group>"; };
+		2F0B468618A5C031001FAF1D /* PhotoAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoAttributes.h; path = Utilities/PhotoAttributes.h; sourceTree = "<group>"; };
+		2F0B468718A5C031001FAF1D /* PhotoAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoAttributes.m; path = Utilities/PhotoAttributes.m; sourceTree = "<group>"; };
 		2F0CF6C3187E42900000D6F6 /* FieldDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawing.h; path = DataModels/FieldDrawing.h; sourceTree = "<group>"; };
 		2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawing.m; path = DataModels/FieldDrawing.m; sourceTree = "<group>"; };
 		2F0E3A7316D7FB4C00A359D5 /* DefensePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefensePickerController.h; path = MatchScouting/DefensePickerController.h; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 		2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
 		2F4CD04217122E1600428859 /* PopUpPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopUpPickerViewController.h; path = Utilities/PopUpPickerViewController.h; sourceTree = "<group>"; };
 		2F4CD04317122E1600428859 /* PopUpPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopUpPickerViewController.m; path = Utilities/PopUpPickerViewController.m; sourceTree = "<group>"; };
+		2F4D059818A6CEC2005ED0AA /* FullSizeViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullSizeViewer.h; path = Utilities/FullSizeViewer.h; sourceTree = "<group>"; };
+		2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FullSizeViewer.m; path = Utilities/FullSizeViewer.m; sourceTree = "<group>"; };
 		2F50BF9816F2D7A9004569F2 /* SyncResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncResultsViewController.h; path = DataTransfer/SyncResultsViewController.h; sourceTree = "<group>"; };
 		2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncResultsViewController.m; path = DataTransfer/SyncResultsViewController.m; sourceTree = "<group>"; };
 		2F50BF9B16F2DD65004569F2 /* MatchResultsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchResultsObject.h; path = DataTransfer/MatchResultsObject.h; sourceTree = "<group>"; };
@@ -630,6 +636,10 @@
 				2FAFB48318637970003A2661 /* SyncOptionDictionary.m */,
 				2FAFB48518637AB6003A2661 /* SyncTypeDictionary.h */,
 				2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */,
+				2F0B468618A5C031001FAF1D /* PhotoAttributes.h */,
+				2F0B468718A5C031001FAF1D /* PhotoAttributes.m */,
+				2F4D059818A6CEC2005ED0AA /* FullSizeViewer.h */,
+				2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -756,6 +766,7 @@
 				2FC19BBF18A483180067DFC5 /* TeamData.m in Sources */,
 				2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */,
 				2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */,
+				2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
@@ -774,6 +785,7 @@
 				2F137D1D18537E5E00D87F30 /* DriveTypeDictionary.m in Sources */,
 				2F137CFA18537B6E00D87F30 /* CreateTeam.m in Sources */,
 				2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */,
+				2F4D059A18A6CEC2005ED0AA /* FullSizeViewer.m in Sources */,
 				2F13339F170E20CD006669FF /* iPhoneMainViewController.m in Sources */,
 				2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */,
 				2F5511CC188480F40061EF82 /* ImportUSFirstViewController.m in Sources */,

@@ -6,10 +6,9 @@
 //
 
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import "PhotoAttributes.h"
 
 @implementation ALAssetsLibrary(CustomPhotoAlbum)
-
-UIImage *fetchedPhoto;
 
 -(void)getImageFromAssetURL:(NSURL*)assetURL withCompletionBlock:(SaveImageCompletion)completionBlock {
     // NSLog(@"asset URL = %@", assetURL);
@@ -49,20 +48,34 @@ UIImage *fetchedPhoto;
 
 ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
 {
-    
+    ALAssetRepresentation *rep = [myasset defaultRepresentation];
+    CGImageRef iref = [rep fullResolutionImage];
+    if (iref) {
+        NSLog(@"asset default = %@", rep.filename);
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:[UIImage imageWithCGImage:iref] forKey:@"photoImage"]]];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"photoImage"]]];
+    }
+/*    PhotoAttributes *photoData = [[PhotoAttributes alloc] init];
+
     [[myasset defaultRepresentation] fullResolutionImage];
     // get the image
     ALAssetRepresentation *rep = [myasset defaultRepresentation];
-    CGImageRef iref = [rep fullResolutionImage];
     ALAssetOrientation orientation = [rep orientation];
-    UIImage *image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:1.0
-                                    orientation:(UIImageOrientation)orientation];
-    if (iref) {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:image forKey:@"photoImage"]]];
-    }
-    else {
-//        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"photoImage"]]];
-    }
+
+    photoData.regularImage = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:1.0 orientation:(UIImageOrientation)orientation];
+//    photoData.fullImage = [UIImage imageWithCGImage:[rep fullScreenImage] scale:1.0 orientation:(UIImageOrientation)orientation];
+//    photoData.thumbnail = [UIImage imageWithCGImage:[myasset thumbnail] scale:1.0 orientation:(UIImageOrientation)orientation];
+    if (![rep fullResolutionImage]) NSLog(@"Here's your problem");
+    NSLog(@"photo data full rep = %@", [rep fullScreenImage]);
+
+    NSLog(@"photo data reg = %@", photoData.regularImage);
+//    NSLog(@"photo data full = %@", photoData.fullImage);
+//    NSLog(@"photo data thumb = %@", photoData.thumbnail);
+    if (photoData) {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:photoData forKey:@"photoImage"]]];
+    }*/
 };
 
 ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
