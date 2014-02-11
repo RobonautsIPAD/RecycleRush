@@ -16,5 +16,5 @@ typedef void(^SaveImageCompletion)(NSError* error);
 -(void)addImage:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
 -(void)getImageFromAssetURL:(NSURL *)photoURL withCompletionBlock:(SaveImageCompletion)completionBlock;
-
+-(void)getImageFromAssetDate:(NSDate *)assetDate fromAlbum:albumName withCompletionBlock:(SaveImageCompletion)completionBlock;;
 @end

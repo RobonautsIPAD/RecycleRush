@@ -109,6 +109,10 @@ GKPeerPickerController *picker;
         self.title = @"Synchronization";
     }
 
+    // Set the notification to receive information after a photo has been saved
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:@"BluetoothDeviceConnectFailedNotification" object:nil];
+//    BluetoothDeviceUpdatedNotification
+//BluetoothDeviceDiscoveredNotification
     NSLog(@"sync option = %d", _syncOption);
     bluetoothType = [[prefs objectForKey:@"bluetooth"] intValue];
     teamDataSync = [prefs objectForKey:@"teamDataSync"];
@@ -418,9 +422,23 @@ GKPeerPickerController *picker;
     }
 }
 
+-(void)connectionFailed:(NSNotification *)notification {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"BOOM!"
+                                                    message:@"Connection Failed."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [self.currentSession disconnectFromAllPeers];
+    _currentSession = nil;
+    picker.delegate = nil;
+    [picker dismiss];
+}
+
 - (void)peerPickerController:(GKPeerPickerController *)picker
               didConnectPeer:(NSString *)peerID
                    toSession:(GKSession *) session {
+    NSLog(@"didConnectPeer");
     self.currentSession = session;
     session.delegate = self;
     [session setDataReceiveHandler:self withContext:nil];
@@ -433,6 +451,37 @@ GKPeerPickerController *picker;
     
     [picker dismiss];
 
+}
+
+/*
+- (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID {
+    NSLog(@"didReceiveConnectionRequestFromPeer");
+
+}
+ */
+/*
+- (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
+    [self.currentSession disconnectFromAllPeers];
+    _currentSession = nil;
+    NSLog(@"connectionWithPeerFailed");
+
+}
+*/
+- (void)session:(GKSession *)session didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError");
+    NSLog(@"error = %@", error);
+    [self.currentSession disconnectFromAllPeers];
+    _currentSession = nil;
+}
+
+- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
+{
+    picker.delegate = nil;
+    NSLog(@"Canceling peer connect");
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_peerLabel setHidden:YES];
+    [_peerName setHidden:YES];
 }
 
 - (void)session:(GKSession *)sessionpeer
@@ -454,8 +503,13 @@ GKPeerPickerController *picker;
             [_peerName setHidden:YES];
             break;
         case GKPeerStateAvailable:
+            NSLog(@"GKPeerStateAvailable");
+            break;
         case GKPeerStateConnecting:
+            NSLog(@"GKPeerStateConnecting");
+            break;
         case GKPeerStateUnavailable:
+            NSLog(@"GKPeerStateUnavailable");
             break;
     }
 }
@@ -466,6 +520,14 @@ GKPeerPickerController *picker;
         [self.currentSession sendDataToAllPeers:data
                                    withDataMode:GKSendDataReliable
                                           error:nil];
+    switch (_syncType) {
+        case SyncTeams:
+            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:teamDataSync forKey:@"teamDataSync"];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void) receiveData:(NSData *)data
@@ -524,10 +586,6 @@ GKPeerPickerController *picker;
                                               otherButtonTitles:@"Yes", nil];
         [alert show];
     }*/
-}
-
-- (void)session:(GKSession *)session didFailWithError:(NSError *)error {
-    NSLog(@"error = %@", error);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

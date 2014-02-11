@@ -85,6 +85,14 @@
     }];
 }
 
+-(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate {
+    [self.photoLibrary getImageFromAssetDate:assetDate fromAlbum:appName withCompletionBlock:^(NSError *error) {
+        if (error!=nil) {
+            NSLog(@"Big error: %@", [error description]);
+        }
+    }];
+}
+
 #pragma mark - Core Data stack
 
 /**

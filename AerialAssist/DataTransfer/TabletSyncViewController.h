@@ -53,6 +53,8 @@
 
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;
+-(void)connectionFailed:(NSNotification *)notification;
+
 -(IBAction) createDataPackage:(id) sender;
 
 -(BOOL)addMatchScore:(MatchResultsObject *) xferData;

@@ -1,4 +1,4 @@
-/*
+ /*
  * cCSVParse, a small CVS file parser
  *
  * © 2007-2009 Michael Stapelberg and contributors

@@ -42,6 +42,7 @@
     id popUp;
     BOOL dataChange;
     PhotoAttributes *primePhoto;
+    BOOL getAssetURL;
 }
 
 @synthesize dataManager = _dataManager;
@@ -140,6 +141,9 @@
     _climbZoneList = nil;
 }
 
+-(void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -179,6 +183,7 @@
     [_imageView addGestureRecognizer:photoTapGestureRecognizer];
     [_photoCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
     primePhoto = [[PhotoAttributes alloc] init];
+    getAssetURL = FALSE;
 
 //    Undecided about the take photo and choose photo buttons. We are
 //    probably going to look into finding the camera button that most apps
@@ -565,10 +570,19 @@
 -(void)getPhoto {
     // Load the picture for the display. Need to change this to use the new album stuff implemented
     //  last week.
-    NSLog(@"Get photo = %@", _team.primePhoto);
+    NSLog(@"Get photo");
     if (_team.primePhoto) {
+        NSLog(@"Team = %@", _team.number);
+        NSLog(@"Date = %@", _team.primePhotoDate);
+        getAssetURL = FALSE;
         [_dataManager getPhotoFromAlbum:[NSURL URLWithString:_team.primePhoto]];
         _imageView.userInteractionEnabled = YES;
+    }
+    else if (_team.primePhotoDate) {
+        NSLog(@"Team = %@", _team.number);
+        NSLog(@"Date = %@", _team.primePhotoDate);
+        getAssetURL = TRUE;
+        [_dataManager getPhotoFromAlbumWithDate:_team.primePhotoDate];
     }
     else {
         _imageView.image = nil;
@@ -578,8 +592,23 @@
 
 -(void)photoRetrieved:(NSNotification *)notification {
     NSLog(@"Photo retrieved");
-    UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
-    _imageView.image = fetchedImage;
+    if (getAssetURL) {
+        getAssetURL = FALSE;
+        NSURL *passedURL = [[notification userInfo] objectForKey:@"assetURL"];
+        _team.primePhoto = [passedURL absoluteString];
+        _imageView.image = [[notification userInfo] objectForKey:@"photoImage"];
+        // Save the record so that we don't have to search for the assetURL the next time we
+        // load this picture. Do not update the save time or the savedBy flag because
+        // the assetURL is non-transferrable so it doesn't need to trip the ready to transfer
+        // logic.
+        NSError *error;
+        if (![_dataManager.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }    }
+    else {
+        UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
+        _imageView.image = fetchedImage;
+    }
 //    primePhoto = [[notification userInfo] objectForKey:@"photoImage"];
 //    _imageView.image = primePhoto.regularImage;
 }
@@ -626,7 +655,8 @@
         [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
     }
     else {
-        [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
+        [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
+//        [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
     }
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
@@ -682,7 +712,7 @@
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
     NSLog(@"Photo tapped");
     FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
-    photoViewer.fullImage = _imageView.image;//primePhoto.regularImage;
+    photoViewer.fullImage = _imageView.image;
     [self.navigationController pushViewController:photoViewer animated:YES];
 }
 

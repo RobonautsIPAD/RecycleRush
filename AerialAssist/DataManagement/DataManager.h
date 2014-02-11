@@ -27,4 +27,5 @@
 -(void)savePhotoToAlbum:(UIImage*)image;
 -(void)addPhotoToAlbum:(NSURL*)assetURL;
 -(void)getPhotoFromAlbum:(NSURL *)photoURL;
+-(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate;
 @end

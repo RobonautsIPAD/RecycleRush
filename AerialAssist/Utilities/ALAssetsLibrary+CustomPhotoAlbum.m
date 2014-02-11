@@ -17,63 +17,37 @@
          failureBlock:failureblock];
 }
 
-/*
-// Retrieving images from the photo library
--(void)getImage:(NSDate*)assetDate fromAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock {
-    NSLog(@"asset date = %@", assetDate);
-    [self enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                        usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                            //compare the names of the albums
-                            if ([albumName compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
-                                NSLog(@"Found Album");
-                                NSLog(@"Number of assets in group %d", [group numberOfAssets]);
-                                [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop) {
-                                    if(asset) {
-                                        NSLog(@"enumerated asset date %@", [asset valueForProperty:ALAssetPropertyDate]);
-                                        if ([[asset valueForProperty:ALAssetPropertyDate] isEqualToDate:assetDate]) {
-                                            UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage] scale:1.0 orientation:[[asset defaultRepresentation]orientation]];
-                                            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:image forKey:@"photoImage"]]];
-
-                                        }
-                                        else NSLog(@"Dates are not equal");
-                                    }
-                                 }];
-
-                            }
-                            
-                        }failureBlock: completionBlock];
-    
-}
-*/
-
 ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
 {
+    /* Minimum working code */
     ALAssetRepresentation *rep = [myasset defaultRepresentation];
+ //   NSLog(@"asset date = %@", [myasset valueForProperty:ALAssetPropertyDate]);
+ //   NSLog(@"asset representations = %@", [myasset valueForProperty:ALAssetPropertyRepresentations]);
+ //   NSLog(@"asset property url = %@", [myasset valueForProperty:ALAssetPropertyURLs]);
     CGImageRef iref = [rep fullResolutionImage];
+    ALAssetOrientation orientation = [rep orientation];
     if (iref) {
-        NSLog(@"asset default = %@", rep.filename);
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:[UIImage imageWithCGImage:iref] forKey:@"photoImage"]]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:[UIImage imageWithCGImage:iref scale:1.0 orientation:(UIImageOrientation)orientation] forKey:@"photoImage"]]];
     }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"photoImage"]]];
-    }
-/*    PhotoAttributes *photoData = [[PhotoAttributes alloc] init];
-
-    [[myasset defaultRepresentation] fullResolutionImage];
-    // get the image
+/*
+    PhotoAttributes *photoData = [[PhotoAttributes alloc] init];
     ALAssetRepresentation *rep = [myasset defaultRepresentation];
     ALAssetOrientation orientation = [rep orientation];
+    CGImageRef iref = [rep fullResolutionImage];
+        photoData.regularImage = [UIImage imageWithCGImage:iref scale:1.0 orientation:(UIImageOrientation)orientation];
+        NSLog(@"Got regular image = %@", photoData.regularImage);
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:[UIImage imageWithCGImage:iref] forKey:@"photoImage"]]];
+//    });
+    dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        photoData.fullImage = [UIImage imageWithCGImage:[rep fullScreenImage] scale:1.0 orientation:(UIImageOrientation)orientation];
+        NSLog(@"Got full image");
+    });
+    dispatch_sync(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        photoData.thumbnail = [UIImage imageWithCGImage:[myasset thumbnail] scale:1.0 orientation:(UIImageOrientation)orientation];
+        NSLog(@"Got thumbnail");
+    });*/
 
-    photoData.regularImage = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:1.0 orientation:(UIImageOrientation)orientation];
-//    photoData.fullImage = [UIImage imageWithCGImage:[rep fullScreenImage] scale:1.0 orientation:(UIImageOrientation)orientation];
-//    photoData.thumbnail = [UIImage imageWithCGImage:[myasset thumbnail] scale:1.0 orientation:(UIImageOrientation)orientation];
-    if (![rep fullResolutionImage]) NSLog(@"Here's your problem");
-    NSLog(@"photo data full rep = %@", [rep fullScreenImage]);
-
-    NSLog(@"photo data reg = %@", photoData.regularImage);
-//    NSLog(@"photo data full = %@", photoData.fullImage);
-//    NSLog(@"photo data thumb = %@", photoData.thumbnail);
-    if (photoData) {
+/*    if (photoData) {
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:photoData forKey:@"photoImage"]]];
     }*/
 };
@@ -84,6 +58,33 @@ ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
     
     NSLog(@"booya, cant get image - %@",[myerror localizedDescription]);
 };
+
+-(void)getImageFromAssetDate:(NSDate *)assetDate fromAlbum:albumName withCompletionBlock:(SaveImageCompletion)completionBlock {
+    // Retrieving images from the photo library
+    //NSLog(@"asset date = %@", assetDate);
+    [self enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        //compare the names of the albums
+        if ([albumName compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
+            ////NSLog(@"Found Album");
+            NSLog(@"Number of assets in group %d", [group numberOfAssets]);
+            [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop) {
+                if(asset) {
+                    //NSLog(@"Vurrently checking %@", [asset valueForProperty:ALAssetPropertyDate]);
+                    if ([[asset valueForProperty:ALAssetPropertyDate] isEqualToDate:assetDate]) {
+                       // NSLog(@"enumerated asset date %@", [asset valueForProperty:ALAssetPropertyDate]);
+                       // NSLog(@"enumerated asset URL %@", [asset valueForProperty:ALAssetPropertyAssetURL]);
+                        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage] scale:1.0 orientation:[[asset defaultRepresentation]orientation]];
+                        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObjects:@[[asset valueForProperty:ALAssetPropertyAssetURL], image] forKeys:@[@"assetURL", @"photoImage"]]]];
+//                        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"photoRetrieved" object:nil userInfo:[NSDictionary dictionaryWithObject:image forKey:@"photoImage"]]];
+     
+                    }
+                   // else NSLog(@"Dates are not equal");
+                }
+            }];
+        }
+    }failureBlock: completionBlock];
+     
+}
 
 // Save image to photo library
 -(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
@@ -111,8 +112,6 @@ ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
     //add the asset to the custom photo album
     [self addAssetURL:assetURL toAlbum:albumName
                         withCompletionBlock:completionBlock];
-    
-    //setImageData:metadata:completionBlock
 }
 
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock

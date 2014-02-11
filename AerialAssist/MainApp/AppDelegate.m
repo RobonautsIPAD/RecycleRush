@@ -25,6 +25,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:nil
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+    {
+        NSLog(@"%@, message = %@", notification.name, [notification userInfo]);
+    }];
+    
     NSLog(@"didFinishLaunchingWithOptions");
     SettingsAndPreferences *settings = [[SettingsAndPreferences alloc] init];
     [settings initializeSettings];

@@ -325,7 +325,7 @@
         if ([key isEqualToString:@"primePhotoDate"]) {
             // Only do something with the prime photo date if there is not photo already
             if (!teamRecord.primePhoto && !teamRecord.primePhotoDate) {
-                teamRecord.primePhotoDate = [_teamDataProperties valueForKey:key];
+                [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
                 [self photoLookUp];
                 NSLog(@"Enumerate to get the photo");
             }
