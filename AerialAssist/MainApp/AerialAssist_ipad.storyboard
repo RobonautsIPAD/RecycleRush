@@ -1035,7 +1035,7 @@
                                 <rect key="frame" x="884" y="378" width="60" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Truss">
+                                <state key="normal" title="Pass">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -1098,7 +1098,7 @@
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="High" lineBreakMode="tailTruncation" minimumFontSize="10" id="PHV-fv-y1A" userLabel="Label - Auton High">
-                                <rect key="frame" x="898" y="95" width="33" height="17"/>
+                                <rect key="frame" x="898" y="95" width="33" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1232,14 +1232,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Attemped Climb" lineBreakMode="tailTruncation" minimumFontSize="10" id="TAc-Cy-dvA">
-                                <rect key="frame" x="674" y="537" width="143" height="22"/>
+                                <rect key="frame" x="655" y="534" width="143" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="rc1-Nw-uOb" userLabel="Switch - Balance">
-                                <rect key="frame" x="825" y="532" width="51" height="31"/>
+                                <rect key="frame" x="800" y="529" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -1346,7 +1346,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qIK-6r-8hQ">
-                                        <rect key="frame" x="703" y="2" width="63" height="37"/>
+                                        <rect key="frame" x="643" y="2" width="63" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <state key="normal" title="Human">
@@ -1358,7 +1358,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pfL-EZ-jj9">
-                                        <rect key="frame" x="63" y="2" width="63" height="37"/>
+                                        <rect key="frame" x="104" y="0.0" width="63" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <state key="normal" title="Human">
@@ -1369,7 +1369,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sk3-4h-9By">
-                                        <rect key="frame" x="63" y="385" width="63" height="37"/>
+                                        <rect key="frame" x="104" y="387" width="63" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <state key="normal" title="Human">
@@ -1380,7 +1380,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9bZ-Bw-6nS">
-                                        <rect key="frame" x="703" y="385" width="63" height="37"/>
+                                        <rect key="frame" x="643" y="387" width="63" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <state key="normal" title="Human">
@@ -1415,7 +1415,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="0UL-IE-Ngd">
-                                <rect key="frame" x="30" y="520" width="231" height="34"/>
+                                <rect key="frame" x="30" y="519" width="231" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="updateRobotSpeed:" destination="WBb-6A-oWA" eventType="valueChanged" id="OHW-ml-i9Z"/>
@@ -1470,59 +1470,45 @@
                                     <action selector="matchResetRequest:" destination="WBb-6A-oWA" eventType="touchUpInside" id="9Av-SH-iUm"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Truss" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="MPC-OW-Bh9" userLabel="Label - TeleOp Missed">
-                                <rect key="frame" x="886" y="358" width="56" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Floor Pass" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="MPC-OW-Bh9" userLabel="Label - TeleOp Missed">
+                                <rect key="frame" x="871" y="357" width="87" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Adk-kb-Eym">
-                                <rect key="frame" x="884" y="439" width="60" height="37"/>
+                                <rect key="frame" x="884" y="455" width="60" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Blocks">
+                                <state key="normal" title="Throw">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Blocks" lineBreakMode="tailTruncation" minimumFontSize="10" id="jXw-TI-TuZ">
-                                <rect key="frame" x="889" y="415" width="56" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Aq0-5U-4Qc" userLabel="Button - Wall PickUps">
-                                <rect key="frame" x="951" y="439" width="60" height="37"/>
+                                <rect key="frame" x="951" y="455" width="60" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Picks">
+                                <state key="normal" title="Catch">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wall PickUp" lineBreakMode="tailTruncation" minimumFontSize="10" id="vPg-JU-Syf" userLabel="Label - Wall PickUps">
-                                <rect key="frame" x="942" y="415" width="81" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Truss" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="vPg-JU-Syf" userLabel="Label - Wall PickUps">
+                                <rect key="frame" x="893" y="408" width="104" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j91-FG-JGI" userLabel="Button - Floor PickUps">
-                                <rect key="frame" x="950" y="509" width="60" height="37"/>
+                                <rect key="frame" x="951" y="534" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal" title="Picks">
+                                <state key="normal" title="PickUp">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Floor PickUp" lineBreakMode="tailTruncation" minimumFontSize="10" id="51D-ed-MEM" userLabel="Label - Floor PickUps">
-                                <rect key="frame" x="934" y="484" width="86" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Passes" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="dcx-sv-6hz">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Air Pass" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="dcx-sv-6hz">
                                 <rect key="frame" x="957" y="357" width="60" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
@@ -1551,6 +1537,44 @@
                                     <action selector="eraserPressed:" destination="WBb-6A-oWA" eventType="touchUpInside" id="JYi-3W-5k4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="81o-7i-ch4">
+                                <rect key="frame" x="884" y="534" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="PickUp">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick-Up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="81o-cN-MBx">
+                                <rect key="frame" x="914" y="485" width="63" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Human" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6fa-3J-zTz">
+                                <rect key="frame" x="886" y="513" width="52" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Floor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FgR-1R-XRB">
+                                <rect key="frame" x="961" y="514" width="40" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Throw" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wOQ-0j-5UC">
+                                <rect key="frame" x="892" y="434" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qk2-Cg-A5R">
+                                <rect key="frame" x="959" y="435" width="44" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1560,11 +1584,7 @@
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
                         <outlet property="attemptedClimb" destination="rc1-Nw-uOb" id="0kb-e9-fI6"/>
-                        <outlet property="autonHighButton" destination="xNq-1T-IuA" id="MbT-XU-SLt"/>
-                        <outlet property="autonLowButton" destination="5r3-Vh-c0v" id="hKu-ie-hdt"/>
-                        <outlet property="autonMediumButton" destination="DG0-z6-bFN" id="lfr-Gy-5Ke"/>
                         <outlet property="autonMissButton" destination="sLc-p8-GyK" id="3nx-Nb-IQc"/>
-                        <outlet property="blocksButton" destination="Adk-kb-Eym" id="xT8-ln-Wzw"/>
                         <outlet property="blueScore" destination="ev0-ho-TeF" id="j3L-FU-yE3"/>
                         <outlet property="climbTimerButton" destination="FyF-MW-EnU" id="n17-hK-dxp"/>
                         <outlet property="defenseRating" destination="kFE-Y8-0uU" id="7bu-sL-LDD"/>
@@ -1580,24 +1600,14 @@
                         <outlet property="matchType" destination="jmp-Mx-xGA" id="8af-fE-2Br"/>
                         <outlet property="nextMatch" destination="cNM-Sg-kpV" id="ROc-QP-7ZS"/>
                         <outlet property="notes" destination="qX6-ZB-Ecp" id="FA7-sg-V6e"/>
-                        <outlet property="passesButton" destination="OHc-sI-dw6" id="Ueo-Ku-ANu"/>
                         <outlet property="prevMatch" destination="Oor-gF-fxZ" id="Ilk-ft-yrn"/>
-                        <outlet property="pyramidGoalsButton" destination="2bS-kZ-9mp" id="n2k-NA-Pzl"/>
                         <outlet property="redScore" destination="fhb-g7-wyq" id="ToW-sU-Jq9"/>
                         <outlet property="robotSpeed" destination="0UL-IE-Ngd" id="1h0-l3-YWI"/>
                         <outlet property="syncButton" destination="NII-67-dTv" id="F49-rs-dSK"/>
                         <outlet property="teamEdit" destination="mls-ys-0eb" id="vF3-bz-GiS"/>
                         <outlet property="teamName" destination="xcI-CG-2jD" id="O4q-Wz-egw"/>
                         <outlet property="teamNumber" destination="TmH-ak-QdU" id="zM6-fG-VAO"/>
-                        <outlet property="teleOpHighButton" destination="vL6-Ag-PVU" id="pWf-Mz-JKz"/>
-                        <outlet property="teleOpLowButton" destination="MZR-J3-hgL" id="3iL-9w-RzI"/>
-                        <outlet property="teleOpMediumButton" destination="6GV-Xs-z6L" id="sOQ-ey-22a"/>
                         <outlet property="teleOpMissButton" destination="AtJ-gy-1QW" id="3GW-aC-zTT"/>
-                        <outlet property="wall1Button" destination="pfL-EZ-jj9" id="9Im-GU-h9C"/>
-                        <outlet property="wall2Button" destination="sk3-4h-9By" id="y68-1N-uRP"/>
-                        <outlet property="wall3Button" destination="qIK-6r-8hQ" id="rQY-mU-Zf6"/>
-                        <outlet property="wall4Button" destination="9bZ-Bw-6nS" id="emx-EG-4CV"/>
-                        <outlet property="wallPickUpsButton" destination="Aq0-5U-4Qc" id="ZIj-D9-256"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4z-r3-r5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
