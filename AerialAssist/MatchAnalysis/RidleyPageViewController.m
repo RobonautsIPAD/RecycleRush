@@ -2,7 +2,7 @@
 //  RidleyPageViewController.m
 //  AerialAssist
 //
-//  Created by FRC on 1/13/14.
+//  Created by FRC_Mtsprite on 1/13/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 

@@ -110,6 +110,7 @@
 		2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */; };
 		2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FE16CC29B600884191 /* Small White Button.jpg */; };
 		2FD7E9E716E8C3540075533C /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7E9E616E8C3540075533C /* TeamList.csv */; };
+		2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D218A9BFC200533BEC /* 2014_field.png */; };
 		2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF6800717261BA30003F86A /* CFNetwork.framework */; };
 		2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAE1B316D29B9600B180F9 /* AlertPromptViewController.m */; };
 		2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAE1BA16D3235600B180F9 /* MatchTypeDictionary.m */; };
@@ -292,6 +293,7 @@
 		2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Green Button.jpg"; path = "Resources/Small Green Button.jpg"; sourceTree = "<group>"; };
 		2FCE54FE16CC29B600884191 /* Small White Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small White Button.jpg"; path = "Resources/Small White Button.jpg"; sourceTree = "<group>"; };
 		2FD7E9E616E8C3540075533C /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = Resources/TeamList.csv; sourceTree = "<group>"; };
+		2FF112D218A9BFC200533BEC /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = Resources/2014_field.png; sourceTree = "<group>"; };
 		2FF6800717261BA30003F86A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2FFAE1B216D29B9600B180F9 /* AlertPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertPromptViewController.h; path = Utilities/AlertPromptViewController.h; sourceTree = "<group>"; };
 		2FFAE1B316D29B9600B180F9 /* AlertPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertPromptViewController.m; path = Utilities/AlertPromptViewController.m; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FF112D218A9BFC200533BEC /* 2014_field.png */,
 				2F38C34F18A3203A0018D59C /* Small Red Button.jpg */,
 				2FCD954A18972B550076F7BF /* ios-7-camera-icon.png */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
@@ -698,6 +701,7 @@
 				2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */,
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
+				2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */,
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
