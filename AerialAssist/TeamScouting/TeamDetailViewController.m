@@ -15,8 +15,10 @@
 #import "DataManager.h"
 #import "Regional.h"
 #import "Photo.h"
+#import "PhotoAttributes.h"
 #import "DriveTypeDictionary.h"
 #import "FieldDrawingViewController.h"
+#import "FullSizeViewer.h"
 #import <ImageIO/ImageIO.h>
 #import <ImageIO/CGImageProperties.h>
 
@@ -35,10 +37,11 @@
     UIView *regionalHeader;
     NSArray *regionalList;
     NSString *photoPath;
+    BOOL imageIsFullScreen;
+    CGRect imagePrevFrame;
     id popUp;
     BOOL dataChange;
-    NSMutableDictionary *EXIFDictionary;
-    NSMutableDictionary *TIFFDictionray;
+    PhotoAttributes *primePhoto;
 }
 
 @synthesize dataManager = _dataManager;
@@ -170,10 +173,12 @@
     [self SetTextBoxDefaults:_cims];
 
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageIsFullScreen = FALSE;
     UITapGestureRecognizer *photoTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
     photoTapGestureRecognizer.numberOfTapsRequired = 1;
     [_imageView addGestureRecognizer:photoTapGestureRecognizer];
     [_photoCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
+    primePhoto = [[PhotoAttributes alloc] init];
 
 //    Undecided about the take photo and choose photo buttons. We are
 //    probably going to look into finding the camera button that most apps
@@ -228,6 +233,7 @@
     // At some point, we really need to decide on real error handling.
     if (dataChange) {
         NSError *error;
+        _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
@@ -574,6 +580,8 @@
     NSLog(@"Photo retrieved");
     UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
     _imageView.image = fetchedImage;
+//    primePhoto = [[notification userInfo] objectForKey:@"photoImage"];
+//    _imageView.image = primePhoto.regularImage;
 }
 
 -(void) takePhoto {
@@ -625,22 +633,6 @@
     [picker dismissViewControllerAnimated:YES completion:Nil];
 }
 
--(void)setPhotoMetaData:(NSMutableDictionary *)metaData forRobot:(NSString *)robotNumber forPrime:(NSString *)prime {
-    if(!EXIFDictionary) {
-        //if the image does not have an EXIF dictionary (not all images do), then create one for us to use
-        EXIFDictionary = [NSMutableDictionary dictionary];
-    }
-    if(!TIFFDictionray) {
-        TIFFDictionray = [NSMutableDictionary dictionary];
-    }
-    [EXIFDictionary setObject:robotNumber forKey:(NSString*)kCGImagePropertyExifUserComment];
-    [TIFFDictionray setObject:prime forKey:(NSString*)kCGImagePropertyTIFFImageDescription];
-
-    [metaData setObject:EXIFDictionary forKey:(NSString*)kCGImagePropertyExifDictionary];
-    [metaData setObject:TIFFDictionray forKey:(NSString*)kCGImagePropertyTIFFDictionary];
-
-}
-
 - (IBAction)photoControllerActionSheet:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
     
@@ -689,6 +681,9 @@
 
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
     NSLog(@"Photo tapped");
+    FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
+    photoViewer.fullImage = _imageView.image;//primePhoto.regularImage;
+    [self.navigationController pushViewController:photoViewer animated:YES];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -697,7 +692,7 @@
     NSInteger photoCount = [_team.photoList count];
     if (photoCount > 1) [_photoCollectionView setHidden:NO];
     else [_photoCollectionView setHidden:YES];
-    return photoCount;
+    return 0; //photoCount;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {

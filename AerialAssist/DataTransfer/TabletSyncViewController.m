@@ -275,10 +275,6 @@ GKPeerPickerController *picker;
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
     filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
     [_sendDataTable reloadData];
-    NSLog(@"Remove this after testing team xfer");
-    NSData *myData = [teamDataPackage packageTeamForXFer:[filteredTeamList objectAtIndex:0]];
-    TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
-
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -700,6 +696,7 @@ GKPeerPickerController *picker;
     else {
         if (_receiveDataTable.hidden) return 0;
         if (_syncType == SyncTournaments) return [receivedTournamentList count];
+        if (_syncType == SyncTeams) return [receivedTeamList count];
     }
     return 0;
 }

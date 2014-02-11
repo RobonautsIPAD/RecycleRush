@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "TournamentData.h"
+#import "Photo.h"
 #import "TournamentDataInterfaces.h"
 #import "Regional.h"
 
@@ -30,6 +31,7 @@
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSLog(@"addTeam - need to add saveBy and saved values");
     
@@ -71,7 +73,9 @@
             teamRecord = nil;
         }
 
-        return teamRecord;
+        teamRecord.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        teamRecord.savedBy = [prefs objectForKey:@"deviceName"];
+       return teamRecord;
     }
     else {
         // If team does not exist, add it and add it to the tournament
@@ -80,6 +84,8 @@
         [teamRecord setValue:teamNumber forKey:@"number"];
         [teamRecord setValue:teamName forKey:@"name"];
         [teamRecord addTournamentObject:tournamentRecord];
+        teamRecord.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        teamRecord.savedBy = [prefs objectForKey:@"deviceName"];
         return teamRecord;
     }
 }
@@ -289,7 +295,6 @@
         [keyList addObject:@"photoList"];
         [valueList addObject:photoDates];
     }
-    NSLog(@"Key list = %@, value list = %@", keyList, valueList);
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
@@ -313,16 +318,16 @@
     if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
 
     // Cycle through each object in the transfer data dictionary
-    NSLog(@"unpackage team data add check for default values. Do something about received entry");
+    NSLog(@"unpackage team data add check for default values");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
         if ([key isEqualToString:@"primePhoto"]) continue; // The assetURL is not transferrable
         if ([key isEqualToString:@"primePhotoDate"]) {
             // Only do something with the prime photo date if there is not photo already
-            if (!teamRecord.primePhotoDate) {
+            if (!teamRecord.primePhoto && !teamRecord.primePhotoDate) {
                 teamRecord.primePhotoDate = [_teamDataProperties valueForKey:key];
+                [self photoLookUp];
                 NSLog(@"Enumerate to get the photo");
-// enumerate to get the photo
             }
             continue;
         }
@@ -340,9 +345,12 @@
                 }
              }
             else if ([destination.entity.name isEqualToString:@"Photo"]) {
+                [self syncPhotoList:teamRecord forSender:[myDictionary objectForKey:key]];
             }
         }
     }
+    teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+
     NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -350,11 +358,55 @@
     
     return teamRecord;
 }
-// unpack tournament records
-// loop through array
-//      check tourney to make sure it is in the list -- method returning a tournament record
-//          if tournament record is null, then just keep going
-//          if tournament record is not null, then add it to the team record if it isn;t there already
+
+-(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList {
+    NSLog(@"Destination team = %@", destinationTeam.number);
+    NSLog(@"Sender list = %@", [senderList objectAtIndex:0]);
+    NSArray *allPhotos = [destinationTeam.photoList allObjects];
+    if ([allPhotos count]) {
+        Photo *photoRecord;
+        for (int i=0; i<[senderList count]; i++) {
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"photoDate = %@", [senderList objectAtIndex:i]];
+            NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
+            if ([photo count]) continue;
+            photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
+            photoRecord.photoDate = [senderList objectAtIndex:i];
+            [destinationTeam addPhotoListObject:photoRecord];
+            NSLog(@"Add enumeration for transferred photo");
+            [self photoLookUp];
+        }
+    }
+    else {
+        // There are no photos currently. Add them all
+        for (int i=0; i<[senderList count]; i++) {
+            Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
+            photoRecord.photoDate = [senderList objectAtIndex:i];
+            [destinationTeam addPhotoListObject:photoRecord];
+            NSLog(@"Add enumeration for transferred photo");
+            [self photoLookUp];
+        }
+    }
+}
+
+-(void)photoLookUp {
+    NSLog(@"Start photo look up");
+
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      sleep(5);
+/* UIImage * imageToSave = nil;
+ UIImage * editedImage = (UIImage *)[info objectForKey:UIImagePickerControllerEditedImage];
+ if (editedImage) imageToSave = editedImage;
+ else imageToSave = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
+ 
+ UIImage * finalImageToSave = imageToSave;
+ 
+ ALAssetsLibrary * assetsLibrary = [[ALAssetsLibrary alloc] init];
+ [assetsLibrary writeImageToSavedPhotosAlbum:finalImageToSave.CGImage
+ orientation:(ALAssetOrientation)finalImageToSave.imageOrientation
+ completionBlock:nil];*/
+ });
+    NSLog(@"End photo look up");
+}
 
 -(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament {
     NSLog(@"Export teams to csv");
@@ -511,25 +563,6 @@
 	NSLog(@"dealloc %@", self);
 
 #endif
-}
-
--(void)migrateTeamData {
-    NSLog(@"migrate team data");
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    // History data first
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Regional" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSArray *regionalData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i=0; i<[regionalData count]; i++) {
-        Regional *regional = [regionalData objectAtIndex:i];
-        regional.week = regional.reg1;
-        regional.ccwm = regional.reg3;
-        regional.awards = regional.reg5;
-    }
-
 }
 
 #ifdef TEST_MODE
