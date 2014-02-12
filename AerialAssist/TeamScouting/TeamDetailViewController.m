@@ -743,8 +743,9 @@
 //    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
     // 2
 //    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-CGSize retval = CGSizeMake(100, 100);
-    retval.height += 35; retval.width += 35; return retval;
+CGSize retval = CGSizeMake(50, 50);
+//    retval.height += 35; retval.width += 35;
+    return retval;
 }
 
 // 3

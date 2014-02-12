@@ -166,11 +166,11 @@ GKPeerPickerController *picker;
     sendHeader.backgroundColor = [UIColor lightGrayColor];
     sendHeader.opaque = YES;
 
-    sendLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(9, 11, 55, 21)];
+    sendLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 11, 100, 21)];
     sendLabel1.backgroundColor = [UIColor clearColor];
     [sendHeader addSubview:sendLabel1];
 
-    sendLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(85, 11, 65, 21)];
+    sendLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(130, 11, 80, 21)];
     sendLabel2.backgroundColor = [UIColor clearColor];
     [sendHeader addSubview:sendLabel2];
 
@@ -391,6 +391,7 @@ GKPeerPickerController *picker;
 
 -(IBAction) btnDisconnect:(id) sender {
     [self.currentSession disconnectFromAllPeers];
+    [_currentSession setAvailable:FALSE];
     _currentSession = nil;
     
     [_connectButton setHidden:NO];
@@ -430,6 +431,7 @@ GKPeerPickerController *picker;
                                           otherButtonTitles:nil];
     [alert show];
     [self.currentSession disconnectFromAllPeers];
+    [_currentSession setAvailable:FALSE];
     _currentSession = nil;
     picker.delegate = nil;
     [picker dismiss];

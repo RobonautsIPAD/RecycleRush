@@ -46,7 +46,7 @@
     [_masonPageButton setTitle:@"Mason Page" forState:UIControlStateNormal];
     _masonPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //Set Font And Text For Lucian Page Button
-    [_lucianPageButton setTitle:@"Lucian Page" forState:UIControlStateNormal];
+    [_lucianPageButton setTitle:@"Lucien Page" forState:UIControlStateNormal];
     _lucianPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //Set Font And Page For Ridley Page Button
     [_ridleyPageButton setTitle:@"Ridley Page" forState:UIControlStateNormal];

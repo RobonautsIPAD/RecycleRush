@@ -18,6 +18,11 @@
 #import "LucienNumberObject.h"
 #import "LucienTableViewController.h"
 
+@interface LucienPageViewController ()
+@property (nonatomic, weak) IBOutlet UIButton *parameter1Button;
+@property (nonatomic, weak) IBOutlet UIButton *average1Button;
+@end
+
 @implementation LucienPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
@@ -272,6 +277,10 @@
 	return YES;
 }
 
+-(IBAction)selectParameter:(id)sender {
+    
+}
+
 - (IBAction)selectAverage:(id)sender {
     UIButton *button = (UIButton *)sender;
     if (_averagePicker == nil) {
@@ -505,6 +514,36 @@
                        atomically:YES
                          encoding:NSUTF8StringEncoding
                             error:nil];
+}
+
+-(void)SetBigButtonDefaults:(UIButton *)currentButton {
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+    // Round button corners
+    CALayer *btnLayer = [currentButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
+    // Apply a 1 pixel, black border
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    // Set the button Background Color
+    [currentButton setBackgroundColor:[UIColor whiteColor]];
+    // Set the button Text Color
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
+}
+
+-(void)SetSmallButtonDefaults:(UIButton *)currentButton {
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+    // Round button corners
+    CALayer *btnLayer = [currentButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
+    // Apply a 1 pixel, black border
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    // Set the button Background Color
+    [currentButton setBackgroundColor:[UIColor whiteColor]];
+    // Set the button Text Color
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

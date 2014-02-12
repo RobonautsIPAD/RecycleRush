@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG_MODE
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserverForName:nil
                         object:nil
@@ -33,6 +34,7 @@
     {
         NSLog(@"%@, message = %@", notification.name, [notification userInfo]);
     }];
+#endif
     
     NSLog(@"didFinishLaunchingWithOptions");
     SettingsAndPreferences *settings = [[SettingsAndPreferences alloc] init];
