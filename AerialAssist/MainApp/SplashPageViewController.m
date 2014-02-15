@@ -55,7 +55,7 @@
     NSLog(@"Splash Page");
 
     prefs = [NSUserDefaults standardUserDefaults];
-    NSString *gameName = [prefs objectForKey:@"game"];
+    NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
 
     // Display the Robotnauts Banner

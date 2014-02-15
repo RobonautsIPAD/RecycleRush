@@ -2,7 +2,7 @@
 //  MatchData.h
 //  AerialAssist
 //
-//  Created by FRC on 1/10/14.
+//  Created by FRC on 2/12/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -19,6 +19,9 @@
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * redScore;
 @property (nonatomic, retain) NSString * tournamentName;
+@property (nonatomic, retain) NSNumber * received;
+@property (nonatomic, retain) NSNumber * saved;
+@property (nonatomic, retain) NSString * savedBy;
 @property (nonatomic, retain) NSSet *score;
 @end
 

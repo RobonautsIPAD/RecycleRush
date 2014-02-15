@@ -350,6 +350,7 @@
         NSLog(@"Photo list = %@", photo.assetURL);
     }
     [self getPhoto];
+    [self getPhotoThumbnails];
     dataChange = NO;
 }
 
@@ -611,6 +612,16 @@
     }
 //    primePhoto = [[notification userInfo] objectForKey:@"photoImage"];
 //    _imageView.image = primePhoto.regularImage;
+}
+
+-(void)getPhotoThumbnails {
+    NSArray *allPhotos = [_team.photoList allObjects];
+    if (![allPhotos count]) return;
+    
+    // for each photo in list
+        // check for assetURL, if no assetURL, go off and fetch it, save db without save marker if fetched
+        // fetch thumbnail, set it in an array for the collection view
+    
 }
 
 -(void) takePhoto {

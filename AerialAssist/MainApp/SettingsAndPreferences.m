@@ -66,7 +66,7 @@
     // It is easier to just set these than check to see if they are set right and
     // set them if they are not.
     [prefs setObject:appName forKey:@"appName"];
-    [prefs setObject:game forKey:@"game"];
+    [prefs setObject:game forKey:@"gameName"];
     [prefs setObject:[[UIDevice currentDevice] name] forKey:@"deviceName"];
     [prefs synchronize];
 }

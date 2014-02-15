@@ -11,7 +11,7 @@
 #import "SettingsAndPreferences.h"
 #import "DataManager.h"
 #import "SplashPageViewController.h"
-#import "iPhoneMainViewController.h"
+#import "PhoneSplashViewController.h"
 #import "TeamDataInterfaces.h"
 
 @implementation AppDelegate
@@ -19,7 +19,7 @@
 @synthesize window = _window;
 @synthesize navigationController;
 @synthesize splashPageViewController;
-@synthesize iPhoneMainViewController = _iPhoneMainViewController;
+@synthesize phoneSplashViewController = _phoneSplashViewController;
 @synthesize dataManager = _dataManager;
 @synthesize loadDataFromBundle;
 
@@ -42,19 +42,19 @@
 
     // Create the managed object and persistant store
     _dataManager = [[DataManager alloc] init];
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        navigationController = (UINavigationController *)self.window.rootViewController;
-        _iPhoneMainViewController = (iPhoneMainViewController *)navigationController.topViewController;
-        _iPhoneMainViewController.dataManager = self.dataManager;
-        return YES;
-    }
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
     [loadData loadCSVDataFromBundle];
-
+    
     navigationController = (UINavigationController *)self.window.rootViewController;
-    splashPageViewController = (SplashPageViewController *)navigationController.topViewController;
-    splashPageViewController.dataManager = self.dataManager;
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
+        _phoneSplashViewController.dataManager = self.dataManager;
+    }
+    else {
+        splashPageViewController = (SplashPageViewController *)navigationController.topViewController;
+        splashPageViewController.dataManager = self.dataManager;
+    }
     
     NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
     if (url != nil && [url isFileURL]) {

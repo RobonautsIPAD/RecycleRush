@@ -31,8 +31,6 @@
 -(Regional *)getRegionalRecord:(TeamData *)team forWeek:(NSNumber *)week;
 -(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName;
 -(id)checkAlternateKeys:(NSDictionary *)keyList forEntry:header;
--(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament;
--(NSString *) outputFormat:(NSAttributeType)type forValue:data;
 -(void)setTeamDefaults:(TeamData *)blankTeam;
 -(NSData *)packageTeamForXFer:(TeamData *)team;
 -(TeamData *)unpackageTeamForXFer:(NSData *)xferData;

@@ -12,8 +12,10 @@
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
-#import "TeamDataInterfaces.h"
 #import "TournamentDataInterfaces.h"
+#import "TeamDataInterfaces.h"
+#import "MatchDataInterfaces.h"
+#import "TeamScoreInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
 #import "MatchResultsObject.h"
@@ -52,6 +54,18 @@
     NSArray *filteredTeamList;
     NSMutableArray *receivedTeamList;
     TeamDataInterfaces *teamDataPackage;
+
+    NSNumber *matchScheduleSync;
+    NSArray *matchScheduleList;
+    NSArray *filteredMatchList;
+    NSMutableArray *receivedMatchList;
+    MatchDataInterfaces *matchDataPackage;
+    
+    NSNumber *matchResultsSync;
+    NSArray *matchResultsList;
+    NSArray *filteredResultsList;
+    NSMutableArray *receivedResultsList;
+    TeamScoreInterfaces *matchResultsPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -116,6 +130,8 @@ GKPeerPickerController *picker;
     NSLog(@"sync option = %d", _syncOption);
     bluetoothType = [[prefs objectForKey:@"bluetooth"] intValue];
     teamDataSync = [prefs objectForKey:@"teamDataSync"];
+    matchScheduleSync = [prefs objectForKey:@"matchScheduleSync"];
+    matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -142,12 +158,20 @@ GKPeerPickerController *picker;
         [_receiveDataTable setHidden:NO];
     }
     
+    if (!tournamentDataPackage) {
+        tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
+    }
+    
     if (!teamDataPackage) {
         teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
     }
 
-    if (!tournamentDataPackage) {
-        tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
+    if (!matchDataPackage) {
+        matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+    }
+
+    if (!matchResultsPackage) {
+        matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
 
     [self createHeaders];
@@ -281,6 +305,82 @@ GKPeerPickerController *picker;
     [_sendDataTable reloadData];
 }
 
+-(void)createMatchList {
+    if (!matchScheduleList) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"MatchData" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
+        [fetchRequest setPredicate:pred];
+        matchScheduleList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+    
+    NSPredicate *pred;
+    filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
+    switch (_syncOption) {
+        case SyncAll:
+            filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
+            break;
+        case SyncAllSavedHere:
+            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
+            filteredMatchList = [matchScheduleList filteredArrayUsingPredicate:pred];
+            break;
+        case SyncAllSavedSince:
+            pred = [NSPredicate predicateWithFormat:@"saved > %@", matchScheduleSync];
+            filteredMatchList = [matchScheduleList filteredArrayUsingPredicate:pred];
+            break;
+        default:
+            filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
+            break;
+    }
+    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchTypeSection" ascending:YES];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+    filteredMatchList = [filteredMatchList sortedArrayUsingDescriptors:sortDescriptors];
+    [_sendDataTable reloadData];
+}
+
+-(void)createResultsList {
+    if (!matchResultsList) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
+        [fetchRequest setPredicate:pred];
+        matchResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+     }
+     
+     NSPredicate *pred;
+     filteredResultsList = [NSArray arrayWithArray:matchResultsList];
+     switch (_syncOption) {
+         case SyncAll:
+             filteredResultsList = [NSArray arrayWithArray:matchResultsList];
+             break;
+         case SyncAllSavedHere:
+             pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
+             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
+             break;
+         case SyncAllSavedSince:
+             pred = [NSPredicate predicateWithFormat:@"saved > %@", matchResultsSync];
+             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
+             break;
+         default:
+             filteredResultsList = [NSArray arrayWithArray:matchResultsList];
+             break;
+    }
+    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+    filteredResultsList = [filteredResultsList sortedArrayUsingDescriptors:sortDescriptors];
+    [_sendDataTable reloadData];
+}
+
 -(IBAction)syncChanged:(id)sender {
     UIButton * PressedButton = (UIButton*)sender;
     if (PressedButton == _syncOptionButton) {
@@ -341,6 +441,14 @@ GKPeerPickerController *picker;
             [self createTeamList];
             break;
             
+        case SyncMatchList:
+            [self createMatchList];
+            break;
+            
+        case SyncMatchResults:
+            [self createResultsList];
+            break;
+            
         default:
             break;
     }
@@ -366,6 +474,15 @@ GKPeerPickerController *picker;
             [self createTeamList];
             break;
             
+        case SyncMatchList:
+            [_syncOptionButton setHidden:NO];
+            [self createMatchList];
+            break;
+            
+        case SyncMatchResults:
+            [_syncOptionButton setHidden:NO];
+            [self createResultsList];
+            break;
         default:
             break;
     }
@@ -473,6 +590,7 @@ GKPeerPickerController *picker;
     NSLog(@"didFailWithError");
     NSLog(@"error = %@", error);
     [self.currentSession disconnectFromAllPeers];
+    [_currentSession setAvailable:FALSE];
     _currentSession = nil;
 }
 
@@ -480,6 +598,7 @@ GKPeerPickerController *picker;
 {
     picker.delegate = nil;
     NSLog(@"Canceling peer connect");
+    [_currentSession setAvailable:FALSE];
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
     [_peerLabel setHidden:YES];
@@ -498,6 +617,7 @@ GKPeerPickerController *picker;
             break;
         case GKPeerStateDisconnected:
             NSLog(@"disconnected");
+            [_currentSession setAvailable:FALSE];
             _currentSession = nil;
             [_connectButton setHidden:NO];
             [_disconnectButton setHidden:YES];
@@ -559,35 +679,6 @@ GKPeerPickerController *picker;
             break;
     }
     
-    [_receiveDataTable reloadData];
-
-/*    dataFromTransfer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    //---convert the NSData to NSString---
-    if (receivedMatches == nil) {
-        receivedMatches = [NSMutableArray array];
-    }
-    if (receivedMatchTypes == nil) {
-        receivedMatchTypes = [NSMutableArray array];
-    }
-    if (receivedTeams == nil) {
-        receivedTeams = [NSMutableArray array];
-    }
-    if ([self addMatchScore:dataFromTransfer]) {
-        [receivedMatches addObject:dataFromTransfer.match];
-        [receivedMatchTypes addObject:dataFromTransfer.matchType];
-        [receivedTeams addObject:dataFromTransfer.team];
-        [_receiveDataTable reloadData];
-    }
-    else {
-        NSString* str = [NSString stringWithFormat:@"Match %@, Team %@ Already Synced", dataFromTransfer.match, dataFromTransfer.team];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Again?"
-                                                        message:str
-                                                       delegate:self
-                                              cancelButtonTitle:@"No"
-                                              otherButtonTitles:@"Yes", nil];
-        [alert show];
-    }*/
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -748,15 +839,15 @@ GKPeerPickerController *picker;
         if (_sendDataTable.hidden) return 0;
         if (_syncType == SyncTeams) return [filteredTeamList count];
         if (_syncType == SyncTournaments) return [filteredTournamentList count];
-        id <NSFetchedResultsSectionInfo> sectionInfo =
-        [[_fetchedResultsController sections] objectAtIndex:section];
-    
-        return [sectionInfo numberOfObjects];
+        if (_syncType == SyncMatchList) return [filteredMatchList count];
+        if (_syncType == SyncMatchResults) return [filteredResultsList count];
     }
     else {
         if (_receiveDataTable.hidden) return 0;
         if (_syncType == SyncTournaments) return [receivedTournamentList count];
         if (_syncType == SyncTeams) return [receivedTeamList count];
+        if (_syncType == SyncMatchList) return [receivedMatchList count];
+        if (_syncType == SyncMatchResults) return [receivedResultsList count];
     }
     return 0;
 }
@@ -797,6 +888,42 @@ GKPeerPickerController *picker;
     label4.text = @"";
 }
 
+- (void)configureMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    MatchData *match = [filteredMatchList objectAtIndex:indexPath.row];
+    // Configure the cell...
+    // Set a background for the cell
+    
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [match.number intValue]];
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = match.matchType;
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
+
+- (void)configureResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
+    // Configure the cell...
+    // Set a background for the cell
+    
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = score.match.matchType;
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (_syncType) {
         case SyncTournaments:
@@ -804,6 +931,12 @@ GKPeerPickerController *picker;
             break;
         case SyncTeams:
             [self configureTeamCell:cell atIndexPath:indexPath];
+            break;
+        case SyncMatchList:
+            [self configureMatchListCell:cell atIndexPath:indexPath];
+            break;
+        case SyncMatchResults:
+            [self configureResultsCell:cell atIndexPath:indexPath];
             break;
             
         default:
