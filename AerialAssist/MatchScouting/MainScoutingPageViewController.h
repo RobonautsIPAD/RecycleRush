@@ -79,7 +79,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UISlider *driverRating;
 @property (nonatomic, weak) IBOutlet UISlider *defenseRating;
 @property (nonatomic, weak) IBOutlet UISlider *robotSpeed;
-@property (nonatomic, weak) IBOutlet UISwitch *attemptedClimb;
 @property (nonatomic, strong) UISegmentedControl *climbLevel;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
@@ -102,10 +101,12 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *autonMissButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonHotHighButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonColdHighButton;
-@property (nonatomic, weak) IBOutlet UIButton *autonLowButton;
-@property (nonatomic, weak) IBOutlet UIButton *passesButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonLowColdButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonLowHotButton;
+@property (nonatomic, weak) IBOutlet UIButton *passesFloorButton;
+@property (nonatomic, weak) IBOutlet UIButton *passesAirButton;
 @property (nonatomic, weak) IBOutlet UIButton *blocksButton;
-@property (nonatomic, weak) IBOutlet UIButton *bigHumanPickUpsButton;
+//@property (nonatomic, weak) IBOutlet UIButton *bigHumanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *humanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *human1Button;

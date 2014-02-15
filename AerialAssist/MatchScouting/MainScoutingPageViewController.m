@@ -78,7 +78,6 @@
 @synthesize defenseRating;
 @synthesize robotSpeed = _robotSpeed;
 @synthesize climbLevel;
-@synthesize attemptedClimb;
 @synthesize climbTimerButton;
 @synthesize notes;
 @synthesize teleOpMissButton;
@@ -87,10 +86,11 @@
 @synthesize autonMissButton;
 @synthesize autonHotHighButton;
 @synthesize autonColdHighButton;
-@synthesize autonLowButton;
+@synthesize autonLowColdButton;
+@synthesize autonLowHotButton;
 @synthesize blocksButton;
-@synthesize passesButton;
-@synthesize bigHumanPickUpsButton;
+@synthesize passesFloorButton;
+@synthesize passesAirButton;
 @synthesize humanPickUpsButton;
 @synthesize human1Button;
 @synthesize human2Button;
@@ -190,11 +190,15 @@
     [self SetBigButtonDefaults:teleOpLowButton];
     [self SetBigButtonDefaults:autonMissButton];
     [self SetBigButtonDefaults:autonHotHighButton];
+    [autonHotHighButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:autonColdHighButton];
-    [self SetBigButtonDefaults:autonLowButton];
-    [self SetBigButtonDefaults:passesButton];
+    [self SetBigButtonDefaults:autonLowColdButton];
+    [self SetBigButtonDefaults:autonLowHotButton];
+    [autonLowHotButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
+    [self SetBigButtonDefaults:passesFloorButton];
+    [self SetBigButtonDefaults:passesAirButton];
     [self SetBigButtonDefaults:blocksButton];
-    [self SetBigButtonDefaults:bigHumanPickUpsButton];
+    //[self SetBigButtonDefaults:bigHumanPickUpsButton];
     [self SetSmallButtonDefaults:human1Button];
     [self SetSmallButtonDefaults:human2Button];
     [self SetSmallButtonDefaults:human3Button];
@@ -220,12 +224,6 @@
     _robotSpeed.maximumValue = 5.0;
     _robotSpeed.continuous = NO;
 
-    NSMutableArray *itemArray = [NSMutableArray arrayWithObjects: @"None", @"One", @"Two", @"Three", nil];
-    climbLevel = [[UISegmentedControl alloc] initWithItems:itemArray];
-    climbLevel.frame = CGRectMake(738, 600, 207, 44);
-    [climbLevel addTarget:self action:@selector(setClimbSegment:) forControlEvents:UIControlEventValueChanged];
-    [climbLevel setTintColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]];
-    [self.view addSubview:climbLevel];
     
     [self SetTextBoxDefaults:notes];
 
@@ -710,29 +708,6 @@
 //    currentTeam.defenseRating = [NSNumber numberWithInt:defenseRating.value];
 }
 
--(IBAction)toggleForClimbAttempt: (id) sender {
-    [UIView beginAnimations:nil context:NULL];  
-    [UIView setAnimationDuration: 0.3];  
-    dataChange = YES;
-    if ([attemptedClimb isOn]) {
-//        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
-    }
-    else {
-//        currentTeam.climbAttempt = [NSNumber numberWithInt:0];
-    }
-    [UIView commitAnimations];  
-    
-}
-
-- (void) setClimbSegment:(id)sender{
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    dataChange = YES;
-//    currentTeam.climbLevel = [NSNumber numberWithInt:segmentedControl.selectedSegmentIndex];
-    if (segmentedControl.selectedSegmentIndex) {
-//        currentTeam.climbAttempt = [NSNumber numberWithInt:1];
-        [attemptedClimb setOn:YES animated:YES];
-    }
-}
 
 // Keeping the score
 
@@ -757,7 +732,7 @@
     [self.scoreButtonPickerPopover dismissPopoverAnimated:YES];
     if (popUp == autonHotHighButton) [self autonHotHigh:newPick];
     else if (popUp == autonColdHighButton) [self autonColdHigh:newPick];
-    else if (popUp == autonLowButton) [self autonLow:newPick];
+   // else if (popUp == autonLowButton) [self autonLow:newPick];
     else if (popUp == autonMissButton) [self autonMiss:newPick];
     else if (popUp == teleOpHighButton) [self teleOpHigh:newPick];
     else if (popUp == teleOpLowButton) [self teleOpLow:newPick];
@@ -946,7 +921,7 @@
 }
 
 -(void)autonLow:(NSString *)choice {
-    int score = [autonLowButton.titleLabel.text intValue];
+    int score = [autonLowColdButton.titleLabel.text intValue];
     // Update the number of Low shots
     if ([choice isEqualToString:@"Reset to 0"]) {
         score = 0;
@@ -958,7 +933,7 @@
         score++;
     }
     else if ([choice isEqualToString:@"Pick a Value"]) {
-        [self promptForValue:autonLowButton];
+        [self promptForValue:autonLowColdButton];
         return;
     }
 //    currentTeam.autonLow = [NSNumber numberWithInt:score];
@@ -977,7 +952,7 @@
 
 -(void)passesMade {
     // NSLog(@"Passes Made");
-    int score = [passesButton.titleLabel.text intValue];
+    int score = [passesFloorButton.titleLabel.text intValue];
     score++;
 //    currentTeam.passes = [NSNumber numberWithInt:score];
 //    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
@@ -1169,9 +1144,9 @@
 //    [teleOpMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMid intValue]] forState:UIControlStateNormal];
     [teleOpLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpLow intValue]] forState:UIControlStateNormal];
     [autonMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMissed intValue]] forState:UIControlStateNormal];
-//    [autonHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHigh intValue]] forState:UIControlStateNormal];
+    [autonHotHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHighHot intValue]] forState:UIControlStateNormal];
 //    [autonMediumButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMid intValue]] forState:UIControlStateNormal];
-//    [autonLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLow intValue]] forState:UIControlStateNormal];
+    [autonLowColdButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLowCold intValue]] forState:UIControlStateNormal];
 //    [pyramidGoalsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.pyramid intValue]] forState:UIControlStateNormal];
 //    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
 //    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
