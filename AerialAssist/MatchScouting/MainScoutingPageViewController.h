@@ -82,19 +82,14 @@ typedef enum {
 @property (nonatomic, strong) UISegmentedControl *climbLevel;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
-@property (nonatomic, weak) IBOutlet UIButton *climbTimerButton;
 -(IBAction)matchResetRequest:(id) sender;
 -(void)matchReset;
 -(IBAction)updateDriverRating:(id) sender;
 -(IBAction)updateDefenseRating: (id) sender;
 -(IBAction)updateRobotSpeed: (id) sender;
--(IBAction)toggleForClimbAttempt: (id) sender;
--(void)setClimbSegment: (id) sender;
--(IBAction)climbTimerStart:(id)sender;
--(IBAction)climbTimerStop:(id) sender;
-- (void)timerFired;
-
 -(IBAction)scoreButtons: (id)sender;
+
+@property (nonatomic, weak) IBOutlet UIButton *toggleGridButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpMissButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpHighButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpLowButton;
@@ -121,18 +116,18 @@ typedef enum {
 
 -(void)teleOpMiss:(NSString *)choice;
 -(void)teleOpHigh:(NSString *)choice;
--(void)teleOpMedium:(NSString *)choice;
 -(void)teleOpLow:(NSString *)choice;
 -(void)autonMiss:(NSString *)choice;
--(void)autonHigh:(NSString *)choice;
--(void)autonMedium:(NSString *)choice;
--(void)autonLow:(NSString *)choice;
--(void)pyramidGoals;
+-(void)autonHighCold:(NSString *)choice;
+-(void)autonHighHot:(NSString *)choice;
+-(void)autonLowHot:(NSString *)choice;
+-(void)autonLowCold:(NSString *)choice;
 -(void)blockedShots;
 -(void)passesMade;
 -(IBAction)wallPickUpsMade:(id) sender;
 -(void)floorPickUpsMade;
 -(void)promptForValue:(UIButton *)button;
+-(IBAction)toggleGrid:(id)sender;
 
 // Overall Match Scores
 @property (nonatomic, weak) IBOutlet UITextField *redScore;
