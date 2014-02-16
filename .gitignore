@@ -121,3 +121,5 @@ xcuserdata
 
 #Put in here By Matt to stop xcode push/pull from throwing errors.
 *.xcuserstate
+
+*.xccheckout
