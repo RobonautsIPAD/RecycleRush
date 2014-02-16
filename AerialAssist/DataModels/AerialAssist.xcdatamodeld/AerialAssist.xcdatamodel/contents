@@ -189,7 +189,7 @@
                 <entry key="output" value="Auton Missed"/>
             </userInfo>
         </attribute>
-        <attribute name="autonMobility" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
             <userInfo>
                 <entry key="output" value="Auton Mobility"/>
             </userInfo>
@@ -199,9 +199,9 @@
                 <entry key="output" value="Auton Shots Made"/>
             </userInfo>
         </attribute>
-        <attribute name="defenseBlock" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+        <attribute name="defenseBlockRating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
-                <entry key="output" value="defenseBlock"/>
+                <entry key="output" value="Defense Block"/>
             </userInfo>
         </attribute>
         <attribute name="defenseBullyRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
@@ -276,7 +276,7 @@
         </attribute>
         <attribute name="teleOpShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
-                <entry key="output" value="Figure this out"/>
+                <entry key="output" value="TeleOp Shots Made"/>
             </userInfo>
         </attribute>
         <attribute name="totalAutonShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
@@ -286,7 +286,7 @@
         </attribute>
         <attribute name="totalTeleOpShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
-                <entry key="output" value="Total TeleOp Short"/>
+                <entry key="output" value="Total TeleOp Shot"/>
             </userInfo>
         </attribute>
         <attribute name="tournamentName" optional="YES" attributeType="String" syncable="YES">

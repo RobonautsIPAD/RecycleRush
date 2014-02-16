@@ -572,20 +572,6 @@ GKPeerPickerController *picker;
 
 }
 
-/*
-- (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID {
-    NSLog(@"didReceiveConnectionRequestFromPeer");
-
-}
- */
-/*
-- (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
-    [self.currentSession disconnectFromAllPeers];
-    _currentSession = nil;
-    NSLog(@"connectionWithPeerFailed");
-
-}
-*/
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError");
     NSLog(@"error = %@", error);
@@ -605,9 +591,8 @@ GKPeerPickerController *picker;
     [_peerName setHidden:YES];
 }
 
-- (void)session:(GKSession *)sessionpeer
-           peer:(NSString *)peerID
- didChangeState:(GKPeerConnectionState)state {
+-(void)session:(GKSession *)sessionpeer
+           peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
     switch (state)
     {
         case GKPeerStateConnected:

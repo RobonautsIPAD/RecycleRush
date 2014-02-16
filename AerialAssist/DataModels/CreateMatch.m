@@ -265,7 +265,12 @@
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
     [teamScore setAlliance:alliance];
-//    teamScore.climbAttempt = [NSNumber numberWithInt:0];
+    if ([alliance isEqualToString:@"Red 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:0]];
+    else if ([alliance isEqualToString:@"Red 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:1]];
+    else if ([alliance isEqualToString:@"Red 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:2]];
+    else if ([alliance isEqualToString:@"Blue 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:3]];
+    else if ([alliance isEqualToString:@"Blue 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:4]];
+    else if ([alliance isEqualToString:@"Blue 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:5]];
     [teamScore setTeam:[self GetTeam:teamNumber]]; // Set Relationship!!!
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
@@ -444,7 +449,13 @@
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
     [teamScore setAlliance:alliance];
-//    teamScore.climbAttempt = [NSNumber numberWithInt:0];
+    if ([alliance isEqualToString:@"Red 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:0]];
+    else if ([alliance isEqualToString:@"Red 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:1]];
+    else if ([alliance isEqualToString:@"Red 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:2]];
+    else if ([alliance isEqualToString:@"Blue 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:3]];
+    else if ([alliance isEqualToString:@"Blue 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:4]];
+    else if ([alliance isEqualToString:@"Blue 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:5]];
+
     // Some day do better error checking
     [teamScore setTeam:[self GetTeam:teamNumber]]; // Set Relationship!!!
     if (!teamScore.team && [teamNumber intValue] !=0) {

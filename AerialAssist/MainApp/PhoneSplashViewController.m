@@ -8,6 +8,7 @@
 
 #import "PhoneSplashViewController.h"
 #import "DataManager.h"
+#import "PhoneSetUpViewController.h"
 
 @interface PhoneSplashViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *exportButton;
@@ -36,6 +37,8 @@
     }
 
     prefs = [NSUserDefaults standardUserDefaults];
+    NSString *gameName = [prefs objectForKey:@"gameName"];
+    self.title = gameName;
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
