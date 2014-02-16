@@ -408,53 +408,6 @@
     NSLog(@"End photo look up");
 }
 
--(NSString *) exportTeamsToCSV:(BOOL)header forTeam:(TeamData *)team forTournament:(NSString *)tournament {
-    NSLog(@"Export teams to csv");
-    NSString *csvString;
-
-    if (!_dataManager) {
-        _dataManager = [DataManager new];
-    }
-    
-    if(!team) {
-        NSLog(@"Karma disruption error");
-        return NULL;
-    }
-
-    NSDictionary *attributes = [[team entity] attributesByName];
-    if (header) {
-        csvString = @"Team Number, Team Name, Tournament";
-        for (NSString *item in attributes) {
-            NSString *output = [[[attributes objectForKey:item] userInfo] objectForKey:@"output"];
-            if (output) {
-                csvString = [csvString stringByAppendingFormat:@", %@", output];
-                NSLog(@"output = %@, value = %@", output, [team valueForKey:item]);
-            }
-        }
-        csvString = [csvString stringByAppendingString:@"\n"];
-    }
-    else {
-        csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@", team.number, team.name, tournament];
-        for (NSString *item in attributes) {
-            NSString *output = [[[attributes objectForKey:item] userInfo] objectForKey:@"output"];
-            if (output) {
-                csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[[attributes objectForKey:item] attributeType] forValue:[team valueForKey:item]]];
-                NSLog(@"output = %@, value = %@", output, [team valueForKey:item]);
-            }
-        }
-        csvString = [csvString stringByAppendingString:@"\n"];
-
-    }
-    return csvString;
-}
-
--(NSString *) outputFormat:(NSAttributeType)type forValue:data {
-    if (type == NSStringAttributeType) {
-        return ([data isEqualToString:@""] ? @"," : [NSString stringWithFormat:@",\"%@\"", data]);
-    }
-    else return [NSString stringWithFormat:@"%@", data];
-}
-
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
     NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);
     // Check to make sure that the tournament exists in the TournamentData db

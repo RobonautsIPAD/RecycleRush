@@ -13,11 +13,13 @@
 #import "TeamScore.h"
 #import "DataManager.h"
 #import "TournamentData.h"
-#import "TeamDataInterfaces.h"
+#import "ExportTeamData.h"
 
 @implementation DownloadPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *appName;
+    NSString *gameName;
     NSString *exportPath;
     NSMutableArray *syncList;
 }
@@ -69,6 +71,8 @@
 
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
+    appName = [prefs objectForKey:@"appName"];
+    gameName = [prefs objectForKey:@"gameName"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Download Page", tournamentName];
     }
@@ -107,43 +111,17 @@
 }
 
 -(void)emailTeamData {
-    NSError *error;
-    TeamData *team;
-    BOOL firstPass = TRUE;
-    NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
-    NSLog(@"export data file = %@", filePath);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
-    [fetchRequest setPredicate:pred];
-    NSArray *teamData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!teamData) {
-        NSLog(@"Karma disruption error");
-    }
-    TeamDataInterfaces *teamInterface = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-    
     NSString *csvString;
-    for (int i=0; i<[teamData count]; i++) {
-        team = [teamData objectAtIndex:i];
-        if (firstPass) {
-            csvString = [teamInterface exportTeamsToCSV:firstPass forTeam:team forTournament:tournamentName];
-            firstPass = FALSE;
-        }
-        csvString = [csvString stringByAppendingString:[teamInterface exportTeamsToCSV:firstPass forTeam:team forTournament:tournamentName]];
-    }
+    ExportTeamData *teamCSVExport = [[ExportTeamData alloc] initWithDataManager:_dataManager];
+    csvString = [teamCSVExport teamDataCSVExport];
     if (csvString) {
+        NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
+        NSLog(@"export data file = %@", filePath);
         NSLog(@"csvString = %@", csvString);
         [csvString writeToFile:filePath
                     atomically:YES
                       encoding:NSUTF8StringEncoding
                          error:nil];
-        
         NSString *emailSubject = @"Team Data CSV File";
         [self buildEmail:filePath attach:@"TeamData.csv" subject:emailSubject];
     }
@@ -359,27 +337,31 @@
 
 
 -(void)buildEmail:(NSString *)filePath attach:(NSString *)emailFile subject:(NSString *)emailSubject {
-    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-    [picker setSubject:emailSubject];
-    [picker setToRecipients:array];
-    [picker setMessageBody:@"Downloaded Data from UltimateAscent" isHTML:NO];
-    [picker setMailComposeDelegate:self];
-
-    NSData *ultimateData = [[NSData alloc] initWithContentsOfFile:filePath];
-    if (ultimateData) {
-            [picker addAttachmentData:ultimateData mimeType:@"application/UltimateAscent" fileName:emailFile];
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [mailViewController setSubject:emailSubject];
+        [mailViewController setToRecipients:array];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
+        [mailViewController setMailComposeDelegate:self];
+        
+        NSData *exportData = [[NSData alloc] initWithContentsOfFile:filePath];
+        if (exportData) {
+            [mailViewController addAttachmentData:exportData mimeType:[NSString stringWithFormat:@"application/%@", appName] fileName:emailFile];
+        }
+        else {
+            NSLog(@"Error encoding data for email");
+        }
+        [self presentViewController:mailViewController animated:YES completion:nil];
     }
     else {
-        NSLog(@"Error encoding data for email");
+        NSLog(@"Device is unable to send email in its current state.");
     }
-    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller
-		  didFinishWithResult:(MFMailComposeResult)result
-						error:(NSError *)error {
-    [self dismissViewControllerAnimated:YES completion:Nil];
+         didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (void)pickerSelected:(NSString *)newPick {

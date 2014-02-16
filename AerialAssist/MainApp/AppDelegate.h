@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class SplashPageViewController;
-@class iPhoneMainViewController;
+@class PhoneSplashViewController;
 @class DataManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -17,7 +17,7 @@
 
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) SplashPageViewController *splashPageViewController;
-@property (strong, nonatomic) iPhoneMainViewController *iPhoneMainViewController;
+@property (strong, nonatomic) PhoneSplashViewController *phoneSplashViewController;
 @property (nonatomic, assign) BOOL loadDataFromBundle;
 @property (strong, nonatomic) DataManager *dataManager;
 

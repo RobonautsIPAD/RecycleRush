@@ -2,7 +2,7 @@
 //  MatchData.m
 //  AerialAssist
 //
-//  Created by FRC on 1/10/14.
+//  Created by FRC on 2/12/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -18,6 +18,9 @@
 @dynamic number;
 @dynamic redScore;
 @dynamic tournamentName;
+@dynamic received;
+@dynamic saved;
+@dynamic savedBy;
 @dynamic score;
 
 @end

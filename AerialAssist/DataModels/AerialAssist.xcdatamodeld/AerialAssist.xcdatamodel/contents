@@ -9,7 +9,10 @@
         <attribute name="matchType" optional="YES" attributeType="String" maxValueString="100" defaultValueString="Seeding" syncable="YES"/>
         <attribute name="matchTypeSection" optional="YES" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" maxValueString="250" defaultValueString="0" syncable="YES"/>
+        <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="redScore" optional="YES" attributeType="Integer 16" maxValueString="250" defaultValueString="-1" syncable="YES"/>
+        <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="savedBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tournamentName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="score" optional="YES" toMany="YES" maxCount="6" deletionRule="Cascade" destinationEntity="TeamScore" inverseName="match" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
