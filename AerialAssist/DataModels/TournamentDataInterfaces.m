@@ -107,7 +107,7 @@
 - (void)dealloc {
     _dataManager = nil;
 #ifdef TEST_MODE
-	NSLog(@"dealloc %@", self);
+	//NSLog(@"dealloc %@", self);
 #endif
 }
 

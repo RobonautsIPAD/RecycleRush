@@ -9,6 +9,8 @@
 #import "PhoneExportViewController.h"
 #import "DataManager.h"
 #import "ExportTeamData.h"
+#import "ExportScoreData.h"
+#import "ExportMatchData.h"
 
 @interface PhoneExportViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *exportTeamData;
@@ -56,48 +58,72 @@
 - (IBAction)buttonPress:(id)sender {
     NSString *csvString;
     if (sender == _exportTeamData) {
-        NSLog(@"Team Button");
         ExportTeamData *teamCSVExport = [[ExportTeamData alloc] initWithDataManager:_dataManager];
         csvString = [teamCSVExport teamDataCSVExport];
         if (csvString) {
             NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
-            NSLog(@"export data file = %@", filePath);
-            NSLog(@"csvString = %@", csvString);
             [csvString writeToFile:filePath
                         atomically:YES
                           encoding:NSUTF8StringEncoding
                              error:nil];
             NSString *emailSubject = @"Team Data CSV File";
-            [self buildEmail:filePath attach:@"TeamData.csv" subject:emailSubject];
+            NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+            NSArray *attachList = [[NSArray alloc] initWithObjects:@"TeamData.csv", nil];
+            [self buildEmail:fileList attach:attachList subject:emailSubject];
          }
     }
-    else {
-        NSLog(@"Match Button");
-    }
+    else if (sender == _exportMatchData) {
+        NSString *fileListPath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
+        NSString *fileDataPath = [exportPath stringByAppendingPathComponent: @"ScoreData.csv"];
+        // Export Match List
+        ExportMatchData *matchCSVExport = [[ExportMatchData alloc] initWithDataManager:_dataManager];
+        csvString = [matchCSVExport matchDataCSVExport];
+        if (csvString) {
+            [csvString writeToFile:fileListPath
+                        atomically:YES
+                        encoding:NSUTF8StringEncoding
+                        error:nil];
+        }
+        // Export Scores
+        ExportScoreData *scoreCSVExport = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+        csvString = [scoreCSVExport teamScoreCSVExport];
+        if (csvString) {
+            [csvString writeToFile:fileDataPath
+                        atomically:YES
+                        encoding:NSUTF8StringEncoding
+                        error:nil];
+        }
+        NSString *emailSubject = @"Match Data CSV Files";
+        NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
+        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
+        
+        [self buildEmail:fileList attach:attachList subject:emailSubject];
+   }
 }
 
-
- -(void)buildEmail:(NSString *)filePath attach:(NSString *)emailFile subject:(NSString *)emailSubject {
-     if ([MFMailComposeViewController canSendMail]) {
-         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-         NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-         [mailViewController setSubject:emailSubject];
-         [mailViewController setToRecipients:array];
-         [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
-         [mailViewController setMailComposeDelegate:self];
+-(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [mailViewController setSubject:emailSubject];
+        [mailViewController setToRecipients:array];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
+        [mailViewController setMailComposeDelegate:self];
  
-         NSData *exportData = [[NSData alloc] initWithContentsOfFile:filePath];
-         if (exportData) {
-             [mailViewController addAttachmentData:exportData mimeType:[NSString stringWithFormat:@"application/%@", appName] fileName:emailFile];
-         }
-         else {
-             NSLog(@"Error encoding data for email");
-         }
-         [self presentViewController:mailViewController animated:YES completion:nil];
-     }
-     else {
-         NSLog(@"Device is unable to send email in its current state.");
-     }
+        for (int i=0; i<[filePaths count]; i++) {
+            NSData *exportData = [[NSData alloc] initWithContentsOfFile:[filePaths objectAtIndex:i]];
+            if (exportData) {
+                [mailViewController addAttachmentData:exportData mimeType:[NSString stringWithFormat:@"application/%@", appName] fileName:[emailFiles objectAtIndex:i]];
+            }
+            else {
+                NSLog(@"Error encoding data for email");
+            }
+        }
+        [self presentViewController:mailViewController animated:YES completion:nil];
+    }
+    else {
+        NSLog(@"Device is unable to send email in its current state.");
+    }
 }
  
  -(void)mailComposeController:(MFMailComposeViewController *)controller

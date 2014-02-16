@@ -75,7 +75,6 @@
 		2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88649916B76B1700867385 /* TeamPickerController.m */; };
 		2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8864A116B76DAB00867385 /* LoadCSVData.m */; };
 		2F8C524218A3F09600314786 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8C524118A3F09600314786 /* Photo.m */; };
-		2F8C524818A3F0E600314786 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8C524718A3F0E600314786 /* TeamScore.m */; };
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
 		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
@@ -111,6 +110,10 @@
 		2FCE54FB16CC271A00884191 /* Small Red Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54F916CC271A00884191 /* Small Red Button.jpg */; };
 		2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */; };
 		2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FE16CC29B600884191 /* Small White Button.jpg */; };
+		2FD455F118AFF7B90014C1BE /* PhoneSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455F018AFF7B90014C1BE /* PhoneSetUpViewController.m */; };
+		2FD455F418B0162C0014C1BE /* ExportScoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455F318B0162C0014C1BE /* ExportScoreData.m */; };
+		2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455FC18B026BB0014C1BE /* ExportMatchData.m */; };
+		2FD4560018B06EEE0014C1BE /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455FF18B06EEE0014C1BE /* TeamScore.m */; };
 		2FD7E9E716E8C3540075533C /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7E9E616E8C3540075533C /* TeamList.csv */; };
 		2FDC819818AC6651008E2E0B /* MatchDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819718AC6651008E2E0B /* MatchDataInterfaces.m */; };
 		2FDC819B18AC66E0008E2E0B /* TeamScoreInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */; };
@@ -244,8 +247,6 @@
 		2F8864A116B76DAB00867385 /* LoadCSVData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadCSVData.m; path = DataImport/LoadCSVData.m; sourceTree = "<group>"; };
 		2F8C524018A3F09600314786 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataModels/Photo.h; sourceTree = "<group>"; };
 		2F8C524118A3F09600314786 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModels/Photo.m; sourceTree = "<group>"; };
-		2F8C524618A3F0E600314786 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
-		2F8C524718A3F0E600314786 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
 		2F8FC25F16E999E500992F85 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentDataInterfaces.h; path = DataModels/TournamentDataInterfaces.h; sourceTree = "<group>"; };
 		2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentDataInterfaces.m; path = DataModels/TournamentDataInterfaces.m; sourceTree = "<group>"; };
@@ -302,6 +303,14 @@
 		2FCE54F916CC271A00884191 /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
 		2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Green Button.jpg"; path = "Resources/Small Green Button.jpg"; sourceTree = "<group>"; };
 		2FCE54FE16CC29B600884191 /* Small White Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small White Button.jpg"; path = "Resources/Small White Button.jpg"; sourceTree = "<group>"; };
+		2FD455EF18AFF7B90014C1BE /* PhoneSetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSetUpViewController.h; path = SetUp/PhoneSetUpViewController.h; sourceTree = "<group>"; };
+		2FD455F018AFF7B90014C1BE /* PhoneSetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSetUpViewController.m; path = SetUp/PhoneSetUpViewController.m; sourceTree = "<group>"; };
+		2FD455F218B0162C0014C1BE /* ExportScoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportScoreData.h; path = DataTransfer/ExportScoreData.h; sourceTree = "<group>"; };
+		2FD455F318B0162C0014C1BE /* ExportScoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExportScoreData.m; path = DataTransfer/ExportScoreData.m; sourceTree = "<group>"; };
+		2FD455FB18B026BB0014C1BE /* ExportMatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportMatchData.h; path = DataTransfer/ExportMatchData.h; sourceTree = "<group>"; };
+		2FD455FC18B026BB0014C1BE /* ExportMatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExportMatchData.m; path = DataTransfer/ExportMatchData.m; sourceTree = "<group>"; };
+		2FD455FE18B06EEE0014C1BE /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
+		2FD455FF18B06EEE0014C1BE /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
 		2FD7E9E616E8C3540075533C /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = Resources/TeamList.csv; sourceTree = "<group>"; };
 		2FDC819618AC6651008E2E0B /* MatchDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchDataInterfaces.h; path = DataModels/MatchDataInterfaces.h; sourceTree = "<group>"; };
 		2FDC819718AC6651008E2E0B /* MatchDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchDataInterfaces.m; path = DataModels/MatchDataInterfaces.m; sourceTree = "<group>"; };
@@ -471,14 +480,14 @@
 			isa = PBXGroup;
 			children = (
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
+				2FD455FE18B06EEE0014C1BE /* TeamScore.h */,
+				2FD455FF18B06EEE0014C1BE /* TeamScore.m */,
 				2FDC819C18AC700F008E2E0B /* MatchData.h */,
 				2FDC819D18AC700F008E2E0B /* MatchData.m */,
 				2FDC819618AC6651008E2E0B /* MatchDataInterfaces.h */,
 				2FDC819718AC6651008E2E0B /* MatchDataInterfaces.m */,
 				2FC19BBD18A483180067DFC5 /* TeamData.h */,
 				2FC19BBE18A483180067DFC5 /* TeamData.m */,
-				2F8C524618A3F0E600314786 /* TeamScore.h */,
-				2F8C524718A3F0E600314786 /* TeamScore.m */,
 				2F8C524018A3F09600314786 /* Photo.h */,
 				2F8C524118A3F09600314786 /* Photo.m */,
 				2F6F10131880E29700378728 /* TournamentData.h */,
@@ -510,11 +519,11 @@
 				2FC18EAE16A2042000D42251 /* SplashPageViewController.m */,
 				2F30EAEC16A101570026B258 /* AppDelegate.h */,
 				2F30EAED16A101AB0026B258 /* AppDelegate.m */,
-				2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */,
-				2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */,
 				2F30EAEA16A100850026B258 /* main.m */,
 				2F13339D170E20CD006669FF /* iPhoneMainViewController.h */,
 				2F13339E170E20CD006669FF /* iPhoneMainViewController.m */,
+				2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */,
+				2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */,
 				2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */,
 				2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */,
 				2F8002D718551326008F031C /* SettingsAndPreferences.h */,
@@ -581,8 +590,12 @@
 				2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */,
 				2F004E1C18AEF8CD004DE471 /* PhoneExportViewController.h */,
 				2F004E1D18AEF8CD004DE471 /* PhoneExportViewController.m */,
+				2FD455FB18B026BB0014C1BE /* ExportMatchData.h */,
+				2FD455FC18B026BB0014C1BE /* ExportMatchData.m */,
 				2F004E1F18AEF8F6004DE471 /* ExportTeamData.h */,
 				2F004E2018AEF8F6004DE471 /* ExportTeamData.m */,
+				2FD455F218B0162C0014C1BE /* ExportScoreData.h */,
+				2FD455F318B0162C0014C1BE /* ExportScoreData.m */,
 			);
 			name = "Data Transfer";
 			sourceTree = "<group>";
@@ -642,6 +655,8 @@
 		2FB3A4B516CEC00600E895E5 /* SetUp */ = {
 			isa = PBXGroup;
 			children = (
+				2FD455EF18AFF7B90014C1BE /* PhoneSetUpViewController.h */,
+				2FD455F018AFF7B90014C1BE /* PhoneSetUpViewController.m */,
 				2FFC493718560F68009A391E /* SettingsViewController.h */,
 				2FFC493818560F68009A391E /* SettingsViewController.m */,
 			);
@@ -792,6 +807,7 @@
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
 				2F88649F16B76B1700867385 /* RecordScorePickerController.m in Sources */,
 				2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */,
+				2FD455F118AFF7B90014C1BE /* PhoneSetUpViewController.m in Sources */,
 				2F8C524218A3F09600314786 /* Photo.m in Sources */,
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,
 				2F137CF818537B6E00D87F30 /* CreateMatch.m in Sources */,
@@ -803,8 +819,10 @@
 				2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */,
 				2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
+				2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
 				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
+				2FD455F418B0162C0014C1BE /* ExportScoreData.m in Sources */,
 				2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */,
 				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
@@ -828,8 +846,8 @@
 				2F5511CC188480F40061EF82 /* ImportUSFirstViewController.m in Sources */,
 				2FDC819B18AC66E0008E2E0B /* TeamScoreInterfaces.m in Sources */,
 				2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */,
+				2FD4560018B06EEE0014C1BE /* TeamScore.m in Sources */,
 				2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */,
-				2F8C524818A3F0E600314786 /* TeamScore.m in Sources */,
 				2F06F98D1724B180002C947D /* NetworkManager.m in Sources */,
 				2F146EEB1880E0B300B76B32 /* AerialAssist.xcdatamodeld in Sources */,
 				2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */,

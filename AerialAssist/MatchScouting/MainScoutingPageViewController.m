@@ -884,7 +884,7 @@
         [self promptForValue:autonHotHighButton];
         return;
     }
-//    currentTeam.autonHigh = [NSNumber numberWithInt:score];
+    currentTeam.autonHighHot = [NSNumber numberWithInt:score];
     [autonHotHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHighHot intValue]] forState:UIControlStateNormal];
     // Update the number of shots taken
     int total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
@@ -912,15 +912,15 @@
         [self promptForValue:autonColdHighButton];
         return;
     }
-        currentTeam.autonHighCold = [NSNumber numberWithInt:score];
+    currentTeam.autonHighCold = [NSNumber numberWithInt:score];
     [autonColdHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHighCold intValue]] forState:UIControlStateNormal];
     // Update the number of shots taken
     int total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
-        currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
     // Update the number of shots made
-        total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
-        currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
+    total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
+    currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
     dataChange = YES;
 }
 
