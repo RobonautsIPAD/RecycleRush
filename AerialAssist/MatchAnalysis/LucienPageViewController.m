@@ -34,6 +34,10 @@
     NSString *storePath;
     id popUp;
     NSMutableArray *lucienList;
+
+    PopUpPickerViewController *parameterPicker;
+    UIPopoverController *parameterPickerPopover;
+    id parameterPopUpid;
 }
 
 @synthesize mainLogo = _mainLogo;
@@ -278,7 +282,19 @@
 }
 
 -(IBAction)selectParameter:(id)sender {
-    
+    UIButton *button = (UIButton *)sender;
+    if (parameterPicker == nil) {
+        parameterPicker = [[PopUpPickerViewController alloc]
+                              initWithStyle:UITableViewStylePlain];
+        parameterPicker.delegate = self;
+        parameterPicker.pickerChoices = _averageList;
+        parameterPickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:parameterPicker];
+    }
+    parameterPicker.pickerChoices = _averageList;
+    popUp = sender;
+    [parameterPickerPopover presentPopoverFromRect:button.bounds inView:button
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (IBAction)selectAverage:(id)sender {

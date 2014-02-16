@@ -21,7 +21,7 @@
 @dynamic autonBlocks;
 @dynamic autonHighCold;
 @dynamic autonHighHot;
-@dynamic autonHotLow;
+@dynamic autonLowHot;
 @dynamic autonLowCold;
 @dynamic autonMissed;
 @dynamic autonMobility;

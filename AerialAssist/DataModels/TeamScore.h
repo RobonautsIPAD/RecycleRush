@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSNumber * autonBlocks;
 @property (nonatomic, retain) NSNumber * autonHighCold;
 @property (nonatomic, retain) NSNumber * autonHighHot;
-@property (nonatomic, retain) NSNumber * autonHotLow;
+@property (nonatomic, retain) NSNumber * autonLowHot;
 @property (nonatomic, retain) NSNumber * autonLowCold;
 @property (nonatomic, retain) NSNumber * autonMissed;
 @property (nonatomic, retain) NSNumber * autonMobility;
