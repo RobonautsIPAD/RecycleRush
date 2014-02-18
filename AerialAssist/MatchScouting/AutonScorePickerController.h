@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol RecordScorePickerDelegate
+@protocol AutonScorePickerDelegate
 - (void)scoreSelected:(NSString *)scoreButton;
 @end
 
-@interface RecordScorePickerController : UITableViewController
+@interface AutonScorePickerController : UITableViewController
 @property (nonatomic, retain) NSMutableArray *scoreChoices;
-@property (nonatomic, assign) id<RecordScorePickerDelegate> delegate;
+@property (nonatomic, assign) id<AutonScorePickerDelegate> delegate;
 
 @end

@@ -25,30 +25,35 @@
 @property (nonatomic, weak) IBOutlet UITextField *teamNumber;
 @property (nonatomic, weak) IBOutlet UITextField *autonScoreMade;
 @property (nonatomic, weak) IBOutlet UITextField *autonScoreShot;
-@property (nonatomic, weak) IBOutlet UITextField *autonHigh;
-@property (nonatomic, weak) IBOutlet UITextField *autonMed;
-@property (nonatomic, weak) IBOutlet UITextField *autonLow;
+@property (nonatomic, weak) IBOutlet UITextField *autonHotHigh;
+@property (nonatomic, weak) IBOutlet UITextField *autonColdHigh;
+@property (nonatomic, weak) IBOutlet UITextField *autonHotLow;
+@property (nonatomic, weak) IBOutlet UITextField *autonColdLow;
 @property (nonatomic, weak) IBOutlet UITextField *autonMissed;
+@property (nonatomic, weak) IBOutlet UITextField *autonBlocked;
 
 @property (nonatomic, weak) IBOutlet UITextField *teleOpScoreMade;
 @property (nonatomic, weak) IBOutlet UITextField *teleOpScoreShot;
 @property (nonatomic, weak) IBOutlet UITextField *teleOpHigh;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpMed;
 @property (nonatomic, weak) IBOutlet UITextField *teleOpLow;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpMissed;
-@property (nonatomic, weak) IBOutlet UITextField *discPassed;
-@property (nonatomic, weak) IBOutlet UITextField *autonPyramidGoals;
-@property (nonatomic, weak) IBOutlet UITextField *pyramidGoals;
 @property (nonatomic, weak) IBOutlet UITextField *wallPickUp;
 @property (nonatomic, weak) IBOutlet UITextField *wall1;
 @property (nonatomic, weak) IBOutlet UITextField *wall2;
 @property (nonatomic, weak) IBOutlet UITextField *wall3;
 @property (nonatomic, weak) IBOutlet UITextField *wall4;
 @property (nonatomic, weak) IBOutlet UITextField *floorPickUp;
-@property (nonatomic, weak) IBOutlet UITextField *blocked;
-@property (nonatomic, weak) IBOutlet UITextField *climbAttempt;
-@property (nonatomic, weak) IBOutlet UITextField *climbLevel;
-@property (nonatomic, weak) IBOutlet UITextField *climbTime;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpBlocked;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpMissed;
+
+@property (nonatomic, weak) IBOutlet UITextField *trussThrow;
+@property (nonatomic, weak) IBOutlet UITextField *trussCatch;
+
+@property (nonatomic, weak) IBOutlet UITextField *pickUpHuman;
+@property (nonatomic, weak) IBOutlet UITextField *pickUpFLoor;
+
+@property (nonatomic, weak) IBOutlet UITextField *passFloor;
+@property (nonatomic, weak) IBOutlet UITextField *passAir;
+
 @property (nonatomic, weak) IBOutlet UITextView  *notes;
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
 

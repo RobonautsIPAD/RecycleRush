@@ -79,15 +79,16 @@
 @synthesize robotSpeed = _robotSpeed;
 @synthesize climbLevel;
 @synthesize notes;
+@synthesize teleOpBlockButton;
 @synthesize teleOpMissButton;
 @synthesize teleOpHighButton;
 @synthesize teleOpLowButton;
+@synthesize autonBlockButton;
 @synthesize autonMissButton;
 @synthesize autonHotHighButton;
 @synthesize autonColdHighButton;
 @synthesize autonLowColdButton;
 @synthesize autonLowHotButton;
-@synthesize blocksButton;
 @synthesize passesFloorButton;
 @synthesize passesAirButton;
 @synthesize humanPickUpsButton;
@@ -97,6 +98,8 @@
 @synthesize human4Button;
 @synthesize floorPickUpsButton;
 @synthesize matchResetButton;
+@synthesize trussCatchButton;
+@synthesize trussThrowButton;
 @synthesize scoreButtonReset = _scoreButtonReset;
 @synthesize scoreButtonChoices = _scoreButtonChoices;
 @synthesize scoreButtonPickerPopover = _scoreButtonPickerPopover;
@@ -115,9 +118,12 @@
 @synthesize imageContainer;
 @synthesize fieldImage;
 @synthesize fieldDrawingChange;
-@synthesize scoreList;
-@synthesize scorePicker;
-@synthesize scorePickerPopover;
+@synthesize autonScoreList;
+@synthesize teleOpScoreList;
+@synthesize autonPicker = _autonPicker;
+@synthesize autonPickerPopover;
+@synthesize teleOpPicker =_teleOpPicker;
+@synthesize teleOpPickerPopover;
 @synthesize defenseList;
 @synthesize defensePicker;
 @synthesize defensePickerPopover;
@@ -192,12 +198,13 @@
     [self SetBigButtonDefaults:autonHotHighButton];
     [autonHotHighButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:autonColdHighButton];
+    [autonColdHighButton setTitleColor:[UIColor blueColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:autonLowColdButton];
+    [autonLowColdButton setTitleColor:[UIColor blueColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:autonLowHotButton];
     [autonLowHotButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:passesFloorButton];
     [self SetBigButtonDefaults:passesAirButton];
-    [self SetBigButtonDefaults:blocksButton];
     //[self SetBigButtonDefaults:bigHumanPickUpsButton];
     [self SetSmallButtonDefaults:human1Button];
     [self SetSmallButtonDefaults:human2Button];
@@ -218,7 +225,11 @@
     [self SetSmallButtonDefaults:toggleGridButton];
     [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     [self SetSmallButtonDefaults:matchResetButton];
-    
+    [self SetBigButtonDefaults:trussThrowButton];
+    [self SetBigButtonDefaults:trussCatchButton];
+    [self SetBigButtonDefaults:passesAirButton];
+    [self SetBigButtonDefaults:autonBlockButton];
+    [self SetBigButtonDefaults:teleOpBlockButton];
     
     driverRating.maximumValue = 5.0;
     driverRating.continuous = NO;
@@ -236,7 +247,8 @@
     _scoreButtonChoices = [[NSMutableArray alloc] initWithObjects:@"Reset to 0", @"Decrement", @"Increment", nil];
 
     // Drawing Stuff
-    scoreList = [[NSMutableArray alloc] initWithObjects:@"Medium", @"High", @"Missed", @"Low", @"Pyramid", nil];
+    autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Passed", @"Blocked", nil];
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorDiskPickUp:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -738,13 +750,222 @@
     else if (popUp == autonLowColdButton) [self autonLowCold:newPick];
     else if (popUp == autonLowHotButton) [self autonLowHot:newPick];
     else if (popUp == autonMissButton) [self autonMiss:newPick];
+    else if (popUp == autonBlockButton) [self autonBlock:newPick];
     else if (popUp == teleOpHighButton) [self teleOpHigh:newPick];
     else if (popUp == teleOpLowButton) [self teleOpLow:newPick];
     else if (popUp == teleOpMissButton) [self teleOpMiss:newPick];
+    else if (popUp == teleOpBlockButton) [self teleOpBlock:newPick];
+    else if (popUp == trussThrowButton) [self trussThrow:newPick];
+    else if (popUp == trussCatchButton) [self trussCatch:newPick];
+    else if (popUp == humanPickUpsButton) [self humanPickUp:newPick];
+    else if (popUp == floorPickUpsButton) [self floorPickUp:newPick];
+    else if (popUp == passesFloorButton) [self floorPass:newPick];
+    else if (popUp == passesAirButton) [self airPass:newPick];
 }
 
 - (void)valueEnteredAtPrompt:(NSString *)valueEntered {
     [self.valuePromptPopover dismissPopoverAnimated:YES];
+}
+
+-(void)airPass:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [passesAirButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:passesAirButton];
+        return;
+    }    currentTeam.airPasses = [NSNumber numberWithInt:score];
+    [passesAirButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airPasses intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    dataChange = YES;
+}
+
+
+-(void)floorPass:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [passesFloorButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:passesFloorButton];
+        return;
+    }    currentTeam.floorPasses = [NSNumber numberWithInt:score];
+    [passesFloorButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPasses intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    dataChange = YES;
+}
+
+
+-(void)floorPickUp:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [floorPickUpsButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:floorPickUpsButton];
+        return;
+    }    currentTeam.floorPickUp = [NSNumber numberWithInt:score];
+    [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    dataChange = YES;
+}
+
+
+-(void)humanPickUp:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [humanPickUpsButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:humanPickUpsButton];
+        return;
+    }    currentTeam.humanPickUp = [NSNumber numberWithInt:score];
+    [humanPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    dataChange = YES;
+}
+
+
+-(void)autonBlock:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [autonBlockButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:teleOpMissButton];
+        return;
+    }    currentTeam.autonBlocks = [NSNumber numberWithInt:score];
+    [autonBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.autonHighCold intValue] + [currentTeam.autonHighHot intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonLowCold intValue] + [currentTeam.autonMissed intValue];
+    currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
+    dataChange = YES;
+}
+
+-(void)trussCatch:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [trussCatchButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:trussCatchButton];
+        return;
+    }    currentTeam.trussCatch = [NSNumber numberWithInt:score];
+    [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatch intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    
+    dataChange = YES;
+}
+
+
+-(void)trussThrow:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [trussThrowButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:trussThrowButton];
+        return;
+    }    currentTeam.trussThrow = [NSNumber numberWithInt:score];
+    [trussThrowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussThrow intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    
+    dataChange = YES;
+}
+
+
+-(void)teleOpBlock:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [teleOpBlockButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:teleOpBlockButton];
+        return;
+    }    currentTeam.teleOpBlocks = [NSNumber numberWithInt:score];
+    [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
+    
+    // Update the number of shots taken
+    int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
+    currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
+    
+    dataChange = YES;
 }
 
 -(void)teleOpMiss:(NSString *)choice {
@@ -979,7 +1200,6 @@
     total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
     currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
     dataChange = YES;
-    dataChange = YES;
 }
 
 -(void)passesMade {
@@ -991,12 +1211,47 @@
     dataChange = YES;
 }
 
--(void)blockedShots {
+-(void)autonBlockedShots: (NSString *)choice {
     // NSLog(@"Blocked Shots");
-    int score = [blocksButton.titleLabel.text intValue];
-    score++;
-//    currentTeam.blocks = [NSNumber numberWithInt:score];
-//    [blocksButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.blocks intValue]] forState:UIControlStateNormal];
+    
+    int score = [autonBlockButton.titleLabel.text intValue];
+    // Update the number of Low shots
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:autonBlockButton];
+        return;
+    }
+    currentTeam.autonBlocks = [NSNumber numberWithInt:score];
+    [autonLowColdButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
+    dataChange = YES;
+}
+
+-(void)teleOpBlockedShots: (NSString *)choice {
+    // NSLog(@"Blocked Shots");
+    int score = [teleOpBlockButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:autonBlockButton];
+        return;
+    }
+    currentTeam.teleOpBlocks= [NSNumber numberWithInt:score];
+    [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 /*
@@ -1034,10 +1289,22 @@
 }
  */
 
--(void)floorPickUpsMade {
+-(void)floorPickUpsMade: (NSString *)choice {
     // NSLog(@"PickUps");
     int score = [floorPickUpsButton.titleLabel.text intValue];
-    score++;
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:autonBlockButton];
+        return;
+    }
     currentTeam.floorPickUp = [NSNumber numberWithInt:score];
     [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
     dataChange = YES;
@@ -1151,7 +1418,13 @@
     [human3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp3 intValue]] forState:UIControlStateNormal];
     [human4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp4 intValue]] forState:UIControlStateNormal];
     [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
-
+    [passesFloorButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPasses intValue]] forState:UIControlStateNormal];
+    [passesAirButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airPasses intValue]] forState:UIControlStateNormal];
+    [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatch intValue]] forState:UIControlStateNormal];
+    [trussThrowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussThrow intValue]] forState:UIControlStateNormal];
+    [autonBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
+    [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
+    
     // NSLog(@"Load the Picture");
     // Check the database to see if this team and match have a drawing already
     if (currentTeam.fieldDrawing.trace) {
@@ -1204,17 +1477,29 @@
         CGPoint popPoint = [self defensePopOverLocation:currentPoint];
         [self.defensePickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
-    else {
-        if (scorePicker == nil) {
-            self.scorePicker = [[RecordScorePickerController alloc]
+    else if(drawMode == DrawAuton){
+        if (_autonPicker == nil) {
+            _autonPicker = [[AutonScorePickerController alloc]
                                 initWithStyle:UITableViewStylePlain];
-            scorePicker.delegate = self;
-            scorePicker.scoreChoices = scoreList;
-            self.scorePickerPopover = [[UIPopoverController alloc]
-                                       initWithContentViewController:scorePicker];
+            _autonPicker.delegate = self;
+            _autonPicker.scoreChoices = autonScoreList;
+            self.autonPickerPopover = [[UIPopoverController alloc]
+                                       initWithContentViewController:_autonPicker];
         }
         CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [self.scorePickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [self.autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+    }
+    else {
+        if (_teleOpPicker == nil) {
+            _teleOpPicker = [[TeleOpScorePickerController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            _teleOpPicker.delegate = self;
+            _teleOpPicker.scoreChoices = teleOpScoreList;
+            self.teleOpPickerPopover = [[UIPopoverController alloc]
+                                       initWithContentViewController:_teleOpPicker];
+        }
+        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
+        [self.teleOpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
 }
 
@@ -1366,16 +1651,16 @@
     
 }
 
-- (void)scoreSelected:(NSString *)newScore {
-    [self.scorePickerPopover dismissPopoverAnimated:YES];
+- (void)autonScoreSelected:(NSString *)newScore {
+    [self.autonPickerPopover dismissPopoverAnimated:YES];
     NSString *marker;
     CGPoint textPoint;
     textPoint.x = currentPoint.x;
     textPoint.y = currentPoint.y + popCounter*16;
     // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
     popCounter++;
-    for (int i = 0 ; i < [scoreList count] ; i++) {
-        if ([newScore isEqualToString:[scoreList objectAtIndex:i]]) {
+    for (int i = 0 ; i < [autonScoreList count] ; i++) {
+        if ([newScore isEqualToString:[autonScoreList objectAtIndex:i]]) {
             switch (i) {
                 case 1:
                     marker = @"H";
@@ -1406,7 +1691,7 @@
                     break;
             }
             
-            // NSLog(@"score selection = %@", [scoreList objectAtIndex:i]);
+            // NSLog(@"score selection = %@", [autonScoreList objectAtIndex:i]);
             break;
         }
     }
@@ -1429,7 +1714,7 @@
                     break;
                 case 1:
                     marker = @"B";
-                    [self blockedShots];
+                    //[self teleOpBlockedShots];
                     break;
                 default:
                     break;
@@ -1551,20 +1836,32 @@
     currentTeam.teleOpMissed = [NSNumber numberWithInt:0];
     currentTeam.teleOpShots = [NSNumber numberWithInt:0];
     currentTeam.totalTeleOpShots = [NSNumber numberWithInt:0];
-//    currentTeam.passes = [NSNumber numberWithInt:0];
-//    currentTeam.blocks = [NSNumber numberWithInt:0];
+    currentTeam.autonBlocks = [NSNumber numberWithInt:0];
+    currentTeam.teleOpBlocks = [NSNumber numberWithInt:0];
 //    currentTeam.wallPickUp = [NSNumber numberWithInt:0];
 //    currentTeam.wallPickUp1 = [NSNumber numberWithInt:0];
 //    currentTeam.wallPickUp2 = [NSNumber numberWithInt:0];
 //    currentTeam.wallPickUp3 = [NSNumber numberWithInt:0];
 //    currentTeam.wallPickUp4 = [NSNumber numberWithInt:0];
-//    currentTeam.floorPickUp = [NSNumber numberWithInt:0];
+    currentTeam.floorPickUp = [NSNumber numberWithInt:0];
     currentTeam.driverRating = [NSNumber numberWithInt:0];
     currentTeam.robotSpeed = [NSNumber numberWithInt:0];
     currentTeam.notes = @"";
     currentTeam.saved = [NSNumber numberWithInt:0];
     currentTeam.fieldDrawing = nil;
     currentTeam.defenseBullyRating = [NSNumber numberWithInt:0];
+    currentTeam.floorPasses = [NSNumber
+        numberWithInt:0];
+    currentTeam.trussCatch = [NSNumber
+        numberWithInt:0];
+    currentTeam.trussThrow = [NSNumber
+        numberWithInt:0];
+    currentTeam.airPasses = [NSNumber
+        numberWithInt:0];
+    currentTeam.autonBlocks = [NSNumber
+        numberWithInt:0];
+    currentTeam.teleOpBlocks = [NSNumber
+        numberWithInt:0];
     [self ShowTeam:teamIndex];   
 }
 
@@ -1588,7 +1885,7 @@
 }
 
 -(void)SetBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
     [btnLayer setMasksToBounds:YES];

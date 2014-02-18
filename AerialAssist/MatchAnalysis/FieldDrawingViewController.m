@@ -19,6 +19,7 @@
 @implementation FieldDrawingViewController {
     TeamScore *currentScore;
     int currentIndex;
+    
 }
 @synthesize startingIndex = _startingIndex;
 @synthesize teamScores = _teamScores;
@@ -32,27 +33,28 @@
 @synthesize teleOpScoreMade = _teleOpScoreMade;
 @synthesize teleOpScoreShot = _teleOpScoreShot;
 @synthesize teleOpHigh = _teleOpHigh;
-@synthesize teleOpMed = _teleOpMed;
 @synthesize teleOpLow = _teleOpLow;
 @synthesize teleOpMissed = _teleOpMissed;
+@synthesize teleOpBlocked = _teleOpBlocked;
 @synthesize autonScoreMade = _autonScoreMade;
 @synthesize autonScoreShot = _autonScoreShot;
-@synthesize autonHigh = _autonHigh;
-@synthesize autonMed = _autonMed;
-@synthesize autonLow = _autonLow;
+@synthesize autonHotHigh = _autonHotHigh;
+@synthesize autonColdHigh = _autonColdHigh;
+@synthesize autonHotLow = _autonHotLow;
+@synthesize autonColdLow = _autonColdLow;
+@synthesize autonBlocked = _autonBlocked;
 @synthesize autonMissed = _autonMissed;
-@synthesize pyramidGoals = _pyramidGoals;
-@synthesize discPassed = _discPassed;
 @synthesize wallPickUp = _wallPickUp;
 @synthesize wall1 = _wall1;
 @synthesize wall2 = _wall2;
 @synthesize wall3 = _wall3;
 @synthesize wall4 = _wall4;
-@synthesize floorPickUp = _floorPickUp;
-@synthesize blocked = _blocked;
-@synthesize climbAttempt = _climbAttempt;
-@synthesize climbLevel = _climbLevel;
-@synthesize climbTime = _climbTime;
+@synthesize pickUpFLoor = _pickUpFLoor;
+@synthesize pickUpHuman = _pickUpHuman;
+@synthesize trussCatch = _trussCatch;
+@synthesize trussThrow = _trussThrow;
+@synthesize passFloor = _passFloor;
+@synthesize passAir = _passAir;
 @synthesize notes = _notes;
 
 
@@ -94,7 +96,7 @@
     swipeRight.numberOfTouchesRequired = 1;
     swipeRight.delegate = self;
     [self.view addGestureRecognizer:swipeRight];
-
+    
     [self SetTextBoxDefaults:_matchNumber];
     [self SetBigButtonDefaults:_matchType];
     [self SetBigButtonDefaults:_prevMatchButton];
@@ -103,28 +105,32 @@
     [self SetTextBoxDefaults:_teamNumber];
     [self SetSmallTextBoxDefaults:_autonScoreMade];
     [self SetSmallTextBoxDefaults:_autonScoreShot];
-    [self SetSmallTextBoxDefaults:_autonHigh];
-    [self SetSmallTextBoxDefaults:_autonMed];
-    [self SetSmallTextBoxDefaults:_autonLow];
+    [self SetSmallTextBoxDefaults:_autonHotHigh];
+    [_autonHotHigh setTextColor:[UIColor redColor]];
+    [self SetSmallTextBoxDefaults:_autonColdHigh];
+    [_autonColdHigh setTextColor:[UIColor blueColor]];
+    [self SetSmallTextBoxDefaults:_autonHotLow];
+    [_autonHotLow setTextColor:[UIColor redColor]];
+    [self SetSmallTextBoxDefaults:_autonColdLow];
+    [_autonColdLow setTextColor:[UIColor blueColor]];
     [self SetSmallTextBoxDefaults:_autonMissed];
+    [self SetSmallTextBoxDefaults:_autonBlocked];
 
     [self SetSmallTextBoxDefaults:_teleOpScoreMade];
     [self SetSmallTextBoxDefaults:_teleOpScoreShot];
     [self SetSmallTextBoxDefaults:_teleOpHigh];
-    [self SetSmallTextBoxDefaults:_teleOpMed];
     [self SetSmallTextBoxDefaults:_teleOpLow];
     [self SetSmallTextBoxDefaults:_teleOpMissed];
-
-    [self SetSmallTextBoxDefaults:_pyramidGoals];
+    [self SetSmallTextBoxDefaults:_teleOpBlocked];
     
-    [self SetSmallTextBoxDefaults:_discPassed];
-    [self SetSmallTextBoxDefaults:_wallPickUp];
-    [self SetSmallTextBoxDefaults:_floorPickUp];
-    [self SetSmallTextBoxDefaults:_blocked];
+    [self SetSmallTextBoxDefaults:_pickUpFLoor];
+    [self SetSmallTextBoxDefaults:_pickUpHuman];
+    [self SetSmallTextBoxDefaults:_trussThrow];
+    [self SetSmallTextBoxDefaults:_trussCatch];
+    [self SetSmallTextBoxDefaults:_passFloor];
+    [self SetSmallTextBoxDefaults:_passAir];
+    
     [self SetSmallTextBoxDefaults:_wall1];
-    [self SetSmallTextBoxDefaults:_climbAttempt];
-    [self SetSmallTextBoxDefaults:_climbLevel];
-    [self SetSmallTextBoxDefaults:_climbTime];
     [self SetSmallTextBoxDefaults:_wall2];
     [self SetSmallTextBoxDefaults:_wall3];
     [self SetSmallTextBoxDefaults:_wall4];
@@ -140,31 +146,33 @@
     _notes.text = currentScore.notes;
     _autonScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.autonShotsMade intValue]];
     _autonScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalAutonShots intValue]];
-//    _autonHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHigh intValue]];
-//    _autonMed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMid intValue]];
-//    _autonLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLow intValue]];
+    _autonHotHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighHot intValue]];
+    _autonColdHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighCold intValue]];
+    _autonHotLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLowHot intValue]];
+    _autonColdLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLowCold intValue]];
     _autonMissed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMissed intValue]];
+    _autonBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.autonBlocks intValue]];
+    
     
     _teleOpScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpShots intValue]];
     _teleOpScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalTeleOpShots intValue]];
     _teleOpHigh.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpHigh intValue]];
-//    _teleOpMed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMid intValue]];
     _teleOpLow.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpLow intValue]];
     _teleOpMissed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMissed intValue]];
-
-//    _pyramidGoals.text = [NSString stringWithFormat:@"%d", [currentScore.pyramid intValue]];
-    _wallPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp intValue]];
+    _teleOpBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpBlocks intValue]];
+    
     _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp1 intValue]];
     _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp2 intValue]];
     _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp3 intValue]];
     _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp4 intValue]];
-    _floorPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
-//    _blocked.text = [NSString stringWithFormat:@"%d", [currentScore.blocks intValue]];
-//    _discPassed.text = [NSString stringWithFormat:@"%d", [currentScore.passes intValue]];
-//    _climbLevel.text = [NSString stringWithFormat:@"%d", [currentScore.climbLevel intValue]];
-//    _climbAttempt.text = ([currentScore.climbAttempt intValue] == 0) ? @"N":@"Y";
-//    int timer = [currentScore.climbTimer intValue];
-//    _climbTime.text = [NSString stringWithFormat:@"%02d:%02d", timer/60, timer%60];
+    
+    _pickUpFLoor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
+    _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];
+    _trussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatch intValue]];
+    _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
+    _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
+    _passAir.text = [NSString stringWithFormat:@"%d", [currentScore.airPasses intValue]];
+    
     
     [self loadFieldDrawing];
 }
@@ -214,10 +222,13 @@
 
 -(void)SetTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+   
 }
 
 -(void)SetSmallTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:18.0];
+    [currentTextField setEnabled:NO];
+    [currentTextField setUserInteractionEnabled:NO];
 }
 
 -(void)SetBigButtonDefaults:(UIButton *)currentButton {

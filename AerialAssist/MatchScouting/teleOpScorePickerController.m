@@ -6,12 +6,12 @@
 //
 //
 
-#import "RecordScorePickerController.h"
+#import "teleOpScorePickerController.h"
 
-@interface RecordScorePickerController ()
+@interface TeleOpScorePickerController ()
 @end
 
-@implementation RecordScorePickerController
+@implementation TeleOpScorePickerController
 @synthesize scoreChoices;
 @synthesize delegate;
 
@@ -29,6 +29,27 @@
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = YES;
     self.contentSizeForViewInPopover = CGSizeMake(110.0, 215.0);
+    
+    NSInteger rowsCount = [scoreChoices count];
+    NSInteger singleRowHeight = [self.tableView.delegate tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    NSInteger totalRowsHeight = rowsCount * singleRowHeight;
+    
+    //Calculate how wide the view should be by finding how wide each string is expected to be
+    CGFloat largestLabelWidth = 0;
+    for (NSString *colorName in scoreChoices) {
+        //Checks size of text using the default font for UITableViewCell's textLabel.
+        CGSize labelSize = [colorName sizeWithFont:[UIFont boldSystemFontOfSize:20.0f]];
+        if (labelSize.width > largestLabelWidth) {
+            largestLabelWidth = labelSize.width;
+        }
+    }
+
+    
+    //Add a little padding to the width
+    CGFloat popoverWidth = largestLabelWidth + 100;
+    
+    //Set the property to tell the popover container how big this view will be.
+    self.contentSizeForViewInPopover = CGSizeMake(popoverWidth, totalRowsHeight);
 }
 
 - (void)didReceiveMemoryWarning

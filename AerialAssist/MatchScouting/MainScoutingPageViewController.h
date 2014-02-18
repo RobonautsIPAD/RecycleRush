@@ -10,7 +10,8 @@
 #import "AlliancePickerController.h"
 #import "MatchTypePickerController.h"
 #import "TeamPickerController.h"
-#import "RecordScorePickerController.h"
+#import "teleOpScorePickerController.h"
+#import "AutonScorePickerController.h"
 #import "DefensePickerController.h"
 #import "AlertPromptViewController.h"
 #import "ValuePromptViewController.h"
@@ -25,7 +26,7 @@
 @class DataManager;
 @class SettingsData;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, RecordScorePickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, AutonScorePickerDelegate,TeleOpScorePickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
@@ -89,6 +90,9 @@ typedef enum {
 -(IBAction)updateRobotSpeed: (id) sender;
 -(IBAction)scoreButtons: (id)sender;
 
+
+@property(nonatomic, weak) IBOutlet UIButton *trussThrowButton;
+@property(nonatomic, weak) IBOutlet UIButton *trussCatchButton;
 @property (nonatomic, weak) IBOutlet UIButton *toggleGridButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpMissButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpHighButton;
@@ -100,7 +104,8 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *autonLowHotButton;
 @property (nonatomic, weak) IBOutlet UIButton *passesFloorButton;
 @property (nonatomic, weak) IBOutlet UIButton *passesAirButton;
-@property (nonatomic, weak) IBOutlet UIButton *blocksButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonBlockButton;
+@property (nonatomic, weak) IBOutlet UIButton *teleOpBlockButton;
 //@property (nonatomic, weak) IBOutlet UIButton *bigHumanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *humanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
@@ -190,9 +195,13 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
 @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 @property (nonatomic, assign) BOOL fieldDrawingChange;
-@property (nonatomic, strong) NSMutableArray *scoreList;
-@property (nonatomic, strong) RecordScorePickerController *scorePicker;
-@property (nonatomic, strong) UIPopoverController *scorePickerPopover;
+@property (nonatomic, strong) NSMutableArray *autonScoreList;
+@property (nonatomic, strong) UIPopoverController *autonPickerPopover;
+@property (nonatomic, strong) NSMutableArray *teleOpScoreList;
+@property (nonatomic, strong) UIPopoverController *teleOpPickerPopover;
+@property (nonatomic, strong) TeleOpScorePickerController *teleOpPicker;
+@property (nonatomic, strong) AutonScorePickerController *autonPicker;
+
 @property (nonatomic, strong) NSMutableArray *defenseList;
 @property (nonatomic, strong) DefensePickerController *defensePicker;
 @property (nonatomic, strong) UIPopoverController *defensePickerPopover;
