@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//#define DEBUG_MODE
 #ifdef DEBUG_MODE
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserverForName:nil

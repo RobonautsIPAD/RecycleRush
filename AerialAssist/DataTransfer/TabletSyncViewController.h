@@ -54,6 +54,7 @@
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;
 -(void)connectionFailed:(NSNotification *)notification;
+-(void)bluetoothNotice:(NSNotification *)notification;
 
 -(IBAction) createDataPackage:(id) sender;
 

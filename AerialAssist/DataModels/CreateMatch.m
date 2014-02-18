@@ -446,6 +446,10 @@
 
 -(TeamScore *)CreateScore:(NSNumber *)teamNumber forAlliance:(NSString *)alliance { 
 
+    NSLog(@"Adding team = %@", teamNumber);
+    TeamData *team = [self GetTeam:teamNumber];
+    if (!team) return nil;
+    
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
     [teamScore setAlliance:alliance];
@@ -457,7 +461,7 @@
     else if ([alliance isEqualToString:@"Blue 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:5]];
 
     // Some day do better error checking
-    [teamScore setTeam:[self GetTeam:teamNumber]]; // Set Relationship!!!
+    [teamScore setTeam:team]; // Set Relationship!!!
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
     } 
@@ -507,7 +511,6 @@
 -(TeamData *)GetTeam:(NSNumber *)teamNumber {
     TeamData *team;
     
-//    NSLog(@"Searching for team = %@", teamNumber);
     NSError *error;
     if (!managedObjectContext) {
         if (_dataManager) {
@@ -533,7 +536,7 @@
     else {
         if([teamData count] > 0) {  // Team Exists
             team = [teamData objectAtIndex:0];
-          //  NSLog(@"Team %@ exists", team.number);
+            NSLog(@"Team %@ exists", team.number);
             return team;
         }
         else {

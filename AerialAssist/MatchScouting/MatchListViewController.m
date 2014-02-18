@@ -254,6 +254,9 @@
                                          forTournament:tournamentName
                                            forRedScore:[NSNumber numberWithInt:-1]
                                           forBlueScore:[NSNumber numberWithInt:-1]];
+    NSLog(@"Move from match list to create match");
+    match.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    match.savedBy = [prefs objectForKey:@"deviceName"];
     if (match) {
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {

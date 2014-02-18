@@ -33,8 +33,6 @@
     }
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSLog(@"addTeam - need to add saveBy and saved values");
-    
     // Check to make sure tournament exists, if not, error out
     TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournamentName];
     if (!tournamentRecord) {

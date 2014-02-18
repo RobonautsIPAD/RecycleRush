@@ -162,7 +162,7 @@
             </userInfo>
         </attribute>
         <attribute name="alliance" optional="YES" attributeType="String" maxValueString="7" syncable="YES"/>
-        <attribute name="allianceSection" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="allianceSection" optional="YES" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
         <attribute name="autonBlocks" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="Auton Blocks"/>
@@ -309,7 +309,7 @@
         <attribute name="wallPickUp2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="wallPickUp3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="wallPickUp4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
+        <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="match" inverseEntity="TeamData" syncable="YES"/>
     </entity>

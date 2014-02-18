@@ -13,8 +13,10 @@
 
 @interface MatchDataInterfaces : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSDictionary *matchDataAttributes;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(NSString *) exportMatchListToCSV:(BOOL)header forMatch:(MatchData *)match forTournament:(NSString *)tournament;
+-(NSData *)packageMatchForXFer:(MatchData *)match;
+-(MatchData *)unpackageMatchForXFer:(NSData *)xferData;
 
 @end
