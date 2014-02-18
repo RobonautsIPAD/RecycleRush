@@ -227,7 +227,7 @@
 
 -(void)SetSmallTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:18.0];
-    [currentTextField setEnabled:NO];
+     [currentTextField setEnabled:NO];
     [currentTextField setUserInteractionEnabled:NO];
 }
 
