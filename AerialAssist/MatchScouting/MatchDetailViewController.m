@@ -267,6 +267,9 @@
 {
     // NSLog(@"viewWillDisappear");
     if (!_delegate) NSLog(@"Match Detail Delegate Problem");
+    NSLog(@"Move from match detail to create match");
+    _match.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    _match.savedBy = [prefs objectForKey:@"deviceName"];
     [_delegate matchDetailReturned:dataChange];
 }
 

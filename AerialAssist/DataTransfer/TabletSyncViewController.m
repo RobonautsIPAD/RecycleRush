@@ -25,6 +25,7 @@
 @end
 
 @implementation TabletSyncViewController {
+    BOOL firstReceipt;
     UIView *sendHeader;
     UILabel *sendLabel1;
     UILabel *sendLabel2;
@@ -123,10 +124,12 @@ GKPeerPickerController *picker;
         self.title = @"Synchronization";
     }
 
-    // Set the notification to receive information after a photo has been saved
+    // Set the notification to receive information after a bluetooth has been received
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:@"BluetoothDeviceConnectFailedNotification" object:nil];
-//    BluetoothDeviceUpdatedNotification
-//BluetoothDeviceDiscoveredNotification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDeviceUpdatedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDeviceDiscoveredNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDiscoveryStateChangedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothConnectabilityChangedNotification" object:nil];
     NSLog(@"sync option = %d", _syncOption);
     bluetoothType = [[prefs objectForKey:@"bluetooth"] intValue];
     teamDataSync = [prefs objectForKey:@"teamDataSync"];
@@ -144,19 +147,16 @@ GKPeerPickerController *picker;
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+    
+    firstReceipt = TRUE;
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
     [_peerLabel setHidden:YES];
     [_peerName setHidden:YES];
-    
-    if (bluetoothType == Scouter) {
-        [_sendDataTable setHidden:NO];
-        [_receiveDataTable setHidden:YES];
-    }
-    else {
-        [_sendDataTable setHidden:YES];
-        [_receiveDataTable setHidden:NO];
-    }
+    [_sendButton setHidden:YES];
+
+    [_sendDataTable setHidden:NO];
+    [_receiveDataTable setHidden:NO];
     
     if (!tournamentDataPackage) {
         tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
@@ -211,7 +211,6 @@ GKPeerPickerController *picker;
 
 -(void)setHeaders {
     switch (_syncType) {
-        case SyncMatchList:
         case SyncMatchResults:
             sendLabel1.text = @"Match";
             sendLabel2.text = @"Type";
@@ -219,6 +218,13 @@ GKPeerPickerController *picker;
             receiveLabel1.text = @"Match";
             receiveLabel2.text = @"Type";
             receiveLabel3.text = @"Team";
+        case SyncMatchList:
+            sendLabel1.text = @"Match";
+            sendLabel2.text = @"Type";
+            sendLabel3.text = @"";
+            receiveLabel1.text = @"Match";
+            receiveLabel2.text = @"Type";
+            receiveLabel3.text = @"";
             break;
         case SyncTeams:
             sendLabel1.text = @"Team Number";
@@ -503,19 +509,23 @@ GKPeerPickerController *picker;
     picker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
     [_connectButton setHidden:YES];
     [_disconnectButton setHidden:NO];
+    [_sendButton setHidden:NO];
     [picker show];
 }
 
 -(IBAction) btnDisconnect:(id) sender {
-    [self.currentSession disconnectFromAllPeers];
-    [_currentSession setAvailable:FALSE];
-    _currentSession = nil;
-    
+    [self shutdownBluetooth];
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
 }
 
 -(IBAction) createDataPackage:(id) sender {
+    NSDictionary *syncDict = [NSDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:_syncType]] forKeys:@[@"syncType"]];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:syncDict];
+    NSLog(@"sync dict = %@", syncDict);
+    [self mySendDataToPeers:myData];
+
     switch (_syncType) {
         case SyncTournaments: {
                 NSData *myData = [tournamentDataPackage packageTournamentsForXFer:filteredTournamentList];
@@ -531,8 +541,20 @@ GKPeerPickerController *picker;
             }
             break;
         case SyncMatchList:
+            for (int i=0; i<[filteredMatchList count]; i++) {
+                MatchData *match = [filteredMatchList objectAtIndex:i];
+                NSData *myData = [matchDataPackage packageMatchForXFer:match];
+                [self mySendDataToPeers:myData];
+                NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+            }
             break;
         case SyncMatchResults:
+            for (int i=0; i<[filteredResultsList count]; i++) {
+                TeamScore *score = [filteredResultsList objectAtIndex:i];
+                NSData *myData = [matchResultsPackage packageMatchForXFer:score];
+                [self mySendDataToPeers:myData];
+                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+            }
             break;
             
         default:
@@ -546,12 +568,25 @@ GKPeerPickerController *picker;
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
+    [self shutdownBluetooth];
     [alert show];
-    [self.currentSession disconnectFromAllPeers];
-    [_currentSession setAvailable:FALSE];
-    _currentSession = nil;
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
     picker.delegate = nil;
     [picker dismiss];
+}
+
+-(void)bluetoothNotice:(NSNotification *)notification {
+    NSLog(@"%@ %@", notification.name, [notification userInfo]);
+}
+
+- (void)shutdownBluetooth {
+    [_currentSession disconnectFromAllPeers];
+    _currentSession.available = NO;
+    [_currentSession setDataReceiveHandler:nil withContext:nil];
+    _currentSession = nil;
+    _currentSession = nil;
 }
 
 - (void)peerPickerController:(GKPeerPickerController *)picker
@@ -566,6 +601,7 @@ GKPeerPickerController *picker;
     _peerName.text = [session displayNameForPeer:peerID];
     [_sendDataTable setHidden:NO];
     [_receiveDataTable setHidden:NO];
+    firstReceipt = TRUE;
     picker.delegate = nil;
     
     [picker dismiss];
@@ -575,17 +611,16 @@ GKPeerPickerController *picker;
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError");
     NSLog(@"error = %@", error);
-    [self.currentSession disconnectFromAllPeers];
-    [_currentSession setAvailable:FALSE];
-    _currentSession = nil;
+    [self shutdownBluetooth];
 }
 
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
 {
     picker.delegate = nil;
     NSLog(@"Canceling peer connect");
-    [_currentSession setAvailable:FALSE];
+    [self shutdownBluetooth];
     [_connectButton setHidden:NO];
+    [_sendButton setHidden:YES];
     [_disconnectButton setHidden:YES];
     [_peerLabel setHidden:YES];
     [_peerName setHidden:YES];
@@ -602,10 +637,10 @@ GKPeerPickerController *picker;
             break;
         case GKPeerStateDisconnected:
             NSLog(@"disconnected");
-            [_currentSession setAvailable:FALSE];
-            _currentSession = nil;
+            [self shutdownBluetooth];
             [_connectButton setHidden:NO];
             [_disconnectButton setHidden:YES];
+            [_sendButton setHidden:YES];
             [_peerLabel setHidden:YES];
             [_peerName setHidden:YES];
             break;
@@ -632,6 +667,10 @@ GKPeerPickerController *picker;
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
             [prefs setObject:teamDataSync forKey:@"teamDataSync"];
             break;
+        case SyncMatchList:
+            matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchScheduleSync forKey:@"matchScheduleSync"];
+            break;
         default:
             break;
     }
@@ -642,8 +681,15 @@ GKPeerPickerController *picker;
            inSession:(GKSession *)session
              context:(void *)context {
     
-    [_sendDataTable setHidden:YES];
-    [_receiveDataTable setHidden:NO];
+    if (firstReceipt) {
+        NSDictionary *myType = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSLog(@"myType = %@", myType);
+        NSString *aarg = [syncTypeDictionary getSyncTypeString:[[myType valueForKey:@"syncType"] intValue]];
+        NSLog(@"sync type = %@", aarg);
+        [self changeSyncType:[syncTypeDictionary getSyncTypeString:[[myType valueForKey:@"syncType"] intValue]]];
+        firstReceipt = FALSE;
+        return;
+    }
     switch (_syncType) {
         case SyncTournaments:
             receivedTournamentList = [tournamentDataPackage unpackageTournamentsForXFer:data];
@@ -656,14 +702,20 @@ GKPeerPickerController *picker;
             if (teamReceived) [receivedTeamList addObject:teamReceived];
         }
             break;
-        case SyncMatchList:
+        case SyncMatchList: {
+            if (receivedMatchList == nil) {
+                receivedMatchList = [NSMutableArray array];
+            }
+            MatchData *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
+            if (matchReceived) [receivedMatchList addObject:matchReceived];
+        }
             break;
         case SyncMatchResults:
             break;
         default:
             break;
     }
-    
+    [_receiveDataTable reloadData];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -801,20 +853,7 @@ GKPeerPickerController *picker;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (tableView == _receiveDataTable) {
-        return 1;
-    }
-    if (tableView == _sendDataTable) {
-        NSInteger count = [[_fetchedResultsController sections] count];
-        if (count == 0) {
-            count = 1;
-        }
-        return count;
-    }
-    else {
-        if ([receivedMatches count]) return 1;
-        else return 0;
-    }
+    return 1;
 }
         
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -961,6 +1000,40 @@ GKPeerPickerController *picker;
     label4.text = @"";
 }
 
+- (void)configureReceivedMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    MatchData *match = [receivedMatchList objectAtIndex:indexPath.row];
+    
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [match.number intValue]];
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = match.matchType;
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
+
+- (void)configureReceivedResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
+    // Configure the cell...
+    // Set a background for the cell
+    
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+    
+	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    label2.text = score.match.matchType;
+    
+	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
+    
+	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = @"";
+}
+
 - (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (_syncType) {
         case SyncTournaments:
@@ -968,6 +1041,12 @@ GKPeerPickerController *picker;
             break;
         case SyncTeams:
             [self configureReceivedTeamCell:cell atIndexPath:indexPath];
+            break;
+        case SyncMatchList:
+            [self configureReceivedMatchListCell:cell atIndexPath:indexPath];
+            break;
+        case SyncMatchResults:
+            [self configureReceivedResultsCell:cell atIndexPath:indexPath];
             break;
         default:
             break;
