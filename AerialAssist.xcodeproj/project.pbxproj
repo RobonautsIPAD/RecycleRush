@@ -13,7 +13,6 @@
 		2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F004E2018AEF8F6004DE471 /* ExportTeamData.m */; };
 		2F042013181F19D4003B994B /* LucienTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F042012181F19D4003B994B /* LucienTableViewController.m */; };
 		2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98917248EE8002C947D /* ftpTransferViewController.m */; };
-		2F06F98D1724B180002C947D /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98C1724B180002C947D /* NetworkManager.m */; };
 		2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98F1724CB70002C947D /* LucienPageViewController.m */; };
 		2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B468718A5C031001FAF1D /* PhotoAttributes.m */; };
 		2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */; };
@@ -46,8 +45,6 @@
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
 		2F4D059A18A6CEC2005ED0AA /* FullSizeViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */; };
-		2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */; };
-		2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */; };
 		2F5511CC188480F40061EF82 /* ImportUSFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5511CB188480F40061EF82 /* ImportUSFirstViewController.m */; };
 		2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F56B531170517F70093A976 /* CalculateTeamStats.m */; };
 		2F56B56A17052B900093A976 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56917052B900093A976 /* CoreLocation.framework */; };
@@ -65,7 +62,6 @@
 		2F6F10151880E29700378728 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F10141880E29700378728 /* TournamentData.m */; };
 		2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */; };
 		2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8002D818551326008F031C /* SettingsAndPreferences.m */; };
-		2F80CB0617012821000A2BB8 /* TeamRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CB0517012821000A2BB8 /* TeamRecordObject.m */; };
 		2F86A7CA18B179670036EE98 /* AutonScorePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F86A7C918B179670036EE98 /* AutonScorePickerController.m */; };
 		2F86A7CD18B179FA0036EE98 /* teleOpScorePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F86A7CC18B179FA0036EE98 /* teleOpScorePickerController.m */; };
 		2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88648D16B76B1700867385 /* AlliancePickerController.m */; };
@@ -144,8 +140,6 @@
 		2F042012181F19D4003B994B /* LucienTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienTableViewController.m; path = MatchAnalysis/LucienTableViewController.m; sourceTree = "<group>"; };
 		2F06F98817248EE8002C947D /* ftpTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ftpTransferViewController.h; path = DataTransfer/ftpTransferViewController.h; sourceTree = "<group>"; };
 		2F06F98917248EE8002C947D /* ftpTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ftpTransferViewController.m; path = DataTransfer/ftpTransferViewController.m; sourceTree = "<group>"; };
-		2F06F98B1724B17F002C947D /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkManager.h; path = DataTransfer/NetworkManager.h; sourceTree = "<group>"; };
-		2F06F98C1724B180002C947D /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkManager.m; path = DataTransfer/NetworkManager.m; sourceTree = "<group>"; };
 		2F06F98E1724CB70002C947D /* LucienPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienPageViewController.h; path = MatchAnalysis/LucienPageViewController.h; sourceTree = "<group>"; };
 		2F06F98F1724CB70002C947D /* LucienPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienPageViewController.m; path = MatchAnalysis/LucienPageViewController.m; sourceTree = "<group>"; };
 		2F0B468618A5C031001FAF1D /* PhotoAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoAttributes.h; path = Utilities/PhotoAttributes.h; sourceTree = "<group>"; };
@@ -200,10 +194,6 @@
 		2F4CD04317122E1600428859 /* PopUpPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopUpPickerViewController.m; path = Utilities/PopUpPickerViewController.m; sourceTree = "<group>"; };
 		2F4D059818A6CEC2005ED0AA /* FullSizeViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullSizeViewer.h; path = Utilities/FullSizeViewer.h; sourceTree = "<group>"; };
 		2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FullSizeViewer.m; path = Utilities/FullSizeViewer.m; sourceTree = "<group>"; };
-		2F50BF9816F2D7A9004569F2 /* SyncResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncResultsViewController.h; path = DataTransfer/SyncResultsViewController.h; sourceTree = "<group>"; };
-		2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncResultsViewController.m; path = DataTransfer/SyncResultsViewController.m; sourceTree = "<group>"; };
-		2F50BF9B16F2DD65004569F2 /* MatchResultsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchResultsObject.h; path = DataTransfer/MatchResultsObject.h; sourceTree = "<group>"; };
-		2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchResultsObject.m; path = DataTransfer/MatchResultsObject.m; sourceTree = "<group>"; };
 		2F5511CA188480F40061EF82 /* ImportUSFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportUSFirstViewController.h; path = DataImport/ImportUSFirstViewController.h; sourceTree = "<group>"; };
 		2F5511CB188480F40061EF82 /* ImportUSFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportUSFirstViewController.m; path = DataImport/ImportUSFirstViewController.m; sourceTree = "<group>"; };
 		2F56B530170517F70093A976 /* CalculateTeamStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateTeamStats.h; path = MatchAnalysis/CalculateTeamStats.h; sourceTree = "<group>"; };
@@ -230,8 +220,6 @@
 		2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Robonauts.AerialAssist.plist; path = Resources/Robonauts.AerialAssist.plist; sourceTree = "<group>"; };
 		2F8002D718551326008F031C /* SettingsAndPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsAndPreferences.h; path = MainApp/SettingsAndPreferences.h; sourceTree = "<group>"; };
 		2F8002D818551326008F031C /* SettingsAndPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsAndPreferences.m; path = MainApp/SettingsAndPreferences.m; sourceTree = "<group>"; };
-		2F80CB0417012821000A2BB8 /* TeamRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamRecordObject.h; path = DataTransfer/TeamRecordObject.h; sourceTree = "<group>"; };
-		2F80CB0517012821000A2BB8 /* TeamRecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamRecordObject.m; path = DataTransfer/TeamRecordObject.m; sourceTree = "<group>"; };
 		2F86A7C818B179670036EE98 /* AutonScorePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutonScorePickerController.h; path = MatchScouting/AutonScorePickerController.h; sourceTree = "<group>"; };
 		2F86A7C918B179670036EE98 /* AutonScorePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AutonScorePickerController.m; path = MatchScouting/AutonScorePickerController.m; sourceTree = "<group>"; };
 		2F86A7CB18B179FA0036EE98 /* teleOpScorePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = teleOpScorePickerController.h; path = MatchScouting/teleOpScorePickerController.h; sourceTree = "<group>"; };
@@ -582,14 +570,6 @@
 			children = (
 				2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */,
 				2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */,
-				2F06F98B1724B17F002C947D /* NetworkManager.h */,
-				2F06F98C1724B180002C947D /* NetworkManager.m */,
-				2F50BF9816F2D7A9004569F2 /* SyncResultsViewController.h */,
-				2F50BF9916F2D7A9004569F2 /* SyncResultsViewController.m */,
-				2F50BF9B16F2DD65004569F2 /* MatchResultsObject.h */,
-				2F50BF9C16F2DD65004569F2 /* MatchResultsObject.m */,
-				2F80CB0417012821000A2BB8 /* TeamRecordObject.h */,
-				2F80CB0517012821000A2BB8 /* TeamRecordObject.m */,
 				2F06F98817248EE8002C947D /* ftpTransferViewController.h */,
 				2F06F98917248EE8002C947D /* ftpTransferViewController.m */,
 				2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */,
@@ -829,16 +809,13 @@
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
-				2F50BF9A16F2D7A9004569F2 /* SyncResultsViewController.m in Sources */,
 				2FD455F418B0162C0014C1BE /* ExportScoreData.m in Sources */,
 				2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */,
-				2F50BF9D16F2DD65004569F2 /* MatchResultsObject.m in Sources */,
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,
 				2F86A7CA18B179670036EE98 /* AutonScorePickerController.m in Sources */,
 				2F6F10151880E29700378728 /* TournamentData.m in Sources */,
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
-				2F80CB0617012821000A2BB8 /* TeamRecordObject.m in Sources */,
 				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
 				2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */,
@@ -857,7 +834,6 @@
 				2F06F98A17248EE8002C947D /* ftpTransferViewController.m in Sources */,
 				2FD4560018B06EEE0014C1BE /* TeamScore.m in Sources */,
 				2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */,
-				2F06F98D1724B180002C947D /* NetworkManager.m in Sources */,
 				2F146EEB1880E0B300B76B32 /* AerialAssist.xcdatamodeld in Sources */,
 				2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */,
 				2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */,

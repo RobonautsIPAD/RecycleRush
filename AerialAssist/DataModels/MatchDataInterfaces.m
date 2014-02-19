@@ -83,7 +83,7 @@
     }
     NSDictionary *teams = [myDictionary objectForKey:@"teams"];
     for (NSString *key in teams) {
-        [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addTeamToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];
+        [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];
     }
     NSLog(@"Teams = %@", teams);
     matchRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];

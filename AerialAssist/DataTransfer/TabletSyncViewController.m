@@ -18,7 +18,6 @@
 #import "TeamScoreInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
-#import "MatchResultsObject.h"
 
 @interface TabletSyncViewController ()
 
@@ -70,7 +69,6 @@
 }
 
 @synthesize dataManager = _dataManager;
-@synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize currentSession = _currentSession;
 @synthesize syncOption = _syncOption;
 @synthesize syncType = _syncType;
@@ -82,8 +80,6 @@
 @synthesize sendButton = _sendButton;
 @synthesize peerLabel = _peerLabel;
 @synthesize peerName = _peerName;
-@synthesize alertPrompt = _alertPrompt;
-@synthesize alertPromptPopover = _alertPromptPopover;
 
 GKPeerPickerController *picker;
 
@@ -104,14 +100,12 @@ GKPeerPickerController *picker;
     tournamentName = nil;
     sendHeader = nil;
     receiveHeader = nil;
-    _fetchedResultsController = nil;
     _dataManager = nil;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSError *error = nil;
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
@@ -137,17 +131,6 @@ GKPeerPickerController *picker;
     matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         abort() causes the application to generate a crash log and terminate.
-         You should not use this function in a shipping application,
-         although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
     firstReceipt = TRUE;
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
@@ -551,7 +534,7 @@ GKPeerPickerController *picker;
         case SyncMatchResults:
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
-                NSData *myData = [matchResultsPackage packageMatchForXFer:score];
+                NSData *myData = [matchResultsPackage packageScoreForXFer:score];
                 [self mySendDataToPeers:myData];
                 NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
             }
@@ -617,7 +600,7 @@ GKPeerPickerController *picker;
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
 {
     picker.delegate = nil;
-    NSLog(@"Canceling peer connect");
+    NSLog(@"Cancelling peer connect");
     [self shutdownBluetooth];
     [_connectButton setHidden:NO];
     [_sendButton setHidden:YES];
@@ -671,6 +654,10 @@ GKPeerPickerController *picker;
             matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
             [prefs setObject:matchScheduleSync forKey:@"matchScheduleSync"];
             break;
+        case SyncMatchResults:
+            matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchResultsSync forKey:@"matchResultsSync"];
+            break;
         default:
             break;
     }
@@ -710,132 +697,18 @@ GKPeerPickerController *picker;
             if (matchReceived) [receivedMatchList addObject:matchReceived];
         }
             break;
-        case SyncMatchResults:
+        case SyncMatchResults: {
+            if (receivedMatchList == nil) {
+                receivedMatchList = [NSMutableArray array];
+            }
+            TeamScore *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+            if (scoreReceived) [receivedResultsList addObject:scoreReceived];
+        }
             break;
         default:
             break;
     }
     [_receiveDataTable reloadData];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"alert");
-    if (buttonIndex == 1) { // Yes
-        NSLog(@"Resync Match");
-        if ([self addMatchScore:dataFromTransfer]) {
-            [receivedMatches addObject:dataFromTransfer.match];
-            [receivedMatchTypes addObject:dataFromTransfer.matchType];
-            [receivedTeamList addObject:dataFromTransfer.team];
-            [_receiveDataTable reloadData];
-        }        
-    }
-}
-
--(BOOL)addMatchScore:(MatchResultsObject *) xferData {
-    // Fetch score record
-    // Copy the data into the right places
-    // Put the match drawing in the correct directory
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"match.number == %@ AND match.matchType CONTAINS %@ and tournament.name CONTAINS %@ and team.number == %@", xferData.match, xferData.matchType, xferData.tournament, xferData.team];
-    [fetchRequest setPredicate:predicate];
-    
-    NSArray *scoreData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!scoreData) {
-        NSLog(@"Karma disruption error");
-        return FALSE;
-    }
-    else {
-        if([scoreData count] > 0) {  // Match Exists
-            TeamScore *score = [scoreData objectAtIndex:0];
- /*           if ([score.saved intValue]) {
-                // Match already saved on this device
-                return FALSE;
-            }*/
-            [self unpackXferData:xferData forScore:score];
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-}
-
--(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score {
-    /*
-    score.alliance = xferData.alliance;
-    score.autonHigh = xferData.autonHigh;
-    score.autonLow = xferData.autonLow;
-    score.autonMid = xferData.autonMid;
-    score.autonMissed = xferData.autonMissed;
-    score.autonShotsMade = xferData.autonShotsMade;
-    score.blocks = xferData.blocks;
-    score.climbAttempt = xferData.climbAttempt;
-    score.climbLevel = xferData.climbLevel;
-    score.climbTimer = xferData.climbTimer;
-    score.defenseRating = xferData.defenseRating;
-    score.driverRating = xferData.driverRating;
-//    score.fieldDrawing = xferData.fieldDrawing;
-    score.floorPickUp = xferData.floorPickUp;
-    score.notes = xferData.notes;
-    score.otherRating = xferData.otherRating;
-    score.passes = xferData.passes;
-    score.pyramid = xferData.pyramid;
-    score.robotSpeed = xferData.robotSpeed;
-    score.teleOpHigh = xferData.teleOpHigh;
-    score.teleOpLow = xferData.teleOpLow;
-    score.teleOpMid = score.teleOpMid;
-    score.teleOpMissed = xferData.teleOpMissed;
-    score.teleOpShots = xferData.teleOpShots;
-    score.totalAutonShots = xferData.totalAutonShots;
-    score.totalTeleOpShots = xferData.totalTeleOpShots;
-    score.wallPickUp = xferData.wallPickUp;
-    score.wallPickUp1 = xferData.wallPickUp1;
-    score.wallPickUp2 = xferData.wallPickUp2;
-    score.wallPickUp3 = xferData.wallPickUp3;
-    score.wallPickUp4 = xferData.wallPickUp4;
-    score.allianceSection = xferData.allianceSection;
-    score.sc1 = xferData.sc1;
-    score.sc2 = xferData.sc2;
-    score.sc3 = xferData.sc3;
-    score.sc4 = xferData.sc4;
-    score.sc5 = xferData.sc5;
-    score.sc6 = xferData.sc6;
-    score.sc7 = xferData.sc7;
-    score.sc8 = xferData.sc8;
-    score.sc9 = xferData.sc9;
-    // For now, set saved to zero so that we know that this iPad didn't do the scouting
-    // score.saved = [NSNumber numberWithInt:0];
-    // Set synced to one so that we know it has been received
-    score.synced = [NSNumber numberWithInt:1];
-    
-    // Save the picture
-    NSString *baseDrawingPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",xferData.drawingPath]];
-
-    // Check if robot directory exists, if not, create it
-    if (![[NSFileManager defaultManager] fileExistsAtPath:baseDrawingPath isDirectory:NO]) {
-        if (![[NSFileManager defaultManager]createDirectoryAtPath:baseDrawingPath
-                                      withIntermediateDirectories: YES
-                                                       attributes: nil
-                                                            error: NULL]) {
-            NSLog(@"Dreadful error creating directory to save field drawings");
-            return;
-        }
-    }*/
-/*    baseDrawingPath = [baseDrawingPath stringByAppendingPathComponent:score.fieldDrawing];
-    NSLog(@"score = %@", score);
-    NSLog(@"base path = %@", baseDrawingPath);
-    UIImage *imge = [UIImage imageWithData:xferData.fieldDrawingImage];
-    [UIImagePNGRepresentation(imge) writeToFile:baseDrawingPath atomically:YES];
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }*/
 }
 
 #pragma mark - Table view data source
@@ -1072,78 +945,7 @@ GKPeerPickerController *picker;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _receiveDataTable) return;
-    
-    MatchResultsObject *transferObject = [[MatchResultsObject alloc] initWithScore:[_fetchedResultsController objectAtIndexPath:indexPath]];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:transferObject];
-    [self mySendDataToPeers:data];
-    TeamScore *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    info.synced = [NSNumber numberWithInt:1];
-    NSString* str = @"Sending";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data sending"
-                                                    message:str
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-
-/*
-    NSLog(@"Temp =====================================================");
-    TeamScore *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    if (receivedMatches == nil) {
-        receivedMatches = [NSMutableArray array];
-    }
-    if (receivedMatchTypes == nil) {
-        receivedMatchTypes = [NSMutableArray array];
-    }
-    if (receivedTeams == nil) {
-        receivedTeams = [NSMutableArray array];
-    }
-    [receivedMatches addObject:info.match.number];
-    [receivedMatchTypes addObject:info.match.matchType];
-    [receivedTeams addObject:info.team.number];
-    [_receiveDataTable reloadData];
- */
-
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-
 }
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    // Set up the fetched results controller if needed.
-    if (_fetchedResultsController == nil) {
-        // Create the fetch request for the entity.
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        // Edit the entity name as appropriate.
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        
-        // Edit the sort key as appropriate.
-        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
-        NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
-        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-        NSLog(@"Fix this");
- //       NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament = %@", settings.tournament];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ANY tournamentName = %@) AND (saved == 1)", tournamentName];
-        [fetchRequest setPredicate:pred];
-        [fetchRequest setSortDescriptors:sortDescriptors];
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController =
-        [[NSFetchedResultsController alloc]
-         initWithFetchRequest:fetchRequest
-         managedObjectContext:_dataManager.managedObjectContext
-         sectionNameKeyPath:nil
-         cacheName:@"Root"];
-        aFetchedResultsController.delegate = self;
-        self.fetchedResultsController = aFetchedResultsController;
-    }
-	
-	return _fetchedResultsController;
-}
-
 
 - (void)didReceiveMemoryWarning
 {

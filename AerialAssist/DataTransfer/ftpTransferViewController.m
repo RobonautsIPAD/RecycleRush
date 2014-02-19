@@ -62,7 +62,7 @@
 #import "DataManager.h"
 #import "TournamentData.h"
 #import "TeamData.h"
-#import "NetworkManager.h"
+//#import "NetworkManager.h"
 
 #include <CFNetwork/CFNetwork.h>
 
@@ -113,7 +113,7 @@ enum {
     self.statusLabel.text = @"Sending";
     self.cancelButton.enabled = YES;
     [self.activityIndicator startAnimating];
-    [[NetworkManager sharedInstance] didStartNetworkOperation];
+//    [[NetworkManager sharedInstance] didStartNetworkOperation];
 }
 
 - (void)updateStatus:(NSString *)statusString
@@ -131,7 +131,7 @@ enum {
     self.statusLabel.text = statusString;
     self.cancelButton.enabled = NO;
     [self.activityIndicator stopAnimating];
-    [[NetworkManager sharedInstance] didStopNetworkOperation];
+//    [[NetworkManager sharedInstance] didStopNetworkOperation];
 }
 
 #pragma mark * Core transfer code
@@ -153,7 +153,7 @@ enum {
 
 - (void)startSend:(NSString *)filePath forDestination:(NSString *)destination
 {
-    BOOL                    success;
+/*    BOOL                    success;
     NSURL *                 url;
     NSLog(@"destination = %@", destination);
 
@@ -216,7 +216,7 @@ enum {
         // Tell the UI we're sending.
         
         [self sendDidStart];
-    }
+    }*/
  
 }
 
@@ -297,7 +297,7 @@ enum {
 #pragma mark * Actions
 
 - (IBAction)sendAction:(UIView *)sender
-{
+{/*
     assert( [sender isKindOfClass:[UIView class]] );
     
     if ( ! self.isSending ) {
@@ -310,7 +310,7 @@ enum {
         assert(filePath != nil);
         
         [self startSend:filePath forDestination:nil];
-    }
+    }*/
 }
 
 - (IBAction)cancelAction:(id)sender
