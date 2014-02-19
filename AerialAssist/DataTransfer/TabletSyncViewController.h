@@ -15,9 +15,8 @@
 @class MatchResultsObject;
 @class TeamScore;
 
-@interface TabletSyncViewController : UIViewController <GKPeerPickerControllerDelegate, GKSessionDelegate, NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, PopUpPickerDelegate>
+@interface TabletSyncViewController : UIViewController <GKPeerPickerControllerDelegate, GKSessionDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign) SyncType syncType;
 @property (nonatomic, assign) SyncOptions syncOption;
 @property (nonatomic, assign) BlueToothType blueToothType;
@@ -48,17 +47,11 @@
 -(void)createTeamList;
 -(void)createTournamentList;
 
-@property (nonatomic, retain) AlertPromptViewController *alertPrompt;
-@property (nonatomic, retain) UIPopoverController *alertPromptPopover;
-
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;
 -(void)connectionFailed:(NSNotification *)notification;
 -(void)bluetoothNotice:(NSNotification *)notification;
 
 -(IBAction) createDataPackage:(id) sender;
-
--(BOOL)addMatchScore:(MatchResultsObject *) xferData;
--(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score;
 
 @end

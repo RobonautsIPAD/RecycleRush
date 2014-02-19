@@ -18,5 +18,5 @@
 -(id)initWithDataManager:(DataManager *)initManager;
 -(NSData *)packageMatchForXFer:(MatchData *)match;
 -(MatchData *)unpackageMatchForXFer:(NSData *)xferData;
-
+-(MatchData *)getMatch:(NSNumber *)matchNumber forMatchType:(NSString *) type forTournament:(NSString *) tournament;
 @end

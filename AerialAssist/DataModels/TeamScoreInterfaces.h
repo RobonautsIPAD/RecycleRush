@@ -16,8 +16,8 @@
 @property (nonatomic, strong) DataManager *dataManager;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(void)addTeamToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance;
--(NSData *)packageMatchForXFer:(TeamScore *)score;
--(TeamScore *)unpackageMatchForXFer:(NSData *)xferData;
+-(void)addScoreToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance;
+-(NSData *)packageScoreForXFer:(TeamScore *)score;
+-(TeamScore *)unpackageScoreForXFer:(NSData *)xferData;
 
 @end
