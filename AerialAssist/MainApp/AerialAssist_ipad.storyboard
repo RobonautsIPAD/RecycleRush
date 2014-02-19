@@ -3756,15 +3756,6 @@
                                     <action selector="detailChanged:" destination="kha-eL-sUY" eventType="touchUpInside" id="l1K-xG-0Sy"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="8Mh-H3-pJN">
-                                <rect key="frame" x="499" y="140" width="95" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="kha-eL-sUY" id="4ZG-AX-XhP"/>
-                                </connections>
-                            </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="yXt-Sf-dW4">
                                 <rect key="frame" x="6" y="403" width="421" height="112"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3902,6 +3893,13 @@
                                     <outlet property="delegate" destination="kha-eL-sUY" id="BOH-PS-VGp"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qHq-Um-7pc">
+                                <rect key="frame" x="496" y="136" width="95" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -3914,6 +3912,7 @@
                         <outlet property="cims" destination="dq0-BF-pWc" id="zHW-1d-Alf"/>
                         <outlet property="climbZone" destination="8lZ-e0-gcn" id="3vC-ux-Cme"/>
                         <outlet property="driveType" destination="l1o-0h-XZn" id="E2h-mt-cV9"/>
+                        <outlet property="highCheckBoxButton" destination="qHq-Um-7pc" id="F34-Dt-m4b"/>
                         <outlet property="imageView" destination="Crm-N5-sdf" id="zZ7-PD-hU6"/>
                         <outlet property="intakeType" destination="IDg-Eg-ido" id="GFx-Yf-doS"/>
                         <outlet property="matchInfo" destination="URa-Wn-jaa" id="A8W-ZJ-dHY"/>
@@ -3927,7 +3926,6 @@
                         <outlet property="photoCollectionView" destination="fac-RS-4nQ" id="zCK-Hl-K1S"/>
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="regionalInfo" destination="HBG-SB-cm1" id="4BN-9c-hog"/>
-                        <outlet property="shootingLevel" destination="8Mh-H3-pJN" id="9ze-eZ-LAR"/>
                         <outlet property="wheelDiameter" destination="SSI-1E-5zy" id="oSa-pF-haS"/>
                         <outlet property="wheelType" destination="wyf-1F-gQY" id="R2m-Mg-ZmU"/>
                     </connections>

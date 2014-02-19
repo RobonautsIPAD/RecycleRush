@@ -84,6 +84,7 @@
 		2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA28B5E1879B1C40039C28D /* InfoPlist.strings */; };
 		2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48318637970003A2661 /* SyncOptionDictionary.m */; };
 		2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */; };
+		2FB0B48518B4319700F67D74 /* check-tick.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB0B48418B4319700F67D74 /* check-tick.png */; };
 		2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB29C8216F9620700086C08 /* FieldDrawingViewController.m */; };
 		2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */; };
 		2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */; };
@@ -263,6 +264,7 @@
 		2FAFB48318637970003A2661 /* SyncOptionDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncOptionDictionary.m; path = Utilities/SyncOptionDictionary.m; sourceTree = "<group>"; };
 		2FAFB48518637AB6003A2661 /* SyncTypeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncTypeDictionary.h; path = Utilities/SyncTypeDictionary.h; sourceTree = "<group>"; };
 		2FAFB48618637AB6003A2661 /* SyncTypeDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncTypeDictionary.m; path = Utilities/SyncTypeDictionary.m; sourceTree = "<group>"; };
+		2FB0B48418B4319700F67D74 /* check-tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "check-tick.png"; path = "Resources/check-tick.png"; sourceTree = "<group>"; };
 		2FB29C8116F9620700086C08 /* FieldDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawingViewController.h; path = MatchAnalysis/FieldDrawingViewController.h; sourceTree = "<group>"; };
 		2FB29C8216F9620700086C08 /* FieldDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawingViewController.m; path = MatchAnalysis/FieldDrawingViewController.m; sourceTree = "<group>"; };
 		2FB3A4BF16CEC17C00E895E5 /* MatchAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchAnalysisViewController.h; path = MatchAnalysis/MatchAnalysisViewController.h; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FB0B48418B4319700F67D74 /* check-tick.png */,
 				2FF112D418B0208D00533BEC /* 2014_field_grid.png */,
 				2FF112D218A9BFC200533BEC /* 2014_field.png */,
 				2F38C34F18A3203A0018D59C /* Small Red Button.jpg */,
@@ -753,6 +756,7 @@
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
+				2FB0B48518B4319700F67D74 /* check-tick.png in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,
 				2FC18EEB16A2083500D42251 /* button_robonaut_gold.png in Resources */,
 				2FC18EEC16A2083500D42251 /* cell_robonaut_gold.png in Resources */,

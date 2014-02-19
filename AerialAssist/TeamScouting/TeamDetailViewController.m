@@ -60,11 +60,6 @@
 @synthesize intakeList = _intakeList;
 @synthesize intakeType = _intakeType;
 
-@synthesize climbZonePicker = _climbZonePicker;
-@synthesize climbZonePickerPopover = _climbZonePickerPopover;
-@synthesize climbZoneList = _climbZoneList;
-@synthesize climbZone = _climbZone;
-
 @synthesize numberText = _numberText;
 @synthesize nameTextField = _nameTextField;
 @synthesize notesViewField = _notesViewField;
@@ -77,6 +72,10 @@
 @synthesize nwheels = _nwheels;
 @synthesize wheelDiameter = _wheelDiameter;
 @synthesize cims = _cims;
+
+@synthesize highCheckBoxButton = _highCheckBoxButton;
+@synthesize lowCheckBoxButton = _lowCheckBoxButton;
+@synthesize trussCheckBoxButton = _trussCheckBoxButton;
 
 @synthesize pictureController = _pictureController;
 @synthesize imageView = _imageView;
@@ -137,8 +136,6 @@
     _driveTypeList = nil;
     _intakePicker = nil;
     _intakeList = nil;
-    _climbZonePicker = nil;
-    _climbZoneList = nil;
 }
 
 -(void) dealloc {
@@ -175,6 +172,10 @@
     [self SetTextBoxDefaults:_nwheels];
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
+    [self SetBigButtonDefaults:_highCheckBoxButton];
+    
+    [_highCheckBoxButton setImage:[UIImage imageNamed:@"check-tick.png"] forState:UIControlStateSelected];
+    [_highCheckBoxButton setImage:[UIImage]@"" forState:UIControlStateNormal];
 
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageIsFullScreen = FALSE;
@@ -185,11 +186,6 @@
     primePhoto = [[PhotoAttributes alloc] init];
     getAssetURL = FALSE;
 
-//    Undecided about the take photo and choose photo buttons. We are
-//    probably going to look into finding the camera button that most apps
-//    that access the camera use.
-//    [takePhotoBtn setTitle:@"Take Photo" forState:UIControlStateNormal];
-//    takePhotoBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
 
     // Initialize the headers for the regional and match tables
     [self createRegionalHeader];
@@ -198,8 +194,7 @@
     // Initialize the choices for the pop-up menus.
     driveDictionary = [[DriveTypeDictionary alloc] init];
     _driveTypeList = [[driveDictionary getDriveTypes] mutableCopy];
-    _intakeList = [[NSMutableArray alloc] initWithObjects:@"Unknown", @"Floor", @"Human", @"Both", nil];
-    _climbZoneList = [[NSMutableArray alloc] initWithObjects:@"Unknown", @"One", @"Two", @"Three", nil];
+    _intakeList = [[NSMutableArray alloc] initWithObjects:@"Roller", @"Claw", @"None",nil];
 
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
@@ -340,7 +335,6 @@
     
     [_intakeType setTitle:[_intakeList objectAtIndex:[_team.intake intValue]+1] forState:UIControlStateNormal];
     
-    [_climbZone setTitle:[_climbZoneList objectAtIndex:[_team.climbLevel intValue]+1] forState:UIControlStateNormal];
     
     NSString *path = [NSString stringWithFormat:@"Library/RobotPhotos/%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
     photoPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
@@ -419,19 +413,6 @@
         [self.drivePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _climbZone) {
-        popUp = _climbZone;
-        if (_climbZonePicker == nil) {
-            _climbZonePicker = [[PopUpPickerViewController alloc]
-                                initWithStyle:UITableViewStylePlain];
-            _climbZonePicker.delegate = self;
-        }
-        _climbZonePicker.pickerChoices = _climbZoneList;
-        self.climbZonePickerPopover = [[UIPopoverController alloc]
-                                        initWithContentViewController:_climbZonePicker];
-        [self.climbZonePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
 }
 
 -(void)changeIntake:(NSString *)newIntake {
@@ -458,17 +439,6 @@
     }
 }
 
--(void)changeClimbZone:(NSString *)newClimbZone {
-    // The user has changed the climb zone
-    for (int i = 0 ; i < [_climbZoneList count] ; i++) {
-        if ([newClimbZone isEqualToString:[_climbZoneList objectAtIndex:i]]) {
-            [_climbZone setTitle:newClimbZone forState:UIControlStateNormal];
-            _team.climbLevel = [NSNumber numberWithInt:(i-1)];
-            [self setDataChange];
-            break;
-        }
-    }
-}
 
 - (void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
@@ -482,11 +452,6 @@
         [_intakePickerPopover dismissPopoverAnimated:YES];
         _intakePickerPopover = nil;
         [self changeIntake:newPick];
-    }
-    else if (popUp == _climbZone) {
-        [_climbZonePickerPopover dismissPopoverAnimated:YES];
-        _climbZonePickerPopover = nil;
-        [self changeClimbZone:newPick];
     }
 }
 

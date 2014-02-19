@@ -57,6 +57,11 @@
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
+@property (nonatomic, weak) IBOutlet UIButton *highCheckBoxButton;
+@property (nonatomic, weak) IBOutlet UIButton *lowCheckBoxButton;
+@property (nonatomic, weak) IBOutlet UIButton *trussCheckBoxButton;
+
+
 -(IBAction)PrevButton;
 -(IBAction)NextButton;
 -(void)checkDataStatus;
