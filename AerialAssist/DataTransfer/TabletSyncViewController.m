@@ -18,7 +18,6 @@
 #import "TeamScoreInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
-#import "MatchResultsObject.h"
 
 @interface TabletSyncViewController ()
 

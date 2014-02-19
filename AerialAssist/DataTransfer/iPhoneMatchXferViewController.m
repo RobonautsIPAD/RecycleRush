@@ -12,7 +12,7 @@
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
-#import "MatchResultsObject.h"
+//#import "MatchResultsObject.h"
 
 @interface iPhoneMatchXferViewController ()
 
@@ -191,7 +191,7 @@ GKPeerPickerController *picker;
             fromPeer:(NSString *)peer
            inSession:(GKSession *)session
              context:(void *)context {
-    
+/*
     dataFromTransfer = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     //---convert the NSData to NSString---
     if (receivedMatches == nil) {
@@ -218,43 +218,11 @@ GKPeerPickerController *picker;
                                               cancelButtonTitle:@"No"
                                               otherButtonTitles:@"Yes", nil];
         [alert show];
-    }
+    }*/
 }
 
 -(BOOL)addMatchScore:(MatchResultsObject *) xferData {
-    // Fetch score record
-    // Copy the data into the right places
-    // Put the match drawing in the correct directory
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"match.number == %@ AND match.matchType CONTAINS %@ and tournament.name CONTAINS %@ and team.number == %@", xferData.match, xferData.matchType, xferData.tournament, xferData.team];
-    [fetchRequest setPredicate:predicate];
-    
-    NSArray *scoreData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!scoreData) {
-        NSLog(@"Karma disruption error");
-        return FALSE;
-    }
-    else {
-        if([scoreData count] > 0) {  // Match Exists
-            TeamScore *score = [scoreData objectAtIndex:0];
-            /*           if ([score.saved intValue]) {
-             // Match already saved on this device
-             return FALSE;
-             }*/
-            [self unpackXferData:xferData forScore:score];
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-}
+ }
 
 -(void)unpackXferData:(MatchResultsObject *)xferData forScore:(TeamScore *)score {
     /*
