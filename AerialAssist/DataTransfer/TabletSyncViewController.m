@@ -216,7 +216,6 @@ GKPeerPickerController *picker;
             receiveLabel1.text = @"Team Number";
             receiveLabel2.text = @"Team Name";
             receiveLabel3.text = @"";
-            [self createTeamList];
             break;
         case SyncTournaments:
             sendLabel1.text = @"Tournament";

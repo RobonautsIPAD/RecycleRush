@@ -387,6 +387,11 @@
     //    NSLog (@"Data changed: %@", dataChange ? @"YES" : @"NO");
     if (fieldDrawingChange) {
         // Save the picture
+        if (!currentTeam.fieldDrawing) {
+            FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
+                                                        inManagedObjectContext:_dataManager.managedObjectContext];
+            currentTeam.fieldDrawing = drawing;
+        }
         currentTeam.fieldDrawing.trace = [NSData dataWithData:UIImagePNGRepresentation(fieldImage.image)];
         fieldDrawingChange = NO;
         dataChange = YES;

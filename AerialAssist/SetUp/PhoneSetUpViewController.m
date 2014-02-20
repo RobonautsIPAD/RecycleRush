@@ -82,7 +82,7 @@
 
 - (IBAction)tournamentSelection:(id)sender {
     NSLog(@"Tournament Button");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tournament" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tournament" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
     for (NSString *tournament in tournamentList) {
         [actionSheet addButtonWithTitle:tournament];
     }

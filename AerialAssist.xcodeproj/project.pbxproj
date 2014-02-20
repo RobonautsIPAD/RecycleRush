@@ -74,6 +74,7 @@
 		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
 		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F99088C1787860700EEFFCE /* T0973_img001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F99088B1787860700EEFFCE /* T0973_img001.jpg */; };
+		2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */; };
 		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA28B5E1879B1C40039C28D /* InfoPlist.strings */; };
 		2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48318637970003A2661 /* SyncOptionDictionary.m */; };
@@ -239,6 +240,8 @@
 		2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = DataTransfer/TabletSyncViewController.h; sourceTree = "<group>"; };
 		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F99088B1787860700EEFFCE /* T0973_img001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = T0973_img001.jpg; path = Resources/T0973_img001.jpg; sourceTree = "<group>"; };
+		2F9A1B3518B6577C004E987D /* PhoneSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSyncViewController.h; path = DataTransfer/PhoneSyncViewController.h; sourceTree = "<group>"; };
+		2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSyncViewController.m; path = DataTransfer/PhoneSyncViewController.m; sourceTree = "<group>"; };
 		2F9E5377186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALAssetsLibrary+CustomPhotoAlbum.h"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALAssetsLibrary+CustomPhotoAlbum.m"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		2FA28B5F1879B1C40039C28D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -564,6 +567,8 @@
 			children = (
 				2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */,
 				2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */,
+				2F9A1B3518B6577C004E987D /* PhoneSyncViewController.h */,
+				2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */,
 				2F06F98817248EE8002C947D /* ftpTransferViewController.h */,
 				2F06F98917248EE8002C947D /* ftpTransferViewController.m */,
 				2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */,
@@ -769,6 +774,7 @@
 				2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */,
 				2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */,
 				2FC18EAF16A2042000D42251 /* SplashPageViewController.m in Sources */,
+				2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */,
 				2FC18F0D16A212CE00D42251 /* SetUpPageViewController.m in Sources */,
 				2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */,
 				2FC18F1016A215EA00D42251 /* DownloadPageViewController.m in Sources */,
