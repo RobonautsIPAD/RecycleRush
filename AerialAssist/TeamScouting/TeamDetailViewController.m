@@ -806,8 +806,10 @@ CGSize retval = CGSizeMake(50, 50);
 	label2.text = score.match.matchType;
 
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
-    else label3.text = @"N";
+    label3.text = @"";
+    
+//    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
+//    else label3.text = @"N";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
