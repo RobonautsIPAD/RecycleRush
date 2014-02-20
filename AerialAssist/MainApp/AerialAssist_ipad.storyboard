@@ -1652,10 +1652,10 @@
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
                         <outlet property="autonBlockButton" destination="GWM-sk-YMe" id="DkN-5c-rYD"/>
-                        <outlet property="autonColdHighButton" destination="IEx-Ww-W6p" id="seF-Jv-7VH"/>
-                        <outlet property="autonHotHighButton" destination="KyD-3D-LbJ" id="Y6m-8s-K0I"/>
-                        <outlet property="autonLowColdButton" destination="dT2-hw-Ra2" id="lAX-a1-E2g"/>
-                        <outlet property="autonLowHotButton" destination="9pc-Xl-wfG" id="Enw-WZ-6OV"/>
+                        <outlet property="autonHighColdButton" destination="IEx-Ww-W6p" id="Ewx-Ld-eSf"/>
+                        <outlet property="autonHighHotButton" destination="KyD-3D-LbJ" id="M3c-Yp-S96"/>
+                        <outlet property="autonLowColdButton" destination="dT2-hw-Ra2" id="hkf-TX-kSX"/>
+                        <outlet property="autonLowHotButton" destination="9pc-Xl-wfG" id="YVq-mN-ioD"/>
                         <outlet property="autonMissButton" destination="ZJj-vL-obi" id="Rgl-hZ-MDO"/>
                         <outlet property="blueScore" destination="ev0-ho-TeF" id="j3L-FU-yE3"/>
                         <outlet property="defenseRating" destination="kFE-Y8-0uU" id="7bu-sL-LDD"/>

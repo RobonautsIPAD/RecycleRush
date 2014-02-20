@@ -175,7 +175,7 @@
     [self SetBigButtonDefaults:_highCheckBoxButton];
     
     [_highCheckBoxButton setImage:[UIImage imageNamed:@"check-tick.png"] forState:UIControlStateSelected];
-    [_highCheckBoxButton setImage:[UIImage]@"" forState:UIControlStateNormal];
+  //  [_highCheckBoxButton setImage:[UIImage]@"" forState:UIControlStateNormal];
 
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageIsFullScreen = FALSE;
