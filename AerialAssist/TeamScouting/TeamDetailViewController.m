@@ -332,7 +332,6 @@
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
     
     [_driveType setTitle:[driveDictionary getDriveTypeString:_team.driveTrainType] forState:UIControlStateNormal];
-    
     [_intakeType setTitle:[_intakeList objectAtIndex:[_team.intake intValue]+1] forState:UIControlStateNormal];
     
     
