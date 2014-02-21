@@ -9,6 +9,7 @@
 #import "PhoneSplashViewController.h"
 #import "DataManager.h"
 #import "PhoneSetUpViewController.h"
+#import "PhoneSyncViewController.h"
 
 @interface PhoneSplashViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *exportButton;
@@ -18,6 +19,7 @@
 
 @implementation PhoneSplashViewController {
     NSUserDefaults *prefs;
+    PhoneSyncViewController *syncViewController;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

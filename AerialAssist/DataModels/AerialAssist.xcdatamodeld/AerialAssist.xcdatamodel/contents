@@ -252,8 +252,6 @@
         <attribute name="sc7" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sc8" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sc9" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="storedFieldDrawing" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="synced" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="teleOpBlocks" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="TeleOp Blocks"/>

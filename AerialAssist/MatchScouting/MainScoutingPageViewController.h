@@ -10,8 +10,6 @@
 #import "AlliancePickerController.h"
 #import "MatchTypePickerController.h"
 #import "TeamPickerController.h"
-#import "teleOpScorePickerController.h"
-#import "AutonScorePickerController.h"
 #import "DefensePickerController.h"
 #import "AlertPromptViewController.h"
 #import "ValuePromptViewController.h"
@@ -26,7 +24,7 @@
 @class DataManager;
 @class SettingsData;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, AutonScorePickerDelegate,TeleOpScorePickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
@@ -97,11 +95,13 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *teleOpMissButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpHighButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpLowButton;
+
 @property (nonatomic, weak) IBOutlet UIButton *autonMissButton;
-@property (nonatomic, weak) IBOutlet UIButton *autonHotHighButton;
-@property (nonatomic, weak) IBOutlet UIButton *autonColdHighButton;
-@property (nonatomic, weak) IBOutlet UIButton *autonLowColdButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonHighHotButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonHighColdButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonLowHotButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonLowColdButton;
+
 @property (nonatomic, weak) IBOutlet UIButton *passesFloorButton;
 @property (nonatomic, weak) IBOutlet UIButton *passesAirButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonBlockButton;
@@ -195,12 +195,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
 @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 @property (nonatomic, assign) BOOL fieldDrawingChange;
-@property (nonatomic, strong) NSMutableArray *autonScoreList;
-@property (nonatomic, strong) UIPopoverController *autonPickerPopover;
-@property (nonatomic, strong) NSMutableArray *teleOpScoreList;
-@property (nonatomic, strong) UIPopoverController *teleOpPickerPopover;
-@property (nonatomic, strong) TeleOpScorePickerController *teleOpPicker;
-@property (nonatomic, strong) AutonScorePickerController *autonPicker;
 
 @property (nonatomic, strong) NSMutableArray *defenseList;
 @property (nonatomic, strong) DefensePickerController *defensePicker;

@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  AerialAssist
 //
-//  Created by FRC on 2/15/14.
+//  Created by FRC on 2/20/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -20,8 +20,8 @@
 @property (nonatomic, retain) NSNumber * autonBlocks;
 @property (nonatomic, retain) NSNumber * autonHighCold;
 @property (nonatomic, retain) NSNumber * autonHighHot;
-@property (nonatomic, retain) NSNumber * autonLowHot;
 @property (nonatomic, retain) NSNumber * autonLowCold;
+@property (nonatomic, retain) NSNumber * autonLowHot;
 @property (nonatomic, retain) NSNumber * autonMissed;
 @property (nonatomic, retain) NSNumber * autonMobility;
 @property (nonatomic, retain) NSNumber * autonShotsMade;
@@ -46,8 +46,6 @@
 @property (nonatomic, retain) NSString * sc7;
 @property (nonatomic, retain) NSString * sc8;
 @property (nonatomic, retain) NSString * sc9;
-@property (nonatomic, retain) NSData * storedFieldDrawing;
-@property (nonatomic, retain) NSNumber * synced;
 @property (nonatomic, retain) NSNumber * teleOpBlocks;
 @property (nonatomic, retain) NSNumber * teleOpHigh;
 @property (nonatomic, retain) NSNumber * teleOpLow;

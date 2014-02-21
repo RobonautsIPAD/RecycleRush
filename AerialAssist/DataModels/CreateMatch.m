@@ -398,7 +398,6 @@
             }
         }
 // Assume any match results come in synced
-        score.synced = [NSNumber numberWithInt:1];
 
         NSError *error;
         if (![managedObjectContext save:&error]) {

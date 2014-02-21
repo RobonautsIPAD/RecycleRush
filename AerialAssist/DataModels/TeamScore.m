@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 2/15/14.
+//  Created by FRC on 2/20/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -21,8 +21,8 @@
 @dynamic autonBlocks;
 @dynamic autonHighCold;
 @dynamic autonHighHot;
-@dynamic autonLowHot;
 @dynamic autonLowCold;
+@dynamic autonLowHot;
 @dynamic autonMissed;
 @dynamic autonMobility;
 @dynamic autonShotsMade;
@@ -47,8 +47,6 @@
 @dynamic sc7;
 @dynamic sc8;
 @dynamic sc9;
-@dynamic storedFieldDrawing;
-@dynamic synced;
 @dynamic teleOpBlocks;
 @dynamic teleOpHigh;
 @dynamic teleOpLow;

@@ -51,7 +51,7 @@
         // Only use Seeding or Elimination matches that have been saved or synced
         if ( ([match.match.matchType isEqualToString:@"Seeding"]
               || [match.match.matchType isEqualToString:@"Elimination"])
-            && ([match.saved intValue] || [match.synced intValue])) {
+            && ([match.saved intValue] || [match.received intValue])) {
             _nmatches++;
 //            int points = [match.autonHigh intValue]*6 + [match.autonMid intValue]*5 + [match.autonLow intValue]*4;
 //            _autonPoints += points;
