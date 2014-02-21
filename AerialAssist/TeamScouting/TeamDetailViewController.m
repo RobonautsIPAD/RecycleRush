@@ -172,11 +172,15 @@
     [self SetTextBoxDefaults:_nwheels];
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
-    [self SetBigButtonDefaults:_highCheckBoxButton];
     
-    [_highCheckBoxButton setImage:[UIImage imageNamed:@"check-tick.png"] forState:UIControlStateSelected];
-  //  [_highCheckBoxButton setImage:[UIImage]@"" forState:UIControlStateNormal];
-
+    //sets text colors for "shoots" buttons relative to UIControllerState
+    [_highCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+    [_highCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_lowCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+    [_lowCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [_trussCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+    [_trussCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageIsFullScreen = FALSE;
     UITapGestureRecognizer *photoTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
@@ -194,7 +198,7 @@
     // Initialize the choices for the pop-up menus.
     driveDictionary = [[DriveTypeDictionary alloc] init];
     _driveTypeList = [[driveDictionary getDriveTypes] mutableCopy];
-    _intakeList = [[NSMutableArray alloc] initWithObjects:@"Roller", @"Claw", @"None",nil];
+    _intakeList = [[NSMutableArray alloc] initWithObjects:@"JVN", @"EveryBot", @"Clamp", @"Other", @"None",nil];
 
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
@@ -868,7 +872,32 @@ CGSize retval = CGSizeMake(50, 50);
 }
 
 -(void)SetBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:22.0];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20.0];
+    // Round button corners
+    CALayer *btnLayer = [currentButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
+    // Apply a 1 pixel, black border
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    // Set the button Background Color
+    [currentButton setBackgroundColor:[UIColor whiteColor]];
+    // Set the button Text Color
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
+}
+
+//TODO add these buttons to database
+-(IBAction)checkboxToggle:(id)sender
+{
+    if(sender == _highCheckBoxButton){
+        _highCheckBoxButton.selected = !_highCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
+    }
+    else if(sender == _lowCheckBoxButton){
+        _lowCheckBoxButton.selected = !_lowCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
+    }
+    else if (sender == _trussCheckBoxButton){
+        _trussCheckBoxButton.selected = !_trussCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
+    }
 }
 
 

@@ -73,6 +73,8 @@
 -(void)changeClimbZone:(NSString *)newClimbZone;
 -(void)setDataChange;
 
+-(IBAction)checkboxToggle:(id)sender;
+
 -(void)createRegionalHeader;
 -(void)createMatchHeader;
 -(void)SetTextBoxDefaults:(UITextField *)textField;
