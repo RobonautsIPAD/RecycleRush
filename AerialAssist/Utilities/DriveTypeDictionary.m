@@ -9,7 +9,7 @@
 #import "DriveTypeDictionary.h"
 
 @implementation DriveTypeDictionary {
-    NSDictionary *dictionary;
+    NSDictionary *dictionary; 
     NSArray *objects;
 }
 
@@ -24,8 +24,8 @@
                          [NSNumber numberWithInt:Tank],
                          [NSNumber numberWithInt:WestCoast],
                          nil];
-        
-        objects = [NSArray arrayWithObjects:@"Unknown", @"Mech", @"Omni", @"Swerve", @"Traction", @"Multi", @"Tank", @"West Coast", nil];
+        //AT MAX CAPACITY OF DATABASE!!!
+        objects = [NSArray arrayWithObjects:@"Unknown", @"Mech", @"Omni", @"Swerve", @"Traction", @"Multi", @"Tread", @"Butterfly", nil];
         
         dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	}
