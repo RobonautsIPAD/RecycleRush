@@ -22,6 +22,7 @@
 @implementation MainScoutingPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *deviceName;
     MatchTypeDictionary *matchDictionary;
     int numberMatchTypes;
     NSTimer *climbTimer;
@@ -107,7 +108,7 @@
 @synthesize human2Button;
 @synthesize human3Button;
 @synthesize human4Button;
-@synthesize floorPickUpsButton;
+@synthesize floorPickUpsButton = _floorPickUpsButton;
 @synthesize matchResetButton;
 @synthesize trussCatchButton;
 @synthesize trussThrowButton;
@@ -168,6 +169,7 @@
     }
 
     prefs = [NSUserDefaults standardUserDefaults];
+    deviceName = [prefs objectForKey:@"deviceName"];
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
         self.title = tournamentName;
@@ -216,7 +218,7 @@
     [self SetSmallButtonDefaults:human3Button];
     [self SetSmallButtonDefaults:human4Button];
     [self SetSmallButtonDefaults:_eraserButton];
-    [self SetBigButtonDefaults:floorPickUpsButton];
+    [self SetBigButtonDefaults:_floorPickUpsButton];
     [self SetBigButtonDefaults:humanPickUpsButton];
     [self SetTextBoxDefaults:redScore];
     [self SetTextBoxDefaults:blueScore];
@@ -255,7 +257,7 @@
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", nil];
     teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Passed", @"Blocked", nil];
-    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorDiskPickUp:)];
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
     
@@ -397,7 +399,8 @@
         dataChange = YES;
     }
     if (dataChange) {
-        currentTeam.saved = [NSNumber numberWithInt:1];
+        currentTeam.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        currentTeam.savedBy = deviceName;
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -777,7 +780,7 @@
     else if (popUp == trussThrowButton) [self trussThrow:newPick];
     else if (popUp == trussCatchButton) [self trussCatch:newPick];
     else if (popUp == humanPickUpsButton) [self humanPickUp:newPick];
-    else if (popUp == floorPickUpsButton) [self floorPickUp:newPick];
+    else if (popUp == _floorPickUpsButton) [self floorPickUpSelected:newPick];
     else if (popUp == passesFloorButton) [self floorPass:newPick];
     else if (popUp == passesAirButton) [self airPass:newPick];
 }
@@ -810,7 +813,7 @@
 
 
 -(void)floorPass:(NSString *)choice {
-    // Update the number of missed shots
+    // Update the number of floor passes
     int score = [passesFloorButton.titleLabel.text intValue];
     if ([choice isEqualToString:@"Reset to 0"]) {
         score = 0;
@@ -832,9 +835,9 @@
 }
 
 
--(void)floorPickUp:(NSString *)choice {
-    // Update the number of missed shots
-    int score = [floorPickUpsButton.titleLabel.text intValue];
+-(void)floorPickUpSelected:(NSString *)choice {
+    // Update the number of floor pick ups
+    int score = [_floorPickUpsButton.titleLabel.text intValue];
     if ([choice isEqualToString:@"Reset to 0"]) {
         score = 0;
     }
@@ -845,16 +848,22 @@
         score++;
     }
     else if ([choice isEqualToString:@"Pick a Value"]) {
-        [self promptForValue:floorPickUpsButton];
+        [self promptForValue:_floorPickUpsButton];
         return;
     }
     currentTeam.floorPickUp = [NSNumber numberWithInt:score];
-    [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
-    
-
+    [_floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 
+-(void)floorPickUp {
+    // NSLog(@"PickUps");
+    int score = [_floorPickUpsButton.titleLabel.text intValue];
+    score++;
+    currentTeam.floorPickUp = [NSNumber numberWithInt:score];
+    [_floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
+    dataChange = YES;
+}
 
 -(void)humanPickUp:(NSString *)choice {
     // Update the number of missed shots
@@ -1300,28 +1309,6 @@
 }
  */
 
--(void)floorPickUpsMade: (NSString *)choice {
-    // NSLog(@"PickUps");
-    int score = [floorPickUpsButton.titleLabel.text intValue];
-    if ([choice isEqualToString:@"Reset to 0"]) {
-        score = 0;
-    }
-    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
-        score--;
-    }
-    else if ([choice isEqualToString:@"Increment"]) {
-        score++;
-    }
-    else if ([choice isEqualToString:@"Pick a Value"]) {
-        [self promptForValue:autonBlockButton];
-        return;
-    }
-    currentTeam.floorPickUp = [NSNumber numberWithInt:score];
-    [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
-    dataChange = YES;
-}
-
-
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UIButton *button = (UIButton *)sender;
@@ -1428,7 +1415,7 @@
     [human2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp2 intValue]] forState:UIControlStateNormal];
     [human3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp3 intValue]] forState:UIControlStateNormal];
     [human4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.wallPickUp4 intValue]] forState:UIControlStateNormal];
-    [floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
+    [_floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
     [passesFloorButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPasses intValue]] forState:UIControlStateNormal];
     [passesAirButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airPasses intValue]] forState:UIControlStateNormal];
     [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatch intValue]] forState:UIControlStateNormal];
@@ -1462,13 +1449,13 @@
     return nil;
 }
 
--(void)floorDiskPickUp:(UITapGestureRecognizer *)gestureRecognizer {
+-(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer {
     fieldDrawingChange = YES;
-    // NSLog(@"floorDiskPickUp");
+    // NSLog(@"floorPickUp");
     NSString *marker = @"O";
     currentPoint = [gestureRecognizer locationInView:fieldImage];
     [self drawText:marker location:currentPoint];
-    [self floorPickUpsMade];
+    [self floorPickUp];
 }
 
 -(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer {

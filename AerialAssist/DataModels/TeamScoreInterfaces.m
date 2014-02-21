@@ -118,13 +118,16 @@
             }
         }
     }
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"matchNumber"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"matchType"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"tournamentName"]) continue; // Already resolved
         if ([key isEqualToString:@"teamNumber"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"fieldDrawing"]) continue; // Needs 
-        [score setValue:[myDictionary objectForKey:key] forKey:key];
+        if ([teamScoreAttributes valueForKey:key]) {
+            [score setValue:[myDictionary objectForKey:key] forKey:key];
+        }
     }
     if (score.fieldDrawing) score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];

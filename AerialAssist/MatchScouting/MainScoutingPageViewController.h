@@ -130,7 +130,6 @@ typedef enum {
 -(void)blockedShots;
 -(void)passesMade;
 -(IBAction)wallPickUpsMade:(id) sender;
--(void)floorPickUpsMade;
 -(void)promptForValue:(UIButton *)button;
 -(IBAction)toggleGrid:(id)sender;
 
@@ -205,7 +204,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *drawModeButton;
 @property (nonatomic, weak) IBOutlet UIButton *eraserButton;
 
--(void)floorDiskPickUp:(UITapGestureRecognizer *)gestureRecognizer;
+-(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)drawPath:(UIPanGestureRecognizer *)gestureRecognizer;
 -(void)drawText:(NSString *) marker location:(CGPoint) point;
