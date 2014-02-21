@@ -9,7 +9,7 @@
 #import "DriveTypeDictionary.h"
 
 @implementation DriveTypeDictionary {
-    NSDictionary *dictionary; 
+    NSDictionary *dictionary;
     NSArray *objects;
 }
 
