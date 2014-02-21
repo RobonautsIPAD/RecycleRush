@@ -127,7 +127,6 @@ typedef enum {
 -(void)autonHighHot:(NSString *)choice;
 -(void)autonLowHot:(NSString *)choice;
 -(void)autonLowCold:(NSString *)choice;
--(void)blockedShots;
 -(void)passesMade;
 -(IBAction)wallPickUpsMade:(id) sender;
 -(void)promptForValue:(UIButton *)button;
@@ -192,6 +191,7 @@ typedef enum {
 } DrawingMode;
 
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
+@property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 @property (nonatomic, assign) BOOL fieldDrawingChange;
 

@@ -17,6 +17,10 @@
 #import "Photo.h"
 #import "PhotoAttributes.h"
 #import "DriveTypeDictionary.h"
+#import "TrooleanDictionary.h"
+#import "IntakeTypeDictionary.h"
+#import "ShooterTypeDictionary.h"
+#import "NumberEnumDictionary.h"
 #import "FieldDrawingViewController.h"
 #import "FullSizeViewer.h"
 #import <ImageIO/ImageIO.h>
@@ -24,6 +28,14 @@
 
 @interface TeamDetailViewController ()
     @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
+    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
+    @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
+    @property (nonatomic, weak) IBOutlet UIButton *catcherButton;
+    @property (nonatomic, weak) IBOutlet UIButton *goalieButton;
+    @property (nonatomic, weak) IBOutlet UIButton *hotTrackerButton;
+    @property (nonatomic, weak) IBOutlet UIButton *robotClassButton;
+    @property (nonatomic, weak) IBOutlet UIButton *shooterButton;
+    @property (nonatomic, weak) IBOutlet UITextField *ballReleaseHeightText;
 @end
 
 
@@ -32,6 +44,7 @@
     NSString *tournamentName;
     NSString *deviceName;
     DriveTypeDictionary *driveDictionary;
+    IntakeTypeDictionary *intakeDictionary;
     UIView *matchHeader;
     NSArray *matchList;
     UIView *regionalHeader;
@@ -43,6 +56,21 @@
     BOOL dataChange;
     PhotoAttributes *primePhoto;
     BOOL getAssetURL;
+
+    PopUpPickerViewController *trooleanPicker;
+    UIPopoverController *trooleanPickerPopover;
+    NSMutableArray *trooleanList;
+    TrooleanDictionary *trooleanDictionary;
+
+    PopUpPickerViewController *shooterPicker;
+    UIPopoverController *shooterPickerPopover;
+    NSMutableArray *shooterList;
+    ShooterTypeDictionary *shooterDictionary;
+    
+    PopUpPickerViewController *autonCapacityPicker;
+    UIPopoverController *autonCapacityPickerPopover;
+    NumberEnumDictionary *autonCapacityDictionary;
+    NSMutableArray *autonCapacityList;
 }
 
 @synthesize dataManager = _dataManager;
@@ -65,7 +93,6 @@
 @synthesize notesViewField = _notesViewField;
 
 @synthesize shootingLevel = _shootingLevel;
-@synthesize auton = _auton;
 @synthesize maxHeight = _maxHeight;
 @synthesize minHeight = _minHeight;
 @synthesize wheelType = _wheelType;
@@ -164,8 +191,7 @@
     // Set defaults for all the text boxes
     [self SetTextBoxDefaults:_numberText];
     [self SetTextBoxDefaults:_nameTextField];
-    [self SetTextBoxDefaults:_shootingLevel];
-    [self SetTextBoxDefaults:_auton];
+    [self SetTextBoxDefaults:_ballReleaseHeightText];
     [self SetTextBoxDefaults:_minHeight];
     [self SetTextBoxDefaults:_maxHeight];
     [self SetTextBoxDefaults:_wheelType];
@@ -198,8 +224,15 @@
     // Initialize the choices for the pop-up menus.
     driveDictionary = [[DriveTypeDictionary alloc] init];
     _driveTypeList = [[driveDictionary getDriveTypes] mutableCopy];
-    _intakeList = [[NSMutableArray alloc] initWithObjects:@"JVN", @"EveryBot", @"Clamp", @"Other", @"None",nil];
-
+    intakeDictionary = [[IntakeTypeDictionary alloc] init];
+    _intakeList = [[intakeDictionary getIntakeTypes] mutableCopy];
+    trooleanDictionary = [[TrooleanDictionary alloc] init];
+    trooleanList = [[trooleanDictionary getTrooleanTypes] mutableCopy];
+    shooterDictionary = [[ShooterTypeDictionary alloc] init];
+    shooterList = [[shooterDictionary getShooterTypes] mutableCopy];
+    autonCapacityDictionary = [[NumberEnumDictionary alloc] init];
+    autonCapacityList = [[autonCapacityDictionary getNumberTypes] mutableCopy];
+    
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
     //  buttons are activated. If the parent is the Mason VC, then only just one team is passed in, so
@@ -322,7 +355,6 @@
     _nameTextField.text = _team.name;
     _notesViewField.text = _team.notes;
     _shootingLevel.text = @"";
-    _auton.text = [NSString stringWithFormat:@"%d", [_team.auton intValue]];
     _minHeight.text = [NSString stringWithFormat:@"%.1f", [_team.minHeight floatValue]];
     _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
     _wheelType.text = _team.wheelType;
@@ -335,12 +367,15 @@
     
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
     
-    [_driveType setTitle:[driveDictionary getDriveTypeString:_team.driveTrainType] forState:UIControlStateNormal];
-    [_intakeType setTitle:[_intakeList objectAtIndex:[_team.intake intValue]+1] forState:UIControlStateNormal];
-    
-    
-    NSString *path = [NSString stringWithFormat:@"Library/RobotPhotos/%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
-    photoPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
+    [_driveType setTitle:[driveDictionary getString:_team.driveTrainType] forState:UIControlStateNormal];
+    [_intakeType setTitle:[intakeDictionary getString:_team.intake] forState:UIControlStateNormal];
+    [_shooterButton setTitle:[shooterDictionary getString:_team.shooterType] forState:UIControlStateNormal];
+    [_goalieButton setTitle:[trooleanDictionary getString:_team.goalie] forState:UIControlStateNormal];
+    [_catcherButton setTitle:[trooleanDictionary getString:_team.catcher] forState:UIControlStateNormal];
+    [_autonCapacityButton setTitle:[autonCapacityDictionary getString:_team.autonCapacity] forState:UIControlStateNormal];
+    [_autonMobilityButton setTitle:[trooleanDictionary getString:_team.autonMobility] forState:UIControlStateNormal];
+    [_hotTrackerButton setTitle:[trooleanDictionary getString:_team.hotTracker] forState:UIControlStateNormal];
+
     NSArray *list = [_team.photoList allObjects];
     for (int i=0; i<[list count]; i++) {
         Photo *photo = [list objectAtIndex:i];
@@ -390,71 +425,124 @@
     // One of the pop-up menus has been selected. Determine which one
     //  and push the correct pop-up VC
     UIButton * PressedButton = (UIButton*)sender;
+    popUp = PressedButton;
     if (PressedButton == _intakeType) {
-        popUp = _intakeType;
         if (_intakePicker == nil) {
             _intakePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
             _intakePicker.delegate = self;
+            _intakePicker.pickerChoices = _intakeList;
         }
-        _intakePicker.pickerChoices = _intakeList;
-        self.intakePickerPopover = [[UIPopoverController alloc]
-                                        initWithContentViewController:_intakePicker];
+        if (!_intakePickerPopover) {
+            self.intakePickerPopover = [[UIPopoverController alloc]
+                                            initWithContentViewController:_intakePicker];
+        }
         [self.intakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _driveType) {
-        popUp = _driveType;
         if (_driveTypePicker == nil) {
             _driveTypePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
             _driveTypePicker.delegate = self;
+            _driveTypePicker.pickerChoices = _driveTypeList;
         }
-        _driveTypePicker.pickerChoices = _driveTypeList;
-        self.drivePickerPopover = [[UIPopoverController alloc]
-                                        initWithContentViewController:_driveTypePicker];
+        if (!_drivePickerPopover) {
+            self.drivePickerPopover = [[UIPopoverController alloc]
+                                            initWithContentViewController:_driveTypePicker];
+        }
         [self.drivePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-}
-
--(void)changeIntake:(NSString *)newIntake {
-    // The user has changed the intake type
-   for (int i = 0 ; i < [_intakeList count] ; i++) {
-        if ([newIntake isEqualToString:[_intakeList objectAtIndex:i]]) {
-            [_intakeType setTitle:newIntake forState:UIControlStateNormal];
-            _team.intake = [NSNumber numberWithInt:(i-1)];
-            [self setDataChange];
-            break;
+    else if (PressedButton == _shooterButton) {
+        if (shooterPicker == nil) {
+            shooterPicker = [[PopUpPickerViewController alloc]
+                                initWithStyle:UITableViewStylePlain];
+            shooterPicker.delegate = self;
+            shooterPicker.pickerChoices = shooterList;
         }
+        if (!shooterPickerPopover) {
+            shooterPickerPopover = [[UIPopoverController alloc]
+                                    initWithContentViewController:shooterPicker];
+        }
+        [shooterPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (PressedButton == _autonCapacityButton) {
+        if (autonCapacityPicker == nil) {
+            autonCapacityPicker = [[PopUpPickerViewController alloc]
+                             initWithStyle:UITableViewStylePlain];
+            autonCapacityPicker.delegate = self;
+            autonCapacityPicker.pickerChoices = shooterList;
+        }
+        if (!autonCapacityPickerPopover) {
+            autonCapacityPickerPopover = [[UIPopoverController alloc]
+                                          initWithContentViewController:autonCapacityPicker];
+        }
+        [autonCapacityPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
+             PressedButton == _catcherButton) {
+        if (trooleanPicker == nil) {
+            trooleanPicker = [[PopUpPickerViewController alloc]
+                                   initWithStyle:UITableViewStylePlain];
+            trooleanPicker.delegate = self;
+            trooleanPicker.pickerChoices = trooleanList;
+        }
+        if (!trooleanPickerPopover) {
+            trooleanPickerPopover = [[UIPopoverController alloc]
+                                        initWithContentViewController:trooleanPicker];
+        }
+        [trooleanPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
--(void)changeDriveType:(NSString *)newDriveType {
-    // The user has changed the drive train type
-    for (int i = 0 ; i < [_driveTypeList count] ; i++) {
-        if ([newDriveType isEqualToString:[_driveTypeList objectAtIndex:i]]) {
-            [_driveType setTitle:newDriveType forState:UIControlStateNormal];
-            _team.driveTrainType = [NSNumber numberWithInt:(i-1)];
-            [self setDataChange];
-            break;
-        }
-    }
-}
+-(NSNumber *)changeSelected:(NSString *)newPick forButton:(UIButton *)button forDictionary:dictionary {
+    NSNumber *valueSelected;
+    valueSelected = [dictionary getEnumValue:newPick];
+    [button setTitle:[dictionary getString:valueSelected] forState:UIControlStateNormal];
 
+    [self setDataChange];
+    return valueSelected;
+}
 
 - (void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
     if (popUp == _driveType) {
         [_drivePickerPopover dismissPopoverAnimated:YES];
-        _drivePickerPopover = nil;
-        [self changeDriveType:newPick];
+        _team.driveTrainType = [self changeSelected:newPick forButton:popUp forDictionary:driveDictionary];
     }
     else if (popUp == _intakeType) {
         [_intakePickerPopover dismissPopoverAnimated:YES];
-        _intakePickerPopover = nil;
-        [self changeIntake:newPick];
+        _team.intake = [self changeSelected:newPick forButton:popUp forDictionary:intakeDictionary];
+    }
+    else if (popUp == _shooterButton) {
+        [shooterPickerPopover dismissPopoverAnimated:YES];
+        _team.shooterType = [self changeSelected:newPick forButton:popUp forDictionary:shooterDictionary];
+    }
+    else if (popUp == _autonCapacityButton) {
+        [autonCapacityPickerPopover dismissPopoverAnimated:YES];
+        _team.autonCapacity = [self changeSelected:newPick forButton:popUp forDictionary:autonCapacityDictionary];
+;
+    }
+    else if (popUp == _autonMobilityButton) {
+        [trooleanPickerPopover dismissPopoverAnimated:YES];
+        _team.autonMobility = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+    }
+    else if (popUp == _catcherButton) {
+        [trooleanPickerPopover dismissPopoverAnimated:YES];
+        _team.catcher = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+    }
+    else if (popUp == _goalieButton) {
+        [trooleanPickerPopover dismissPopoverAnimated:YES];
+        _team.goalie = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+    }
+    else if (popUp == _hotTrackerButton) {
+        [trooleanPickerPopover dismissPopoverAnimated:YES];
+        _team.hotTracker = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];;
     }
 }
 
@@ -467,8 +555,8 @@
     if (textField == _nameTextField) {
 		_team.name = _nameTextField.text;
 	}
-	else if (textField == _auton) {
-		_team.auton = [NSNumber numberWithInt:[_auton.text floatValue]];
+	else if (textField == _ballReleaseHeightText) {
+		_team.ballReleaseHeight = [NSNumber numberWithFloat:[_ballReleaseHeightText.text floatValue]];
 	}
 	else if (textField == _shootingLevel) {
 	//	_team.shootsTo = @"";

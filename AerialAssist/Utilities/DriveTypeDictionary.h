@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface DriveTypeDictionary : NSObject
--(NSString *)getDriveTypeString:(id) key;
--(id)getDriveTypeEnum:(NSString *) value;
+-(NSString *)getString:(id) key;
+-(id)getEnumValue:(NSString *) value;
 -(NSArray *)getDriveTypes;
 @end

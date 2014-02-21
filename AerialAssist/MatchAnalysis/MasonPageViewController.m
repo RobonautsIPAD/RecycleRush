@@ -376,7 +376,7 @@
                 }
             }
             break;
-        case Other:
+        case OtherMatch:
             _currentSectionType = Testing;
             nextSection = [self getMatchSectionInfo:_currentSectionType];
             if (nextSection == -1) { // There are no Test matches
@@ -385,7 +385,7 @@
             }
             break;
         case Testing:
-            _currentSectionType = Other;
+            _currentSectionType = OtherMatch;
             nextSection = [self getMatchSectionInfo:_currentSectionType];
             if (nextSection == -1) { // There are no Other matches
                 nextSection = [self getMatchSectionInfo:currentSection];
@@ -425,7 +425,7 @@
                 _currentSectionType = currentSection;
             }
             break;
-        case Other:
+        case OtherMatch:
             _currentSectionType = Testing;
             newSection = [self getMatchSectionInfo:_currentSectionType];
             if (newSection == -1) { // There are no Test matches
@@ -434,7 +434,7 @@
             }
             break;
         case Testing:
-            _currentSectionType = Other;
+            _currentSectionType = OtherMatch;
             newSection = [self getMatchSectionInfo:_currentSectionType];
             if (newSection == -1) { // There are no Other matches
                 newSection = [self getMatchSectionInfo:currentSection];

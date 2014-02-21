@@ -27,10 +27,8 @@
 @property (nonatomic, weak) IBOutlet UITextView *notesViewField;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *intakeType;
-@property (nonatomic, weak) IBOutlet UIButton *climbZone;
-@property (nonatomic, weak) IBOutlet UITextField *shootingLevel;
-@property (nonatomic, weak) IBOutlet UITextField *auton;
 @property (nonatomic, weak) IBOutlet UITextField *minHeight;
+@property (nonatomic, weak) IBOutlet UITextField *shootingLevel;
 @property (nonatomic, weak) IBOutlet UITextField *maxHeight;
 @property (nonatomic, weak) IBOutlet UITextField *wheelType;
 @property (nonatomic, weak) IBOutlet UITextField *nwheels;
@@ -48,10 +46,6 @@
 @property (nonatomic, strong) UIPopoverController *intakePickerPopover;
 @property (nonatomic, strong) NSMutableArray *intakeList;
 
-@property (nonatomic, strong) PopUpPickerViewController *climbZonePicker;
-@property (nonatomic, strong) UIPopoverController *climbZonePickerPopover;
-@property (nonatomic, strong) NSMutableArray *climbZoneList;
-
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
 
@@ -68,9 +62,6 @@
 -(void)showTeam;
 -(NSInteger)getNumberOfTeams;
 -(IBAction)detailChanged:(id)sender;
--(void)changeIntake:(NSString *)newIntake;
--(void)changeDriveType:(NSString *)newDriveType;
--(void)changeClimbZone:(NSString *)newClimbZone;
 -(void)setDataChange;
 
 -(IBAction)checkboxToggle:(id)sender;

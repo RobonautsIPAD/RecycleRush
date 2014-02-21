@@ -2,7 +2,7 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 2/6/14.
+//  Created by FRC on 2/21/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -13,9 +13,8 @@
 
 @interface TeamData : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * auton;
 @property (nonatomic, retain) NSNumber * cims;
-@property (nonatomic, retain) NSNumber * climbLevel;
+@property (nonatomic, retain) NSString * robotClass;
 @property (nonatomic, retain) NSNumber * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
@@ -46,6 +45,13 @@
 @property (nonatomic, retain) NSNumber * thing5;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
+@property (nonatomic, retain) NSNumber * catcher;
+@property (nonatomic, retain) NSNumber * shooterType;
+@property (nonatomic, retain) NSNumber * autonCapacity;
+@property (nonatomic, retain) NSNumber * autonMobility;
+@property (nonatomic, retain) NSNumber * hotTracker;
+@property (nonatomic, retain) NSNumber * goalie;
+@property (nonatomic, retain) NSNumber * ballReleaseHeight;
 @property (nonatomic, retain) NSSet *match;
 @property (nonatomic, retain) NSSet *photoList;
 @property (nonatomic, retain) NSSet *regional;

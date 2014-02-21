@@ -254,9 +254,9 @@
     _scoreButtonChoices = [[NSMutableArray alloc] initWithObjects:@"Reset to 0", @"Decrement", @"Increment", nil];
 
     // Drawing Stuff
-    autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", nil];
-    defenseList = [[NSMutableArray alloc] initWithObjects:@"Passed", @"Blocked", nil];
+    autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Pass", nil];
+    defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
@@ -269,6 +269,7 @@
     UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
     [fieldImage addGestureRecognizer:drawGesture];
 
+    [imageContainer sendSubviewToBack:_backgroundImage];
 
     brush = 3.0;
     opacity = 1.0;
@@ -471,7 +472,7 @@
                 }
             }
             break;
-        case Other:
+        case OtherMatch:
             currentSectionType = Testing;
             nextSection = [self getMatchSectionInfo:currentSectionType];
             if (nextSection == -1) { // There are no Test matches
@@ -480,7 +481,7 @@
             }
             break;
         case Testing:
-            currentSectionType = Other;
+            currentSectionType = OtherMatch;
             nextSection = [self getMatchSectionInfo:currentSectionType];
             if (nextSection == -1) { // There are no Other matches
                 nextSection = [self getMatchSectionInfo:currentSection];
@@ -519,7 +520,7 @@
                 currentSectionType = currentSection;
             }
             break;
-        case Other:
+        case OtherMatch:
             currentSectionType = Testing;
             newSection = [self getMatchSectionInfo:currentSectionType];
             if (newSection == -1) { // There are no Test matches
@@ -528,7 +529,7 @@
             }
             break;
         case Testing:
-            currentSectionType = Other;
+            currentSectionType = OtherMatch;
             newSection = [self getMatchSectionInfo:currentSectionType];
             if (newSection == -1) { // There are no Other matches
                 newSection = [self getMatchSectionInfo:currentSection];
@@ -1222,7 +1223,7 @@
 }
 
 -(void)passesMade {
-    // NSLog(@"Passes Made");
+    NSLog(@"Fix Passes Made");
     int score = [passesFloorButton.titleLabel.text intValue];
     score++;
 //    currentTeam.passes = [NSNumber numberWithInt:score];
@@ -1249,8 +1250,7 @@
         return;
     }
     currentTeam.autonBlocks = [NSNumber numberWithInt:score];
-    NSLog(@"Fix auton blocks");
-//    [autonLowColdButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
+    [autonBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
     dataChange = YES;
 }
 
@@ -1311,54 +1311,42 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UIButton *button = (UIButton *)sender;
-
     [self CheckDataStatus];
     
-    if (button == teamEdit) {
+    if ([segue.identifier isEqualToString:@"TeamInfo"]) {
         TeamDetailViewController *detailViewController = [segue destinationViewController];
         [segue.destinationViewController setDataManager:_dataManager];
         detailViewController.team = currentTeam.team;
     }
-    else {
+    else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
         [segue.destinationViewController setSyncType:SyncMatchResults];
+    }
+    else {
+        [segue.destinationViewController setDataManager:_dataManager];    
     }
 }
 
 -(void)setTeamList {
     TeamScore *score;
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"alliance" ascending:YES];
+    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
     teamData = [[currentMatch.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
 
     if (teamList == nil) {
         self.teamList = [NSMutableArray array];
-        // Reds
-        for (int i = 3; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             score = [teamData objectAtIndex:i];
             [teamList addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
         }
-        // Blues
-        for (int i = 0; i < 3; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamList addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-        }
-
     }
     else {
         // Reds
-        for (int i = 3; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             score = [teamData objectAtIndex:i];
-            [teamList replaceObjectAtIndex:(i-3)
+            [teamList replaceObjectAtIndex:i
                            withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
         }
-        // Blues
-       for (int i = 0; i < 3; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamList replaceObjectAtIndex:(i+3)
-                            withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-       }
     }
 }
 
@@ -1431,14 +1419,17 @@
     }
     else {
         // NSLog(@"Field Drawing= %@", currentTeam.fieldDrawing);
-        [fieldImage setImage:[UIImage imageNamed:@"2014_field.png"]];
+        [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
+        NSLog(@"Set a blank inage");
+        [fieldImage setImage:[[UIImage alloc] init]];
         drawMode = DrawOff;
     }
     [self drawModeSettings:drawMode];
 }
 
 -(TeamScore *)GetTeam:(NSUInteger)currentTeamIndex {
-    switch (currentTeamIndex) {
+    return [teamData objectAtIndex:currentTeamIndex];
+/*    switch (currentTeamIndex) {
         case 0: return [teamData objectAtIndex:3];  // Red 1
         case 1: return [teamData objectAtIndex:4];  // Red 2
         case 2: return [teamData objectAtIndex:5];  // Red 3
@@ -1446,7 +1437,7 @@
         case 4: return [teamData objectAtIndex:1];  // Blue 2
         case 5: return [teamData objectAtIndex:2];  // Blue 3
     }    
-    return nil;
+    return nil;*/
 }
 
 -(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer {
@@ -1676,8 +1667,11 @@
                     marker = @"LC";
                     [self autonLowCold:@"Increment"];
                     break;
+                case 5:
+                    marker = @"B";
+                    [self autonBlock:@"Increment"];
+                    break;
             }
-            NSLog(@"score selection = %@", [autonScoreList objectAtIndex:i]);
             break;
         }
     }
@@ -1707,8 +1701,11 @@
                     marker = @"L";
                     [self teleOpLow:@"Increment"];
                     break;
+                case 3:
+                    marker = @"P";
+                    [self passesMade];
+                    break;
             }
-            NSLog(@"score selection = %@", [autonScoreList objectAtIndex:i]);
             break;
         }
     }
@@ -1716,7 +1713,7 @@
 }
 
 - (void)defenseSelected:(NSString *)newDefense {
-//    [self.defensePickerPopover dismissPopoverAnimated:YES];
+    [self.defensePickerPopover dismissPopoverAnimated:YES];
     NSString *marker;
     CGPoint textPoint;
     textPoint.x = currentPoint.x;
@@ -1726,10 +1723,6 @@
         if ([newDefense isEqualToString:[defenseList objectAtIndex:i]]) {
             switch (i) {
                 case 0:
-                    marker = @"P";
-                    [self passesMade];
-                    break;
-                case 1:
                     marker = @"B";
                     //[self teleOpBlockedShots];
                     break;
@@ -1966,12 +1959,12 @@
 }
 
 -(IBAction)toggleGrid:(id)sender{
-    if(fieldImage.image == [UIImage imageNamed:@"2014_field.png"]){
-        fieldImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
+    if(_backgroundImage.image == [UIImage imageNamed:@"2014_field.png"]){
+        _backgroundImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
         [toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
     }
     else{
-        fieldImage.image = [UIImage imageNamed:@"2014_field.png"];
+        _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
         [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     }
 }

@@ -18,11 +18,24 @@
 #define TEST_MODE
 
 typedef enum {
+    TriUnknown = -1,
+    TriNo,
+    TriYes,
+} Troolean;
+
+typedef enum {
+    NumberUnknown = -1,
+    NOne,
+    NTwo,
+    NThree,
+} NumberEnum;
+
+typedef enum {
     Practice,
 	Seeding,
     Elimination,
     Testing,
-    Other,
+    OtherMatch,
 } MatchType;
 
 typedef enum {
@@ -32,9 +45,29 @@ typedef enum {
     Swerve,
     Traction,
     Multi,
-    Tank,
-    WestCoast
+    Tread,
+    Butterfly,
+    OtherDrive
 } DriveType;
+
+typedef enum {
+    ShooterUnknown = -1,
+    ShooterNone,
+    ShooterWheel,
+    ShooterPlunger,
+    ShooterCatapult,
+    ShooterKicker,
+    ShooterOther,
+} ShooterType;
+
+typedef enum {
+    IntakeUnknown = -1,
+    IntakeNone,
+    IntakeJVN,
+    IntakeEveryBot,
+    IntakeClamp,
+    IntakeOther
+} IntakeType;
 
 typedef enum {
     SyncTeams,
