@@ -144,15 +144,12 @@ GKPeerPickerController *picker;
     if (!tournamentDataPackage) {
         tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
     }
-    
     if (!teamDataPackage) {
         teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
     }
-
     if (!matchDataPackage) {
         matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
     }
-
     if (!matchResultsPackage) {
         matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
@@ -166,6 +163,8 @@ GKPeerPickerController *picker;
     syncTypeDictionary = [[SyncTypeDictionary alloc] init];
     _syncTypeList = [[syncTypeDictionary getSyncTypes] mutableCopy];
     [_syncTypeButton setTitle:[syncTypeDictionary getSyncTypeString:_syncType] forState:UIControlStateNormal];
+
+    [self updateTableData];
 }
 
 -(void)createHeaders {
@@ -232,6 +231,25 @@ GKPeerPickerController *picker;
 	syncLabel.text = @"";
     syncLabel.backgroundColor = [UIColor clearColor];
     [sendHeader addSubview:syncLabel];
+}
+
+-(void)updateTableData {
+    switch (_syncType) {
+        case SyncTournaments:
+            [self createTournamentList];
+            break;
+        case SyncTeams:
+            [self createTeamList];
+            break;
+        case SyncMatchList:
+            [self createMatchList];
+            break;
+        case SyncMatchResults:
+            [self createResultsList];
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)createTournamentList {
@@ -420,27 +438,8 @@ GKPeerPickerController *picker;
             break;
         }
     }
-    switch (_syncType) {
-        case SyncTournaments:
-            [self createTournamentList];
-            break;
-            
-        case SyncTeams:
-            [self createTeamList];
-            break;
-            
-        case SyncMatchList:
-            [self createMatchList];
-            break;
-            
-        case SyncMatchResults:
-            [self createResultsList];
-            break;
-            
-        default:
-            break;
-    }
-}
+    [self updateTableData];
+ }
 
 -(void)changeSyncType:(NSString *)newSyncType {
     for (int i = 0 ; i < [_syncTypeList count] ; i++) {
@@ -451,30 +450,8 @@ GKPeerPickerController *picker;
         }
     }
     [self setHeaders];
-    switch (_syncType) {
-        case SyncTournaments:
-            [_syncOptionButton setHidden:YES];
-            [self createTournamentList];
-            break;
-            
-        case SyncTeams:
-            [_syncOptionButton setHidden:NO];
-            [self createTeamList];
-            break;
-            
-        case SyncMatchList:
-            [_syncOptionButton setHidden:NO];
-            [self createMatchList];
-            break;
-            
-        case SyncMatchResults:
-            [_syncOptionButton setHidden:NO];
-            [self createResultsList];
-            break;
-        default:
-            break;
-    }
-}
+    [self updateTableData];
+ }
 
 - (void) viewWillDisappear:(BOOL)animated
 {

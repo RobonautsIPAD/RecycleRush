@@ -127,10 +127,8 @@ typedef enum {
 -(void)autonHighHot:(NSString *)choice;
 -(void)autonLowHot:(NSString *)choice;
 -(void)autonLowCold:(NSString *)choice;
--(void)blockedShots;
 -(void)passesMade;
 -(IBAction)wallPickUpsMade:(id) sender;
--(void)floorPickUpsMade;
 -(void)promptForValue:(UIButton *)button;
 -(IBAction)toggleGrid:(id)sender;
 
@@ -193,6 +191,7 @@ typedef enum {
 } DrawingMode;
 
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
+@property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 @property (nonatomic, assign) BOOL fieldDrawingChange;
 
@@ -205,7 +204,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *drawModeButton;
 @property (nonatomic, weak) IBOutlet UIButton *eraserButton;
 
--(void)floorDiskPickUp:(UITapGestureRecognizer *)gestureRecognizer;
+-(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)drawPath:(UIPanGestureRecognizer *)gestureRecognizer;
 -(void)drawText:(NSString *) marker location:(CGPoint) point;

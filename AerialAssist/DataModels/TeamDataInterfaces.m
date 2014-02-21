@@ -489,7 +489,6 @@
 -(void)setTeamDefaults:(TeamData *)blankTeam {
     blankTeam.number = [NSNumber numberWithInt:0];
     blankTeam.name = @"";
-    blankTeam.climbLevel = [NSNumber numberWithInt:-1];
     blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
 //    blankTeam.history = @"";
     blankTeam.intake = [NSNumber numberWithInt:-1];

@@ -1220,7 +1220,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kha-eL-sUY" kind="push" id="0QU-hg-CV0"/>
+                                    <segue destination="kha-eL-sUY" kind="push" identifier="TeamInfo" id="0QU-hg-CV0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sMX-G2-NfN" userLabel="Button - Match List">
@@ -1231,7 +1231,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="WfL-ic-UhD" kind="push" id="6V1-MF-63T"/>
+                                    <segue destination="WfL-ic-UhD" kind="push" identifier="MatchList" id="6V1-MF-63T"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="ev0-ho-TeF" userLabel="Text Field - Red Score">
@@ -1256,7 +1256,11 @@
                                 <rect key="frame" x="20" y="75" width="848" height="424"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" id="RvX-YB-hOX">
+                                    <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Image View Game Trace">
+                                        <rect key="frame" x="0.0" y="0.0" width="848" height="424"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="hGb-7v-nuk" userLabel="Image View Field Map">
                                         <rect key="frame" x="0.0" y="0.0" width="848" height="424"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -1369,7 +1373,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="foR-gV-UYn" kind="push" id="73l-5i-erv"/>
+                                    <segue destination="foR-gV-UYn" kind="push" identifier="Sync" id="73l-5i-erv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xrD-cl-mQS" userLabel="Button - Eraser">
@@ -1657,12 +1661,13 @@
                         <outlet property="autonLowColdButton" destination="dT2-hw-Ra2" id="hkf-TX-kSX"/>
                         <outlet property="autonLowHotButton" destination="9pc-Xl-wfG" id="YVq-mN-ioD"/>
                         <outlet property="autonMissButton" destination="ZJj-vL-obi" id="Rgl-hZ-MDO"/>
+                        <outlet property="backgroundImage" destination="hGb-7v-nuk" id="r9Y-uh-Xgw"/>
                         <outlet property="blueScore" destination="ev0-ho-TeF" id="j3L-FU-yE3"/>
                         <outlet property="defenseRating" destination="kFE-Y8-0uU" id="7bu-sL-LDD"/>
                         <outlet property="drawModeButton" destination="kd3-Al-5aW" id="E1w-tJ-j01"/>
                         <outlet property="driverRating" destination="e3M-4Q-lW8" id="klm-P9-5ya"/>
                         <outlet property="eraserButton" destination="xrD-cl-mQS" id="Ard-um-Atd"/>
-                        <outlet property="fieldImage" destination="RvX-YB-hOX" id="EsN-pr-Sra"/>
+                        <outlet property="fieldImage" destination="RvX-YB-hOX" id="HP4-XX-Ukd"/>
                         <outlet property="floorPickUpsButton" destination="Pjd-wW-acx" id="9e5-Xr-Dbz"/>
                         <outlet property="human1Button" destination="pfL-EZ-jj9" id="iOy-OX-tam"/>
                         <outlet property="human2Button" destination="qIK-6r-8hQ" id="1Jq-U4-etF"/>
@@ -1694,6 +1699,10 @@
                         <outlet property="trussThrowButton" destination="aEe-Io-dzu" id="Tay-fh-qJ7"/>
                     </connections>
                 </viewController>
+                <imageView contentMode="scaleToFill" id="qNz-YY-SLl" userLabel="Image View Field Map">
+                    <rect key="frame" x="0.0" y="0.0" width="848" height="424"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4z-r3-r5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-620" y="-480"/>
@@ -3930,10 +3939,8 @@
                     <navigationItem key="navigationItem" id="fSa-9J-J2z"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="auton" destination="gGD-z9-mjD" id="2DK-gD-iEW"/>
                         <outlet property="cameraBtn" destination="YPO-D8-BGh" id="DPu-3S-2vc"/>
                         <outlet property="cims" destination="dq0-BF-pWc" id="zHW-1d-Alf"/>
-                        <outlet property="climbZone" destination="8lZ-e0-gcn" id="3vC-ux-Cme"/>
                         <outlet property="driveType" destination="l1o-0h-XZn" id="E2h-mt-cV9"/>
                         <outlet property="highCheckBoxButton" destination="qHq-Um-7pc" id="F34-Dt-m4b"/>
                         <outlet property="imageView" destination="Crm-N5-sdf" id="zZ7-PD-hU6"/>

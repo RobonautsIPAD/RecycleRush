@@ -19,7 +19,7 @@
                          [NSNumber numberWithInt:Seeding],
                          [NSNumber numberWithInt:Elimination],
                          [NSNumber numberWithInt:Testing],
-                         [NSNumber numberWithInt:Other],
+                         [NSNumber numberWithInt:OtherMatch],
                          nil];
                          
         objects = [NSArray arrayWithObjects:@"Practice", @"Seeding", @"Elimination", @"Testing", @"Other", nil];

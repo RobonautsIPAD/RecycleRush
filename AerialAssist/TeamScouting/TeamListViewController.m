@@ -258,7 +258,7 @@
 	speedLabel.text = [NSString stringWithFormat:@"%.1f", teamStats.aveSpeed];
 
     UILabel *driveLabel = (UILabel *)[cell viewWithTag:70];
-    driveLabel.text = [driveDictionary getDriveTypeString:info.driveTrainType];
+    driveLabel.text = [driveDictionary getString:info.driveTrainType];
     if ([driveLabel.text isEqualToString:@"Unknown"]) driveLabel.text = @"";
     
     UILabel *defenseLabel = (UILabel *)[cell viewWithTag:80];

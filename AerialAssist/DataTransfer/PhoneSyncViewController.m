@@ -188,6 +188,7 @@ typedef enum {
         case 0:     // Send button
             NSLog(@"Sending");
             xFerOption = Sending;
+            [self updateTableData];
             [_syncTypeButton setHidden:NO];
             [_syncOptionButton setHidden:NO];
             [_connectButton setHidden:NO];
@@ -210,31 +211,30 @@ typedef enum {
 }
 
 -(void)selectSyncType:(SyncType)typeChoice {
-    switch (typeChoice) {
+    syncType = typeChoice;
+    switch (syncType) {
         case SyncTeams:
-            [self createTeamList];
             [_syncTypeButton setTitle:@"Teams" forState:UIControlStateNormal];
             break;
         case SyncTournaments:
-            [self createTournamentList];
             [_syncTypeButton setTitle:@"Tournaments" forState:UIControlStateNormal];
             break;
         case SyncMatchResults:
-            [self createResultsList];
             [_syncTypeButton setTitle:@"Results" forState:UIControlStateNormal];
             break;
         case SyncMatchList:
-            [self createMatchList];
             [_syncTypeButton setTitle:@"Schedule" forState:UIControlStateNormal];
             break;
             
         default:
             break;
     }
+    [self updateTableData];
 }
 
--(void)selectSyncOption:(SyncOptions)typeChoice {
-    switch (typeChoice) {
+-(void)selectSyncOption:(SyncOptions)optionChoice {
+    syncOption = optionChoice;
+    switch (optionChoice) {
         case SyncAll:
             [_syncOptionButton setTitle:@"All" forState:UIControlStateNormal];
             break;
@@ -248,26 +248,27 @@ typedef enum {
         default:
             break;
     }
+    [self updateTableData];
+}
+
+-(void)updateTableData {
     switch (syncType) {
         case SyncTournaments:
             [self createTournamentList];
             break;
-            
         case SyncTeams:
             [self createTeamList];
             break;
-            
         case SyncMatchList:
             [self createMatchList];
             break;
-            
         case SyncMatchResults:
             [self createResultsList];
             break;
-            
         default:
             break;
     }
+    [_syncDataTable reloadData];
 }
 
 -(void)createTournamentList {
@@ -289,7 +290,6 @@ typedef enum {
     for (int i=0; i<[tournamentList count]; i++) {
         [filteredTournamentList addObject:[[tournamentList objectAtIndex:i] valueForKey:@"name"]];
     }
-    [_syncDataTable reloadData];
     NSLog(@"T List = %@", filteredTournamentList);
 }
 
@@ -329,7 +329,6 @@ typedef enum {
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
     filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
-    [_syncDataTable reloadData];
 }
 
 -(void)createMatchList {
@@ -369,7 +368,6 @@ typedef enum {
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
     filteredMatchList = [filteredMatchList sortedArrayUsingDescriptors:sortDescriptors];
-    [_syncDataTable reloadData];
 }
 
 -(void)createResultsList {
@@ -409,7 +407,6 @@ typedef enum {
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
     filteredResultsList = [filteredResultsList sortedArrayUsingDescriptors:sortDescriptors];
-    [_syncDataTable reloadData];
 }
 
 #pragma mark - Game Kit

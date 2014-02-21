@@ -21,27 +21,30 @@
                          [NSNumber numberWithInt:Swerve],
                          [NSNumber numberWithInt:Traction],
                          [NSNumber numberWithInt:Multi],
-                         [NSNumber numberWithInt:Tank],
-                         [NSNumber numberWithInt:WestCoast],
+                         [NSNumber numberWithInt:Tread],
+                         [NSNumber numberWithInt:Butterfly],
+                         [NSNumber numberWithInt:OtherDrive],
                          nil];
-        //AT MAX CAPACITY OF DATABASE!!!
-        objects = [NSArray arrayWithObjects:@"Unknown", @"Mech", @"Omni", @"Swerve", @"Traction", @"Multi", @"Tread", @"Butterfly", nil];
+        objects = [NSArray arrayWithObjects:@"Unknown", @"Mech", @"Omni", @"Swerve", @"Traction", @"Multi", @"Tread", @"Butterfly", @"Other", nil];
         
         dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	}
 	return self;
 }
 
--(NSString *)getDriveTypeString:(id) key {
-    NSString *result = [dictionary objectForKey:key];
-    if (!result) result = @"Other";
-    return result;
+-(NSString *)getString:(id) key {
+    if ([dictionary objectForKey:key]) {
+        NSString *result = [dictionary objectForKey:key];
+        if (!result) result = @"Unknown";
+        return result;
+    }
+    return @"Unknown";
 }
 
--(id)getDriveTypeEnum:(NSString *) value {
+-(id)getEnumValue:(NSString *) value {
     NSArray *temp = [dictionary allKeysForObject:value];
-    NSNumber *val = [temp objectAtIndex:0];
-    return val;
+    if ([temp count]) return [temp objectAtIndex:0];
+    else return [NSNumber numberWithInt:DriveUnknown];
 }
 
 -(NSArray *)getDriveTypes {

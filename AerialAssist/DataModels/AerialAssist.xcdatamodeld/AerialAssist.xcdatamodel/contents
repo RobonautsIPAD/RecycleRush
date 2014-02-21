@@ -50,19 +50,32 @@
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="regional" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
-        <attribute name="auton" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Auton Balls"/>
+            </userInfo>
+        </attribute>
+        <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Mobility Bonus"/>
+            </userInfo>
+        </attribute>
+        <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Ball Release Height"/>
+            </userInfo>
+        </attribute>
+        <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Catch System"/>
+            </userInfo>
+        </attribute>
         <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="CIMS"/>
             </userInfo>
         </attribute>
-        <attribute name="climbLevel" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="climb level"/>
-                <entry key="output" value="Climb Level"/>
-            </userInfo>
-        </attribute>
-        <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="10" defaultValueString="-1" syncable="YES">
+        <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="drive train type, drive train, drive, drivetrain type, drive traintype"/>
                 <entry key="output" value="Drive Train Type"/>
@@ -73,6 +86,16 @@
         <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="goalie" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Goalie"/>
+            </userInfo>
+        </attribute>
+        <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Track Hot Goals"/>
+            </userInfo>
+        </attribute>
         <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="intaketype, intake type"/>
@@ -117,8 +140,19 @@
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="primePhotoDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="robotClass" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="key" value="climb level"/>
+                <entry key="output" value="Climb Level"/>
+            </userInfo>
+        </attribute>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
+        <attribute name="shooterType" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="output" value="Shooter Type"/>
+            </userInfo>
+        </attribute>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing4" optional="YES" attributeType="String" syncable="YES"/>

@@ -230,7 +230,7 @@
                 }
             }
             break;
-        case Other: 
+        case OtherMatch:
             currentSectionType = Testing;
             nextSection = [self getMatchSectionInfo:currentSectionType];
             if (nextSection == -1) { // There are no Test matches
@@ -239,7 +239,7 @@
             }
             break;
         case Testing:
-            currentSectionType = Other;
+            currentSectionType = OtherMatch;
             nextSection = [self getMatchSectionInfo:currentSectionType];
             if (nextSection == -1) { // There are no Other matches
                 nextSection = [self getMatchSectionInfo:currentSection];
@@ -279,7 +279,7 @@
                 currentSectionType = currentSection;
             }
             break;
-        case Other:
+        case OtherMatch:
             currentSectionType = Testing;
             newSection = [self getMatchSectionInfo:currentSectionType];
             if (newSection == -1) { // There are no Test matches
@@ -288,7 +288,7 @@
             }
             break;
         case Testing:
-            currentSectionType = Other;
+            currentSectionType = OtherMatch;
             newSection = [self getMatchSectionInfo:currentSectionType];
             if (newSection == -1) { // There are no Other matches
                 newSection = [self getMatchSectionInfo:currentSection];

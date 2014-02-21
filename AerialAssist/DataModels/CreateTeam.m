@@ -87,7 +87,7 @@
             case 17:
                 team.nwheels = [NSNumber numberWithInt:[[data objectAtIndex:16] intValue]];
             case 16:
-                team.auton = [NSNumber numberWithInt:[[data objectAtIndex:15] intValue]];
+//                team.auton = [NSNumber numberWithInt:[[data objectAtIndex:15] intValue]];
             case 15:
                 team.saved = [NSNumber numberWithInt:[[data objectAtIndex:14] intValue]];
             case 14:
@@ -95,7 +95,7 @@
             case 13:
 //                team.climbSpeed = [NSNumber numberWithFloat:[[data objectAtIndex:12] floatValue]];
             case 12:
-                team.climbLevel = [NSNumber numberWithInt:[[data objectAtIndex:11] intValue]];
+  //              team.climbLevel = [NSNumber numberWithInt:[[data objectAtIndex:11] intValue]];
             case 11:
 //                team.pyramidDump = [NSNumber numberWithInt:[[data objectAtIndex:10] intValue]];
             case 10:
@@ -270,7 +270,6 @@
 -(void)setTeamDefaults:(TeamData *)blankTeam {
     blankTeam.number = [NSNumber numberWithInt:0];
     blankTeam.name = @"";
-    blankTeam.climbLevel = [NSNumber numberWithInt:-1];
     blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
 //    blankTeam.history = @"";
     blankTeam.intake = [NSNumber numberWithInt:-1];
