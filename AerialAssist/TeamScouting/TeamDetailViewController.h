@@ -51,10 +51,6 @@
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
-@property (nonatomic, weak) IBOutlet UIButton *highCheckBoxButton;
-@property (nonatomic, weak) IBOutlet UIButton *lowCheckBoxButton;
-@property (nonatomic, weak) IBOutlet UIButton *trussCheckBoxButton;
-
 
 -(IBAction)PrevButton;
 -(IBAction)NextButton;
@@ -63,8 +59,6 @@
 -(NSInteger)getNumberOfTeams;
 -(IBAction)detailChanged:(id)sender;
 -(void)setDataChange;
-
--(IBAction)checkboxToggle:(id)sender;
 
 -(void)createRegionalHeader;
 -(void)createMatchHeader;

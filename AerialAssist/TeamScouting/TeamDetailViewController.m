@@ -100,10 +100,6 @@
 @synthesize wheelDiameter = _wheelDiameter;
 @synthesize cims = _cims;
 
-@synthesize highCheckBoxButton = _highCheckBoxButton;
-@synthesize lowCheckBoxButton = _lowCheckBoxButton;
-@synthesize trussCheckBoxButton = _trussCheckBoxButton;
-
 @synthesize pictureController = _pictureController;
 @synthesize imageView = _imageView;
 @synthesize cameraBtn = _cameraBtn;
@@ -198,14 +194,16 @@
     [self SetTextBoxDefaults:_nwheels];
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
+    [self SetTextBoxDefaults:_ballReleaseHeightText];
+    [self SetBigButtonDefaults:_autonCapacityButton];
+    [self SetBigButtonDefaults:_autonMobilityButton];
+    [self SetBigButtonDefaults:_catcherButton];
+    [self SetBigButtonDefaults:_goalieButton];
+    [self SetBigButtonDefaults:_hotTrackerButton];
+    [self SetBigButtonDefaults:_robotClassButton];
+    [self SetBigButtonDefaults:_shooterButton];
     
     //sets text colors for "shoots" buttons relative to UIControllerState
-    [_highCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
-    [_highCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [_lowCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
-    [_lowCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [_trussCheckBoxButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
-    [_trussCheckBoxButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageIsFullScreen = FALSE;
@@ -361,6 +359,7 @@
     _nwheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
+    _ballReleaseHeightText.text = [NSString stringWithFormat:@"%.0f ", [_team.ballReleaseHeight floatValue]];
     
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
@@ -473,7 +472,7 @@
             autonCapacityPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
             autonCapacityPicker.delegate = self;
-            autonCapacityPicker.pickerChoices = shooterList;
+            autonCapacityPicker.pickerChoices = autonCapacityList;
         }
         if (!autonCapacityPickerPopover) {
             autonCapacityPickerPopover = [[UIPopoverController alloc]
@@ -959,7 +958,7 @@ CGSize retval = CGSizeMake(50, 50);
 }
 
 -(void)SetBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20.0];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
     [btnLayer setMasksToBounds:YES];
@@ -974,18 +973,7 @@ CGSize retval = CGSizeMake(50, 50);
 }
 
 //TODO add these buttons to database
--(IBAction)checkboxToggle:(id)sender
-{
-    if(sender == _highCheckBoxButton){
-        _highCheckBoxButton.selected = !_highCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
-    }
-    else if(sender == _lowCheckBoxButton){
-        _lowCheckBoxButton.selected = !_lowCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
-    }
-    else if (sender == _trussCheckBoxButton){
-        _trussCheckBoxButton.selected = !_trussCheckBoxButton.selected; // toggle the selected property, just a simple BOOL
-    }
-}
+
 
 
 
