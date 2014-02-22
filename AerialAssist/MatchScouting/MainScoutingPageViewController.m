@@ -1413,13 +1413,13 @@
     
     // NSLog(@"Load the Picture");
     // Check the database to see if this team and match have a drawing already
+    [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
     if (currentTeam.fieldDrawing.trace) {
         [fieldImage setImage:[UIImage imageWithData:currentTeam.fieldDrawing.trace]];
         drawMode = DrawLock;
     }
     else {
         // NSLog(@"Field Drawing= %@", currentTeam.fieldDrawing);
-        [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
         NSLog(@"Set a blank inage");
         [fieldImage setImage:[[UIImage alloc] init]];
         drawMode = DrawOff;

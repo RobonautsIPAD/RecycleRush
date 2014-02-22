@@ -46,6 +46,7 @@
         }
     }
     if (score.fieldDrawing) {
+        NSLog(@"field drawing = %@", score.fieldDrawing);
         [keyList addObject:@"fieldDrawing"];
         [valueList addObject:score.fieldDrawing.trace];
     }
@@ -129,7 +130,14 @@
             [score setValue:[myDictionary objectForKey:key] forKey:key];
         }
     }
-    if (score.fieldDrawing) score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
+    if (!score.fieldDrawing) {
+        FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        score.fieldDrawing = drawing;
+    }
+    score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
+    NSLog(@"field drawing = %@", score.fieldDrawing.trace);
+
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);

@@ -40,7 +40,8 @@ typedef enum {
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
-
+    GKSession *currentSession;
+    
     XFerOption xFerOption;
     SyncType syncType;
     SyncTypeDictionary *syncTypeDictionary;
@@ -51,6 +52,7 @@ typedef enum {
     UIActionSheet *xFerOptionAction;
     UIActionSheet *syncTypeAction;
     UIActionSheet *syncOptionAction;
+    BOOL firstReceipt;
 
     UIView *tableHeader;
     UILabel *headerLabel1;
@@ -80,6 +82,8 @@ typedef enum {
     NSMutableArray *receivedResultsList;
     TeamScoreInterfaces *matchResultsPackage;
 }
+
+GKPeerPickerController *picker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -118,6 +122,7 @@ typedef enum {
         matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
     
+    firstReceipt = TRUE;
     [_xFerOptionButton setHidden:NO];
     [_syncTypeButton setHidden:YES];
     [_syncOptionButton setHidden:YES];
@@ -135,6 +140,23 @@ typedef enum {
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
     [_syncOptionButton setTitle:@"All" forState:UIControlStateNormal];
+    
+    // Set the notification to receive information after a bluetooth has been received
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:@"BluetoothDeviceConnectFailedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDeviceUpdatedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDeviceDiscoveredNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothDiscoveryStateChangedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bluetoothNotice:) name:@"BluetoothConnectabilityChangedNotification" object:nil];
+
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    //    NSLog(@"viewWillDisappear");
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
 }
 
 #pragma mark - Transfer Options
@@ -409,12 +431,226 @@ typedef enum {
     filteredResultsList = [filteredResultsList sortedArrayUsingDescriptors:sortDescriptors];
 }
 
+-(IBAction) createDataPackage:(id) sender {
+    NSDictionary *syncDict = [NSDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:syncType]] forKeys:@[@"syncType"]];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:syncDict];
+    NSLog(@"sync dict = %@", syncDict);
+    [self mySendDataToPeers:myData];
+    
+    switch (syncType) {
+        case SyncTournaments: {
+            NSData *myData = [tournamentDataPackage packageTournamentsForXFer:filteredTournamentList];
+            [self mySendDataToPeers:myData];
+        }
+            break;
+        case SyncTeams:
+            for (int i=0; i<[filteredTeamList count]; i++) {
+                TeamData *team = [filteredTeamList objectAtIndex:i];
+                NSData *myData = [teamDataPackage packageTeamForXFer:team];
+                [self mySendDataToPeers:myData];
+                //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+            }
+            break;
+        case SyncMatchList:
+            for (int i=0; i<[filteredMatchList count]; i++) {
+                MatchData *match = [filteredMatchList objectAtIndex:i];
+                NSData *myData = [matchDataPackage packageMatchForXFer:match];
+                [self mySendDataToPeers:myData];
+                NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+            }
+            break;
+        case SyncMatchResults:
+            for (int i=0; i<[filteredResultsList count]; i++) {
+                TeamScore *score = [filteredResultsList objectAtIndex:i];
+                NSData *myData = [matchResultsPackage packageScoreForXFer:score];
+                [self mySendDataToPeers:myData];
+                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
 #pragma mark - Game Kit
 
 - (IBAction)btnConnect:(id)sender {
+    picker = [[GKPeerPickerController alloc] init];
+    picker.delegate = self;
+    picker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
+    [_connectButton setHidden:YES];
+    [_disconnectButton setHidden:NO];
+    [_sendButton setHidden:NO];
+    [picker show];
 }
 
 - (IBAction)btnDisconnect:(id)sender {
+    [self shutdownBluetooth];
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+}
+
+-(void)connectionFailed:(NSNotification *)notification {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"BOOM!"
+                                                    message:@"Connection Failed."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [self shutdownBluetooth];
+    [alert show];
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+    picker.delegate = nil;
+    [picker dismiss];
+}
+
+-(void)bluetoothNotice:(NSNotification *)notification {
+    NSLog(@"%@ %@", notification.name, [notification userInfo]);
+}
+
+- (void)shutdownBluetooth {
+    [currentSession disconnectFromAllPeers];
+    currentSession.available = NO;
+    [currentSession setDataReceiveHandler:nil withContext:nil];
+    currentSession = nil;
+    currentSession = nil;
+}
+
+- (void)peerPickerController:(GKPeerPickerController *)picker
+              didConnectPeer:(NSString *)peerID
+                   toSession:(GKSession *) session {
+    NSLog(@"didConnectPeer");
+    currentSession = session;
+    session.delegate = self;
+    [session setDataReceiveHandler:self withContext:nil];
+    [_peerName setHidden:NO];
+    _peerName.text = [session displayNameForPeer:peerID];
+    firstReceipt = TRUE;
+    picker.delegate = nil;
+    
+    [picker dismiss];
+    
+}
+
+- (void)session:(GKSession *)session didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError");
+    NSLog(@"error = %@", error);
+    [self shutdownBluetooth];
+}
+
+- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
+{
+    picker.delegate = nil;
+    NSLog(@"Cancelling peer connect");
+    [self shutdownBluetooth];
+    [_connectButton setHidden:NO];
+    [_sendButton setHidden:YES];
+    [_disconnectButton setHidden:YES];
+    [_peerName setHidden:YES];
+}
+
+-(void)session:(GKSession *)sessionpeer
+          peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
+    switch (state)
+    {
+        case GKPeerStateConnected:
+            NSLog(@"connected");
+            // [_sendDataTable setHidden:NO];
+            // [_receiveDataTable setHidden:NO];
+            break;
+        case GKPeerStateDisconnected:
+            NSLog(@"disconnected");
+            [self shutdownBluetooth];
+            [_connectButton setHidden:NO];
+            [_disconnectButton setHidden:YES];
+            [_sendButton setHidden:YES];
+            [_peerName setHidden:YES];
+            break;
+        case GKPeerStateAvailable:
+            NSLog(@"GKPeerStateAvailable");
+            break;
+        case GKPeerStateConnecting:
+            NSLog(@"GKPeerStateConnecting");
+            break;
+        case GKPeerStateUnavailable:
+            NSLog(@"GKPeerStateUnavailable");
+            break;
+    }
+}
+
+- (void) mySendDataToPeers:(NSData *) data
+{
+    if (currentSession)
+        [currentSession sendDataToAllPeers:data
+                                   withDataMode:GKSendDataReliable
+                                          error:nil];
+    switch (syncType) {
+        case SyncTeams:
+            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:teamDataSync forKey:@"teamDataSync"];
+            break;
+        case SyncMatchList:
+            matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchScheduleSync forKey:@"matchScheduleSync"];
+            break;
+        case SyncMatchResults:
+            matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchResultsSync forKey:@"matchResultsSync"];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void) receiveData:(NSData *)data
+            fromPeer:(NSString *)peer
+           inSession:(GKSession *)session
+             context:(void *)context {
+    
+    if (firstReceipt) {
+        NSDictionary *myType = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSLog(@"myType = %@", myType);
+        [self selectSyncType:[[myType valueForKey:@"syncType"] intValue]];
+        NSLog(@"sync type = %d", syncType);
+        firstReceipt = FALSE;
+        return;
+    }
+    switch (syncType) {
+        case SyncTournaments:
+            receivedTournamentList = [tournamentDataPackage unpackageTournamentsForXFer:data];
+            break;
+        case SyncTeams: {
+            if (receivedTeamList == nil) {
+                receivedTeamList = [NSMutableArray array];
+            }
+            TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
+            if (teamReceived) [receivedTeamList addObject:teamReceived];
+        }
+            break;
+        case SyncMatchList: {
+            if (receivedMatchList == nil) {
+                receivedMatchList = [NSMutableArray array];
+            }
+            MatchData *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
+            if (matchReceived) [receivedMatchList addObject:matchReceived];
+        }
+            break;
+        case SyncMatchResults: {
+            if (receivedResultsList == nil) {
+                receivedResultsList = [NSMutableArray array];
+            }
+            TeamScore *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+            if (scoreReceived) [receivedResultsList addObject:scoreReceived];
+        }
+            break;
+        default:
+            break;
+    }
+    [_syncDataTable reloadData];
 }
 
 #pragma mark - Table view
@@ -445,18 +681,23 @@ typedef enum {
         if (syncType == SyncMatchList) return [filteredMatchList count];
         if (syncType == SyncMatchResults) return [filteredResultsList count];
     }
-/*    else {
-        if (_receiveDataTable.hidden) return 0;
-        if (_syncType == SyncTournaments) return [receivedTournamentList count];
-        if (_syncType == SyncTeams) return [receivedTeamList count];
-        if (_syncType == SyncMatchList) return [receivedMatchList count];
-        if (_syncType == SyncMatchResults) return [receivedResultsList count];
-    }*/
+    else {
+        if (syncType == SyncTournaments) return [receivedTournamentList count];
+        if (syncType == SyncTeams) return [receivedTeamList count];
+        if (syncType == SyncMatchList) return [receivedMatchList count];
+        if (syncType == SyncMatchResults) return [receivedResultsList count];
+    }
     return 0;
 }
 
 - (void)configureTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSString *tournament = [filteredTournamentList objectAtIndex:indexPath.row];
+    NSString *tournament;
+    if (xFerOption == Sending) {
+        tournament = [filteredTournamentList objectAtIndex:indexPath.row];
+    }
+    else {
+        tournament = [receivedTournamentList objectAtIndex:indexPath.row];
+    }
     // Configure the cell...
     // Set a background for the cell
     
@@ -474,7 +715,13 @@ typedef enum {
 }
 
 - (void)configureTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamData *team = [filteredTeamList objectAtIndex:indexPath.row];
+    TeamData *team;
+    if (xFerOption == Sending) {
+        team = [filteredTeamList objectAtIndex:indexPath.row];
+    }
+    else {
+        team = [receivedTeamList objectAtIndex:indexPath.row];
+    }
     // Configure the cell...
     // Set a background for the cell
     
@@ -492,7 +739,13 @@ typedef enum {
 }
 
 - (void)configureMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    MatchData *match = [filteredMatchList objectAtIndex:indexPath.row];
+    MatchData *match;
+    if (xFerOption == Sending) {
+        match = [filteredMatchList objectAtIndex:indexPath.row];
+    }
+    else {
+        match = [receivedMatchList objectAtIndex:indexPath.row];
+    }
     // Configure the cell...
     // Set a background for the cell
     
@@ -510,7 +763,13 @@ typedef enum {
 }
 
 - (void)configureResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
+    TeamScore *score;
+    if (xFerOption == Sending) {
+        score = [filteredResultsList objectAtIndex:indexPath.row];
+    }
+    else {
+        score = [receivedResultsList objectAtIndex:indexPath.row];
+    }
     // Configure the cell...
     // Set a background for the cell
     
