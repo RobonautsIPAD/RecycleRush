@@ -7,17 +7,32 @@
 //
 
 #import "MatchAnalysisViewController.h"
+#import "FieldDrawingViewController.h"
 #import "DataManager.h"
+#import "TeamData.h"
+#import "TeamDataInterfaces.h"
+#import "TournamentData.h"
+#import "CreateMatch.h"
+#import "MatchData.h"
+#import "TeamScore.h"
 
-@implementation MatchAnalysisViewController
+@interface MatchAnalysisViewController ()
+    @property  (nonatomic, weak) IBOutlet UITableView *matchesTable;
+@end
+
+
+@implementation MatchAnalysisViewController{
+    NSUserDefaults *prefs;
+    NSString *tournamentName;
+    NSMutableArray *teamList;
+    NSArray *matchList;
+    TeamData *team;
+}
 @synthesize dataManager = _dataManager;
 @synthesize mainLogo = _mainLogo;
 @synthesize matchPicture = _matchPicture;
 @synthesize splashPicture = _splashPicture;
 @synthesize pictureCaption = _pictureCaption;
-@synthesize masonPageButton = _masonPageButton;
-@synthesize rossPageButton = _rossPageButton;
-@synthesize lucienPageButton = _lucienPageButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,70 +52,69 @@
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
     
-    // Set Font and Text for Mason Page Button
-    [_masonPageButton setTitle:@"Mason Page" forState:UIControlStateNormal];
-    _masonPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+    prefs = [NSUserDefaults standardUserDefaults];
+    tournamentName = [prefs objectForKey:@"tournament"];
+    if (tournamentName) {
+        self.title = tournamentName;
+    }
     
-    // Set Font and Text for Ross Page Button
-    [_lucienPageButton setTitle:@"Lucien Page" forState:UIControlStateNormal];
-    _lucienPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-/*
-    // Set Font and Text for Ross Page Button
-    [rossPageButton setTitle:@"Ross Page" forState:UIControlStateNormal];
-    rossPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
- */   
+    matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
+    NSLog(@"Printing Matchlist");
+    NSLog(@"%@", matchList);
+    
     self.title = @"Match Analysis";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Segue occurs when the user selects a match out of the match list table. Receiving
+    //  VC is the FieldDrawing VC.
+    NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
     [segue.destinationViewController setDataManager:_dataManager];
+    [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
+}
+-(NSInteger)numberOfRowsInTableView:(UITableView *)tableView{
+    return 1;
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return YES;
+    // Return the number of sections.
+    return 1;
 }
 
-- (BOOL)shouldAutorotate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return YES;
+        return [matchList count];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+- (void)configureMatchCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    TeamScore *score = [matchList objectAtIndex:indexPath.row];
     
-    switch(toInterfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            //( , , , )
-            self.mainLogo.frame = CGRectMake(0, -60, 1024, 255);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            self.masonPageButton.frame = CGRectMake(550, 225, 400, 68);
-            self.lucienPageButton.frame = CGRectMake(550, 325, 400, 68);
-            self.splashPicture.frame = CGRectMake(50, 243, 468, 330);
-            self.pictureCaption.frame = CGRectMake(50, 581, 468, 39);
-            break;
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            self.mainLogo.frame = CGRectMake(-20, 0, 285, 960);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            self.masonPageButton.frame = CGRectMake(325, 125, 400, 68);
-            self.lucienPageButton.frame = CGRectMake(325, 225, 400, 68);
-            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
-            break;
-        default:
-            break;
-    }
+	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+    
+    UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+	label2.text = score.match.matchType;
+    
+    UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = @"";
+    
+
+    //    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
+    //    else label3.text = @"N";
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        NSLog(@"Filling Cell");
+        UITableViewCell *cell = nil;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"MatchSchedule"];
+        // Set up the cell...
+        [self configureMatchCell:cell atIndexPath:indexPath];
+    
+    return cell;
 }
 
 /*
