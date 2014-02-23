@@ -7,7 +7,7 @@
 //
 
 #import "iPhoneMainViewController.h"
-#import "iPhoneMatchXferViewController.h"
+//#import "iPhoneMatchXferViewController.h"
 
 @interface iPhoneMainViewController ()
 
@@ -47,6 +47,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    /*
     if ([segue.identifier isEqualToString:@"Receive"]) {
         [segue.destinationViewController setXfer_mode:0];
     }
@@ -54,6 +55,7 @@
         [segue.destinationViewController setXfer_mode:1];
     }
     [segue.destinationViewController setDataManager:_dataManager];
+     */
 }
 
 - (void)didReceiveMemoryWarning

@@ -21,6 +21,43 @@
 @interface LucienPageViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *parameter1Button;
 @property (nonatomic, weak) IBOutlet UIButton *average1Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal1Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor1Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter2Button;
+@property (nonatomic, weak) IBOutlet UIButton *average2Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal2Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor2Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter3Button;
+@property (nonatomic, weak) IBOutlet UIButton *average3Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal3Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor3Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter4Button;
+@property (nonatomic, weak) IBOutlet UIButton *average4Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal4Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor4Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter5Button;
+@property (nonatomic, weak) IBOutlet UIButton *average5Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal5Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor5Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter6Button;
+@property (nonatomic, weak) IBOutlet UIButton *average6Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal6Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor6Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter7Button;
+@property (nonatomic, weak) IBOutlet UIButton *average7Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal7Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor7Text;
+
+@property (nonatomic, weak) IBOutlet UIButton *parameter8Button;
+@property (nonatomic, weak) IBOutlet UIButton *average8Button;
+@property (nonatomic, weak) IBOutlet UITextField *normal8Text;
+@property (nonatomic, weak) IBOutlet UITextField *factor8Text;
 @end
 
 @implementation LucienPageViewController {
@@ -29,12 +66,16 @@
     NSMutableArray *averages;
     NSMutableArray *normals;
     NSMutableArray *factors;
+    NSString *settingsFile;
     BOOL dataChange;
     NSFileManager *fileManager;
     NSString *storePath;
     id popUp;
     NSMutableArray *lucienList;
 
+    NSMutableDictionary *settingsDictionary;
+    NSMutableDictionary *lucienDictionary;
+    
     PopUpPickerViewController *parameterPicker;
     UIPopoverController *parameterPickerPopover;
     id parameterPopUpid;
@@ -93,12 +134,17 @@
     }
     
     // Display the Robotnauts Banner
-    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
     // Display the Label for the Picture
     _labelText.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _labelText.text = @"Just Hangin' Out";
     
-    
+    // Read plist and populate all the buttons
+    // plist will be dictionaries containing 4 items, the name, the selection criteria, the normal and the factor.
+    // Create list of Lucien items from the team and score records.
+    // Use the Lucien items for the popup list of parameters.
+    // Save plist on leaving page.
+    [self initializePreferences];
     
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -171,40 +217,75 @@
 }
 
 -(void)setDisplayData {
-    int index = [[averages objectAtIndex:0] intValue];
-    [_autonAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:1] intValue];
-    [_teleOpAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:2] intValue];
-    [_climbAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:3] intValue];
-    [_driverAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:4] intValue];
-    [_speedAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:5] intValue];
-    [_defenseAverage setTitle:[_averageList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:6] intValue];
-    [_height1Average setTitle:[_heightList objectAtIndex:index] forState:UIControlStateNormal];
-    index = [[averages objectAtIndex:7] intValue];
-    [_height2Average setTitle:[_heightList objectAtIndex:index] forState:UIControlStateNormal];
+    NSMutableDictionary *row = [self getRowDictionary:@"One"];
+    [self setDisplayRow:row forParameter:_parameter1Button forAverage:_average1Button forNormal:_normal1Text forFactor:_factor1Text];
 
-    _autonNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:0] floatValue]];
-    _teleOpNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:1] floatValue]];
-    _climbNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:2] floatValue]];
-    _driverNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:3] floatValue]];
-    _speedNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:4] floatValue]];
-    _defenseNormal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:5] floatValue]];
-    _height1Normal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:6] floatValue]];
-    _height2Normal.text = [NSString stringWithFormat:@"%.1f", [[normals objectAtIndex:7] floatValue]];
+    // Row 2
+    row = [self getRowDictionary:@"Two"];
+    [_teleOpAverage setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _teleOpNormal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _teleOpFactor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
 
-    _autonFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:0] floatValue]];
-    _teleOpFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:1] floatValue]];
-    _climbFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:2] floatValue]];
-    _driverFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:3] floatValue]];
-    _speedFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:4] floatValue]];
-    _defenseFactor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:5] floatValue]];
-    _height1Factor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:6] floatValue]];
-    _height2Factor.text = [NSString stringWithFormat:@"%.1f", [[factors objectAtIndex:7] floatValue]];
+    // Row 3
+    row = [self getRowDictionary:@"Three"];
+    [_climbAverage setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _climbNormal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _climbFactor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+    
+    // Row 4
+    row = [self getRowDictionary:@"Four"];
+    [_driverAverage setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _driverNormal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _driverFactor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+    
+    // Row 5
+    row = [self getRowDictionary:@"Five"];
+    [_speedAverage setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _speedNormal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _speedFactor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+    
+    // Row 6
+    row = [self getRowDictionary:@"Six"];
+    [_defenseAverage setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _defenseNormal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _defenseFactor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+ 
+    // Row 7
+    row = [self getRowDictionary:@"Seven"];
+    [_height1Average setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _height1Normal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _height1Factor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+
+    // Row 8
+    row = [self getRowDictionary:@"Eight"];
+    [_height2Average setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    _height2Normal.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    _height2Factor.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+}
+
+-(void)setDisplayRow:(NSMutableDictionary *)row forParameter:(UIButton *)parameterButton forAverage:(UIButton *)averageButton forNormal:(UITextField *)normalButton forFactor:(UITextField *)factorButton {
+    [parameterButton setTitle:[row objectForKey:@"name"] forState:UIControlStateNormal];
+    [averageButton setTitle:[row objectForKey:@"selection"] forState:UIControlStateNormal];
+    normalButton.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"normal"] floatValue]];
+    factorButton.text = [NSString stringWithFormat:@"%.1f", [[row objectForKey:@"factor"] floatValue]];
+}
+
+-(NSMutableDictionary *) getRowDictionary:(NSString *)row {
+    NSMutableDictionary *result = [settingsDictionary objectForKey:row];
+    if (result) return result;
+    else {
+        // Create a default dictionary
+        NSString *name = @"";
+        NSString *selectionCriteria = @"";
+        NSNumber *normal = [NSNumber numberWithFloat:1.0];
+        NSNumber *factor = [NSNumber numberWithFloat:0.0];
+        
+        NSMutableDictionary *defaultDictionary = [NSMutableDictionary dictionaryWithObjects:
+                                [NSArray arrayWithObjects: name, selectionCriteria, normal, factor, nil]
+                                forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
+        [settingsDictionary setObject:defaultDictionary forKey:row];
+        return defaultDictionary;
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -326,7 +407,86 @@
     _heightPicker.pickerChoices = _heightList;
     popUp = sender;
     [self.heightPickerPopover presentPopoverFromRect:button.bounds inView:button
-                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];}
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)pickerSelected:(NSString *)newPick {
+    dataChange = YES;
+    int which;
+    if (popUp == _parameter1Button ||
+        popUp == _parameter2Button ||
+        popUp == _parameter3Button ||
+        popUp == _parameter4Button ||
+        popUp == _parameter5Button ||
+        popUp == _parameter6Button ||
+        popUp == _parameter7Button ||
+        popUp == _parameter8Button) {
+        [self changeParameter:popUp forChoice:newPick];
+    }
+    if (popUp == _autonAverage) which = 0;
+    else if (popUp == _teleOpAverage) which = 1;
+    else if (popUp == _climbAverage) which = 2;
+    else if (popUp == _driverAverage) which = 3;
+    else if (popUp == _speedAverage) which = 4;
+    else if (popUp == _defenseAverage) which = 5;
+    else if (popUp == _height1Average) which = 6;
+    else if (popUp == _height2Average) which = 7;
+    
+    if (popUp == _height1Average || popUp == _height2Average) {
+        [self.heightPickerPopover dismissPopoverAnimated:YES];
+        for (int i = 0 ; i < [_heightList count] ; i++) {
+            if ([newPick isEqualToString:[_heightList objectAtIndex:i]]) {
+                [popUp setTitle:newPick forState:UIControlStateNormal];
+                [averages replaceObjectAtIndex:which withObject:[NSNumber numberWithInt:i]];
+                break;
+            }
+        }
+    }
+    else {/*
+        [self.averagePickerPopover dismissPopoverAnimated:YES];
+        for (int i = 0 ; i < [_averageList count] ; i++) {
+            if ([newPick isEqualToString:[_averageList objectAtIndex:i]]) {
+                [popUp setTitle:newPick forState:UIControlStateNormal];
+                [averages replaceObjectAtIndex:which withObject:[NSNumber numberWithInt:i]];
+                break;
+            }
+        }*/
+    }
+}
+
+-(void)changeParameter:(id)selection forChoice:(NSString *)newPick {
+    NSString *validChoice;
+    [parameterPickerPopover dismissPopoverAnimated:YES];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", newPick];
+    NSArray *choices = [_averageList filteredArrayUsingPredicate: predicate];
+    if ([choices count]) {
+        validChoice = [choices objectAtIndex:0];
+    }
+    else {
+        validChoice = @"";
+    }
+    [popUp setTitle:validChoice forState:UIControlStateNormal];
+    NSString *dictionaryId;
+    if (popUp == _parameter1Button)         dictionaryId = @"One";
+    else if (popUp == _parameter2Button)    dictionaryId = @"Two";
+    else if (popUp == _parameter3Button)    dictionaryId = @"Three";
+    else if (popUp == _parameter4Button)    dictionaryId = @"Four";
+    else if (popUp == _parameter5Button)    dictionaryId = @"Five";
+    else if (popUp == _parameter6Button)    dictionaryId = @"Six";
+    else if (popUp == _parameter7Button)    dictionaryId = @"Seven";
+    else if (popUp == _parameter8Button)    dictionaryId = @"Eight";
+    
+    [self setRowEntry:validChoice forKey:@"name" forDictionaryId:dictionaryId];
+}
+
+-(void)setRowEntry:validChoice forKey:(NSString *)key forDictionaryId:(NSString *)line {
+    //[settingsDictionary setObject:defaultDictionary forKey:row];
+    NSMutableDictionary *row = [self getRowDictionary:line];
+    if ([row objectForKey:key]) {
+        [row setObject:validChoice forKey:key];
+    }
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -439,40 +599,6 @@
     return magicNumber;
 }
 
-- (void)pickerSelected:(NSString *)newPick {
-    dataChange = YES;
-    int which;
-    if (popUp == _autonAverage) which = 0;
-    else if (popUp == _teleOpAverage) which = 1;
-    else if (popUp == _climbAverage) which = 2;
-    else if (popUp == _driverAverage) which = 3;
-    else if (popUp == _speedAverage) which = 4;
-    else if (popUp == _defenseAverage) which = 5;
-    else if (popUp == _height1Average) which = 6;
-    else if (popUp == _height2Average) which = 7;
-    
-    if (popUp == _height1Average || popUp == _height2Average) {
-        [self.heightPickerPopover dismissPopoverAnimated:YES];
-        for (int i = 0 ; i < [_heightList count] ; i++) {
-            if ([newPick isEqualToString:[_heightList objectAtIndex:i]]) {
-                [popUp setTitle:newPick forState:UIControlStateNormal];
-                [averages replaceObjectAtIndex:which withObject:[NSNumber numberWithInt:i]];
-                break;
-            }
-        }        
-    }
-    else {
-        [self.averagePickerPopover dismissPopoverAnimated:YES];
-        for (int i = 0 ; i < [_averageList count] ; i++) {
-            if ([newPick isEqualToString:[_averageList objectAtIndex:i]]) {
-                [popUp setTitle:newPick forState:UIControlStateNormal];
-                [averages replaceObjectAtIndex:which withObject:[NSNumber numberWithInt:i]];
-                break;
-            }
-        }
-    }
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
@@ -491,45 +617,33 @@
     return [scan scanFloat: &holder] && [scan isAtEnd];
 }
 
+-(void)initializePreferences {
+    settingsFile = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/lucienPagePreferences.plist"]];
+
+    fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:settingsFile]) {
+        NSData *plistData = [NSData dataWithContentsOfFile:settingsFile];
+        NSError *error;
+        NSPropertyListFormat plistFormat;
+        settingsDictionary = [NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListImmutable format:&plistFormat error:&error];
+        NSLog(@"Settings = %@", settingsDictionary);
+    }
+    else {
+        settingsDictionary = [NSMutableDictionary dictionaryWithCapacity:8];
+    }
+}
+
 - (void) viewWillDisappear:(BOOL)animated
 {
     //    NSLog(@"viewWillDisappear");
-    NSString *lucienDataString;
-    storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"lucienFactors.csv"];
-    for (int i=0; i<[normals count]; i++) {
-        
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:settingsFile atomically:YES];
     }
-    lucienDataString = [NSString stringWithFormat:@"%d, %d, %d, %d, %d, %d, %d, %d\n",
-                        [[averages objectAtIndex:0] intValue],
-                        [[averages objectAtIndex:1] intValue],
-                        [[averages objectAtIndex:2] intValue],
-                        [[averages objectAtIndex:3] intValue],
-                        [[averages objectAtIndex:4] intValue],
-                        [[averages objectAtIndex:5] intValue],
-                        [[averages objectAtIndex:6] intValue],
-                        [[averages objectAtIndex:7] intValue]];
-    lucienDataString = [lucienDataString stringByAppendingString:[NSString stringWithFormat:@"%.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f\n",
-                        [[normals objectAtIndex:0] floatValue],
-                        [[normals objectAtIndex:1] floatValue],
-                        [[normals objectAtIndex:2] floatValue],
-                        [[normals objectAtIndex:3] floatValue],
-                        [[normals objectAtIndex:4] floatValue],
-                        [[normals objectAtIndex:5] floatValue],
-                        [[normals objectAtIndex:6] floatValue],
-                        [[normals objectAtIndex:7] floatValue]]];
-    lucienDataString =  [lucienDataString stringByAppendingString:[NSString stringWithFormat:@"%.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f\n",
-                        [[factors objectAtIndex:0] floatValue],
-                        [[factors objectAtIndex:1] floatValue],
-                        [[factors objectAtIndex:2] floatValue],
-                        [[factors objectAtIndex:3] floatValue],
-                        [[factors objectAtIndex:4] floatValue],
-                        [[factors objectAtIndex:5] floatValue],
-                        [[factors objectAtIndex:6] floatValue],
-                        [[factors objectAtIndex:7] floatValue]]];
-    [lucienDataString writeToFile:storePath
-                       atomically:YES
-                         encoding:NSUTF8StringEncoding
-                            error:nil];
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
 }
 
 -(void)SetBigButtonDefaults:(UIButton *)currentButton {
@@ -575,42 +689,20 @@
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
+#pragma mark - Application's Library directory
+
+/**
+ Returns the path to the application's Library directory.
+ */
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)viewDidUnload {
-    [self setAutonFactor:nil];
-    [self setTeleOpFactor:nil];
-    [self setAutonNormal:nil];
-    [self setTeleOpNormal:nil];
-    [self setClimbNormal:nil];
-    [self setClimbFactor:nil];
-    [self setDriverNormal:nil];
-    [self setDriverFactor:nil];
-    [self setSpeedNormal:nil];
-    [self setSpeedFactor:nil];
-    [self setDefenseNormal:nil];
-    [self setDefenseFactor:nil];
-    [self setHeight1Factor:nil];
-    [self setHeight2Factor:nil];
-    [self setAutonAverage:nil];
-    [self setTeleOpAverage:nil];
-    [self setClimbAverage:nil];
-    [self setDriverAverage:nil];
-    [self setDriverAverage:nil];
-    [self setSpeedAverage:nil];
-    [self setDefenseAverage:nil];
-    [self setHeight1Average:nil];
-    [self setHeight2Average:nil];
-    [self setHeight1Normal:nil];
-    [self setHeight2Normal:nil];
-    [self setCalculateButton:nil];
-    [super viewDidUnload];
-}
-
 
 - (BOOL)shouldAutorotate
 {

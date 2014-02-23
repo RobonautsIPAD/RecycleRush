@@ -39,7 +39,6 @@
 		2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE816A100250026B258 /* Default-568h@2x.png */; };
 		2F30EAEB16A100850026B258 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAEA16A100850026B258 /* main.m */; };
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
-		2F340CC017A1FB9C006674C3 /* iPhoneMatchXferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */; };
 		2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
@@ -185,8 +184,6 @@
 		2F30EAEA16A100850026B258 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MainApp/main.m; sourceTree = "<group>"; };
 		2F30EAEC16A101570026B258 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MainApp/AppDelegate.h; sourceTree = "<group>"; };
 		2F30EAED16A101AB0026B258 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MainApp/AppDelegate.m; sourceTree = "<group>"; };
-		2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPhoneMatchXferViewController.h; path = DataTransfer/iPhoneMatchXferViewController.h; sourceTree = "<group>"; };
-		2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPhoneMatchXferViewController.m; path = DataTransfer/iPhoneMatchXferViewController.m; sourceTree = "<group>"; };
 		2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSplashViewController.h; path = MainApp/PhoneSplashViewController.h; sourceTree = "<group>"; };
 		2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSplashViewController.m; path = MainApp/PhoneSplashViewController.m; sourceTree = "<group>"; };
 		2F38C34F18A3203A0018D59C /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
@@ -583,8 +580,6 @@
 				2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */,
 				2F06F98817248EE8002C947D /* ftpTransferViewController.h */,
 				2F06F98917248EE8002C947D /* ftpTransferViewController.m */,
-				2F340CBE17A1FB9C006674C3 /* iPhoneMatchXferViewController.h */,
-				2F340CBF17A1FB9C006674C3 /* iPhoneMatchXferViewController.m */,
 				2F004E1C18AEF8CD004DE471 /* PhoneExportViewController.h */,
 				2F004E1D18AEF8CD004DE471 /* PhoneExportViewController.m */,
 				2FD455FB18B026BB0014C1BE /* ExportMatchData.h */,
@@ -857,7 +852,6 @@
 				2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */,
 				2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */,
 				2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */,
-				2F340CC017A1FB9C006674C3 /* iPhoneMatchXferViewController.m in Sources */,
 				2F042013181F19D4003B994B /* LucienTableViewController.m in Sources */,
 				2FD8EDBB18B7A229009071A3 /* TeamData.m in Sources */,
 				2FD8EDC118B7BB91009071A3 /* ShooterTypeDictionary.m in Sources */,
