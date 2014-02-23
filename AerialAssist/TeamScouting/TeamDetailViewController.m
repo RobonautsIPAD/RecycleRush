@@ -359,12 +359,14 @@
     _nwheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
-    _ballReleaseHeightText.text = [NSString stringWithFormat:@"%.0f ", [_team.ballReleaseHeight floatValue]];
+    _ballReleaseHeightText.text = [NSString stringWithFormat:@"%.0f  ", [_team.ballReleaseHeight floatValue]];
     
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
+    
+    
     
     [_driveType setTitle:[driveDictionary getString:_team.driveTrainType] forState:UIControlStateNormal];
     [_intakeType setTitle:[intakeDictionary getString:_team.intake] forState:UIControlStateNormal];

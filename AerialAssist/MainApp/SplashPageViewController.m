@@ -73,10 +73,10 @@
     [_matchScoutingButton setTitle:@"Match Scouting" forState:UIControlStateNormal];
     _matchScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     // Set Font and Text for Match Analysis Button
-    [_matchAnalysisButton setTitle:@"Match Analysis" forState:UIControlStateNormal];
+    [_matchAnalysisButton setTitle:@"Mason Page" forState:UIControlStateNormal];
     _matchAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //set Font and Text for Tournament Analysis Button
-    [_tournamentAnalysisButton setTitle:@"Tournament Analysis" forState:UIControlStateNormal];
+    [_tournamentAnalysisButton setTitle:@"analysis" forState:UIControlStateNormal];
     _tournamentAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     [super viewDidLoad];
 }

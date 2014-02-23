@@ -716,6 +716,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = FRC;
+				TargetAttributes = {
+					2F30EAB616A0EB4F0026B258 = {
+						DevelopmentTeam = 82RQMPP6F5;
+					};
+				};
 			};
 			buildConfigurationList = 2F30EAB116A0EB4F0026B258 /* Build configuration list for PBXProject "AerialAssist" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -929,6 +934,8 @@
 		2F30EADB16A0EB4F0026B258 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AerialAssist/MainApp/AerialAssist-Prefix.pch";
 				INFOPLIST_FILE = "AerialAssist/MainApp/AerialAssist-Info.plist";
@@ -936,6 +943,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AerialAssist;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -943,6 +951,8 @@
 		2F30EADC16A0EB4F0026B258 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AerialAssist/MainApp/AerialAssist-Prefix.pch";
 				INFOPLIST_FILE = "AerialAssist/MainApp/AerialAssist-Info.plist";
@@ -950,6 +960,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AerialAssist;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
