@@ -264,7 +264,7 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Pass", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -277,6 +277,12 @@
     
     UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
     [fieldImage addGestureRecognizer:drawGesture];
+
+    
+    UILongPressGestureRecognizer *mouseDrag = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(throwCatch:)];
+    mouseDrag.numberOfTapsRequired=1;
+    mouseDrag.minimumPressDuration=0.05;
+    [fieldImage addGestureRecognizer:mouseDrag];
 
     [imageContainer sendSubviewToBack:_backgroundImage];
 
@@ -906,7 +912,14 @@
     }
     currentTeam.floorPasses = [NSNumber numberWithInt:score];
     [passesFloorButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPasses intValue]] forState:UIControlStateNormal];
-    
+    // Update total passes
+    score = [currentTeam.totalPasses intValue];
+    score++;
+    currentTeam.totalPasses = [NSNumber numberWithInt:score];
+    // Update total passes
+    score = [currentTeam.totalPasses intValue];
+    score++;
+    currentTeam.totalPasses = [NSNumber numberWithInt:score];
     [self setDataChange];
 }
 
@@ -1296,15 +1309,6 @@
     [self setDataChange];
 }
 
--(void)passesMade {
-    NSLog(@"Fix Passes Made");
-    int score = [passesFloorButton.titleLabel.text intValue];
-    score++;
-//    currentTeam.passes = [NSNumber numberWithInt:score];
-//    [passesButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.passes intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
 -(void)autonBlockedShots: (NSString *)choice {
     // NSLog(@"Blocked Shots");
     
@@ -1487,7 +1491,6 @@
     [self setRadioButtonState:_doaButton forState:[currentTeam.deadOnArrival intValue]];
     [self setRadioButtonState:_autonMobilityButton forState:[currentTeam.autonMobility intValue]];
 
-    // NSLog(@"Load the Picture");
     // Check the database to see if this team and match have a drawing already
     [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
     if (currentTeam.fieldDrawing.trace) {
@@ -1495,8 +1498,6 @@
         drawMode = DrawLock;
     }
     else {
-        // NSLog(@"Field Drawing= %@", currentTeam.fieldDrawing);
-        NSLog(@"Set a blank inage");
         [fieldImage setImage:[[UIImage alloc] init]];
         drawMode = DrawOff;
     }
@@ -1592,6 +1593,45 @@
     }
 }
 
+-(void)throwCatch:(UILongPressGestureRecognizer *)gestureRecognizer {
+	if([(UILongPressGestureRecognizer*)gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        NSLog(@"Pinching Began");
+        NSString *marker = @"S";
+        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+	if([(UILongPressGestureRecognizer*)gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+        NSLog(@"Pinching Ended");
+        NSString *marker = @"E";
+        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+    
+    /*   fieldDrawingChange = YES;
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        // NSLog(@"drawPath Began");
+        lastPoint = [gestureRecognizer locationInView:fieldImage];
+    }
+    else {
+        currentPoint = [gestureRecognizer locationInView: fieldImage];
+        // NSLog(@"current point = %lf, %lf", currentPoint.x, currentPoint.y);
+        UIGraphicsBeginImageContext(fieldImage.frame.size);
+        [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        [self.fieldImage setAlpha:opacity];
+        UIGraphicsEndImageContext();
+        lastPoint = currentPoint;
+    }*/
+}
+
 - (IBAction)eraserPressed:(id)sender {
     red = 255.0/255.0;
     green = 255.0/255.0;
@@ -1654,8 +1694,8 @@
             drawMode = DrawTeleop;
             break;
         case DrawLock:
-            overrideMode = OverrideDrawLock;
-            [self checkOverrideCode:drawModeButton];
+            popUp = sender;
+            [self confirmationActionSheet:@"Confirm Match Unlock" withButton:@"Unlock"];
             break;
         default:
             NSLog(@"Bad things have happened in drawModeChange");
@@ -1778,8 +1818,16 @@
                     [self teleOpLow:@"Increment"];
                     break;
                 case 3:
-                    marker = @"P";
-                    [self passesMade];
+                    marker = @"FP";
+                    [self floorPass:@"Increment"];
+                    break;
+                case 4:
+                    marker = @"AP";
+                    [self airPass:@"Increment"];
+                    break;
+                case 5:
+                    marker = @"TT";
+                    [self trussThrow:@"Increment"];
                     break;
             }
             break;
@@ -1900,12 +1948,32 @@
     overrideMode = NoOverride;
 }
 
--(IBAction)matchResetRequest:(id) sender {
-    NSLog(@"matchReset");
-    overrideMode = OverrideMatchReset;
-    [self checkOverrideCode:matchResetButton];
-    // Different message for saved, locked, synced
- }
+- (IBAction)matchResetTapped:(id)sender {
+    NSString *title = @"Confirm Match Reset";
+    NSString *button = @"Reset";
+    popUp = sender;
+
+    [self confirmationActionSheet:title withButton:button];
+}
+
+- (void)confirmationActionSheet:title withButton:(NSString *)button {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        if (popUp == matchResetButton) {
+            [self matchReset];
+        }
+        else if (popUp == drawModeButton) {
+            drawMode = DrawOff;
+            [self drawModeSettings:drawMode];
+        }
+    }
+}
 
 -(void)matchReset {
     [self setDataChange];

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>autonCapacity</string>
+		<key>header</key>
+		<string>Auton Capacity</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonMobility</string>
+		<key>header</key>
+		<string>Auton Mobility</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>ballReleaseHeight</string>
+		<key>header</key>
+		<string>Ball Release Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>catcher</string>
+		<key>header</key>
+		<string>Catch System</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cims</string>
+		<key>header</key>
+		<string>cims</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driveTrainType</string>
+		<key>header</key>
+		<string>Drive Train Type</string>
+		<key>format</key>
+		<string>driveTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>goalie</string>
+		<key>header</key>
+		<string>Goalie</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>hotTracker</string>
+		<key>header</key>
+		<string>Hot Tracking</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>intake</string>
+		<key>header</key>
+		<string>Intake</string>
+		<key>format</key>
+		<string>IntakeTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxHeight</string>
+		<key>header</key>
+		<string>Maximum Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>nwheels</string>
+		<key>header</key>
+		<string>Number of Wheels</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>shooterType</string>
+		<key>header</key>
+		<string>Shooter Type</string>
+		<key>format</key>
+		<string>ShooterTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>wheelDiameter</string>
+		<key>header</key>
+		<string>Wheel Diameter</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classA</string>
+		<key>header</key>
+		<string>Class A</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classB</string>
+		<key>header</key>
+		<string>Class B</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classC</string>
+		<key>header</key>
+		<string>Class C</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classD</string>
+		<key>header</key>
+		<string>Class D</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classE</string>
+		<key>header</key>
+		<string>Class E</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classF</string>
+		<key>header</key>
+		<string>Class F</string>
+		<key>format</key>
+		<string>TrooleanDictionary</string>
+	</dict>
+</array>
+</plist>

@@ -14,6 +14,7 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSDictionary *attributes;
+    NSArray *teamDataList;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -27,6 +28,11 @@
 -(NSString *)teamDataCSVExport {
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
+    }
+    if (!teamDataList) {
+        // Load dictionary with list of parameters for the scouting spreadsheet
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamDataOutput" ofType:@"plist"];
+        teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     }
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -69,10 +75,8 @@
     NSString *csvString;
 
     csvString = @"Team Number, Team Name, Tournament";
-    for (NSString *item in attributes) {
-        if ([item isEqualToString:@"number"]) continue; // We have already printed the team number
-        if ([item isEqualToString:@"name"]) continue; // We have already printed the team name
-        NSString *output = [[[attributes objectForKey:item] userInfo] objectForKey:@"output"];
+    for (int i=0; i<[teamDataList count]; i++) {
+        NSString *output = [[teamDataList objectAtIndex:i] objectForKey:@"header"];
         if (output) {
             csvString = [csvString stringByAppendingFormat:@", %@", output];
         }
@@ -85,12 +89,11 @@
 -(NSString *)createTeam:(TeamData *)team {
     NSString *csvString;
     csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@", team.number, team.name, tournamentName];
-    for (NSString *item in attributes) {
-        if ([item isEqualToString:@"number"]) continue; // We have already printed the team number
-        if ([item isEqualToString:@"name"]) continue; // We have already printed the team name
-        NSString *output = [[[attributes objectForKey:item] userInfo] objectForKey:@"output"];
+    for (int i=0; i<[teamDataList count]; i++) {
+        NSDictionary *entry = [teamDataList objectAtIndex:i];
+        NSString *output = [team valueForKey:[entry objectForKey:@"key"]];
         if (output) {
-            csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[[attributes objectForKey:item] attributeType] forValue:[team valueForKey:item]]];
+            csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[entry objectForKey:@"format"] forValue:[team valueForKey:[entry objectForKey:@"key"]]]];
             //NSLog(@"output = %@, value = %@", output, [team valueForKey:item]);
         }
     }
@@ -99,39 +102,13 @@
     return csvString;
 }
 
--(NSString *) outputFormat:(NSAttributeType)type forValue:data {
-    if (type == NSStringAttributeType) {
+-(NSString *) outputFormat:(NSString *)type forValue:data {
+    if ([type isEqualToString:@"string"]) {
         if (data) return [NSString stringWithFormat:@",\"%@\"", data];
         else return @"";
     }
     else return [NSString stringWithFormat:@"%@", data];
 }
 
--(NSArray *)lucienListExport {
-    NSMutableDictionary *singleItem;
-    NSMutableArray *fullList = [[NSMutableArray alloc] init];
-    
-    if (!_dataManager) {
-        _dataManager = [[DataManager alloc] init];
-    }
-    if (!attributes) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        [fetchRequest setFetchLimit:1];
-        NSArray *team = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        if (team) attributes = [[[team objectAtIndex:0] entity] attributesByName];
-    }
-    for (NSString *item in attributes) {
-        NSString *lucien = [[[attributes objectForKey:item] userInfo] objectForKey:@"lucien"];
-        if (lucien) {
-            singleItem = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects: lucien, item, @"TeamData", nil] forKeys:[NSArray arrayWithObjects:@"name", @"key", @"table", nil]];
-            [fullList addObject:singleItem];
-        }
-    }
-    return [fullList copy];;
-}
 
 @end

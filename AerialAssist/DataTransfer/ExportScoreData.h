@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 @class DataManager;
+@class TeamData;
 
 @interface ExportScoreData : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 
 -(id)initWithDataManager:(DataManager *)initManager;
 -(NSString *)teamScoreCSVExport;
--(NSString *)spreadsheetCSVExport;
+-(NSString *)spreadsheetCSVExport:(TeamData *)team;
 
 @end

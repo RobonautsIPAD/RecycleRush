@@ -24,7 +24,7 @@
 @class DataManager;
 @class SettingsData;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
@@ -80,7 +80,6 @@ typedef enum {
 @property (nonatomic, strong) UISegmentedControl *climbLevel;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
--(IBAction)matchResetRequest:(id) sender;
 -(void)matchReset;
 -(IBAction)updateDriverRating:(id) sender;
 -(IBAction)updateDefenseRating: (id) sender;

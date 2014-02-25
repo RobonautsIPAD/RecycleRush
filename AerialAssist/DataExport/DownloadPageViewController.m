@@ -9,6 +9,7 @@
 #import "DownloadPageViewController.h"
 #import "TabletSyncViewController.h"
 #import "TeamData.h"
+#import "TeamDataInterfaces.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "DataManager.h"
@@ -171,8 +172,9 @@
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
     
     // Export Scores
+    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
     ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
-    csvString = [scoutingSpreadsheet spreadsheetCSVExport];
+    csvString = [scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:0]];
 /*    if (csvString) {
         [csvString writeToFile:fileDataPath
                     atomically:YES
