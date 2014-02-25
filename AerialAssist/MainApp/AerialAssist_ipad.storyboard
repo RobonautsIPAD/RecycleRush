@@ -976,7 +976,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Yh-MH-RnZ">
                                 <rect key="frame" x="325" y="125" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Tournament" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -987,7 +987,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yGC-56-XIN">
                                 <rect key="frame" x="325" y="225" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Match List" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -998,23 +998,12 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="az0-xs-gdI">
                                 <rect key="frame" x="325" y="325" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Data Transfer" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="4ra-8V-FJ1" kind="push" id="6aE-eg-KHh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BDX-cG-7Ch">
-                                <rect key="frame" x="325" y="425" width="400" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="85j-Gf-6rf" kind="push" id="eBk-FU-J60"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="photo.JPG" id="eJ5-6l-qYG">
@@ -1033,13 +1022,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="VXj-u5-0Hl"/>
                     <connections>
-                        <outlet property="exportDataButton" destination="az0-xs-gdI" id="HFg-9l-ykL"/>
-                        <outlet property="importDataButton" destination="BDX-cG-7Ch" id="kxu-gm-USL"/>
-                        <outlet property="mainLogo" destination="jXJ-Wv-Wp2" id="AiO-JK-whK"/>
-                        <outlet property="matchSetUpButton" destination="yGC-56-XIN" id="pfh-fG-As0"/>
-                        <outlet property="pictureCaption" destination="fgT-xg-I8Z" id="iSP-H4-P6O"/>
-                        <outlet property="settingsButton" destination="7Yh-MH-RnZ" id="qH9-Ff-qKg"/>
-                        <outlet property="splashPicture" destination="eJ5-6l-qYG" id="hr6-5h-lK7"/>
+                        <outlet property="dataTransferButton" destination="az0-xs-gdI" id="1le-Ro-Wkn"/>
+                        <outlet property="mainLogo" destination="jXJ-Wv-Wp2" id="22T-q8-2pn"/>
+                        <outlet property="matchListButton" destination="yGC-56-XIN" id="XCt-pr-HeW"/>
+                        <outlet property="pictureCaption" destination="fgT-xg-I8Z" id="m1f-64-oQy"/>
+                        <outlet property="settingsButton" destination="7Yh-MH-RnZ" id="7PE-Un-cs4"/>
+                        <outlet property="splashPicture" destination="eJ5-6l-qYG" id="V6q-fq-NUl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8oh-yD-YYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1240,6 +1228,9 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMade:" destination="WBb-6A-oWA" eventType="touchUpInside" id="5sQ-gy-hoF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pfL-EZ-jj9">
                                         <rect key="frame" x="249" y="2" width="63" height="37"/>
@@ -1248,6 +1239,9 @@
                                         <state key="normal" title="Human">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMade:" destination="WBb-6A-oWA" eventType="touchUpInside" id="HgL-zg-ZSx"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sk3-4h-9By">
                                         <rect key="frame" x="249" y="386" width="63" height="37"/>
@@ -1256,6 +1250,9 @@
                                         <state key="normal" title="Human">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMade:" destination="WBb-6A-oWA" eventType="touchUpInside" id="3bw-gj-Npx"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9bZ-Bw-6nS">
                                         <rect key="frame" x="537" y="386" width="63" height="37"/>
@@ -1264,6 +1261,9 @@
                                         <state key="normal" title="Human">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMade:" destination="WBb-6A-oWA" eventType="touchUpInside" id="I98-lE-AM9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1293,14 +1293,14 @@
                                 <rect key="frame" x="30" y="565" width="231" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="updateDefenseRating:" destination="WBb-6A-oWA" eventType="valueChanged" id="m8G-Kd-Y0O"/>
+                                    <action selector="updateDefenseRating:" destination="WBb-6A-oWA" eventType="valueChanged" id="ahA-Fd-ZDo"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="WaU-Lj-mhL">
                                 <rect key="frame" x="273" y="611" width="231" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="updateDefenseRating:" destination="WBb-6A-oWA" eventType="valueChanged" id="VTp-dc-ZSl"/>
+                                    <action selector="updateDefenseRating:" destination="WBb-6A-oWA" eventType="valueChanged" id="BFx-ge-4k9"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="0UL-IE-Ngd">
@@ -1629,6 +1629,54 @@
                                     <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="zrf-tp-v95"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="09Q-Sd-DaQ" userLabel="Button - Auton Mobility">
+                                <rect key="frame" x="725" y="520" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="ehy-Fk-crP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Puz-Kt-jLA" userLabel="Button - No Show">
+                                <rect key="frame" x="725" y="540" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="azz-df-8qM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yv8-KU-Qvt" userLabel="Button - DOA">
+                                <rect key="frame" x="725" y="560" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="oW3-UE-mOF"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auton Mobility" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MRg-nt-nUv" userLabel="Label - Auton Mobility">
+                                <rect key="frame" x="753" y="518" width="110" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Show" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ka9-f7-lVZ">
+                                <rect key="frame" x="753" y="539" width="110" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-Moving" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z1s-Bi-skt">
+                                <rect key="frame" x="753" y="559" width="110" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1643,8 +1691,11 @@
                         <outlet property="autonLowColdButton" destination="dT2-hw-Ra2" id="hkf-TX-kSX"/>
                         <outlet property="autonLowHotButton" destination="9pc-Xl-wfG" id="YVq-mN-ioD"/>
                         <outlet property="autonMissButton" destination="ZJj-vL-obi" id="Rgl-hZ-MDO"/>
+                        <outlet property="autonMobilityButton" destination="09Q-Sd-DaQ" id="W1B-OX-Uf7"/>
                         <outlet property="backgroundImage" destination="hGb-7v-nuk" id="r9Y-uh-Xgw"/>
-                        <outlet property="defenseRating" destination="kFE-Y8-0uU" id="7bu-sL-LDD"/>
+                        <outlet property="defenseBlockRating" destination="WaU-Lj-mhL" id="hh6-uf-srd"/>
+                        <outlet property="defenseBullyRating" destination="kFE-Y8-0uU" id="9Ik-Sd-1cZ"/>
+                        <outlet property="doaButton" destination="yv8-KU-Qvt" id="kei-bP-8jQ"/>
                         <outlet property="drawModeButton" destination="kd3-Al-5aW" id="E1w-tJ-j01"/>
                         <outlet property="driverRating" destination="e3M-4Q-lW8" id="klm-P9-5ya"/>
                         <outlet property="eraserButton" destination="xrD-cl-mQS" id="Ard-um-Atd"/>
@@ -1661,6 +1712,7 @@
                         <outlet property="matchResetButton" destination="0vi-Wt-2J4" id="FiS-zG-zuV"/>
                         <outlet property="matchType" destination="jmp-Mx-xGA" id="8af-fE-2Br"/>
                         <outlet property="nextMatch" destination="cNM-Sg-kpV" id="ROc-QP-7ZS"/>
+                        <outlet property="noShowButton" destination="Puz-Kt-jLA" id="baT-22-gsG"/>
                         <outlet property="notes" destination="qX6-ZB-Ecp" id="FA7-sg-V6e"/>
                         <outlet property="passesAirButton" destination="6iU-VM-hfx" id="Dgk-fG-ZpC"/>
                         <outlet property="passesFloorButton" destination="d8X-hu-Lw4" id="SAf-TN-bdp"/>
@@ -1840,7 +1892,7 @@
             <objects>
                 <viewController id="Hgm-qx-ZsO" customClass="ftpTransferViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xqy-ww-xAg">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Uvi-nq-BWr">
@@ -1962,9 +2014,10 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
                                 <rect key="frame" x="0.0" y="22" width="768" height="44"/>
@@ -2082,27 +2135,27 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jis-Jb-Frj">
                                 <rect key="frame" x="375" y="50" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Email Teams" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="tWd-se-zw7"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="qLz-aX-sIT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2cN-Fv-ew1">
                                 <rect key="frame" x="375" y="165" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Email Matches" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="lf2-eH-xq6"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="CZi-pU-rLn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QAv-yQ-RKf">
                                 <rect key="frame" x="375" y="280" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Sync" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -2112,18 +2165,18 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="elh-Um-nzT">
                                 <rect key="frame" x="375" y="395" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Import" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1kf-Y9-Nr2">
                                 <rect key="frame" x="375" y="485" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Marcus" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Hgm-qx-ZsO" kind="push" id="SOb-Vg-XQ6"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="CXH-09-OGT"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="photo.JPG" id="dab-GT-vw3">
@@ -2142,13 +2195,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="5nE-eL-XOz"/>
                     <connections>
-                        <outlet property="exportMatchData" destination="2cN-Fv-ew1" id="Pnu-Fi-AbP"/>
-                        <outlet property="exportTeamData" destination="Jis-Jb-Frj" id="tph-r2-qgX"/>
-                        <outlet property="ftpButton" destination="1kf-Y9-Nr2" id="KQ4-VE-9iX"/>
-                        <outlet property="mainLogo" destination="qzp-fZ-Mdo" id="8lp-4m-1xd"/>
-                        <outlet property="pictureCaption" destination="wlf-zr-3iE" id="X42-46-oNJ"/>
-                        <outlet property="splashPicture" destination="dab-GT-vw3" id="CAB-Re-fnf"/>
-                        <outlet property="syncButton" destination="QAv-yQ-RKf" id="4gz-NQ-DT1"/>
+                        <outlet property="firstImportButton" destination="elh-Um-nzT" id="qms-L9-dwf"/>
+                        <outlet property="mainLogo" destination="qzp-fZ-Mdo" id="nFZ-uD-6Jx"/>
+                        <outlet property="matchDataButton" destination="2cN-Fv-ew1" id="Q0V-lI-Qit"/>
+                        <outlet property="pictureCaption" destination="wlf-zr-3iE" id="nty-ao-5jU"/>
+                        <outlet property="scoutingSheetButton" destination="1kf-Y9-Nr2" id="8qc-HF-AYL"/>
+                        <outlet property="splashPicture" destination="dab-GT-vw3" id="0kg-Qg-NnS"/>
+                        <outlet property="syncButton" destination="QAv-yQ-RKf" id="REp-yK-Ogd"/>
+                        <outlet property="teamDataButton" destination="Jis-Jb-Frj" id="VxD-hx-s9t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJ9-kC-7Hd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2774,22 +2828,13 @@
                                     <outlet property="delegate" destination="8Ip-0z-ATI" id="B30-Jf-RXy"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="QWd-D6-ofe" userLabel="Round Style Text Field - Normal 5">
-                                <rect key="frame" x="717" y="410" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Vcv-cp-JIP" userLabel="Round Style Text Field - Normal 2">
+                                <rect key="frame" x="717" y="290" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="q5G-f7-PEs"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="6mZ-2I-33E" userLabel="Round Style Text Field - Normal 4">
-                                <rect key="frame" x="717" y="370" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="ESe-Gi-dgm"/>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="3L2-Vd-yFo"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="nWg-5T-M6A" userLabel="Round Style Text Field - Normal 3">
@@ -2801,13 +2846,22 @@
                                     <outlet property="delegate" destination="8Ip-0z-ATI" id="k5O-4F-kjk"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Vcv-cp-JIP" userLabel="Round Style Text Field - Normal 2">
-                                <rect key="frame" x="717" y="290" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="6mZ-2I-33E" userLabel="Round Style Text Field - Normal 4">
+                                <rect key="frame" x="717" y="370" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="3L2-Vd-yFo"/>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="ESe-Gi-dgm"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="QWd-D6-ofe" userLabel="Round Style Text Field - Normal 5">
+                                <rect key="frame" x="717" y="410" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="q5G-f7-PEs"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Lju-g2-Nya" userLabel="Round Style Text Field - Normal 6">
@@ -2837,70 +2891,7 @@
                                     <outlet property="delegate" destination="8Ip-0z-ATI" id="yi1-sO-ebv"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="8uG-8W-t4E">
-                                <rect key="frame" x="868" y="530" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="5lB-Is-HED"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="uTV-cX-fsH">
-                                <rect key="frame" x="868" y="490" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="ywj-Vi-caC"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="p8X-Fn-y3q">
-                                <rect key="frame" x="868" y="450" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="987-J0-yqE"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="3F4-tB-1HL">
-                                <rect key="frame" x="868" y="410" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="W7g-2Z-aYI"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="F0b-cS-h4Z">
-                                <rect key="frame" x="868" y="370" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="pBe-x1-1HR"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="lSf-bG-zix">
-                                <rect key="frame" x="868" y="330" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="lZ1-tf-93l"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="aHk-p6-E4u">
-                                <rect key="frame" x="868" y="290" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="MbR-JO-zhJ"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Xnd-gL-nZx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Xnd-gL-nZx" userLabel="Round Style Text Field - Factor 1">
                                 <rect key="frame" x="868" y="250" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2909,7 +2900,70 @@
                                     <outlet property="delegate" destination="8Ip-0z-ATI" id="uDD-cW-9r3"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CKj-KT-RKf">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="aHk-p6-E4u" userLabel="Round Style Text Field - Factor 2">
+                                <rect key="frame" x="868" y="290" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="MbR-JO-zhJ"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="lSf-bG-zix" userLabel="Round Style Text Field - Factor 3">
+                                <rect key="frame" x="868" y="330" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="lZ1-tf-93l"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="F0b-cS-h4Z" userLabel="Round Style Text Field - Factor 4">
+                                <rect key="frame" x="868" y="370" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="pBe-x1-1HR"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="3F4-tB-1HL" userLabel="Round Style Text Field - Factor 5">
+                                <rect key="frame" x="868" y="410" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="W7g-2Z-aYI"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="p8X-Fn-y3q" userLabel="Round Style Text Field - Factor 6">
+                                <rect key="frame" x="868" y="450" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="987-J0-yqE"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="uTV-cX-fsH" userLabel="Round Style Text Field - Factor 7">
+                                <rect key="frame" x="868" y="490" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="ywj-Vi-caC"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="8uG-8W-t4E" userLabel="Round Style Text Field - Factor 8">
+                                <rect key="frame" x="868" y="530" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Ip-0z-ATI" id="5lB-Is-HED"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CKj-KT-RKf" userLabel="Button - Average 1">
                                 <rect key="frame" x="575" y="250" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2917,10 +2971,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="oMy-Up-Gnp"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="0uP-sq-U2n"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eIj-B0-iEB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eIj-B0-iEB" userLabel="Button - Average 2">
                                 <rect key="frame" x="575" y="290" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2928,10 +2982,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="OKZ-uY-FMc"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="d1S-Gf-CG4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mvo-3p-h3Z">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mvo-3p-h3Z" userLabel="Button - Average 3">
                                 <rect key="frame" x="575" y="330" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2939,10 +2993,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="4DL-TW-iOD"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="ya4-Ac-SqO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cL9-Xv-M0m">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cL9-Xv-M0m" userLabel="Button - Average 4">
                                 <rect key="frame" x="575" y="370" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2950,10 +3004,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="alm-nh-zpd"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="EIB-FY-vyy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TdM-ch-oyp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TdM-ch-oyp" userLabel="Button - Average 5">
                                 <rect key="frame" x="575" y="410" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2961,10 +3015,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="EaO-LX-kZz"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="Cdb-iJ-syN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VEV-13-IJZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VEV-13-IJZ" userLabel="Button - Average 6">
                                 <rect key="frame" x="575" y="450" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2972,10 +3026,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="Y2e-GQ-clk"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="ERG-1F-kmv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="myD-gC-5H1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="myD-gC-5H1" userLabel="Button - Average 7">
                                 <rect key="frame" x="575" y="490" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2983,10 +3037,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectHeight:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="wvl-PZ-fhQ"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="eOc-7u-bn1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HTj-8L-Cti">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HTj-8L-Cti" userLabel="Button - Average 8">
                                 <rect key="frame" x="575" y="530" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -2994,7 +3048,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectHeight:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="bho-eA-5XI"/>
+                                    <action selector="selectAverage:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="Crb-2g-JXC"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Magic # = S((Ave/Normal) * Factor)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mtk-ML-elq">
@@ -3031,36 +3085,57 @@
                                 <rect key="frame" x="415" y="290" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Two"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="qdp-tE-9AJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YCs-EB-7Kb">
                                 <rect key="frame" x="415" y="330" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Three"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="pwx-OS-gTy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wzb-Gd-aFC" userLabel="Button - Four">
                                 <rect key="frame" x="415" y="370" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Four"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="SqF-Gm-QeP"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FCU-AG-gHx">
                                 <rect key="frame" x="415" y="410" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Five"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="Nf4-24-HTe"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ux9-cw-Hpu">
                                 <rect key="frame" x="415" y="450" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Six"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="8pX-g0-aDg"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nOI-3l-paT">
                                 <rect key="frame" x="415" y="490" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Seven"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="B6u-k1-cvu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rVB-dS-4tz">
                                 <rect key="frame" x="415" y="530" width="144" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Eight"/>
+                                <connections>
+                                    <action selector="selectParameter:" destination="8Ip-0z-ATI" eventType="touchUpInside" id="mb6-8C-PbD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3069,34 +3144,41 @@
                     <navigationItem key="navigationItem" id="i0d-DL-EHh"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="autonFactor" destination="Xnd-gL-nZx" id="fM9-IX-ebL"/>
-                        <outlet property="autonNormal" destination="IP8-R2-Rwi" id="VEH-bG-rc8"/>
-                        <outlet property="average1Button" destination="CKj-KT-RKf" id="jse-gf-kLD"/>
+                        <outlet property="average1Button" destination="CKj-KT-RKf" id="xS3-3G-jGa"/>
+                        <outlet property="average2Button" destination="eIj-B0-iEB" id="fxT-PH-Gai"/>
+                        <outlet property="average3Button" destination="Mvo-3p-h3Z" id="rDn-lB-rhD"/>
+                        <outlet property="average4Button" destination="cL9-Xv-M0m" id="sQ6-f8-FpN"/>
+                        <outlet property="average5Button" destination="TdM-ch-oyp" id="Nqt-38-5BZ"/>
+                        <outlet property="average6Button" destination="VEV-13-IJZ" id="qH2-hf-DU7"/>
+                        <outlet property="average7Button" destination="myD-gC-5H1" id="BDr-cc-hQa"/>
+                        <outlet property="average8Button" destination="HTj-8L-Cti" id="OKh-0a-gaV"/>
                         <outlet property="calculateButton" destination="qrO-K0-cPT" id="zcS-I2-3xH"/>
-                        <outlet property="climbAverage" destination="Mvo-3p-h3Z" id="7kl-0A-coc"/>
-                        <outlet property="climbFactor" destination="lSf-bG-zix" id="6LM-Sa-ufV"/>
-                        <outlet property="climbNormal" destination="nWg-5T-M6A" id="1uJ-ex-5FM"/>
-                        <outlet property="defenseAverage" destination="VEV-13-IJZ" id="Yh1-L9-j46"/>
-                        <outlet property="defenseFactor" destination="p8X-Fn-y3q" id="ssr-md-rAU"/>
-                        <outlet property="defenseNormal" destination="Lju-g2-Nya" id="KNO-pY-G7u"/>
-                        <outlet property="driverAverage" destination="cL9-Xv-M0m" id="guA-3d-iVE"/>
-                        <outlet property="driverFactor" destination="F0b-cS-h4Z" id="jc1-ib-Run"/>
-                        <outlet property="driverNormal" destination="6mZ-2I-33E" id="YCE-0O-KwM"/>
-                        <outlet property="height1Average" destination="myD-gC-5H1" id="8fW-By-Jn2"/>
-                        <outlet property="height1Factor" destination="uTV-cX-fsH" id="i8b-OH-rFc"/>
-                        <outlet property="height1Normal" destination="7eK-8P-PSw" id="vxO-JH-vGc"/>
-                        <outlet property="height2Average" destination="HTj-8L-Cti" id="dkM-kA-8Nr"/>
-                        <outlet property="height2Factor" destination="8uG-8W-t4E" id="zuq-qr-aKD"/>
-                        <outlet property="height2Normal" destination="S3r-Li-xTi" id="Y4w-Sc-JZr"/>
+                        <outlet property="factor1Text" destination="Xnd-gL-nZx" id="qAp-oO-RWe"/>
+                        <outlet property="factor2Text" destination="aHk-p6-E4u" id="NAS-tH-weK"/>
+                        <outlet property="factor3Text" destination="lSf-bG-zix" id="qDs-fD-Fsz"/>
+                        <outlet property="factor4Text" destination="F0b-cS-h4Z" id="2V5-6X-ACO"/>
+                        <outlet property="factor5Text" destination="3F4-tB-1HL" id="Qfj-PS-cvE"/>
+                        <outlet property="factor6Text" destination="p8X-Fn-y3q" id="QUr-ke-vFi"/>
+                        <outlet property="factor7Text" destination="uTV-cX-fsH" id="3Xt-On-Q1S"/>
+                        <outlet property="factor8Text" destination="8uG-8W-t4E" id="Ufk-GC-Qfy"/>
                         <outlet property="labelText" destination="GqC-gP-oRz" id="ocH-QQ-kfd"/>
                         <outlet property="mainLogo" destination="a0O-wk-Qoe" id="jJt-QN-5Cn"/>
+                        <outlet property="normal1Text" destination="IP8-R2-Rwi" id="For-Iv-cm9"/>
+                        <outlet property="normal2Text" destination="Vcv-cp-JIP" id="Hwv-VB-iOY"/>
+                        <outlet property="normal3Text" destination="nWg-5T-M6A" id="ahJ-0L-gHP"/>
+                        <outlet property="normal4Text" destination="6mZ-2I-33E" id="lYt-dx-vNb"/>
+                        <outlet property="normal5Text" destination="QWd-D6-ofe" id="nzZ-69-G1j"/>
+                        <outlet property="normal6Text" destination="Lju-g2-Nya" id="QYZ-34-KJz"/>
+                        <outlet property="normal7Text" destination="7eK-8P-PSw" id="LQz-WL-9V1"/>
+                        <outlet property="normal8Text" destination="S3r-Li-xTi" id="UIs-o6-Wfj"/>
                         <outlet property="parameter1Button" destination="zGb-X5-Rft" id="fB2-Kq-DLx"/>
-                        <outlet property="speedAverage" destination="TdM-ch-oyp" id="udg-gv-Yth"/>
-                        <outlet property="speedFactor" destination="3F4-tB-1HL" id="WuE-GE-OIQ"/>
-                        <outlet property="speedNormal" destination="QWd-D6-ofe" id="8hl-nH-O4X"/>
-                        <outlet property="teleOpAverage" destination="eIj-B0-iEB" id="YUO-4X-UvO"/>
-                        <outlet property="teleOpFactor" destination="aHk-p6-E4u" id="cpJ-vw-ICF"/>
-                        <outlet property="teleOpNormal" destination="Vcv-cp-JIP" id="eFp-d9-zLB"/>
+                        <outlet property="parameter2Button" destination="x89-xG-emU" id="PhM-7g-6yT"/>
+                        <outlet property="parameter3Button" destination="YCs-EB-7Kb" id="3V9-2e-kmg"/>
+                        <outlet property="parameter4Button" destination="Wzb-Gd-aFC" id="9JD-lS-Wrp"/>
+                        <outlet property="parameter5Button" destination="FCU-AG-gHx" id="LFh-uC-6kR"/>
+                        <outlet property="parameter6Button" destination="Ux9-cw-Hpu" id="JUJ-GC-Xdn"/>
+                        <outlet property="parameter7Button" destination="nOI-3l-paT" id="eAe-qe-iMG"/>
+                        <outlet property="parameter8Button" destination="rVB-dS-4tz" id="NrD-SX-u9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYq-g6-3hi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3587,6 +3669,13 @@
                                 <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Class" lineBreakMode="tailTruncation" minimumFontSize="10" id="d1x-3Y-1cF">
+                                <rect key="frame" x="685" y="49" width="118" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="22"/>
+                                <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Number of Wheels" lineBreakMode="tailTruncation" minimumFontSize="10" id="OcJ-dg-Ecg">
                                 <rect key="frame" x="685" y="127" width="183" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3981,6 +4070,108 @@
                                     <action selector="detailChanged:" destination="kha-eL-sUY" eventType="touchUpInside" id="KSR-lO-NCc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="koT-ea-TtJ">
+                                <rect key="frame" x="870" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="ezX-Lz-7Ph"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pPd-77-f6U">
+                                <rect key="frame" x="895" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="2b6-Uh-9zV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="791-h1-oo6">
+                                <rect key="frame" x="920" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="G07-Qy-fg0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Z1Q-CU-MxR">
+                                <rect key="frame" x="945" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="K1g-P6-Pu3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NQD-KZ-TMu">
+                                <rect key="frame" x="970" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="Vya-7q-SBa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sc8-HF-lT6">
+                                <rect key="frame" x="995" y="55" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="4cA-6u-wVg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZrF-sE-pN2">
+                                <rect key="frame" x="872" y="35" width="16" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tXE-4P-Pg2">
+                                <rect key="frame" x="899" y="35" width="12" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rAX-Px-qei">
+                                <rect key="frame" x="924" y="35" width="13" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pI6-Ch-QnG">
+                                <rect key="frame" x="949" y="35" width="13" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bYp-0F-rIu">
+                                <rect key="frame" x="975" y="35" width="11" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKM-QJ-K2Y">
+                                <rect key="frame" x="999" y="35" width="12" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -3994,6 +4185,12 @@
                         <outlet property="cameraBtn" destination="YPO-D8-BGh" id="DPu-3S-2vc"/>
                         <outlet property="catcherButton" destination="XKq-dO-hyZ" id="Vm2-W3-Jrd"/>
                         <outlet property="cims" destination="dq0-BF-pWc" id="zHW-1d-Alf"/>
+                        <outlet property="classAButton" destination="koT-ea-TtJ" id="VOT-yZ-rtQ"/>
+                        <outlet property="classBButton" destination="pPd-77-f6U" id="Ofx-Oe-rNh"/>
+                        <outlet property="classCButton" destination="791-h1-oo6" id="Mn8-Qs-Pb2"/>
+                        <outlet property="classDButton" destination="Z1Q-CU-MxR" id="N1o-N3-dWh"/>
+                        <outlet property="classEButton" destination="NQD-KZ-TMu" id="W2J-km-Bs8"/>
+                        <outlet property="classFButton" destination="sc8-HF-lT6" id="ORO-FO-fPO"/>
                         <outlet property="driveType" destination="l1o-0h-XZn" id="E2h-mt-cV9"/>
                         <outlet property="goalieButton" destination="URT-GG-FGi" id="cxN-K1-v1r"/>
                         <outlet property="hotTrackerButton" destination="O7D-A6-5xf" id="1uc-uk-IYT"/>
@@ -4017,7 +4214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sP9-d1-5vX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="617" y="-1712"/>
+            <point key="canvasLocation" x="521" y="-1712"/>
         </scene>
         <!--Tablet Sync View Controller-->
         <scene sceneID="nQF-EJ-XUJ">
@@ -4194,13 +4391,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ov7-uN-24R">
-                                <rect key="frame" x="748" y="168" width="61" height="44"/>
+                                <rect key="frame" x="748" y="168" width="61" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="createDataPackage:" destination="foR-gV-UYn" eventType="touchUpInside" id="U2o-74-bgG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rFl-z5-cR9">
+                                <rect key="frame" x="835" y="166" width="138" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Reset Bluetooth">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetBluetooth:" destination="foR-gV-UYn" eventType="touchUpInside" id="86n-Ce-Zrx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -4215,6 +4422,7 @@
                         <outlet property="peerLabel" destination="hQj-Cq-DZr" id="k9j-m6-dPY"/>
                         <outlet property="peerName" destination="D6A-SZ-HGE" id="KbL-YB-IhG"/>
                         <outlet property="receiveDataTable" destination="seS-2h-gus" id="TAM-4q-hCe"/>
+                        <outlet property="resetBluetoothButton" destination="rFl-z5-cR9" id="ZgK-z3-mto"/>
                         <outlet property="sendButton" destination="ov7-uN-24R" id="N15-40-1w7"/>
                         <outlet property="sendDataTable" destination="LkK-3d-kSN" id="FTd-nD-Mko"/>
                         <outlet property="syncOptionButton" destination="FU6-7v-h1v" id="o7y-Bo-pEu"/>
@@ -4230,7 +4438,7 @@
             <objects>
                 <viewController id="85j-Gf-6rf" customClass="ImportDataViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hbI-XU-Lc7">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RKT-VW-RTk">
@@ -4268,7 +4476,7 @@
             <objects>
                 <viewController id="iHf-Ay-CP9" customClass="ImportUSFirstViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="78l-kc-xua">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -4283,7 +4491,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -4391,6 +4599,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Match" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -4424,7 +4633,7 @@
             <objects>
                 <viewController id="rCL-DE-Sx9" customClass="MatchDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1jO-E5-jgJ">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Aq2-BS-C03" userLabel="Text Field - Red 1">
@@ -4544,6 +4753,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="I32-xv-f5E"/>
                     <connections>
@@ -4582,6 +4792,7 @@
     </scenes>
     <resources>
         <image name="2014_field.png" width="981" height="520"/>
+        <image name="RadioButton-Unselected.png" width="20" height="21"/>
         <image name="button_robonaut_gold.png" width="518" height="194"/>
         <image name="ios-7-camera-icon.png" width="256" height="256"/>
         <image name="photo.JPG" width="640" height="478"/>
@@ -4593,10 +4804,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="73l-5i-erv"/>
+        <segue reference="6V1-MF-63T"/>
+        <segue reference="0QU-hg-CV0"/>
         <segue reference="M4x-HG-6MQ"/>
         <segue reference="gMh-cN-6SD"/>
-        <segue reference="npl-Y5-KtP"/>
     </inferredMetricsTieBreakers>
 </document>

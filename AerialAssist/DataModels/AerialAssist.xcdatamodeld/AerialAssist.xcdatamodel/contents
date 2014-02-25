@@ -52,11 +52,13 @@
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton Capacity"/>
                 <entry key="output" value="Auton Balls"/>
             </userInfo>
         </attribute>
         <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton Mobility"/>
                 <entry key="output" value="Mobility Bonus"/>
             </userInfo>
         </attribute>
@@ -67,6 +69,7 @@
         </attribute>
         <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Catcher"/>
                 <entry key="output" value="Catch System"/>
             </userInfo>
         </attribute>
@@ -75,6 +78,12 @@
                 <entry key="output" value="CIMS"/>
             </userInfo>
         </attribute>
+        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
         <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="drive train type, drive train, drive, drivetrain type, drive traintype"/>
@@ -93,6 +102,7 @@
         </attribute>
         <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Tracks Hot"/>
                 <entry key="output" value="Track Hot Goals"/>
             </userInfo>
         </attribute>
@@ -190,34 +200,57 @@
                 <entry key="output" value="Air Catch"/>
             </userInfo>
         </attribute>
+        <attribute name="airCatchHuman" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="airPasses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="Air Passes"/>
             </userInfo>
         </attribute>
+        <attribute name="airPassMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="alliance" optional="YES" attributeType="String" maxValueString="7" syncable="YES"/>
         <attribute name="allianceSection" optional="YES" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
         <attribute name="autonBlocks" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton Blocks"/>
+                <entry key="marcus" value="Block"/>
+                <entry key="order" value="8"/>
                 <entry key="output" value="Auton Blocks"/>
             </userInfo>
         </attribute>
         <attribute name="autonHighCold" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton High Cold"/>
+                <entry key="marcus" value="HighCold"/>
+                <entry key="order" value="2"/>
                 <entry key="output" value="Auton High Cold"/>
             </userInfo>
         </attribute>
         <attribute name="autonHighHot" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton High Hot"/>
+                <entry key="marcus" value="HighHot"/>
+                <entry key="order" value="1"/>
                 <entry key="output" value="Auto High Hot"/>
             </userInfo>
         </attribute>
-        <attribute name="autonLowCold" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonHighMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonLowCold" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="lucien" value="Auton Low Cold"/>
+                <entry key="marcus" value="LowCold"/>
+                <entry key="order" value="5"/>
+                <entry key="output" value="Auton Low Cold"/>
+            </userInfo>
+        </attribute>
         <attribute name="autonLowHot" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton Low Hot"/>
+                <entry key="marcus" value="LowHot"/>
+                <entry key="order" value="4"/>
                 <entry key="output" value="Auton Low Hot"/>
             </userInfo>
         </attribute>
+        <attribute name="autonLowMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonMissed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="Auton Missed"/>
@@ -225,53 +258,75 @@
         </attribute>
         <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
             <userInfo>
-                <entry key="output" value="Auton Mobility"/>
+                <entry key="lucien" value="Auton Mobile Score"/>
+                <entry key="marcus" value="Mobility"/>
+                <entry key="order" value="7"/>
+                <entry key="output" value="Auton Mobility Score"/>
             </userInfo>
         </attribute>
         <attribute name="autonShotsMade" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Auton Shots Made"/>
                 <entry key="output" value="Auton Shots Made"/>
             </userInfo>
         </attribute>
+        <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="defenseBlockRating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Defense Block"/>
                 <entry key="output" value="Defense Block"/>
             </userInfo>
         </attribute>
         <attribute name="defenseBullyRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Defense Bully"/>
                 <entry key="output" value="Defense Bully"/>
             </userInfo>
         </attribute>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Driver Rating"/>
                 <entry key="output" value="Driver Rating"/>
             </userInfo>
         </attribute>
+        <attribute name="floorCatch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="floorPasses" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="marcus" value="FloorPass"/>
+                <entry key="order" value="value"/>
                 <entry key="output" value="Floor Passes"/>
             </userInfo>
         </attribute>
+        <attribute name="floorPassMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="floorPickUp" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Floor Pick Up"/>
                 <entry key="output" value="Floor Pick Up"/>
             </userInfo>
         </attribute>
         <attribute name="humanPickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Human Pick Up"/>
                 <entry key="output" value="Human Pick Up"/>
             </userInfo>
         </attribute>
+        <attribute name="humanPickUp1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanPickUp2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanPickUp3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanPickUp4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="noShow" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" minValueString="0" maxValueString="500" syncable="YES">
             <userInfo>
                 <entry key="output" value="Notes"/>
             </userInfo>
         </attribute>
         <attribute name="otherRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
+        <attribute name="passesCaught" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="results" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="robotSpeed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Speed"/>
                 <entry key="output" value="Robot Speed"/>
             </userInfo>
         </attribute>
@@ -288,36 +343,51 @@
         <attribute name="sc9" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teleOpBlocks" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp Blocks"/>
                 <entry key="output" value="TeleOp Blocks"/>
             </userInfo>
         </attribute>
         <attribute name="teleOpHigh" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp High"/>
                 <entry key="output" value="TeleOp High"/>
             </userInfo>
         </attribute>
+        <attribute name="teleOpHighMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="teleOpLow" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp Low"/>
                 <entry key="output" value="TeleOp Low"/>
             </userInfo>
         </attribute>
+        <attribute name="teleOpLowMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="teleOpMissed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp Miss"/>
                 <entry key="output" value="TeleOp Miss"/>
             </userInfo>
         </attribute>
-        <attribute name="teleOpShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+        <attribute name="teleOpShotsMade" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp Shots"/>
                 <entry key="output" value="TeleOp Shots Made"/>
             </userInfo>
         </attribute>
         <attribute name="totalAutonShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
-                <entry key="output" value="Total Auton Shots"/>
+                <entry key="lucien" value="Total Auton Shots"/>
+                <entry key="output" value="Auton Shots"/>
+            </userInfo>
+        </attribute>
+        <attribute name="totalPasses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="lucien" value="Total Passes"/>
+                <entry key="output" value="Total Passes"/>
             </userInfo>
         </attribute>
         <attribute name="totalTeleOpShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="TeleOp Shot"/>
                 <entry key="output" value="Total TeleOp Shot"/>
             </userInfo>
         </attribute>
@@ -328,19 +398,18 @@
         </attribute>
         <attribute name="trussCatch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Truss Catches"/>
                 <entry key="output" value="Truss Catch"/>
             </userInfo>
         </attribute>
+        <attribute name="trussCatchMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="trussThrow" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
+                <entry key="lucien" value="Truss Throws"/>
                 <entry key="output" value="Truss Throw"/>
             </userInfo>
         </attribute>
-        <attribute name="wallPickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="wallPickUp1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="wallPickUp2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="wallPickUp3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="wallPickUp4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="trussThrowMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="match" inverseEntity="TeamData" syncable="YES"/>

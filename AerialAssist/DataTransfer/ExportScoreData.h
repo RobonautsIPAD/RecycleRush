@@ -14,6 +14,6 @@
 
 -(id)initWithDataManager:(DataManager *)initManager;
 -(NSString *)teamScoreCSVExport;
-
+-(NSString *)spreadsheetCSVExport;
 
 @end

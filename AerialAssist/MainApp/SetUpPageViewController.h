@@ -11,12 +11,5 @@
 
 @interface SetUpPageViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
-@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
-@property (nonatomic, weak) IBOutlet UIButton *matchSetUpButton;
-@property (nonatomic, weak) IBOutlet UIButton *settingsButton;
-@property (nonatomic, weak) IBOutlet UIButton *importDataButton;
-@property (nonatomic, weak) IBOutlet UIButton *exportDataButton;
-@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 
 @end

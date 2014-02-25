@@ -76,7 +76,6 @@ typedef enum {
 // Match Scores
 @property (nonatomic, weak) IBOutlet UILabel *teamName;
 @property (nonatomic, weak) IBOutlet UISlider *driverRating;
-@property (nonatomic, weak) IBOutlet UISlider *defenseRating;
 @property (nonatomic, weak) IBOutlet UISlider *robotSpeed;
 @property (nonatomic, strong) UISegmentedControl *climbLevel;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
@@ -128,7 +127,7 @@ typedef enum {
 -(void)autonLowHot:(NSString *)choice;
 -(void)autonLowCold:(NSString *)choice;
 -(void)passesMade;
--(IBAction)wallPickUpsMade:(id) sender;
+-(IBAction)humanPickUpsMade:(id) sender;
 -(void)promptForValue:(UIButton *)button;
 -(IBAction)toggleGrid:(id)sender;
 

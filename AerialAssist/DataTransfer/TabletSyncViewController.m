@@ -20,7 +20,7 @@
 #import "SyncTypeDictionary.h"
 
 @interface TabletSyncViewController ()
-
+@property (nonatomic, weak) IBOutlet UIButton *resetBluetoothButton;
 @end
 
 @implementation TabletSyncViewController {
@@ -545,6 +545,10 @@ GKPeerPickerController *picker;
 
 -(void)bluetoothNotice:(NSNotification *)notification {
     NSLog(@"%@ %@", notification.name, [notification userInfo]);
+}
+
+- (IBAction)resetBluetooth:(id)sender {
+    [self shutdownBluetooth];
 }
 
 - (void)shutdownBluetooth {

@@ -339,15 +339,15 @@
                 case 33:
 //                    score.fieldDrawing = [data objectAtIndex: 32];
                 case 32:
-                    score.wallPickUp4 = [NSNumber numberWithInt:[[data objectAtIndex: 31] intValue]];
+                    score.humanPickUp4 = [NSNumber numberWithInt:[[data objectAtIndex: 31] intValue]];
                 case 31:
-                    score.wallPickUp3 = [NSNumber numberWithInt:[[data objectAtIndex: 30] intValue]];
+                    score.humanPickUp3 = [NSNumber numberWithInt:[[data objectAtIndex: 30] intValue]];
                 case 30:
-                    score.wallPickUp2 = [NSNumber numberWithInt:[[data objectAtIndex: 29] intValue]];
+                    score.humanPickUp2 = [NSNumber numberWithInt:[[data objectAtIndex: 29] intValue]];
                 case 29:
-                    score.wallPickUp1 = [NSNumber numberWithInt:[[data objectAtIndex: 28] intValue]];
+                    score.humanPickUp1 = [NSNumber numberWithInt:[[data objectAtIndex: 28] intValue]];
                 case 28:
-                    score.wallPickUp = [NSNumber numberWithInt:[[data objectAtIndex: 27] intValue]];
+                    score.humanPickUp = [NSNumber numberWithInt:[[data objectAtIndex: 27] intValue]];
                 case 27:
                     score.floorPickUp = [NSNumber numberWithInt:[[data objectAtIndex: 26] intValue]];
                 case 26:
@@ -365,7 +365,7 @@
                 case 20:
                     score.totalTeleOpShots = [NSNumber numberWithInt:[[data objectAtIndex: 19] intValue]];
                 case 19:
-                    score.teleOpShots = [NSNumber numberWithInt:[[data objectAtIndex: 18] intValue]];
+                    score.teleOpShotsMade = [NSNumber numberWithInt:[[data objectAtIndex: 18] intValue]];
                 case 18:
                     score.teleOpMissed = [NSNumber numberWithInt:[[data objectAtIndex: 17] intValue]];
                 case 17:

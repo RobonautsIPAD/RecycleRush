@@ -17,7 +17,9 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSDictionary *properties;
+    NSDictionary *attributes;
     MatchTypeDictionary *matchDictionary;
+    NSArray *scoutinSpreadsheetList;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -114,6 +116,26 @@
         else return @"";
     }
     else return [NSString stringWithFormat:@"%@", data];
+}
+
+-(NSString *)spreadsheetCSVExport {
+    if (!_dataManager) {
+        _dataManager = [[DataManager alloc] init];
+    }
+    if (!scoutinSpreadsheetList) {
+        // Load dictionary with list of parameters for the scouting spreadsheet
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
+        scoutinSpreadsheetList = [[NSArray alloc] initWithContentsOfFile:plistPath];
+    }
+    NSLog(@"%@", scoutinSpreadsheetList);
+    return nil;
+}
+
+/**
+ Returns the path to the application's Library directory.
+ */
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 

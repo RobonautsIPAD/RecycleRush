@@ -36,7 +36,6 @@
 -(TeamData *)unpackageTeamForXFer:(NSData *)xferData;
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
 -(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList;
--(void)photoLookUp;
 
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;

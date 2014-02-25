@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>autonMobility</string>
+		<key>name</key>
+		<string>Auton Motion</string>
+		<key>table</key>
+		<string>TeamData</string>
+		<key>operators</key>
+		<string>False,True</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>catcher</string>
+		<key>name</key>
+		<string>Catch System</string>
+		<key>table</key>
+		<string>TeamData</string>
+		<key>operators</key>
+		<string>False,True</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonCapacity</string>
+		<key>name</key>
+		<string>Auton Capacity</string>
+		<key>table</key>
+		<string>TeamData</string>
+		<key>operators</key>
+		<string>False,True</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>hotTracker</string>
+		<key>name</key>
+		<string>Tracks Hot</string>
+		<key>table</key>
+		<string>TeamData</string>
+		<key>operators</key>
+		<string>False,True</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>airCatch</string>
+		<key>name</key>
+		<string>Air Catches</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>passesCaught</string>
+		<key>name</key>
+		<string>Passes Caught</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonBlocks</string>
+		<key>name</key>
+		<string>Auton Blocks</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonHighCold</string>
+		<key>name</key>
+		<string>High Cold</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonHighHot</string>
+		<key>name</key>
+		<string>High Hot</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonLowCold</string>
+		<key>name</key>
+		<string>Low Cold</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonLowHot</string>
+		<key>name</key>
+		<string>Low Hot</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonMiss</string>
+		<key>name</key>
+		<string>Auton Misses</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonShotsMade</string>
+		<key>name</key>
+		<string>Auton Shots</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonMobility</string>
+		<key>name</key>
+		<string>Auton Motion Score</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>defenseBlockRating</string>
+		<key>name</key>
+		<string>Blocker Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>defenseBullyRating</string>
+		<key>name</key>
+		<string>Bully Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driverRating</string>
+		<key>name</key>
+		<string>Driver Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>floorPickup</string>
+		<key>name</key>
+		<string>Floor Pick Ups</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>humanPickUp</string>
+		<key>name</key>
+		<string>Human Intake</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>robotSpeed</string>
+		<key>name</key>
+		<string>Speed Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>teleOpBlocks</string>
+		<key>name</key>
+		<string>TeleOp Blocks</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>teleOpHigh</string>
+		<key>name</key>
+		<string>TeleOp High</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>teleOpLow</string>
+		<key>name</key>
+		<string>TeleOp Low</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>teleOpMissed</string>
+		<key>name</key>
+		<string>TeleOp Missed</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>teleOpShotsMade</string>
+		<key>name</key>
+		<string>TeleOp Shots</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totalPasses</string>
+		<key>name</key>
+		<string>Passes</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>trussThrow</string>
+		<key>name</key>
+		<string>Truss Throws</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>trussCatch</string>
+		<key>name</key>
+		<string>Truss Catches</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+</array>
+</plist>

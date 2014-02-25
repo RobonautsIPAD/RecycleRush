@@ -324,8 +324,6 @@
             // Only do something with the prime photo date if there is not photo already
             if (!teamRecord.primePhoto && !teamRecord.primePhotoDate) {
                 [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
-                [self photoLookUp];
-                NSLog(@"Enumerate to get the photo");
             }
             continue;
         }
@@ -370,8 +368,6 @@
             photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
             photoRecord.photoDate = [senderList objectAtIndex:i];
             [destinationTeam addPhotoListObject:photoRecord];
-            NSLog(@"Add enumeration for transferred photo");
-            [self photoLookUp];
         }
     }
     else {
@@ -380,30 +376,9 @@
             Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
             photoRecord.photoDate = [senderList objectAtIndex:i];
             [destinationTeam addPhotoListObject:photoRecord];
-            NSLog(@"Add enumeration for transferred photo");
-            [self photoLookUp];
+
         }
     }
-}
-
--(void)photoLookUp {
-    NSLog(@"Start photo look up");
-
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      sleep(5);
-/* UIImage * imageToSave = nil;
- UIImage * editedImage = (UIImage *)[info objectForKey:UIImagePickerControllerEditedImage];
- if (editedImage) imageToSave = editedImage;
- else imageToSave = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
- 
- UIImage * finalImageToSave = imageToSave;
- 
- ALAssetsLibrary * assetsLibrary = [[ALAssetsLibrary alloc] init];
- [assetsLibrary writeImageToSavedPhotosAlbum:finalImageToSave.CGImage
- orientation:(ALAssetOrientation)finalImageToSave.imageOrientation
- completionBlock:nil];*/
- });
-    NSLog(@"End photo look up");
 }
 
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {

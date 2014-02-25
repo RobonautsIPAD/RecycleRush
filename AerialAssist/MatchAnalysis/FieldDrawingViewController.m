@@ -154,17 +154,17 @@
     _autonBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.autonBlocks intValue]];
     
     
-    _teleOpScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpShots intValue]];
+    _teleOpScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpShotsMade intValue]];
     _teleOpScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalTeleOpShots intValue]];
     _teleOpHigh.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpHigh intValue]];
     _teleOpLow.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpLow intValue]];
     _teleOpMissed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMissed intValue]];
     _teleOpBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpBlocks intValue]];
     
-    _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp1 intValue]];
-    _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp2 intValue]];
-    _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp3 intValue]];
-    _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.wallPickUp4 intValue]];
+    _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp1 intValue]];
+    _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp2 intValue]];
+    _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp3 intValue]];
+    _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp4 intValue]];
     
     _pickUpFLoor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
     _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];

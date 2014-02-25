@@ -9,15 +9,17 @@
 #import "SetUpPageViewController.h"
 #import "DataManager.h"
 
+@interface SetUpPageViewController ()
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+@property (nonatomic, weak) IBOutlet UIButton *settingsButton;
+@property (nonatomic, weak) IBOutlet UIButton *matchListButton;
+@property (nonatomic, weak) IBOutlet UIButton *dataTransferButton;
+@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+@end
+
 @implementation SetUpPageViewController
 @synthesize dataManager = _dataManager;
-@synthesize mainLogo = _mainLogo;
-@synthesize settingsButton = _settingsButton;
-@synthesize matchSetUpButton = _matchSetUpButton;
-@synthesize importDataButton = _importDataButton;
-@synthesize exportDataButton = _exportDataButton;
-@synthesize splashPicture = _splashPicture;
-@synthesize pictureCaption = _pictureCaption;
 
 - (id)initWithManagedObject:(NSManagedObjectContext *)managedObjectContext {
 	if ((self = [super init]))
@@ -73,16 +75,12 @@
     _settingsButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
 
     // Set Font and Text for Match Set-Up Button
-    [_matchSetUpButton setTitle:@"Match List" forState:UIControlStateNormal];
-    _matchSetUpButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+    [_matchListButton setTitle:@"Match List" forState:UIControlStateNormal];
+    _matchListButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
 
-    // Set Font and Text for Import Data Button
-    [_importDataButton setTitle:@"Import Data" forState:UIControlStateNormal];
-    _importDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-
-    // Set Font and Text for Export Data Button
-    [_exportDataButton setTitle:@"Export Data" forState:UIControlStateNormal];
-    _exportDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+   // Set Font and Text for Export Data Button
+    [_dataTransferButton setTitle:@"Data Transfer" forState:UIControlStateNormal];
+    _dataTransferButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     self.title = @"Set-Up Page";
    [super viewDidLoad];
 }
@@ -131,9 +129,8 @@
             _mainLogo.frame = CGRectMake(0, -50, 1024, 255);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
             _settingsButton.frame = CGRectMake(550, 225, 400, 68);
-            _matchSetUpButton.frame = CGRectMake(550, 325, 400, 68);
-            _importDataButton.frame = CGRectMake(550, 425, 400, 68);
-            _exportDataButton.frame = CGRectMake(550, 525, 400, 68);
+            _matchListButton.frame = CGRectMake(550, 325, 400, 68);
+            _dataTransferButton.frame = CGRectMake(550, 425, 400, 68);
             _splashPicture.frame = CGRectMake(50, 243, 468, 330);
             _pictureCaption.frame = CGRectMake(50, 581, 468, 39);
             break;
@@ -142,9 +139,8 @@
             _mainLogo.frame = CGRectMake(-20, 0, 285, 960);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
             _settingsButton.frame = CGRectMake(325, 125, 400, 68);
-            _matchSetUpButton.frame = CGRectMake(325, 225, 400, 68);
-            _importDataButton.frame = CGRectMake(325, 325, 400, 68);
-            _exportDataButton.frame = CGRectMake(325, 425, 400, 68);
+            _matchListButton.frame = CGRectMake(325, 225, 400, 68);
+            _dataTransferButton.frame = CGRectMake(325, 325, 400, 68);
             _splashPicture.frame = CGRectMake(293, 563, 468, 330);
             _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
             break;

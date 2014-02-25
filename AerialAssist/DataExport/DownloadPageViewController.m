@@ -17,6 +17,17 @@
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
 
+@interface DownloadPageViewController ()
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+@property (nonatomic, weak) IBOutlet UIButton *teamDataButton;
+@property (nonatomic, weak) IBOutlet UIButton *matchDataButton;
+@property (nonatomic, weak) IBOutlet UIButton *syncButton;
+@property (nonatomic, weak) IBOutlet UIButton *firstImportButton;
+@property (nonatomic, weak) IBOutlet UIButton *scoutingSheetButton;
+@end
+
 @implementation DownloadPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
@@ -26,13 +37,6 @@
     NSMutableArray *syncList;
 }
 @synthesize dataManager = _dataManager;
-@synthesize exportTeamData = _exportTeamData;
-@synthesize exportMatchData = _exportMatchData;
-@synthesize mainLogo = _mainLogo;
-@synthesize splashPicture = _splashPicture;
-@synthesize pictureCaption = _pictureCaption;
-@synthesize syncButton = _syncButton;
-@synthesize ftpButton = _ftpButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,26 +80,26 @@
     appName = [prefs objectForKey:@"appName"];
     gameName = [prefs objectForKey:@"gameName"];
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Download Page", tournamentName];
+        self.title =  [NSString stringWithFormat:@"%@ Data Transfer", tournamentName];
     }
     else {
-        self.title = @"Download Page";
+        self.title = @"Data Transfer";
     }
 
     // Display the Robotnauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Set Font and Text for Export Buttons
-    [_exportTeamData setTitle:@"Export Team Data" forState:UIControlStateNormal];
-    _exportTeamData.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    [_exportMatchData setTitle:@"Export Match Data" forState:UIControlStateNormal];
-    _exportMatchData.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [_teamDataButton setTitle:@"Email Team Data" forState:UIControlStateNormal];
+    _teamDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [_matchDataButton setTitle:@"Email Match Data" forState:UIControlStateNormal];
+    _matchDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     exportPath = [self applicationDocumentsDirectory];
     [_syncButton setTitle:@"Sync Data" forState:UIControlStateNormal];
     _syncButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    [_iPadExportButton setTitle:@"Export to iDevice" forState:UIControlStateNormal];
-    _iPadExportButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    [_ftpButton setTitle:@"FTP" forState:UIControlStateNormal];
-    _ftpButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [_firstImportButton setTitle:@"Import - US FIRST" forState:UIControlStateNormal];
+    _firstImportButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [_scoutingSheetButton setTitle:@"Spreadsheet Data" forState:UIControlStateNormal];
+    _scoutingSheetButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
@@ -104,11 +108,14 @@
 
 - (IBAction)exportTapped:(id)sender {
     
-    if (sender == _exportTeamData) {
+    if (sender == _teamDataButton) {
         [self emailTeamData];
     }
-    else {
+    else if (sender == _matchDataButton) {
         [self emailMatchData];
+    }
+    else if (sender == _scoutingSheetButton) {
+        [self createScoutingSpreadsheet];
     }
 }
 
@@ -159,6 +166,27 @@
     [self buildEmail:fileList attach:attachList subject:emailSubject];
 }
 
+-(void)createScoutingSpreadsheet {
+    NSString *csvString;
+    NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
+    
+    // Export Scores
+    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    csvString = [scoutingSpreadsheet spreadsheetCSVExport];
+/*    if (csvString) {
+        [csvString writeToFile:fileDataPath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
+    NSString *emailSubject = @"Match Data CSV Files";
+    NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
+    
+    [self buildEmail:fileList attach:attachList subject:emailSubject];*/
+}
+
+
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
@@ -208,11 +236,11 @@
         case UIInterfaceOrientationPortraitUpsideDown:
             _mainLogo.frame = CGRectMake(-20, 0, 285, 960);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            _exportTeamData.frame = CGRectMake(325, 125, 400, 68);
-            _exportMatchData.frame = CGRectMake(325, 225, 400, 68);
+            _teamDataButton.frame = CGRectMake(325, 125, 400, 68);
+            _matchDataButton.frame = CGRectMake(325, 225, 400, 68);
             _syncButton.frame = CGRectMake(325, 325, 400, 68);
-            _iPadExportButton.frame = CGRectMake(325, 425, 400, 68);
-            _ftpButton.frame = CGRectMake(325, 525, 400, 68);
+            _firstImportButton.frame = CGRectMake(325, 425, 400, 68);
+            _scoutingSheetButton.frame = CGRectMake(325, 525, 400, 68);
             _splashPicture.frame = CGRectMake(293, 563, 468, 330);
             _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
             break;
@@ -220,11 +248,11 @@
         case UIInterfaceOrientationLandscapeRight:
             _mainLogo.frame = CGRectMake(0, -60, 1024, 255);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            _exportTeamData.frame = CGRectMake(550, 225, 400, 68);
-            _exportMatchData.frame = CGRectMake(550, 325, 400, 68);
+            _teamDataButton.frame = CGRectMake(550, 225, 400, 68);
+            _matchDataButton.frame = CGRectMake(550, 325, 400, 68);
             _syncButton.frame = CGRectMake(550, 425, 400, 68);
-            _iPadExportButton.frame = CGRectMake(550, 525, 400, 68);
-            _ftpButton.frame = CGRectMake(550, 625, 400, 68);
+            _firstImportButton.frame = CGRectMake(550, 525, 400, 68);
+            _scoutingSheetButton.frame = CGRectMake(550, 625, 400, 68);
             _splashPicture.frame = CGRectMake(50, 243, 468, 330);
             _pictureCaption.frame = CGRectMake(50, 581, 468, 39);
             break;

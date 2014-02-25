@@ -36,6 +36,12 @@
     @property (nonatomic, weak) IBOutlet UIButton *robotClassButton;
     @property (nonatomic, weak) IBOutlet UIButton *shooterButton;
     @property (nonatomic, weak) IBOutlet UITextField *ballReleaseHeightText;
+    @property (nonatomic, weak) IBOutlet UIButton *classAButton;
+    @property (nonatomic, weak) IBOutlet UIButton *classBButton;
+    @property (nonatomic, weak) IBOutlet UIButton *classCButton;
+    @property (nonatomic, weak) IBOutlet UIButton *classDButton;
+    @property (nonatomic, weak) IBOutlet UIButton *classEButton;
+    @property (nonatomic, weak) IBOutlet UIButton *classFButton;
 @end
 
 
@@ -366,8 +372,6 @@
     
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
     
-    
-    
     [_driveType setTitle:[driveDictionary getString:_team.driveTrainType] forState:UIControlStateNormal];
     [_intakeType setTitle:[intakeDictionary getString:_team.intake] forState:UIControlStateNormal];
     [_shooterButton setTitle:[shooterDictionary getString:_team.shooterType] forState:UIControlStateNormal];
@@ -377,6 +381,13 @@
     [_autonMobilityButton setTitle:[trooleanDictionary getString:_team.autonMobility] forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:[trooleanDictionary getString:_team.hotTracker] forState:UIControlStateNormal];
 
+    [self setRadioButtonState:_classAButton forState:[_team.classA intValue]];
+    [self setRadioButtonState:_classBButton forState:[_team.classB intValue]];
+    [self setRadioButtonState:_classCButton forState:[_team.classC intValue]];
+    [self setRadioButtonState:_classDButton forState:[_team.classD intValue]];
+    [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
+    [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
+
     NSArray *list = [_team.photoList allObjects];
     for (int i=0; i<[list count]; i++) {
         Photo *photo = [list objectAtIndex:i];
@@ -385,6 +396,15 @@
     [self getPhoto];
     [self getPhotoThumbnails];
     dataChange = NO;
+}
+
+-(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
+    if (selection == -1 || selection == 0) {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -414,6 +434,64 @@
     _teamIndex = [NSIndexPath indexPathForRow:row inSection:0];
     _team = [_fetchedResultsController objectAtIndexPath:_teamIndex];
     [self showTeam];
+}
+
+- (IBAction)radioButtonTapped:(id)sender {
+    if (sender == _classAButton) {
+        if ([_team.classA intValue] == -1 || [_team.classA intValue] == 0) {
+            _team.classA = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classA = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classAButton forState:[_team.classA intValue]];
+    }
+    if (sender == _classBButton) {
+        if ([_team.classB intValue] == -1 || [_team.classB intValue] == 0) {
+            _team.classB = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classB = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classBButton forState:[_team.classB intValue]];
+    }
+    if (sender == _classCButton) {
+        if ([_team.classC intValue] == -1 || [_team.classC intValue] == 0) {
+            _team.classC = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classC = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classCButton forState:[_team.classC intValue]];
+    }
+    if (sender == _classDButton) {
+        if ([_team.classD intValue] == -1 || [_team.classD intValue] == 0) {
+            _team.classD = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classD = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classDButton forState:[_team.classD intValue]];
+    }
+    if (sender == _classEButton) {
+        if ([_team.classE intValue] == -1 || [_team.classE intValue] == 0) {
+            _team.classE = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classE = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
+    }
+    if (sender == _classFButton) {
+        if ([_team.classF intValue] == -1 || [_team.classF intValue] == 0) {
+            _team.classF = [NSNumber numberWithInt:1];
+        }
+        else {
+            _team.classF = [NSNumber numberWithInt:0];
+        }
+        [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
+    }
+    [self setDataChange];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

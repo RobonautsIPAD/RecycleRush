@@ -107,5 +107,31 @@
     else return [NSString stringWithFormat:@"%@", data];
 }
 
+-(NSArray *)lucienListExport {
+    NSMutableDictionary *singleItem;
+    NSMutableArray *fullList = [[NSMutableArray alloc] init];
+    
+    if (!_dataManager) {
+        _dataManager = [[DataManager alloc] init];
+    }
+    if (!attributes) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setFetchLimit:1];
+        NSArray *team = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (team) attributes = [[[team objectAtIndex:0] entity] attributesByName];
+    }
+    for (NSString *item in attributes) {
+        NSString *lucien = [[[attributes objectForKey:item] userInfo] objectForKey:@"lucien"];
+        if (lucien) {
+            singleItem = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects: lucien, item, @"TeamData", nil] forKeys:[NSArray arrayWithObjects:@"name", @"key", @"table", nil]];
+            [fullList addObject:singleItem];
+        }
+    }
+    return [fullList copy];;
+}
 
 @end

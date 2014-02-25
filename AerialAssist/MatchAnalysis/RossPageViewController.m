@@ -136,7 +136,7 @@
         [r1Matches addObject:matchScore.match.number];
         [r1MatchTypes addObject:matchScore.match.matchType];
         [r1MatchAuton addObject:matchScore.autonShotsMade];
-        [r1MatchTeleOp addObject:matchScore.teleOpShots];
+        [r1MatchTeleOp addObject:matchScore.teleOpShotsMade];
     }
     NSLog(@"r1matches = %@", r1Matches);
     NSLog(@"r1matchestype = %@", r1MatchTypes);

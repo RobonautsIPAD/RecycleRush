@@ -399,35 +399,19 @@
 }
 
 -(void)setScoreData:(TeamScore *)score {
-//    score.autonHigh = [NSNumber numberWithInt:0];
-//    score.autonMid = [NSNumber numberWithInt:0];
-//    score.autonLow = [NSNumber numberWithInt:0];
+    score.airCatch = [NSNumber numberWithInt:0];
+    score.airPasses = [NSNumber numberWithInt:0];
+    score.autonBlocks = [NSNumber numberWithInt:0];
+    score.autonHighCold = [NSNumber numberWithInt:0];
+    score.autonHighHot = [NSNumber numberWithInt:0];
+    score.autonLowCold = [NSNumber numberWithInt:0];
+    score.autonLowHot = [NSNumber numberWithInt:0];
     score.autonMissed = [NSNumber numberWithInt:0];
+    score.autonLowMiss = [NSNumber numberWithInt:0];
+    score.autonHighMiss = [NSNumber numberWithInt:0];
     score.autonShotsMade = [NSNumber numberWithInt:0];
-    score.totalAutonShots = [NSNumber numberWithInt:0];
-    score.teleOpHigh = [NSNumber numberWithInt:0];
-//    score.teleOpMid = [NSNumber numberWithInt:0];
-    score.teleOpLow = [NSNumber numberWithInt:0];
-    score.teleOpMissed = [NSNumber numberWithInt:0];
-    score.teleOpShots = [NSNumber numberWithInt:0];
-    score.totalTeleOpShots = [NSNumber numberWithInt:0];
-//    score.pyramid = [NSNumber numberWithInt:0];
-//    score.passes = [NSNumber numberWithInt:0];
-//    score.blocks = [NSNumber numberWithInt:0];
-    score.wallPickUp = [NSNumber numberWithInt:0];
-    score.wallPickUp1 = [NSNumber numberWithInt:0];
-    score.wallPickUp2 = [NSNumber numberWithInt:0];
-    score.wallPickUp3 = [NSNumber numberWithInt:0];
-    score.wallPickUp4 = [NSNumber numberWithInt:0];
-    score.floorPickUp = [NSNumber numberWithInt:0];
-    score.driverRating = [NSNumber numberWithInt:0];
-    score.notes = @"";
-    score.saved = [NSNumber numberWithInt:0];
-//    score.fieldDrawing = nil;
-//    score.defenseRating = [NSNumber numberWithInt:0];
-//    score.climbLevel = [NSNumber numberWithInt:0];
-//    score.climbAttempt = [NSNumber numberWithInt:0];
-//    score.climbTimer = [NSNumber numberWithFloat:0.0];
+    score.autonMobility = [NSNumber numberWithInt:0];
+    score.fieldDrawing = nil;
 }
 
 -(TeamData *)getTeam:(int)teamNumber forTournament:(NSString *)tournament {
