@@ -125,7 +125,8 @@
     if (!scoutingSpreadsheetList) {
         // Load dictionary with list of parameters for the scouting spreadsheet
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
-        scoutingSpreadsheetList = [[NSArray alloc] initWithContentsOfFile:plistPath];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
+        scoutingSpreadsheetList = [[[NSArray alloc] initWithContentsOfFile:plistPath] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     }
     NSLog(@"%@", scoutingSpreadsheetList);
     prefs = [NSUserDefaults standardUserDefaults];
@@ -152,20 +153,51 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
+        return nil;
     }
     
     TeamScore *score;
     NSString *csvString;
-    score = [teamScores objectAtIndex:0];
-    properties = [[score entity] propertiesByName];
-    csvString = [self createHeader:score];
+    int nmatches = [teamScores count];
+    csvString = [[NSString alloc] initWithFormat:@"%@, %d", score.team.number, nmatches];
+    for (int i=0; i<nmatches; i++) {
+        score = [teamScores objectAtIndex:i];
+        csvString = [csvString stringByAppendingFormat:@"%@", score.match.number];
+        for (int j=1; j<[scoutingSpreadsheetList count]; j++) {
+            NSString *key = [[scoutingSpreadsheetList objectAtIndex:j] objectForKey:@"key"];
+            csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
+        }
+        NSLog(@"%@", csvString);
+    }
+/*    properties = [[score entity] propertiesByName];
+    csvString = [self createSpreadsheetHeader:score];
     
     for (int i=0; i<[teamScores count]; i++) {
         score = [teamScores objectAtIndex:i];
         csvString = [csvString stringByAppendingString:[self createScore:score]];
-    }
+    }*/
     return nil;
 }
+
+-(NSString *)createSpreadsheetHeader:(TeamScore *)score {
+    NSString *csvString;
+    
+    csvString = @"Team, Match, Type, Tournament";
+    for (NSString *item in properties) {
+        if ([item isEqualToString:@"team"]) continue; // We have already printed the team number
+        if ([item isEqualToString:@"match"]) continue; // We have already printed the match number
+        if ([item isEqualToString:@"matchType"]) continue; // We have already printed the match type
+        if ([item isEqualToString:@"tournamentName"]) continue; // We have already printed the tournament name
+        NSString *output = [[[properties objectForKey:item] userInfo] objectForKey:@"output"];
+        if (output) {
+            csvString = [csvString stringByAppendingFormat:@", %@", output];
+        }
+    }
+    csvString = [csvString stringByAppendingString:@"\n"];
+    
+    return csvString;
+}
+
 
 /**
  Returns the path to the application's Library directory.

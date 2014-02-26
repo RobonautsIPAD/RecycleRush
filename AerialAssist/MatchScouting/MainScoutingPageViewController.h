@@ -125,7 +125,6 @@ typedef enum {
 -(void)autonHighHot:(NSString *)choice;
 -(void)autonLowHot:(NSString *)choice;
 -(void)autonLowCold:(NSString *)choice;
--(void)passesMade;
 -(IBAction)humanPickUpsMade:(id) sender;
 -(void)promptForValue:(UIButton *)button;
 -(IBAction)toggleGrid:(id)sender;

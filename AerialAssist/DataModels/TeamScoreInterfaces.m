@@ -111,7 +111,7 @@
             //   created, but no one has saved any actual score data, then delete the old team and add the new.
             if ([oldScore.saved intValue] == 0 || !oldScore.savedBy) {
                 // Create the new score object, if successful, remove the old score and add the new
-                TeamScore *newScore = [self AddScore:[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:teamNumber] forAlliance:alliance forTournament:tournamentName];
+                TeamScore *newScore = [self addScore:[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:teamNumber] forAlliance:alliance forTournament:tournamentName];
                 if (newScore) {
                     [matchRecord removeScoreObject:oldScore];
                     [matchRecord addScoreObject:newScore];
@@ -164,7 +164,7 @@
             //   created, but no one has saved any actual score data, then delete the old team and add the new.
             if ([oldScore.saved intValue] == 0 || !oldScore.savedBy) {
                 // Create the new score object, if successful, remove the old score and add the new
-                TeamScore *newScore = [self AddScore:team forAlliance:alliance forTournament:match.tournamentName];
+                TeamScore *newScore = [self addScore:team forAlliance:alliance forTournament:match.tournamentName];
                 if (newScore) {
                     [match removeScoreObject:oldScore];
                     [match addScoreObject:newScore];
@@ -175,12 +175,12 @@
     else {
         // A score record does not exist in this alliance
         // Add the score record for this team
-        TeamScore *newScore = [self AddScore:team forAlliance:alliance forTournament:match.tournamentName];
+        TeamScore *newScore = [self addScore:team forAlliance:alliance forTournament:match.tournamentName];
         if (newScore) [match addScoreObject:newScore];
     }
 }
 
--(TeamScore *)AddScore:(TeamData *)team
+-(TeamScore *)addScore:(TeamData *)team
            forAlliance:(NSString *)alliance
          forTournament:(NSString *)tournament
 {

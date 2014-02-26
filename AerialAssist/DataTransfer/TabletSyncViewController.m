@@ -470,6 +470,7 @@ GKPeerPickerController *picker;
 }
 
 -(IBAction) btnConnect:(id) sender {
+    [self shutdownBluetooth];
     picker = [[GKPeerPickerController alloc] init];
     picker.delegate = self;
     picker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
@@ -552,6 +553,7 @@ GKPeerPickerController *picker;
 }
 
 - (void)shutdownBluetooth {
+    if (!_currentSession) return;
     [_currentSession disconnectFromAllPeers];
     _currentSession.available = NO;
     [_currentSession setDataReceiveHandler:nil withContext:nil];

@@ -10,6 +10,7 @@
 
 @class DataManager;
 @class MatchData;
+@class TeamData;
 @class TeamScore;
 
 @interface TeamScoreInterfaces : NSObject
@@ -19,5 +20,6 @@
 -(void)addScoreToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance;
 -(NSData *)packageScoreForXFer:(TeamScore *)score;
 -(TeamScore *)unpackageScoreForXFer:(NSData *)xferData;
+-(TeamScore *)addScore:(TeamData *)team forAlliance:(NSString *)alliance forTournament:(NSString *)tournament;
 
 @end

@@ -6,5 +6,5 @@ Match,Red 1, Red 2, Red 3, Blue 1, Blue 2, Blue 3, Type, Tournament, Red Score, 
 2,2952,2966,3999,2969,2982,2985, Practice, Alamo Regional ,-1,-1
 3,3008,3029,3035,3080,3103,3240, Practice, Alamo Regional ,-1,-1
 4,3305,3320,3335,3337,3345,3366, Practice, Alamo Regional ,-1,-1
-1,3345,3410,3481,3561,3614,3666, Elimination, Alamo Regional ,-1,-1
-2,3700,4063,3999,4219,4259,4351, Elimination, Alamo Regional ,-1,-1
+1,3345,3240,3481,3561,3614,3103, Elimination, Alamo Regional ,-1,-1
+2,3700,4063,3999,4219,3103,4597, Elimination, Alamo Regional ,-1,-1
