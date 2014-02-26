@@ -107,6 +107,9 @@ typedef enum {
 //@property (nonatomic, weak) IBOutlet UIButton *bigHumanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *humanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
+@property (nonatomic, weak) IBOutlet UIButton *floorCatchButton;
+@property (nonatomic, weak) IBOutlet UIButton *airCatchButton;
+
 @property (nonatomic, weak) IBOutlet UIButton *human1Button;
 @property (nonatomic, weak) IBOutlet UIButton *human2Button;
 @property (nonatomic, weak) IBOutlet UIButton *human3Button;
