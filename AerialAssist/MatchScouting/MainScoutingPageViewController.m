@@ -116,6 +116,8 @@
 @synthesize human3Button = _human3Button;
 @synthesize human4Button = _human4Button;
 @synthesize floorPickUpsButton = _floorPickUpsButton;
+@synthesize floorCatchButton = _floorCatchButton;
+@synthesize airCatchButton = _airCatchButton;
 @synthesize matchResetButton;
 @synthesize trussCatchButton;
 @synthesize trussThrowButton;
@@ -244,6 +246,8 @@
     [self SetBigButtonDefaults:passesAirButton];
     [self SetBigButtonDefaults:autonBlockButton];
     [self SetBigButtonDefaults:teleOpBlockButton];
+    [self SetBigButtonDefaults:_airCatchButton];
+    [self SetBigButtonDefaults:_floorCatchButton];
     
     driverRating.maximumValue = 5.0;
     driverRating.continuous = NO;
@@ -867,10 +871,54 @@
     else if (popUp == _floorPickUpsButton) [self floorPickUpSelected:newPick];
     else if (popUp == passesFloorButton) [self floorPass:newPick];
     else if (popUp == passesAirButton) [self airPass:newPick];
+    else if (popUp == _floorCatchButton) [self floorCatch:newPick];
+    else if (popUp == _airCatchButton) [self airCatch:newPick];
 }
 
 - (void)valueEnteredAtPrompt:(NSString *)valueEntered {
     [self.valuePromptPopover dismissPopoverAnimated:YES];
+}
+
+-(void)floorCatch:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [_floorCatchButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:_floorCatchButton];
+        return;
+    }
+    currentTeam.floorCatch = [NSNumber numberWithInt:score];
+    [_floorCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorCatch intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)airCatch:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [_airCatchButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:_airCatchButton];
+        return;
+    }
+    currentTeam.airCatch = [NSNumber numberWithInt:score];
+    [_airCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airCatch intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
 }
 
 -(void)airPass:(NSString *)choice {
@@ -1487,6 +1535,9 @@
     [trussThrowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussThrow intValue]] forState:UIControlStateNormal];
     [autonBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
     [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
+    [_floorCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorCatch intValue]] forState:UIControlStateNormal];
+    [_airCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airCatch intValue]] forState:UIControlStateNormal];
+    
     [self setRadioButtonState:_noShowButton forState:[currentTeam.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentTeam.deadOnArrival intValue]];
     [self setRadioButtonState:_autonMobilityButton forState:[currentTeam.autonMobility intValue]];
@@ -2036,6 +2087,8 @@
     currentTeam.teleOpHighMiss = [NSNumber numberWithInt:0];
     currentTeam.teleOpLowMiss = [NSNumber numberWithInt:0];
     currentTeam.airCatchHuman = [NSNumber numberWithInt:0];
+    currentTeam.airCatch = [NSNumber numberWithInt:0];
+    currentTeam.floorCatch = [NSNumber numberWithInt:0];
     currentTeam.fieldDrawing.trace = nil;
 
     [self ShowTeam:teamIndex];   

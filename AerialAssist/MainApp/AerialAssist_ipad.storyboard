@@ -1382,13 +1382,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Air" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZV3-Wc-UNx">
-                                <rect key="frame" x="956" y="580" width="52" height="21"/>
+                                <rect key="frame" x="956" y="585" width="52" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Floor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MFn-0a-Dws">
-                                <rect key="frame" x="881" y="580" width="52" height="21"/>
+                                <rect key="frame" x="881" y="585" width="52" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
@@ -1567,7 +1567,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6iU-VM-hfx">
-                                <rect key="frame" x="951" y="600" width="65" height="44"/>
+                                <rect key="frame" x="951" y="605" width="65" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Air">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1620,7 +1620,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="d8X-hu-Lw4">
-                                <rect key="frame" x="876" y="600" width="61" height="45"/>
+                                <rect key="frame" x="876" y="605" width="61" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Floor">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1629,8 +1629,47 @@
                                     <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="zrf-tp-v95"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Air" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ysD-1x-ztw">
+                                <rect key="frame" x="806" y="585" width="52" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Floor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a3m-pd-spR">
+                                <rect key="frame" x="731" y="585" width="52" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Catch" lineBreakMode="tailTruncation" minimumFontSize="10" id="PwJ-39-Zhg" userLabel="Label - Auton High">
+                                <rect key="frame" x="774" y="570" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6FS-k1-274">
+                                <rect key="frame" x="801" y="606" width="65" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Air">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="c3e-mw-ehT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fuG-jg-4Ly">
+                                <rect key="frame" x="726" y="606" width="61" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Floor">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="6yw-GF-Gnf"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="09Q-Sd-DaQ" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="725" y="520" width="20" height="20"/>
+                                <rect key="frame" x="725" y="505" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1640,7 +1679,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Puz-Kt-jLA" userLabel="Button - No Show">
-                                <rect key="frame" x="725" y="540" width="20" height="20"/>
+                                <rect key="frame" x="725" y="525" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1650,7 +1689,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yv8-KU-Qvt" userLabel="Button - DOA">
-                                <rect key="frame" x="725" y="560" width="20" height="20"/>
+                                <rect key="frame" x="725" y="545" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1660,19 +1699,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auton Mobility" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MRg-nt-nUv" userLabel="Label - Auton Mobility">
-                                <rect key="frame" x="753" y="518" width="110" height="21"/>
+                                <rect key="frame" x="753" y="503" width="110" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Show" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ka9-f7-lVZ">
-                                <rect key="frame" x="753" y="539" width="110" height="21"/>
+                                <rect key="frame" x="753" y="524" width="110" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-Moving" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z1s-Bi-skt">
-                                <rect key="frame" x="753" y="559" width="110" height="21"/>
+                                <rect key="frame" x="753" y="544" width="110" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
@@ -1684,6 +1723,7 @@
                     <navigationItem key="navigationItem" id="1gg-vu-SkO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="airCatchButton" destination="6FS-k1-274" id="V2U-pq-N4F"/>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
                         <outlet property="autonBlockButton" destination="GWM-sk-YMe" id="DkN-5c-rYD"/>
                         <outlet property="autonHighColdButton" destination="IEx-Ww-W6p" id="Ewx-Ld-eSf"/>
@@ -1700,6 +1740,7 @@
                         <outlet property="driverRating" destination="e3M-4Q-lW8" id="klm-P9-5ya"/>
                         <outlet property="eraserButton" destination="xrD-cl-mQS" id="Ard-um-Atd"/>
                         <outlet property="fieldImage" destination="RvX-YB-hOX" id="HP4-XX-Ukd"/>
+                        <outlet property="floorCatchButton" destination="fuG-jg-4Ly" id="eza-vP-daA"/>
                         <outlet property="floorPickUpsButton" destination="Pjd-wW-acx" id="9e5-Xr-Dbz"/>
                         <outlet property="human1Button" destination="pfL-EZ-jj9" id="iOy-OX-tam"/>
                         <outlet property="human2Button" destination="qIK-6r-8hQ" id="1Jq-U4-etF"/>
