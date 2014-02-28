@@ -20,6 +20,7 @@
     NSDictionary *attributes;
     MatchTypeDictionary *matchDictionary;
     NSArray *scoutingSpreadsheetList;
+    BOOL firstPass;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -27,6 +28,7 @@
 	{
         _dataManager = initManager;
 	}
+    firstPass = TRUE;
 	return self;
 }
 
@@ -118,7 +120,7 @@
     else return [NSString stringWithFormat:@"%@", data];
 }
 
--(NSString *)spreadsheetCSVExport:(TeamData *)team {
+-(NSString *)spreadsheetCSVExport:(TeamData *)team forMatches:(NSString *)choice{
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
@@ -128,24 +130,16 @@
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
         scoutingSpreadsheetList = [[[NSArray alloc] initWithContentsOfFile:plistPath] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     }
-    NSLog(@"%@", scoutingSpreadsheetList);
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
-    matchDictionary = [[MatchTypeDictionary alloc] init];
     
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
+    NSArray *allScores = [team.match allObjects];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], choice];
     NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@", tournamentName, [NSNumber numberWithBool:YES]];
-    [fetchRequest setPredicate:pred];
-    NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *teamScores = [[allScores filteredArrayUsingPredicate:pred] sortedArrayUsingDescriptors:sortDescriptors];
+
     if(!teamScores) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Minor Problem Encountered"
                                                         message:@"No Score results to email"
@@ -155,42 +149,40 @@
         [alert show];
         return nil;
     }
-    
     TeamScore *score;
     NSString *csvString;
     int nmatches = [teamScores count];
-    csvString = [[NSString alloc] initWithFormat:@"%@, %d", score.team.number, nmatches];
+    if (nmatches == 0) {
+        csvString = [[NSString alloc] init];
+        return csvString;
+    }
+    if (firstPass) {
+        firstPass = FALSE;
+        csvString = [self createSpreadsheetHeader:scoutingSpreadsheetList];
+        csvString = [csvString stringByAppendingFormat:@"%@, %d", team.number, nmatches];
+    }
+    else {
+        csvString = [[NSString alloc] initWithFormat:@"%@, %d", team.number, nmatches];
+    }
     for (int i=0; i<nmatches; i++) {
         score = [teamScores objectAtIndex:i];
-        csvString = [csvString stringByAppendingFormat:@"%@", score.match.number];
+        csvString = [csvString stringByAppendingFormat:@", %@", score.match.number];
         for (int j=1; j<[scoutingSpreadsheetList count]; j++) {
             NSString *key = [[scoutingSpreadsheetList objectAtIndex:j] objectForKey:@"key"];
             csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
         }
-        NSLog(@"%@", csvString);
     }
-/*    properties = [[score entity] propertiesByName];
-    csvString = [self createSpreadsheetHeader:score];
-    
-    for (int i=0; i<[teamScores count]; i++) {
-        score = [teamScores objectAtIndex:i];
-        csvString = [csvString stringByAppendingString:[self createScore:score]];
-    }*/
-    return nil;
+    csvString = [csvString stringByAppendingString:@"\n"];
+    return csvString;
 }
 
--(NSString *)createSpreadsheetHeader:(TeamScore *)score {
+-(NSString *)createSpreadsheetHeader:(NSArray *)scoreList {
     NSString *csvString;
     
-    csvString = @"Team, Match, Type, Tournament";
-    for (NSString *item in properties) {
-        if ([item isEqualToString:@"team"]) continue; // We have already printed the team number
-        if ([item isEqualToString:@"match"]) continue; // We have already printed the match number
-        if ([item isEqualToString:@"matchType"]) continue; // We have already printed the match type
-        if ([item isEqualToString:@"tournamentName"]) continue; // We have already printed the tournament name
-        NSString *output = [[[properties objectForKey:item] userInfo] objectForKey:@"output"];
-        if (output) {
-            csvString = [csvString stringByAppendingFormat:@", %@", output];
+    csvString = @"Team Number, Total Matches";
+    for (int j=0; j<10; j++) {
+        for (int i=0; i<[scoreList count]; i++) {
+            csvString = [csvString stringByAppendingFormat:@", %@", [[scoutingSpreadsheetList objectAtIndex:i] objectForKey:@"header"]];
         }
     }
     csvString = [csvString stringByAppendingString:@"\n"];

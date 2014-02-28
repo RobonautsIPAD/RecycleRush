@@ -56,6 +56,7 @@
 
 @property (nonatomic, weak) IBOutlet UITextView  *notes;
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
+@property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 
 -(void)setDisplayData;
 -(void)loadFieldDrawing;

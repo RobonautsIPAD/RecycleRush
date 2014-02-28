@@ -18,6 +18,8 @@
 @interface MasonPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MatchTypePickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSArray *teamScores;
+@property (nonatomic, assign) int *startingIndex;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign) MatchType currentSectionType;
 @property (nonatomic, assign) NSUInteger sectionIndex;

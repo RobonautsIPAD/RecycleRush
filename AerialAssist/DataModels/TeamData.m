@@ -2,7 +2,7 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 2/23/14.
+//  Created by FRC on 2/26/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -20,6 +20,12 @@
 @dynamic ballReleaseHeight;
 @dynamic catcher;
 @dynamic cims;
+@dynamic classA;
+@dynamic classB;
+@dynamic classC;
+@dynamic classD;
+@dynamic classE;
+@dynamic classF;
 @dynamic driveTrainType;
 @dynamic fthing1;
 @dynamic fthing2;
@@ -38,7 +44,6 @@
 @dynamic primePhoto;
 @dynamic primePhotoDate;
 @dynamic received;
-@dynamic robotClass;
 @dynamic saved;
 @dynamic savedBy;
 @dynamic shooterType;
@@ -54,12 +59,6 @@
 @dynamic thing5;
 @dynamic wheelDiameter;
 @dynamic wheelType;
-@dynamic classA;
-@dynamic classB;
-@dynamic classC;
-@dynamic classD;
-@dynamic classE;
-@dynamic classF;
 @dynamic match;
 @dynamic photoList;
 @dynamic regional;

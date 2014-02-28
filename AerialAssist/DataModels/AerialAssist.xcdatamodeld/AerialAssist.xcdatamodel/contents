@@ -52,23 +52,27 @@
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="key" value="Auton Capacity"/>
                 <entry key="lucien" value="Auton Capacity"/>
                 <entry key="output" value="Auton Balls"/>
             </userInfo>
         </attribute>
         <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="key" value="Auton Mobility"/>
                 <entry key="lucien" value="Auton Mobility"/>
                 <entry key="output" value="Mobility Bonus"/>
             </userInfo>
         </attribute>
         <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
             <userInfo>
+                <entry key="key" value="Ball Release Height"/>
                 <entry key="output" value="Ball Release Height"/>
             </userInfo>
         </attribute>
         <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="key" value="Catch System"/>
                 <entry key="lucien" value="Catcher"/>
                 <entry key="output" value="Catch System"/>
             </userInfo>
@@ -78,12 +82,36 @@
                 <entry key="output" value="CIMS"/>
             </userInfo>
         </attribute>
-        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class A"/>
+            </userInfo>
+        </attribute>
+        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class B"/>
+            </userInfo>
+        </attribute>
+        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class C"/>
+            </userInfo>
+        </attribute>
+        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class D"/>
+            </userInfo>
+        </attribute>
+        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class E"/>
+            </userInfo>
+        </attribute>
+        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
+            <userInfo>
+                <entry key="key" value="Class F"/>
+            </userInfo>
+        </attribute>
         <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="drive train type, drive train, drive, drivetrain type, drive traintype"/>
@@ -102,11 +130,12 @@
         </attribute>
         <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="key" value="Tracks Hots,Hot Tracker, Track Hot, Hot Tracking"/>
                 <entry key="lucien" value="Tracks Hot"/>
                 <entry key="output" value="Track Hot Goals"/>
             </userInfo>
         </attribute>
-        <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
+        <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="5" defaultValueString="-1" syncable="YES">
             <userInfo>
                 <entry key="key" value="intaketype, intake type"/>
                 <entry key="output" value="Intake"/>
@@ -150,16 +179,11 @@
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="primePhotoDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="robotClass" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="key" value="climb level"/>
-                <entry key="output" value="Climb Level"/>
-            </userInfo>
-        </attribute>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
         <attribute name="shooterType" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES">
             <userInfo>
+                <entry key="key" value="Shooter Type"/>
                 <entry key="output" value="Shooter Type"/>
             </userInfo>
         </attribute>

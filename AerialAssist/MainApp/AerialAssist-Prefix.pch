@@ -25,6 +25,7 @@ typedef enum {
 
 typedef enum {
     NumberUnknown = -1,
+    NZero,
     NOne,
     NTwo,
     NThree,
@@ -66,6 +67,7 @@ typedef enum {
     IntakeJVN,
     IntakeEveryBot,
     IntakeClamp,
+    Intake118,
     IntakeOther
 } IntakeType;
 

@@ -2,7 +2,7 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 2/23/14.
+//  Created by FRC on 2/26/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -18,6 +18,12 @@
 @property (nonatomic, retain) NSNumber * ballReleaseHeight;
 @property (nonatomic, retain) NSNumber * catcher;
 @property (nonatomic, retain) NSNumber * cims;
+@property (nonatomic, retain) NSNumber * classA;
+@property (nonatomic, retain) NSNumber * classB;
+@property (nonatomic, retain) NSNumber * classC;
+@property (nonatomic, retain) NSNumber * classD;
+@property (nonatomic, retain) NSNumber * classE;
+@property (nonatomic, retain) NSNumber * classF;
 @property (nonatomic, retain) NSNumber * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
@@ -36,7 +42,6 @@
 @property (nonatomic, retain) NSString * primePhoto;
 @property (nonatomic, retain) NSDate * primePhotoDate;
 @property (nonatomic, retain) NSNumber * received;
-@property (nonatomic, retain) NSString * robotClass;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
 @property (nonatomic, retain) NSNumber * shooterType;
@@ -52,12 +57,6 @@
 @property (nonatomic, retain) NSNumber * thing5;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
-@property (nonatomic, retain) NSNumber * classA;
-@property (nonatomic, retain) NSNumber * classB;
-@property (nonatomic, retain) NSNumber * classC;
-@property (nonatomic, retain) NSNumber * classD;
-@property (nonatomic, retain) NSNumber * classE;
-@property (nonatomic, retain) NSNumber * classF;
 @property (nonatomic, retain) NSSet *match;
 @property (nonatomic, retain) NSSet *photoList;
 @property (nonatomic, retain) NSSet *regional;

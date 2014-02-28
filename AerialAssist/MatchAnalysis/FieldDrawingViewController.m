@@ -14,6 +14,15 @@
 #import "TournamentData.h"
 
 @interface FieldDrawingViewController ()
+@property (weak, nonatomic) IBOutlet UISlider *bullySlider;
+@property (weak, nonatomic) IBOutlet UISlider *blockSlider;
+@property (weak, nonatomic) IBOutlet UISlider *driverSlider;
+@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
+@property (weak, nonatomic) IBOutlet UITextField *floorCatch;
+@property (weak, nonatomic) IBOutlet UITextField *airCatch;
+@property (weak, nonatomic) IBOutlet UITextField *autonMobility;
+@property (weak, nonatomic) IBOutlet UITextField *noShow;
+@property (weak, nonatomic) IBOutlet UITextField *deadOnArrival;
 @end
 
 @implementation FieldDrawingViewController {
@@ -97,6 +106,7 @@
     swipeRight.delegate = self;
     [self.view addGestureRecognizer:swipeRight];
     
+    [self.view sendSubviewToBack:_backgroundImage];
     [self SetTextBoxDefaults:_matchNumber];
     [self SetBigButtonDefaults:_matchType];
     [self SetBigButtonDefaults:_prevMatchButton];
@@ -129,11 +139,22 @@
     [self SetSmallTextBoxDefaults:_trussCatch];
     [self SetSmallTextBoxDefaults:_passFloor];
     [self SetSmallTextBoxDefaults:_passAir];
+    [self SetSmallTextBoxDefaults:_floorCatch];
+    [self SetSmallTextBoxDefaults:_airCatch];
     
     [self SetSmallTextBoxDefaults:_wall1];
     [self SetSmallTextBoxDefaults:_wall2];
     [self SetSmallTextBoxDefaults:_wall3];
     [self SetSmallTextBoxDefaults:_wall4];
+
+    _driverSlider.maximumValue = 5.0;
+    _driverSlider.continuous = NO;
+    _speedSlider.maximumValue = 5.0;
+    _speedSlider.continuous = NO;
+    _blockSlider.maximumValue = 5.0;
+    _blockSlider.continuous = NO;
+    _bullySlider.maximumValue = 5.0;
+    _bullySlider.continuous = NO;
 
     [self setDisplayData];
 }
@@ -172,7 +193,22 @@
     _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
     _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
     _passAir.text = [NSString stringWithFormat:@"%d", [currentScore.airPasses intValue]];
+    _floorCatch.text = [NSString stringWithFormat:@"%d", [currentScore.floorCatch intValue]];
+    _airCatch.text = [NSString stringWithFormat:@"%d", [currentScore.airCatch intValue]];
     
+    NSLog(@"block = %@", currentScore.defenseBlockRating);
+    _blockSlider.value = [currentScore.defenseBlockRating floatValue];
+    _bullySlider.value = [currentScore.defenseBullyRating floatValue];
+    _driverSlider.value = [currentScore.driverRating floatValue];
+    _speedSlider.value = [currentScore.robotSpeed floatValue];
+    
+    if ([currentScore.autonMobility boolValue]) [_autonMobility setTextColor:[UIColor greenColor]];
+    else [_autonMobility setTextColor:[UIColor redColor]];
+    
+    if ([currentScore.deadOnArrival boolValue]) [_deadOnArrival setHidden:NO];
+    else [_deadOnArrival setHidden:YES];
+    if ([currentScore.noShow boolValue]) [_noShow setHidden:NO];
+    else [_noShow setHidden:YES];
     
     [self loadFieldDrawing];
 }
@@ -182,9 +218,7 @@
         [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
     else {
-        // No field drawing set in data base. Set blank field image.
-        NSLog(@"Error: No stored field drawing");
-        [_fieldImage setImage:[UIImage imageNamed:@"2014_field.png"]];
+        [_fieldImage setImage:nil];
     }
 }
 

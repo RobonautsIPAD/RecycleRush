@@ -16,11 +16,12 @@
 - (id)init {
 	if ((self = [super init])) {
         NSArray *keys = [NSArray arrayWithObjects:[NSNumber numberWithInt:NumberUnknown],
+                         [NSNumber numberWithInt:NZero],
                          [NSNumber numberWithInt:NOne],
                          [NSNumber numberWithInt:NTwo],
                          [NSNumber numberWithInt:NThree],
                          nil];
-        objects = [NSArray arrayWithObjects:@"Unknown", @"One", @"Two", @"Three", nil];
+        objects = [NSArray arrayWithObjects:@"Unknown", @"Zero", @"One", @"Two", @"Three", nil];
         
         dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	}
