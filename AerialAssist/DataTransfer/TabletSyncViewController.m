@@ -46,6 +46,7 @@
     BlueToothType *bluetoothType;
     NSString *exportFilePath;
     NSString *transferFilePath;
+    NSString *transferDataFile;
 
     NSArray *tournamentList;
     NSMutableArray *filteredTournamentList;
@@ -420,17 +421,27 @@ GKPeerPickerController *picker;
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
             }
             break;
-        case SyncMatchResults:
+        case SyncMatchResults: {
+            NSLog(@"Time since 1970 = %f", [[[NSDate alloc] init] timeIntervalSince1970]);
+  //          - (NSTimeInterval)timeIntervalSince1970;
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
-                [self serializeDataForTransfer];
-                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+                NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
+            }
+            matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Results %0.f.mrd", tournamentName, [matchResultsSync floatValue]]];
+            [self serializeDataForTransfer:transferDataFile];
             }
             break;
             
         default:
             break;
+    }
+    NSError *error = nil;
+    for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:transferFilePath error:&error]) {
+        NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
+        [[NSFileManager defaultManager] removeItemAtPath:name error:&error];
     }
 }
 
@@ -442,7 +453,7 @@ GKPeerPickerController *picker;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!exportFilePath) {
-        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
+        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Transfer Data", deviceName]];
         NSError *error;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
@@ -458,22 +469,17 @@ GKPeerPickerController *picker;
     return success;
 }
 
--(void) serializeDataForTransfer {
-/*- (NSData *)exportToNSData {
- NSError *error;
- NSURL *url = [NSURL fileURLWithPath:_docPath];
- NSFileWrapper *dirWrapper = [[[NSFileWrapper alloc] initWithURL:url options:0 error:&error] autorelease];
- if (dirWrapper == nil) {
- NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
- return nil;
+-(void) serializeDataForTransfer:(NSString *)fileName {
+    NSError *error;
+    NSURL *url = [NSURL fileURLWithPath:transferFilePath];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:transferDataFile atomically:YES];
  }
- 
- NSData *dirData = [dirWrapper serializedRepresentation];
- NSData *gzData = [dirData gzipDeflate];
- return gzData;
- }
- */
-}
 
 -(IBAction)syncChanged:(id)sender {
     UIButton * PressedButton = (UIButton*)sender;
