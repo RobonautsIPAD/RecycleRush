@@ -11,10 +11,12 @@
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
+#import "TeamDataInterfaces.h"
 
 @interface PhoneExportViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *exportTeamData;
 @property (nonatomic, weak) IBOutlet UIButton *exportMatchData;
+@property (nonatomic, weak) IBOutlet UIButton *exportSpreadsheetData;
 @end
 
 @implementation PhoneExportViewController {
@@ -69,7 +71,8 @@
             NSString *emailSubject = @"Team Data CSV File";
             NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
             NSArray *attachList = [[NSArray alloc] initWithObjects:@"TeamData.csv", nil];
-            [self buildEmail:fileList attach:attachList subject:emailSubject];
+            NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+            [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
          }
     }
     else if (sender == _exportMatchData) {
@@ -96,17 +99,45 @@
         NSString *emailSubject = @"Match Data CSV Files";
         NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
         NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
-        
-        [self buildEmail:fileList attach:attachList subject:emailSubject];
+        NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+
+        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
    }
+    else if (sender == _exportSpreadsheetData) {
+        [self createScoutingSpreadsheet:@""];
+    }
 }
 
--(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject {
+-(void)createScoutingSpreadsheet:(NSString *)choice {
+    NSString *csvString = [[NSString alloc] init];
+    NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
+    
+    // Export Scores
+    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
+    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    for (int i=0; i<[teamData count]; i++) {
+        csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
+    }
+    NSLog(@"%@", csvString);
+    if (csvString) {
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
+    NSString *emailSubject = @"Match Data CSV Files";
+    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingData.csv", nil];
+    NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
+}
+
+
+-(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:recipients {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
         [mailViewController setSubject:emailSubject];
-        [mailViewController setToRecipients:array];
+        [mailViewController setToRecipients:recipients];
         [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
         [mailViewController setMailComposeDelegate:self];
  

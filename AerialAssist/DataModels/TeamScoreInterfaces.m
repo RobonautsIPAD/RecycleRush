@@ -1,4 +1,4 @@
-//
+ //
 //  TeamScoreInterfaces.m
 //  AerialAssist
 //
@@ -19,8 +19,8 @@
 
 @implementation TeamScoreInterfaces {
     NSDictionary *teamScoreAttributes;
-
 }
+
 @synthesize dataManager = _dataManager;
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -31,6 +31,30 @@
 	return self;
 }
 
+-(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath {
+    // File name format M(Type)#T#
+    NSString *match;
+    if ([score.match.number intValue] < 10) {
+        match = [NSString stringWithFormat:@"M%c%@", [score.match.matchType characterAtIndex:0], [NSString stringWithFormat:@"00%d", [score.match.number intValue]]];
+    } else if ( [score.match.number intValue] < 100) {
+        match = [NSString stringWithFormat:@"M%c%@", [score.match.matchType characterAtIndex:0], [NSString stringWithFormat:@"0%d", [score.match.number intValue]]];
+    } else {
+        match = [NSString stringWithFormat:@"M%c%@", [score.match.matchType characterAtIndex:0], [NSString stringWithFormat:@"%d", [score.match.number intValue]]];
+    }
+    NSString *team;
+    if ([score.team.number intValue] < 100) {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [score.team.number intValue]]];
+    } else if ( [score.team.number intValue] < 1000) {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [score.team.number intValue]]];
+    } else {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [score.team.number intValue]]];
+    }
+    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@_%@.pck", match, team]];
+    NSData *myData = [self packageScoreForXFer:score];
+    [myData writeToFile:exportFile atomically:YES];
+
+}
+
 -(NSData *)packageScoreForXFer:(TeamScore *)score {
     if (!_dataManager) {
         _dataManager = [DataManager new];
@@ -39,14 +63,12 @@
     NSMutableArray *valueList = [NSMutableArray array];
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
     for (NSString *item in teamScoreAttributes) {
-        NSLog(@"Item = %@", item);
         if ([score valueForKey:item] && [score valueForKey:item] != [[teamScoreAttributes valueForKey:item] valueForKey:@"defaultValue"]) {
             [keyList addObject:item];
             [valueList addObject:[score valueForKey:item]];
         }
     }
-    if (score.fieldDrawing) {
-        NSLog(@"field drawing = %@", score.fieldDrawing);
+    if (score.fieldDrawing && score.fieldDrawing.trace) {
         [keyList addObject:@"fieldDrawing"];
         [valueList addObject:score.fieldDrawing.trace];
     }
@@ -62,7 +84,6 @@
     }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"sending %@", dictionary);
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
     return myData;

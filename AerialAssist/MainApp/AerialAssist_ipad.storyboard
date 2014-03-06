@@ -4518,6 +4518,16 @@
                                     <action selector="resetBluetooth:" destination="foR-gV-UYn" eventType="touchUpInside" id="86n-Ce-Zrx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OCw-Te-C95">
+                                <rect key="frame" x="523" y="100" width="196" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Package Data for iTunes">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="packageDataForiTunes:" destination="foR-gV-UYn" eventType="touchUpInside" id="UrI-pt-OwJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4527,6 +4537,7 @@
                     <connections>
                         <outlet property="connectButton" destination="gwG-f2-Ebg" id="XyZ-pc-X7O"/>
                         <outlet property="disconnectButton" destination="Ccb-Gj-R8c" id="iqi-lQ-eJa"/>
+                        <outlet property="packageDataButton" destination="OCw-Te-C95" id="f5s-Ct-5si"/>
                         <outlet property="peerLabel" destination="hQj-Cq-DZr" id="k9j-m6-dPY"/>
                         <outlet property="peerName" destination="D6A-SZ-HGE" id="KbL-YB-IhG"/>
                         <outlet property="receiveDataTable" destination="seS-2h-gus" id="TAM-4q-hCe"/>

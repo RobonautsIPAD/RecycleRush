@@ -7,13 +7,15 @@
 //
 
 #import "LucienTableViewController.h"
-#import "LucienNumberObject.h"
 
 @interface LucienTableViewController ()
+@property (nonatomic, strong) UIView *headerView;
 
 @end
 
-@implementation LucienTableViewController
+@implementation LucienTableViewController {
+    int numberOfColumns;
+}
 @synthesize lucienNumbers = _lucienNumbers;
 @synthesize headerView = _headerView;
 
@@ -28,8 +30,9 @@
 
 - (void)viewDidLoad
 {
-    NSSortDescriptor *highestToLowest = [NSSortDescriptor sortDescriptorWithKey:@"lucienNumber" ascending:NO];
-    [_lucienNumbers sortUsingDescriptors:[NSArray arrayWithObject:highestToLowest]];
+    NSSortDescriptor *highestToLowest = [[NSSortDescriptor alloc] initWithKey:@"lucien" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:highestToLowest, nil];
+    _lucienNumbers = [_lucienNumbers sortedArrayUsingDescriptors:sortDescriptors];
  
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     _headerView.backgroundColor = [UIColor lightGrayColor];
@@ -45,46 +48,19 @@
     lucienNumber.backgroundColor = [UIColor clearColor];
     [_headerView addSubview:lucienNumber];
 
-	UILabel *aveAutonLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 200, 50)];
-	aveAutonLabel.text = @"Auton";
-    aveAutonLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:aveAutonLabel];
+    numberOfColumns = 1;
+    CGFloat x = 200;
+    for (int i = 1; i<[_lucienSelections count]; i++) {
+        NSDictionary *row = [_lucienSelections objectForKey:[NSString stringWithFormat:@"%d",i]];
+        NSString *header = [row objectForKey:@"name"];
+        if (header && ![header isEqualToString:@""]) numberOfColumns++;
+        UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake(x+(i-1)*90, 0, 200, 50)];
+        parameterHeader.text = [row objectForKey:@"name"];
+        parameterHeader.backgroundColor = [UIColor clearColor];
+        [_headerView addSubview:parameterHeader];
+    }
+    if (numberOfColumns >2) numberOfColumns -= 1;
     
- 	UILabel *aveTeleopLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 0, 200, 50)];
-	aveTeleopLabel.text = @"TeleOp";
-    aveTeleopLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:aveTeleopLabel];
-    
-	UILabel *aveHangLabel = [[UILabel alloc] initWithFrame:CGRectMake(380, 0, 200, 50)];
-	aveHangLabel.text = @"Hang";
-    aveHangLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:aveHangLabel];
-    
-	UILabel *speedLabel = [[UILabel alloc] initWithFrame:CGRectMake(470, 0, 200, 50)];
-	speedLabel.text = @"Speed";
-    speedLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:speedLabel];
-    
-    UILabel *driveLabel = [[UILabel alloc] initWithFrame:CGRectMake(560, 0, 200, 50)];
-	driveLabel.text = @"Drive";
-    driveLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:driveLabel];
-    
-    UILabel *defenseLabel = [[UILabel alloc] initWithFrame:CGRectMake(650, 0, 200, 50)];
-	defenseLabel.text = @"Defense";
-    defenseLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:defenseLabel];
-    
-    UILabel *minHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(770, 0, 200, 50)];
-	minHeightLabel.text = @"Min Height";
-    minHeightLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:minHeightLabel];
-    
-    UILabel *maxHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(900, 0, 200, 50)];
-	maxHeightLabel.text = @"Max Height";
-    maxHeightLabel.backgroundColor = [UIColor clearColor];
-    [_headerView addSubview:maxHeightLabel];
-
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -124,8 +100,7 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    LucienNumberObject *info = [_lucienNumbers objectAtIndex:indexPath.row];
-    // NSLog(@"name = %@", info.name);
+    NSDictionary *info = [_lucienNumbers objectAtIndex:indexPath.row];
     // Configure the cell...
     // Set a background for the cell
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
@@ -133,36 +108,21 @@
 //    imageView.image = image;
 //    cell.backgroundView = imageView;
     
-	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
-	numberLabel.text = [NSString stringWithFormat:@"%d", info.teamNumber];
- 
-	UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20];
-	lucienLabel.text = [NSString stringWithFormat:@"%.1f", info.lucienNumber];
-    
-	UILabel *autonLabel = (UILabel *)[cell viewWithTag:30];
-	autonLabel.text = [NSString stringWithFormat:@"%.1f", info.autonNumber];
+	UILabel *teamLabel = (UILabel *)[cell viewWithTag:10];
+	teamLabel.text = [NSString stringWithFormat:@"%@", [info objectForKey:@"team"]];
 
-	UILabel *teleOpLabel = (UILabel *)[cell viewWithTag:40];
-	teleOpLabel.text = [NSString stringWithFormat:@"%.1f", info.teleOpNumber];
+    UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20];
+	lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:@"lucien"] floatValue]];
     
-	UILabel *hangLabel = (UILabel *)[cell viewWithTag:50];
-	hangLabel.text = [NSString stringWithFormat:@"%.1f", info.hangingNumber];
-    
-	UILabel *speedLabel = (UILabel *)[cell viewWithTag:60];
-	speedLabel.text = [NSString stringWithFormat:@"%.1f", info.speedNumber];
-    
-    UILabel *driveLabel = (UILabel *)[cell viewWithTag:70];
-    driveLabel.text = [NSString stringWithFormat:@"%.1f", info.drivingNumber];
-     
-    UILabel *defenseLabel = (UILabel *)[cell viewWithTag:80];
-	defenseLabel.text = [NSString stringWithFormat:@"%.1f", info.defenseNumber];
-    
-    UILabel *height1Label = (UILabel *)[cell viewWithTag:90];
-    height1Label.text = [NSString stringWithFormat:@"%.1f", info.height1Number];
-    
-    UILabel *height2Label = (UILabel *)[cell viewWithTag:100];
-    height2Label.text = [NSString stringWithFormat:@"%.1f", info.height1Number];
-                       
+    for (int i=1; i<=numberOfColumns; i++) {
+        UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20+i*10];
+        NSString *key = [NSString stringWithFormat:@"%d", i];
+        lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:key] floatValue]];
+    }
+    for (int i=numberOfColumns+1; i<9; i++) {
+        UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20+i*10];
+        lucienLabel.text = @"";
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

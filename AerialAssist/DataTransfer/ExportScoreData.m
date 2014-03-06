@@ -134,7 +134,8 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     
     NSArray *allScores = [team.match allObjects];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], choice];
+ //   NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], choice];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], @"Seeding"];
     NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
@@ -188,14 +189,6 @@
     csvString = [csvString stringByAppendingString:@"\n"];
     
     return csvString;
-}
-
-
-/**
- Returns the path to the application's Library directory.
- */
-- (NSString *)applicationLibraryDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 

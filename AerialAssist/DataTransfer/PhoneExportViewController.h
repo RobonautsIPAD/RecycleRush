@@ -13,7 +13,6 @@
 @interface PhoneExportViewController : UIViewController <MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
--(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject;
 -(NSString *)applicationDocumentsDirectory;
 
 @end

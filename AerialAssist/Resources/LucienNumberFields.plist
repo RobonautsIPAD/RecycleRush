@@ -4,6 +4,16 @@
 <array>
 	<dict>
 		<key>key</key>
+		<string>clear</string>
+		<key>name</key>
+		<string>Clear</string>
+		<key>table</key>
+		<string></string>
+		<key>operators</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>autonMobility</string>
 		<key>name</key>
 		<string>Auton Motion</string>
@@ -114,7 +124,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonMiss</string>
+		<string>autonMissed</string>
 		<key>name</key>
 		<string>Auton Misses</string>
 		<key>table</key>

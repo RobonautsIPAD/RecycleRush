@@ -49,7 +49,6 @@
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
-		2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D64BE179212EB0028F57D /* LucienNumberObject.m */; };
 		2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */; };
 		2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */; };
 		2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F67D4281728815300FA04CF /* InitialDefaults.plist */; };
@@ -119,6 +118,7 @@
 		2FDC819818AC6651008E2E0B /* MatchDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819718AC6651008E2E0B /* MatchDataInterfaces.m */; };
 		2FDC819B18AC66E0008E2E0B /* TeamScoreInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */; };
 		2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819D18AC700F008E2E0B /* MatchData.m */; };
+		2FEB5DAE18C50C1A00F19316 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */; };
 		2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D218A9BFC200533BEC /* 2014_field.png */; };
 		2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D418B0208D00533BEC /* 2014_field_grid.png */; };
 		2FF1459618BBF72D0078D1B4 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1459518BBF72D0078D1B4 /* TeamScore.m */; };
@@ -204,8 +204,6 @@
 		2F56B56B17052BB30093A976 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F56B56D17052BC80093A976 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F56B56F17052BDA0093A976 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		2F5D64BD179212EB0028F57D /* LucienNumberObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienNumberObject.h; path = MatchAnalysis/LucienNumberObject.h; sourceTree = "<group>"; };
-		2F5D64BE179212EB0028F57D /* LucienNumberObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienNumberObject.m; path = MatchAnalysis/LucienNumberObject.m; sourceTree = "<group>"; };
 		2F621F29170DF2FE00D2ABD1 /* ImportDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDeviceViewController.h; path = DataImport/ImportDeviceViewController.h; sourceTree = "<group>"; };
 		2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDeviceViewController.m; path = DataImport/ImportDeviceViewController.m; sourceTree = "<group>"; };
 		2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_iphone.storyboard; path = MainApp/AerialAssist_iphone.storyboard; sourceTree = "<group>"; };
@@ -320,6 +318,7 @@
 		2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScoreInterfaces.m; path = DataModels/TeamScoreInterfaces.m; sourceTree = "<group>"; };
 		2FDC819C18AC700F008E2E0B /* MatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchData.h; path = DataModels/MatchData.h; sourceTree = "<group>"; };
 		2FDC819D18AC700F008E2E0B /* MatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchData.m; path = DataModels/MatchData.m; sourceTree = "<group>"; };
+		2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = AerialAssist.sqlite; path = Resources/AerialAssist.sqlite; sourceTree = "<group>"; };
 		2FF112D218A9BFC200533BEC /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = Resources/2014_field.png; sourceTree = "<group>"; };
 		2FF112D418B0208D00533BEC /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = Resources/2014_field_grid.png; sourceTree = "<group>"; };
 		2FF1459418BBF72D0078D1B4 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
@@ -541,6 +540,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */,
 				2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */,
 				2FDB496718BB05DA00B431C7 /* RadioButton-Selected.png */,
 				2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */,
@@ -632,8 +632,6 @@
 				2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */,
 				2F6D01ED1884B32400F0635C /* TournamentAnalysisViewController.h */,
 				2F6D01EE1884B32400F0635C /* TournamentAnalysisViewController.m */,
-				2F042011181F19D4003B994B /* LucienTableViewController.h */,
-				2F042012181F19D4003B994B /* LucienTableViewController.m */,
 				2F56B530170517F70093A976 /* CalculateTeamStats.h */,
 				2F56B531170517F70093A976 /* CalculateTeamStats.m */,
 				2FB29C8116F9620700086C08 /* FieldDrawingViewController.h */,
@@ -644,10 +642,10 @@
 				2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */,
 				2F12350116FB71E200DBF4B0 /* MasonPageViewController.h */,
 				2F12350216FB71E200DBF4B0 /* MasonPageViewController.m */,
+				2F042011181F19D4003B994B /* LucienTableViewController.h */,
+				2F042012181F19D4003B994B /* LucienTableViewController.m */,
 				2F06F98E1724CB70002C947D /* LucienPageViewController.h */,
 				2F06F98F1724CB70002C947D /* LucienPageViewController.m */,
-				2F5D64BD179212EB0028F57D /* LucienNumberObject.h */,
-				2F5D64BE179212EB0028F57D /* LucienNumberObject.m */,
 			);
 			name = "Match Analysis";
 			sourceTree = "<group>";
@@ -782,6 +780,7 @@
 				2FDB496918BB05DA00B431C7 /* RadioButton-Selected.png in Resources */,
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
 				2FC5D8C916C473820043F68A /* 2013_field.png in Resources */,
+				2FEB5DAE18C50C1A00F19316 /* AerialAssist.sqlite in Resources */,
 				2FCE54FA16CC271A00884191 /* Small Blue Button.jpg in Resources */,
 				2FCE54FB16CC271A00884191 /* Small Red Button.jpg in Resources */,
 				2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */,
@@ -870,7 +869,6 @@
 				2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */,
 				2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */,
 				2F6A0E5C178A2D66001A114F /* ValuePromptViewController.m in Sources */,
-				2F5D64BF179212EB0028F57D /* LucienNumberObject.m in Sources */,
 				2F137D1018537B7F00D87F30 /* TeamDataInterfaces.m in Sources */,
 				2F042013181F19D4003B994B /* LucienTableViewController.m in Sources */,
 				2FD8EDC118B7BB91009071A3 /* ShooterTypeDictionary.m in Sources */,
