@@ -278,7 +278,7 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", @"Throw Missed", nil];
     teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
 
@@ -1091,6 +1091,28 @@
     [self setDataChange];
 }
 
+-(void)trussMiss:(NSString *)choice {
+    // Update the number of missed shots
+    int score = [trussCatchButton.titleLabel.text intValue];
+    if ([choice isEqualToString:@"Reset to 0"]) {
+        score = 0;
+    }
+    else if ([choice isEqualToString:@"Decrement"] && score !=0) {
+        score--;
+    }
+    else if ([choice isEqualToString:@"Increment"]) {
+        score++;
+    }
+    else if ([choice isEqualToString:@"Pick a Value"]) {
+        [self promptForValue:trussCatchButton];
+        return;
+    }
+    currentTeam.trussCatchMiss = [NSNumber numberWithInt:score];
+    [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatchMiss intValue]] forState:UIControlStateNormal];
+    
+    [self setDataChange];
+}
+
 
 -(void)trussThrow:(NSString *)choice {
     // Update the number of missed shots
@@ -1510,6 +1532,7 @@
             [list addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
         }
     }
+    [list addObject:[NSString stringWithFormat:@"Human"]];
     partnerActionsList = list;
     // NSLog(@"Partner List = %@", partnerActionsList);
 }
@@ -1522,6 +1545,41 @@
         NSIndexPath *matchIndex = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
         return [_fetchedResultsController objectAtIndexPath:matchIndex];
     }
+}
+
+-(void)disableButtons{
+    NSLog(@"disabling buttons");
+    [_autonHighHotButton setUserInteractionEnabled:NO];
+    [_autonHighColdButton setUserInteractionEnabled:NO];
+    [_autonLowHotButton setUserInteractionEnabled:NO];
+    [_autonLowColdButton setUserInteractionEnabled:NO];
+    [_autonMobilityButton setUserInteractionEnabled:NO];
+    [teleOpHighButton setUserInteractionEnabled:NO];
+    [teleOpLowButton setUserInteractionEnabled:NO];
+    [teleOpMissButton setUserInteractionEnabled:NO];
+    [teleOpBlockButton setUserInteractionEnabled:NO];
+    [trussThrowButton setUserInteractionEnabled:NO];
+    [trussCatchButton setUserInteractionEnabled:NO];
+    [passesFloorButton setUserInteractionEnabled:NO];
+    [passesAirButton setUserInteractionEnabled:NO];
+    [_floorCatchButton setUserInteractionEnabled:NO];
+    [_autonMobilityButton setUserInteractionEnabled:NO];
+    [_noShowButton setUserInteractionEnabled:NO];
+    [_doaButton setUserInteractionEnabled:NO];
+    [_human1Button setUserInteractionEnabled:NO];
+    [_human2Button setUserInteractionEnabled:NO];
+    [_human3Button setUserInteractionEnabled:NO];
+    [_human4Button setUserInteractionEnabled:NO];
+    [_humanPickUpsButton setUserInteractionEnabled:NO];
+    [_floorPickUpsButton setUserInteractionEnabled:NO];
+    [_robotSpeed setUserInteractionEnabled:NO];
+    [_defenseBlockRating setUserInteractionEnabled:NO];
+    [_defenseBullyRating setUserInteractionEnabled:NO];
+    [driverRating setUserInteractionEnabled:NO];
+}
+
+-(void)enableButtons{
+    NSLog(@"enabling Buttons");
 }
 
 -(void)ShowTeam:(NSUInteger)currentTeamIndex {
@@ -1540,6 +1598,13 @@
     }
     else {
         blueScore.text = [NSString stringWithFormat:@"%d", [currentMatch.blueScore intValue]];
+    }
+    
+    if (drawMode == DrawLock || drawMode == DrawOff){
+        [self disableButtons];
+    }
+    else{
+        [self enableButtons];
     }
     
    [teamNumber setTitle:[NSString stringWithFormat:@"%d", [currentTeam.team.number intValue]] forState:UIControlStateNormal];
@@ -1920,6 +1985,10 @@
                     marker = @"TT";
                     [self trussThrow:@"Increment"];
                     break;
+                case 6:
+                    marker = @"TM";
+                    [self trussMiss:@"Increment"];
+                    break;
             }
             break;
         }
@@ -1989,6 +2058,9 @@
                     break;
                 case 1:
                     marker = [partnerActionsList objectAtIndex:i];
+                    break;
+                case 2:
+                    marker = @"HP";
                     break;
             }
             break;
@@ -2204,6 +2276,7 @@
     currentTeam.teleOpLowMiss = [NSNumber numberWithInt:0];
     currentTeam.airCatchHuman = [NSNumber numberWithInt:0];
     currentTeam.airCatch = [NSNumber numberWithInt:0];
+    currentTeam.trussCatchMiss = [NSNumber numberWithInt:0];
     currentTeam.floorCatch = [NSNumber numberWithInt:0];
     currentTeam.fieldDrawing.trace = nil;
 
