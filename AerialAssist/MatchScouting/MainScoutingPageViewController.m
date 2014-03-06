@@ -46,6 +46,16 @@
     NSMutableArray *teleOpScoreList;
     UIPopoverController *teleOpPickerPopover;
     PopUpPickerViewController *teleOpPicker;
+    // TeleOp Pick Up pop up
+    NSMutableArray *teleOpPickUpList;
+    UIPopoverController *teleOpPickUpPickerPopover;
+    PopUpPickerViewController *teleOpPickUpPicker;
+    // Partner Action pop up
+    NSMutableArray *partnerActionsList;
+    UIPopoverController *partnerActionsPickerPopover;
+    PopUpPickerViewController *partnerActionsPicker;
+
+    
 }
 
 @synthesize settings;
@@ -171,7 +181,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Main Scouting viewDidLoad");
+    // NSLog(@"Main Scouting viewDidLoad");
     NSError *error = nil;
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
@@ -269,25 +279,27 @@
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
     teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", nil];
+    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
+
+    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(partnerCatch:)];
+    tripleTapGesture.numberOfTapsRequired=3;
+    [fieldImage addGestureRecognizer:tripleTapGesture];
+
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [doubleTapGestureRecognizer requireGestureRecognizerToFail: tripleTapGesture];
     [fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
+    
+    UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
+    [fieldImage addGestureRecognizer:drawGesture];
     
     UITapGestureRecognizer *tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreDisk:)];
     tapPressGesture.numberOfTapsRequired = 1;
     [tapPressGesture requireGestureRecognizerToFail: doubleTapGestureRecognizer];
+    [tapPressGesture requireGestureRecognizerToFail: tripleTapGesture];
     [fieldImage addGestureRecognizer:tapPressGesture];
     
-    UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
-    [fieldImage addGestureRecognizer:drawGesture];
-
-    
-    UILongPressGestureRecognizer *mouseDrag = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(throwCatch:)];
-    mouseDrag.numberOfTapsRequired=1;
-    mouseDrag.minimumPressDuration=0.05;
-    [fieldImage addGestureRecognizer:mouseDrag];
-
     [imageContainer sendSubviewToBack:_backgroundImage];
 
     brush = 3.0;
@@ -297,7 +309,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    NSLog(@"viewWillAppear");
+    // NSLog(@"viewWillAppear");
 	NSError *error = nil;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		/*
@@ -411,7 +423,7 @@
     currentTeam.results = [NSNumber numberWithBool:YES];
     currentTeam.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     currentTeam.savedBy = deviceName;
-    NSLog(@"Saved by:%@\tTime = %@", currentTeam.savedBy, currentTeam.saved);
+    // NSLog(@"Saved by:%@\tTime = %@", currentTeam.savedBy, currentTeam.saved);
     dataChange = TRUE;
 }
 
@@ -620,7 +632,7 @@
                                        initWithContentViewController:matchTypePicker];               
     }
     matchTypePicker.matchTypeChoices = matchTypeList;
-    NSLog(@"Match Types = %@", matchTypeList);
+    // NSLog(@"Match Types = %@", matchTypeList);
     [self.matchTypePickerPopover presentPopoverFromRect:matchType.bounds inView:matchType
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -852,6 +864,16 @@
     if (popUp == teleOpPicker) {
         [teleOpPickerPopover dismissPopoverAnimated:YES];
         [self teleOpScoreSelected:newPick];
+        return;
+    }
+    if (popUp == teleOpPickUpPicker) {
+        [teleOpPickUpPickerPopover dismissPopoverAnimated:YES];
+        [self teleOpPickUpSelected:newPick];
+        return;
+    }
+    if (popUp == partnerActionsPicker) {
+        [partnerActionsPickerPopover dismissPopoverAnimated:YES];
+        [self allianceCatchSelected:newPick];
         return;
     }
     [self.scoreButtonPickerPopover dismissPopoverAnimated:YES];
@@ -1134,7 +1156,6 @@
     currentTeam.teleOpMissed = [NSNumber numberWithInt:score];
     [teleOpMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpMissed intValue]] forState:UIControlStateNormal];
 
-    NSLog(@"Check teleop calc");
     // Update the number of shots taken
     int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
     currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
@@ -1160,7 +1181,6 @@
     }
     currentTeam.teleOpHigh = [NSNumber numberWithInt:score];
     [teleOpHighButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpHigh intValue]] forState:UIControlStateNormal];
-    NSLog(@"Check teleop calc");
 
     // Update the number of shots taken
     int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
@@ -1191,7 +1211,6 @@
     currentTeam.teleOpLow = [NSNumber numberWithInt:score];
     [teleOpLowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpLow intValue]] forState:UIControlStateNormal];
 
-    NSLog(@"Check teleop calc");
     // Update the number of shots taken
     int total = [currentTeam.teleOpHigh intValue] + [currentTeam.teleOpLow intValue] + [currentTeam.teleOpMissed intValue];
     currentTeam.totalTeleOpShots = [NSNumber numberWithInt:total];
@@ -1221,7 +1240,6 @@
     currentTeam.autonMissed = [NSNumber numberWithInt:score];
     [autonMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonMissed intValue]] forState:UIControlStateNormal];
 
-    NSLog(@"Check auton calc");
     // Update the number of shots taken
     int total = [currentTeam.autonHighCold intValue] + [currentTeam.autonHighHot intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonLowCold intValue] + [currentTeam.autonMissed intValue];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
@@ -1262,7 +1280,6 @@
     // Update the number of shots taken
     int total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
-    NSLog(@"Check auton calc");
     
     // Update the number of shots made
     total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
@@ -1291,7 +1308,6 @@
     // Update the number of shots taken
     int total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
-    NSLog(@"Check auton calc");
     
     // Update the number of shots made
     total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
@@ -1321,7 +1337,6 @@
     int total = [currentTeam.autonHighCold intValue] + [currentTeam.autonHighHot intValue] + [currentTeam.autonLowCold intValue] + [currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
-    NSLog(@"Check auton calc");
     // Update the number of shots made
     total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
     currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
@@ -1350,7 +1365,6 @@
     int total = [currentTeam.autonHighCold intValue] + [currentTeam.autonHighHot intValue] + [currentTeam.autonLowCold intValue] + [currentTeam.autonLowHot intValue] + [currentTeam.autonMissed intValue];
     currentTeam.totalAutonShots = [NSNumber numberWithInt:total];
     
-    NSLog(@"Check auton calc");
     // Update the number of shots made
     total = [currentTeam.autonHighHot intValue] + [currentTeam.autonHighCold intValue] + [currentTeam.autonLowCold intValue] +[currentTeam.autonLowHot intValue];
     currentTeam.autonShotsMade = [NSNumber numberWithInt:total];
@@ -1467,13 +1481,37 @@
         }
     }
     else {
-        // Reds
         for (int i = 0; i < 6; i++) {
             score = [teamData objectAtIndex:i];
             [teamList replaceObjectAtIndex:i
                            withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
         }
     }
+}
+
+-(void)setPartnerList {
+    TeamScore *score;
+    int indexStart, indexEnd;
+    if ([currentTeam.allianceSection intValue] < 3) {
+        // Reds
+        indexStart = 0;
+        indexEnd = 3;
+    }
+    else {
+        // Blues
+        indexStart = 3;
+        indexEnd = 6;
+    }
+    NSMutableArray *list = [[NSMutableArray alloc] init];
+    // NSLog(@"Current team = %@", currentTeam.team.number);
+    for (int i=indexStart; i<indexEnd; i++) {
+        score = [teamData objectAtIndex:i];
+        if ([score.team.number intValue] != [currentTeam.team.number intValue]) {
+            [list addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
+        }
+    }
+    partnerActionsList = list;
+    // NSLog(@"Partner List = %@", partnerActionsList);
 }
 
 -(MatchData *)getCurrentMatch {
@@ -1553,6 +1591,7 @@
         drawMode = DrawOff;
     }
     [self drawModeSettings:drawMode];
+    [self setPartnerList];
 }
 
 -(TeamScore *)GetTeam:(NSUInteger)currentTeamIndex {
@@ -1570,11 +1609,24 @@
 
 -(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer {
     fieldDrawingChange = YES;
-    // NSLog(@"floorPickUp");
-    NSString *marker = @"O";
-    currentPoint = [gestureRecognizer locationInView:fieldImage];
-    [self drawText:marker location:currentPoint];
-    [self floorPickUp];
+    if(drawMode == DrawAuton){
+        // NSLog(@"floorPickUp");
+        NSString *marker = @"O";
+        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+    else {
+        if (teleOpPickUpPicker == nil) {
+            teleOpPickUpPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+            teleOpPickUpPicker.delegate = self;
+            teleOpPickUpPicker.pickerChoices = teleOpPickUpList;
+            teleOpPickUpPickerPopover = [[UIPopoverController alloc] initWithContentViewController:teleOpPickUpPicker];
+        }
+        popUp = teleOpPickUpPicker;
+        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
+        [teleOpPickUpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+    }
 }
 
 -(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer {
@@ -1644,43 +1696,20 @@
     }
 }
 
--(void)throwCatch:(UILongPressGestureRecognizer *)gestureRecognizer {
-	if([(UILongPressGestureRecognizer*)gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        NSLog(@"Pinching Began");
-        NSString *marker = @"S";
+-(void)partnerCatch:(UITapGestureRecognizer *)gestureRecognizer {
+    fieldDrawingChange = YES;
+    if(drawMode == DrawTeleop || drawMode == DrawDefense) {
+        if (partnerActionsPicker == nil) {
+            partnerActionsPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+            partnerActionsPicker.pickerChoices = partnerActionsList;
+            partnerActionsPicker.delegate = self;
+            partnerActionsPickerPopover = [[UIPopoverController alloc] initWithContentViewController:partnerActionsPicker];
+        }
+        popUp = partnerActionsPicker;
         currentPoint = [gestureRecognizer locationInView:fieldImage];
-        [self drawText:marker location:currentPoint];
+        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
+        [partnerActionsPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
-	if([(UILongPressGestureRecognizer*)gestureRecognizer state] == UIGestureRecognizerStateEnded) {
-        NSLog(@"Pinching Ended");
-        NSString *marker = @"E";
-        currentPoint = [gestureRecognizer locationInView:fieldImage];
-        [self drawText:marker location:currentPoint];
-    }
-    
-    /*   fieldDrawingChange = YES;
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        // NSLog(@"drawPath Began");
-        lastPoint = [gestureRecognizer locationInView:fieldImage];
-    }
-    else {
-        currentPoint = [gestureRecognizer locationInView: fieldImage];
-        // NSLog(@"current point = %lf, %lf", currentPoint.x, currentPoint.y);
-        UIGraphicsBeginImageContext(fieldImage.frame.size);
-        [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-        
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        [self.fieldImage setAlpha:opacity];
-        UIGraphicsEndImageContext();
-        lastPoint = currentPoint;
-    }*/
 }
 
 - (IBAction)eraserPressed:(id)sender {
@@ -1733,7 +1762,18 @@
 -(IBAction)drawModeChange: (id)sender {
     switch (drawMode) {
         case DrawOff:
-            drawMode = DrawAuton;
+            if (!currentTeam.team || [currentTeam.team.number intValue] == 0) {
+                UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Check Alert"
+                                                                  message:@"No team in this slot"
+                                                                 delegate:nil
+                                                        cancelButtonTitle:@"Ok"
+                                                        otherButtonTitles:nil];
+                [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+                [prompt show];
+            }
+            else {
+                drawMode = DrawAuton;
+            }
             break;
         case DrawAuton:
             drawMode = DrawTeleop;
@@ -1885,6 +1925,82 @@
         }
     }
     [self drawText:marker location:textPoint];
+}
+
+-(void)teleOpPickUpSelected:(NSString *)newPickUp {
+    [teleOpPickUpPickerPopover dismissPopoverAnimated:YES];
+    NSString *marker;
+    CGPoint textPoint;
+    textPoint.x = currentPoint.x;
+    textPoint.y = currentPoint.y + popCounter*16;
+    // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
+    red = 0.0/255.0;
+    green = 0.0/255.0;
+    blue = 0.0/255.0;
+    for (int i = 0 ; i < [teleOpPickUpList count] ; i++) {
+        if ([newPickUp isEqualToString:[teleOpPickUpList objectAtIndex:i]]) {
+            switch (i) {
+                case 0:
+                    marker = @"O";
+                    [self floorPickUpSelected:@"Increment"];
+                    break;
+                case 1:
+                    marker = @"FC";
+                    [self floorCatch:@"Increment"];
+                    break;
+                case 2:
+                    marker = @"AC";
+                    [self airCatch:@"Increment"];
+                    break;
+                case 3:
+                    marker = @"TC";
+                    [self trussCatch:@"Increment"];
+                    break;
+            }
+            break;
+        }
+    }
+    [self drawText:marker location:textPoint];
+  
+    if (drawMode == DrawDefense) {
+        red = 255.0/255.0;
+        green = 0.0/255.0;
+        blue = 0.0/255.0;
+     }
+}
+
+-(void)allianceCatchSelected:(NSString *)newPickUp {
+    [partnerActionsPickerPopover dismissPopoverAnimated:YES];
+    partnerActionsPickerPopover = nil;
+    partnerActionsPicker = nil;
+    NSString *marker;
+    CGPoint textPoint;
+    textPoint.x = currentPoint.x;
+    textPoint.y = currentPoint.y + popCounter*16;
+    // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
+    red = 0.0/255.0;
+    green = 0.0/255.0;
+    blue = 0.0/255.0;
+    for (int i = 0 ; i < [partnerActionsList count] ; i++) {
+        if ([newPickUp isEqualToString:[partnerActionsList objectAtIndex:i]]) {
+            switch (i) {
+                case 0:
+                    marker = [partnerActionsList objectAtIndex:i];
+                    break;
+                case 1:
+                    marker = [partnerActionsList objectAtIndex:i];
+                    break;
+            }
+            break;
+        }
+    }
+    [self drawText:marker location:textPoint];
+    
+    if (drawMode == DrawDefense) {
+        red = 255.0/255.0;
+        green = 0.0/255.0;
+        blue = 0.0/255.0;
+    }
 }
 
 - (void)defenseSelected:(NSString *)newDefense {

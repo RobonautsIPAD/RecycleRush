@@ -20,9 +20,10 @@
                          [NSNumber numberWithInt:IntakeJVN],
                          [NSNumber numberWithInt:IntakeEveryBot],
                          [NSNumber numberWithInt:IntakeClamp],
+                         [NSNumber numberWithInt:Intake118],
                          [NSNumber numberWithInt:IntakeOther],
                          nil];
-        objects = [NSArray arrayWithObjects:@"Unknown", @"None", @"JVN", @"EveryBot", @"Clamp", @"Other", nil];
+        objects = [NSArray arrayWithObjects:@"Unknown", @"None", @"JVN", @"EveryBot", @"Clamp", @"118", @"Other", nil];
         
         dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	}

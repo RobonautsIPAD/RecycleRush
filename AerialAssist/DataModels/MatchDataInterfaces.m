@@ -11,6 +11,7 @@
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
+#import "TournamentDataInterfaces.h"
 #import "TeamDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
 
@@ -85,6 +86,7 @@
     for (NSString *key in teams) {
         [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];
     }
+    [self addBlankScores:matchRecord];
     NSLog(@"Teams = %@", teams);
     matchRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     NSError *error;
@@ -92,6 +94,51 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
     return matchRecord;
+}
+
+-(void)addBlankScores:(MatchData *)match {
+    NSArray *allScores = [match.score allObjects];
+    int teamsInMatch = [allScores count];
+    if (teamsInMatch < 6) {
+        TeamScore *blankScore;
+        TeamScoreInterfaces *teamScoreInterface = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 1"];
+        NSArray *matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Red 1" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+        pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 2"];
+        matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Red 2" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+        pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 3"];
+        matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Red 3" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+        pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 1"];
+        matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Blue 1" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+        pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 2"];
+        matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Blue 2" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+        pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 3"];
+        matches = [allScores filteredArrayUsingPredicate:pred];
+        if (![matches count]) {
+            blankScore = [teamScoreInterface addScore:nil forAlliance:@"Blue 3" forTournament:match.tournamentName];
+            [match addScoreObject:blankScore];
+        }
+    }
 }
 
 -(MatchData *)getMatch:(NSNumber *)matchNumber forMatchType:(NSString *) type forTournament:(NSString *) tournament {

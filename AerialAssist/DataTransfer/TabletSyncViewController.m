@@ -1,4 +1,4 @@
-//
+ //
 //  SyncViewController.m
 // Robonauts Scouting
 //
@@ -21,6 +21,7 @@
 
 @interface TabletSyncViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *resetBluetoothButton;
+@property (weak, nonatomic) IBOutlet UIButton *packageDataButton;
 @end
 
 @implementation TabletSyncViewController {
@@ -43,6 +44,8 @@
     NSString *tournamentName;
     NSString *deviceName;
     BlueToothType *bluetoothType;
+    NSString *exportFilePath;
+    NSString *transferFilePath;
 
     NSArray *tournamentList;
     NSMutableArray *filteredTournamentList;
@@ -122,6 +125,7 @@ GKPeerPickerController *picker;
     [self SetBigButtonDefaults:_syncOptionButton];
     [self SetBigButtonDefaults:_syncTypeButton];
     [self SetBigButtonDefaults:_disconnectButton];
+    [self SetBigButtonDefaults:_packageDataButton];
     [self SetSmallButtonDefaults:_sendButton];
     
 
@@ -373,7 +377,8 @@ GKPeerPickerController *picker;
      filteredResultsList = [NSArray arrayWithArray:matchResultsList];
      switch (_syncOption) {
          case SyncAll:
-             filteredResultsList = [NSArray arrayWithArray:matchResultsList];
+             pred = [NSPredicate predicateWithFormat:@"results = %@", [NSNumber numberWithBool:YES]];
+             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
              break;
          case SyncAllSavedHere:
              pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
@@ -392,6 +397,82 @@ GKPeerPickerController *picker;
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
     filteredResultsList = [filteredResultsList sortedArrayUsingDescriptors:sortDescriptors];
     [_sendDataTable reloadData];
+}
+
+- (IBAction)packageDataForiTunes:(id)sender {
+    if (![self createExportPaths]) return;
+    switch (_syncType) {
+        case SyncTournaments: {
+            NSData *myData = [tournamentDataPackage packageTournamentsForXFer:filteredTournamentList];
+        }
+            break;
+        case SyncTeams:
+            for (int i=0; i<[filteredTeamList count]; i++) {
+                TeamData *team = [filteredTeamList objectAtIndex:i];
+                NSData *myData = [teamDataPackage packageTeamForXFer:team];
+                //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+            }
+            break;
+        case SyncMatchList:
+            for (int i=0; i<[filteredMatchList count]; i++) {
+                MatchData *match = [filteredMatchList objectAtIndex:i];
+                NSData *myData = [matchDataPackage packageMatchForXFer:match];
+                NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+            }
+            break;
+        case SyncMatchResults:
+            for (int i=0; i<[filteredResultsList count]; i++) {
+                TeamScore *score = [filteredResultsList objectAtIndex:i];
+                [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
+                [self serializeDataForTransfer];
+                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(BOOL)createExportPaths {
+    BOOL success = TRUE;
+    if (!transferFilePath) {
+        transferFilePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
+        NSError *error;
+        success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    if (!exportFilePath) {
+        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
+        NSError *error;
+        success &= [[NSFileManager defaultManager] createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    if (!success) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert"
+                                                          message:@"Unable to Save Transfer Data"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
+    return success;
+}
+
+-(void) serializeDataForTransfer {
+/*- (NSData *)exportToNSData {
+ NSError *error;
+ NSURL *url = [NSURL fileURLWithPath:_docPath];
+ NSFileWrapper *dirWrapper = [[[NSFileWrapper alloc] initWithURL:url options:0 error:&error] autorelease];
+ if (dirWrapper == nil) {
+ NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+ return nil;
+ }
+ 
+ NSData *dirData = [dirWrapper serializedRepresentation];
+ NSData *gzData = [dirData gzipDeflate];
+ return gzData;
+ }
+ */
 }
 
 -(IBAction)syncChanged:(id)sender {
@@ -470,6 +551,7 @@ GKPeerPickerController *picker;
 }
 
 -(IBAction) btnConnect:(id) sender {
+    [self shutdownBluetooth];
     picker = [[GKPeerPickerController alloc] init];
     picker.delegate = self;
     picker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
@@ -552,6 +634,7 @@ GKPeerPickerController *picker;
 }
 
 - (void)shutdownBluetooth {
+    if (!_currentSession) return;
     [_currentSession disconnectFromAllPeers];
     _currentSession.available = NO;
     [_currentSession setDataReceiveHandler:nil withContext:nil];
@@ -970,5 +1053,18 @@ GKPeerPickerController *picker;
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
+/**
+ Returns the path to the application's Library directory.
+ */
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+/**
+ Returns the path to the application's Documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
 
 @end

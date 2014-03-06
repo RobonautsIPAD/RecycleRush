@@ -88,9 +88,10 @@
             [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
             self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
             self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
-            self.masonPageButton.frame = CGRectMake(560, 235, 400, 68);
-            self.lucianPageButton.frame = CGRectMake(560, 355, 400, 68);
-            self.ridleyPageButton.frame = CGRectMake(560, 475, 400, 68);
+            self.masonPageButton.frame = CGRectMake(560, 315, 400, 68);
+            self.lucianPageButton.frame = CGRectMake(560, 415, 400, 68);
+            self.ridleyPageButton.frame = CGRectMake(560, 515, 400, 68);
+            _splashPicture.frame = CGRectMake(50, 233, 468, 330);
             break;
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:

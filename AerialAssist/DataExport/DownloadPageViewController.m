@@ -36,6 +36,9 @@
     NSString *gameName;
     NSString *exportPath;
     NSMutableArray *syncList;
+    PopUpPickerViewController *exportOptionPicker;
+    UIPopoverController *exportOptionPopover;
+    NSMutableArray *exportOptionList;
 }
 @synthesize dataManager = _dataManager;
 
@@ -86,6 +89,8 @@
     else {
         self.title = @"Data Transfer";
     }
+    
+    exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
 
     // Display the Robotnauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
@@ -108,7 +113,7 @@
 }
 
 - (IBAction)exportTapped:(id)sender {
-    
+    UIButton * pressedButton = (UIButton*)sender;
     if (sender == _teamDataButton) {
         [self emailTeamData];
     }
@@ -116,7 +121,18 @@
         [self emailMatchData];
     }
     else if (sender == _scoutingSheetButton) {
-        [self createScoutingSpreadsheet];
+        if (exportOptionPicker == nil) {
+            exportOptionPicker = [[PopUpPickerViewController alloc]
+                                   initWithStyle:UITableViewStylePlain];
+            exportOptionPicker.delegate = self;
+            exportOptionPicker.pickerChoices = exportOptionList;
+        }
+        if (!exportOptionPopover) {
+            exportOptionPopover = [[UIPopoverController alloc]
+                                          initWithContentViewController:exportOptionPicker];
+        }
+        [exportOptionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
+                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
@@ -133,10 +149,10 @@
         NSString *emailSubject = @"Team Data CSV File";
         NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
         NSArray *attachList = [[NSArray alloc] initWithObjects:@"TeamData.csv", nil];
-        [self buildEmail:fileList attach:attachList subject:emailSubject];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
     }
 }
-
 
 -(void)emailMatchData {
     NSString *csvString;
@@ -164,35 +180,43 @@
     NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
     NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
     
-    [self buildEmail:fileList attach:attachList subject:emailSubject];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com", @"misnard30@gmail.com", nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
--(void)createScoutingSpreadsheet {
-    NSString *csvString;
+- (void)pickerSelected:(NSString *)newPick {
+    [exportOptionPopover dismissPopoverAnimated:YES];
+    [self createScoutingSpreadsheet:newPick];
+}
+
+-(void)createScoutingSpreadsheet:(NSString *)choice {
+    NSString *csvString = [[NSString alloc] init];
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
     
     // Export Scores
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
     ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
-    csvString = [scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:0]];
-/*    if (csvString) {
-        [csvString writeToFile:fileDataPath
+    for (int i=0; i<[teamData count]; i++) {
+        csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
+    }
+    NSLog(@"%@", csvString);
+    if (csvString) {
+        [csvString writeToFile:filePath
                     atomically:YES
                       encoding:NSUTF8StringEncoding
                          error:nil];
     }
     NSString *emailSubject = @"Match Data CSV Files";
-    NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
-    NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
-    
-    [self buildEmail:fileList attach:attachList subject:emailSubject];*/
+    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingData.csv", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
 
--(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject {
+-(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:array {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
         [mailViewController setSubject:emailSubject];
         [mailViewController setToRecipients:array];
         [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
@@ -217,9 +241,6 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:Nil];
-}
-
-- (void)pickerSelected:(NSString *)newPick {
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

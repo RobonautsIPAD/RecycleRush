@@ -4,23 +4,33 @@
 <array>
 	<dict>
 		<key>key</key>
+		<string>clear</string>
+		<key>name</key>
+		<string>Clear</string>
+		<key>table</key>
+		<string></string>
+		<key>operators</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>autonMobility</string>
 		<key>name</key>
 		<string>Auton Motion</string>
 		<key>table</key>
-		<string>TeamData</string>
+		<string>TeamScore</string>
 		<key>operators</key>
-		<string>False,True</string>
+		<string>Boolean</string>
 	</dict>
 	<dict>
 		<key>key</key>
 		<string>catcher</string>
 		<key>name</key>
-		<string>Catch System</string>
+		<string>Catcher</string>
 		<key>table</key>
 		<string>TeamData</string>
 		<key>operators</key>
-		<string>False,True</string>
+		<string>Boolean</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -28,9 +38,9 @@
 		<key>name</key>
 		<string>Auton Capacity</string>
 		<key>table</key>
-		<string>TeamData</string>
+		<string>TeamScore</string>
 		<key>operators</key>
-		<string>False,True</string>
+		<string>List</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -40,7 +50,7 @@
 		<key>table</key>
 		<string>TeamData</string>
 		<key>operators</key>
-		<string>False,True</string>
+		<string>Boolean</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -114,7 +124,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonMiss</string>
+		<string>autonMissed</string>
 		<key>name</key>
 		<string>Auton Misses</string>
 		<key>table</key>
@@ -127,16 +137,6 @@
 		<string>autonShotsMade</string>
 		<key>name</key>
 		<string>Auton Shots</string>
-		<key>table</key>
-		<string>TeamScore</string>
-		<key>operators</key>
-		<string>List</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonMobility</string>
-		<key>name</key>
-		<string>Auton Motion Score</string>
 		<key>table</key>
 		<string>TeamScore</string>
 		<key>operators</key>

@@ -11,7 +11,6 @@
 @class LucienNumberObject;
 
 @interface LucienTableViewController : UITableViewController
-@property (nonatomic, strong) NSMutableArray *lucienNumbers;
-@property (nonatomic, strong) UIView *headerView;
-
+@property (nonatomic, strong) NSArray *lucienNumbers;
+@property (nonatomic, strong) NSDictionary *lucienSelections;
 @end

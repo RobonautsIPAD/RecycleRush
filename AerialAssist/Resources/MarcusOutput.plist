@@ -68,7 +68,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonBlock</string>
+		<string>autonBlocks</string>
 		<key>header</key>
 		<string>Block</string>
 		<key>order</key>
@@ -76,7 +76,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>floorPass</string>
+		<string>floorPasses</string>
 		<key>header</key>
 		<string>FloorPass</string>
 		<key>order</key>
@@ -92,7 +92,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>airPass</string>
+		<string>airPasses</string>
 		<key>header</key>
 		<string>AirPass</string>
 		<key>order</key>
@@ -140,7 +140,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>teleOpBlock</string>
+		<string>teleOpBlocks</string>
 		<key>header</key>
 		<string>Block</string>
 		<key>order</key>
@@ -212,7 +212,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>defensiveBlockRating</string>
+		<string>defenseBlockRating</string>
 		<key>header</key>
 		<string>BlockSkill</string>
 		<key>order</key>
@@ -220,7 +220,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>defensiveBullyRating</string>
+		<string>defenseBullyRating</string>
 		<key>header</key>
 		<string>BullySkill</string>
 		<key>order</key>

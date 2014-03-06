@@ -706,6 +706,8 @@
 -(void)getPhoto {
     // Load the picture for the display. Need to change this to use the new album stuff implemented
     //  last week.
+    _imageView.image = nil;
+    _imageView.userInteractionEnabled = NO;
     NSLog(@"Get photo");
     if (_team.primePhoto) {
         NSLog(@"Team = %@", _team.number);
@@ -719,10 +721,7 @@
         NSLog(@"Date = %@", _team.primePhotoDate);
         getAssetURL = TRUE;
         [_dataManager getPhotoFromAlbumWithDate:_team.primePhotoDate];
-    }
-    else {
-        _imageView.image = nil;
-        _imageView.userInteractionEnabled = NO;
+        _imageView.userInteractionEnabled = YES;
     }
 }
 

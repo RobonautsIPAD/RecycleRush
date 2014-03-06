@@ -59,8 +59,8 @@
     }
     
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
-    NSLog(@"Printing Matchlist");
-    NSLog(@"%@", matchList);
+    // NSLog(@"Printing Matchlist");
+    // NSLog(@"%@", matchList);
     
     self.title = @"Match Analysis";
     [super viewDidLoad];
@@ -72,6 +72,8 @@
     //  VC is the FieldDrawing VC.
     NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
     [segue.destinationViewController setDataManager:_dataManager];
+    [segue.destinationViewController setTeamScores:matchList];
+    [segue.destinationViewController setStartingIndex:indexPath.row];
     [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
 }
 -(NSInteger)numberOfRowsInTableView:(UITableView *)tableView{

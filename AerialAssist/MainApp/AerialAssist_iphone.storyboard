@@ -178,12 +178,24 @@
                                     <action selector="buttonPress:" destination="Q1b-tX-bqd" eventType="touchUpInside" id="7QK-Qm-y24"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aGc-W9-cTJ">
+                                <rect key="frame" x="64" y="162" width="199" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Email Spreadsheet Data" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPress:" destination="Q1b-tX-bqd" eventType="touchUpInside" id="Ppn-C4-jWW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="End-ou-NY3"/>
                     <connections>
                         <outlet property="exportMatchData" destination="fFd-m4-hC0" id="6Di-JB-4WT"/>
+                        <outlet property="exportSpreadsheetData" destination="aGc-W9-cTJ" id="wlM-CS-bpn"/>
                         <outlet property="exportTeamData" destination="eKS-yY-BXS" id="wG3-Qq-ruw"/>
                     </connections>
                 </viewController>

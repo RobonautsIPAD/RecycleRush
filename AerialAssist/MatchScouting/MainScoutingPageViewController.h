@@ -104,7 +104,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *passesAirButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonBlockButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpBlockButton;
-//@property (nonatomic, weak) IBOutlet UIButton *bigHumanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *humanPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorCatchButton;
@@ -128,7 +127,6 @@ typedef enum {
 -(void)autonHighHot:(NSString *)choice;
 -(void)autonLowHot:(NSString *)choice;
 -(void)autonLowCold:(NSString *)choice;
--(void)passesMade;
 -(IBAction)humanPickUpsMade:(id) sender;
 -(void)promptForValue:(UIButton *)button;
 -(IBAction)toggleGrid:(id)sender;

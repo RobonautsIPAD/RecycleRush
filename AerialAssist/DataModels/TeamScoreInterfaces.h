@@ -10,14 +10,17 @@
 
 @class DataManager;
 @class MatchData;
+@class TeamData;
 @class TeamScore;
 
-@interface TeamScoreInterfaces : NSObject
+@interface TeamScoreInterfaces : NSObject <UIAlertViewDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
 -(id)initWithDataManager:(DataManager *)initManager;
 -(void)addScoreToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance;
+-(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath;
 -(NSData *)packageScoreForXFer:(TeamScore *)score;
 -(TeamScore *)unpackageScoreForXFer:(NSData *)xferData;
+-(TeamScore *)addScore:(TeamData *)team forAlliance:(NSString *)alliance forTournament:(NSString *)tournament;
 
 @end
