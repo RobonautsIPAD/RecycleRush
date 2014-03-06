@@ -423,7 +423,7 @@
     currentTeam.results = [NSNumber numberWithBool:YES];
     currentTeam.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     currentTeam.savedBy = deviceName;
-    // NSLog(@"Saved by:%@\tTime = %@", currentTeam.savedBy, currentTeam.saved);
+    //NSLog(@"Team = %@, Match = %@ Saved by:%@\tTime = %@", currentTeam.team.number, currentTeam.match.number, currentTeam.savedBy, currentTeam.saved);
     dataChange = TRUE;
 }
 
@@ -792,7 +792,9 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self setDataChange];
+    if (textField == notes) {
+        [self setDataChange];
+    }
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -2143,10 +2145,14 @@
 }
 
 -(void)matchReset {
-    [self setDataChange];
+    dataChange = FALSE;
+    fieldDrawingChange = NO;
     currentMatch.redScore = [NSNumber numberWithInt:-1];
     currentMatch.blueScore = [NSNumber numberWithInt:-1];
 
+    currentTeam.saved = [NSNumber numberWithFloat:0.0];
+    currentTeam.savedBy = @"";
+    currentTeam.received = [NSNumber numberWithFloat:0.0];
     currentTeam.results = [NSNumber numberWithBool:NO];
     currentTeam.noShow = [NSNumber numberWithBool:NO];
     currentTeam.deadOnArrival = [NSNumber numberWithBool:NO];
@@ -2207,7 +2213,11 @@
     currentTeam.floorCatch = [NSNumber numberWithInt:0];
     currentTeam.fieldDrawing.trace = nil;
 
-    [self ShowTeam:teamIndex];   
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    [self ShowTeam:teamIndex];
 }
 
 

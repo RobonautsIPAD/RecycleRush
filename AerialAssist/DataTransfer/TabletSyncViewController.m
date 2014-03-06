@@ -18,10 +18,12 @@
 #import "TeamScoreInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
+#import "ImportDataFromiTunes.h"
 
 @interface TabletSyncViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *resetBluetoothButton;
 @property (weak, nonatomic) IBOutlet UIButton *packageDataButton;
+@property (weak, nonatomic) IBOutlet UIButton *importFromiTunesButton;
 @end
 
 @implementation TabletSyncViewController {
@@ -70,6 +72,9 @@
     NSArray *filteredResultsList;
     NSMutableArray *receivedResultsList;
     TeamScoreInterfaces *matchResultsPackage;
+
+    PopUpPickerViewController *importFileListPicker;
+    UIPopoverController *importFileListPopover;
 }
 
 @synthesize dataManager = _dataManager;
@@ -122,6 +127,8 @@ GKPeerPickerController *picker;
         self.title = @"Synchronization";
     }
     
+    [[[ImportDataFromiTunes alloc] init] getImportFileList];
+     
     [self SetBigButtonDefaults:_connectButton];
     [self SetBigButtonDefaults:_syncOptionButton];
     [self SetBigButtonDefaults:_syncTypeButton];
@@ -422,8 +429,6 @@ GKPeerPickerController *picker;
             }
             break;
         case SyncMatchResults: {
-            NSLog(@"Time since 1970 = %f", [[[NSDate alloc] init] timeIntervalSince1970]);
-  //          - (NSTimeInterval)timeIntervalSince1970;
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
