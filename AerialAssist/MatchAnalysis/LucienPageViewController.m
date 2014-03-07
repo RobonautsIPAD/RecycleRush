@@ -362,9 +362,8 @@
             [row setObject:validChoice forKey:key];
         }
         else {
-            NSMutableDictionary *defaultParameterDictionary = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:validChoice, @"", [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
+            NSMutableDictionary *defaultParameterDictionary = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:validChoice, @"", [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
             [parameterDictionary setObject:defaultParameterDictionary forKey:line];
-            NSLog(@"Parameter dictionary = %@", parameterDictionary);
             [self setDisplayData];
         }
     }
@@ -454,7 +453,7 @@
     lucienList = [[NSMutableArray alloc] init];
     // get team list
     NSArray *teamData = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@", tournamentName, [NSNumber numberWithBool:YES]];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType == %@", tournamentName, [NSNumber numberWithBool:YES], @"Seeding"];
     // each team will have a dictionary with team number and a lucien number for each row
     // so a dictionary where key is the team number and there is an dictionary of lucien numbers with the same key as the row
     for (int j=0; j<[teamData count]; j++) {
