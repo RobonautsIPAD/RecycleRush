@@ -1555,7 +1555,8 @@
     [_autonHighColdButton setUserInteractionEnabled:NO];
     [_autonLowHotButton setUserInteractionEnabled:NO];
     [_autonLowColdButton setUserInteractionEnabled:NO];
-    [_autonMobilityButton setUserInteractionEnabled:NO];
+    [autonBlockButton setUserInteractionEnabled:NO];
+    [autonMissButton setUserInteractionEnabled:NO];
     [teleOpHighButton setUserInteractionEnabled:NO];
     [teleOpLowButton setUserInteractionEnabled:NO];
     [teleOpMissButton setUserInteractionEnabled:NO];
@@ -1565,6 +1566,7 @@
     [passesFloorButton setUserInteractionEnabled:NO];
     [passesAirButton setUserInteractionEnabled:NO];
     [_floorCatchButton setUserInteractionEnabled:NO];
+    [_airCatchButton setUserInteractionEnabled:NO];
     [_autonMobilityButton setUserInteractionEnabled:NO];
     [_noShowButton setUserInteractionEnabled:NO];
     [_doaButton setUserInteractionEnabled:NO];
@@ -1578,10 +1580,43 @@
     [_defenseBlockRating setUserInteractionEnabled:NO];
     [_defenseBullyRating setUserInteractionEnabled:NO];
     [driverRating setUserInteractionEnabled:NO];
+    [notes setUserInteractionEnabled:NO];
+    [fieldImage setUserInteractionEnabled:FALSE];
 }
 
 -(void)enableButtons{
     NSLog(@"enabling Buttons");
+    [_autonHighHotButton setUserInteractionEnabled:YES];
+    [_autonHighColdButton setUserInteractionEnabled:YES];
+    [_autonLowHotButton setUserInteractionEnabled:YES];
+    [_autonLowColdButton setUserInteractionEnabled:YES];
+    [autonBlockButton setUserInteractionEnabled:YES];
+    [autonMissButton setUserInteractionEnabled:YES];
+    [teleOpHighButton setUserInteractionEnabled:YES];
+    [teleOpLowButton setUserInteractionEnabled:YES];
+    [teleOpMissButton setUserInteractionEnabled:YES];
+    [teleOpBlockButton setUserInteractionEnabled:YES];
+    [trussThrowButton setUserInteractionEnabled:YES];
+    [trussCatchButton setUserInteractionEnabled:YES];
+    [passesFloorButton setUserInteractionEnabled:YES];
+    [passesAirButton setUserInteractionEnabled:YES];
+    [_floorCatchButton setUserInteractionEnabled:YES];
+    [_airCatchButton setUserInteractionEnabled:YES];
+    [_autonMobilityButton setUserInteractionEnabled:YES];
+    [_noShowButton setUserInteractionEnabled:YES];
+    [_doaButton setUserInteractionEnabled:YES];
+    [_human1Button setUserInteractionEnabled:YES];
+    [_human2Button setUserInteractionEnabled:YES];
+    [_human3Button setUserInteractionEnabled:YES];
+    [_human4Button setUserInteractionEnabled:YES];
+    [_humanPickUpsButton setUserInteractionEnabled:YES];
+    [_floorPickUpsButton setUserInteractionEnabled:YES];
+    [_robotSpeed setUserInteractionEnabled:YES];
+    [_defenseBlockRating setUserInteractionEnabled:YES];
+    [_defenseBullyRating setUserInteractionEnabled:YES];
+    [driverRating setUserInteractionEnabled:YES];
+    [notes setUserInteractionEnabled:YES];
+    [fieldImage setUserInteractionEnabled:YES];
 }
 
 -(void)ShowTeam:(NSUInteger)currentTeamIndex {
@@ -1601,14 +1636,7 @@
     else {
         blueScore.text = [NSString stringWithFormat:@"%d", [currentMatch.blueScore intValue]];
     }
-    
-    if (drawMode == DrawLock || drawMode == DrawOff){
-        [self disableButtons];
-    }
-    else{
-        [self enableButtons];
-    }
-    
+        
    [teamNumber setTitle:[NSString stringWithFormat:@"%d", [currentTeam.team.number intValue]] forState:UIControlStateNormal];
     teamName.text = currentTeam.team.name;
     driverRating.value =  [currentTeam.driverRating floatValue];
@@ -1659,6 +1687,8 @@
     }
     [self drawModeSettings:drawMode];
     [self setPartnerList];
+    
+    NSLog(@"Saved by = %@", currentTeam.savedBy);
 }
 
 -(TeamScore *)GetTeam:(NSUInteger)currentTeamIndex {
@@ -1870,7 +1900,7 @@
             [drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small White Button.jpg"] forState:UIControlStateNormal];
             [drawModeButton setTitle:@"Off" forState:UIControlStateNormal];
             [drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            fieldImage.userInteractionEnabled = FALSE;
+            [self disableButtons];
             break;
         case DrawAuton:
             red = 255.0/255.0;
@@ -1879,7 +1909,7 @@
             [drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
             [drawModeButton setTitle:@"Auton" forState:UIControlStateNormal];
             [drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            fieldImage.userInteractionEnabled = TRUE;
+            [self enableButtons];
             break;
         case DrawTeleop:
             red = 0.0/255.0;
@@ -1903,7 +1933,7 @@
             [drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
             [drawModeButton setTitle:@"Locked" forState:UIControlStateNormal];
             [drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
-            fieldImage.userInteractionEnabled = FALSE;
+            [self disableButtons];
             break;
         default:
             break;

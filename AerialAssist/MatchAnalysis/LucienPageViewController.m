@@ -354,10 +354,19 @@
 -(void) setParameterEntry:(NSString *)validChoice forKey:(NSString *)key forDictionaryId:(NSString *)line {
     NSMutableDictionary *row = [self getRowDictionary:line];
     if ([validChoice isEqualToString:@""]) {
-        
+        [parameterDictionary removeObjectForKey:line];
+        [self setDisplayData];
     }
     else {
-        
+        if (row) {
+            [row setObject:validChoice forKey:key];
+        }
+        else {
+            NSMutableDictionary *defaultParameterDictionary = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:validChoice, @"", [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:0.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
+            [parameterDictionary setObject:defaultParameterDictionary forKey:line];
+            NSLog(@"Parameter dictionary = %@", parameterDictionary);
+            [self setDisplayData];
+        }
     }
 }
 
@@ -592,7 +601,7 @@
     else {
         parameterDictionary = [[NSMutableDictionary alloc] init];
     }
-    
+    // Create a default dictionary for adding desired parameters
     // Load dictionary with list of parameters for Lucien's List
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"LucienNumberFields" ofType:@"plist"];
     databaseList = [[NSArray alloc] initWithContentsOfFile:plistPath];

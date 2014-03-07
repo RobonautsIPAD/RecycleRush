@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+@class DataManager;
 
-@interface ImportDataFromiTunes : NSObject
+@interface ImportDataFromiTunes : NSObject <UIAlertViewDelegate>
+@property (nonatomic, strong) DataManager *dataManager;
+- (id)init:(DataManager *)initManager;
 -(NSArray *)getImportFileList;
+-(NSMutableArray *)importData:(NSString *) importFile;
 
 @end

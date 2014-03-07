@@ -4485,7 +4485,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="syncChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="QK0-bo-2sa"/>
+                                    <action selector="popUpChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="blt-WQ-3kx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FU6-7v-h1v">
@@ -4495,7 +4495,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="syncChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="DoY-2T-SpC"/>
+                                    <action selector="popUpChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="Wen-kQ-20H"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ov7-uN-24R">
@@ -4528,6 +4528,16 @@
                                     <action selector="packageDataForiTunes:" destination="foR-gV-UYn" eventType="touchUpInside" id="UrI-pt-OwJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qAe-Si-GBA">
+                                <rect key="frame" x="748" y="100" width="196" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Import Data from iTunes">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popUpChanged:" destination="foR-gV-UYn" eventType="touchUpInside" id="U22-gO-Iuz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4537,6 +4547,7 @@
                     <connections>
                         <outlet property="connectButton" destination="gwG-f2-Ebg" id="XyZ-pc-X7O"/>
                         <outlet property="disconnectButton" destination="Ccb-Gj-R8c" id="iqi-lQ-eJa"/>
+                        <outlet property="importFromiTunesButton" destination="qAe-Si-GBA" id="RWr-hd-N7g"/>
                         <outlet property="packageDataButton" destination="OCw-Te-C95" id="f5s-Ct-5si"/>
                         <outlet property="peerLabel" destination="hQj-Cq-DZr" id="k9j-m6-dPY"/>
                         <outlet property="peerName" destination="D6A-SZ-HGE" id="KbL-YB-IhG"/>

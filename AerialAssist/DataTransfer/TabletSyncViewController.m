@@ -75,6 +75,9 @@
 
     PopUpPickerViewController *importFileListPicker;
     UIPopoverController *importFileListPopover;
+    NSArray *importFileList;
+
+    ImportDataFromiTunes *importPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -127,13 +130,14 @@ GKPeerPickerController *picker;
         self.title = @"Synchronization";
     }
     
-    [[[ImportDataFromiTunes alloc] init] getImportFileList];
-     
+    importPackage = [[ImportDataFromiTunes alloc] init:_dataManager];
+    
     [self SetBigButtonDefaults:_connectButton];
     [self SetBigButtonDefaults:_syncOptionButton];
     [self SetBigButtonDefaults:_syncTypeButton];
     [self SetBigButtonDefaults:_disconnectButton];
-    [self SetBigButtonDefaults:_packageDataButton];
+    [self SetSmallButtonDefaults:_packageDataButton];
+    [self SetSmallButtonDefaults:_importFromiTunesButton];
     [self SetSmallButtonDefaults:_sendButton];
     
 
@@ -486,33 +490,53 @@ GKPeerPickerController *picker;
     [transferData writeToFile:transferDataFile atomically:YES];
  }
 
--(IBAction)syncChanged:(id)sender {
+-(void)importiTunesSelected:(NSString *)importFile {
+    NSLog(@"file selected = %@", importFile);
+    receivedResultsList = [importPackage importData:importFile];
+    [_receiveDataTable reloadData];
+}
+
+- (IBAction)popUpChanged:(id)sender {
     UIButton * PressedButton = (UIButton*)sender;
     if (PressedButton == _syncOptionButton) {
         popUp = _syncOptionButton;
         if (_syncOptionPicker == nil) {
             _syncOptionPicker = [[PopUpPickerViewController alloc]
-                             initWithStyle:UITableViewStylePlain];
+                                 initWithStyle:UITableViewStylePlain];
             _syncOptionPicker.delegate = self;
         }
         _syncOptionPicker.pickerChoices = _syncOptionList;
         self.syncOptionPopover = [[UIPopoverController alloc]
-                                    initWithContentViewController:_syncOptionPicker];
+                                  initWithContentViewController:_syncOptionPicker];
         [self.syncOptionPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _syncTypeButton) {
         popUp = _syncTypeButton;
         if (_syncTypePicker == nil) {
             _syncTypePicker = [[PopUpPickerViewController alloc]
-                                initWithStyle:UITableViewStylePlain];
+                               initWithStyle:UITableViewStylePlain];
             _syncTypePicker.delegate = self;
         }
         _syncTypePicker.pickerChoices = _syncTypeList;
         self.syncPickerPopover = [[UIPopoverController alloc]
-                                   initWithContentViewController:_syncTypePicker];
+                                  initWithContentViewController:_syncTypePicker];
         [self.syncPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (PressedButton == _importFromiTunesButton) {
+        popUp = _importFromiTunesButton;
+        if (importFileListPicker == nil) {
+            importFileListPicker = [[PopUpPickerViewController alloc]
+                                    initWithStyle:UITableViewStylePlain];
+            importFileListPicker.delegate = self;
+        }
+        importFileList = [importPackage getImportFileList];
+        importFileListPicker.pickerChoices = [importFileList mutableCopy];
+        importFileListPopover = [[UIPopoverController alloc]
+                                 initWithContentViewController:importFileListPicker];
+        [importFileListPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
@@ -526,6 +550,12 @@ GKPeerPickerController *picker;
         [_syncPickerPopover dismissPopoverAnimated:YES];
         _syncPickerPopover = nil;
         [self changeSyncType:newPick];
+    }
+    else if (popUp == _importFromiTunesButton) {
+        [importFileListPopover dismissPopoverAnimated:YES];
+        importFileListPicker = nil;
+        importFileListPopover = nil;
+        [self importiTunesSelected:newPick];
     }
 }
 
@@ -782,7 +812,7 @@ GKPeerPickerController *picker;
             if (receivedMatchList == nil) {
                 receivedMatchList = [NSMutableArray array];
             }
-            TeamScore *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+            NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
             if (scoreReceived) [receivedResultsList addObject:scoreReceived];
         }
             break;
@@ -971,21 +1001,21 @@ GKPeerPickerController *picker;
 }
 
 - (void)configureReceivedResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
+    NSDictionary *score = [receivedResultsList objectAtIndex:indexPath.row];
     // Configure the cell...
     // Set a background for the cell
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"match"] intValue]];
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = score.match.matchType;
+    label2.text = [score objectForKey:@"type"];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
+    label3.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"team"] intValue]];
     
 	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-    label4.text = @"";
+    label4.text = [score objectForKey:@"transfer"];
 }
 
 - (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

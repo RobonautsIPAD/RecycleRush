@@ -48,14 +48,13 @@
     lucienNumber.backgroundColor = [UIColor clearColor];
     [_headerView addSubview:lucienNumber];
 
-    numberOfColumns = 1;
+    NSLog(@"lucien selections = %@", _lucienSelections);
     CGFloat x = 200;
-    for (int i = 1; i<[_lucienSelections count]; i++) {
+    for (int i = 1; i<[_lucienSelections count]+1; i++) {
         NSDictionary *row = [_lucienSelections objectForKey:[NSString stringWithFormat:@"%d",i]];
         NSString *header = [row objectForKey:@"name"];
-        if (header && ![header isEqualToString:@""]) numberOfColumns++;
         UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake(x+(i-1)*90, 0, 200, 50)];
-        parameterHeader.text = [row objectForKey:@"name"];
+        parameterHeader.text = header;
         parameterHeader.backgroundColor = [UIColor clearColor];
         [_headerView addSubview:parameterHeader];
     }
