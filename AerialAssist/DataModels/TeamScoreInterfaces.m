@@ -89,7 +89,7 @@
     return myData;
 }
 
--(TeamScore *)unpackageScoreForXFer:(NSData *)xferData {
+-(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData {
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }
@@ -141,6 +141,19 @@
         }
     }
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    // check retieved macth, if the saved and saveby match the imcoming data then just do nothing
+    NSNumber *saved = [myDictionary objectForKey:@"saved"];
+    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    
+    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
+        NSLog(@"Match has already transferred, match = %@", score.match.number);
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"N", nil];
+        NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        return teamTransfer;
+    }
+    //[NSDictionary dictionaryWithObjects:@[[asset valueForProperty:ALAssetPropertyAssetURL], image] forKeys:@[@"assetURL", @"photoImage"]]]];
+
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"matchNumber"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"matchType"]) continue; // Comes with the relationship
@@ -164,7 +177,11 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
     NSLog(@"received %@", score);
-    return score;
+
+    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"Y", nil];
+    NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return teamTransfer;
 }
 
 -(void)addScoreToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance {

@@ -41,7 +41,6 @@
 @property (nonatomic, strong) NSMutableArray *syncOptionList;
 -(void)changeSyncOption:(NSString *)newSyncOption;
 
--(IBAction)syncChanged:(id)sender;
 -(void)setHeaders;
 -(void)createHeaders;
 -(void)createTeamList;

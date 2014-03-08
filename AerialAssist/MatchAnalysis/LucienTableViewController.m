@@ -48,14 +48,12 @@
     lucienNumber.backgroundColor = [UIColor clearColor];
     [_headerView addSubview:lucienNumber];
 
-    numberOfColumns = 1;
     CGFloat x = 200;
-    for (int i = 1; i<[_lucienSelections count]; i++) {
+    for (int i = 1; i<[_lucienSelections count]+1; i++) {
         NSDictionary *row = [_lucienSelections objectForKey:[NSString stringWithFormat:@"%d",i]];
         NSString *header = [row objectForKey:@"name"];
-        if (header && ![header isEqualToString:@""]) numberOfColumns++;
         UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake(x+(i-1)*90, 0, 200, 50)];
-        parameterHeader.text = [row objectForKey:@"name"];
+        parameterHeader.text = header;
         parameterHeader.backgroundColor = [UIColor clearColor];
         [_headerView addSubview:parameterHeader];
     }
@@ -107,21 +105,22 @@
 //    UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
 //    imageView.image = image;
 //    cell.backgroundView = imageView;
-    
 	UILabel *teamLabel = (UILabel *)[cell viewWithTag:10];
 	teamLabel.text = [NSString stringWithFormat:@"%@", [info objectForKey:@"team"]];
 
     UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20];
 	lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:@"lucien"] floatValue]];
-    
-    for (int i=1; i<=numberOfColumns; i++) {
+
+    for (int i=1; i<=[_lucienSelections count]+1; i++) {
         UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20+i*10];
         NSString *key = [NSString stringWithFormat:@"%d", i];
-        lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:key] floatValue]];
-    }
-    for (int i=numberOfColumns+1; i<9; i++) {
-        UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20+i*10];
-        lucienLabel.text = @"";
+        NSNumber *value = [info objectForKey:key];
+        if (value) {
+            lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:key] floatValue]];
+        }
+        else {
+            lucienLabel.text = @"";
+        }
     }
 }
 

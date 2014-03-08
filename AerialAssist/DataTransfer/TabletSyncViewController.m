@@ -18,10 +18,12 @@
 #import "TeamScoreInterfaces.h"
 #import "SyncOptionDictionary.h"
 #import "SyncTypeDictionary.h"
+#import "ImportDataFromiTunes.h"
 
 @interface TabletSyncViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *resetBluetoothButton;
 @property (weak, nonatomic) IBOutlet UIButton *packageDataButton;
+@property (weak, nonatomic) IBOutlet UIButton *importFromiTunesButton;
 @end
 
 @implementation TabletSyncViewController {
@@ -46,6 +48,7 @@
     BlueToothType *bluetoothType;
     NSString *exportFilePath;
     NSString *transferFilePath;
+    NSString *transferDataFile;
 
     NSArray *tournamentList;
     NSMutableArray *filteredTournamentList;
@@ -69,6 +72,12 @@
     NSArray *filteredResultsList;
     NSMutableArray *receivedResultsList;
     TeamScoreInterfaces *matchResultsPackage;
+
+    PopUpPickerViewController *importFileListPicker;
+    UIPopoverController *importFileListPopover;
+    NSArray *importFileList;
+
+    ImportDataFromiTunes *importPackage;
 }
 
 @synthesize dataManager = _dataManager;
@@ -121,11 +130,14 @@ GKPeerPickerController *picker;
         self.title = @"Synchronization";
     }
     
+    importPackage = [[ImportDataFromiTunes alloc] init:_dataManager];
+    
     [self SetBigButtonDefaults:_connectButton];
     [self SetBigButtonDefaults:_syncOptionButton];
     [self SetBigButtonDefaults:_syncTypeButton];
     [self SetBigButtonDefaults:_disconnectButton];
-    [self SetBigButtonDefaults:_packageDataButton];
+    [self SetSmallButtonDefaults:_packageDataButton];
+    [self SetSmallButtonDefaults:_importFromiTunesButton];
     [self SetSmallButtonDefaults:_sendButton];
     
 
@@ -420,17 +432,25 @@ GKPeerPickerController *picker;
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
             }
             break;
-        case SyncMatchResults:
+        case SyncMatchResults: {
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
-                [self serializeDataForTransfer];
-                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+                NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
+            }
+            matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Results %0.f.mrd", tournamentName, [matchResultsSync floatValue]]];
+            [self serializeDataForTransfer:transferDataFile];
             }
             break;
             
         default:
             break;
+    }
+    NSError *error = nil;
+    for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:transferFilePath error:&error]) {
+        NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
+        [[NSFileManager defaultManager] removeItemAtPath:name error:&error];
     }
 }
 
@@ -442,7 +462,7 @@ GKPeerPickerController *picker;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!exportFilePath) {
-        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
+        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Transfer Data", deviceName]];
         NSError *error;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
@@ -458,50 +478,65 @@ GKPeerPickerController *picker;
     return success;
 }
 
--(void) serializeDataForTransfer {
-/*- (NSData *)exportToNSData {
- NSError *error;
- NSURL *url = [NSURL fileURLWithPath:_docPath];
- NSFileWrapper *dirWrapper = [[[NSFileWrapper alloc] initWithURL:url options:0 error:&error] autorelease];
- if (dirWrapper == nil) {
- NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
- return nil;
+-(void) serializeDataForTransfer:(NSString *)fileName {
+    NSError *error;
+    NSURL *url = [NSURL fileURLWithPath:transferFilePath];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:transferDataFile atomically:YES];
  }
- 
- NSData *dirData = [dirWrapper serializedRepresentation];
- NSData *gzData = [dirData gzipDeflate];
- return gzData;
- }
- */
+
+-(void)importiTunesSelected:(NSString *)importFile {
+    NSLog(@"file selected = %@", importFile);
+    receivedResultsList = [importPackage importData:importFile];
+    [_receiveDataTable reloadData];
 }
 
--(IBAction)syncChanged:(id)sender {
+- (IBAction)popUpChanged:(id)sender {
     UIButton * PressedButton = (UIButton*)sender;
     if (PressedButton == _syncOptionButton) {
         popUp = _syncOptionButton;
         if (_syncOptionPicker == nil) {
             _syncOptionPicker = [[PopUpPickerViewController alloc]
-                             initWithStyle:UITableViewStylePlain];
+                                 initWithStyle:UITableViewStylePlain];
             _syncOptionPicker.delegate = self;
         }
         _syncOptionPicker.pickerChoices = _syncOptionList;
         self.syncOptionPopover = [[UIPopoverController alloc]
-                                    initWithContentViewController:_syncOptionPicker];
+                                  initWithContentViewController:_syncOptionPicker];
         [self.syncOptionPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _syncTypeButton) {
         popUp = _syncTypeButton;
         if (_syncTypePicker == nil) {
             _syncTypePicker = [[PopUpPickerViewController alloc]
-                                initWithStyle:UITableViewStylePlain];
+                               initWithStyle:UITableViewStylePlain];
             _syncTypePicker.delegate = self;
         }
         _syncTypePicker.pickerChoices = _syncTypeList;
         self.syncPickerPopover = [[UIPopoverController alloc]
-                                   initWithContentViewController:_syncTypePicker];
+                                  initWithContentViewController:_syncTypePicker];
         [self.syncPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (PressedButton == _importFromiTunesButton) {
+        popUp = _importFromiTunesButton;
+        if (importFileListPicker == nil) {
+            importFileListPicker = [[PopUpPickerViewController alloc]
+                                    initWithStyle:UITableViewStylePlain];
+            importFileListPicker.delegate = self;
+        }
+        importFileList = [importPackage getImportFileList];
+        importFileListPicker.pickerChoices = [importFileList mutableCopy];
+        importFileListPopover = [[UIPopoverController alloc]
+                                 initWithContentViewController:importFileListPicker];
+        [importFileListPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
@@ -515,6 +550,12 @@ GKPeerPickerController *picker;
         [_syncPickerPopover dismissPopoverAnimated:YES];
         _syncPickerPopover = nil;
         [self changeSyncType:newPick];
+    }
+    else if (popUp == _importFromiTunesButton) {
+        [importFileListPopover dismissPopoverAnimated:YES];
+        importFileListPicker = nil;
+        importFileListPopover = nil;
+        [self importiTunesSelected:newPick];
     }
 }
 
@@ -771,7 +812,7 @@ GKPeerPickerController *picker;
             if (receivedMatchList == nil) {
                 receivedMatchList = [NSMutableArray array];
             }
-            TeamScore *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+            NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
             if (scoreReceived) [receivedResultsList addObject:scoreReceived];
         }
             break;
@@ -960,21 +1001,21 @@ GKPeerPickerController *picker;
 }
 
 - (void)configureReceivedResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
+    NSDictionary *score = [receivedResultsList objectAtIndex:indexPath.row];
     // Configure the cell...
     // Set a background for the cell
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"match"] intValue]];
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = score.match.matchType;
+    label2.text = [score objectForKey:@"type"];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
+    label3.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"team"] intValue]];
     
 	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-    label4.text = @"";
+    label4.text = [score objectForKey:@"transfer"];
 }
 
 - (void)configureReceivedCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

@@ -354,10 +354,18 @@
 -(void) setParameterEntry:(NSString *)validChoice forKey:(NSString *)key forDictionaryId:(NSString *)line {
     NSMutableDictionary *row = [self getRowDictionary:line];
     if ([validChoice isEqualToString:@""]) {
-        
+        [parameterDictionary removeObjectForKey:line];
+        [self setDisplayData];
     }
     else {
-        
+        if (row) {
+            [row setObject:validChoice forKey:key];
+        }
+        else {
+            NSMutableDictionary *defaultParameterDictionary = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:validChoice, @"", [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
+            [parameterDictionary setObject:defaultParameterDictionary forKey:line];
+            [self setDisplayData];
+        }
     }
 }
 
@@ -445,7 +453,7 @@
     lucienList = [[NSMutableArray alloc] init];
     // get team list
     NSArray *teamData = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@", tournamentName, [NSNumber numberWithBool:YES]];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType == %@", tournamentName, [NSNumber numberWithBool:YES], @"Seeding"];
     // each team will have a dictionary with team number and a lucien number for each row
     // so a dictionary where key is the team number and there is an dictionary of lucien numbers with the same key as the row
     for (int j=0; j<[teamData count]; j++) {
@@ -592,7 +600,7 @@
     else {
         parameterDictionary = [[NSMutableDictionary alloc] init];
     }
-    
+    // Create a default dictionary for adding desired parameters
     // Load dictionary with list of parameters for Lucien's List
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"LucienNumberFields" ofType:@"plist"];
     databaseList = [[NSArray alloc] initWithContentsOfFile:plistPath];
