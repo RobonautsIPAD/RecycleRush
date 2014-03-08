@@ -97,40 +97,40 @@
     teamLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:teamLabel];
 
-	UILabel *aveAutonLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 0, 200, 50)];
-	aveAutonLabel.text = @"Ave. Auton";
-    aveAutonLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:aveAutonLabel];
+	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(150, 0, 200, 50)];
+	label1.text = @"High Hot";
+    label1.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label1];
     
- 	UILabel *aveTeleopLabel = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
-	aveTeleopLabel.text = @"Ave. TeleOp";
-    aveTeleopLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:aveTeleopLabel];
+ 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
+	label2.text = @"TeleOp High";
+    label2.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label2];
     
-	UILabel *aveHangLabel = [[UILabel alloc] initWithFrame:CGRectMake(390, 0, 200, 50)];
-	aveHangLabel.text = @"Ave. Hang";
-    aveHangLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:aveHangLabel];
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(390, 0, 200, 50)];
+	label3.text = @"Truss Throw";
+    label3.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label3];
     
-	UILabel *speedLabel = [[UILabel alloc] initWithFrame:CGRectMake(525, 0, 200, 50)];
-	speedLabel.text = @"Speed";
-    speedLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:speedLabel];
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(525, 0, 200, 50)];
+	label4.text = @"Speed";
+    label4.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label4];
     
-    UILabel *driveLabel = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
-	driveLabel.text = @"Drive";
-    driveLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:driveLabel];
+    UILabel *lable5 = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
+	lable5.text = @"Drive";
+    lable5.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:lable5];
     
-    UILabel *defenseLabel = [[UILabel alloc] initWithFrame:CGRectMake(705, 0, 200, 50)];
-	defenseLabel.text = @"Defense";
-    defenseLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:defenseLabel];
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(705, 0, 200, 50)];
+	label6.text = @"Bully";
+    label6.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label6];
     
-    UILabel *minHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(805, 0, 200, 50)];
-	minHeightLabel.text = @"Minimum Height";
-    minHeightLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:minHeightLabel];
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(805, 0, 200, 50)];
+	label7.text = @"Block";
+    label7.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label7];
 
     [super viewDidLoad];
 
@@ -240,32 +240,33 @@
     UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
     imageView.image = image;
     cell.backgroundView = imageView;
-    [teamStats calculateMasonStats:info forTournament:tournamentName];
+    NSMutableDictionary *stats = [teamStats calculateMasonStats:info forTournament:tournamentName];
     
 	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
     
-	UILabel *aveAutonLabel = (UILabel *)[cell viewWithTag:20];
-	aveAutonLabel.text = [NSString stringWithFormat:@"%d", teamStats.aveAuton];
-
-	UILabel *aveTeleOpLabel = (UILabel *)[cell viewWithTag:30];
-	aveTeleOpLabel.text = [NSString stringWithFormat:@"%d", teamStats.aveTeleOp];
     
-	UILabel *aveHangLabel = (UILabel *)[cell viewWithTag:40];
-	aveHangLabel.text = [NSString stringWithFormat:@"%.1f", teamStats.aveClimbHeight];
+	UILabel *label1 = (UILabel *)[cell viewWithTag:20];
+    label1.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"average"] floatValue]];
 
-	UILabel *speedLabel = (UILabel *)[cell viewWithTag:50];
-	speedLabel.text = [NSString stringWithFormat:@"%.1f", teamStats.aveSpeed];
+	UILabel *label2 = (UILabel *)[cell viewWithTag:30];
+	label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"average"] floatValue]];
 
-    UILabel *driveLabel = (UILabel *)[cell viewWithTag:70];
-    driveLabel.text = [driveDictionary getString:info.driveTrainType];
-    if ([driveLabel.text isEqualToString:@"Unknown"]) driveLabel.text = @"";
+	UILabel *label3 = (UILabel *)[cell viewWithTag:40];
+	label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"average"] floatValue]];
+
+	UILabel *label4 = (UILabel *)[cell viewWithTag:50];
+	label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]];
+
+    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
+    label5.text = [driveDictionary getString:info.driveTrainType];
+    if ([label5.text isEqualToString:@"Unknown"]) label5.text = @"";
     
-    UILabel *defenseLabel = (UILabel *)[cell viewWithTag:80];
-	defenseLabel.text = [NSString stringWithFormat:@"%.1f", teamStats.aveDefense];
+    UILabel *label6 = (UILabel *)[cell viewWithTag:80];
+	label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]];
 
-    UILabel *heightLabel = (UILabel *)[cell viewWithTag:90];
-    heightLabel.text = [NSString stringWithFormat:@"%.1f", [info.minHeight floatValue]];
+    UILabel *label7 = (UILabel *)[cell viewWithTag:90];
+	label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]];
 
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:60];
     nameLabel.text = info.name;

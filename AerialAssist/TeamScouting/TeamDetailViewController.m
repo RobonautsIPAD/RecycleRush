@@ -795,6 +795,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    CGImageRef cgRef = _imageView.image.CGImage;
+    NSLog(@"cgref = %@", cgRef);
     _imageView.userInteractionEnabled = YES;
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) {
         [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
@@ -806,6 +808,13 @@
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
     [picker dismissViewControllerAnimated:YES completion:Nil];
+// Test stuff for new protocol
+    CGImageSourceRef  myImageSource;
+    // Create an image source from NSData; no options.
+//    NSData *data = [UIImageJPEGRepresentation(_imageView.image, 1.0)];
+//    myImageSource = CGImageSourceCreateWithData((CFDataRef)data, NULL);
+
+
 }
 
 - (IBAction)photoControllerActionSheet:(id)sender {
