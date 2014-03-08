@@ -24,76 +24,43 @@
 	return self;
 }
 
--(void)calculateMasonStats:(TeamData *)team forTournament:(NSString *)tournament {
+-(NSMutableDictionary *)calculateMasonStats:(TeamData *)team forTournament:(NSString *)tournament {
     if (_dataManager == nil) {
         _dataManager = [DataManager new];
     }
-    [self setDefaults];
 
     if (!team) {
-        return;
+        return nil;
     }
+
+    // Load dictionary with list of parameters for the scouting spreadsheet
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
+    NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
 // fetch all score records for this tournament
     NSArray *allMatches = [team.match allObjects];
-    if (![allMatches count]) return;
+    if (![allMatches count]) return nil;
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournament];
+    NSMutableDictionary *stats = [[NSMutableDictionary alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (match.matchType = %@ || match.matchType = %@)", tournament, [NSNumber numberWithBool:YES], @"Seeding", @"Elimination"];
     NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];
-    
-    int driving = 0;
-    int defense = 0;
-    int speed = 0;
-    int hangLevel = 0;
-    
-    for (int i=0; i<[matches count]; i++) {
-        TeamScore *match = [matches objectAtIndex:i];
-        // Only use Seeding or Elimination matches that have been saved or synced
-        if ( ([match.match.matchType isEqualToString:@"Seeding"]
-              || [match.match.matchType isEqualToString:@"Elimination"])
-            && ([match.saved intValue] || [match.received intValue])) {
-            _nmatches++;
-//            int points = [match.autonHigh intValue]*6 + [match.autonMid intValue]*5 + [match.autonLow intValue]*4;
-//            _autonPoints += points;
-//            points = [match.teleOpHigh intValue]*3 + [match.teleOpMid intValue]*2 + [match.teleOpLow intValue];
-//            _teleOpPoints += points;
-            driving += [match.driverRating intValue];
-//            defense += [match.defenseRating intValue];
-            speed += [match.robotSpeed intValue];
-//            hangLevel += [match.climbLevel floatValue];
-//            _hangs = _hangs || [match.climbLevel intValue];
+
+    int numberOfMatches = [matches count];
+    for (int j=1; j<[parameterList count]; j++) {
+        NSDictionary *parameter = [parameterList objectAtIndex:j];
+ //       NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[parameter objectForKey:@"header"], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"average", @"total", nil]];
+        float total = 0.0;
+        for (int i=0; i<numberOfMatches; i++) {
+            TeamScore *match = [matches objectAtIndex:i];
+            total += [[match valueForKey:[parameter objectForKey:@"key"]] floatValue];
+        }
+        if (numberOfMatches) {
+            float average = total/numberOfMatches;
+            NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:average], [NSNumber numberWithFloat:total], nil] forKeys:[NSArray arrayWithObjects:@"average", @"total", nil]];
+            [stats setObject:calculation forKey:[parameter objectForKey:@"header"]];
         }
     }
-    if (_nmatches) {
-        _aveAuton = _autonPoints/_nmatches;
-        _aveTeleOp = _teleOpPoints/_nmatches;
-        _aveDriving = driving/_nmatches;
-        _aveDefense = defense/_nmatches;
-        _aveSpeed = speed/_nmatches;
-        _aveClimbHeight = hangLevel/_nmatches;
-    }
-    
-    return;
+    return stats;
 }
-
--(void)setDefaults {
-    _nmatches = 0;
-    _aveAuton = 0;
-    _aveClimbHeight = 0.0;
-    _aveClimbTime = 0.0;
-    _aveTeleOp = 0;
-
-    _autonAccuracy = 0.0;
-    _autonPoints = 0;
-    _teleOpAccuracy = 0.0;
-    _teleOpPoints = 0;
-
-    _aveDriving = 0.0;
-    _aveDefense = 0.0;
-    _aveSpeed = 0.0;
-    
-    _hangs = FALSE;
-}
-
 
 @end

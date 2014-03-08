@@ -485,10 +485,10 @@
             score = [data objectAtIndex:i];
             [_teamList replaceObjectAtIndex:(i-3)
                                 withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-            [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-            [_teamMatches replaceObjectAtIndex:(i-3)
-                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
-            [_teamAuton replaceObjectAtIndex:(i-3)
+            NSMutableArray *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
+//            [_teamMatches replaceObjectAtIndex:(i-3)
+//                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
+/*            [_teamAuton replaceObjectAtIndex:(i-3)
                                     withObject:[NSString stringWithFormat:@"%d", teamStats.autonPoints]];
             [_teamTeleOp replaceObjectAtIndex:(i-3)
                                   withObject:[NSString stringWithFormat:@"%d", teamStats.teleOpPoints]];
@@ -509,16 +509,16 @@
             else {
                 [_teamHeight replaceObjectAtIndex:(i-3)
                                        withObject:[NSString stringWithFormat:@""]];
-            }
+            }*/
         }
         // Blues
-        for (int i=0; i<3; i++) {
+/*        for (int i=0; i<3; i++) {
             score = [data objectAtIndex:i];
             [_teamList replaceObjectAtIndex:(i+3)
                                  withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
             [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-            [_teamMatches replaceObjectAtIndex:(i+3)
-                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
+//            [_teamMatches replaceObjectAtIndex:(i+3)
+//                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
             [_teamAuton replaceObjectAtIndex:(i+3)
                                   withObject:[NSString stringWithFormat:@"%d", teamStats.autonPoints]];
             [_teamTeleOp replaceObjectAtIndex:(i+3)
@@ -541,7 +541,7 @@
                 [_teamHeight replaceObjectAtIndex:(i+3)
                                        withObject:[NSString stringWithFormat:@""]];
             }
-        }
+        }*/
     }
     _red1Team.text = [_teamList objectAtIndex:0];
     [_red1Scores removeAllObjects];
