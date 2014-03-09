@@ -77,6 +77,8 @@
     UIPopoverController *autonCapacityPickerPopover;
     NumberEnumDictionary *autonCapacityDictionary;
     NSMutableArray *autonCapacityList;
+
+    UIImage *tester;
 }
 
 @synthesize dataManager = _dataManager;
@@ -809,12 +811,29 @@
     NSLog(@"image picker finish");
     [picker dismissViewControllerAnimated:YES completion:Nil];
 // Test stuff for new protocol
-    CGImageSourceRef  myImageSource;
     // Create an image source from NSData; no options.
-//    NSData *data = [UIImageJPEGRepresentation(_imageView.image, 1.0)];
+    NSData *data = UIImageJPEGRepresentation(_imageView.image, 1.0);
 //    myImageSource = CGImageSourceCreateWithData((CFDataRef)data, NULL);
-
-
+    NSString *path = [NSString stringWithFormat:@"Library/%@.jpg", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
+    photoPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
+    [UIImageJPEGRepresentation(_imageView.image, 1.0) writeToFile:photoPath atomically:YES];
+    NSURL *momURL = [NSURL fileURLWithPath:photoPath];
+    CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+    NSLog(@"myImageSource = %@", myImageSource);
+    CGImageRef        myThumbnailImage;
+    int imageSize = 100;
+    CFNumberRef thumbnailSize = CFNumberCreate(NULL, kCFNumberIntType, &imageSize);
+    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+                                                (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                nil];
+    myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource,
+                                                           0,
+                                                           options);
+    NSLog(@"myThumbnailImage = %@", myThumbnailImage);
+    tester = [UIImage imageWithCGImage:myThumbnailImage];
+    _imageView.image = tester;
 }
 
 - (IBAction)photoControllerActionSheet:(id)sender {
@@ -873,40 +892,52 @@
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    NSInteger photoCount = [_team.photoList count];
-    if (photoCount > 1) [_photoCollectionView setHidden:NO];
-    else [_photoCollectionView setHidden:YES];
-    return 0; //photoCount;
+//    NSInteger photoCount = [_team.photoList count];
+//    if (photoCount > 1) [_photoCollectionView setHidden:NO];
+//    else [_photoCollectionView setHidden:YES];
+    return 1; //photoCount;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell " forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    
+    cell.backgroundColor=[UIColor greenColor];
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = tester;
+    cell.backgroundView = imageView;
     return cell;
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
 // 1
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+/*- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 //    NSString *searchTerm = self.searches[indexPath.section];
 //    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
     // 2
-//    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-CGSize retval = CGSizeMake(50, 50);
+//   CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
+CGSize retval = CGSizeMake(40, 40);
 //    retval.height += 35; retval.width += 35;
     return retval;
 }
-
+*/
 // 3
-- (UIEdgeInsets)collectionView:
-(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(50, 20, 50, 20);
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(50, 50);
 }
+
+/*- (CGSize)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return CGSizeMake(50, 50);
+//    return UIEdgeInsetsMake(50, 20, 50, 20);
+}*/
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Segue occurs when the user selects a match out of the match list table. Receiving
