@@ -236,10 +236,10 @@
     // NSLog(@"name = %@", info.name);
     // Configure the cell...
     // Set a background for the cell
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
-    UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
-    imageView.image = image;
-    cell.backgroundView = imageView;
+    //UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
+    //UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
+    //imageView.image = image;
+   // cell.backgroundView = imageView;
     NSMutableDictionary *stats = [teamStats calculateMasonStats:info forTournament:tournamentName];
     
 	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
@@ -282,6 +282,14 @@
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *lightBlueColor = [UIColor colorWithRed:(154/255.0) green:(212/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
+    cell.backgroundColor = lightBlueColor;
+    cell.accessoryView.tintColor = [UIColor blackColor];
+    
 }
 
 /*

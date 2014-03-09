@@ -101,7 +101,11 @@
 	label2.text = score.match.matchType;
     
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    //label3.text = [NSString stringWithFormat:@"%d/%d", [score.match.redScore intValue], [score.match.blueScore intValue]];
     label3.text = @"";
+    
+    UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    label4.text = [NSString stringWithFormat:@"%@", [score.results boolValue] ? @"Y": @"N"];
     
 
     //    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
@@ -148,6 +152,28 @@
 	return YES;
 } */
 
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
+    cell.backgroundColor = goldColor;
+    
+    self.matchesTable.layer.borderWidth = 2;
+    self.matchesTable.layer.borderColor = [[UIColor blackColor] CGColor];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // Draw top border only on first cell
+    if (indexPath.row == 0) {
+        UIView *topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 1)];
+        topLineView.backgroundColor = [UIColor blackColor];
+        [cell.contentView addSubview:topLineView];
+    }
+    
+    UIView *bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, cell.bounds.size.height, self.view.bounds.size.width, 1)];
+    bottomLineView.backgroundColor = [UIColor blackColor];
+    [cell.contentView addSubview:bottomLineView];
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
