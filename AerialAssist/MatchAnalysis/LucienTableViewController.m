@@ -34,27 +34,29 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:highestToLowest, nil];
     _lucienNumbers = [_lucienNumbers sortedArrayUsingDescriptors:sortDescriptors];
  
+    
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     _headerView.backgroundColor = [UIColor lightGrayColor];
     _headerView.opaque = YES;
     
 	UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 50)];
 	teamLabel.text = @"Team";
-    teamLabel.backgroundColor = [UIColor clearColor];
+    teamLabel.backgroundColor = [UIColor lightGrayColor];
     [_headerView addSubview:teamLabel];
     
 	UILabel *lucienNumber = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 200, 50)];
 	lucienNumber.text = @"Lucien";
-    lucienNumber.backgroundColor = [UIColor clearColor];
+    lucienNumber.backgroundColor = [UIColor lightGrayColor];
     [_headerView addSubview:lucienNumber];
 
-    CGFloat x = 200;
+    NSArray *Xaxis = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:170],[NSNumber numberWithInt:260],[NSNumber numberWithInt:370], [NSNumber numberWithInt:460], [NSNumber numberWithInt:550], [NSNumber numberWithInt:660], [NSNumber numberWithInt:770], [NSNumber numberWithInt:880], nil];
+    
     for (int i = 1; i<[_lucienSelections count]+1; i++) {
         NSDictionary *row = [_lucienSelections objectForKey:[NSString stringWithFormat:@"%d",i]];
         NSString *header = [row objectForKey:@"name"];
-        UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake(x+(i-1)*90, 0, 200, 50)];
+        UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake([[Xaxis objectAtIndex:i-1] floatValue], 0, 200, 50)];
         parameterHeader.text = header;
-        parameterHeader.backgroundColor = [UIColor clearColor];
+        parameterHeader.backgroundColor = [UIColor lightGrayColor];
         [_headerView addSubview:parameterHeader];
     }
     if (numberOfColumns >2) numberOfColumns -= 1;
@@ -104,8 +106,7 @@
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
 //    UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
 //    imageView.image = image;
-//    cell.backgroundView = imageView;
-	UILabel *teamLabel = (UILabel *)[cell viewWithTag:10];
+    UILabel *teamLabel = (UILabel *)[cell viewWithTag:10];
 	teamLabel.text = [NSString stringWithFormat:@"%@", [info objectForKey:@"team"]];
 
     UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20];
@@ -126,6 +127,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
  	UITableViewCell *cell = [tableView
                              dequeueReusableCellWithIdentifier:@"LucienList"];
     // NSLog(@"IndexPath =%@", indexPath);
@@ -133,6 +136,13 @@
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
+    cell.backgroundColor = goldColor;
+
 }
 
 /*

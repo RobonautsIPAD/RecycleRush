@@ -108,27 +108,27 @@
     red1Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red1Label];
 
-    UILabel *red2Label = [[UILabel alloc] initWithFrame:CGRectMake(216, 0, 200, 50)];
+    UILabel *red2Label = [[UILabel alloc] initWithFrame:CGRectMake(211, 0, 200, 50)];
 	red2Label.text = @"Red 2";
     red2Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red2Label];
 
-    UILabel *red3Label = [[UILabel alloc] initWithFrame:CGRectMake(286, 0, 200, 50)];
+    UILabel *red3Label = [[UILabel alloc] initWithFrame:CGRectMake(281, 0, 200, 50)];
 	red3Label.text = @"Red 3";
     red3Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red3Label];
 
-    UILabel *blue1Label = [[UILabel alloc] initWithFrame:CGRectMake(393, 0, 200, 50)];
+    UILabel *blue1Label = [[UILabel alloc] initWithFrame:CGRectMake(387, 0, 200, 50)];
 	blue1Label.text = @"Blue 1";
     blue1Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue1Label];
     
-    UILabel *blue2Label = [[UILabel alloc] initWithFrame:CGRectMake(466, 0, 200, 50)];
+    UILabel *blue2Label = [[UILabel alloc] initWithFrame:CGRectMake(461, 0, 200, 50)];
 	blue2Label.text = @"Blue 2";
     blue2Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue2Label];
     
-    UILabel *blue3Label = [[UILabel alloc] initWithFrame:CGRectMake(537, 0, 200, 50)];
+    UILabel *blue3Label = [[UILabel alloc] initWithFrame:CGRectMake(532, 0, 200, 50)];
 	blue3Label.text = @"Blue 3";
     blue3Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue3Label];
@@ -333,10 +333,10 @@
     MatchData *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     // Configure the cell...
     // Set a background for the cell
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
-    UIImage *image = [UIImage imageNamed:@"Gold Fade.gif"];
-    imageView.image = image;
-    cell.backgroundView = imageView;
+    //UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
+    //UIImage *image = [UIImage imageNamed:@"Gold Fade.gif"];
+    //imageView.image = image;
+    //cell.backgroundView = imageView;
     [self setTeamList:info];
     
 	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
@@ -389,6 +389,15 @@
     // Set up the cell...
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
+    cell.backgroundColor = goldColor;
+    
+
 }
 
 /*
