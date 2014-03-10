@@ -33,10 +33,11 @@
 -(id)checkAlternateKeys:(NSDictionary *)keyList forEntry:header;
 -(void)setTeamDefaults:(TeamData *)blankTeam;
 -(NSData *)packageTeamForXFer:(TeamData *)team;
--(TeamData *)unpackageTeamForXFer:(NSData *)xferData;
+-(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
 -(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList;
 -(void)exportPhotosiTunes:(NSString *)tournament;
+-(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath;
 
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;

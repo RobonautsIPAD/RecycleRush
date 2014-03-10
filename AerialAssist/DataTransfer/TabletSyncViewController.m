@@ -36,6 +36,7 @@
     UILabel *receiveLabel1;
     UILabel *receiveLabel2;
     UILabel *receiveLabel3;
+    UILabel *receiveLabel4;
     NSMutableArray *receivedMatches;
     NSMutableArray *receivedMatchTypes;
     MatchResultsObject *dataFromTransfer;
@@ -77,6 +78,7 @@
     UIPopoverController *importFileListPopover;
     NSArray *importFileList;
 
+    NSArray *receivedPhotoList;
     ImportDataFromiTunes *importPackage;
 }
 
@@ -223,6 +225,7 @@ GKPeerPickerController *picker;
             receiveLabel1.text = @"Match";
             receiveLabel2.text = @"Type";
             receiveLabel3.text = @"Team";
+            receiveLabel4.text = @"Imported";
         case SyncMatchList:
             sendLabel1.text = @"Match";
             sendLabel2.text = @"Type";
@@ -237,7 +240,7 @@ GKPeerPickerController *picker;
             sendLabel3.text = @"";
             receiveLabel1.text = @"Team Number";
             receiveLabel2.text = @"Team Name";
-            receiveLabel3.text = @"";
+            receiveLabel3.text = @"Imported";
             break;
         case SyncTournaments:
             sendLabel1.text = @"Tournament";
@@ -421,18 +424,24 @@ GKPeerPickerController *picker;
         case SyncTeams:
             for (int i=0; i<[filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
-                NSData *myData = [teamDataPackage packageTeamForXFer:team];
-                //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+                [teamDataPackage exportTeamForXFer:team toFile:transferFilePath];
+                NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
+            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Team Data %0.f.tmd", tournamentName, [teamDataSync floatValue]]];
+            [self serializeDataForTransfer:transferDataFile];
             break;
         case SyncMatchList:
             for (int i=0; i<[filteredMatchList count]; i++) {
                 MatchData *match = [filteredMatchList objectAtIndex:i];
-                NSData *myData = [matchDataPackage packageMatchForXFer:match];
+                [matchDataPackage exportMatchForXFer:match toFile:transferFilePath];
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+                matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+                transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Schedule %0.f.msd", tournamentName, [matchScheduleSync floatValue]]];
+                [self serializeDataForTransfer:transferDataFile];
             }
             break;
-        case SyncMatchResults: {
+        case SyncMatchResults:
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
@@ -441,7 +450,6 @@ GKPeerPickerController *picker;
             matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Results %0.f.mrd", tournamentName, [matchResultsSync floatValue]]];
             [self serializeDataForTransfer:transferDataFile];
-            }
             break;
             
         default:
@@ -492,7 +500,21 @@ GKPeerPickerController *picker;
 
 -(void)importiTunesSelected:(NSString *)importFile {
     NSLog(@"file selected = %@", importFile);
-    receivedResultsList = [importPackage importData:importFile];
+    if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        NSLog(@"Photo package");
+        receivedPhotoList = [importPackage importDataPhoto:importFile];
+        receiveLabel1.text = @"Photo";
+        receiveLabel2.text = @"";
+        receiveLabel3.text = @"Thumbnail";
+    }
+    else {
+        if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedResultsList = [importPackage importData:importFile];
+        }
+        else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedTeamList = [importPackage importData:importFile];
+        }
+    }
     [_receiveDataTable reloadData];
 }
 
@@ -796,7 +818,7 @@ GKPeerPickerController *picker;
             if (receivedTeamList == nil) {
                 receivedTeamList = [NSMutableArray array];
             }
-            TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
+            NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
             if (teamReceived) [receivedTeamList addObject:teamReceived];
         }
             break;
@@ -804,7 +826,7 @@ GKPeerPickerController *picker;
             if (receivedMatchList == nil) {
                 receivedMatchList = [NSMutableArray array];
             }
-            MatchData *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
+            NSDictionary *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
             if (matchReceived) [receivedMatchList addObject:matchReceived];
         }
             break;
@@ -969,29 +991,29 @@ GKPeerPickerController *picker;
 }
 
 - (void)configureReceivedTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamData *team = [receivedTeamList objectAtIndex:indexPath.row];
-    
+    NSDictionary *team = [receivedTeamList objectAtIndex:indexPath.row];
+
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [[team objectForKey:@"team"] intValue]];
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = team.name;
+    label2.text = [team objectForKey:@"name"];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = @"";
+    label3.text = [team objectForKey:@"transfer"];
     
 	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
     label4.text = @"";
 }
 
 - (void)configureReceivedMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    MatchData *match = [receivedMatchList objectAtIndex:indexPath.row];
+    NSDictionary *match = [receivedMatchList objectAtIndex:indexPath.row];
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [match.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [[match objectForKey:@"match"] intValue]];
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = match.matchType;
+    label2.text = [match objectForKey:@"type"];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = @"";

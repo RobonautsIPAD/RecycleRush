@@ -293,7 +293,7 @@
         for (int i=0; i<[allPhotos count]; i++) {
             Photo *photo = [allPhotos objectAtIndex:i];
             NSLog(@"photo = %@", photo.fullImage);
-            NSArray *photoGroup = [[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil];
+            NSDictionary *photoGroup = [NSDictionary dictionaryWithObjects:[[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil] forKeys:[[NSArray alloc] initWithObjects:@"fullImage", @"thumbNail", nil]];
             NSLog(@"Photo group = %@", photoGroup);
             [photoList addObject:photoGroup];
         }
@@ -307,7 +307,22 @@
     return myData;
 }
 
--(TeamData *)unpackageTeamForXFer:(NSData *)xferData {
+-(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
+    // File name format T#.pck
+    NSString *fileNameBase;
+    if ([team.number intValue] < 100) {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [team.number intValue]]];
+    } else if ( [team.number intValue] < 1000) {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [team.number intValue]]];
+    } else {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
+    }
+    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
+    NSData *myData = [self packageTeamForXFer:team];
+    [myData writeToFile:exportFile atomically:YES];
+}
+
+-(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
 //    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     //     Assign unpacked data to the team record
@@ -323,18 +338,30 @@
     }
     // Create the property dictionary if it hasn't been created yet
     if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
+    // check retrieved team, if the saved and saveby match the imcoming data then just do nothing
+    NSNumber *saved = [myDictionary objectForKey:@"saved"];
+    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    
+    if ([saved floatValue] == [teamRecord.saved floatValue] && [savedBy isEqualToString:teamRecord.savedBy]) {
+        NSLog(@"Team has already transferred, team = %@", teamNumber);
+        NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
+        NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        return teamTransfer;
+    }
 
     // Cycle through each object in the transfer data dictionary
     NSLog(@"unpackage team data add check for default values");
+    NSLog(@"after complete migration of all ipads, add the check to not replace prime photo");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
-        if ([key isEqualToString:@"primePhoto"]) {
+        /*        if ([key isEqualToString:@"primePhoto"]) {
             // Only do something with the prime photo if there is not photo already
             if (!teamRecord.primePhoto) {
                 [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
             }
             continue;
-        }
+        }*/
         // if key is property, branch to photoList or tournamentList to decode
         id value = [_teamDataProperties valueForKey:key];
         if ([value isKindOfClass:[NSAttributeDescription class]]) {
@@ -353,6 +380,7 @@
             }
         }
     }
+    
     teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
 
     NSError *error;
@@ -360,7 +388,10 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
     
-    return teamRecord;
+    NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
+    NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return teamTransfer;
 }
 
 -(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList {
@@ -370,21 +401,26 @@
     if ([allPhotos count]) {
         Photo *photoRecord;
         for (int i=0; i<[senderList count]; i++) {
-            NSPredicate *pred = [NSPredicate predicateWithFormat:@"photoDate = %@", [senderList objectAtIndex:i]];
+            NSDictionary *sentPhoto = [senderList objectAtIndex:i];
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"fullImage = %@", [sentPhoto objectForKey:@"fullImage"]];
             NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
             if ([photo count]) continue;
             photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
- //           photoRecord.photoDate = [senderList objectAtIndex:i];
+            photoRecord.fullImage = [sentPhoto objectForKey:@"fullImage"];
+            photoRecord.thumbNail = [sentPhoto objectForKey:@"thumbNail"];
             [destinationTeam addPhotoListObject:photoRecord];
+            NSLog(@"Received photo list = %@", photoRecord);
         }
     }
     else {
         // There are no photos currently. Add them all
         for (int i=0; i<[senderList count]; i++) {
+            NSDictionary *sentPhoto = [senderList objectAtIndex:i];
             Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-//            photoRecord.photoDate = [senderList objectAtIndex:i];
+            photoRecord.fullImage = [sentPhoto objectForKey:@"fullImage"];
+            photoRecord.fullImage = [sentPhoto objectForKey:@"thumbNail"];
             [destinationTeam addPhotoListObject:photoRecord];
-
+            NSLog(@"Received photo list = %@", photoRecord);
         }
     }
 }

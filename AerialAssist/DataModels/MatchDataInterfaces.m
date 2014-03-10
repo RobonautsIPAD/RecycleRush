@@ -26,6 +26,20 @@
 	return self;
 }
 
+-(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
+    NSString *baseName;
+    if ([match.number intValue] < 10) {
+        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"00%d", [match.number intValue]]];
+    } else if ( [match.number intValue] < 100) {
+        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"0%d", [match.number intValue]]];
+    } else {
+        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"%d", [match.number intValue]]];
+    }
+    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", baseName]];
+    NSData *myData = [self packageMatchForXFer:match];
+    [myData writeToFile:exportFile atomically:YES];
+}
+
 -(NSData *)packageMatchForXFer:(MatchData *)match {
     if (!_dataManager) {
         _dataManager = [DataManager new];
@@ -62,7 +76,7 @@
 
 }
 
--(MatchData *)unpackageMatchForXFer:(NSData *)xferData {
+-(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }
@@ -78,6 +92,18 @@
         matchRecord = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
                                                     inManagedObjectContext:_dataManager.managedObjectContext];
     }
+    // check retieved match, if the saved and saveby match the imcoming data then just do nothing
+    NSNumber *saved = [myDictionary objectForKey:@"saved"];
+    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    
+    if ([saved floatValue] == [matchRecord.saved floatValue] && [savedBy isEqualToString:matchRecord.savedBy]) {
+        // NSLog(@"Match has already transferred, match = %@", score.match.number);
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchRecord.matchType, @"N", nil];
+        NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        return matchTransfer;
+    }
+
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"teams"]) continue; // Skip the team list for the moment
         [matchRecord setValue:[myDictionary objectForKey:key] forKey:key];
@@ -93,7 +119,11 @@
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
-    return matchRecord;
+    
+    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchRecord.matchType, @"Y", nil];
+    NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return matchTransfer;
 }
 
 -(void)addBlankScores:(MatchData *)match {

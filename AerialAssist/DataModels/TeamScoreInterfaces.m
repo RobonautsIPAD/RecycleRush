@@ -141,7 +141,7 @@
         }
     }
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
-    // check retieved macth, if the saved and saveby match the imcoming data then just do nothing
+    // check retieved match, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [myDictionary objectForKey:@"saved"];
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
     

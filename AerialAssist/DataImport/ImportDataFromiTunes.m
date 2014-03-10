@@ -8,6 +8,7 @@
 
 #import "ImportDataFromiTunes.h"
 #import "DataManager.h"
+#import "TeamDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
 
 @implementation ImportDataFromiTunes {
@@ -53,12 +54,37 @@
     }
     
     for (NSString *file in files) {
-        if ([file.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        if ([file.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             NSLog(@"file = %@", file);
             [fileList addObject:file];
         }
     }
     return fileList;
+}
+
+-(NSMutableArray *)importDataPhoto:(NSString *) importFile {
+    NSError *error;
+    NSString *fullOriginalPath = [documentImportPath stringByAppendingPathComponent:importFile];
+    NSString *destinationPath = [documentImportPath stringByAppendingPathComponent:@"RobotPhotos"];
+    NSLog(@"import file = %@", importFile);
+    NSLog(@"Remove original file");
+    NSData *importData = [NSData dataWithContentsOfFile:fullOriginalPath];
+    if ([fileManager fileExistsAtPath:fullOriginalPath]) {
+        NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
+        if (dirWrapper == nil) {
+            [self showAlert:@"Unable to unpack import data"];
+        }
+        NSURL *dirUrl = [NSURL fileURLWithPath:destinationPath];
+        BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
+        if (!success) {
+            [self showAlert:@"Unable to create import files"];
+            return nil;
+        }
+        [fileManager removeItemAtPath:fullOriginalPath error:&error];
+    }
+    return nil;
 }
 
 -(NSMutableArray *)importData:(NSString *) importFile {
@@ -112,17 +138,32 @@
         [self showAlert:@"Error reading transfer directory"];
         return nil;
     }
-    
-    TeamScoreInterfaces *matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
-    for (NSString *file in files) {
-        if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            NSLog(@"file = %@", file);
-            NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
-            NSData *myData = [NSData dataWithContentsOfFile:fullPath];
-            NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:myData];
-            if (scoreReceived) [receivedData addObject:scoreReceived];
+
+    if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        TeamScoreInterfaces *matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
+        for (NSString *file in files) {
+            if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+                NSLog(@"file = %@", file);
+                NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
+                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:myData];
+                if (scoreReceived) [receivedData addObject:scoreReceived];
+            }
         }
     }
+    else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        TeamDataInterfaces *teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+        for (NSString *file in files) {
+            if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+                NSLog(@"file = %@", file);
+                NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
+                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
+                if (teamReceived) [receivedData addObject:teamReceived];
+            }
+        }
+    }
+
     [fileManager removeItemAtPath:transferPath error:&error];
 
     return receivedData;

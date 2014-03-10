@@ -81,7 +81,7 @@
     NumberEnumDictionary *autonCapacityDictionary;
     NSMutableArray *autonCapacityList;
 
-    UIImage *tester;
+    NSArray *photoList;
 }
 
 @synthesize dataManager = _dataManager;
@@ -367,6 +367,8 @@
     [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
     [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
     [self getPhoto];
+    photoList = [_team.photoList allObjects];
+    [_photoCollectionView reloadData];
     dataChange = NO;
 }
 
@@ -907,10 +909,10 @@
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-//    NSInteger photoCount = [_team.photoList count];
-//    if (photoCount > 1) [_photoCollectionView setHidden:NO];
-//    else [_photoCollectionView setHidden:YES];
-    return 1; //photoCount;
+    NSInteger photoCount = [photoList count];
+    if (photoCount > 0) [_photoCollectionView setHidden:NO];
+    else [_photoCollectionView setHidden:YES];
+    return photoCount;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
@@ -921,8 +923,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"thumbnail" forIndexPath:indexPath];
-
-    if (tester)     cell.thumbnail = tester;
+    Photo *photo = [photoList objectAtIndex:indexPath.row];
+    NSString *fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photo.thumbNail];
+    cell.thumbnail = [UIImage imageWithContentsOfFile:fullPath];
 
     cell.backgroundColor=[UIColor greenColor];
     return cell;
