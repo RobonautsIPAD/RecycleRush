@@ -173,9 +173,13 @@
 
 //    NSDictionary *options = @{ NSSQLitePragmasOption : @{@"journal_mode" : @"DELETE"} };
     // To migrate
+    NSDictionary *pragmaOptions = [NSDictionary dictionaryWithObject:@"DELETE"
+                                                              forKey:@"journal_mode"];
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+                             pragmaOptions, NSSQLitePragmasOption,
+                             nil];
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
 

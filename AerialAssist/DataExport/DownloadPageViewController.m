@@ -22,8 +22,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
-@property (nonatomic, weak) IBOutlet UIButton *teamDataButton;
-@property (nonatomic, weak) IBOutlet UIButton *matchDataButton;
+@property (nonatomic, weak) IBOutlet UIButton *emailDataButton;
+@property (nonatomic, weak) IBOutlet UIButton *transferPhotosButton;
 @property (nonatomic, weak) IBOutlet UIButton *syncButton;
 @property (nonatomic, weak) IBOutlet UIButton *firstImportButton;
 @property (nonatomic, weak) IBOutlet UIButton *scoutingSheetButton;
@@ -36,9 +36,12 @@
     NSString *gameName;
     NSString *exportPath;
     NSMutableArray *syncList;
-    PopUpPickerViewController *exportOptionPicker;
-    UIPopoverController *exportOptionPopover;
+    id popUp;
+    PopUpPickerViewController *optionPicker;
+    UIPopoverController *optionPopover;
+    NSMutableArray *emailOptionList;
     NSMutableArray *exportOptionList;
+    NSMutableArray *photoOptionList;
 }
 @synthesize dataManager = _dataManager;
 
@@ -90,16 +93,18 @@
         self.title = @"Data Transfer";
     }
     
+    exportPath = [self applicationDocumentsDirectory];
+    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
+    photoOptionList = [[NSMutableArray alloc] initWithObjects:@"iTunes", @"Computer", nil];
 
     // Display the Robotnauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Set Font and Text for Export Buttons
-    [_teamDataButton setTitle:@"Email Team Data" forState:UIControlStateNormal];
-    _teamDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    [_matchDataButton setTitle:@"Email Match Data" forState:UIControlStateNormal];
-    _matchDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    exportPath = [self applicationDocumentsDirectory];
+    [_emailDataButton setTitle:@"Email Data" forState:UIControlStateNormal];
+    _emailDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [_transferPhotosButton setTitle:@"Transfer Photos" forState:UIControlStateNormal];
+    _transferPhotosButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_syncButton setTitle:@"Sync Data" forState:UIControlStateNormal];
     _syncButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_firstImportButton setTitle:@"Import - US FIRST" forState:UIControlStateNormal];
@@ -113,27 +118,27 @@
 }
 
 - (IBAction)exportTapped:(id)sender {
+    popUp = sender;
     UIButton * pressedButton = (UIButton*)sender;
-    if (sender == _teamDataButton) {
-        [self emailTeamData];
+    optionPicker = [[PopUpPickerViewController alloc]
+                          initWithStyle:UITableViewStylePlain];
+    optionPicker.delegate = self;
+   
+    if (sender == _transferPhotosButton) {
+        [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] exportPhotosiTunes:tournamentName];
+        return;
     }
-    else if (sender == _matchDataButton) {
-        [self emailMatchData];
+
+    if (sender == _emailDataButton) {
+        optionPicker.pickerChoices = emailOptionList;
     }
-    else if (sender == _scoutingSheetButton) {
-        if (exportOptionPicker == nil) {
-            exportOptionPicker = [[PopUpPickerViewController alloc]
-                                   initWithStyle:UITableViewStylePlain];
-            exportOptionPicker.delegate = self;
-            exportOptionPicker.pickerChoices = exportOptionList;
-        }
-        if (!exportOptionPopover) {
-            exportOptionPopover = [[UIPopoverController alloc]
-                                          initWithContentViewController:exportOptionPicker];
-        }
-        [exportOptionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
-                                  permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+     else if (sender == _scoutingSheetButton) {
+        optionPicker.pickerChoices = exportOptionList;
     }
+    optionPopover = [[UIPopoverController alloc]
+                               initWithContentViewController:optionPicker];
+    [optionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
+                       permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 -(void)emailTeamData {
@@ -185,8 +190,20 @@
 }
 
 - (void)pickerSelected:(NSString *)newPick {
-    [exportOptionPopover dismissPopoverAnimated:YES];
-    [self createScoutingSpreadsheet:newPick];
+    [optionPopover dismissPopoverAnimated:YES];
+    optionPicker = nil;
+    optionPopover = nil;
+    if (popUp == _emailDataButton) {
+        if ([newPick isEqualToString:@"Team"]) {
+            [self emailTeamData];
+        }
+        else {
+            [self emailMatchData];
+        }
+    }
+    else if (popUp == _scoutingSheetButton) {
+        [self createScoutingSpreadsheet:newPick];
+    }
 }
 
 -(void)createScoutingSpreadsheet:(NSString *)choice {
@@ -259,8 +276,8 @@
         case UIInterfaceOrientationPortraitUpsideDown:
             _mainLogo.frame = CGRectMake(-20, 0, 285, 960);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            _teamDataButton.frame = CGRectMake(325, 125, 400, 68);
-            _matchDataButton.frame = CGRectMake(325, 225, 400, 68);
+            _emailDataButton.frame = CGRectMake(325, 125, 400, 68);
+            _transferPhotosButton.frame = CGRectMake(325, 225, 400, 68);
             _syncButton.frame = CGRectMake(325, 325, 400, 68);
             _firstImportButton.frame = CGRectMake(325, 425, 400, 68);
             _scoutingSheetButton.frame = CGRectMake(325, 525, 400, 68);
@@ -271,8 +288,8 @@
         case UIInterfaceOrientationLandscapeRight:
             _mainLogo.frame = CGRectMake(0, -60, 1024, 255);
             [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            _teamDataButton.frame = CGRectMake(550, 225, 400, 68);
-            _matchDataButton.frame = CGRectMake(550, 325, 400, 68);
+            _emailDataButton.frame = CGRectMake(550, 225, 400, 68);
+            _transferPhotosButton.frame = CGRectMake(550, 325, 400, 68);
             _syncButton.frame = CGRectMake(550, 425, 400, 68);
             _firstImportButton.frame = CGRectMake(550, 525, 400, 68);
             _scoutingSheetButton.frame = CGRectMake(550, 625, 400, 68);

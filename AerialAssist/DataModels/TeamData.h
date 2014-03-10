@@ -2,7 +2,7 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 2/26/14.
+//  Created by FRC on 3/9/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -40,7 +40,6 @@
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * nwheels;
 @property (nonatomic, retain) NSString * primePhoto;
-@property (nonatomic, retain) NSDate * primePhotoDate;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;

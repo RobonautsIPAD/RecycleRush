@@ -15,6 +15,7 @@
 #import "DataManager.h"
 #import "Regional.h"
 #import "Photo.h"
+#import "PhotoCell.h"
 #import "PhotoAttributes.h"
 #import "DriveTypeDictionary.h"
 #import "TrooleanDictionary.h"
@@ -55,13 +56,15 @@
     NSArray *matchList;
     UIView *regionalHeader;
     NSArray *regionalList;
-    NSString *photoPath;
+    NSString *robotPhotoLibrary;
+    NSString *robotThumbnailLibrary;
     BOOL imageIsFullScreen;
     CGRect imagePrevFrame;
     id popUp;
     BOOL dataChange;
     PhotoAttributes *primePhoto;
     BOOL getAssetURL;
+    NSFileManager *fileManager;
 
     PopUpPickerViewController *trooleanPicker;
     UIPopoverController *trooleanPickerPopover;
@@ -142,33 +145,6 @@
 }
 */
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    //  Variables declared in the .m
-    prefs = nil;
-    tournamentName = nil;
-    deviceName = nil;
-    driveDictionary = nil;
-    matchHeader = nil;
-    matchList = nil;
-    regionalList = nil;
-    regionalHeader = nil;
-    photoPath = nil;
-    popUp = nil;
-
-    //  Variables declared in the .h
-    _dataManager = nil;
-    _fetchedResultsController = nil;
-    _teamIndex = nil;
-    _team = nil;
-    _pictureController = nil;
-    _driveTypePicker = nil;
-    _driveTypeList = nil;
-    _intakePicker = nil;
-    _intakeList = nil;
-}
-
 -(void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -192,6 +168,8 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
+    [self createPhotoDirectories];
+ 
     // Set defaults for all the text boxes
     [self SetTextBoxDefaults:_numberText];
     [self SetTextBoxDefaults:_nameTextField];
@@ -254,7 +232,6 @@
     }
     
     [self showTeam];
-
     [super viewDidLoad];
 }
 
@@ -389,14 +366,7 @@
     [self setRadioButtonState:_classDButton forState:[_team.classD intValue]];
     [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
     [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
-
-    NSArray *list = [_team.photoList allObjects];
-    for (int i=0; i<[list count]; i++) {
-        Photo *photo = [list objectAtIndex:i];
-        NSLog(@"Photo list = %@", photo.assetURL);
-    }
     [self getPhoto];
-    [self getPhotoThumbnails];
     dataChange = NO;
 }
 
@@ -706,27 +676,17 @@
 }
 
 -(void)getPhoto {
-    // Load the picture for the display. Need to change this to use the new album stuff implemented
-    //  last week.
     _imageView.image = nil;
-    _imageView.userInteractionEnabled = NO;
+    _imageView.userInteractionEnabled = YES;
     NSLog(@"Get photo");
-    if (_team.primePhoto) {
-        NSLog(@"Team = %@", _team.number);
-        NSLog(@"Date = %@", _team.primePhotoDate);
-        getAssetURL = FALSE;
-        [_dataManager getPhotoFromAlbum:[NSURL URLWithString:_team.primePhoto]];
-        _imageView.userInteractionEnabled = YES;
-    }
-    else if (_team.primePhotoDate) {
-        NSLog(@"Team = %@", _team.number);
-        NSLog(@"Date = %@", _team.primePhotoDate);
-        getAssetURL = TRUE;
-        [_dataManager getPhotoFromAlbumWithDate:_team.primePhotoDate];
-        _imageView.userInteractionEnabled = YES;
-    }
+    NSLog(@"Team = %@", _team.number);
+    NSLog(@"Photo = %@", _team.primePhoto);
+    NSLog(@"Thumb = %@", _team.sthing1);
+    if (!_team.primePhoto) return;
+    NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:_team.primePhoto];
+    [_imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
 }
-
+/*
 -(void)photoRetrieved:(NSNotification *)notification {
     NSLog(@"Photo retrieved");
     if (getAssetURL) {
@@ -741,25 +701,40 @@
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }    }
+        }
+    }
     else {
+        NSLog(@"prime photo = %@", _team.primePhoto);
         UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
         _imageView.image = fetchedImage;
+        NSString *photoNameBase = [self createPhotoName];
+        // Use the time to create unique photo names
+        float currentTime = CFAbsoluteTimeGetCurrent();
+        // Create full sized photo name
+        NSString *photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
+        NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
+        NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+        [imageData writeToFile:fullPath atomically:YES];
+        _team.primePhoto = photoName;
+        // Create and save thumbnail
+        photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"thumb_%.0f.jpg", currentTime]];
+        fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photoName];
+        CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+        CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+                                                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+                                                             (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                             nil];
+        _team.sthing1 = photoName;
+        CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
+        UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
+        [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
+        NSLog(@"prime photoName = %@", _team.primePhoto);
+        NSLog(@"thumb photoName = %@", _team.sthing1);
+        [self setDataChange];
     }
-//    primePhoto = [[notification userInfo] objectForKey:@"photoImage"];
-//    _imageView.image = primePhoto.regularImage;
 }
-
--(void)getPhotoThumbnails {
-    NSArray *allPhotos = [_team.photoList allObjects];
-    if (![allPhotos count]) return;
-    
-    // for each photo in list
-        // check for assetURL, if no assetURL, go off and fetch it, save db without save marker if fetched
-        // fetch thumbnail, set it in an array for the collection view
-    
-}
-
+*/
 -(void) takePhoto {
     //  Use the camera to take a new robot photo
     NSLog(@"Take photo");
@@ -797,43 +772,37 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    CGImageRef cgRef = _imageView.image.CGImage;
-    NSLog(@"cgref = %@", cgRef);
-    _imageView.userInteractionEnabled = YES;
-    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) {
-        [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
-    }
-    else {
-        [_dataManager savePhotoToAlbum:[info objectForKey:UIImagePickerControllerOriginalImage]];
-//        [_dataManager addPhotoToAlbum:[info objectForKey:UIImagePickerControllerReferenceURL]];
-    }
+    NSString *photoNameBase = [self createPhotoName];
+    // Use the time to create unique photo names
+    float currentTime = CFAbsoluteTimeGetCurrent();
+    // Create full sized photo name
+    NSString *photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
+    NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
+    NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
+    [imageData writeToFile:fullPath atomically:YES];
+    _team.primePhoto = photoName;
+
+    // Create and save thumbnail
+    NSString *thumbNailName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"thumb_%.0f.jpg", currentTime]];
+    NSLog(@"thumbNailName = %@", thumbNailName);
+    fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:thumbNailName];
+    CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+                                                         (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
+                                                         nil];
+    CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
+    UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
+    [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
+
+    // add photo to photo list
+    // set as prime photo
+    [self addTeamPhotoRecord:_team forPhoto:photoName forThumbNail:thumbNailName];
+    [self setDataChange];
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
     [picker dismissViewControllerAnimated:YES completion:Nil];
-// Test stuff for new protocol
-    // Create an image source from NSData; no options.
-    NSData *data = UIImageJPEGRepresentation(_imageView.image, 1.0);
-//    myImageSource = CGImageSourceCreateWithData((CFDataRef)data, NULL);
-    NSString *path = [NSString stringWithFormat:@"Library/%@.jpg", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
-    photoPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
-    [UIImageJPEGRepresentation(_imageView.image, 1.0) writeToFile:photoPath atomically:YES];
-    NSURL *momURL = [NSURL fileURLWithPath:photoPath];
-    CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-    NSLog(@"myImageSource = %@", myImageSource);
-    CGImageRef        myThumbnailImage;
-    int imageSize = 100;
-    CFNumberRef thumbnailSize = CFNumberCreate(NULL, kCFNumberIntType, &imageSize);
-    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
-                                                (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                                                (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
-                                                nil];
-    myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource,
-                                                           0,
-                                                           options);
-    NSLog(@"myThumbnailImage = %@", myThumbnailImage);
-    tester = [UIImage imageWithCGImage:myThumbnailImage];
-    _imageView.image = tester;
 }
 
 - (IBAction)photoControllerActionSheet:(id)sender {
@@ -841,7 +810,6 @@
     
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];
-//    [actionSheet showInView:_cameraBtn];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -851,7 +819,7 @@
         [self choosePhoto];
     }
 }
-
+/*
 -(void)photoSaved:(NSNotification *)notification {
     // The photo has been saved. A notification was sent from the ALAsset save function letting
     //  us find out what the photo name was. The names are saved in the database so that we
@@ -863,30 +831,77 @@
     [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto forDate:_team.primePhotoDate];
     [self setDataChange];
 }
-
--(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset forDate:(NSDate *)photoDate {
+*/
+-(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoName forThumbNail:(NSString *)thumbNail {
+    NSLog(@"Photo name = %@", photoName);
+    NSLog(@"Thumb name = %@", thumbNail);
     Photo *photoRecord;
     NSArray *allPhotos = [team.photoList allObjects];
     if ([allPhotos count]) {
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"assetURL = %@", photoAsset];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"fullImage = %@", photoName];
         NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
         if ([photo count]) return;
         photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
     }
     else {
+        NSLog(@"inserting");
         photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
     }
-    photoRecord.assetURL = photoAsset;
-    photoRecord.photoDate = photoDate;
-    [_team addPhotoListObject:photoRecord];
+    photoRecord.fullImage = photoName;
+    photoRecord.thumbNail = thumbNail;
+    [team addPhotoListObject:photoRecord];
     [self setDataChange];
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    NSLog(@"photo list = %@", [team.photoList allObjects]);
 }
 
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
     NSLog(@"Photo tapped");
     FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
     photoViewer.fullImage = _imageView.image;
+//    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationController pushViewController:photoViewer animated:YES];
+}
+
+-(void)createPhotoDirectories {
+    // Set and create the robot photo directories
+    fileManager = [NSFileManager defaultManager];
+    NSString *library = [self applicationDocumentsDirectory];
+    robotPhotoLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos/Images"]];
+    // Check if robot directory exists, if not, create it
+    if (![fileManager fileExistsAtPath:robotPhotoLibrary isDirectory:NO]) {
+        if (![fileManager createDirectoryAtPath:robotPhotoLibrary
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: NULL]) {
+            NSLog(@"Dreadful error creating directory to save photos");
+        }
+    }
+    robotThumbnailLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos/Thumbnails"]];
+    if (![fileManager fileExistsAtPath:robotThumbnailLibrary isDirectory:NO]) {
+        if (![fileManager createDirectoryAtPath:robotThumbnailLibrary
+                                      withIntermediateDirectories: YES
+                                                       attributes: nil
+                                                            error: NULL]) {
+            NSLog(@"Dreadful error creating directory to save photos");
+        }
+    }
+}
+
+-(NSString *)createPhotoName {
+    NSString *number;
+    if ([_team.number intValue] < 100) {
+        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [_team.number intValue]]];
+    } else if ( [_team.number intValue] < 1000) {
+        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [_team.number intValue]]];
+    } else {
+        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
+    }
+    NSLog(@"photo name = %@", number);
+    return number;
 }
 
 #pragma mark - UICollectionView Datasource
@@ -905,12 +920,11 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    
+    PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"thumbnail" forIndexPath:indexPath];
+
+    if (tester)     cell.thumbnail = tester;
+
     cell.backgroundColor=[UIColor greenColor];
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image = tester;
-    cell.backgroundView = imageView;
     return cell;
 }
 
@@ -1091,9 +1105,11 @@ CGSize retval = CGSizeMake(40, 40);
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
-//TODO add these buttons to database
-
-
-
+/**
+ Returns the path to the application's Documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
 
 @end

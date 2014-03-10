@@ -146,7 +146,7 @@
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
     
     if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
-        NSLog(@"Match has already transferred, match = %@", score.match.number);
+        // NSLog(@"Match has already transferred, match = %@", score.match.number);
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
         NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
@@ -170,13 +170,11 @@
         score.fieldDrawing = drawing;
     }
     score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
-    NSLog(@"field drawing = %@", score.fieldDrawing.trace);
 
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
-    NSLog(@"received %@", score);
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
     NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"Y", nil];

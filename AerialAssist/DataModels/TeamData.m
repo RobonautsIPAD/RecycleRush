@@ -2,7 +2,7 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 2/26/14.
+//  Created by FRC on 3/9/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -42,7 +42,6 @@
 @dynamic number;
 @dynamic nwheels;
 @dynamic primePhoto;
-@dynamic primePhotoDate;
 @dynamic received;
 @dynamic saved;
 @dynamic savedBy;

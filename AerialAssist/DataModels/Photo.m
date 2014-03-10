@@ -2,7 +2,7 @@
 //  Photo.m
 //  AerialAssist
 //
-//  Created by FRC on 2/6/14.
+//  Created by FRC on 3/9/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -12,8 +12,8 @@
 
 @implementation Photo
 
-@dynamic assetURL;
-@dynamic photoDate;
+@dynamic fullImage;
+@dynamic thumbNail;
 @dynamic teamPhoto;
 
 @end

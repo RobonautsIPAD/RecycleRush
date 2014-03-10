@@ -2261,21 +2261,21 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jis-Jb-Frj">
                                 <rect key="frame" x="375" y="50" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Email Teams" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Email Data" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="qLz-aX-sIT"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="hIZ-mO-u9M"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2cN-Fv-ew1">
                                 <rect key="frame" x="375" y="165" width="296" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Email Matches" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Transfer Photos" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="CZi-pU-rLn"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="YkG-eo-VUm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QAv-yQ-RKf">
@@ -2321,14 +2321,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="5nE-eL-XOz"/>
                     <connections>
+                        <outlet property="emailDataButton" destination="Jis-Jb-Frj" id="jvw-Zr-19T"/>
                         <outlet property="firstImportButton" destination="elh-Um-nzT" id="qms-L9-dwf"/>
                         <outlet property="mainLogo" destination="qzp-fZ-Mdo" id="nFZ-uD-6Jx"/>
-                        <outlet property="matchDataButton" destination="2cN-Fv-ew1" id="Q0V-lI-Qit"/>
                         <outlet property="pictureCaption" destination="wlf-zr-3iE" id="nty-ao-5jU"/>
                         <outlet property="scoutingSheetButton" destination="1kf-Y9-Nr2" id="8qc-HF-AYL"/>
                         <outlet property="splashPicture" destination="dab-GT-vw3" id="0kg-Qg-NnS"/>
                         <outlet property="syncButton" destination="QAv-yQ-RKf" id="REp-yK-Ogd"/>
-                        <outlet property="teamDataButton" destination="Jis-Jb-Frj" id="VxD-hx-s9t"/>
+                        <outlet property="transferPhotosButton" destination="2cN-Fv-ew1" id="HD3-7o-XAh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJ9-kC-7Hd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4101,31 +4101,6 @@
                                     <action selector="photoControllerActionSheet:" destination="kha-eL-sUY" eventType="touchUpInside" id="Xog-pV-W7y"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="fac-RS-4nQ">
-                                <rect key="frame" x="62" y="345" width="288" height="55"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bag-zu-ErL">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="fXN-pO-Smq">
-                                        <rect key="frame" x="0.0" y="3" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="kha-eL-sUY" id="K3w-RQ-DOc"/>
-                                    <outlet property="delegate" destination="kha-eL-sUY" id="BOH-PS-VGp"/>
-                                </connections>
-                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2AJ-b8-LMm">
                                 <rect key="frame" x="510" y="95" width="66" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4288,6 +4263,40 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="A9r-PP-tDh">
+                                <rect key="frame" x="62" y="345" width="288" height="55"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HXV-ip-DQL">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="thumbnail" id="GGY-QN-sH2" customClass="PhotoCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vP3-CN-2nB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="thumbnailView" destination="vP3-CN-2nB" id="lJr-91-4Z1"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="kha-eL-sUY" id="8N4-JN-lrM"/>
+                                    <outlet property="delegate" destination="kha-eL-sUY" id="A1L-hq-aUb"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4319,7 +4328,7 @@
                         <outlet property="notesViewField" destination="yXt-Sf-dW4" id="vgU-zc-RFy"/>
                         <outlet property="numberText" destination="rn6-Oc-X7B" id="JFI-rM-n9P"/>
                         <outlet property="nwheels" destination="kft-V6-xjZ" id="1pa-SK-YJD"/>
-                        <outlet property="photoCollectionView" destination="fac-RS-4nQ" id="zCK-Hl-K1S"/>
+                        <outlet property="photoCollectionView" destination="A9r-PP-tDh" id="BPX-Iu-Yi1"/>
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="regionalInfo" destination="HBG-SB-cm1" id="4BN-9c-hog"/>
                         <outlet property="shooterButton" destination="OuH-XG-mso" id="Roe-MB-iWg"/>
@@ -4941,10 +4950,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gMh-cN-6SD"/>
-        <segue reference="73l-5i-erv"/>
-        <segue reference="6V1-MF-63T"/>
         <segue reference="2PU-1e-EUe"/>
         <segue reference="M4x-HG-6MQ"/>
+        <segue reference="sxF-M5-0ia"/>
+        <segue reference="gMh-cN-6SD"/>
+        <segue reference="6V1-MF-63T"/>
     </inferredMetricsTieBreakers>
 </document>

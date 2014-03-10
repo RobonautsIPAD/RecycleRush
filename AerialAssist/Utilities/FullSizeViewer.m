@@ -46,7 +46,8 @@
     }
     NSLog(@"frame = %@", imageView);
     imageView.image = _fullImage;
-    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view setBackgroundColor:[UIColor greenColor]];
     [imageView setBackgroundColor:[UIColor redColor]];
 

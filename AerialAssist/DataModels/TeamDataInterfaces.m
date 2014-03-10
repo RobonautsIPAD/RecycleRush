@@ -14,7 +14,12 @@
 #import "TournamentDataInterfaces.h"
 #import "Regional.h"
 
-@implementation TeamDataInterfaces
+@implementation TeamDataInterfaces {
+    NSFileManager *fileManager;
+    NSString *robotPhotoLibrary;
+    NSString *photoExportPath;
+}
+
 @synthesize dataManager = _dataManager;
 @synthesize teamDataAttributes = _teamDataAttributes;
 @synthesize teamDataProperties = _teamDataProperties;
@@ -282,16 +287,19 @@
     [valueList addObject:[team valueForKey:@"regional"]];
 */
     NSArray *allPhotos = [team.photoList allObjects];
+    NSLog(@"team = %@", team.number);
     if ([allPhotos count]) {
-        NSMutableArray *photoDates = [NSMutableArray array];
+        NSMutableArray *photoList = [[NSMutableArray alloc] init];
         for (int i=0; i<[allPhotos count]; i++) {
-            NSDate *date = [[allPhotos objectAtIndex:i] valueForKey:@"photoDate"];
-            if (date) {
-                [photoDates addObject:[[allPhotos objectAtIndex:i] valueForKey:@"photoDate"]];
-            }
+            Photo *photo = [allPhotos objectAtIndex:i];
+            NSLog(@"photo = %@", photo.fullImage);
+            NSArray *photoGroup = [[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil];
+            NSLog(@"Photo group = %@", photoGroup);
+            [photoList addObject:photoGroup];
         }
         [keyList addObject:@"photoList"];
-        [valueList addObject:photoDates];
+        [valueList addObject:photoList];
+        NSLog(@"Photo List = %@", photoList);
     }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
@@ -300,6 +308,7 @@
 }
 
 -(TeamData *)unpackageTeamForXFer:(NSData *)xferData {
+//    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     //     Assign unpacked data to the team record
     //     Return team record
@@ -319,10 +328,9 @@
     NSLog(@"unpackage team data add check for default values");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
-        if ([key isEqualToString:@"primePhoto"]) continue; // The assetURL is not transferrable
-        if ([key isEqualToString:@"primePhotoDate"]) {
-            // Only do something with the prime photo date if there is not photo already
-            if (!teamRecord.primePhoto && !teamRecord.primePhotoDate) {
+        if ([key isEqualToString:@"primePhoto"]) {
+            // Only do something with the prime photo if there is not photo already
+            if (!teamRecord.primePhoto) {
                 [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
             }
             continue;
@@ -366,7 +374,7 @@
             NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
             if ([photo count]) continue;
             photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-            photoRecord.photoDate = [senderList objectAtIndex:i];
+ //           photoRecord.photoDate = [senderList objectAtIndex:i];
             [destinationTeam addPhotoListObject:photoRecord];
         }
     }
@@ -374,11 +382,32 @@
         // There are no photos currently. Add them all
         for (int i=0; i<[senderList count]; i++) {
             Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-            photoRecord.photoDate = [senderList objectAtIndex:i];
+//            photoRecord.photoDate = [senderList objectAtIndex:i];
             [destinationTeam addPhotoListObject:photoRecord];
 
         }
     }
+}
+
+-(void)exportPhotosiTunes:(NSString *)tournament {
+    [self setPhotoDirectories];
+    NSError *error;
+    NSURL *url = [NSURL fileURLWithPath:robotPhotoLibrary];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:photoExportPath atomically:YES];
+}
+
+-(void)setPhotoDirectories {
+    // Get the robot photo directories
+    fileManager = [NSFileManager defaultManager];
+    NSString *library = [self applicationDocumentsDirectory];
+    robotPhotoLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos"]];
+    photoExportPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"iTunes Photo Transfer"]];
 }
 
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
@@ -459,6 +488,20 @@
     NSSortDescriptor *sortByNumber = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
     NSArray *sortedTeams = [teamData sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortByNumber]];
     return sortedTeams;
+}
+
+/**
+ Returns the path to the application's Library directory.
+ */
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+/**
+ Returns the path to the application's Documents directory.
+ */
+- (NSString *)applicationDocumentsDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 -(void)setTeamDefaults:(TeamData *)blankTeam {

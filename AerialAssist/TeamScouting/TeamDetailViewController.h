@@ -72,9 +72,6 @@
 -(IBAction)photoControllerActionSheet:(id)sender;
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer;
 -(void)getPhoto;
--(void)photoSaved:(NSNotification *)notification;
--(void)photoRetrieved:(NSNotification *)notification;
--(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoAsset forDate:(NSDate *)photoDate;
 -(IBAction)MatchNumberChanged;
 
 @end
