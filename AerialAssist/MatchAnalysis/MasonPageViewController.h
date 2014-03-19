@@ -30,11 +30,9 @@
 // Match Control
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
 @property (nonatomic, weak) IBOutlet UIButton *nextMatch;
-@property (nonatomic, weak) IBOutlet UIButton *ourPrevMatch;
-@property (nonatomic, weak) IBOutlet UIButton *ourNextMatch;
+@property (nonatomic, weak) IBOutlet UIButton *ourPrevMatchButton;
+@property (nonatomic, weak) IBOutlet UIButton *ourNextMatchButton;
 -(IBAction)PrevButton;
--(IBAction)OurNextButton;
--(IBAction)OurPrevButton;
 -(IBAction)NextButton;
 -(NSUInteger)GetNextSection:(MatchType) currentSection;
 -(NSUInteger)GetPreviousSection:(NSUInteger) currentSection;

@@ -23,6 +23,7 @@
 #import "ShooterTypeDictionary.h"
 #import "NumberEnumDictionary.h"
 #import "FieldDrawingViewController.h"
+#import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
 #import <ImageIO/ImageIO.h>
 #import <ImageIO/CGImageProperties.h>
@@ -43,6 +44,7 @@
     @property (nonatomic, weak) IBOutlet UIButton *classDButton;
     @property (nonatomic, weak) IBOutlet UIButton *classEButton;
     @property (nonatomic, weak) IBOutlet UIButton *classFButton;
+    @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
 @end
 
 
@@ -927,7 +929,7 @@
     NSString *fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photo.thumbNail];
     cell.thumbnail = [UIImage imageWithContentsOfFile:fullPath];
 
-    cell.backgroundColor=[UIColor greenColor];
+ //   cell.backgroundColor=[UIColor greenColor];
     return cell;
 }
 
@@ -959,10 +961,15 @@ CGSize retval = CGSizeMake(40, 40);
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Segue occurs when the user selects a match out of the match list table. Receiving
     //  VC is the FieldDrawing VC.
-    NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
-    [segue.destinationViewController setTeamScores:matchList];
-    [segue.destinationViewController setStartingIndex:indexPath.row];
-    [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
+    if ([segue.identifier isEqualToString:@"MatchSchedule"]) {
+        NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
+        [segue.destinationViewController setTeamScores:matchList];
+        [segue.destinationViewController setStartingIndex:indexPath.row];
+        [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    else if ([segue.identifier isEqualToString:@"MatchOverlay"]) {
+        [segue.destinationViewController setMatchList:matchList];
+    }
 }
 
 #pragma mark - Table view data source

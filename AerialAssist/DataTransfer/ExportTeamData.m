@@ -9,12 +9,20 @@
 #import "ExportTeamData.h"
 #import "DataManager.h"
 #import "TeamData.h"
+#import "DriveTypeDictionary.h"
+#import "TrooleanDictionary.h"
+#import "IntakeTypeDictionary.h"
+#import "ShooterTypeDictionary.h"
 
 @implementation ExportTeamData {
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSDictionary *attributes;
     NSArray *teamDataList;
+    DriveTypeDictionary *driveDictionary;
+    IntakeTypeDictionary *intakeDictionary;
+    TrooleanDictionary *trooleanDictionary;
+    ShooterTypeDictionary *shooterDictionary;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -33,6 +41,18 @@
         // Load dictionary with list of parameters for the scouting spreadsheet
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamDataOutput" ofType:@"plist"];
         teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
+    }
+    if (!driveDictionary) {
+        driveDictionary = [[DriveTypeDictionary alloc] init];
+    }
+    if (!intakeDictionary) {
+        intakeDictionary = [[IntakeTypeDictionary alloc] init];
+    }
+    if (!shooterDictionary) {
+        shooterDictionary = [[ShooterTypeDictionary alloc] init];
+    }
+    if (!trooleanDictionary) {
+        trooleanDictionary = [[TrooleanDictionary alloc] init];
     }
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -106,6 +126,18 @@
     if ([type isEqualToString:@"string"]) {
         if (data) return [NSString stringWithFormat:@",\"%@\"", data];
         else return @"";
+    }
+    else if ([type isEqualToString:@"driveTypeDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [driveDictionary getString:data]];
+    }
+    else if ([type isEqualToString:@"intakeTypeDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [intakeDictionary getString:data]];
+    }
+    else if ([type isEqualToString:@"shooterTypeDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [shooterDictionary getString:data]];
+    }
+    else if ([type isEqualToString:@"trooleanDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [trooleanDictionary getString:data]];
     }
     else return [NSString stringWithFormat:@"%@", data];
 }

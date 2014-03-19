@@ -196,7 +196,7 @@
     _floorCatch.text = [NSString stringWithFormat:@"%d", [currentScore.floorCatch intValue]];
     _airCatch.text = [NSString stringWithFormat:@"%d", [currentScore.airCatch intValue]];
     
-    NSLog(@"block = %@", currentScore.defenseBlockRating);
+    //NSLog(@"block = %@", currentScore.defenseBlockRating);
     _blockSlider.value = [currentScore.defenseBlockRating floatValue];
     _bullySlider.value = [currentScore.defenseBullyRating floatValue];
     _driverSlider.value = [currentScore.driverRating floatValue];

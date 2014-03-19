@@ -47,6 +47,7 @@
     NSString *tournamentName;
     NSString *deviceName;
     BlueToothType *bluetoothType;
+    NSFileManager *fileManager;
     NSString *exportFilePath;
     NSString *transferFilePath;
     NSString *transferDataFile;
@@ -155,6 +156,7 @@ GKPeerPickerController *picker;
     matchScheduleSync = [prefs objectForKey:@"matchScheduleSync"];
     matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
     deviceName = [prefs objectForKey:@"deviceName"];
+    fileManager = [NSFileManager defaultManager];
 
     firstReceipt = TRUE;
     [_connectButton setHidden:NO];
@@ -472,7 +474,8 @@ GKPeerPickerController *picker;
     if (!exportFilePath) {
         exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Transfer Data", deviceName]];
         NSError *error;
-        success &= [[NSFileManager defaultManager] createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+        [fileManager removeItemAtPath:exportFilePath error:&error];
+        success &= [fileManager createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!success) {
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert"
@@ -513,6 +516,9 @@ GKPeerPickerController *picker;
         }
         else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedTeamList = [importPackage importData:importFile];
+        }
+        else if ([importFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedMatchList = [importPackage importData:importFile];
         }
     }
     [_receiveDataTable reloadData];

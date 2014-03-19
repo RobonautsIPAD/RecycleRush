@@ -85,7 +85,7 @@
     NSString *matchType = [myDictionary objectForKey:@"matchType"];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     if (!matchNumber || !matchType || !tournamentName) return nil;
-    NSLog(@"receiving %@", myDictionary);
+    //NSLog(@"receiving %@", myDictionary);
     
     MatchData *matchRecord = [self getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];
     if (!matchRecord) {
@@ -113,7 +113,7 @@
         [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];
     }
     [self addBlankScores:matchRecord];
-    NSLog(@"Teams = %@", teams);
+    // NSLog(@"Teams = %@", teams);
     matchRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {

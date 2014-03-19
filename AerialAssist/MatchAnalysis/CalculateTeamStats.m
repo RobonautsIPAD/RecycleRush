@@ -60,6 +60,7 @@
             [stats setObject:calculation forKey:[parameter objectForKey:@"header"]];
         }
     }
+    [stats setObject:[NSNumber numberWithInteger:numberOfMatches] forKey:@"matches"];
     return stats;
 }
 

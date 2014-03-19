@@ -1109,8 +1109,8 @@
         [self promptForValue:trussCatchButton];
         return;
     }
-    currentTeam.trussCatchMiss = [NSNumber numberWithInt:score];
-    [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatchMiss intValue]] forState:UIControlStateNormal];
+    currentTeam.trussThrowMiss = [NSNumber numberWithInt:score];
+ //   [trussCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussCatchMiss intValue]] forState:UIControlStateNormal];
     
     [self setDataChange];
 }

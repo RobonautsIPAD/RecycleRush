@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "PopUpPickerViewController.h"
 
 @class DataManager;
 @class PopUpPickerViewController;
 
-@interface LucienPageViewController : UIViewController <UITextFieldDelegate, PopUpPickerDelegate>
+@interface LucienPageViewController : UIViewController <UITextFieldDelegate, PopUpPickerDelegate, MFMailComposeViewControllerDelegate>
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
 @property (nonatomic, weak) IBOutlet UILabel *labelText;
 

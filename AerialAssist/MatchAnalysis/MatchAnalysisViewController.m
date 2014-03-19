@@ -25,8 +25,9 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSMutableArray *teamList;
-    NSArray *matchList;
-    TeamData *team;
+    NSArray *scoreList;
+    NSMutableArray *matchList;
+   TeamData *team;
 }
 @synthesize dataManager = _dataManager;
 @synthesize mainLogo = _mainLogo;
@@ -46,7 +47,7 @@
 - (void)viewDidLoad
 {
     NSLog(@"Set-Up Page");
-    // Display the Robotnauts Banner
+    // Display the Robonauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
@@ -58,10 +59,17 @@
         self.title = tournamentName;
     }
     
-    matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
-    // NSLog(@"Printing Matchlist");
-    // NSLog(@"%@", matchList);
-    
+    scoreList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
+    NSLog(@"score count = %d", [scoreList count]);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"match.number > 0 AND match.matchType = %@", @"Seeding"];
+    scoreList = [scoreList filteredArrayUsingPredicate:pred];
+
+    NSLog(@"score count = %d", [scoreList count]);
+    matchList = [[NSMutableArray alloc] init];
+    for (int i=0; i<[scoreList count]; i++) {
+        TeamScore *score = [scoreList objectAtIndex:i];
+        [matchList addObject:score.match];
+    }
     self.title = @"Match Analysis";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -72,9 +80,11 @@
     //  VC is the FieldDrawing VC.
     NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
     [segue.destinationViewController setDataManager:_dataManager];
+    NSLog(@"Match list = %@", matchList);
     [segue.destinationViewController setTeamScores:matchList];
     [segue.destinationViewController setStartingIndex:indexPath.row];
     [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 -(NSInteger)numberOfRowsInTableView:(UITableView *)tableView{
     return 1;
@@ -88,12 +98,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        return [matchList count];
+        return [scoreList count];
 }
 
 - (void)configureMatchCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *score = [matchList objectAtIndex:indexPath.row];
-    
+    TeamScore  *score = [scoreList objectAtIndex:indexPath.row];
+  //  NSLog(@"score = %@", score);
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
 	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
     
@@ -101,20 +111,15 @@
 	label2.text = score.match.matchType;
     
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    //label3.text = [NSString stringWithFormat:@"%d/%d", [score.match.redScore intValue], [score.match.blueScore intValue]];
     label3.text = @"";
     
     UILabel *label4 = (UILabel *)[cell viewWithTag:40];
     label4.text = [NSString stringWithFormat:@"%@", [score.results boolValue] ? @"Y": @"N"];
     
-
-    //    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
-    //    else label3.text = @"N";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        NSLog(@"Filling Cell");
         UITableViewCell *cell = nil;
         cell = [tableView dequeueReusableCellWithIdentifier:@"MatchSchedule"];
         // Set up the cell...

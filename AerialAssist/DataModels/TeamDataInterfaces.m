@@ -263,7 +263,7 @@
     if (!_teamDataAttributes) _teamDataAttributes = [[team entity] attributesByName];
     for (NSString *item in _teamDataAttributes) {
         if ([team valueForKey:item] && [team valueForKey:item] != [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]) {
-            NSLog(@"%@ = %@, not equal to default = %@", item, [team valueForKey:item], [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]);
+            // NSLog(@"%@ = %@, not equal to default = %@", item, [team valueForKey:item], [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]);
             [keyList addObject:item];
             [valueList addObject:[team valueForKey:item]];
         }
@@ -287,15 +287,22 @@
     [valueList addObject:[team valueForKey:@"regional"]];
 */
     NSArray *allPhotos = [team.photoList allObjects];
-    NSLog(@"team = %@", team.number);
+    // NSLog(@"team = %@", team.number);
     if ([allPhotos count]) {
         NSMutableArray *photoList = [[NSMutableArray alloc] init];
+        int startingCount = [allPhotos count];
         for (int i=0; i<[allPhotos count]; i++) {
             Photo *photo = [allPhotos objectAtIndex:i];
             NSLog(@"photo = %@", photo.fullImage);
-            NSDictionary *photoGroup = [NSDictionary dictionaryWithObjects:[[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil] forKeys:[[NSArray alloc] initWithObjects:@"fullImage", @"thumbNail", nil]];
-            NSLog(@"Photo group = %@", photoGroup);
-            [photoList addObject:photoGroup];
+            if (!photo.fullImage || [photo.fullImage isEqualToString:@""]) {
+                startingCount--;
+                continue;
+            }
+            if (startingCount > 0) {
+                NSDictionary *photoGroup = [NSDictionary dictionaryWithObjects:[[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil] forKeys:[[NSArray alloc] initWithObjects:@"fullImage", @"thumbNail", nil]];
+                // NSLog(@"Photo group = %@", photoGroup);
+                [photoList addObject:photoGroup];
+            }
         }
         [keyList addObject:@"photoList"];
         [valueList addObject:photoList];
@@ -323,7 +330,6 @@
 }
 
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
-//    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     //     Assign unpacked data to the team record
     //     Return team record
@@ -341,7 +347,7 @@
     // check retrieved team, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [myDictionary objectForKey:@"saved"];
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
-    
+
     if ([saved floatValue] == [teamRecord.saved floatValue] && [savedBy isEqualToString:teamRecord.savedBy]) {
         NSLog(@"Team has already transferred, team = %@", teamNumber);
         NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
@@ -351,17 +357,15 @@
     }
 
     // Cycle through each object in the transfer data dictionary
-    NSLog(@"unpackage team data add check for default values");
-    NSLog(@"after complete migration of all ipads, add the check to not replace prime photo");
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
-        /*        if ([key isEqualToString:@"primePhoto"]) {
+        if ([key isEqualToString:@"primePhoto"]) {
             // Only do something with the prime photo if there is not photo already
             if (!teamRecord.primePhoto) {
                 [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
             }
             continue;
-        }*/
+        }
         // if key is property, branch to photoList or tournamentList to decode
         id value = [_teamDataProperties valueForKey:key];
         if ([value isKindOfClass:[NSAttributeDescription class]]) {
@@ -396,13 +400,13 @@
 
 -(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList {
     NSLog(@"Destination team = %@", destinationTeam.number);
-    NSLog(@"Sender list = %@", [senderList objectAtIndex:0]);
     NSArray *allPhotos = [destinationTeam.photoList allObjects];
     if ([allPhotos count]) {
         Photo *photoRecord;
         for (int i=0; i<[senderList count]; i++) {
             NSDictionary *sentPhoto = [senderList objectAtIndex:i];
             NSPredicate *pred = [NSPredicate predicateWithFormat:@"fullImage = %@", [sentPhoto objectForKey:@"fullImage"]];
+            NSLog(@"Sender list = %@", [senderList objectAtIndex:i]);
             NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
             if ([photo count]) continue;
             photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
@@ -563,10 +567,10 @@
     _teamDataAttributes = nil;
     _teamDataProperties = nil;
     _regionalDictionary = nil;
-#ifdef TEST_MODE
+/*#ifdef TEST_MODE
 	NSLog(@"dealloc %@", self);
 
-#endif
+#endif*/
 }
 
 #ifdef TEST_MODE

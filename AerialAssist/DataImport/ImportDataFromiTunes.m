@@ -9,6 +9,7 @@
 #import "ImportDataFromiTunes.h"
 #import "DataManager.h"
 #import "TeamDataInterfaces.h"
+#import "MatchDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
 
 @implementation ImportDataFromiTunes {
@@ -56,6 +57,7 @@
     for (NSString *file in files) {
         if ([file.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             NSLog(@"file = %@", file);
             [fileList addObject:file];
@@ -160,6 +162,18 @@
                 NSData *myData = [NSData dataWithContentsOfFile:fullPath];
                 NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
                 if (teamReceived) [receivedData addObject:teamReceived];
+            }
+        }
+    }
+    else if ([importFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+        for (NSString *file in files) {
+            if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+                NSLog(@"file = %@", file);
+                NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
+                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *matchReceived = [matchDataPackage unpackageMatchForXFer:myData];
+                if (matchReceived) [receivedData addObject:matchReceived];
             }
         }
     }

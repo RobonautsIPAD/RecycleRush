@@ -100,6 +100,7 @@
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     NSNumber *teamNumber = [myDictionary objectForKey:@"teamNumber"];
     NSString *alliance = [myDictionary objectForKey:@"alliance"];
+    if (!matchNumber || !matchType || !teamNumber) return nil;
     // Fetch score record
     // Copy the data into the right places
     // Put the match drawing in the correct directory
@@ -121,6 +122,7 @@
     TeamScore *score;
     if([scoreData count] > 0) {  // Score Exists
         score = [scoreData objectAtIndex:0];
+        NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     }
     else {
         MatchData *matchRecord = [[[MatchDataInterfaces alloc] initWithDataManager:_dataManager] getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];
@@ -144,7 +146,7 @@
     // check retieved match, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [myDictionary objectForKey:@"saved"];
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
-    
+
     if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
         // NSLog(@"Match has already transferred, match = %@", score.match.number);
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
@@ -178,6 +180,7 @@
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
     NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"Y", nil];
+    NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }

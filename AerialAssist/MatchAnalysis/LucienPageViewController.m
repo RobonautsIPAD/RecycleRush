@@ -56,16 +56,20 @@
 @property (nonatomic, weak) IBOutlet UIButton *average8Button;
 @property (nonatomic, weak) IBOutlet UITextField *normal8Text;
 @property (nonatomic, weak) IBOutlet UITextField *factor8Text;
+@property (weak, nonatomic) IBOutlet UIButton *exportButton;
 @end
 
 @implementation LucienPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *appName;
+    NSString *gameName;
     
     NSString *settingsFile;
     BOOL dataChange;
     NSFileManager *fileManager;
     NSString *storePath;
+    NSString *exportPath;
 
     NSMutableDictionary *parameterDictionary;
     NSArray *databaseList;
@@ -123,8 +127,11 @@
     else {
         self.title = @"Lucien Page";
     }
+    appName = [prefs objectForKey:@"appName"];
+    gameName = [prefs objectForKey:@"gameName"];
 
     [self initializePreferences];
+    exportPath = [self applicationDocumentsDirectory];
 
     dataChange = NO;
     parameterSelected = FALSE;
@@ -438,6 +445,69 @@
 	}
     
 	return YES;
+}
+
+- (IBAction)exportLucienNumbers:(id)sender {
+    [self saveSelections];
+    [self calculateLucienNumbers];
+
+    NSString *filePath = [exportPath stringByAppendingPathComponent: @"LucienData.csv"];
+    NSString *csvString = @"Team, Lucien Number";
+    
+    for (int i = 1; i<[parameterDictionary count]+1; i++) {
+        NSDictionary *row = [parameterDictionary objectForKey:[NSString stringWithFormat:@"%d",i]];
+        NSString *header = [row objectForKey:@"name"];
+        csvString = [csvString stringByAppendingFormat:@", %@", header];
+    }
+    for (int j=0; j<[lucienList count]; j++) {
+        NSDictionary *info = [lucienList objectAtIndex:j];
+        csvString = [csvString stringByAppendingFormat:@"\n%@, %@", [info objectForKey:@"team"], [NSString stringWithFormat:@"%.1f", [[info objectForKey:@"lucien"] floatValue]]];
+        for (int i=1; i<=[parameterDictionary count]+1; i++) {
+            NSString *key = [NSString stringWithFormat:@"%d", i];
+            NSNumber *value = [info objectForKey:key];
+            if (value) {
+                csvString = [csvString stringByAppendingString:[NSString stringWithFormat:@", %.1f", [value floatValue]]];
+            }
+        }
+    }
+    [csvString writeToFile:filePath
+                atomically:YES
+                  encoding:NSUTF8StringEncoding
+                     error:nil];
+    NSString *emailSubject = @"Team Data CSV File";
+    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"LucienData.csv", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
+}
+
+-(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:array {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        [mailViewController setSubject:emailSubject];
+        [mailViewController setToRecipients:array];
+        [mailViewController setMessageBody:[NSString stringWithFormat:@"Downloaded Data from %@", gameName] isHTML:NO];
+        [mailViewController setMailComposeDelegate:self];
+        
+        for (int i=0; i<[filePaths count]; i++) {
+            NSData *exportData = [[NSData alloc] initWithContentsOfFile:[filePaths objectAtIndex:i]];
+            if (exportData) {
+                [mailViewController addAttachmentData:exportData mimeType:[NSString stringWithFormat:@"application/%@", appName] fileName:[emailFiles objectAtIndex:i]];
+            }
+            else {
+                NSLog(@"Error encoding data for email");
+            }
+        }
+        [self presentViewController:mailViewController animated:YES completion:nil];
+    }
+    else {
+        NSLog(@"Device is unable to send email in its current state.");
+    }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller
+         didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:Nil];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

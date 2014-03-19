@@ -41,6 +41,8 @@
 		2F30EAEB16A100850026B258 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAEA16A100850026B258 /* main.m */; };
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
 		2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */; };
+		2F3EFA6D18D0AB3E0020E3D0 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */; };
+		2F3EFA6F18D1F5C80020E3D0 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
@@ -52,6 +54,7 @@
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
+		2F5AF6B918D3E3E8008FB71B /* MatchOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5AF6B818D3E3E8008FB71B /* MatchOverlayViewController.m */; };
 		2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */; };
 		2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */; };
 		2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F67D4281728815300FA04CF /* InitialDefaults.plist */; };
@@ -118,7 +121,6 @@
 		2FDC819818AC6651008E2E0B /* MatchDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819718AC6651008E2E0B /* MatchDataInterfaces.m */; };
 		2FDC819B18AC66E0008E2E0B /* TeamScoreInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */; };
 		2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC819D18AC700F008E2E0B /* MatchData.m */; };
-		2FEB5DAE18C50C1A00F19316 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */; };
 		2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D218A9BFC200533BEC /* 2014_field.png */; };
 		2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D418B0208D00533BEC /* 2014_field_grid.png */; };
 		2FF1459618BBF72D0078D1B4 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1459518BBF72D0078D1B4 /* TeamScore.m */; };
@@ -169,7 +171,7 @@
 		2F137D1E18537E7700D87F30 /* AddTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddTeamViewController.h; path = TeamScouting/AddTeamViewController.h; sourceTree = "<group>"; };
 		2F137D1F18537E7700D87F30 /* AddTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddTeamViewController.m; path = TeamScouting/AddTeamViewController.m; sourceTree = "<group>"; };
 		2F146EEA1880E0B300B76B32 /* AerialAssist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AerialAssist.xcdatamodel; sourceTree = "<group>"; };
-		2F14894818CD78D0008F0E87 /* AerialAssist KC.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AerialAssist KC.xcdatamodel"; sourceTree = "<group>"; };
+		2F14894818CD78D0008F0E87 /* AerialAssist KC.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AerialAssist KC.xcdatamodel"; sourceTree = "<group>"; };
 		2F14894918CD7953008F0E87 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataModels/Photo.h; sourceTree = "<group>"; };
 		2F14894A18CD7953008F0E87 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModels/Photo.m; sourceTree = "<group>"; };
 		2F14894C18CD7973008F0E87 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
@@ -194,6 +196,9 @@
 		2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSplashViewController.h; path = MainApp/PhoneSplashViewController.h; sourceTree = "<group>"; };
 		2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSplashViewController.m; path = MainApp/PhoneSplashViewController.m; sourceTree = "<group>"; };
 		2F38C34F18A3203A0018D59C /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
+		2F3EFA6B18D0AB3E0020E3D0 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstViewController.h; path = DataImport/FirstViewController.h; sourceTree = "<group>"; };
+		2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstViewController.m; path = DataImport/FirstViewController.m; sourceTree = "<group>"; };
+		2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = AerialAssist.sqlite; path = Resources/AerialAssist.sqlite; sourceTree = "<group>"; };
 		2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMatchViewController.h; path = MatchScouting/AddMatchViewController.h; sourceTree = "<group>"; };
 		2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMatchViewController.m; path = MatchScouting/AddMatchViewController.m; sourceTree = "<group>"; };
 		2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
@@ -211,6 +216,8 @@
 		2F56B56B17052BB30093A976 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F56B56D17052BC80093A976 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F56B56F17052BDA0093A976 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2F5AF6B718D3E3E8008FB71B /* MatchOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchOverlayViewController.h; path = MatchAnalysis/MatchOverlayViewController.h; sourceTree = "<group>"; };
+		2F5AF6B818D3E3E8008FB71B /* MatchOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchOverlayViewController.m; path = MatchAnalysis/MatchOverlayViewController.m; sourceTree = "<group>"; };
 		2F621F29170DF2FE00D2ABD1 /* ImportDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDeviceViewController.h; path = DataImport/ImportDeviceViewController.h; sourceTree = "<group>"; };
 		2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDeviceViewController.m; path = DataImport/ImportDeviceViewController.m; sourceTree = "<group>"; };
 		2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_iphone.storyboard; path = MainApp/AerialAssist_iphone.storyboard; sourceTree = "<group>"; };
@@ -321,7 +328,6 @@
 		2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScoreInterfaces.m; path = DataModels/TeamScoreInterfaces.m; sourceTree = "<group>"; };
 		2FDC819C18AC700F008E2E0B /* MatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchData.h; path = DataModels/MatchData.h; sourceTree = "<group>"; };
 		2FDC819D18AC700F008E2E0B /* MatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchData.m; path = DataModels/MatchData.m; sourceTree = "<group>"; };
-		2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = AerialAssist.sqlite; path = Resources/AerialAssist.sqlite; sourceTree = "<group>"; };
 		2FF112D218A9BFC200533BEC /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = Resources/2014_field.png; sourceTree = "<group>"; };
 		2FF112D418B0208D00533BEC /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = Resources/2014_field_grid.png; sourceTree = "<group>"; };
 		2FF1459418BBF72D0078D1B4 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
@@ -460,6 +466,8 @@
 				2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */,
 				2F8697E118C90E2600116527 /* ImportDataFromiTunes.h */,
 				2F8697E218C90E2600116527 /* ImportDataFromiTunes.m */,
+				2F3EFA6B18D0AB3E0020E3D0 /* FirstViewController.h */,
+				2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */,
 			);
 			name = "Data Import";
 			sourceTree = "<group>";
@@ -545,7 +553,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2FEB5DAD18C50C1A00F19316 /* AerialAssist.sqlite */,
+				2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */,
 				2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */,
 				2FDB496718BB05DA00B431C7 /* RadioButton-Selected.png */,
 				2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */,
@@ -649,6 +657,8 @@
 				2F042012181F19D4003B994B /* LucienTableViewController.m */,
 				2F06F98E1724CB70002C947D /* LucienPageViewController.h */,
 				2F06F98F1724CB70002C947D /* LucienPageViewController.m */,
+				2F5AF6B718D3E3E8008FB71B /* MatchOverlayViewController.h */,
+				2F5AF6B818D3E3E8008FB71B /* MatchOverlayViewController.m */,
 			);
 			name = "Match Analysis";
 			sourceTree = "<group>";
@@ -784,7 +794,6 @@
 				2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */,
 				2FDB496918BB05DA00B431C7 /* RadioButton-Selected.png in Resources */,
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
-				2FEB5DAE18C50C1A00F19316 /* AerialAssist.sqlite in Resources */,
 				2FCE54FA16CC271A00884191 /* Small Blue Button.jpg in Resources */,
 				2FCE54FB16CC271A00884191 /* Small Red Button.jpg in Resources */,
 				2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */,
@@ -794,6 +803,7 @@
 				2FFAE1C816D51BDD00B180F9 /* robonauts app banner original.jpg in Resources */,
 				2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */,
 				2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */,
+				2F3EFA6F18D1F5C80020E3D0 /* AerialAssist.sqlite in Resources */,
 				2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */,
 				2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */,
 			);
@@ -817,6 +827,7 @@
 				2FC18F0D16A212CE00D42251 /* SetUpPageViewController.m in Sources */,
 				2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */,
 				2FC18F1016A215EA00D42251 /* DownloadPageViewController.m in Sources */,
+				2F5AF6B918D3E3E8008FB71B /* MatchOverlayViewController.m in Sources */,
 				2FC18F1316A21AA900D42251 /* DataManager.m in Sources */,
 				2F14894B18CD7953008F0E87 /* Photo.m in Sources */,
 				2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */,
@@ -831,6 +842,7 @@
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2FD8EDC718B7D56D009071A3 /* NumberEnumDictionary.m in Sources */,
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
+				2F3EFA6D18D0AB3E0020E3D0 /* FirstViewController.m in Sources */,
 				2F8864A016B76B1700867385 /* TeamPickerController.m in Sources */,
 				2FD455F118AFF7B90014C1BE /* PhoneSetUpViewController.m in Sources */,
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,

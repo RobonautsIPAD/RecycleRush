@@ -24,6 +24,7 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     int numberMatchTypes;
+    int ourCurrentIndex;
     CalculateTeamStats *teamStats;
     MatchTypeDictionary *matchDictionary;
     NSFileManager *fileManager;
@@ -35,8 +36,6 @@
 // Match Control Buttons
 @synthesize prevMatch;
 @synthesize nextMatch;
-@synthesize ourPrevMatch;
-@synthesize ourNextMatch;
 
 // Match Data
 @synthesize matchNumber;
@@ -168,6 +167,8 @@
     [self SetBigButtonDefaults:matchType];
     [self SetBigButtonDefaults:prevMatch];
     [self SetBigButtonDefaults:nextMatch];
+    [self SetBigButtonDefaults:_ourPrevMatchButton];
+    [self SetBigButtonDefaults:_ourNextMatchButton];
 
     _red1Table.layer.borderWidth = 2.0;
     _red2Table.layer.borderWidth = 2.0;
@@ -190,45 +191,45 @@
     nMatchesLabel.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:nMatchesLabel];
     
-	UILabel *autonLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 200, 50)];
-	autonLabel.text = @"Auton Points";
-    autonLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:autonLabel];
+	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 200, 50)];
+	label1.text = @"High Hot";
+    label1.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label1];
 
-    UILabel *teleOpLabel = [[UILabel alloc] initWithFrame:CGRectMake(290, 0, 200, 50)];
-	teleOpLabel.text = @"TeleOp Points";
-    teleOpLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:teleOpLabel];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(290, 0, 200, 50)];
+	label2.text = @"TeleOp High";
+    label2.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label2];
 
-    UILabel *hangLabel = [[UILabel alloc] initWithFrame:CGRectMake(420, 0, 200, 50)];
-	hangLabel.text = @"Hangs?";
-    hangLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:hangLabel];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(420, 0, 200, 50)];
+	label3.text = @"Truss Throw";
+    label3.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label3];
    
-    UILabel *hangLevelLabel = [[UILabel alloc] initWithFrame:CGRectMake(500, 0, 200, 50)];
-	hangLevelLabel.text = @"Hang Level";
-    hangLevelLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:hangLevelLabel];
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(540, 0, 200, 50)];
+	label4.text = @"Speed";
+    label4.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label4];
 
-    UILabel *drivingLabel = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
-	drivingLabel.text = @"Driving";
-    drivingLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:drivingLabel];
+    UILabel *lable5 = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
+	lable5.text = @"Drive";
+    lable5.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:lable5];
 
-    UILabel *defenseLabel = [[UILabel alloc] initWithFrame:CGRectMake(710, 0, 200, 50)];
-	defenseLabel.text = @"Defense";
-    defenseLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:defenseLabel];
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(710, 0, 200, 50)];
+	label6.text = @"Bully";
+    label6.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label6];
     
-    UILabel *speedLabel = [[UILabel alloc] initWithFrame:CGRectMake(800, 0, 200, 50)];
-	speedLabel.text = @"Speed";
-    speedLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:speedLabel];
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(800, 0, 200, 50)];
+	label7.text = @"Block";
+    label7.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label7];
     
-    UILabel *minHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(880, 0, 200, 50)];
-	minHeightLabel.text = @"Minimum Height";
-    minHeightLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:minHeightLabel];
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(880, 0, 200, 50)];
+	label8.text = @"Floor Pass";
+    label8.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label8];
 
     teamData = [NSMutableArray arrayWithCapacity:6];
     _teamList = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
@@ -241,6 +242,15 @@
     _teamDefense = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
     _teamSpeed = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
     _teamHeight = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
+
+    if (_teamScores) {
+        _currentMatch = [self getOurCurrentMatch:_startingIndex];
+    }
+    else {
+        _currentMatch = [self getCurrentMatch];
+        [_ourPrevMatchButton setHidden:YES];
+        [_ourNextMatchButton setHidden:YES];
+    }
     [self ShowMatch];
 }
 
@@ -290,6 +300,7 @@
     }
     _rowIndex = matchField-1;
     
+    _currentMatch = [self getCurrentMatch];
     [self ShowMatch];
     
 }
@@ -320,6 +331,7 @@
         }
     }
     _rowIndex = 0;
+    _currentMatch = [self getCurrentMatch];
     [self ShowMatch];
 }
 
@@ -329,7 +341,8 @@
         _sectionIndex = [self GetPreviousSection:_currentSectionType];
         _rowIndex =  [[[[_fetchedResultsController sections] objectAtIndex:_sectionIndex] objects] count]-1;
     }
-    [self ShowMatch];
+    _currentMatch = [self getCurrentMatch];
+   [self ShowMatch];
 }
 
 -(IBAction)NextButton {
@@ -340,6 +353,7 @@
         _rowIndex = 0;
         _sectionIndex = [self GetNextSection:_currentSectionType];
     }
+    _currentMatch = [self getCurrentMatch];
     [self ShowMatch];
 }
 
@@ -445,6 +459,20 @@
     return newSection;
 }
 
+- (IBAction)ourPreviousMatch:(id)sender {
+    ourCurrentIndex--;
+    if (ourCurrentIndex < 0) ourCurrentIndex = [_teamScores count]-1;
+    _currentMatch = [self getOurCurrentMatch:ourCurrentIndex];
+    [self ShowMatch];
+}
+
+- (IBAction)ourNextMatch:(id)sender {
+    ourCurrentIndex++;
+    if (ourCurrentIndex == [_teamScores count]) ourCurrentIndex = 0;
+    _currentMatch = [self getOurCurrentMatch:ourCurrentIndex];
+    [self ShowMatch];
+}
+
 -(MatchData *)getCurrentMatch {
     if (numberMatchTypes == 0) {
         return nil;
@@ -455,9 +483,12 @@
     }
 }
 
+-(MatchData *)getOurCurrentMatch:(int) desiredIndex {
+    ourCurrentIndex = desiredIndex;
+    return [_teamScores objectAtIndex:desiredIndex];
+}
 
 -(void)ShowMatch {
-    _currentMatch = [self getCurrentMatch];
     [self setTeamList];
     
     [matchType setTitle:_currentMatch.matchType forState:UIControlStateNormal];
@@ -471,7 +502,7 @@
 }
 
 -(void)setTeamList {
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"alliance" ascending:YES];
+    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
     NSArray *data = [[_currentMatch.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
 
     if (!data) return;
@@ -481,86 +512,51 @@
 
     if ([data count] == 6) {
         // Reds
-        for (int i=3; i<6; i++) {
+        for (int i=0; i<6; i++) {
             score = [data objectAtIndex:i];
-            [_teamList replaceObjectAtIndex:(i-3)
+            [_teamList replaceObjectAtIndex:i
                                 withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-            NSMutableArray *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-//            [_teamMatches replaceObjectAtIndex:(i-3)
-//                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
-/*            [_teamAuton replaceObjectAtIndex:(i-3)
-                                    withObject:[NSString stringWithFormat:@"%d", teamStats.autonPoints]];
-            [_teamTeleOp replaceObjectAtIndex:(i-3)
-                                  withObject:[NSString stringWithFormat:@"%d", teamStats.teleOpPoints]];
-            [_teamHang replaceObjectAtIndex:(i-3)
-                                   withObject:[NSString stringWithFormat:@"%d", teamStats.hangs]];
-            [_teamHangLevel replaceObjectAtIndex:(i-3)
-                                    withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveClimbHeight]];
-            [_teamDriving replaceObjectAtIndex:(i-3)
-                                 withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveDriving]];
-            [_teamDefense replaceObjectAtIndex:(i-3)
-                                 withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveDefense]];
-            [_teamSpeed replaceObjectAtIndex:(i-3)
-                                 withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveSpeed]];
-            if (score.team.minHeight) {
-                [_teamHeight replaceObjectAtIndex:(i-3)
-                                  withObject:[NSString stringWithFormat:@"%.1f", [score.team.minHeight floatValue]]];
-            }
-            else {
-                [_teamHeight replaceObjectAtIndex:(i-3)
-                                       withObject:[NSString stringWithFormat:@""]];
-            }*/
-        }
-        // Blues
-/*        for (int i=0; i<3; i++) {
-            score = [data objectAtIndex:i];
-            [_teamList replaceObjectAtIndex:(i+3)
-                                 withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-            [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-//            [_teamMatches replaceObjectAtIndex:(i+3)
-//                                    withObject:[NSString stringWithFormat:@"%d", teamStats.nmatches]];
-            [_teamAuton replaceObjectAtIndex:(i+3)
-                                  withObject:[NSString stringWithFormat:@"%d", teamStats.autonPoints]];
-            [_teamTeleOp replaceObjectAtIndex:(i+3)
-                                   withObject:[NSString stringWithFormat:@"%d", teamStats.teleOpPoints]];
-            [_teamHang replaceObjectAtIndex:(i+3)
-                                 withObject:[NSString stringWithFormat:@"%d", teamStats.hangs]];
-            [_teamHangLevel replaceObjectAtIndex:(i+3)
-                                      withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveClimbHeight]];
-            [_teamDriving replaceObjectAtIndex:(i+3)
-                                    withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveDriving]];
-            [_teamDefense replaceObjectAtIndex:(i+3)
-                                    withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveDefense]];
-            [_teamSpeed replaceObjectAtIndex:(i+3)
-                                  withObject:[NSString stringWithFormat:@"%.1f", teamStats.aveSpeed]];
-            if (score.team.minHeight) {
-                [_teamHeight replaceObjectAtIndex:(i+3)
-                                       withObject:[NSString stringWithFormat:@"%.1f", [score.team.minHeight floatValue]]];
-            }
-            else {
-                [_teamHeight replaceObjectAtIndex:(i+3)
-                                       withObject:[NSString stringWithFormat:@""]];
-            }
-        }*/
+            NSMutableDictionary *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
+            ;
+            
+            [_teamMatches replaceObjectAtIndex:i
+                                    withObject:[NSString stringWithFormat:@"%d", [[stats objectForKey:@"matches"] intValue]]];
+            [_teamAuton replaceObjectAtIndex:i
+                                    withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"average"] floatValue]]];
+            [_teamTeleOp replaceObjectAtIndex:i
+                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"average"] floatValue]]];
+            [_teamHang replaceObjectAtIndex:i
+                                   withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"average"] floatValue]]];
+            [_teamHangLevel replaceObjectAtIndex:i
+                                    withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]]];
+            [_teamDriving replaceObjectAtIndex:i
+                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"DriverSkill"] objectForKey:@"average"] floatValue]]];
+            [_teamDefense replaceObjectAtIndex:i
+                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]]];
+            [_teamSpeed replaceObjectAtIndex:i
+                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]]];
+            [_teamHeight replaceObjectAtIndex:i
+                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"FloorPass"] objectForKey:@"average"] floatValue]]];
+         }
     }
     _red1Team.text = [_teamList objectAtIndex:0];
     [_red1Scores removeAllObjects];
-    _red1Scores = [self getScoreList:[[data objectAtIndex:3] valueForKey:@"team"]];
+    _red1Scores = [self getScoreList:[[data objectAtIndex:0] valueForKey:@"team"]];
     _red2Team.text = [_teamList objectAtIndex:1];
     [_red2Scores removeAllObjects];
-    _red2Scores = [self getScoreList:[[data objectAtIndex:4] valueForKey:@"team"]];
+    _red2Scores = [self getScoreList:[[data objectAtIndex:1] valueForKey:@"team"]];
     _red3Team.text = [_teamList objectAtIndex:2];
     [_red3Scores removeAllObjects];
-    _red3Scores = [self getScoreList:[[data objectAtIndex:5] valueForKey:@"team"]];
+    _red3Scores = [self getScoreList:[[data objectAtIndex:2] valueForKey:@"team"]];
     _blue1Team.text = [_teamList objectAtIndex:3];
     [_blue1Scores removeAllObjects];
-    _blue1Scores = [self getScoreList:[[data objectAtIndex:0] valueForKey:@"team"]];
+    _blue1Scores = [self getScoreList:[[data objectAtIndex:3] valueForKey:@"team"]];
     _blue2Team.text = [_teamList objectAtIndex:4];
     [_blue2Scores removeAllObjects];
-    _blue2Scores = [self getScoreList:[[data objectAtIndex:1] valueForKey:@"team"]];
+    _blue2Scores = [self getScoreList:[[data objectAtIndex:4] valueForKey:@"team"]];
     _blue3Team.text = [_teamList objectAtIndex:5];
     [_blue3Scores removeAllObjects];
-    _blue3Scores = [self getScoreList:[[data objectAtIndex:2] valueForKey:@"team"]];
+    _blue3Scores = [self getScoreList:[[data objectAtIndex:5] valueForKey:@"team"]];
     [self.teamInfo reloadData];
     [self.red1Table reloadData];
     [self.red2Table reloadData];
@@ -571,11 +567,10 @@
 }
 
 -(NSMutableArray *)getScoreList:(TeamData *)team {
-    NSLog(@"Team = %@", team.number);
     NSArray *allMatches = [team.match allObjects];
     NSMutableArray *scores = [allMatches mutableCopy];
 
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND", tournamentName];
     [scores filterUsingPredicate:pred];
 
     NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
@@ -593,7 +588,7 @@
         NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
         TeamDetailViewController *detailViewController = [segue destinationViewController];
         [segue.destinationViewController setDataManager:_dataManager];
-        NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
+        // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
         TeamData *team = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:[_teamList objectAtIndex:indexPath.row]];
         detailViewController.team = team;
         [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
@@ -698,7 +693,7 @@
 	teleOpLabel.text = [_teamTeleOp objectAtIndex:indexPath.row];
 
     UILabel *hangLabel = (UILabel *)[cell viewWithTag:50];
-    hangLabel.text = ([[_teamHang objectAtIndex:indexPath.row] intValue]) ? @"Y": @"N";
+    hangLabel.text = [_teamHang objectAtIndex:indexPath.row];
 
     UILabel *hangLevel = (UILabel *)[cell viewWithTag:55];
 	hangLevel.text = [_teamHangLevel objectAtIndex:indexPath.row];
@@ -757,13 +752,13 @@
         return cell;
     }
 }
-
+/*
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _red1Table) {
     NSLog(@"Cell frame.size.width=%f", cell.frame.size.width);
 //        cell.frame.size.width = 125.0;
     }
-}
+}*/
 
 -(void)SetTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];

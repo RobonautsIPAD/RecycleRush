@@ -16,7 +16,7 @@
 		<key>header</key>
 		<string>Auton Mobility</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -32,7 +32,7 @@
 		<key>header</key>
 		<string>Catch System</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -56,7 +56,7 @@
 		<key>header</key>
 		<string>Goalie</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -64,7 +64,7 @@
 		<key>header</key>
 		<string>Hot Tracking</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -72,7 +72,7 @@
 		<key>header</key>
 		<string>Intake</string>
 		<key>format</key>
-		<string>IntakeTypeDictionary</string>
+		<string>intakeTypeDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -112,7 +112,7 @@
 		<key>header</key>
 		<string>Class A</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -120,7 +120,7 @@
 		<key>header</key>
 		<string>Class B</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -128,7 +128,7 @@
 		<key>header</key>
 		<string>Class C</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -136,7 +136,7 @@
 		<key>header</key>
 		<string>Class D</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -144,7 +144,7 @@
 		<key>header</key>
 		<string>Class E</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -152,7 +152,7 @@
 		<key>header</key>
 		<string>Class F</string>
 		<key>format</key>
-		<string>TrooleanDictionary</string>
+		<string>trooleanDictionary</string>
 	</dict>
 </array>
 </plist>
