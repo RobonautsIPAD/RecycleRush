@@ -1776,6 +1776,7 @@
     else {
         currentPoint = [gestureRecognizer locationInView: fieldImage];
         // NSLog(@"current point = %lf, %lf", currentPoint.x, currentPoint.y);
+//        CGContextRef context = UIGraphicsGetCurrentContext();
         UIGraphicsBeginImageContext(fieldImage.frame.size);
         [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
@@ -1784,7 +1785,6 @@
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
         CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-        
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
         [self.fieldImage setAlpha:opacity];
@@ -1814,6 +1814,7 @@
     green = 255.0/255.0;
     blue = 255.0/255.0;
     opacity = 1.0;
+//    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
 }
 
 -(CGPoint)scorePopOverLocation:(CGPoint)location; {

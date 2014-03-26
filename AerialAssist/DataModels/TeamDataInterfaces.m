@@ -379,9 +379,9 @@
                     [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
                 }
              }
-            else if ([destination.entity.name isEqualToString:@"Photo"]) {
+/*            else if ([destination.entity.name isEqualToString:@"Photo"]) {
                 [self syncPhotoList:teamRecord forSender:[myDictionary objectForKey:key]];
-            }
+            }*/
         }
     }
     

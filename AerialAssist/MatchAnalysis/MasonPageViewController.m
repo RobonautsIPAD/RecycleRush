@@ -570,7 +570,7 @@
     NSArray *allMatches = [team.match allObjects];
     NSMutableArray *scores = [allMatches mutableCopy];
 
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND", tournamentName];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
     [scores filterUsingPredicate:pred];
 
     NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];

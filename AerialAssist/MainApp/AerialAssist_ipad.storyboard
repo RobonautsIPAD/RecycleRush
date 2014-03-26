@@ -5471,10 +5471,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="73l-5i-erv"/>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="M4x-HG-6MQ"/>
-        <segue reference="npl-Y5-KtP"/>
+        <segue reference="2PU-1e-EUe"/>
         <segue reference="gMh-cN-6SD"/>
+        <segue reference="6V1-MF-63T"/>
+        <segue reference="73l-5i-erv"/>
     </inferredMetricsTieBreakers>
 </document>
