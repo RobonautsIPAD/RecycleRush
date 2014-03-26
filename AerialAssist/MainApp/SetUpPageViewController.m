@@ -16,6 +16,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *matchListButton;
 @property (nonatomic, weak) IBOutlet UIButton *dataTransferButton;
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+@property (nonatomic, weak) IBOutlet UIButton *elimDataButton;
 @end
 
 @implementation SetUpPageViewController
@@ -82,6 +83,11 @@
     [_dataTransferButton setTitle:@"Data Transfer" forState:UIControlStateNormal];
     _dataTransferButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     self.title = @"Set-Up Page";
+    
+    //Set Font and Text for Elim Data Button
+    [_elimDataButton setTitle:@"Elim Data" forState:UIControlStateNormal];
+    _elimDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+    
    [super viewDidLoad];
 }
 

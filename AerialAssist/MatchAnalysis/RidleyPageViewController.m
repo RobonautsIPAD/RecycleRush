@@ -89,8 +89,11 @@
         TeamData *team = [teamData objectAtIndex:i];
         //NSLog(@"%@", team.number);
         [_teamList addObject:[NSString stringWithFormat:@"%d", [team.number intValue]]];
+        
+        
     }
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -301,5 +304,8 @@
     
     return cell;
 }
+
+
+
 
 @end

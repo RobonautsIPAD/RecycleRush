@@ -7,6 +7,9 @@
 //
 
 #import "LucienTableViewController.h"
+#import "TeamDetailViewController.h"
+#import "TeamData.h"
+#import "TeamDataInterfaces.h"
 
 @interface LucienTableViewController ()
 @property (nonatomic, strong) UIView *headerView;
@@ -18,6 +21,7 @@
 }
 @synthesize lucienNumbers = _lucienNumbers;
 @synthesize headerView = _headerView;
+@synthesize dataManager = _dataManager;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -74,6 +78,21 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Team"]) {
+        NSIndexPath *indexPath = [ self.tableView indexPathForCell:sender];
+        TeamDetailViewController *detailViewController = [segue destinationViewController];
+        [segue.destinationViewController setDataManager:_dataManager];
+        // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
+        NSDictionary *info = [_lucienNumbers objectAtIndex:indexPath.row];
+        TeamData *team = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:[info objectForKey:@"team"]];
+        detailViewController.team = team;
+       // [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
+    
+    }
 }
 
 #pragma mark - Table view data source
