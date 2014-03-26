@@ -199,6 +199,8 @@
     
     teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
     _aliance8Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    
+    
 
 
 }
