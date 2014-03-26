@@ -37,14 +37,12 @@
     landscape.size.height = portrait.size.width;
     landscape.size.width = portrait.size.height;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    NSLog(@"Orientation = %d", orientation);
     if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
         [imageView setFrame:portrait];
     }
     else {
         [imageView setFrame:landscape];
     }
-    NSLog(@"frame = %@", imageView);
     imageView.image = _fullImage;
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
     imageView.contentMode = UIViewContentModeScaleAspectFit;

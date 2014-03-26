@@ -7,6 +7,9 @@
 //
 
 #import "MatchOverlayViewController.h"
+#import "MatchData.h"
+#import "TeamScore.h"
+#import "FieldDrawing.h"
 
 @interface MatchOverlayViewController ()
 
@@ -26,8 +29,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-//    [fieldImage setImage:[UIImage imageWithData:currentTeam.fieldDrawing.trace]];
+    for (int i=0; i<[_matchList count]; i++) {
+        TeamScore *score = [_matchList objectAtIndex:i];
+        if ([score.results boolValue] && score.fieldDrawing.trace) {
+            UIImageView *trace =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,848,424)];
+            trace.image = [UIImage imageWithData:score.fieldDrawing.trace];
+            if ([score.allianceSection intValue] > 2) {
+                trace.transform = CGAffineTransformMakeScale(-1, 1);
+            }
+            [self.view addSubview:trace];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

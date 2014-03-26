@@ -63,6 +63,7 @@
     BOOL imageIsFullScreen;
     CGRect imagePrevFrame;
     id popUp;
+    id action;
     BOOL dataChange;
     PhotoAttributes *primePhoto;
     BOOL getAssetURL;
@@ -84,6 +85,7 @@
     NSMutableArray *autonCapacityList;
 
     NSArray *photoList;
+    NSString *selectedPhoto;
 }
 
 @synthesize dataManager = _dataManager;
@@ -369,7 +371,7 @@
     [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
     [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
     [self getPhoto];
-    photoList = [_team.photoList allObjects];
+    photoList = [self getPhotoList];
     [_photoCollectionView reloadData];
     dataChange = NO;
 }
@@ -581,7 +583,6 @@
     else if (popUp == _autonCapacityButton) {
         [autonCapacityPickerPopover dismissPopoverAnimated:YES];
         _team.autonCapacity = [self changeSelected:newPick forButton:popUp forDictionary:autonCapacityDictionary];
-;
     }
     else if (popUp == _autonMobilityButton) {
         [trooleanPickerPopover dismissPopoverAnimated:YES];
@@ -682,66 +683,22 @@
 -(void)getPhoto {
     _imageView.image = nil;
     _imageView.userInteractionEnabled = YES;
-    NSLog(@"Get photo");
-    NSLog(@"Team = %@", _team.number);
-    NSLog(@"Photo = %@", _team.primePhoto);
-    NSLog(@"Thumb = %@", _team.sthing1);
     if (!_team.primePhoto) return;
     NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:_team.primePhoto];
     [_imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
 }
-/*
--(void)photoRetrieved:(NSNotification *)notification {
-    NSLog(@"Photo retrieved");
-    if (getAssetURL) {
-        getAssetURL = FALSE;
-        NSURL *passedURL = [[notification userInfo] objectForKey:@"assetURL"];
-        _team.primePhoto = [passedURL absoluteString];
-        _imageView.image = [[notification userInfo] objectForKey:@"photoImage"];
-        // Save the record so that we don't have to search for the assetURL the next time we
-        // load this picture. Do not update the save time or the savedBy flag because
-        // the assetURL is non-transferrable so it doesn't need to trip the ready to transfer
-        // logic.
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-    }
-    else {
-        NSLog(@"prime photo = %@", _team.primePhoto);
-        UIImage *fetchedImage = [[notification userInfo] objectForKey:@"photoImage"];
-        _imageView.image = fetchedImage;
-        NSString *photoNameBase = [self createPhotoName];
-        // Use the time to create unique photo names
-        float currentTime = CFAbsoluteTimeGetCurrent();
-        // Create full sized photo name
-        NSString *photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
-        NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
-        NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
-        [imageData writeToFile:fullPath atomically:YES];
-        _team.primePhoto = photoName;
-        // Create and save thumbnail
-        photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"thumb_%.0f.jpg", currentTime]];
-        fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photoName];
-        CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-        CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
-                                                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                                                             (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
-                                                             nil];
-        _team.sthing1 = photoName;
-        CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
-        UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
-        [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
-        NSLog(@"prime photoName = %@", _team.primePhoto);
-        NSLog(@"thumb photoName = %@", _team.sthing1);
-        [self setDataChange];
-    }
+
+-(NSArray *)getPhotoList {
+    NSString *baseName = [self createPhotoName];
+    NSError *error;
+    NSArray *thumbNailDirectory = [fileManager contentsOfDirectoryAtPath:robotThumbnailLibrary error:&error];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", baseName];
+    NSArray *list = [thumbNailDirectory filteredArrayUsingPredicate:pred];
+    return list;
 }
-*/
+
 -(void) takePhoto {
     //  Use the camera to take a new robot photo
-    NSLog(@"Take photo");
     if (!_imagePickerController) {
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.delegate = self;
@@ -782,14 +739,17 @@
     // Create full sized photo name
     NSString *photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
     NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
+    if ([fileManager fileExistsAtPath:fullPath]) {
+        currentTime /= 2;
+        fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
+    }
+    
     NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
     [imageData writeToFile:fullPath atomically:YES];
     _team.primePhoto = photoName;
 
     // Create and save thumbnail
-    NSString *thumbNailName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"thumb_%.0f.jpg", currentTime]];
-    NSLog(@"thumbNailName = %@", thumbNailName);
-    fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:thumbNailName];
+    fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photoName];
     CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
     CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
                                                          (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
@@ -799,10 +759,11 @@
     CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
     UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
     [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
+    CGImageRelease(myThumbnailImage);
 
     // add photo to photo list
     // set as prime photo
-    [self addTeamPhotoRecord:_team forPhoto:photoName forThumbNail:thumbNailName];
+//    [self addTeamPhotoRecord:_team forPhoto:photoName forThumbNail:thumbNailName];
     [self setDataChange];
     [self.pictureController dismissPopoverAnimated:true];
     NSLog(@"image picker finish");
@@ -810,6 +771,7 @@
 }
 
 - (IBAction)photoControllerActionSheet:(id)sender {
+    action = sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
     
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
@@ -817,25 +779,51 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self takePhoto];
-    } else if (buttonIndex == 1) {
-        [self choosePhoto];
+    if (action == _cameraBtn) {
+        if (buttonIndex == 0) {
+            [self takePhoto];
+        } else if (buttonIndex == 1) {
+            [self choosePhoto];
+        }
+    }
+    else if (action == _photoCollectionView) {
+        if (buttonIndex == 0) {
+            NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
+            _team.primePhoto = selectedPhoto;
+            [_imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
+            [self setDataChange];
+        }
+        if (buttonIndex == 1) {
+            NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
+            FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
+            photoViewer.fullImage = [UIImage imageWithContentsOfFile:fullPath];
+            [self.navigationController pushViewController:photoViewer animated:YES];
+        }
+        if (buttonIndex == 2) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Really delete?" message:@"Do you really want to delete this photo?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+            [alert addButtonWithTitle:@"Yes"];
+            [alert show];
+        }
     }
 }
-/*
--(void)photoSaved:(NSNotification *)notification {
-    // The photo has been saved. A notification was sent from the ALAsset save function letting
-    //  us find out what the photo name was. The names are saved in the database so that we
-    //  have a list of all the photos for this robot.
-    NSURL *passedURL = [[notification userInfo] objectForKey:@"assetURL"];
-    _team.primePhoto = [passedURL absoluteString];
-    _team.primePhotoDate = [[notification userInfo] objectForKey:@"photoDate"];
-    NSLog(@"Prime Photo string = %@\nDate = %@", _team.primePhoto, _team.primePhotoDate);
-    [self addTeamPhotoRecord:_team forPhoto:_team.primePhoto forDate:_team.primePhotoDate];
-    [self setDataChange];
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSError *error;
+        NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
+        [fileManager removeItemAtPath:fullPath error:&error];
+        fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:selectedPhoto];
+        [fileManager removeItemAtPath:fullPath error:&error];
+        if ([selectedPhoto isEqualToString:_team.primePhoto]) {
+            _team.primePhoto = nil;
+            [_imageView setImage:nil];
+            [self setDataChange];
+        }
+        photoList = [self getPhotoList];
+        [_photoCollectionView reloadData];
+    }
 }
-*/
+
 -(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoName forThumbNail:(NSString *)thumbNail {
     NSLog(@"Photo name = %@", photoName);
     NSLog(@"Thumb name = %@", thumbNail);
@@ -863,7 +851,6 @@
 }
 
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
-    NSLog(@"Photo tapped");
     FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
     photoViewer.fullImage = _imageView.image;
 //    _imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -890,7 +877,7 @@
                                       withIntermediateDirectories: YES
                                                        attributes: nil
                                                             error: NULL]) {
-            NSLog(@"Dreadful error creating directory to save photos");
+            NSLog(@"Dreadful error creating directory to save thumbnails");
         }
     }
 }
@@ -904,7 +891,6 @@
     } else {
         number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
     }
-    NSLog(@"photo name = %@", number);
     return number;
 }
 
@@ -925,38 +911,25 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"thumbnail" forIndexPath:indexPath];
-    Photo *photo = [photoList objectAtIndex:indexPath.row];
-    NSString *fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photo.thumbNail];
+    NSString *fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:[photoList objectAtIndex:indexPath.row]];
     cell.thumbnail = [UIImage imageWithContentsOfFile:fullPath];
-
- //   cell.backgroundColor=[UIColor greenColor];
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    action = _photoCollectionView;
+    selectedPhoto = [photoList objectAtIndex:indexPath.row];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Set as Prime", @"Show Full Screen",  @"Delete Photo", nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];}
+
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-// 1
-/*- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString *searchTerm = self.searches[indexPath.section];
-//    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
-    // 2
-//   CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-CGSize retval = CGSizeMake(40, 40);
-//    retval.height += 35; retval.width += 35;
-    return retval;
-}
-*/
-// 3
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(50, 50);
 }
-
-/*- (CGSize)collectionView:
-(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return CGSizeMake(50, 50);
-//    return UIEdgeInsetsMake(50, 20, 50, 20);
-}*/
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Segue occurs when the user selects a match out of the match list table. Receiving
