@@ -63,6 +63,7 @@
 		2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D01EE1884B32400F0635C /* TournamentAnalysisViewController.m */; };
 		2F6D01F21884C88F00F0635C /* RidleyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */; };
 		2F6F10151880E29700378728 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F10141880E29700378728 /* TournamentData.m */; };
+		2F742FEA18DE0C4500DB05B6 /* ElimDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F742FE918DE0C4500DB05B6 /* ElimDataViewController.m */; };
 		2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */; };
 		2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8002D818551326008F031C /* SettingsAndPreferences.m */; };
 		2F8697E318C90E2600116527 /* ImportDataFromiTunes.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8697E218C90E2600116527 /* ImportDataFromiTunes.m */; };
@@ -231,6 +232,8 @@
 		2F6D01F11884C88F00F0635C /* RidleyPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RidleyPageViewController.m; path = MatchAnalysis/RidleyPageViewController.m; sourceTree = "<group>"; };
 		2F6F10131880E29700378728 /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentData.h; path = DataModels/TournamentData.h; sourceTree = "<group>"; };
 		2F6F10141880E29700378728 /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentData.m; path = DataModels/TournamentData.m; sourceTree = "<group>"; };
+		2F742FE818DE0C4500DB05B6 /* ElimDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ElimDataViewController.h; path = DataModels/ElimDataViewController.h; sourceTree = "<group>"; };
+		2F742FE918DE0C4500DB05B6 /* ElimDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ElimDataViewController.m; path = DataModels/ElimDataViewController.m; sourceTree = "<group>"; };
 		2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Robonauts.AerialAssist.plist; path = Resources/Robonauts.AerialAssist.plist; sourceTree = "<group>"; };
 		2F8002D718551326008F031C /* SettingsAndPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsAndPreferences.h; path = MainApp/SettingsAndPreferences.h; sourceTree = "<group>"; };
 		2F8002D818551326008F031C /* SettingsAndPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsAndPreferences.m; path = MainApp/SettingsAndPreferences.m; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 				2F137D0618537B7F00D87F30 /* TeamDataInterfaces.m */,
 				2FDC819918AC66E0008E2E0B /* TeamScoreInterfaces.h */,
 				2FDC819A18AC66E0008E2E0B /* TeamScoreInterfaces.m */,
+				2F742FE818DE0C4500DB05B6 /* ElimDataViewController.h */,
+				2F742FE918DE0C4500DB05B6 /* ElimDataViewController.m */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 				21EBC7D716B358D000CBFDFD /* TeamDetailViewController.m in Sources */,
 				2FFC493918560F68009A391E /* SettingsViewController.m in Sources */,
 				2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */,
+				2F742FEA18DE0C4500DB05B6 /* ElimDataViewController.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
 				2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */,
