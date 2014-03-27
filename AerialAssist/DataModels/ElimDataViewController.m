@@ -170,39 +170,142 @@
     
     NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
     
-
-    MatchData *match = [matchList objectAtIndex:0];
-    NSArray *scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        //[matchList addObject:];
-    NSLog(@"%@, %@", match.number, scores);
-
-    NSNumber *teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance1Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    MatchData *match;
+    NSArray *scores;
+    NSNumber *teamNumber;
+    if([matchList count] > 0) {
+        match = [matchList objectAtIndex:0];
+        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+        
+        switch ([scores count]){
+            case 6:{
+                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance8Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 5:{
+                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance8Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 4:{
+                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance8Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 3:{
+                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance1Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 2:{
+                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance1Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 1:{
+                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance1Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            default:
+                break;
+        }
+    }
     
-    teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance1Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    if([matchList count] > 1){
+        match = [matchList objectAtIndex:1];
+        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+        switch ([scores count]){
+            case 6:{
+                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance7Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 5:{
+                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance7Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 4:{
+                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance7Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 3:{
+                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance2Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 2:{
+                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance2Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 1:{
+                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance2Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            default:
+                break;
+        }
+    }
     
-    teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance1Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    if([matchList count] > 2){
+        match = [matchList objectAtIndex:2];
+        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+        switch ([scores count]){
+            case 6:{
+                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance6Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 5:{
+                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance6Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 4:{
+                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance6Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 3:{
+                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance3Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 2:{
+                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance3Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 1:{
+                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance3Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            default:
+                break;
+        }
+    }
     
-    teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance8Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    if([matchList count] > 3){
+        match = [matchList objectAtIndex:3];
+        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+        switch ([scores count]){
+            case 6:{
+                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance5Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 5:{
+                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance5Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 4:{
+                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance5Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 3:{
+                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance4Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 2:{
+                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance4Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            case 1:{
+                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+                _aliance4Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+            }
+            default:
+                break;
+        }
+    }
     
-    teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance8Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-
-    teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance8Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-
-    match = [matchList objectAtIndex:1];
-    scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-    
-    teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-    _aliance8Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-    
-    
-
-
 }
 
 -(void)setRadioButtonDefaults:(UIButton *)button{
