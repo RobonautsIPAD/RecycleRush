@@ -40,6 +40,23 @@
     int timerCount;
     id popUp;
 
+    NSArray *rateList;
+    // Driver Rate PopUp
+    UIPopoverController *driverRatePickerPopover;
+    PopUpPickerViewController *driverRatePicker;
+    // Defense Rate Popup
+    UIPopoverController *defenseRatePickerPopover;
+    PopUpPickerViewController *defenseRatePicker;
+    // Blocker Rate Popup
+    UIPopoverController *blockRatePickerPopover;
+    PopUpPickerViewController *blockRatePicker;
+    // Bully Rate Popup
+    UIPopoverController *bullyRatePickerPopover;
+    PopUpPickerViewController *bullyRatePicker;
+    // Speed Rate Popup
+    UIPopoverController *speedRatePickerPopover;
+    PopUpPickerViewController *speedRatePicker;
+    
     BOOL eraseMode;
     // Auton Scoring pop up
     NSMutableArray *autonScoreList;
