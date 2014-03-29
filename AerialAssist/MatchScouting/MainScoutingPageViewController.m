@@ -20,11 +20,14 @@
 #import "PopUpPickerViewController.h"
 
 @interface MainScoutingPageViewController ()
-    @property (nonatomic, weak) IBOutlet UISlider *defenseBullyRating;
-    @property (nonatomic, weak) IBOutlet UISlider *defenseBlockRating;
+    @property (nonatomic, weak) IBOutlet UIButton *driverRating;
+    @property (nonatomic, weak) IBOutlet UIButton *robotSpeed;
+    @property (nonatomic, weak) IBOutlet UIButton *defenseBullyRating;
+    @property (nonatomic, weak) IBOutlet UIButton *defenseBlockRating;
     @property (nonatomic, weak) IBOutlet UIButton *noShowButton;
     @property (nonatomic, weak) IBOutlet UIButton *doaButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
+
 @end
 
 @implementation MainScoutingPageViewController {
@@ -104,8 +107,6 @@
 
 // Match Score
 @synthesize teamName;
-@synthesize driverRating;
-@synthesize robotSpeed = _robotSpeed;
 @synthesize climbLevel;
 @synthesize notes;
 @synthesize teleOpBlockButton;
@@ -259,15 +260,10 @@
     [self SetBigButtonDefaults:teleOpBlockButton];
     [self SetBigButtonDefaults:_airCatchButton];
     [self SetBigButtonDefaults:_floorCatchButton];
-    
-    driverRating.maximumValue = 5.0;
-    driverRating.continuous = NO;
-    _defenseBlockRating.maximumValue = 5.0;
-    _defenseBlockRating.continuous = NO;
-    _defenseBullyRating.maximumValue = 5.0;
-    _defenseBullyRating.continuous = NO;
-    _robotSpeed.maximumValue = 5.0;
-    _robotSpeed.continuous = NO;
+    [self SetSmallButtonDefaults:_robotSpeed];
+    [self SetSmallButtonDefaults:_defenseBullyRating];
+    [self SetSmallButtonDefaults:_defenseBlockRating];
+    [self SetSmallButtonDefaults:_driverRating];
 
     
     [self SetTextBoxDefaults:notes];
@@ -305,6 +301,11 @@
 
     brush = 3.0;
     opacity = 1.0;
+    
+    
+    rateList = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+    
+    
     [super viewDidLoad];
 }
 
@@ -804,32 +805,6 @@
 	return YES;
 }
 
-- (IBAction) updateDriverRating:(id) sender  
-{
-    driverRating.value = roundf(driverRating.value);
-    [self setDataChange];
-    currentTeam.DriverRating = [NSNumber numberWithInt:driverRating.value];
-}
-
-- (IBAction) updateRobotSpeed:(id) sender
-{
-    _robotSpeed.value = roundf(_robotSpeed.value);
-    [self setDataChange];
-    currentTeam.robotSpeed = [NSNumber numberWithInt:_robotSpeed.value];
-}
-
-- (IBAction) updateDefenseRating:(id) sender
-{
-    if (sender == _defenseBullyRating) {
-        _defenseBullyRating.value = roundf(_defenseBullyRating.value);
-        currentTeam.defenseBullyRating = [NSNumber numberWithInt:_defenseBullyRating.value];
-    }
-    else {
-        _defenseBlockRating.value = roundf(_defenseBlockRating.value);
-        currentTeam.defenseBlockRating = [NSNumber numberWithInt:_defenseBlockRating.value];
-    }
-    [self setDataChange];
-}
 
 
 // Keeping the score
@@ -869,6 +844,30 @@
     if (popUp == partnerActionsPicker) {
         [partnerActionsPickerPopover dismissPopoverAnimated:YES];
         [self allianceCatchSelected:newPick];
+       return;
+    }
+    if (popUp == _defenseBullyRating) {
+        [bullyRatePickerPopover dismissPopoverAnimated:YES];
+        bullyRatePickerPopover = nil;
+        [self setBullyRate:newPick];
+        return;
+    }
+    else if (popUp == _defenseBlockRating) {
+        [defenseRatePickerPopover dismissPopoverAnimated:YES];
+        defenseRatePickerPopover = nil;
+        [self setBlockRate:newPick];
+        return;
+    }
+    else if (popUp == _driverRating) {
+        [driverRatePickerPopover dismissPopoverAnimated:YES];
+        driverRatePickerPopover = nil;
+        [self setDriverRate:newPick];
+        return;
+    }
+    else if(popUp == _robotSpeed){
+        [speedRatePickerPopover dismissPopoverAnimated:YES];
+        speedRatePickerPopover = nil;
+        [self setSpeedRate:newPick];
         return;
     }
     [self.scoreButtonPickerPopover dismissPopoverAnimated:YES];
@@ -1572,7 +1571,7 @@
     [_robotSpeed setUserInteractionEnabled:NO];
     [_defenseBlockRating setUserInteractionEnabled:NO];
     [_defenseBullyRating setUserInteractionEnabled:NO];
-    [driverRating setUserInteractionEnabled:NO];
+    [_driverRating setUserInteractionEnabled:NO];
     [notes setUserInteractionEnabled:NO];
     [fieldImage setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
@@ -1608,7 +1607,7 @@
     [_robotSpeed setUserInteractionEnabled:YES];
     [_defenseBlockRating setUserInteractionEnabled:YES];
     [_defenseBullyRating setUserInteractionEnabled:YES];
-    [driverRating setUserInteractionEnabled:YES];
+    [_driverRating setUserInteractionEnabled:YES];
     [notes setUserInteractionEnabled:YES];
     [fieldImage setUserInteractionEnabled:YES];
     [_eraserButton setUserInteractionEnabled:YES];
@@ -1634,10 +1633,6 @@
         
    [teamNumber setTitle:[NSString stringWithFormat:@"%d", [currentTeam.team.number intValue]] forState:UIControlStateNormal];
     teamName.text = currentTeam.team.name;
-    driverRating.value =  [currentTeam.driverRating floatValue];
-    _defenseBullyRating.value =  [currentTeam.defenseBullyRating floatValue];
-    _defenseBlockRating.value =  [currentTeam.defenseBlockRating floatValue];
-    _robotSpeed.value =  [currentTeam.robotSpeed floatValue];
 
 
     notes.text = currentTeam.notes;
@@ -1665,6 +1660,10 @@
     [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
     [_floorCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorCatch intValue]] forState:UIControlStateNormal];
     [_airCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.airCatch intValue]] forState:UIControlStateNormal];
+    [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
+    [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
+    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
+    [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
     
     [self setRadioButtonState:_noShowButton forState:[currentTeam.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentTeam.deadOnArrival intValue]];
@@ -2426,6 +2425,85 @@
         _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
         [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     }
+}
+
+
+
+-(IBAction)showTeamPopUp:(id)sender {
+    UIButton *PressedButton = (UIButton*)sender;
+    NSMutableArray *tempList = [(NSArray*)rateList mutableCopy];
+    if (PressedButton == _robotSpeed) {
+        // NSLog(@"First");
+        popUp = _robotSpeed;
+        if (speedRatePicker == nil) {
+            //  NSLog(@"%@", _addFirstPicker);
+            speedRatePicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            speedRatePicker.delegate = self;
+        }
+        speedRatePicker.pickerChoices = tempList;
+        speedRatePickerPopover = [[UIPopoverController alloc]initWithContentViewController:speedRatePicker];
+        [speedRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                               permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    }
+    else if (PressedButton == _defenseBlockRating) {
+        popUp = _defenseBlockRating;
+        if (defenseRatePicker == nil) {
+            defenseRatePicker = [[PopUpPickerViewController alloc]initWithStyle:UITableViewStylePlain];
+            defenseRatePicker.delegate = self;
+        }
+        defenseRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
+        defenseRatePickerPopover = [[UIPopoverController alloc]initWithContentViewController:defenseRatePicker];
+        [defenseRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                            permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    }
+    else if (PressedButton == _defenseBullyRating) {
+        popUp = _defenseBullyRating;
+        if (bullyRatePicker == nil) {
+            bullyRatePicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            bullyRatePicker.delegate = self;
+        }
+        bullyRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
+        bullyRatePickerPopover = [[UIPopoverController alloc]
+                               initWithContentViewController:bullyRatePicker];
+        [bullyRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                           permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    }
+    else if (PressedButton == _driverRating) {
+            popUp = _driverRating;
+            if (driverRatePicker == nil) {
+                driverRatePicker = [[PopUpPickerViewController alloc]
+                                   initWithStyle:UITableViewStylePlain];
+                driverRatePicker.delegate = self;
+            }
+            driverRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
+            driverRatePickerPopover = [[UIPopoverController alloc]
+                                      initWithContentViewController:driverRatePicker];
+            [driverRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                                  permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    }
+}
+
+
+-(void)setSpeedRate:(NSString *)newPick{
+    currentTeam.robotSpeed = [NSNumber numberWithInt:[newPick intValue]];
+    [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
+}
+
+-(void)setBlockRate:(NSString *)newPick{
+    currentTeam.defenseBlockRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
+}
+
+-(void)setBullyRate:(NSString *)newPick{
+    currentTeam.defenseBullyRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
+}
+
+-(void)setDriverRate:(NSString *)newPick{
+    currentTeam.driverRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
 }
 
 

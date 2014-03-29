@@ -24,7 +24,7 @@
 @class DataManager;
 @class SettingsData;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlliancePickerDelegate, MatchTypePickerDelegate, TeamPickerDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate, PopUpPickerDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
@@ -75,8 +75,6 @@ typedef enum {
 
 // Match Scores
 @property (nonatomic, weak) IBOutlet UILabel *teamName;
-@property (nonatomic, weak) IBOutlet UISlider *driverRating;
-@property (nonatomic, weak) IBOutlet UISlider *robotSpeed;
 @property (nonatomic, strong) UISegmentedControl *climbLevel;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
@@ -215,5 +213,7 @@ typedef enum {
 -(void)drawModeSettings:(DrawingMode) mode;
 -(void)checkOverrideCode:(UIButton *)button;
 -(void)checkAdminCode:(UIButton *)button;
+
+-(IBAction)showTeamPopUp:(id)sender;
 
 @end
