@@ -17,6 +17,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *dataTransferButton;
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 @property (nonatomic, weak) IBOutlet UIButton *elimDataButton;
+@property (nonatomic, weak) IBOutlet UIButton *matchIntegrityButton;
 @end
 
 @implementation SetUpPageViewController
@@ -88,7 +89,11 @@
     [_elimDataButton setTitle:@"Elim Data" forState:UIControlStateNormal];
     _elimDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     
-   [super viewDidLoad];
+    //Set Font and Text for Match Integrity Data Button
+    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
+    _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
+ 
+    [super viewDidLoad];
 }
 
 - (void) viewWillAppear:(BOOL)animated {

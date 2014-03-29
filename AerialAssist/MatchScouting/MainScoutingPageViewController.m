@@ -37,7 +37,7 @@
     int timerCount;
     id popUp;
 
-
+    BOOL eraseMode;
     // Auton Scoring pop up
     NSMutableArray *autonScoreList;
     UIPopoverController *autonPickerPopover;
@@ -210,6 +210,7 @@
     // Set the list of match types
     matchDictionary = [[MatchTypeDictionary alloc] init];    
     
+    eraseMode = FALSE;
     overrideMode = NoOverride;
     teamName.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     [self SetBigButtonDefaults:prevMatch];
@@ -363,14 +364,6 @@
     [self setTeamList];
     [self ShowTeam:teamIndex];
 }    
-
-- (void)viewDidUnload
-{
-    [self setEraserButton:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (void) viewWillDisappear:(BOOL)animated
 {
@@ -1582,6 +1575,7 @@
     [driverRating setUserInteractionEnabled:NO];
     [notes setUserInteractionEnabled:NO];
     [fieldImage setUserInteractionEnabled:FALSE];
+    [_eraserButton setUserInteractionEnabled:NO];
 }
 
 -(void)enableButtons{
@@ -1617,6 +1611,7 @@
     [driverRating setUserInteractionEnabled:YES];
     [notes setUserInteractionEnabled:YES];
     [fieldImage setUserInteractionEnabled:YES];
+    [_eraserButton setUserInteractionEnabled:YES];
 }
 
 -(void)ShowTeam:(NSUInteger)currentTeamIndex {
@@ -1686,6 +1681,8 @@
         drawMode = DrawOff;
     }
     [self drawModeSettings:drawMode];
+    eraseMode = FALSE;
+    [_eraserButton setBackgroundImage:nil forState:UIControlStateNormal];
     [self setPartnerList];
     
     NSLog(@"Saved by = %@", currentTeam.savedBy);
@@ -1782,9 +1779,16 @@
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        if (eraseMode) {
+            CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+            brush = 10.0;
+        }
+        else {
+            CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+            brush = 3.0;
+        }
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
         [self.fieldImage setAlpha:opacity];
@@ -1810,11 +1814,14 @@
 }
 
 - (IBAction)eraserPressed:(id)sender {
-    red = 255.0/255.0;
-    green = 255.0/255.0;
-    blue = 255.0/255.0;
-    opacity = 1.0;
-//    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+    if (eraseMode) {
+        [_eraserButton setBackgroundImage:nil forState:UIControlStateNormal];
+        eraseMode = FALSE;
+    }
+    else {
+        [_eraserButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
+        eraseMode = TRUE;
+    }
 }
 
 -(CGPoint)scorePopOverLocation:(CGPoint)location; {
@@ -1890,9 +1897,6 @@
             NSLog(@"Bad things have happened in drawModeChange");
     }
     [self drawModeSettings:drawMode];
-}
-
-- (IBAction)eraserChosen:(id)sender {
 }
 
 -(void) drawModeSettings:(DrawingMode) mode {

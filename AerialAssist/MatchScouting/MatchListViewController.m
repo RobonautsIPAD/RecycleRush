@@ -60,11 +60,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"match data remove");
-/*    CreateMatch *matchObject = [CreateMatch new];
-    matchObject.managedObjectContext = _dataManager.managedObjectContext;
-    [matchObject migrateMatchDrawing];*/
-    
     NSError *error = nil;
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
