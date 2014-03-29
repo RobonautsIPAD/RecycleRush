@@ -39,8 +39,22 @@
     NSTimer *climbTimer;
     int timerCount;
     id popUp;
-
+    NSArray *rateList;
+    
     BOOL eraseMode;
+    //Speed Rate Pop Up
+    UIPopoverController *speedRatePickerPopover;
+    PopUpPickerViewController *speedRatePicker;
+    //Block Rate Pop Up
+    UIPopoverController *defenseRatePickerPopover;
+    PopUpPickerViewController *defenseRatePicker;
+    //Driver Rate Pop Up
+    UIPopoverController *driverRatePickerPopover;
+    PopUpPickerViewController *driverRatePicker;
+    //Bully Rate Pop Up
+    UIPopoverController *bullyRatePickerPopover;
+    PopUpPickerViewController *bullyRatePicker;
+    
     // Auton Scoring pop up
     NSMutableArray *autonScoreList;
     UIPopoverController *autonPickerPopover;
