@@ -79,9 +79,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
 -(void)matchReset;
--(IBAction)updateDriverRating:(id) sender;
--(IBAction)updateDefenseRating: (id) sender;
--(IBAction)updateRobotSpeed: (id) sender;
 -(IBAction)scoreButtons: (id)sender;
 
 
