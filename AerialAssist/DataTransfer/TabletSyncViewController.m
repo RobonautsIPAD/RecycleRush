@@ -430,7 +430,7 @@ GKPeerPickerController *picker;
                 NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Team Data %0.f.tmd", tournamentName, [teamDataSync floatValue]]];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Team Data %0.f.tmd", deviceName, tournamentName, [teamDataSync floatValue]]];
             [self serializeDataForTransfer:transferDataFile];
             break;
         case SyncMatchList:
@@ -439,7 +439,7 @@ GKPeerPickerController *picker;
                 [matchDataPackage exportMatchForXFer:match toFile:transferFilePath];
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
                 matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-                transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Schedule %0.f.msd", tournamentName, [matchScheduleSync floatValue]]];
+                transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Schedule %0.f.msd", deviceName, tournamentName, [matchScheduleSync floatValue]]];
                 [self serializeDataForTransfer:transferDataFile];
             }
             break;
@@ -450,7 +450,7 @@ GKPeerPickerController *picker;
                 NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
             }
             matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Match Results %0.f.mrd", tournamentName, [matchResultsSync floatValue]]];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Results %0.f.mrd", deviceName, tournamentName, [matchResultsSync floatValue]]];
             [self serializeDataForTransfer:transferDataFile];
             break;
             
@@ -472,7 +472,7 @@ GKPeerPickerController *picker;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!exportFilePath) {
-        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Transfer Data", deviceName]];
+        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Transfer Data"];
         NSError *error;
         [fileManager removeItemAtPath:exportFilePath error:&error];
         success &= [fileManager createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];

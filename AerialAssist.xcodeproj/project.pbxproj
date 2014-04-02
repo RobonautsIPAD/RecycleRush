@@ -112,7 +112,6 @@
 		2FD34FF918E7ABA800B67D04 /* Block.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FF818E7ABA800B67D04 /* Block.bmp */; };
 		2FD34FFB18E7ABBC00B67D04 /* Intake from Human.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */; };
 		2FD34FFD18E7ABC700B67D04 /* Intake from Robot.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */; };
-		2FD34FFF18E7ABD600B67D04 /* Pass to Robot.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FFE18E7ABD600B67D04 /* Pass to Robot.bmp */; };
 		2FD3500118E7ABE500B67D04 /* Pass to Robot.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */; };
 		2FD3500318E7ABF500B67D04 /* Truss Catch.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */; };
 		2FD3500518E7ABFB00B67D04 /* Truss Throw.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */; };
@@ -229,6 +228,7 @@
 		2F5AF6B818D3E3E8008FB71B /* MatchOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchOverlayViewController.m; path = MatchAnalysis/MatchOverlayViewController.m; sourceTree = "<group>"; };
 		2F5E6BF918E3ABE000DD5046 /* MatchIntegrityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchIntegrityViewController.h; path = MatchAnalysis/MatchIntegrityViewController.h; sourceTree = "<group>"; };
 		2F5E6BFA18E3ABE000DD5046 /* MatchIntegrityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchIntegrityViewController.m; path = MatchAnalysis/MatchIntegrityViewController.m; sourceTree = "<group>"; };
+		2F5E6C0818EB8B1000DD5046 /* AerialAssist LS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AerialAssist LS.xcdatamodel"; sourceTree = "<group>"; };
 		2F621F29170DF2FE00D2ABD1 /* ImportDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImportDeviceViewController.h; path = DataImport/ImportDeviceViewController.h; sourceTree = "<group>"; };
 		2F621F2A170DF2FE00D2ABD1 /* ImportDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportDeviceViewController.m; path = DataImport/ImportDeviceViewController.m; sourceTree = "<group>"; };
 		2F621F2C170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_iphone.storyboard; path = MainApp/AerialAssist_iphone.storyboard; sourceTree = "<group>"; };
@@ -320,7 +320,6 @@
 		2FD34FF818E7ABA800B67D04 /* Block.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = Block.bmp; path = Resources/Block.bmp; sourceTree = "<group>"; };
 		2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Intake from Human.bmp"; path = "Resources/Intake from Human.bmp"; sourceTree = "<group>"; };
 		2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Intake from Robot.bmp"; path = "Resources/Intake from Robot.bmp"; sourceTree = "<group>"; };
-		2FD34FFE18E7ABD600B67D04 /* Pass to Robot.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Pass to Robot.bmp"; path = "Resources/Pass to Robot.bmp"; sourceTree = "<group>"; };
 		2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Pass to Robot.bmp"; path = "Resources/Pass to Robot.bmp"; sourceTree = "<group>"; };
 		2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Truss Catch.bmp"; path = "Resources/Truss Catch.bmp"; sourceTree = "<group>"; };
 		2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Truss Throw.bmp"; path = "Resources/Truss Throw.bmp"; sourceTree = "<group>"; };
@@ -578,7 +577,6 @@
 				2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */,
 				2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */,
 				2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */,
-				2FD34FFE18E7ABD600B67D04 /* Pass to Robot.bmp */,
 				2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */,
 				2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */,
 				2FD34FF818E7ABA800B67D04 /* Block.bmp */,
@@ -808,7 +806,6 @@
 				2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */,
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
-				2FD34FFF18E7ABD600B67D04 /* Pass to Robot.bmp in Resources */,
 				2FD34FF918E7ABA800B67D04 /* Block.bmp in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
 				2FB0B48518B4319700F67D74 /* check-tick.png in Resources */,
@@ -1062,6 +1059,7 @@
 			isa = XCVersionGroup;
 			children = (
 				2F14894818CD78D0008F0E87 /* AerialAssist KC.xcdatamodel */,
+				2F5E6C0818EB8B1000DD5046 /* AerialAssist LS.xcdatamodel */,
 				2F146EEA1880E0B300B76B32 /* AerialAssist.xcdatamodel */,
 			);
 			currentVersion = 2F14894818CD78D0008F0E87 /* AerialAssist KC.xcdatamodel */;
