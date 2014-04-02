@@ -12,7 +12,7 @@
 #import "FieldDrawing.h"
 
 @interface MatchOverlayViewController ()
-
+@property (nonatomic, weak) IBOutlet UITableView *dataTableView;
 @end
 
 @implementation MatchOverlayViewController
@@ -39,6 +39,9 @@
             }
             [self.view addSubview:trace];
         }
+        
+        
+        
     }
 }
 

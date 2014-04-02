@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MatchOverlayViewController : UIViewController
+@interface MatchOverlayViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *matchList;
 
 @end
