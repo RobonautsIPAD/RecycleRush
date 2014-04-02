@@ -79,9 +79,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 @property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
 -(void)matchReset;
--(IBAction)updateDriverRating:(id) sender;
--(IBAction)updateDefenseRating: (id) sender;
--(IBAction)updateRobotSpeed: (id) sender;
 -(IBAction)scoreButtons: (id)sender;
 
 
@@ -103,7 +100,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *autonBlockButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpBlockButton;
 @property (nonatomic, weak) IBOutlet UIButton *humanPickUpsButton;
-@property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
 @property (nonatomic, weak) IBOutlet UIButton *floorCatchButton;
 @property (nonatomic, weak) IBOutlet UIButton *airCatchButton;
 
@@ -213,7 +209,5 @@ typedef enum {
 -(void)drawModeSettings:(DrawingMode) mode;
 -(void)checkOverrideCode:(UIButton *)button;
 -(void)checkAdminCode:(UIButton *)button;
-
--(IBAction)showTeamPopUp:(id)sender;
 
 @end

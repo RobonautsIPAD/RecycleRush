@@ -24,10 +24,24 @@
     @property (nonatomic, weak) IBOutlet UIButton *robotSpeed;
     @property (nonatomic, weak) IBOutlet UIButton *defenseBullyRating;
     @property (nonatomic, weak) IBOutlet UIButton *defenseBlockRating;
+    @property (weak, nonatomic) IBOutlet UIButton *intakeRatingButton;
+    @property (weak, nonatomic) IBOutlet UIButton *assistRatingButton;
     @property (nonatomic, weak) IBOutlet UIButton *noShowButton;
     @property (nonatomic, weak) IBOutlet UIButton *doaButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
-
+    @property (weak, nonatomic) IBOutlet UIButton *trussThrowMissButton;
+    @property (weak, nonatomic) IBOutlet UIButton *handoffButton;
+    @property (weak, nonatomic) IBOutlet UIButton *handoffMissButton;
+    @property (weak, nonatomic) IBOutlet UIButton *robotIntakeButton;
+    @property (weak, nonatomic) IBOutlet UIButton *robotMissButton;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMissButton;
+    @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
+    @property (weak, nonatomic) IBOutlet UIButton *floorPickUpMissButton;
+    @property (weak, nonatomic) IBOutlet UIButton *knockoutButton;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss1Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss2Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss3Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss4Button;
 @end
 
 @implementation MainScoutingPageViewController {
@@ -39,21 +53,12 @@
     NSTimer *climbTimer;
     int timerCount;
     id popUp;
-    NSArray *rateList;
     
     BOOL eraseMode;
     //Speed Rate Pop Up
-    UIPopoverController *speedRatePickerPopover;
-    PopUpPickerViewController *speedRatePicker;
-    //Block Rate Pop Up
-    UIPopoverController *defenseRatePickerPopover;
-    PopUpPickerViewController *defenseRatePicker;
-    //Driver Rate Pop Up
-    UIPopoverController *driverRatePickerPopover;
-    PopUpPickerViewController *driverRatePicker;
-    //Bully Rate Pop Up
-    UIPopoverController *bullyRatePickerPopover;
-    PopUpPickerViewController *bullyRatePicker;
+    UIPopoverController *ratingPickerPopover;
+    PopUpPickerViewController *ratePicker;
+    NSMutableArray *rateList;
     
     // Auton Scoring pop up
     NSMutableArray *autonScoreList;
@@ -129,10 +134,6 @@
 @synthesize teleOpLowButton;
 @synthesize autonBlockButton;
 @synthesize autonMissButton;
-@synthesize autonHighHotButton = _autonHighHotButton;
-@synthesize autonHighColdButton = _autonHighColdButton;
-@synthesize autonLowColdButton = _autonLowColdButton;
-@synthesize autonLowHotButton = _autonLowHotButton;
 @synthesize passesFloorButton;
 @synthesize passesAirButton;
 @synthesize humanPickUpsButton = _humanPickUpsButton;
@@ -233,10 +234,7 @@
     [self SetTextBoxDefaults:matchNumber];
     [self SetBigButtonDefaults:matchType];
     [self SetBigButtonDefaults:teamNumber];
-    [self SetBigButtonDefaults:teleOpMissButton];
-    [self SetBigButtonDefaults:teleOpHighButton];
-    [self SetBigButtonDefaults:teleOpLowButton];
-    [self SetBigButtonDefaults:autonMissButton];
+
     [self SetBigButtonDefaults:_autonHighHotButton];
     [_autonHighHotButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:_autonHighColdButton];
@@ -245,16 +243,38 @@
     [_autonLowColdButton setTitleColor:[UIColor blueColor]forState: UIControlStateNormal];
     [self SetBigButtonDefaults:_autonLowHotButton];
     [_autonLowHotButton setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
+    [self SetBigButtonDefaults:autonMissButton];
+    [self SetBigButtonDefaults:autonBlockButton];
+ 
+    [self SetBigButtonDefaults:teleOpHighButton];
+    [self SetBigButtonDefaults:teleOpLowButton];
+    [self SetBigButtonDefaults:teleOpMissButton];
+    [self SetBigButtonDefaults:teleOpBlockButton];
+
+    [self SetBigButtonDefaults:trussThrowButton];
+    [self SetBigButtonDefaults:_trussThrowMissButton];
+
+    [self SetBigButtonDefaults:_handoffButton];
+    [self SetBigButtonDefaults:_handoffMissButton];
+
+    [self SetBigButtonDefaults:_robotIntakeButton];
+    [self SetBigButtonDefaults:_robotMissButton];
+
+    [self SetBigButtonDefaults:_humanPickUpsButton];
+    [self SetBigButtonDefaults:_humanMissButton];
+
+    [self SetBigButtonDefaults:_floorPickUpsButton];
+    [self SetBigButtonDefaults:_floorPickUpMissButton];
+
+    [self SetBigButtonDefaults:_knockoutButton];
+
     [self SetBigButtonDefaults:passesFloorButton];
     [self SetBigButtonDefaults:passesAirButton];
-    //[self SetBigButtonDefaults:bigHumanPickUpsButton];
     [self SetSmallButtonDefaults:_human1Button];
     [self SetSmallButtonDefaults:_human2Button];
     [self SetSmallButtonDefaults:_human3Button];
     [self SetSmallButtonDefaults:_human4Button];
     [self SetSmallButtonDefaults:_eraserButton];
-    [self SetBigButtonDefaults:_floorPickUpsButton];
-    [self SetBigButtonDefaults:_humanPickUpsButton];
     [self SetTextBoxDefaults:redScore];
     [self SetTextBoxDefaults:blueScore];
     matchResetButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
@@ -267,17 +287,16 @@
     [self SetSmallButtonDefaults:toggleGridButton];
     [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     [self SetSmallButtonDefaults:matchResetButton];
-    [self SetBigButtonDefaults:trussThrowButton];
     [self SetBigButtonDefaults:trussCatchButton];
     [self SetBigButtonDefaults:passesAirButton];
-    [self SetBigButtonDefaults:autonBlockButton];
-    [self SetBigButtonDefaults:teleOpBlockButton];
     [self SetBigButtonDefaults:_airCatchButton];
     [self SetBigButtonDefaults:_floorCatchButton];
     [self SetSmallButtonDefaults:_robotSpeed];
     [self SetSmallButtonDefaults:_defenseBullyRating];
     [self SetSmallButtonDefaults:_defenseBlockRating];
     [self SetSmallButtonDefaults:_driverRating];
+    [self SetSmallButtonDefaults:_intakeRatingButton];
+    [self SetSmallButtonDefaults:_assistRatingButton];
 
     
     [self SetTextBoxDefaults:notes];
@@ -289,9 +308,10 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", @"Throw Missed", nil];
-    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed", @"Low", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Throw Missed", @"Floor Pass", @"Air Pass", nil];
+    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Robot Intake", @"Robot Miss", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
+    rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
 
     UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(partnerCatch:)];
     tripleTapGesture.numberOfTapsRequired=3;
@@ -315,9 +335,6 @@
 
     brush = 3.0;
     opacity = 1.0;
-    
-    
-    rateList = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
     
     
     [super viewDidLoad];
@@ -861,27 +878,33 @@
        return;
     }
     if (popUp == _defenseBullyRating) {
-        [bullyRatePickerPopover dismissPopoverAnimated:YES];
-        bullyRatePickerPopover = nil;
+        [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setBullyRate:newPick];
         return;
     }
     else if (popUp == _defenseBlockRating) {
-        [defenseRatePickerPopover dismissPopoverAnimated:YES];
-        defenseRatePickerPopover = nil;
+        [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setBlockRate:newPick];
         return;
     }
     else if (popUp == _driverRating) {
-        [driverRatePickerPopover dismissPopoverAnimated:YES];
-        driverRatePickerPopover = nil;
+        [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setDriverRate:newPick];
         return;
     }
     else if(popUp == _robotSpeed){
-        [speedRatePickerPopover dismissPopoverAnimated:YES];
-        speedRatePickerPopover = nil;
+        [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setSpeedRate:newPick];
+        return;
+    }
+    else if(popUp == _intakeRatingButton){
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setIntakeRate:newPick];
+        return;
+    }
+    else if(popUp == _assistRatingButton){
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setAssistRate:newPick];
         return;
     }
     [self.scoreButtonPickerPopover dismissPopoverAnimated:YES];
@@ -1478,6 +1501,8 @@
     }
 }
 
+- (IBAction)humanPickUpsMiss:(id)sender {
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -1542,7 +1567,8 @@
     }
     [list addObject:[NSString stringWithFormat:@"Human"]];
     partnerActionsList = list;
-    // NSLog(@"Partner List = %@", partnerActionsList);
+    partnerActionsPickerPopover = nil;
+    partnerActionsPicker = nil;
 }
 
 -(MatchData *)getCurrentMatch {
@@ -1568,11 +1594,11 @@
     [teleOpMissButton setUserInteractionEnabled:NO];
     [teleOpBlockButton setUserInteractionEnabled:NO];
     [trussThrowButton setUserInteractionEnabled:NO];
-    [trussCatchButton setUserInteractionEnabled:NO];
-    [passesFloorButton setUserInteractionEnabled:NO];
-    [passesAirButton setUserInteractionEnabled:NO];
-    [_floorCatchButton setUserInteractionEnabled:NO];
-    [_airCatchButton setUserInteractionEnabled:NO];
+    [_trussThrowMissButton setUserInteractionEnabled:NO];
+    [_handoffButton setUserInteractionEnabled:NO];
+    [_handoffMissButton setUserInteractionEnabled:NO];
+    [_robotIntakeButton setUserInteractionEnabled:NO];
+    [_robotMissButton setUserInteractionEnabled:NO];
     [_autonMobilityButton setUserInteractionEnabled:NO];
     [_noShowButton setUserInteractionEnabled:NO];
     [_doaButton setUserInteractionEnabled:NO];
@@ -1581,11 +1607,20 @@
     [_human3Button setUserInteractionEnabled:NO];
     [_human4Button setUserInteractionEnabled:NO];
     [_humanPickUpsButton setUserInteractionEnabled:NO];
+    [_humanMiss1Button setUserInteractionEnabled:NO];
+    [_humanMiss2Button setUserInteractionEnabled:NO];
+    [_humanMiss3Button setUserInteractionEnabled:NO];
+    [_humanMiss4Button setUserInteractionEnabled:NO];
+    [_humanMissButton setUserInteractionEnabled:NO];
     [_floorPickUpsButton setUserInteractionEnabled:NO];
+    [_floorPickUpMissButton setUserInteractionEnabled:NO];
+    [_knockoutButton setUserInteractionEnabled:NO];
     [_robotSpeed setUserInteractionEnabled:NO];
     [_defenseBlockRating setUserInteractionEnabled:NO];
     [_defenseBullyRating setUserInteractionEnabled:NO];
     [_driverRating setUserInteractionEnabled:NO];
+    [_intakeRatingButton setUserInteractionEnabled:NO];
+    [_assistRatingButton setUserInteractionEnabled:NO];
     [notes setUserInteractionEnabled:NO];
     [fieldImage setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
@@ -1604,7 +1639,11 @@
     [teleOpMissButton setUserInteractionEnabled:YES];
     [teleOpBlockButton setUserInteractionEnabled:YES];
     [trussThrowButton setUserInteractionEnabled:YES];
-    [trussCatchButton setUserInteractionEnabled:YES];
+    [_trussThrowMissButton setUserInteractionEnabled:YES];
+    [_handoffButton setUserInteractionEnabled:YES];
+    [_handoffMissButton setUserInteractionEnabled:YES];
+    [_robotIntakeButton setUserInteractionEnabled:YES];
+    [_robotMissButton setUserInteractionEnabled:YES];
     [passesFloorButton setUserInteractionEnabled:YES];
     [passesAirButton setUserInteractionEnabled:YES];
     [_floorCatchButton setUserInteractionEnabled:YES];
@@ -1617,11 +1656,20 @@
     [_human3Button setUserInteractionEnabled:YES];
     [_human4Button setUserInteractionEnabled:YES];
     [_humanPickUpsButton setUserInteractionEnabled:YES];
+    [_humanMiss1Button setUserInteractionEnabled:YES];
+    [_humanMiss2Button setUserInteractionEnabled:YES];
+    [_humanMiss3Button setUserInteractionEnabled:YES];
+    [_humanMiss4Button setUserInteractionEnabled:YES];
+    [_humanMissButton setUserInteractionEnabled:YES];
     [_floorPickUpsButton setUserInteractionEnabled:YES];
+    [_floorPickUpMissButton setUserInteractionEnabled:YES];
+    [_knockoutButton setUserInteractionEnabled:YES];
     [_robotSpeed setUserInteractionEnabled:YES];
     [_defenseBlockRating setUserInteractionEnabled:YES];
     [_defenseBullyRating setUserInteractionEnabled:YES];
     [_driverRating setUserInteractionEnabled:YES];
+    [_intakeRatingButton setUserInteractionEnabled:YES];
+    [_assistRatingButton setUserInteractionEnabled:YES];
     [notes setUserInteractionEnabled:YES];
     [fieldImage setUserInteractionEnabled:YES];
     [_eraserButton setUserInteractionEnabled:YES];
@@ -1678,6 +1726,9 @@
     [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
     [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
+    NSLog(@"Hook up ratings");
+//    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.intakeRating intValue]] forState:UIControlStateNormal];
+//    [_assistRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.assistRating intValue]] forState:UIControlStateNormal];
     
     [self setRadioButtonState:_noShowButton forState:[currentTeam.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentTeam.deadOnArrival intValue]];
@@ -2090,8 +2141,6 @@
 
 -(void)allianceCatchSelected:(NSString *)newPickUp {
     [partnerActionsPickerPopover dismissPopoverAnimated:YES];
-    partnerActionsPickerPopover = nil;
-    partnerActionsPicker = nil;
     NSString *marker;
     CGPoint textPoint;
     textPoint.x = currentPoint.x;
@@ -2441,83 +2490,51 @@
     }
 }
 
-
-
--(IBAction)showTeamPopUp:(id)sender {
+- (IBAction)ratingPopUp:(id)sender {
     UIButton *PressedButton = (UIButton*)sender;
-    NSMutableArray *tempList = [(NSArray*)rateList mutableCopy];
-    if (PressedButton == _robotSpeed) {
-        // NSLog(@"First");
-        popUp = _robotSpeed;
-        if (speedRatePicker == nil) {
-            //  NSLog(@"%@", _addFirstPicker);
-            speedRatePicker = [[PopUpPickerViewController alloc]
-                            initWithStyle:UITableViewStylePlain];
-            speedRatePicker.delegate = self;
-        }
-        speedRatePicker.pickerChoices = tempList;
-        speedRatePickerPopover = [[UIPopoverController alloc]initWithContentViewController:speedRatePicker];
-        [speedRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                               permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    popUp = PressedButton;
+    
+    if (ratePicker == nil) {
+        ratePicker = [[PopUpPickerViewController alloc]
+                           initWithStyle:UITableViewStylePlain];
+        ratePicker.delegate = self;
+        ratePicker.pickerChoices = rateList;
+        ratingPickerPopover = [[UIPopoverController alloc]initWithContentViewController:ratePicker];
     }
-    else if (PressedButton == _defenseBlockRating) {
-        popUp = _defenseBlockRating;
-        if (defenseRatePicker == nil) {
-            defenseRatePicker = [[PopUpPickerViewController alloc]initWithStyle:UITableViewStylePlain];
-            defenseRatePicker.delegate = self;
-        }
-        defenseRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
-        defenseRatePickerPopover = [[UIPopoverController alloc]initWithContentViewController:defenseRatePicker];
-        [defenseRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                            permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    }
-    else if (PressedButton == _defenseBullyRating) {
-        popUp = _defenseBullyRating;
-        if (bullyRatePicker == nil) {
-            bullyRatePicker = [[PopUpPickerViewController alloc]
-                            initWithStyle:UITableViewStylePlain];
-            bullyRatePicker.delegate = self;
-        }
-        bullyRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
-        bullyRatePickerPopover = [[UIPopoverController alloc]
-                               initWithContentViewController:bullyRatePicker];
-        [bullyRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                           permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    }
-    else if (PressedButton == _driverRating) {
-            popUp = _driverRating;
-            if (driverRatePicker == nil) {
-                driverRatePicker = [[PopUpPickerViewController alloc]
-                                   initWithStyle:UITableViewStylePlain];
-                driverRatePicker.delegate = self;
-            }
-            driverRatePicker.pickerChoices = [NSMutableArray arrayWithArray:tempList];
-            driverRatePickerPopover = [[UIPopoverController alloc]
-                                      initWithContentViewController:driverRatePicker];
-            [driverRatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                                  permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    }
+    [ratingPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                       permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
-
--(void)setSpeedRate:(NSString *)newPick{
+-(void)setSpeedRate:(NSString *)newPick {
     currentTeam.robotSpeed = [NSNumber numberWithInt:[newPick intValue]];
     [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
 }
 
--(void)setBlockRate:(NSString *)newPick{
+-(void)setBlockRate:(NSString *)newPick {
     currentTeam.defenseBlockRating = [NSNumber numberWithInt:[newPick intValue]];
     [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
 }
 
--(void)setBullyRate:(NSString *)newPick{
+-(void)setBullyRate:(NSString *)newPick {
     currentTeam.defenseBullyRating = [NSNumber numberWithInt:[newPick intValue]];
     [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
 }
 
--(void)setDriverRate:(NSString *)newPick{
+-(void)setDriverRate:(NSString *)newPick {
     currentTeam.driverRating = [NSNumber numberWithInt:[newPick intValue]];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
+}
+
+-(void)setIntakeRate:(NSString *)newPick {
+    NSLog(@"Hook up intake rating");
+//    currentTeam.intakeRating = [NSNumber numberWithInt:[newPick intValue]];
+//    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.intakeRating intValue]] forState:UIControlStateNormal];
+}
+
+-(void)setAssistRate:(NSString *)newPick {
+    NSLog(@"Hook up asssit rating");
+//    currentTeam.assistRating = [NSNumber numberWithInt:[newPick intValue]];
+//    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.assistRating intValue]] forState:UIControlStateNormal];
 }
 
 
