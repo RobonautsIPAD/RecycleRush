@@ -824,32 +824,6 @@
     }
 }
 
--(void)addTeamPhotoRecord:(TeamData *)team forPhoto:(NSString *)photoName forThumbNail:(NSString *)thumbNail {
-    NSLog(@"Photo name = %@", photoName);
-    NSLog(@"Thumb name = %@", thumbNail);
-    Photo *photoRecord;
-    NSArray *allPhotos = [team.photoList allObjects];
-    if ([allPhotos count]) {
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"fullImage = %@", photoName];
-        NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
-        if ([photo count]) return;
-        photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-    }
-    else {
-        NSLog(@"inserting");
-        photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-    }
-    photoRecord.fullImage = photoName;
-    photoRecord.thumbNail = thumbNail;
-    [team addPhotoListObject:photoRecord];
-    [self setDataChange];
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
-    NSLog(@"photo list = %@", [team.photoList allObjects]);
-}
-
 -(void)photoTapped:(UITapGestureRecognizer *)gestureRecognizer {
     FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
     photoViewer.fullImage = _imageView.image;

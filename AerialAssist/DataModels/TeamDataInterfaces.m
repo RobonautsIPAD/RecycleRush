@@ -286,28 +286,6 @@
     [keyList addObject:allRegionals];
     [valueList addObject:[team valueForKey:@"regional"]];
 */
-    NSArray *allPhotos = [team.photoList allObjects];
-    // NSLog(@"team = %@", team.number);
-    if ([allPhotos count]) {
-        NSMutableArray *photoList = [[NSMutableArray alloc] init];
-        int startingCount = [allPhotos count];
-        for (int i=0; i<[allPhotos count]; i++) {
-            Photo *photo = [allPhotos objectAtIndex:i];
-            NSLog(@"photo = %@", photo.fullImage);
-            if (!photo.fullImage || [photo.fullImage isEqualToString:@""]) {
-                startingCount--;
-                continue;
-            }
-            if (startingCount > 0) {
-                NSDictionary *photoGroup = [NSDictionary dictionaryWithObjects:[[NSArray alloc] initWithObjects:photo.fullImage, photo.thumbNail, nil] forKeys:[[NSArray alloc] initWithObjects:@"fullImage", @"thumbNail", nil]];
-                // NSLog(@"Photo group = %@", photoGroup);
-                [photoList addObject:photoGroup];
-            }
-        }
-        [keyList addObject:@"photoList"];
-        [valueList addObject:photoList];
-        NSLog(@"Photo List = %@", photoList);
-    }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
@@ -396,37 +374,6 @@
     NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
-}
-
--(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList {
-    NSLog(@"Destination team = %@", destinationTeam.number);
-    NSArray *allPhotos = [destinationTeam.photoList allObjects];
-    if ([allPhotos count]) {
-        Photo *photoRecord;
-        for (int i=0; i<[senderList count]; i++) {
-            NSDictionary *sentPhoto = [senderList objectAtIndex:i];
-            NSPredicate *pred = [NSPredicate predicateWithFormat:@"fullImage = %@", [sentPhoto objectForKey:@"fullImage"]];
-            NSLog(@"Sender list = %@", [senderList objectAtIndex:i]);
-            NSArray *photo = [allPhotos filteredArrayUsingPredicate:pred];
-            if ([photo count]) continue;
-            photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-            photoRecord.fullImage = [sentPhoto objectForKey:@"fullImage"];
-            photoRecord.thumbNail = [sentPhoto objectForKey:@"thumbNail"];
-            [destinationTeam addPhotoListObject:photoRecord];
-            NSLog(@"Received photo list = %@", photoRecord);
-        }
-    }
-    else {
-        // There are no photos currently. Add them all
-        for (int i=0; i<[senderList count]; i++) {
-            NSDictionary *sentPhoto = [senderList objectAtIndex:i];
-            Photo *photoRecord = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:_dataManager.managedObjectContext];
-            photoRecord.fullImage = [sentPhoto objectForKey:@"fullImage"];
-            photoRecord.fullImage = [sentPhoto objectForKey:@"thumbNail"];
-            [destinationTeam addPhotoListObject:photoRecord];
-            NSLog(@"Received photo list = %@", photoRecord);
-        }
-    }
 }
 
 -(void)exportPhotosiTunes:(NSString *)tournament {

@@ -1780,6 +1780,50 @@
                                             <action selector="humanPickUpsMade:" destination="WBb-6A-oWA" eventType="touchUpInside" id="3bw-gj-Npx"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8Fk-em-TK3">
+                                        <rect key="frame" x="210" y="386" width="63" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <state key="normal" title="HMIS">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMiss:" destination="WBb-6A-oWA" eventType="touchUpInside" id="45U-iB-Xa6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BD2-9J-8RU">
+                                        <rect key="frame" x="210" y="2" width="63" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <state key="normal" title="HMIS">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMiss:" destination="WBb-6A-oWA" eventType="touchUpInside" id="YsS-mE-lE6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uNA-8E-MmS">
+                                        <rect key="frame" x="578" y="2" width="63" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <state key="normal" title="HMIS">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMiss:" destination="WBb-6A-oWA" eventType="touchUpInside" id="uYj-hA-f5V"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mSb-oP-yzW">
+                                        <rect key="frame" x="578" y="386" width="63" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                        <state key="normal" title="HMIS">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="humanPickUpsMiss:" destination="WBb-6A-oWA" eventType="touchUpInside" id="7zp-T5-WK5"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9bZ-Bw-6nS">
                                         <rect key="frame" x="644" y="386" width="63" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2029,9 +2073,6 @@
                                 <state key="normal" title="Miss">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="ik9-no-eyU"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YQe-oa-t3u">
                                 <rect key="frame" x="725" y="535" width="60" height="40"/>
@@ -2372,6 +2413,10 @@
                         <outlet property="human2Button" destination="qIK-6r-8hQ" id="1Jq-U4-etF"/>
                         <outlet property="human3Button" destination="9bZ-Bw-6nS" id="t01-Kr-F5S"/>
                         <outlet property="human4Button" destination="sk3-4h-9By" id="hlK-sR-HXT"/>
+                        <outlet property="humanMiss1Button" destination="BD2-9J-8RU" id="kAQ-bv-lAP"/>
+                        <outlet property="humanMiss2Button" destination="uNA-8E-MmS" id="bRR-Rv-1me"/>
+                        <outlet property="humanMiss3Button" destination="mSb-oP-yzW" id="Kbe-7A-BCE"/>
+                        <outlet property="humanMiss4Button" destination="8Fk-em-TK3" id="Jpe-kw-b1y"/>
                         <outlet property="humanMissButton" destination="Pjd-wW-acx" id="pIB-03-fwc"/>
                         <outlet property="humanPickUpsButton" destination="YQe-oa-t3u" id="sCz-uV-TiB"/>
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>

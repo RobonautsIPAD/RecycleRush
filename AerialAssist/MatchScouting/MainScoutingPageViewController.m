@@ -38,6 +38,10 @@
     @property (nonatomic, weak) IBOutlet UIButton *floorPickUpsButton;
     @property (weak, nonatomic) IBOutlet UIButton *floorPickUpMissButton;
     @property (weak, nonatomic) IBOutlet UIButton *knockoutButton;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss1Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss2Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss3Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanMiss4Button;
 @end
 
 @implementation MainScoutingPageViewController {
@@ -304,8 +308,8 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed",@"Low", @"Floor Pass", @"Air Pass", @"Truss Throw", @"Throw Missed", nil];
-    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed", @"Low", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Throw Missed", @"Floor Pass", @"Air Pass", nil];
+    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Robot Intake", @"Robot Miss", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
 
@@ -1497,6 +1501,8 @@
     }
 }
 
+- (IBAction)humanPickUpsMiss:(id)sender {
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -1601,6 +1607,10 @@
     [_human3Button setUserInteractionEnabled:NO];
     [_human4Button setUserInteractionEnabled:NO];
     [_humanPickUpsButton setUserInteractionEnabled:NO];
+    [_humanMiss1Button setUserInteractionEnabled:NO];
+    [_humanMiss2Button setUserInteractionEnabled:NO];
+    [_humanMiss3Button setUserInteractionEnabled:NO];
+    [_humanMiss4Button setUserInteractionEnabled:NO];
     [_humanMissButton setUserInteractionEnabled:NO];
     [_floorPickUpsButton setUserInteractionEnabled:NO];
     [_floorPickUpMissButton setUserInteractionEnabled:NO];
@@ -1646,6 +1656,10 @@
     [_human3Button setUserInteractionEnabled:YES];
     [_human4Button setUserInteractionEnabled:YES];
     [_humanPickUpsButton setUserInteractionEnabled:YES];
+    [_humanMiss1Button setUserInteractionEnabled:YES];
+    [_humanMiss2Button setUserInteractionEnabled:YES];
+    [_humanMiss3Button setUserInteractionEnabled:YES];
+    [_humanMiss4Button setUserInteractionEnabled:YES];
     [_humanMissButton setUserInteractionEnabled:YES];
     [_floorPickUpsButton setUserInteractionEnabled:YES];
     [_floorPickUpMissButton setUserInteractionEnabled:YES];

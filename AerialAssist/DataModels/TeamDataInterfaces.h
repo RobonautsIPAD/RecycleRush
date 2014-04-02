@@ -35,7 +35,6 @@
 -(NSData *)packageTeamForXFer:(TeamData *)team;
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
--(void)syncPhotoList:(TeamData *)destinationTeam forSender:(NSArray *)senderList;
 -(void)exportPhotosiTunes:(NSString *)tournament;
 -(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath;
 
