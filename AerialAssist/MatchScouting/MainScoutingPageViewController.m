@@ -308,8 +308,8 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed", @"Low", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Throw Missed", @"Floor Pass", @"Air Pass", nil];
-    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Robot Intake", @"Robot Miss", @"Floor Catch", @"Air Catch", @"Truss Catch",  nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed", @"Low", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Throw Missed", @"Floor Pass", nil];
+    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Robot Intake", @"Robot Miss", @"Knockout", @"Floor Catch", @"Truss Catch",  nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
 
@@ -2059,6 +2059,14 @@
     textPoint.y = currentPoint.y + popCounter*16;
     // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
     popCounter++;
+    
+    NSLog(@"selection = %@", newScore);
+    
+    if ([newScore isEqualToString:@"High"]) {
+        marker = @"H";
+        [self teleOpHigh:@"Increment"];
+    }
+    
     for (int i = 0 ; i < [teleOpScoreList count] ; i++) {
         if ([newScore isEqualToString:[teleOpScoreList objectAtIndex:i]]) {
             switch (i) {
