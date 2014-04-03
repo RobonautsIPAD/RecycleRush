@@ -308,8 +308,8 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"High", @"Missed", @"Low", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Throw Missed", @"Floor Pass", nil];
-    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Robot Intake", @"Robot Miss", @"Knockout", @"Floor Catch", @"Truss Catch",  nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Floor Pass", @"Miss Pass", @"Miss Shot", @"Low", @"High", @"HandOff", @"HandOff Miss", @"Truss Throw", @"Truss Miss", nil];
+    teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Floor Pick Up", @"Miss Pick Up", @"Robot Intake", @"Robot Miss", @"Knockout", @"Floor Catch", @"Floor Catch Miss", @"Truss Catch", @"Truss Catch Miss", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
 
@@ -2062,46 +2062,43 @@
     
     NSLog(@"selection = %@", newScore);
     
+    if ([newScore isEqualToString:@"Floor Pass"]) {
+        marker = @"FP";
+        [self floorPass:@"Increment"];
+    }
+    else if ([newScore isEqualToString:@"Miss Pass"]) {
+        marker = @"PX";
+     //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newScore isEqualToString:@"Miss Shot"]) {
+        marker = @"X";
+        [self teleOpMiss:@"Increment"];
+    }
+    else if ([newScore isEqualToString:@"Low"]) {
+        marker = @"L";
+        [self teleOpLow:@"Increment"];
+    }
     if ([newScore isEqualToString:@"High"]) {
         marker = @"H";
         [self teleOpHigh:@"Increment"];
     }
-    
-    for (int i = 0 ; i < [teleOpScoreList count] ; i++) {
-        if ([newScore isEqualToString:[teleOpScoreList objectAtIndex:i]]) {
-            switch (i) {
-                case 0:
-                    marker = @"H";
-                    [self teleOpHigh:@"Increment"];
-                    break;
-                case 1:
-                    marker = @"X";
-                    [self teleOpMiss:@"Increment"];
-                    break;
-                case 2:
-                    marker = @"L";
-                    [self teleOpLow:@"Increment"];
-                    break;
-                case 3:
-                    marker = @"FP";
-                    [self floorPass:@"Increment"];
-                    break;
-                case 4:
-                    marker = @"AP";
-                    [self airPass:@"Increment"];
-                    break;
-                case 5:
-                    marker = @"TT";
-                    [self trussThrow:@"Increment"];
-                    break;
-                case 6:
-                    marker = @"TM";
-                    [self trussMiss:@"Increment"];
-                    break;
-            }
-            break;
-        }
+    if ([newScore isEqualToString:@"HandOff"]) {
+        marker = @"HO";
+     //   [self teleOpHigh:@"Increment"];
     }
+    if ([newScore isEqualToString:@"HandOff Miss"]) {
+        marker = @"HX";
+        //   [self teleOpHigh:@"Increment"];
+    }
+    if ([newScore isEqualToString:@"Truss Throw"]) {
+        marker = @"TT";
+        [self trussThrow:@"Increment"];
+    }
+    if ([newScore isEqualToString:@"Truss Miss"]) {
+        marker = @"TM";
+        [self trussMiss:@"Increment"];
+    }
+   
     [self drawText:marker location:textPoint];
 }
 
@@ -2115,29 +2112,53 @@
     red = 0.0/255.0;
     green = 0.0/255.0;
     blue = 0.0/255.0;
-    for (int i = 0 ; i < [teleOpPickUpList count] ; i++) {
-        if ([newPickUp isEqualToString:[teleOpPickUpList objectAtIndex:i]]) {
-            switch (i) {
-                case 0:
-                    marker = @"O";
-                    [self floorPickUpSelected:@"Increment"];
-                    break;
-                case 1:
-                    marker = @"FC";
-                    [self floorCatch:@"Increment"];
-                    break;
-                case 2:
-                    marker = @"AC";
-                    [self airCatch:@"Increment"];
-                    break;
-                case 3:
-                    marker = @"TC";
-                    [self trussCatch:@"Increment"];
-                    break;
-            }
-            break;
-        }
+    NSLog(@"selection = %@", newPickUp);
+    
+    if ([newPickUp isEqualToString:@"Floor Pick Up"]) {
+        marker = @"O";
+        [self floorPickUpSelected:@"Increment"];
     }
+    else if ([newPickUp isEqualToString:@"Miss Pick Up"]) {
+        marker = @"OX";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Robot Intake"]) {
+        marker = @"R";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Robot Miss"]) {
+        marker = @"RX";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Knockout"]) {
+        marker = @"K";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Knockout"]) {
+        marker = @"K";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Knockout"]) {
+        marker = @"K";
+        //   [self teleOpMiss:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Floor Catch"]) {
+        marker = @"FC";
+        [self floorCatch:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Floor Catch Miss"]) {
+        marker = @"XFC";
+       // [self floorCatch:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Truss Catch"]) {
+        marker = @"TC";
+        [self trussCatch:@"Increment"];
+    }
+    else if ([newPickUp isEqualToString:@"Truss Catch Miss"]) {
+        marker = @"XTC";
+  //      [self trussCatch:@"Increment"];
+    }
+
     [self drawText:marker location:textPoint];
   
     if (drawMode == DrawDefense) {
