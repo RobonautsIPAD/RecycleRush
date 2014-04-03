@@ -18,7 +18,7 @@
 #import "TeamDetailViewController.h"
 #import "FieldDrawingViewController.h"
 #import "parseCSV.h"
-#import  "QuartzCore/QuartzCore.h"
+#import "QuartzCore/QuartzCore.h"
 
 @implementation MasonPageViewController {
     NSUserDefaults *prefs;
@@ -517,7 +517,6 @@
             [_teamList replaceObjectAtIndex:i
                                 withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
             NSMutableDictionary *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-            ;
             
             [_teamMatches replaceObjectAtIndex:i
                                     withObject:[NSString stringWithFormat:@"%d", [[stats objectForKey:@"matches"] intValue]]];

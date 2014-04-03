@@ -916,6 +916,7 @@
     }
     else if ([segue.identifier isEqualToString:@"MatchOverlay"]) {
         [segue.destinationViewController setMatchList:matchList];
+        [segue.destinationViewController setNumberTeam:_team];
     }
 }
 
