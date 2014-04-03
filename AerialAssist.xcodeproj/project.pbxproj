@@ -141,6 +141,8 @@
 		2FFC493918560F68009A391E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC493818560F68009A391E /* SettingsViewController.m */; };
 		2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */; };
 		2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */; };
+		A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100418ECD82E004CA547 /* parseUSFirst.m */; };
+		A0EB100818ECDC8F004CA547 /* USFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100718ECDC8F004CA547 /* USFirstViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -363,6 +365,10 @@
 		2FFC493818560F68009A391E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = SetUp/SettingsViewController.m; sourceTree = "<group>"; };
 		2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Grey Button.jpg"; path = "Resources/Small Grey Button.jpg"; sourceTree = "<group>"; };
 		2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "Resources/robonauts app banner.jpg"; sourceTree = "<group>"; };
+		A0EB100318ECD82E004CA547 /* parseUSFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseUSFirst.h; path = DataImport/parseUSFirst.h; sourceTree = "<group>"; };
+		A0EB100418ECD82E004CA547 /* parseUSFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseUSFirst.m; path = DataImport/parseUSFirst.m; sourceTree = "<group>"; };
+		A0EB100618ECDC8F004CA547 /* USFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USFirstViewController.h; path = DataImport/USFirstViewController.h; sourceTree = "<group>"; };
+		A0EB100718ECDC8F004CA547 /* USFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = USFirstViewController.m; path = DataImport/USFirstViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,6 +493,10 @@
 				2F8697E218C90E2600116527 /* ImportDataFromiTunes.m */,
 				2F3EFA6B18D0AB3E0020E3D0 /* FirstViewController.h */,
 				2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */,
+				A0EB100318ECD82E004CA547 /* parseUSFirst.h */,
+				A0EB100418ECD82E004CA547 /* parseUSFirst.m */,
+				A0EB100618ECDC8F004CA547 /* USFirstViewController.h */,
+				A0EB100718ECDC8F004CA547 /* USFirstViewController.m */,
 			);
 			name = "Data Import";
 			sourceTree = "<group>";
@@ -856,6 +866,7 @@
 				2FD8EDBE18B7B870009071A3 /* IntakeTypeDictionary.m in Sources */,
 				2F137D2018537E7700D87F30 /* AddTeamViewController.m in Sources */,
 				2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */,
+				A0EB100818ECDC8F004CA547 /* USFirstViewController.m in Sources */,
 				2F05F82018ECAE950065D74A /* TeamScore.m in Sources */,
 				2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */,
 				2FC18EAF16A2042000D42251 /* SplashPageViewController.m in Sources */,
@@ -874,6 +885,7 @@
 				2F742FEA18DE0C4500DB05B6 /* ElimDataViewController.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
+				A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */,
 				2F05F81D18ECAE7D0065D74A /* TeamData.m in Sources */,
 				2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,

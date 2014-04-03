@@ -11,6 +11,7 @@
 
 @interface FirstViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *viewWeb;
+@property (strong, nonatomic) IBOutlet UIButton *btnNewParser;
 
 @end
 
@@ -45,7 +46,7 @@
     NSString *pageSource = [NSString stringWithContentsOfURL:url
                                                     encoding:NSASCIIStringEncoding
                                                        error:&error];
-    NSLog(@"%@", pageSource);
+    //NSLog(@"%@", pageSource);
     NSString *exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Match Schedule.html"];
     [pageSource writeToFile:exportFilePath
                 atomically:YES
