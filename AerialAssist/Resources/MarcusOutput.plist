@@ -78,7 +78,7 @@
 		<key>key</key>
 		<string>floorPasses</string>
 		<key>header</key>
-		<string>FloorPass</string>
+		<string>Pass</string>
 		<key>order</key>
 		<integer>9</integer>
 	</dict>
@@ -86,25 +86,9 @@
 		<key>key</key>
 		<string>floorPassMiss</string>
 		<key>header</key>
-		<string>FloorPassMiss</string>
+		<string>PassMiss</string>
 		<key>order</key>
 		<integer>10</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>airPasses</string>
-		<key>header</key>
-		<string>AirPass</string>
-		<key>order</key>
-		<integer>11</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>airPassMiss</string>
-		<key>header</key>
-		<string>AirPassMiss</string>
-		<key>order</key>
-		<integer>12</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -112,7 +96,7 @@
 		<key>header</key>
 		<string>TrussThrow</string>
 		<key>order</key>
-		<integer>13</integer>
+		<integer>11</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -120,7 +104,7 @@
 		<key>header</key>
 		<string>TrussThrowMiss</string>
 		<key>order</key>
-		<integer>14</integer>
+		<integer>12</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -128,7 +112,7 @@
 		<key>header</key>
 		<string>TrussCatch</string>
 		<key>order</key>
-		<integer>15</integer>
+		<integer>13</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -136,7 +120,7 @@
 		<key>header</key>
 		<string>TrussCatchMiss</string>
 		<key>order</key>
-		<integer>16</integer>
+		<integer>14</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -144,7 +128,7 @@
 		<key>header</key>
 		<string>Block</string>
 		<key>order</key>
-		<integer>17</integer>
+		<integer>15</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -152,7 +136,7 @@
 		<key>header</key>
 		<string>High</string>
 		<key>order</key>
-		<integer>18</integer>
+		<integer>16</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -160,7 +144,15 @@
 		<key>header</key>
 		<string>HighMiss</string>
 		<key>order</key>
-		<integer>19</integer>
+		<integer>17</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>disruptedShot</string>
+		<key>header</key>
+		<string>HighBlocked</string>
+		<key>order</key>
+		<integer>18</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -168,7 +160,7 @@
 		<key>header</key>
 		<string>Low</string>
 		<key>order</key>
-		<integer>20</integer>
+		<integer>19</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -176,7 +168,7 @@
 		<key>header</key>
 		<string>LowMiss</string>
 		<key>order</key>
-		<integer>21</integer>
+		<integer>20</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -184,47 +176,39 @@
 		<key>header</key>
 		<string>Pickup</string>
 		<key>order</key>
-		<integer>22</integer>
+		<integer>21</integer>
 	</dict>
 	<dict>
 		<key>key</key>
 		<string>humanPickUp</string>
 		<key>header</key>
-		<string>IntakeFromHuman</string>
+		<string>IntakefromHuman</string>
+		<key>order</key>
+		<integer>22</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>humanMiss</string>
+		<key>header</key>
+		<string>IntakefromHumanMissed</string>
 		<key>order</key>
 		<integer>23</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>airCatch</string>
+		<string>robotIntake</string>
 		<key>header</key>
-		<string>airIntakefromRobot</string>
+		<string>IntakefromRobot</string>
 		<key>order</key>
 		<integer>24</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>airCatchHuman</string>
+		<string>robotIntakeMiss</string>
 		<key>header</key>
-		<string>AirIntakeFromHuman</string>
+		<string>IntakeRobotMiss</string>
 		<key>order</key>
 		<integer>25</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>defenseBlockRating</string>
-		<key>header</key>
-		<string>BlockSkill</string>
-		<key>order</key>
-		<integer>26</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>defenseBullyRating</string>
-		<key>header</key>
-		<string>BullySkill</string>
-		<key>order</key>
-		<integer>27</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -232,7 +216,7 @@
 		<key>header</key>
 		<string>DriverSkill</string>
 		<key>order</key>
-		<integer>28</integer>
+		<integer>26</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -240,7 +224,55 @@
 		<key>header</key>
 		<string>Speed</string>
 		<key>order</key>
+		<integer>27</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>defenseBlockRating</string>
+		<key>header</key>
+		<string>BlockSkill</string>
+		<key>order</key>
+		<integer>28</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>defenseBullyRating</string>
+		<key>header</key>
+		<string>BullySkill</string>
+		<key>order</key>
 		<integer>29</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>trussCatchHuman</string>
+		<key>header</key>
+		<string>HPTruss</string>
+		<key>order</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>trussCatchHuman</string>
+		<key>header</key>
+		<string>HPTrussMiss</string>
+		<key>order</key>
+		<integer>31</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>knockout</string>
+		<key>header</key>
+		<string>Knockout</string>
+		<key>order</key>
+		<integer>32</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>fouls</string>
+		<key>header</key>
+		<string>Foul</string>
+		<key>order</key>
+		<integer>33</integer>
 	</dict>
 </array>
 </plist>

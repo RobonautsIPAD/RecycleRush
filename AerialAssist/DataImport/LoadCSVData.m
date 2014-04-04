@@ -17,7 +17,8 @@
 
 @implementation LoadCSVData {
     NSUserDefaults *prefs;
-    NSString *tournamentName;    BOOL loadDataFromBundle;
+    NSString *tournamentName;
+    BOOL loadDataFromBundle;
 }
 
 @synthesize dataManager = _dataManager;

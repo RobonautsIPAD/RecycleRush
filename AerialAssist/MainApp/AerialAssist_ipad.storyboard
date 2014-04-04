@@ -2073,6 +2073,9 @@
                                 <state key="normal" title="Miss">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="Noa-KZ-DLF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YQe-oa-t3u">
                                 <rect key="frame" x="725" y="535" width="60" height="40"/>
@@ -2201,8 +2204,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hand Off" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a3m-pd-spR">
-                                <rect key="frame" x="875" y="518" width="62" height="18"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pass" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a3m-pd-spR">
+                                <rect key="frame" x="889" y="518" width="34" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
@@ -2407,8 +2410,6 @@
                         <outlet property="fieldImage" destination="RvX-YB-hOX" id="HP4-XX-Ukd"/>
                         <outlet property="floorPickUpMissButton" destination="ecN-kj-UCf" id="25T-wa-b4N"/>
                         <outlet property="floorPickUpsButton" destination="BtE-tL-AJw" id="URa-dE-2e4"/>
-                        <outlet property="handoffButton" destination="fuG-jg-4Ly" id="wk9-W4-aTT"/>
-                        <outlet property="handoffMissButton" destination="6FS-k1-274" id="HUv-rs-4B0"/>
                         <outlet property="human1Button" destination="pfL-EZ-jj9" id="iOy-OX-tam"/>
                         <outlet property="human2Button" destination="qIK-6r-8hQ" id="1Jq-U4-etF"/>
                         <outlet property="human3Button" destination="9bZ-Bw-6nS" id="t01-Kr-F5S"/>
@@ -2429,6 +2430,8 @@
                         <outlet property="nextMatch" destination="cNM-Sg-kpV" id="ROc-QP-7ZS"/>
                         <outlet property="noShowButton" destination="Puz-Kt-jLA" id="baT-22-gsG"/>
                         <outlet property="notes" destination="qX6-ZB-Ecp" id="FA7-sg-V6e"/>
+                        <outlet property="passesFloorButton" destination="fuG-jg-4Ly" id="5HW-sb-HZJ"/>
+                        <outlet property="passesFloorMissButton" destination="6FS-k1-274" id="Ja3-Gi-f1x"/>
                         <outlet property="prevMatch" destination="Oor-gF-fxZ" id="Ilk-ft-yrn"/>
                         <outlet property="robotIntakeButton" destination="d8X-hu-Lw4" id="HjO-Ic-W7Y"/>
                         <outlet property="robotMissButton" destination="6iU-VM-hfx" id="QST-hl-6vi"/>
@@ -4498,7 +4501,7 @@
                                 <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Auton Cap." lineBreakMode="tailTruncation" minimumFontSize="10" id="TQZ-pJ-zzc">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tunneler" lineBreakMode="tailTruncation" minimumFontSize="10" id="TQZ-pJ-zzc">
                                 <rect key="frame" x="370" y="95" width="169" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="22"/>
@@ -4874,14 +4877,14 @@
                                     <action selector="photoControllerActionSheet:" destination="kha-eL-sUY" eventType="touchUpInside" id="Xog-pV-W7y"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2AJ-b8-LMm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2AJ-b8-LMm" userLabel="Button - Tunnel">
                                 <rect key="frame" x="510" y="95" width="66" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="detailChanged:" destination="kha-eL-sUY" eventType="touchUpInside" id="ucp-ED-222"/>
+                                    <action selector="detailChanged:" destination="kha-eL-sUY" eventType="touchUpInside" id="Okw-yw-PnQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5NW-xS-4xk">
@@ -5073,7 +5076,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Bc0-mI-bcU" userLabel="Button - Overlay Matches">
                                 <rect key="frame" x="412" y="446" width="168" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Match Overlay">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -5087,7 +5090,6 @@
                     <navigationItem key="navigationItem" id="fSa-9J-J2z"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="autonCapacityButton" destination="2AJ-b8-LMm" id="ikG-0U-cgc"/>
                         <outlet property="autonMobilityButton" destination="5NW-xS-4xk" id="cdV-lv-NHJ"/>
                         <outlet property="ballReleaseHeightText" destination="du4-r3-33d" id="1GT-p1-rWf"/>
                         <outlet property="cameraBtn" destination="YPO-D8-BGh" id="DPu-3S-2vc"/>
@@ -5116,6 +5118,7 @@
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="regionalInfo" destination="HBG-SB-cm1" id="4BN-9c-hog"/>
                         <outlet property="shooterButton" destination="OuH-XG-mso" id="Roe-MB-iWg"/>
+                        <outlet property="tunnelButton" destination="2AJ-b8-LMm" id="x81-MB-c9l"/>
                         <outlet property="wheelDiameter" destination="SSI-1E-5zy" id="oSa-pF-haS"/>
                         <outlet property="wheelType" destination="wyf-1F-gQY" id="R2m-Mg-ZmU"/>
                     </connections>
@@ -5735,9 +5738,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="gMh-cN-6SD"/>
-        <segue reference="yXx-K9-Sbl"/>
-        <segue reference="hA4-za-hde"/>
+        <segue reference="0QU-hg-CV0"/>
         <segue reference="73l-5i-erv"/>
         <segue reference="6V1-MF-63T"/>
+        <segue reference="M4x-HG-6MQ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  AerialAssist
 //
-//  Created by FRC on 4/2/14.
+//  Created by FRC on 4/3/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 @interface TeamScore : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * airCatch;
-@property (nonatomic, retain) NSNumber * airCatchHuman;
+@property (nonatomic, retain) NSNumber * trussCatchHuman;
 @property (nonatomic, retain) NSNumber * airPasses;
 @property (nonatomic, retain) NSNumber * airPassMiss;
 @property (nonatomic, retain) NSString * alliance;
@@ -88,6 +88,10 @@
 @property (nonatomic, retain) NSNumber * trussCatchMiss;
 @property (nonatomic, retain) NSNumber * trussThrow;
 @property (nonatomic, retain) NSNumber * trussThrowMiss;
+@property (nonatomic, retain) NSNumber * disruptedShot;
+@property (nonatomic, retain) NSNumber * trussCatchHumanMiss;
+@property (nonatomic, retain) NSNumber * floorPickUpMiss;
+@property (nonatomic, retain) NSNumber * floorCatchMiss;
 @property (nonatomic, retain) FieldDrawing *fieldDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) TeamData *team;

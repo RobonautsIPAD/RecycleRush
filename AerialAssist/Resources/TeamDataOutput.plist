@@ -4,11 +4,11 @@
 <array>
 	<dict>
 		<key>key</key>
-		<string>autonCapacity</string>
+		<string>tunneler</string>
 		<key>header</key>
-		<string>Auton Capacity</string>
+		<string>Tunneler</string>
 		<key>format</key>
-		<string>integer</string>
+		<string>tunnelDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>

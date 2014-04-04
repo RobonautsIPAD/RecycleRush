@@ -191,6 +191,7 @@
         <attribute name="thing3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tunneler" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="key" value="wheel diameter, diameter, wheel size, wheelsize"/>
@@ -217,7 +218,6 @@
                 <entry key="output" value="Air Catch"/>
             </userInfo>
         </attribute>
-        <attribute name="airCatchHuman" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="airPasses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="Air Passes"/>
@@ -301,6 +301,7 @@
                 <entry key="output" value="Defense Bully"/>
             </userInfo>
         </attribute>
+        <attribute name="disruptedShot" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Driver Rating"/>
@@ -308,6 +309,7 @@
             </userInfo>
         </attribute>
         <attribute name="floorCatch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="floorCatchMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="floorPasses" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="marcus" value="FloorPass"/>
@@ -322,6 +324,7 @@
                 <entry key="output" value="Floor Pick Up"/>
             </userInfo>
         </attribute>
+        <attribute name="floorPickUpMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="handoff" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="handoffMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
@@ -432,6 +435,8 @@
                 <entry key="output" value="Truss Catch"/>
             </userInfo>
         </attribute>
+        <attribute name="trussCatchHuman" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="trussCatchHumanMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="trussCatchMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="trussThrow" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>

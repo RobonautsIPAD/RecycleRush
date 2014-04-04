@@ -54,11 +54,11 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>airCatch</string>
+		<string>tunneler</string>
 		<key>name</key>
-		<string>Air Catch</string>
+		<string>Tunneler</string>
 		<key>table</key>
-		<string>TeamScore</string>
+		<string>TeamData</string>
 		<key>operators</key>
 		<string>List</string>
 	</dict>

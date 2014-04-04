@@ -96,6 +96,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *autonLowColdButton;
 
 @property (nonatomic, weak) IBOutlet UIButton *passesFloorButton;
+@property (nonatomic, weak) IBOutlet UIButton *passesFloorMissButton;
 @property (nonatomic, weak) IBOutlet UIButton *passesAirButton;
 @property (nonatomic, weak) IBOutlet UIButton *autonBlockButton;
 @property (nonatomic, weak) IBOutlet UIButton *teleOpBlockButton;
