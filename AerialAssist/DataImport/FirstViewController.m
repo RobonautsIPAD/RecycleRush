@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSString *fullURL = @"http://www2.usfirst.org/2014comp/events/MOKC/scheduleelim.html";
+    NSString *fullURL = @"http://www2.usfirst.org/2014comp/events/TXHO/scheduleelim.html";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_viewWeb loadRequest:requestObj];
@@ -53,6 +53,12 @@
                   encoding:NSUTF8StringEncoding
                      error:nil];
 
+}
+
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [segue.destinationViewController setDataManager:_dataManager];
 }
 
 /**

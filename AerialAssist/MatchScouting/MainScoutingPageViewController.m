@@ -41,6 +41,10 @@
     @property (weak, nonatomic) IBOutlet UIButton *humanMiss2Button;
     @property (weak, nonatomic) IBOutlet UIButton *humanMiss3Button;
     @property (weak, nonatomic) IBOutlet UIButton *humanMiss4Button;
+    @property (weak, nonatomic) IBOutlet UIButton *humanTrussButton;
+    @property (weak, nonatomic) IBOutlet UIButton *humanTrussMissButton;
+    @property (weak, nonatomic) IBOutlet UITextField *foulTextField;
+    @property (weak, nonatomic) IBOutlet UIButton *disruptShotButton;
 @end
 
 @implementation MainScoutingPageViewController {
@@ -87,6 +91,7 @@
     UIImage *floorPickUpMissImage;
     UIImage *passImage;
     UIImage *passMissImage;
+    UIImage *disruptedShotImage;
 }
 
 @synthesize settings;
@@ -276,6 +281,7 @@
     [self SetBigButtonDefaults:_floorPickUpMissButton];
 
     [self SetBigButtonDefaults:_knockoutButton];
+    [self SetBigButtonDefaults:_disruptShotButton];
 
     [self SetBigButtonDefaults:passesFloorButton];
     [self SetBigButtonDefaults:passesAirButton];
@@ -283,16 +289,25 @@
     [self SetSmallButtonDefaults:_human2Button];
     [self SetSmallButtonDefaults:_human3Button];
     [self SetSmallButtonDefaults:_human4Button];
+    [self SetSmallButtonDefaults:_humanMiss1Button];
+    [self SetSmallButtonDefaults:_humanMiss2Button];
+    [self SetSmallButtonDefaults:_humanMiss3Button];
+    [self SetSmallButtonDefaults:_humanMiss4Button];
+    [_humanMiss1Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
+    [_humanMiss2Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
+    [_humanMiss3Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
+    [_humanMiss4Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self SetSmallButtonDefaults:_eraserButton];
     [self SetTextBoxDefaults:redScore];
     [self SetTextBoxDefaults:blueScore];
+    _foulTextField.font = [UIFont fontWithName:@"Helvetica" size:18.0];
     matchResetButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     [self SetBigButtonDefaults:teamEdit];
     [teamEdit setTitle:@"Edit Team Info" forState:UIControlStateNormal];
     [self SetBigButtonDefaults:syncButton];
     [syncButton setTitle:@"Sync" forState:UIControlStateNormal];
     [self SetBigButtonDefaults:matchListButton];
-    [matchListButton setTitle:@"Show Match List" forState:UIControlStateNormal];
+    [matchListButton setTitle:@"Match List" forState:UIControlStateNormal];
     [self SetSmallButtonDefaults:toggleGridButton];
     [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     [self SetSmallButtonDefaults:matchResetButton];
@@ -317,7 +332,7 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Pass", @"Miss Pass", @"Miss Shot", @"Low", @"High", @"Truss Throw", @"Truss Miss", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Pass", @"Miss Pass", @"Blocked Shot", @"Miss Shot", @"Low", @"High", @"Truss Throw", @"Truss Miss", nil];
     teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Robot Intake", @"Robot Miss", @"Floor Pick Up", @"Miss Pick Up", @"Knockout", @"Truss Catch", @"Truss Catch Miss", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
@@ -450,6 +465,9 @@
     passImage = [UIImage imageWithContentsOfFile:imageFilePath];
     imageFilePath = [[NSBundle mainBundle] pathForResource:@"Pass to Robot Miss" ofType:@"png"];
     passMissImage = [UIImage imageWithContentsOfFile:imageFilePath];
+
+    imageFilePath = [[NSBundle mainBundle] pathForResource:@"Blocked Shot" ofType:@"png"];
+    disruptedShotImage = [UIImage imageWithContentsOfFile:imageFilePath];
 
 }
 
@@ -835,7 +853,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    if (textField != matchNumber && textField != redScore && textField != blueScore)  return YES;
+    if (textField != matchNumber && textField != redScore && textField != blueScore && textField != _foulTextField)  return YES;
     
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     
@@ -874,6 +892,9 @@
     }
     else if (textField == blueScore) {
         currentMatch.blueScore = [NSNumber numberWithInt:[blueScore.text intValue]];     
+    }
+    else if (textField == _foulTextField) {
+        currentTeam.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
     }
 	return YES;
 }
@@ -964,6 +985,8 @@
     else if (popUp == _trussThrowMissButton) [self updateButton:_trussThrowMissButton forKey:@"trussThrowMiss" forAction:newPick];
     else if (popUp == trussCatchButton) [self trussCatch:newPick];
     else if (popUp == _humanPickUpsButton) [self humanPickUp:newPick];
+    else if (popUp == _humanMissButton) [self updateButton:_humanMissButton forKey:@"humanMiss" forAction:newPick];
+
     else if (popUp == _floorPickUpsButton) [self floorPickUpSelected:newPick];
     else if (popUp == _floorPickUpMissButton) [self updateButton:_floorPickUpMissButton forKey:@"floorPickUpMiss" forAction:newPick];
     else if (popUp == passesFloorButton) [self floorPass:newPick];
@@ -971,6 +994,7 @@
     else if (popUp == _floorCatchButton) [self floorCatch:newPick];
     else if (popUp == _robotIntakeButton) [self updateButton:_robotIntakeButton forKey:@"RobotIntake" forAction:newPick];
     else if (popUp == _robotMissButton) [self updateButton:_robotMissButton forKey:@"robotIntakeMiss" forAction:newPick];
+    else if (popUp == _disruptShotButton) [self updateButton:_disruptShotButton forKey:@"disruptedShot" forAction:newPick];
 }
 
 - (void)valueEnteredAtPrompt:(NSString *)valueEntered {
@@ -1515,6 +1539,7 @@
     UIButton * PressedButton = (UIButton*)sender;
    // NSLog(@"PickUps");
     if (drawMode == DrawDefense || drawMode == DrawTeleop) {
+        [self setDataChange];
         int score = [_humanPickUpsButton.titleLabel.text intValue];
         score++;
         currentTeam.humanPickUp = [NSNumber numberWithInt:score];
@@ -1522,21 +1547,53 @@
         [self setDataChange];
         if (PressedButton == _human1Button) {
             score = [_human1Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 184;
+            basePoint.y = 45;
+            textPoint.x = basePoint.x - (score%4)*interval;
+            textPoint.y = basePoint.y + (score/4)*interval;
+            [self drawSymbol:humanIntakeImage location:textPoint];
             score++;
             currentTeam.humanPickUp1 = [NSNumber numberWithInt:score];
             [_human1Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp1 intValue]] forState:UIControlStateNormal];
         } else if (PressedButton == _human2Button) {
             score = [_human2Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 654;
+            basePoint.y = 45;
+            textPoint.x = basePoint.x + (score%4)*interval;
+            textPoint.y = basePoint.y + (score/4)*interval;
+            [self drawSymbol:humanIntakeImage location:textPoint];
             score++;
             currentTeam.humanPickUp2 = [NSNumber numberWithInt:score];
             [_human2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp2 intValue]] forState:UIControlStateNormal];
         } else if (PressedButton == _human3Button) {
             score = [_human3Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 664;
+            basePoint.y = 365;
+            textPoint.x = basePoint.x + (score%4)*interval;
+            textPoint.y = basePoint.y - (score/4)*interval;
+            [self drawSymbol:humanIntakeImage location:textPoint];
             score++;
             currentTeam.humanPickUp3 = [NSNumber numberWithInt:score];
             [_human3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp3 intValue]] forState:UIControlStateNormal];
         } else if (PressedButton == _human4Button) {
             score = [_human4Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 174;
+            basePoint.y = 365;
+            textPoint.x = basePoint.x - (score%4)*interval;
+            textPoint.y = basePoint.y - (score/4)*interval;
+            [self drawSymbol:humanIntakeImage location:textPoint];
             score++;
             currentTeam.humanPickUp4 = [NSNumber numberWithInt:score];
             [_human4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp4 intValue]] forState:UIControlStateNormal];
@@ -1545,6 +1602,69 @@
 }
 
 - (IBAction)humanPickUpsMiss:(id)sender {
+    UIButton * PressedButton = (UIButton*)sender;
+    NSLog(@"Miss Human");
+    if (drawMode == DrawDefense || drawMode == DrawTeleop) {
+        [self setDataChange];
+        int score = [_humanMissButton.titleLabel.text intValue];
+        score++;
+        currentTeam.humanMiss = [NSNumber numberWithInt:score];
+        [_humanMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss intValue]] forState:UIControlStateNormal];
+        [self setDataChange];
+        if (PressedButton == _humanMiss1Button) {
+            score = [_humanMiss1Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 210;
+            basePoint.y = 45;
+            textPoint.x = basePoint.x + (score%4)*interval;
+            textPoint.y = basePoint.y + (score/4)*interval;
+            [self drawSymbol:humanMissImage location:textPoint];
+            score++;
+            currentTeam.humanMiss1 = [NSNumber numberWithInt:score];
+            [_humanMiss1Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss1 intValue]] forState:UIControlStateNormal];
+        } else if (PressedButton == _humanMiss2Button) {
+            score = [_humanMiss2Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 635;
+            basePoint.y = 45;
+            textPoint.x = basePoint.x - (score%4)*interval;
+            textPoint.y = basePoint.y + (score/4)*interval;
+            [self drawSymbol:humanMissImage location:textPoint];
+            score++;
+            currentTeam.humanMiss2 = [NSNumber numberWithInt:score];
+            [_humanMiss2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss2 intValue]] forState:UIControlStateNormal];
+        } else if (PressedButton == _humanMiss3Button) {
+            score = [_humanMiss3Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 630;
+            basePoint.y = 365;
+            textPoint.x = basePoint.x - (score%4)*interval;
+            textPoint.y = basePoint.y - (score/4)*interval;
+            [self drawSymbol:humanMissImage location:textPoint];
+            score++;
+            currentTeam.humanMiss3 = [NSNumber numberWithInt:score];
+            [_humanMiss3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss3 intValue]] forState:UIControlStateNormal];
+        } else if (PressedButton == _humanMiss4Button) {
+            score = [_humanMiss4Button.titleLabel.text intValue];
+            CGPoint textPoint;
+            CGPoint basePoint;
+            CGFloat interval = 20;
+            basePoint.x = 215;
+            basePoint.y = 365;
+            textPoint.x = basePoint.x + (score%4)*interval;
+            textPoint.y = basePoint.y - (score/4)*interval;
+            [self drawSymbol:humanMissImage location:textPoint];
+            score++;
+            currentTeam.humanMiss4 = [NSNumber numberWithInt:score];
+            [_humanMiss4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss4 intValue]] forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -1608,7 +1728,8 @@
             [list addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
         }
     }
-    [list addObject:[NSString stringWithFormat:@"Human"]];
+    [list addObject:[NSString stringWithFormat:@"Human Truss"]];
+    [list addObject:[NSString stringWithFormat:@"Human Truss Miss"]];
     partnerActionsList = list;
     partnerActionsPickerPopover = nil;
     partnerActionsPicker = nil;
@@ -1658,6 +1779,7 @@
     [_floorPickUpsButton setUserInteractionEnabled:NO];
     [_floorPickUpMissButton setUserInteractionEnabled:NO];
     [_knockoutButton setUserInteractionEnabled:NO];
+    [_disruptShotButton setUserInteractionEnabled:NO];
     [_robotSpeed setUserInteractionEnabled:NO];
     [_defenseBlockRating setUserInteractionEnabled:NO];
     [_defenseBullyRating setUserInteractionEnabled:NO];
@@ -1665,6 +1787,7 @@
     [_intakeRatingButton setUserInteractionEnabled:NO];
     [_assistRatingButton setUserInteractionEnabled:NO];
     [notes setUserInteractionEnabled:NO];
+    [_foulTextField setUserInteractionEnabled:NO];
     [fieldImage setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
 }
@@ -1707,6 +1830,7 @@
     [_floorPickUpsButton setUserInteractionEnabled:YES];
     [_floorPickUpMissButton setUserInteractionEnabled:YES];
     [_knockoutButton setUserInteractionEnabled:YES];
+    [_disruptShotButton setUserInteractionEnabled:YES];
     [_robotSpeed setUserInteractionEnabled:YES];
     [_defenseBlockRating setUserInteractionEnabled:YES];
     [_defenseBullyRating setUserInteractionEnabled:YES];
@@ -1714,6 +1838,7 @@
     [_intakeRatingButton setUserInteractionEnabled:YES];
     [_assistRatingButton setUserInteractionEnabled:YES];
     [notes setUserInteractionEnabled:YES];
+    [_foulTextField setUserInteractionEnabled:YES];
     [fieldImage setUserInteractionEnabled:YES];
     [_eraserButton setUserInteractionEnabled:YES];
 }
@@ -1751,11 +1876,20 @@
     [_autonHighColdButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonHighCold intValue]] forState:UIControlStateNormal];
     [_autonLowColdButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLowCold intValue]] forState:UIControlStateNormal];
     [_autonLowHotButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonLowHot intValue]] forState:UIControlStateNormal];
+
     [_humanPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp intValue]] forState:UIControlStateNormal];
     [_human1Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp1 intValue]] forState:UIControlStateNormal];
     [_human2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp2 intValue]] forState:UIControlStateNormal];
     [_human3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp2 intValue]] forState:UIControlStateNormal];
     [_human4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanPickUp4 intValue]] forState:UIControlStateNormal];
+
+    [_humanMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss intValue]] forState:UIControlStateNormal];
+    [_humanMiss1Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss1 intValue]] forState:UIControlStateNormal];
+    [_humanMiss2Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss2 intValue]] forState:UIControlStateNormal];
+    [_humanMiss3Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss3 intValue]] forState:UIControlStateNormal];
+    [_humanMiss4Button setTitle:[NSString stringWithFormat:@"%d", [currentTeam.humanMiss4 intValue]] forState:UIControlStateNormal];
+
+    
     [_floorPickUpsButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUp intValue]] forState:UIControlStateNormal];
     [_floorPickUpMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPickUpMiss intValue]] forState:UIControlStateNormal];
     [passesFloorButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorPasses intValue]] forState:UIControlStateNormal];
@@ -1765,17 +1899,19 @@
     [trussThrowButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussThrow intValue]] forState:UIControlStateNormal];
     [_trussThrowMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.trussThrowMiss intValue]] forState:UIControlStateNormal];
     [_knockoutButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.knockout intValue]] forState:UIControlStateNormal];
+    [_disruptShotButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.disruptedShot intValue]] forState:UIControlStateNormal];
 
     [autonBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.autonBlocks intValue]] forState:UIControlStateNormal];
     [teleOpBlockButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.teleOpBlocks intValue]] forState:UIControlStateNormal];
     [_floorCatchButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.floorCatch intValue]] forState:UIControlStateNormal];
     [_robotIntakeButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotIntake intValue]] forState:UIControlStateNormal];
     [_robotMissButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotIntakeMiss intValue]] forState:UIControlStateNormal];
+    _foulTextField.text = [NSString stringWithFormat:@"%d", [currentTeam.fouls intValue]];
+
     [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
     [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
     [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
-    NSLog(@"Hook up ratings");
     [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.intakeRating intValue]] forState:UIControlStateNormal];
     [_assistRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.assistRating intValue]] forState:UIControlStateNormal];
     
@@ -2086,6 +2222,10 @@
         [self updateButton:_passesFloorMissButton forKey:@"floorPassMiss" forAction:@"Increment"];
         [self drawSymbol:passMissImage location:textPoint];
     }
+    else if ([newScore isEqualToString:@"Blocked Shot"]) {
+        [self updateButton:_disruptShotButton forKey:@"disruptedShot" forAction:@"Increment"];
+        [self drawSymbol:disruptedShotImage location:textPoint];
+    }
     else if ([newScore isEqualToString:@"Miss Shot"]) {
         marker = @"X";
         [self teleOpMiss:@"Increment"];
@@ -2191,7 +2331,12 @@
                     marker = [partnerActionsList objectAtIndex:i];
                     break;
                 case 2:
-                    marker = @"HP";
+                    marker = @"HC";
+                    [self updateButton:_humanTrussButton forKey:@"trussCatchHuman" forAction:@"Increment"];
+                   break;
+                case 3:
+                    marker = @"HM";
+                    [self updateButton:_humanTrussMissButton forKey:@"trussCatchHumanMiss" forAction:@"Increment"];
                     break;
             }
             break;
@@ -2265,6 +2410,7 @@
 }
 
 -(void)drawText:(NSString *) marker location:(CGPoint) point {
+    fieldDrawingChange = YES;
     UIGraphicsBeginImageContext(fieldImage.frame.size);
     [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
     CGContextRef myContext = UIGraphicsGetCurrentContext();
@@ -2287,6 +2433,7 @@
 }
 
 -(void)drawSymbol:(UIImage *) marker location:(CGPoint) point {
+    fieldDrawingChange = YES;
     UIGraphicsBeginImageContext(fieldImage.frame.size);
     [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
 //    CGContextRef myContext = UIGraphicsGetCurrentContext();
@@ -2426,9 +2573,7 @@
     currentTeam.floorPassMiss = [NSNumber numberWithInt:0];
     currentTeam.floorPickUp = [NSNumber numberWithInt:0];
     currentTeam.fouls = [NSNumber numberWithInt:0];
-    currentTeam.handoff = [NSNumber numberWithInt:0];
     currentTeam.humanMiss = [NSNumber numberWithInt:0];
-    currentTeam.handoffMiss = [NSNumber numberWithInt:0];
     currentTeam.humanMiss1 = [NSNumber numberWithInt:0];
     currentTeam.humanMiss2 = [NSNumber numberWithInt:0];
     currentTeam.humanMiss3 = [NSNumber numberWithInt:0];

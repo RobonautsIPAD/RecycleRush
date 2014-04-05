@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 4/3/14.
+//  Created by FRC on 4/4/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -15,7 +15,6 @@
 @implementation TeamScore
 
 @dynamic airCatch;
-@dynamic trussCatchHuman;
 @dynamic airPasses;
 @dynamic airPassMiss;
 @dynamic alliance;
@@ -34,14 +33,15 @@
 @dynamic deadOnArrival;
 @dynamic defenseBlockRating;
 @dynamic defenseBullyRating;
+@dynamic disruptedShot;
 @dynamic driverRating;
 @dynamic floorCatch;
+@dynamic floorCatchMiss;
 @dynamic floorPasses;
 @dynamic floorPassMiss;
 @dynamic floorPickUp;
+@dynamic floorPickUpMiss;
 @dynamic fouls;
-@dynamic handoff;
-@dynamic handoffMiss;
 @dynamic humanMiss;
 @dynamic humanMiss1;
 @dynamic humanMiss2;
@@ -86,13 +86,11 @@
 @dynamic totalTeleOpShots;
 @dynamic tournamentName;
 @dynamic trussCatch;
+@dynamic trussCatchHuman;
+@dynamic trussCatchHumanMiss;
 @dynamic trussCatchMiss;
 @dynamic trussThrow;
 @dynamic trussThrowMiss;
-@dynamic disruptedShot;
-@dynamic trussCatchHumanMiss;
-@dynamic floorPickUpMiss;
-@dynamic floorCatchMiss;
 @dynamic fieldDrawing;
 @dynamic match;
 @dynamic team;

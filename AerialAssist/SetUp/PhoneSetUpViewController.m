@@ -91,7 +91,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *newTournament = [tournamentList objectAtIndex:buttonIndex];
+    NSString *newTournament = [tournamentList objectAtIndex:(buttonIndex-1)];
     [_tournamentButton setTitle:newTournament forState:UIControlStateNormal];
     [prefs setObject:newTournament forKey:@"tournament"];
 }

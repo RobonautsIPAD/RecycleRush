@@ -8,6 +8,10 @@
 
 #import "USFirstViewController.h"
 #import "parseUSFirst.h"
+#import "TournamentData.h"
+#import "DataManager.h"
+#import "CreateMatch.h"
+#import "MatchData.h"
 
 @interface USFirstViewController ()
 
@@ -22,11 +26,13 @@
 @implementation USFirstViewController {
     int actionSheetSender;
     int thisYear;
+    NSUserDefaults *prefs;
     NSArray *tournamentList;
     int tournamentYear;
     NSString *tournamentCode;
     int matchType;
     NSArray *displayData;
+    NSString *tournamentName;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,6 +48,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    prefs = [NSUserDefaults standardUserDefaults];
     thisYear = [[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]] year];
     [self changeYear: thisYear];
     self.tblMain.delegate = self;
@@ -95,8 +102,11 @@
     if (actionSheetSender == 0) {
         [self changeYear: thisYear - buttonIndex];
     } else if (actionSheetSender == 1) {
-        NSArray *tournament = [[tournamentList objectAtIndex: buttonIndex] componentsSeparatedByString: @":"];
+        NSArray *tournament = [[tournamentList objectAtIndex:(buttonIndex-1)] componentsSeparatedByString: @":"];
+        NSLog(@"tournament = %@", tournament);
         tournamentCode = tournament[0];
+        tournamentName = tournament[1];
+        NSLog(@"tournamentName = %@", tournamentName);
         [_btnSelectTour setTitle:tournament[1] forState:UIControlStateNormal];
         NSLog(@"Tournament Selected: %@", tournamentCode);
     }
@@ -104,7 +114,13 @@
 
 // Button for importing using selected settings
 - (IBAction)btnImport:(id)sender {
+// Hack for now to only import to a tournament that is in the db. Note the problem with Alamo
+    // and its weird name. Obviously, this need to be fixed.
+    BOOL tournExists = [self getTournament:tournamentName];
+    NSString *matchTypeString;
     matchType = _sgmType.selectedSegmentIndex;
+    if (matchType == 0) matchTypeString = @"Seeding";
+    else if (matchType == 1) matchTypeString = @"Elimination";
     NSArray *data = [parseUSFirst parseMatchResultList:[NSString stringWithFormat:@"%i", tournamentYear] eventCode:tournamentCode matchType:(matchType == 0 ? @"qual" : @"elim")];
     if (data == nil) {
         displayData = nil;
@@ -112,10 +128,71 @@
     } else {
         displayData = data;
         for (NSArray *row in data) {
-            NSLog(@"%@ (%@,%@,%@ : %@,%@,%@)", row[matchType + 1], row[matchType + 2], row[matchType + 3], row[matchType + 4], row[matchType + 5], row[matchType + 6], row[matchType + 7]);
+            if (tournExists) {
+                NSNumber *matchNumber = [NSNumber numberWithInt:[row[matchType + 1] intValue]];
+                NSLog(@"match number = %@, type = %@", matchNumber, matchTypeString);
+                NSNumber *red1 = [NSNumber numberWithInt:[row[matchType + 2] intValue]];
+                NSNumber *red2 = [NSNumber numberWithInt:[row[matchType + 3] intValue]];
+                NSNumber *red3 = [NSNumber numberWithInt:[row[matchType + 4] intValue]];
+                NSNumber *blue1 = [NSNumber numberWithInt:[row[matchType + 5] intValue]];
+                NSNumber *blue2 = [NSNumber numberWithInt:[row[matchType + 6] intValue]];
+                NSNumber *blue3 = [NSNumber numberWithInt:[row[matchType + 7] intValue]];
+                CreateMatch *matchObject = [CreateMatch new];
+                matchObject.managedObjectContext = _dataManager.managedObjectContext;
+                MatchData *match = [matchObject AddMatchObjectWithValidate:matchNumber
+                                                                  forTeam1:red1
+                                                                  forTeam2:red2
+                                                                  forTeam3:red3
+                                                                  forTeam4:blue1
+                                                                  forTeam5:blue2
+                                                                  forTeam6:blue3
+                                                                  forMatch:matchTypeString
+                                                             forTournament:tournamentName
+                                                               forRedScore:[NSNumber numberWithInt:-1]
+                                                              forBlueScore:[NSNumber numberWithInt:-1]];
+                NSLog(@"Move from match list to create match");
+                match.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+                match.savedBy = [prefs objectForKey:@"deviceName"];
+                if (match) {
+                    NSError *error;
+                    if (![_dataManager.managedObjectContext save:&error]) {
+                        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+                    }
+                }
+            }
+            else {
+                NSLog(@"%@ (%@,%@,%@ : %@,%@,%@)", row[matchType + 1], row[matchType + 2], row[matchType + 3], row[matchType + 4], row[matchType + 5], row[matchType + 6], row[matchType + 7]);
+            }
         }
     }
     [_tblMain reloadData];
+}
+
+-(BOOL)getTournament:(NSString *)name {
+    TournamentData *tournament;
+    NSError *error;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"name CONTAINS %@", name];
+    [fetchRequest setPredicate:pred];
+    NSArray *tournamentData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!tournamentData) {
+        NSLog(@"Karma disruption error");
+        return Nil;
+    }
+    else {
+        if([tournamentData count] > 0) {  // Tournament Exists
+            tournament = [tournamentData objectAtIndex:0];
+            // NSLog(@"Tournament %@ exists", tournament.name);
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
 }
 
 // Handles display of TableView

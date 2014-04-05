@@ -15,7 +15,6 @@
 		2F05F82318ED8E180065D74A /* TunnelDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82218ED8E180065D74A /* TunnelDictionary.m */; };
 		2F05F82618EDCCD80065D74A /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82518EDCCD80065D74A /* TeamData.m */; };
 		2F05F83118EE13790065D74A /* Intake from Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83018EE13790065D74A /* Intake from Robot.png */; };
-		2F05F83418EE35640065D74A /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F83318EE35640065D74A /* TeamScore.m */; };
 		2F05F83818EE4EA20065D74A /* Intake from Human.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83718EE4EA20065D74A /* Intake from Human.png */; };
 		2F05F83A18EE4ECE0065D74A /* Truss Catch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83918EE4ECE0065D74A /* Truss Catch.png */; };
 		2F05F83D18EE53D30065D74A /* Pick Up Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83B18EE53D30065D74A /* Pick Up Miss.png */; };
@@ -54,6 +53,8 @@
 		2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE816A100250026B258 /* Default-568h@2x.png */; };
 		2F30EAEB16A100850026B258 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAEA16A100850026B258 /* main.m */; };
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
+		2F3359C318EEEC5000B090E5 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3359C218EEEC5000B090E5 /* TeamScore.m */; };
+		2F3359C518EF3FEA00B090E5 /* Blocked Shot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */; };
 		2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */; };
 		2F3EFA6D18D0AB3E0020E3D0 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */; };
 		2F3EFA6F18D1F5C80020E3D0 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */; };
@@ -169,8 +170,6 @@
 		2F05F82418EDCCD80065D74A /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
 		2F05F82518EDCCD80065D74A /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
 		2F05F83018EE13790065D74A /* Intake from Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot.png"; path = "Resources/Intake from Robot.png"; sourceTree = "<group>"; };
-		2F05F83218EE35640065D74A /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
-		2F05F83318EE35640065D74A /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
 		2F05F83718EE4EA20065D74A /* Intake from Human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human.png"; path = "Resources/Intake from Human.png"; sourceTree = "<group>"; };
 		2F05F83918EE4ECE0065D74A /* Truss Catch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch.png"; path = "Resources/Truss Catch.png"; sourceTree = "<group>"; };
 		2F05F83B18EE53D30065D74A /* Pick Up Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pick Up Miss.png"; path = "Resources/Pick Up Miss.png"; sourceTree = "<group>"; };
@@ -227,6 +226,9 @@
 		2F30EAEA16A100850026B258 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MainApp/main.m; sourceTree = "<group>"; };
 		2F30EAEC16A101570026B258 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MainApp/AppDelegate.h; sourceTree = "<group>"; };
 		2F30EAED16A101AB0026B258 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MainApp/AppDelegate.m; sourceTree = "<group>"; };
+		2F3359C118EEEC5000B090E5 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
+		2F3359C218EEEC5000B090E5 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
+		2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blocked Shot.png"; path = "Resources/Blocked Shot.png"; sourceTree = "<group>"; };
 		2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSplashViewController.h; path = MainApp/PhoneSplashViewController.h; sourceTree = "<group>"; };
 		2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSplashViewController.m; path = MainApp/PhoneSplashViewController.m; sourceTree = "<group>"; };
 		2F38C34F18A3203A0018D59C /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
@@ -543,9 +545,9 @@
 		2F30EAE116A0F5150026B258 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				2F05F83218EE35640065D74A /* TeamScore.h */,
-				2F05F83318EE35640065D74A /* TeamScore.m */,
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
+				2F3359C118EEEC5000B090E5 /* TeamScore.h */,
+				2F3359C218EEEC5000B090E5 /* TeamScore.m */,
 				2F05F82418EDCCD80065D74A /* TeamData.h */,
 				2F05F82518EDCCD80065D74A /* TeamData.m */,
 				2F14894918CD7953008F0E87 /* Photo.h */,
@@ -601,6 +603,7 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */,
 				2F05F83718EE4EA20065D74A /* Intake from Human.png */,
 				2F05F84518EE64AA0065D74A /* Intake from Human Miss.png */,
 				2F05F83018EE13790065D74A /* Intake from Robot.png */,
@@ -839,6 +842,7 @@
 				2FDB496618BAC2A000B431C7 /* MarcusOutput.plist in Resources */,
 				2F05F83A18EE4ECE0065D74A /* Truss Catch.png in Resources */,
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
+				2F3359C518EF3FEA00B090E5 /* Blocked Shot.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
 				2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */,
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
@@ -920,7 +924,7 @@
 				A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */,
 				2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
-				2F05F83418EE35640065D74A /* TeamScore.m in Sources */,
+				2F3359C318EEEC5000B090E5 /* TeamScore.m in Sources */,
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2FD8EDC718B7D56D009071A3 /* NumberEnumDictionary.m in Sources */,
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
