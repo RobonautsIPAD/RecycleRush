@@ -447,9 +447,10 @@ GKPeerPickerController *picker;
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
-                NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
+              //  NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
             }
             matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchResultsSync forKey:@"matchResultsSync"];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Results %0.f.mrd", deviceName, tournamentName, [matchResultsSync floatValue]]];
             [self serializeDataForTransfer:transferDataFile];
             break;
@@ -670,7 +671,7 @@ GKPeerPickerController *picker;
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 NSData *myData = [matchResultsPackage packageScoreForXFer:score];
                 [self mySendDataToPeers:myData];
-                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+              //  NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
             }
             break;
             
