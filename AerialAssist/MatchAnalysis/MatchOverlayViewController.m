@@ -58,6 +58,7 @@
         self.title = @"Match Overlay";
     }
     
+    teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
     NSMutableDictionary *stats = [teamStats calculateMasonStats:_numberTeam forTournament:tournamentName];
     
     
