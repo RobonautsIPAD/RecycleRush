@@ -2,7 +2,7 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 4/2/14.
+//  Created by FRC on 4/3/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -57,6 +57,7 @@
 @dynamic thing5;
 @dynamic wheelDiameter;
 @dynamic wheelType;
+@dynamic tunneler;
 @dynamic match;
 @dynamic regional;
 @dynamic tournament;

@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  AerialAssist
 //
-//  Created by FRC on 4/2/14.
+//  Created by FRC on 4/4/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -14,7 +14,6 @@
 @interface TeamScore : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * airCatch;
-@property (nonatomic, retain) NSNumber * airCatchHuman;
 @property (nonatomic, retain) NSNumber * airPasses;
 @property (nonatomic, retain) NSNumber * airPassMiss;
 @property (nonatomic, retain) NSString * alliance;
@@ -33,14 +32,15 @@
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * defenseBlockRating;
 @property (nonatomic, retain) NSNumber * defenseBullyRating;
+@property (nonatomic, retain) NSNumber * disruptedShot;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * floorCatch;
+@property (nonatomic, retain) NSNumber * floorCatchMiss;
 @property (nonatomic, retain) NSNumber * floorPasses;
 @property (nonatomic, retain) NSNumber * floorPassMiss;
 @property (nonatomic, retain) NSNumber * floorPickUp;
+@property (nonatomic, retain) NSNumber * floorPickUpMiss;
 @property (nonatomic, retain) NSNumber * fouls;
-@property (nonatomic, retain) NSNumber * handoff;
-@property (nonatomic, retain) NSNumber * handoffMiss;
 @property (nonatomic, retain) NSNumber * humanMiss;
 @property (nonatomic, retain) NSNumber * humanMiss1;
 @property (nonatomic, retain) NSNumber * humanMiss2;
@@ -85,6 +85,8 @@
 @property (nonatomic, retain) NSNumber * totalTeleOpShots;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * trussCatch;
+@property (nonatomic, retain) NSNumber * trussCatchHuman;
+@property (nonatomic, retain) NSNumber * trussCatchHumanMiss;
 @property (nonatomic, retain) NSNumber * trussCatchMiss;
 @property (nonatomic, retain) NSNumber * trussThrow;
 @property (nonatomic, retain) NSNumber * trussThrowMiss;

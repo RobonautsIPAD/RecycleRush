@@ -13,6 +13,7 @@
 #import "TrooleanDictionary.h"
 #import "IntakeTypeDictionary.h"
 #import "ShooterTypeDictionary.h"
+#import "TunnelDictionary.h"
 
 @implementation ExportTeamData {
     NSUserDefaults *prefs;
@@ -23,6 +24,7 @@
     IntakeTypeDictionary *intakeDictionary;
     TrooleanDictionary *trooleanDictionary;
     ShooterTypeDictionary *shooterDictionary;
+    TunnelDictionary *tunnelDictionary;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -53,6 +55,9 @@
     }
     if (!trooleanDictionary) {
         trooleanDictionary = [[TrooleanDictionary alloc] init];
+    }
+    if (!tunnelDictionary) {
+        tunnelDictionary = [[TunnelDictionary alloc] init];
     }
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -138,6 +143,9 @@
     }
     else if ([type isEqualToString:@"trooleanDictionary"]) {
         return [NSString stringWithFormat:@"%@", [trooleanDictionary getString:data]];
+    }
+    else if ([type isEqualToString:@"tunnelDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [tunnelDictionary getString:data]];
     }
     else return [NSString stringWithFormat:@"%@", data];
 }

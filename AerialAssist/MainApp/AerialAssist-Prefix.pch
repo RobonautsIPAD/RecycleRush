@@ -72,6 +72,14 @@ typedef enum {
 } IntakeType;
 
 typedef enum {
+    TunnelUnknown = -1,
+    TunnelNone,
+    TunnelMaybe,
+    TunnelTurn,
+   TunnelYes,
+} TunnelType;
+
+typedef enum {
     SyncTeams,
     SyncTournaments,
     SyncMatchResults,

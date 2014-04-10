@@ -21,6 +21,7 @@
 #import "TrooleanDictionary.h"
 #import "IntakeTypeDictionary.h"
 #import "ShooterTypeDictionary.h"
+#import "TunnelDictionary.h"
 #import "NumberEnumDictionary.h"
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
@@ -30,12 +31,13 @@
 
 @interface TeamDetailViewController ()
     @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
-    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
+    @property (weak, nonatomic) IBOutlet UIButton *tunnelButton;
+//    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
     @property (nonatomic, weak) IBOutlet UIButton *catcherButton;
     @property (nonatomic, weak) IBOutlet UIButton *goalieButton;
     @property (nonatomic, weak) IBOutlet UIButton *hotTrackerButton;
-    @property (nonatomic, weak) IBOutlet UIButton *robotClassButton;
+//    @property (nonatomic, weak) IBOutlet UIButton *robotClassButton;
     @property (nonatomic, weak) IBOutlet UIButton *shooterButton;
     @property (nonatomic, weak) IBOutlet UITextField *ballReleaseHeightText;
     @property (nonatomic, weak) IBOutlet UIButton *classAButton;
@@ -79,10 +81,10 @@
     NSMutableArray *shooterList;
     ShooterTypeDictionary *shooterDictionary;
     
-    PopUpPickerViewController *autonCapacityPicker;
-    UIPopoverController *autonCapacityPickerPopover;
-    NumberEnumDictionary *autonCapacityDictionary;
-    NSMutableArray *autonCapacityList;
+    PopUpPickerViewController *tunnelPicker;
+    UIPopoverController *tunnelPickerPopover;
+    TunnelDictionary *tunnelDictionary;
+    NSMutableArray *tunnelList;
 
     NSArray *photoList;
     NSString *selectedPhoto;
@@ -185,14 +187,14 @@
     [self SetTextBoxDefaults:_wheelDiameter];
     [self SetTextBoxDefaults:_cims];
     [self SetTextBoxDefaults:_ballReleaseHeightText];
-    [self SetBigButtonDefaults:_autonCapacityButton];
+    [self SetBigButtonDefaults:_tunnelButton];
     [self SetBigButtonDefaults:_autonMobilityButton];
     [self SetBigButtonDefaults:_catcherButton];
     [self SetBigButtonDefaults:_goalieButton];
     [self SetBigButtonDefaults:_hotTrackerButton];
-    [self SetBigButtonDefaults:_robotClassButton];
     [self SetBigButtonDefaults:_shooterButton];
-    
+    [self SetBigButtonDefaults:_matchOverlayButton];
+
     //sets text colors for "shoots" buttons relative to UIControllerState
     
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -218,8 +220,8 @@
     trooleanList = [[trooleanDictionary getTrooleanTypes] mutableCopy];
     shooterDictionary = [[ShooterTypeDictionary alloc] init];
     shooterList = [[shooterDictionary getShooterTypes] mutableCopy];
-    autonCapacityDictionary = [[NumberEnumDictionary alloc] init];
-    autonCapacityList = [[autonCapacityDictionary getNumberTypes] mutableCopy];
+    tunnelDictionary = [[TunnelDictionary alloc] init];
+    tunnelList = [[tunnelDictionary getTunnelTypes] mutableCopy];
     
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
@@ -360,7 +362,7 @@
     [_shooterButton setTitle:[shooterDictionary getString:_team.shooterType] forState:UIControlStateNormal];
     [_goalieButton setTitle:[trooleanDictionary getString:_team.goalie] forState:UIControlStateNormal];
     [_catcherButton setTitle:[trooleanDictionary getString:_team.catcher] forState:UIControlStateNormal];
-    [_autonCapacityButton setTitle:[autonCapacityDictionary getString:_team.autonCapacity] forState:UIControlStateNormal];
+    [_tunnelButton setTitle:[tunnelDictionary getString:_team.tunneler] forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:[trooleanDictionary getString:_team.autonMobility] forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:[trooleanDictionary getString:_team.hotTracker] forState:UIControlStateNormal];
 
@@ -525,18 +527,18 @@
         [shooterPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _autonCapacityButton) {
-        if (autonCapacityPicker == nil) {
-            autonCapacityPicker = [[PopUpPickerViewController alloc]
+    else if (PressedButton == _tunnelButton) {
+        if (tunnelPicker == nil) {
+            tunnelPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
-            autonCapacityPicker.delegate = self;
-            autonCapacityPicker.pickerChoices = autonCapacityList;
+            tunnelPicker.delegate = self;
+            tunnelPicker.pickerChoices = tunnelList;
         }
-        if (!autonCapacityPickerPopover) {
-            autonCapacityPickerPopover = [[UIPopoverController alloc]
-                                          initWithContentViewController:autonCapacityPicker];
+        if (!tunnelPickerPopover) {
+            tunnelPickerPopover = [[UIPopoverController alloc]
+                                          initWithContentViewController:tunnelPicker];
         }
-        [autonCapacityPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [tunnelPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
@@ -580,9 +582,9 @@
         [shooterPickerPopover dismissPopoverAnimated:YES];
         _team.shooterType = [self changeSelected:newPick forButton:popUp forDictionary:shooterDictionary];
     }
-    else if (popUp == _autonCapacityButton) {
-        [autonCapacityPickerPopover dismissPopoverAnimated:YES];
-        _team.autonCapacity = [self changeSelected:newPick forButton:popUp forDictionary:autonCapacityDictionary];
+    else if (popUp == _tunnelButton) {
+        [tunnelPickerPopover dismissPopoverAnimated:YES];
+        _team.tunneler = [self changeSelected:newPick forButton:popUp forDictionary:tunnelDictionary];
     }
     else if (popUp == _autonMobilityButton) {
         [trooleanPickerPopover dismissPopoverAnimated:YES];

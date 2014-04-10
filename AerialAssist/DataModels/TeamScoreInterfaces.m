@@ -122,7 +122,7 @@
     TeamScore *score;
     if([scoreData count] > 0) {  // Score Exists
         score = [scoreData objectAtIndex:0];
-        NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
+       // NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     }
     else {
         MatchData *matchRecord = [[[MatchDataInterfaces alloc] initWithDataManager:_dataManager] getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];

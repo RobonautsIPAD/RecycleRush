@@ -59,7 +59,7 @@
             [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-            NSLog(@"file = %@", file);
+           // NSLog(@"file = %@", file);
             [fileList addObject:file];
         }
     }
@@ -145,7 +145,7 @@
         TeamScoreInterfaces *matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-                NSLog(@"file = %@", file);
+               // NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
                 NSData *myData = [NSData dataWithContentsOfFile:fullPath];
                 NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:myData];

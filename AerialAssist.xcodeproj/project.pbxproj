@@ -12,8 +12,20 @@
 		2F004E1E18AEF8CD004DE471 /* PhoneExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F004E1D18AEF8CD004DE471 /* PhoneExportViewController.m */; };
 		2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F004E2018AEF8F6004DE471 /* ExportTeamData.m */; };
 		2F042013181F19D4003B994B /* LucienTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F042012181F19D4003B994B /* LucienTableViewController.m */; };
-		2F05F81D18ECAE7D0065D74A /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F81C18ECAE7D0065D74A /* TeamData.m */; };
-		2F05F82018ECAE950065D74A /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F81F18ECAE950065D74A /* TeamScore.m */; };
+		2F05F82318ED8E180065D74A /* TunnelDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82218ED8E180065D74A /* TunnelDictionary.m */; };
+		2F05F82618EDCCD80065D74A /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82518EDCCD80065D74A /* TeamData.m */; };
+		2F05F83118EE13790065D74A /* Intake from Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83018EE13790065D74A /* Intake from Robot.png */; };
+		2F05F83818EE4EA20065D74A /* Intake from Human.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83718EE4EA20065D74A /* Intake from Human.png */; };
+		2F05F83A18EE4ECE0065D74A /* Truss Catch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83918EE4ECE0065D74A /* Truss Catch.png */; };
+		2F05F83D18EE53D30065D74A /* Pick Up Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83B18EE53D30065D74A /* Pick Up Miss.png */; };
+		2F05F83E18EE53D30065D74A /* Pick Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83C18EE53D30065D74A /* Pick Up.png */; };
+		2F05F84018EE60180065D74A /* Truss Catch Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83F18EE60180065D74A /* Truss Catch Miss.png */; };
+		2F05F84418EE63040065D74A /* Intake from Robot Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84318EE63040065D74A /* Intake from Robot Miss.png */; };
+		2F05F84618EE64AA0065D74A /* Intake from Human Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84518EE64AA0065D74A /* Intake from Human Miss.png */; };
+		2F05F84918EE6B5F0065D74A /* Pass to Robot Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84718EE6B5F0065D74A /* Pass to Robot Miss.png */; };
+		2F05F84A18EE6B5F0065D74A /* Pass to Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84818EE6B5F0065D74A /* Pass to Robot.png */; };
+		2F05F84D18EE6E800065D74A /* Truss Throw Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84B18EE6E800065D74A /* Truss Throw Miss.png */; };
+		2F05F84E18EE6E800065D74A /* Truss Throw.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F84C18EE6E800065D74A /* Truss Throw.png */; };
 		2F06F9901724CB70002C947D /* LucienPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F06F98F1724CB70002C947D /* LucienPageViewController.m */; };
 		2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B468718A5C031001FAF1D /* PhotoAttributes.m */; };
 		2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0CF6C4187E42900000D6F6 /* FieldDrawing.m */; };
@@ -41,6 +53,8 @@
 		2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F30EAE816A100250026B258 /* Default-568h@2x.png */; };
 		2F30EAEB16A100850026B258 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAEA16A100850026B258 /* main.m */; };
 		2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F30EAED16A101AB0026B258 /* AppDelegate.m */; };
+		2F3359C318EEEC5000B090E5 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3359C218EEEC5000B090E5 /* TeamScore.m */; };
+		2F3359C518EF3FEA00B090E5 /* Blocked Shot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */; };
 		2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */; };
 		2F3EFA6D18D0AB3E0020E3D0 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */; };
 		2F3EFA6F18D1F5C80020E3D0 /* AerialAssist.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */; };
@@ -111,11 +125,6 @@
 		2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */; };
 		2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE54FE16CC29B600884191 /* Small White Button.jpg */; };
 		2FD34FF918E7ABA800B67D04 /* Block.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FF818E7ABA800B67D04 /* Block.bmp */; };
-		2FD34FFB18E7ABBC00B67D04 /* Intake from Human.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */; };
-		2FD34FFD18E7ABC700B67D04 /* Intake from Robot.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */; };
-		2FD3500118E7ABE500B67D04 /* Pass to Robot.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */; };
-		2FD3500318E7ABF500B67D04 /* Truss Catch.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */; };
-		2FD3500518E7ABFB00B67D04 /* Truss Throw.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */; };
 		2FD455F118AFF7B90014C1BE /* PhoneSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455F018AFF7B90014C1BE /* PhoneSetUpViewController.m */; };
 		2FD455F418B0162C0014C1BE /* ExportScoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455F318B0162C0014C1BE /* ExportScoreData.m */; };
 		2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD455FC18B026BB0014C1BE /* ExportMatchData.m */; };
@@ -141,6 +150,8 @@
 		2FFC493918560F68009A391E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC493818560F68009A391E /* SettingsViewController.m */; };
 		2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */; };
 		2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */; };
+		A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100418ECD82E004CA547 /* parseUSFirst.m */; };
+		A0EB100818ECDC8F004CA547 /* USFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100718ECDC8F004CA547 /* USFirstViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,10 +165,22 @@
 		2F004E2018AEF8F6004DE471 /* ExportTeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExportTeamData.m; path = DataTransfer/ExportTeamData.m; sourceTree = "<group>"; };
 		2F042011181F19D4003B994B /* LucienTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienTableViewController.h; path = MatchAnalysis/LucienTableViewController.h; sourceTree = "<group>"; };
 		2F042012181F19D4003B994B /* LucienTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienTableViewController.m; path = MatchAnalysis/LucienTableViewController.m; sourceTree = "<group>"; };
-		2F05F81B18ECAE7D0065D74A /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
-		2F05F81C18ECAE7D0065D74A /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
-		2F05F81E18ECAE950065D74A /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
-		2F05F81F18ECAE950065D74A /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
+		2F05F82118ED8E180065D74A /* TunnelDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TunnelDictionary.h; path = Utilities/TunnelDictionary.h; sourceTree = "<group>"; };
+		2F05F82218ED8E180065D74A /* TunnelDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TunnelDictionary.m; path = Utilities/TunnelDictionary.m; sourceTree = "<group>"; };
+		2F05F82418EDCCD80065D74A /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
+		2F05F82518EDCCD80065D74A /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
+		2F05F83018EE13790065D74A /* Intake from Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot.png"; path = "Resources/Intake from Robot.png"; sourceTree = "<group>"; };
+		2F05F83718EE4EA20065D74A /* Intake from Human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human.png"; path = "Resources/Intake from Human.png"; sourceTree = "<group>"; };
+		2F05F83918EE4ECE0065D74A /* Truss Catch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch.png"; path = "Resources/Truss Catch.png"; sourceTree = "<group>"; };
+		2F05F83B18EE53D30065D74A /* Pick Up Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pick Up Miss.png"; path = "Resources/Pick Up Miss.png"; sourceTree = "<group>"; };
+		2F05F83C18EE53D30065D74A /* Pick Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pick Up.png"; path = "Resources/Pick Up.png"; sourceTree = "<group>"; };
+		2F05F83F18EE60180065D74A /* Truss Catch Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch Miss.png"; path = "Resources/Truss Catch Miss.png"; sourceTree = "<group>"; };
+		2F05F84318EE63040065D74A /* Intake from Robot Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot Miss.png"; path = "Resources/Intake from Robot Miss.png"; sourceTree = "<group>"; };
+		2F05F84518EE64AA0065D74A /* Intake from Human Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human Miss.png"; path = "Resources/Intake from Human Miss.png"; sourceTree = "<group>"; };
+		2F05F84718EE6B5F0065D74A /* Pass to Robot Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pass to Robot Miss.png"; path = "Resources/Pass to Robot Miss.png"; sourceTree = "<group>"; };
+		2F05F84818EE6B5F0065D74A /* Pass to Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pass to Robot.png"; path = "Resources/Pass to Robot.png"; sourceTree = "<group>"; };
+		2F05F84B18EE6E800065D74A /* Truss Throw Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Throw Miss.png"; path = "Resources/Truss Throw Miss.png"; sourceTree = "<group>"; };
+		2F05F84C18EE6E800065D74A /* Truss Throw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Throw.png"; path = "Resources/Truss Throw.png"; sourceTree = "<group>"; };
 		2F06F98E1724CB70002C947D /* LucienPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienPageViewController.h; path = MatchAnalysis/LucienPageViewController.h; sourceTree = "<group>"; };
 		2F06F98F1724CB70002C947D /* LucienPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienPageViewController.m; path = MatchAnalysis/LucienPageViewController.m; sourceTree = "<group>"; };
 		2F0B468618A5C031001FAF1D /* PhotoAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoAttributes.h; path = Utilities/PhotoAttributes.h; sourceTree = "<group>"; };
@@ -203,6 +226,9 @@
 		2F30EAEA16A100850026B258 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MainApp/main.m; sourceTree = "<group>"; };
 		2F30EAEC16A101570026B258 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MainApp/AppDelegate.h; sourceTree = "<group>"; };
 		2F30EAED16A101AB0026B258 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MainApp/AppDelegate.m; sourceTree = "<group>"; };
+		2F3359C118EEEC5000B090E5 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamScore.h; path = DataModels/TeamScore.h; sourceTree = "<group>"; };
+		2F3359C218EEEC5000B090E5 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamScore.m; path = DataModels/TeamScore.m; sourceTree = "<group>"; };
+		2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blocked Shot.png"; path = "Resources/Blocked Shot.png"; sourceTree = "<group>"; };
 		2F35184B18AEE62100DA3952 /* PhoneSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSplashViewController.h; path = MainApp/PhoneSplashViewController.h; sourceTree = "<group>"; };
 		2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSplashViewController.m; path = MainApp/PhoneSplashViewController.m; sourceTree = "<group>"; };
 		2F38C34F18A3203A0018D59C /* Small Red Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Red Button.jpg"; path = "Resources/Small Red Button.jpg"; sourceTree = "<group>"; };
@@ -320,11 +346,6 @@
 		2FCE54FC16CC29AB00884191 /* Small Green Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Green Button.jpg"; path = "Resources/Small Green Button.jpg"; sourceTree = "<group>"; };
 		2FCE54FE16CC29B600884191 /* Small White Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small White Button.jpg"; path = "Resources/Small White Button.jpg"; sourceTree = "<group>"; };
 		2FD34FF818E7ABA800B67D04 /* Block.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = Block.bmp; path = Resources/Block.bmp; sourceTree = "<group>"; };
-		2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Intake from Human.bmp"; path = "Resources/Intake from Human.bmp"; sourceTree = "<group>"; };
-		2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Intake from Robot.bmp"; path = "Resources/Intake from Robot.bmp"; sourceTree = "<group>"; };
-		2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Pass to Robot.bmp"; path = "Resources/Pass to Robot.bmp"; sourceTree = "<group>"; };
-		2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Truss Catch.bmp"; path = "Resources/Truss Catch.bmp"; sourceTree = "<group>"; };
-		2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = "Truss Throw.bmp"; path = "Resources/Truss Throw.bmp"; sourceTree = "<group>"; };
 		2FD455EF18AFF7B90014C1BE /* PhoneSetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSetUpViewController.h; path = SetUp/PhoneSetUpViewController.h; sourceTree = "<group>"; };
 		2FD455F018AFF7B90014C1BE /* PhoneSetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSetUpViewController.m; path = SetUp/PhoneSetUpViewController.m; sourceTree = "<group>"; };
 		2FD455F218B0162C0014C1BE /* ExportScoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExportScoreData.h; path = DataTransfer/ExportScoreData.h; sourceTree = "<group>"; };
@@ -363,6 +384,10 @@
 		2FFC493818560F68009A391E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = SetUp/SettingsViewController.m; sourceTree = "<group>"; };
 		2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Grey Button.jpg"; path = "Resources/Small Grey Button.jpg"; sourceTree = "<group>"; };
 		2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "Resources/robonauts app banner.jpg"; sourceTree = "<group>"; };
+		A0EB100318ECD82E004CA547 /* parseUSFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseUSFirst.h; path = DataImport/parseUSFirst.h; sourceTree = "<group>"; };
+		A0EB100418ECD82E004CA547 /* parseUSFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseUSFirst.m; path = DataImport/parseUSFirst.m; sourceTree = "<group>"; };
+		A0EB100618ECDC8F004CA547 /* USFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USFirstViewController.h; path = DataImport/USFirstViewController.h; sourceTree = "<group>"; };
+		A0EB100718ECDC8F004CA547 /* USFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = USFirstViewController.m; path = DataImport/USFirstViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,6 +512,10 @@
 				2F8697E218C90E2600116527 /* ImportDataFromiTunes.m */,
 				2F3EFA6B18D0AB3E0020E3D0 /* FirstViewController.h */,
 				2F3EFA6C18D0AB3E0020E3D0 /* FirstViewController.m */,
+				A0EB100318ECD82E004CA547 /* parseUSFirst.h */,
+				A0EB100418ECD82E004CA547 /* parseUSFirst.m */,
+				A0EB100618ECDC8F004CA547 /* USFirstViewController.h */,
+				A0EB100718ECDC8F004CA547 /* USFirstViewController.m */,
 			);
 			name = "Data Import";
 			sourceTree = "<group>";
@@ -516,11 +545,11 @@
 		2F30EAE116A0F5150026B258 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				2F05F81B18ECAE7D0065D74A /* TeamData.h */,
-				2F05F81C18ECAE7D0065D74A /* TeamData.m */,
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
-				2F05F81E18ECAE950065D74A /* TeamScore.h */,
-				2F05F81F18ECAE950065D74A /* TeamScore.m */,
+				2F3359C118EEEC5000B090E5 /* TeamScore.h */,
+				2F3359C218EEEC5000B090E5 /* TeamScore.m */,
+				2F05F82418EDCCD80065D74A /* TeamData.h */,
+				2F05F82518EDCCD80065D74A /* TeamData.m */,
 				2F14894918CD7953008F0E87 /* Photo.h */,
 				2F14894A18CD7953008F0E87 /* Photo.m */,
 				2FDC819C18AC700F008E2E0B /* MatchData.h */,
@@ -574,11 +603,19 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2FD3500418E7ABFB00B67D04 /* Truss Throw.bmp */,
-				2FD3500218E7ABF500B67D04 /* Truss Catch.bmp */,
-				2FD3500018E7ABE500B67D04 /* Pass to Robot.bmp */,
-				2FD34FFC18E7ABC700B67D04 /* Intake from Robot.bmp */,
-				2FD34FFA18E7ABBC00B67D04 /* Intake from Human.bmp */,
+				2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */,
+				2F05F83718EE4EA20065D74A /* Intake from Human.png */,
+				2F05F84518EE64AA0065D74A /* Intake from Human Miss.png */,
+				2F05F83018EE13790065D74A /* Intake from Robot.png */,
+				2F05F84318EE63040065D74A /* Intake from Robot Miss.png */,
+				2F05F84818EE6B5F0065D74A /* Pass to Robot.png */,
+				2F05F84718EE6B5F0065D74A /* Pass to Robot Miss.png */,
+				2F05F83C18EE53D30065D74A /* Pick Up.png */,
+				2F05F83B18EE53D30065D74A /* Pick Up Miss.png */,
+				2F05F83918EE4ECE0065D74A /* Truss Catch.png */,
+				2F05F83F18EE60180065D74A /* Truss Catch Miss.png */,
+				2F05F84C18EE6E800065D74A /* Truss Throw.png */,
+				2F05F84B18EE6E800065D74A /* Truss Throw Miss.png */,
 				2FD34FF818E7ABA800B67D04 /* Block.bmp */,
 				2F3EFA6E18D1F5C80020E3D0 /* AerialAssist.sqlite */,
 				2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */,
@@ -736,6 +773,8 @@
 				2FD8EDC018B7BB91009071A3 /* ShooterTypeDictionary.m */,
 				2FD8EDC518B7D56D009071A3 /* NumberEnumDictionary.h */,
 				2FD8EDC618B7D56D009071A3 /* NumberEnumDictionary.m */,
+				2F05F82118ED8E180065D74A /* TunnelDictionary.h */,
+				2F05F82218ED8E180065D74A /* TunnelDictionary.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -796,22 +835,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F05F83118EE13790065D74A /* Intake from Robot.png in Resources */,
 				2FF1459818BC39710078D1B4 /* TeamDataOutput.plist in Resources */,
 				2FF1459C18BC4E3A0078D1B4 /* TeamList.csv in Resources */,
 				2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */,
 				2FDB496618BAC2A000B431C7 /* MarcusOutput.plist in Resources */,
+				2F05F83A18EE4ECE0065D74A /* Truss Catch.png in Resources */,
 				2F30EAE516A100060026B258 /* Default.png in Resources */,
+				2F3359C518EF3FEA00B090E5 /* Blocked Shot.png in Resources */,
 				2F30EAE716A100170026B258 /* Default@2x.png in Resources */,
-				2FD3500118E7ABE500B67D04 /* Pass to Robot.bmp in Resources */,
 				2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */,
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
 				2FD34FF918E7ABA800B67D04 /* Block.bmp in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
 				2FB0B48518B4319700F67D74 /* check-tick.png in Resources */,
-				2FD3500318E7ABF500B67D04 /* Truss Catch.bmp in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,
+				2F05F84918EE6B5F0065D74A /* Pass to Robot Miss.png in Resources */,
 				2FC18EEB16A2083500D42251 /* button_robonaut_gold.png in Resources */,
+				2F05F84D18EE6E800065D74A /* Truss Throw Miss.png in Resources */,
 				2FC18EEC16A2083500D42251 /* cell_robonaut_gold.png in Resources */,
 				2FDB496A18BB05DA00B431C7 /* RadioButton-Unselected.png in Resources */,
 				2FC18EED16A2083500D42251 /* dataMarker.csv in Resources */,
@@ -824,23 +866,28 @@
 				2FDB495E18BAA22D00B431C7 /* LucienNumberFields.plist in Resources */,
 				2FC18EF916A2083500D42251 /* robonauts button.png in Resources */,
 				2F6AE6F016AD93D1005A24C5 /* 2013_logo.png in Resources */,
+				2F05F84418EE63040065D74A /* Intake from Robot Miss.png in Resources */,
 				2FDB496918BB05DA00B431C7 /* RadioButton-Selected.png in Resources */,
+				2F05F83818EE4EA20065D74A /* Intake from Human.png in Resources */,
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
 				2FCE54FA16CC271A00884191 /* Small Blue Button.jpg in Resources */,
 				2FCE54FB16CC271A00884191 /* Small Red Button.jpg in Resources */,
-				2FD34FFD18E7ABC700B67D04 /* Intake from Robot.bmp in Resources */,
 				2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */,
 				2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */,
 				2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */,
 				2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */,
+				2F05F84A18EE6B5F0065D74A /* Pass to Robot.png in Resources */,
+				2F05F83E18EE53D30065D74A /* Pick Up.png in Resources */,
+				2F05F84018EE60180065D74A /* Truss Catch Miss.png in Resources */,
 				2FFAE1C816D51BDD00B180F9 /* robonauts app banner original.jpg in Resources */,
-				2FD34FFB18E7ABBC00B67D04 /* Intake from Human.bmp in Resources */,
 				2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */,
 				2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */,
 				2F3EFA6F18D1F5C80020E3D0 /* AerialAssist.sqlite in Resources */,
 				2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */,
+				2F05F84618EE64AA0065D74A /* Intake from Human Miss.png in Resources */,
 				2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */,
-				2FD3500518E7ABFB00B67D04 /* Truss Throw.bmp in Resources */,
+				2F05F83D18EE53D30065D74A /* Pick Up Miss.png in Resources */,
+				2F05F84E18EE6E800065D74A /* Truss Throw.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,7 +903,7 @@
 				2FD8EDBE18B7B870009071A3 /* IntakeTypeDictionary.m in Sources */,
 				2F137D2018537E7700D87F30 /* AddTeamViewController.m in Sources */,
 				2F30EAEE16A101AB0026B258 /* AppDelegate.m in Sources */,
-				2F05F82018ECAE950065D74A /* TeamScore.m in Sources */,
+				A0EB100818ECDC8F004CA547 /* USFirstViewController.m in Sources */,
 				2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */,
 				2FC18EAF16A2042000D42251 /* SplashPageViewController.m in Sources */,
 				2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */,
@@ -874,9 +921,10 @@
 				2F742FEA18DE0C4500DB05B6 /* ElimDataViewController.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
-				2F05F81D18ECAE7D0065D74A /* TeamData.m in Sources */,
+				A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */,
 				2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */,
 				2F88649C16B76B1700867385 /* MatchDetailViewController.m in Sources */,
+				2F3359C318EEEC5000B090E5 /* TeamScore.m in Sources */,
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2FD8EDC718B7D56D009071A3 /* NumberEnumDictionary.m in Sources */,
 				2F88649E16B76B1700867385 /* MatchTypePickerController.m in Sources */,
@@ -892,6 +940,7 @@
 				2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */,
 				2FFAE1BB16D3235600B180F9 /* MatchTypeDictionary.m in Sources */,
 				2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */,
+				2F05F82318ED8E180065D74A /* TunnelDictionary.m in Sources */,
 				2F5E6BFB18E3ABE000DD5046 /* MatchIntegrityViewController.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */,
@@ -905,6 +954,7 @@
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
 				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
+				2F05F82618EDCCD80065D74A /* TeamData.m in Sources */,
 				2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */,
 				2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */,
 				2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,

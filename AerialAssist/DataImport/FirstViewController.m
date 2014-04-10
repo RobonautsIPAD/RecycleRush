@@ -11,6 +11,7 @@
 
 @interface FirstViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *viewWeb;
+@property (strong, nonatomic) IBOutlet UIButton *btnNewParser;
 
 @end
 
@@ -37,7 +38,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSString *fullURL = @"http://www2.usfirst.org/2014comp/events/MOKC/scheduleelim.html";
+    NSString *fullURL = @"http://www2.usfirst.org/2014comp/events/TXHO/scheduleelim.html";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_viewWeb loadRequest:requestObj];
@@ -45,13 +46,19 @@
     NSString *pageSource = [NSString stringWithContentsOfURL:url
                                                     encoding:NSASCIIStringEncoding
                                                        error:&error];
-    NSLog(@"%@", pageSource);
+    //NSLog(@"%@", pageSource);
     NSString *exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Match Schedule.html"];
     [pageSource writeToFile:exportFilePath
                 atomically:YES
                   encoding:NSUTF8StringEncoding
                      error:nil];
 
+}
+
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [segue.destinationViewController setDataManager:_dataManager];
 }
 
 /**

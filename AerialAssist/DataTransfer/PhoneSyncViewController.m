@@ -627,7 +627,7 @@ GKPeerPickerController *picker;
             if (receivedTeamList == nil) {
                 receivedTeamList = [NSMutableArray array];
             }
-            TeamData *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
+            NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
             if (teamReceived) [receivedTeamList addObject:teamReceived];
         }
             break;
@@ -635,7 +635,7 @@ GKPeerPickerController *picker;
             if (receivedMatchList == nil) {
                 receivedMatchList = [NSMutableArray array];
             }
-            MatchData *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
+            NSDictionary *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
             if (matchReceived) [receivedMatchList addObject:matchReceived];
         }
             break;
@@ -643,7 +643,7 @@ GKPeerPickerController *picker;
             if (receivedResultsList == nil) {
                 receivedResultsList = [NSMutableArray array];
             }
-            TeamScore *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+            NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
             if (scoreReceived) [receivedResultsList addObject:scoreReceived];
         }
             break;
@@ -682,10 +682,12 @@ GKPeerPickerController *picker;
         if (syncType == SyncMatchResults) return [filteredResultsList count];
     }
     else {
+        NSLog(@"number of rows");
         if (syncType == SyncTournaments) return [receivedTournamentList count];
         if (syncType == SyncTeams) return [receivedTeamList count];
         if (syncType == SyncMatchList) return [receivedMatchList count];
         if (syncType == SyncMatchResults) return [receivedResultsList count];
+        NSLog(@"number of rows end");
     }
     return 0;
 }
@@ -715,76 +717,111 @@ GKPeerPickerController *picker;
 }
 
 - (void)configureTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamData *team;
+    NSLog(@"Config team cell");
     if (xFerOption == Sending) {
+        TeamData *team;
         team = [filteredTeamList objectAtIndex:indexPath.row];
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
+        
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = team.name;
+        
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = @"";
+        
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"";
     }
     else {
+        NSDictionary *team = [receivedTeamList objectAtIndex:indexPath.row];
+        NSLog(@"Config team cell 1");
         team = [receivedTeamList objectAtIndex:indexPath.row];
+        NSLog(@"Config team cell 2 %@", team);
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [[team objectForKey:@"team"] intValue]];
+        
+        NSLog(@"Config team cell 3");
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [team objectForKey:@"name"];
+        
+        NSLog(@"Config team cell 4");
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [team objectForKey:@"transfer"];
+        
+        NSLog(@"Config team cell 5");
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"";
+        NSLog(@"Config team cell end");
     }
-    // Configure the cell...
-    // Set a background for the cell
-    
-	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
-    
-	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = team.name;
-    
-	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = @"";
-    
-	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-    label4.text = @"";
 }
 
 - (void)configureMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    MatchData *match;
     if (xFerOption == Sending) {
+        MatchData *match;
         match = [filteredMatchList objectAtIndex:indexPath.row];
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [match.number intValue]];
+        
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = match.matchType;
+        
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = @"";
+        
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"";
     }
     else {
+        NSDictionary *match = [receivedMatchList objectAtIndex:indexPath.row];
         match = [receivedMatchList objectAtIndex:indexPath.row];
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [[match objectForKey:@"match"] intValue]];
+        
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [match objectForKey:@"type"];
+        
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = @"";
+        
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"";
     }
-    // Configure the cell...
-    // Set a background for the cell
-    
-	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [match.number intValue]];
-    
-	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = match.matchType;
-    
-	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = @"";
-    
-	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-    label4.text = @"";
 }
 
 - (void)configureResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore *score;
     if (xFerOption == Sending) {
+        TeamScore *score;
         score = [filteredResultsList objectAtIndex:indexPath.row];
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+        
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = score.match.matchType;
+        
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
+        
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"";
     }
     else {
+        NSDictionary *score = [receivedResultsList objectAtIndex:indexPath.row];
         score = [receivedResultsList objectAtIndex:indexPath.row];
+       
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"match"] intValue]];
+        
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [score objectForKey:@"type"];
+        
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%d", [[score objectForKey:@"team"] intValue]];
+        
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [score objectForKey:@"transfer"];
     }
-    // Configure the cell...
-    // Set a background for the cell
-    
-	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
-    
-	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = score.match.matchType;
-    
-	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-    
-	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-    label4.text = @"";
-}
+ }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

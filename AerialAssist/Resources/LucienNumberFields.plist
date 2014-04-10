@@ -54,11 +54,11 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>airCatch</string>
+		<string>tunneler</string>
 		<key>name</key>
-		<string>Air Catch</string>
+		<string>Tunneler</string>
 		<key>table</key>
-		<string>TeamScore</string>
+		<string>TeamData</string>
 		<key>operators</key>
 		<string>List</string>
 	</dict>
@@ -277,6 +277,36 @@
 		<string>trussCatch</string>
 		<key>name</key>
 		<string>Truss Catch</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>assistRating</string>
+		<key>name</key>
+		<string>Assist Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>intakeRating</string>
+		<key>name</key>
+		<string>Intake Rating</string>
+		<key>table</key>
+		<string>TeamScore</string>
+		<key>operators</key>
+		<string>List</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>disruptedShot</string>
+		<key>name</key>
+		<string>Disrupted Shot</string>
 		<key>table</key>
 		<string>TeamScore</string>
 		<key>operators</key>

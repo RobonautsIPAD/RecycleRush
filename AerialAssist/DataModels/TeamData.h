@@ -2,7 +2,7 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 4/2/14.
+//  Created by FRC on 4/3/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -56,6 +56,7 @@
 @property (nonatomic, retain) NSNumber * thing5;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
+@property (nonatomic, retain) NSNumber * tunneler;
 @property (nonatomic, retain) NSSet *match;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournament;
