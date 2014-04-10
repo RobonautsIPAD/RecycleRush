@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 FRC. All rights reserved.
 //
 
+#import <QuartzCore/CALayer.h>
 #import "TabletSyncViewController.h"
 #import "DataManager.h"
 #import "TournamentData.h"

@@ -288,7 +288,7 @@
 {
     UIColor *lightBlueColor = [UIColor colorWithRed:(154/255.0) green:(212/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = lightBlueColor;
-    cell.accessoryView.tintColor = [UIColor blackColor];
+    //cell.accessoryView.tintColor = [UIColor blackColor];
     
 }
 

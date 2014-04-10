@@ -49,7 +49,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
-    thisYear = [[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]] year];
+    thisYear = [[[NSCalendar currentCalendar] components:kCFCalendarUnitYear fromDate:[NSDate date]] year];
     [self changeYear: thisYear];
     self.tblMain.delegate = self;
     self.tblMain.dataSource = self;
@@ -116,17 +116,14 @@
 - (IBAction)btnImport:(id)sender {
 // Hack for now to only import to a tournament that is in the db. Note the problem with Alamo
     // and its weird name. Obviously, this need to be fixed.
-    BOOL tournExists = [self getTournament:tournamentName];
-    NSString *matchTypeString;
-    matchType = _sgmType.selectedSegmentIndex;
-    if (matchType == 0) matchTypeString = @"Seeding";
-    else if (matchType == 1) matchTypeString = @"Elimination";
     NSArray *data = [parseUSFirst parseMatchResultList:[NSString stringWithFormat:@"%i", tournamentYear] eventCode:tournamentCode matchType:(matchType == 0 ? @"qual" : @"elim")];
     if (data == nil) {
         displayData = nil;
         NSLog(@"Could not connect to website.");
     } else {
         displayData = data;
+        BOOL tournExists = [self getTournament:tournamentName];
+        NSString *matchTypeString = matchType == 0 ? @"Seeding" : @"Elimination";
         for (NSArray *row in data) {
             if (tournExists) {
                 NSNumber *matchNumber = [NSNumber numberWithInt:[row[matchType + 1] intValue]];

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 FRC. All rights reserved.
 //
 
+#import <QuartzCore/CALayer.h>
 #import "LucienPageViewController.h"
 #import "DataManager.h"
 #import "TournamentData.h"
