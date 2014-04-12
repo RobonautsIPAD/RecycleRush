@@ -2,7 +2,7 @@
 //  TournamentData.h
 //  AerialAssist
 //
-//  Created by FRC on 1/10/14.
+//  Created by FRC on 4/12/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface TournamentData : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSSet *teams;
 @end
 

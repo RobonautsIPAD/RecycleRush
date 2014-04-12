@@ -36,13 +36,19 @@
     tournamentName = [data objectAtIndex: 0];
     TournamentData *tournament = [self getTournament:tournamentName];
     if (tournament) {
+        tournament.code = [data objectAtIndex: 1];
+        NSError *error;
+        if (![_dataManager.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            return DB_ERROR;
+        }
         //NSLog(@"createTournamentFromFile:Tournament %@ already exists", tournament);
         return DB_MATCHED;
-    }
-    else {
+    } else {
         TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
                                                                    inManagedObjectContext:_dataManager.managedObjectContext];
         tournament.name = tournamentName;
+        tournament.code = [data objectAtIndex: 1];
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
