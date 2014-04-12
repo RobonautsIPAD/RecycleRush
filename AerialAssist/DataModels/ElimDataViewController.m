@@ -18,80 +18,99 @@
     NSString *tournamentName;
     NSUserDefaults *prefs;
 }
-//Aliance 1 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance1Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance1Button;
+// Quarter Final Alliance 1 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance1Button;
+// Quarter Final Alliance 2 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance2Button;
+// Quarter Final Alliance 3 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance3Button;
+// Quarter Final Alliance 4 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance4Button;
+// Quarter Final Alliance 5 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance5Button;
+// Quarter Final Alliance 6 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance6Button;
+// Quarter Final Alliance 7 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance7Button;
+// Quarter Final Alliance 8 Radio Button
+@property (nonatomic, weak) IBOutlet UIButton *sfAlliance8Button;
 
-//Aliance 2 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance2Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance2Button;
-
-//Aliance 3 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance3Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance3Button;
-
-
-//Aliance 4 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance4Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance4Button;
-
-//Aliance 5 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance5Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance5Button;
-
-//Aliance 6 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance6Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance6Button;
-
-//Aliance 7 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance7Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance7Button;
-
-//Aliance 8 Radio Buttons
-@property (nonatomic, weak) IBOutlet UIButton *sfAliance8Button;
-@property (nonatomic, weak) IBOutlet UIButton *fiAliance8Button;
-
-//aliance text fields
-
+// alliance text fields
 //aliance 1
-@property (nonatomic, weak) IBOutlet UITextField *aliance1Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance1Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance1Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance1Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance1Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance1Partner2;
 
 //aliance 2
-@property (nonatomic, weak) IBOutlet UITextField *aliance2Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance2Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance2Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance2Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance2Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance2Partner2;
 
 //aliance 3
-@property (nonatomic, weak) IBOutlet UITextField *aliance3Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance3Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance3Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance3Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance3Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance3Partner2;
 
 //aliance 4
-@property (nonatomic, weak) IBOutlet UITextField *aliance4Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance4Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance4Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance4Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance4Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance4Partner2;
 
 //aliance 5
-@property (nonatomic, weak) IBOutlet UITextField *aliance5Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance5Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance5Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance5Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance5Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance5Partner2;
 
 //aliance 6
-@property (nonatomic, weak) IBOutlet UITextField *aliance6Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance6Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance6Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance6Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance6Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance6Partner2;
 
 //aliance 7
-@property (nonatomic, weak) IBOutlet UITextField *aliance7Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance7Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance7Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance7Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance7Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance7Partner2;
 
 //aliance 8
-@property (nonatomic, weak) IBOutlet UITextField *aliance8Captian;
-@property (nonatomic, weak) IBOutlet UITextField *aliance8Partner1;
-@property (nonatomic, weak) IBOutlet UITextField *aliance8Partner2;
+@property (nonatomic, weak) IBOutlet UITextField *alliance8Captain;
+@property (nonatomic, weak) IBOutlet UITextField *alliance8Partner1;
+@property (nonatomic, weak) IBOutlet UITextField *alliance8Partner2;
+
+// Semi-Finals
+// Semi-Final 1 Red
+@property (weak, nonatomic) IBOutlet UILabel *semiFinal1RedLabel;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Red1;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Red2;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Red3;
+// Semi-Final 1 Blue
+@property (weak, nonatomic) IBOutlet UILabel *semiFinal1BlueLabel;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Blue1;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Blue2;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal1Blue3;
+
+// Semi-Final 2 Red
+@property (weak, nonatomic) IBOutlet UILabel *semiFinal2RedLabel;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Red1;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Red2;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Red3;
+/// Semi-Finalist 4
+@property (weak, nonatomic) IBOutlet UILabel *semiFinal2BlueLabel;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Blue1;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Blue2;
+@property (nonatomic, weak) IBOutlet UITextField *semiFinal2Blue3;
+// Finalist
+@property (nonatomic, weak) IBOutlet UIButton *finalist1Button;
+@property (nonatomic, weak) IBOutlet UIButton *finalist2Button;
+@property (nonatomic, weak) IBOutlet UIButton *finalist3Button;
+@property (nonatomic, weak) IBOutlet UIButton *finalist4Button;
+@property (weak, nonatomic) IBOutlet UILabel *finalRedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *finalBlueLabel;
+@property (nonatomic, weak) IBOutlet UITextField *finalRed1;
+@property (nonatomic, weak) IBOutlet UITextField *finalRed2;
+@property (nonatomic, weak) IBOutlet UITextField *finalRed3;
+@property (nonatomic, weak) IBOutlet UITextField *finalBlue1;
+@property (nonatomic, weak) IBOutlet UITextField *finalBlue2;
+@property (nonatomic, weak) IBOutlet UITextField *finalBlue3;
 
 //Generate Matches Button
 @property (nonatomic, weak) IBOutlet UIButton *generateButton;
@@ -133,27 +152,23 @@
     }
 
     
-    //Set SF & FI RadioButtons to Defualt to Off
+    //Set SF & FI RadioButtons to Default to Off
     
     //SF Butttons
-    [self setRadioButtonDefaults:_sfAliance1Button];
-    [self setRadioButtonDefaults:_sfAliance2Button];
-    [self setRadioButtonDefaults:_sfAliance3Button];
-    [self setRadioButtonDefaults:_sfAliance4Button];
-    [self setRadioButtonDefaults:_sfAliance5Button];
-    [self setRadioButtonDefaults:_sfAliance6Button];
-    [self setRadioButtonDefaults:_sfAliance7Button];
-    [self setRadioButtonDefaults:_sfAliance8Button];
+    [self setRadioButtonDefaults:_sfAlliance1Button];
+    [self setRadioButtonDefaults:_sfAlliance2Button];
+    [self setRadioButtonDefaults:_sfAlliance3Button];
+    [self setRadioButtonDefaults:_sfAlliance4Button];
+    [self setRadioButtonDefaults:_sfAlliance5Button];
+    [self setRadioButtonDefaults:_sfAlliance6Button];
+    [self setRadioButtonDefaults:_sfAlliance7Button];
+    [self setRadioButtonDefaults:_sfAlliance8Button];
     
     //FI Buttons
-    [self setRadioButtonDefaults:_fiAliance1Button];
-    [self setRadioButtonDefaults:_fiAliance2Button];
-    [self setRadioButtonDefaults:_fiAliance3Button];
-    [self setRadioButtonDefaults:_fiAliance4Button];
-    [self setRadioButtonDefaults:_fiAliance5Button];
-    [self setRadioButtonDefaults:_fiAliance6Button];
-    [self setRadioButtonDefaults:_fiAliance7Button];
-    [self setRadioButtonDefaults:_fiAliance8Button];
+    [self setRadioButtonDefaults:_finalist1Button];
+    [self setRadioButtonDefaults:_finalist2Button];
+    [self setRadioButtonDefaults:_finalist3Button];
+    [self setRadioButtonDefaults:_finalist4Button];
     
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -168,164 +183,256 @@
     [fetchRequest setSortDescriptors:sortDescriptors];
     NSArray *matchList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
-    
-    MatchData *match;
-    NSArray *scores;
-    NSNumber *teamNumber;
-    if([matchList count] > 0) {
-        match = [matchList objectAtIndex:0];
-        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        
-        switch ([scores count]){
-            case 6:{
-                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance8Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 5:{
-                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance8Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 4:{
-                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance8Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 3:{
-                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance1Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 2:{
-                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance1Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 1:{
-                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance1Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            default:
-                break;
-        }
+    // Q1
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:1]];
+    NSArray *match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance1Captain forSlot2:_alliance1Partner1 forSlot:_alliance1Partner2];
+        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance8Captain forSlot2:_alliance8Partner1 forSlot:_alliance8Partner2];
     }
-    
-    if([matchList count] > 1){
-        match = [matchList objectAtIndex:1];
-        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        switch ([scores count]){
-            case 6:{
-                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance7Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 5:{
-                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance7Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 4:{
-                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance7Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 3:{
-                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance2Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 2:{
-                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance2Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 1:{
-                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance2Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            default:
-                break;
-        }
+    // Q2
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:2]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance4Captain forSlot2:_alliance4Partner1 forSlot:_alliance4Partner2];
+        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance5Captain forSlot2:_alliance5Partner1 forSlot:_alliance5Partner2];
     }
-    
-    if([matchList count] > 2){
-        match = [matchList objectAtIndex:2];
-        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        switch ([scores count]){
-            case 6:{
-                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance6Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 5:{
-                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance6Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 4:{
-                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance6Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 3:{
-                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance3Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 2:{
-                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance3Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 1:{
-                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance3Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            default:
-                break;
-        }
+    // Q3
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:3]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance2Captain forSlot2:_alliance2Partner1 forSlot:_alliance2Partner2];
+        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance7Captain forSlot2:_alliance7Partner1 forSlot:_alliance7Partner2];
     }
-    
-    if([matchList count] > 3){
-        match = [matchList objectAtIndex:3];
-        scores = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        switch ([scores count]){
-            case 6:{
-                teamNumber = [[[scores objectAtIndex:5] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance5Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 5:{
-                teamNumber = [[[scores objectAtIndex:4] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance5Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 4:{
-                teamNumber = [[[scores objectAtIndex:3] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance5Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 3:{
-                teamNumber = [[[scores objectAtIndex:2] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance4Partner2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 2:{
-                teamNumber = [[[scores objectAtIndex:1] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance4Partner1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            case 1:{
-                teamNumber = [[[scores objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
-                _aliance4Captian.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
-            }
-            default:
-                break;
-        }
+    // Q4
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:4]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance3Captain forSlot2:_alliance3Partner1 forSlot:_alliance3Partner2];
+        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance6Captain forSlot2:_alliance6Partner1 forSlot:_alliance6Partner2];
     }
-    
 }
 
--(void)setRadioButtonDefaults:(UIButton *)button{
+-(void)showQuarterFinal:(NSString *)alliance forMatch:(MatchData *)match forSlot1:(UITextField *)team1 forSlot2:(UITextField *)team2 forSlot:(UITextField *)team3 {
+    NSArray *scores = [match.score allObjects];
+    NSString *allianceStation = [alliance stringByAppendingString:@" 1"];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
+    NSLog(@"Alliance = %@", allianceStation);
+    // Search for Alliance Station 1
+    NSArray *score = [scores filteredArrayUsingPredicate:pred];
+    NSNumber *teamNumber;
+    if ([score count]) {
+        teamNumber = [[[score objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+        team1.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    }
+    // Search for Alliance Station 2
+    allianceStation = [alliance stringByAppendingString:@" 2"];
+    pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
+    NSLog(@"Alliance = %@", allianceStation);
+    score = [scores filteredArrayUsingPredicate:pred];
+    if ([score count]) {
+        teamNumber = [[[score objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+        team2.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    }
+    // Search for Alliance Station 3
+    allianceStation = [alliance stringByAppendingString:@" 3"];
+    pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
+    NSLog(@"Alliance = %@", allianceStation);
+    score = [scores filteredArrayUsingPredicate:pred];
+    if ([score count]) {
+        teamNumber = [[[score objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
+        team3.text = [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    }
+}
+
+-(void)setRadioButtonDefaults:(UIButton *)button {
     [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
 }
 
--(IBAction)toggleRadioButtonState:(id)sender{
-    if ([sender isSelected]) {
-        [sender setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
-        [sender setSelected:NO];
-    } else {
-        [sender setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
-        [sender setSelected:YES];
-        
-        
+-(IBAction)toggleRadioButtonState:(id)sender {
+    if (sender == _sfAlliance1Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance1Button forPair:(UIButton *)_sfAlliance8Button];
+        [self createSemiMatch1Red];
+    }
+    else if (sender == _sfAlliance8Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance8Button forPair:(UIButton *)_sfAlliance1Button];
+        [self createSemiMatch1Red];
+    }
+    else if (sender == _sfAlliance4Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance4Button forPair:(UIButton *)_sfAlliance5Button];
+        [self createSemiMatch1Blue];
+    }
+    else if (sender == _sfAlliance5Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance5Button forPair:(UIButton *)_sfAlliance4Button];
+        [self createSemiMatch1Blue];
+    }
+    else if (sender == _sfAlliance2Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance2Button forPair:(UIButton *)_sfAlliance7Button];
+        [self createSemiMatch2Red];
+    }
+    else if (sender == _sfAlliance7Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance7Button forPair:(UIButton *)_sfAlliance2Button];
+        [self createSemiMatch2Red];
+    }
+    else if (sender == _sfAlliance3Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance3Button forPair:(UIButton *)_sfAlliance6Button];
+        [self createSemiMatch2Blue];
+    }
+    else if (sender == _sfAlliance6Button) {
+        [self coupledRadioButtons:(UIButton *)_sfAlliance6Button forPair:(UIButton *)_sfAlliance3Button];
+        [self createSemiMatch2Blue];
+    }
+    else if (sender == _finalist1Button) {
+        [self coupledRadioButtons:(UIButton *)_finalist1Button forPair:(UIButton *)_finalist2Button];
+        [self createFinalMatchRed];
+    }
+    else if (sender == _finalist2Button) {
+        [self coupledRadioButtons:(UIButton *)_finalist2Button forPair:(UIButton *)_finalist1Button];
+        //   [self createSemiMatch2Blue];
+    }
+    else if (sender == _finalist3Button) {
+        [self coupledRadioButtons:(UIButton *)_finalist3Button forPair:(UIButton *)_finalist4Button];
+        //   [self createSemiMatch2Blue];
+    }
+    else if (sender == _finalist4Button) {
+        [self coupledRadioButtons:(UIButton *)_finalist4Button forPair:(UIButton *)_finalist3Button];
+        //   [self createSemiMatch2Blue];
     }
 }
 
+-(void) coupledRadioButtons:(UIButton *)button1 forPair:(UIButton *)button2 {
+    if ([button1 isSelected]) {
+        [button1 setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+        [button1 setSelected:NO];
+    } else {
+        [button1 setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+        [button1 setSelected:YES];
+        [button2 setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+        [button2 setSelected:NO];
+    }
+}
 
--(IBAction)generateMatch:(id)sender{
+-(void)createSemiMatch1Red {
+    if ([_sfAlliance1Button isSelected]) {
+        // move the #1 alliance over
+        _semiFinal1RedLabel.text = @"Alliance 1";
+        _semiFinal1Red1.text = _alliance1Captain.text;
+        _semiFinal1Red2.text = _alliance1Partner1.text;
+        _semiFinal1Red3.text = _alliance1Partner2.text;
+    }
+    else if ([_sfAlliance8Button isSelected]) {
+        // move the #8 alliance over
+        _semiFinal1RedLabel.text = @"Alliance 8";
+        _semiFinal1Red1.text = _alliance8Captain.text;
+        _semiFinal1Red2.text = _alliance8Partner1.text;
+        _semiFinal1Red3.text = _alliance8Partner2.text;
+    }
+    else {
+        // clear the semi
+        _semiFinal1RedLabel.text = @"Alliance X";
+        _semiFinal1Red1.text = @"";
+        _semiFinal1Red2.text = @"";
+        _semiFinal1Red3.text = @"";
+    }
+}
+
+-(void)createSemiMatch1Blue {
+    if ([_sfAlliance4Button isSelected]) {
+        // move the #4 alliance over
+        _semiFinal1BlueLabel.text = @"Alliance 4";
+        _semiFinal1Blue1.text = _alliance4Captain.text;
+        _semiFinal1Blue2.text = _alliance4Partner1.text;
+        _semiFinal1Blue3.text = _alliance4Partner2.text;
+    }
+    else if ([_sfAlliance5Button isSelected]) {
+        // move the #5 alliance over
+        _semiFinal1BlueLabel.text = @"Alliance 5";
+        _semiFinal1Blue1.text = _alliance5Captain.text;
+        _semiFinal1Blue2.text = _alliance5Partner1.text;
+        _semiFinal1Blue3.text = _alliance5Partner2.text;
+    }
+    else {
+        // clear the semi
+        _semiFinal1BlueLabel.text = @"Alliance Y";
+        _semiFinal1Blue1.text = @"";
+        _semiFinal1Blue2.text = @"";
+        _semiFinal1Blue3.text = @"";
+    }
+}
+
+-(void)createSemiMatch2Red {
+    if ([_sfAlliance2Button isSelected]) {
+        // move the #2 alliance over
+        _semiFinal2RedLabel.text = @"Alliance 2";
+        _semiFinal2Red1.text = _alliance2Captain.text;
+        _semiFinal2Red2.text = _alliance2Partner1.text;
+        _semiFinal2Red3.text = _alliance2Partner2.text;
+    }
+    else if ([_sfAlliance7Button isSelected]) {
+        // move the #7 alliance over
+        _semiFinal2RedLabel.text = @"Alliance 7";
+        _semiFinal2Red1.text = _alliance7Captain.text;
+        _semiFinal2Red2.text = _alliance7Partner1.text;
+        _semiFinal2Red3.text = _alliance7Partner2.text;
+    }
+    else {
+        // clear the semi
+        _semiFinal2RedLabel.text = @"Alliance Z";
+        _semiFinal2Red1.text = @"";
+        _semiFinal2Red2.text = @"";
+        _semiFinal2Red3.text = @"";
+    }
+}
+
+-(void)createSemiMatch2Blue {
+    if ([_sfAlliance3Button isSelected]) {
+        // move the #3 alliance over
+        _semiFinal2BlueLabel.text = @"Alliance 3";
+        _semiFinal2Blue1.text = _alliance3Captain.text;
+        _semiFinal2Blue2.text = _alliance3Partner1.text;
+        _semiFinal2Blue3.text = _alliance3Partner2.text;
+    }
+    else if ([_sfAlliance6Button isSelected]) {
+        // move the #6 alliance over
+        _semiFinal2BlueLabel.text = @"Alliance 6";
+        _semiFinal2Blue1.text = _alliance6Captain.text;
+        _semiFinal2Blue2.text = _alliance6Partner1.text;
+        _semiFinal2Blue3.text = _alliance6Partner2.text;
+    }
+    else {
+        // clear the semi
+        _semiFinal2BlueLabel.text = @"Alliance Q";
+        _semiFinal2Blue1.text = @"";
+        _semiFinal2Blue2.text = @"";
+        _semiFinal2Blue3.text = @"";
+    }
+}
+
+-(void)createFinalMatchRed {
+    if ([_finalist1Button isSelected]) {
+        // move the winning alliance over
+        _finalRedLabel.text = _semiFinal1RedLabel.text;
+        _finalRed1.text = _semiFinal1Red1.text;
+        _finalRed2.text = _semiFinal1Red2.text;
+        _finalRed3.text = _semiFinal1Red3.text;
+    }
+    else if ([_finalist2Button isSelected]) {
+        // move the winning alliance over
+        _finalRedLabel.text = _semiFinal1BlueLabel.text;
+        _finalRed1.text = _semiFinal1Blue1.text;
+        _finalRed2.text = _semiFinal1Blue2.text;
+        _finalRed3.text = _semiFinal1Blue3.text;
+    }
+    else {
+        // clear the semi
+        _finalRedLabel.text = @"Alliance R";
+        _finalRed1.text = @"";
+        _finalRed2.text = @"";
+        _finalRed3.text = @"";
+    }
+}
+
+-(IBAction)generateMatch:(id)sender {
  
 }
 

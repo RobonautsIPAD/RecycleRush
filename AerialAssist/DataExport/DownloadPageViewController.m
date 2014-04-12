@@ -93,7 +93,17 @@
         self.title = @"Data Transfer";
     }
     
-    exportPath = [self applicationDocumentsDirectory];
+    exportPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Outbox"];
+    NSError *error;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Email Data Alert"
+                                                          message:@"Unable to Save Email Data"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
     emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
     photoOptionList = [[NSMutableArray alloc] initWithObjects:@"iTunes", @"Computer", nil];

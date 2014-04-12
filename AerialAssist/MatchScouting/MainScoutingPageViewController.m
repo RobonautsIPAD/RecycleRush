@@ -384,9 +384,10 @@
     
     // If there are no matches in any section then don't set this stuff. ShowMatch will set currentMatch to
     // nil, printing out blank info in all the display items.
+
     if (numberMatchTypes) {
         // Temporary method to save the data markers
-        storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarker.csv"];
+        storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
         fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:storePath]) {
             // Loading Default Data Markers
@@ -426,7 +427,7 @@
 {
 //    NSLog(@"viewWillDisappear");
     NSString *dataMarkerString;
-    storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarker.csv"];
+    storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
     dataMarkerString = [NSString stringWithFormat:@"%d, %d, %d\n", rowIndex, currentSectionType, teamIndex];
     [dataMarkerString writeToFile:storePath 
                        atomically:YES 
@@ -2628,6 +2629,68 @@
     [self ShowTeam:teamIndex];
 }
 
+-(IBAction)toggleGrid:(id)sender{
+    if(_backgroundImage.image == [UIImage imageNamed:@"2014_field.png"]){
+        _backgroundImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
+        [toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
+    }
+    else{
+        _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
+        [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)ratingPopUp:(id)sender {
+    UIButton *PressedButton = (UIButton*)sender;
+    popUp = PressedButton;
+    
+    if (ratePicker == nil) {
+        ratePicker = [[PopUpPickerViewController alloc]
+                           initWithStyle:UITableViewStylePlain];
+        ratePicker.delegate = self;
+        ratePicker.pickerChoices = rateList;
+        ratingPickerPopover = [[UIPopoverController alloc]initWithContentViewController:ratePicker];
+    }
+    [ratingPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                       permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+-(void)setSpeedRate:(NSString *)newPick {
+    currentTeam.robotSpeed = [NSNumber numberWithInt:[newPick intValue]];
+    [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)setBlockRate:(NSString *)newPick {
+    currentTeam.defenseBlockRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)setBullyRate:(NSString *)newPick {
+    currentTeam.defenseBullyRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)setDriverRate:(NSString *)newPick {
+    currentTeam.driverRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)setIntakeRate:(NSString *)newPick {
+    currentTeam.intakeRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.intakeRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
+
+-(void)setAssistRate:(NSString *)newPick {
+    NSLog(@"Hook up asssit rating");
+    currentTeam.assistRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_assistRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.assistRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
 
 -(NSUInteger)supportedInterfaceOrientations
 {
@@ -2697,9 +2760,9 @@
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController = 
-        [[NSFetchedResultsController alloc] 
-         initWithFetchRequest:fetchRequest 
+        NSFetchedResultsController *aFetchedResultsController =
+        [[NSFetchedResultsController alloc]
+         initWithFetchRequest:fetchRequest
          managedObjectContext:_dataManager.managedObjectContext
          sectionNameKeyPath:@"matchTypeSection"
          cacheName:@"Root"];
@@ -2708,76 +2771,13 @@
     }
 	
 	return _fetchedResultsController;
-}    
+}
 
 /**
- Returns the path to the application's Documents directory.
+ Returns the path to the application's Library directory.
  */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
--(IBAction)toggleGrid:(id)sender{
-    if(_backgroundImage.image == [UIImage imageNamed:@"2014_field.png"]){
-        _backgroundImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
-        [toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
-    }
-    else{
-        _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
-        [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
-    }
-}
-
-- (IBAction)ratingPopUp:(id)sender {
-    UIButton *PressedButton = (UIButton*)sender;
-    popUp = PressedButton;
-    
-    if (ratePicker == nil) {
-        ratePicker = [[PopUpPickerViewController alloc]
-                           initWithStyle:UITableViewStylePlain];
-        ratePicker.delegate = self;
-        ratePicker.pickerChoices = rateList;
-        ratingPickerPopover = [[UIPopoverController alloc]initWithContentViewController:ratePicker];
-    }
-    [ratingPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                       permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-}
-
--(void)setSpeedRate:(NSString *)newPick {
-    currentTeam.robotSpeed = [NSNumber numberWithInt:[newPick intValue]];
-    [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentTeam.robotSpeed intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setBlockRate:(NSString *)newPick {
-    currentTeam.defenseBlockRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_defenseBlockRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBlockRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setBullyRate:(NSString *)newPick {
-    currentTeam.defenseBullyRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_defenseBullyRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.defenseBullyRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setDriverRate:(NSString *)newPick {
-    currentTeam.driverRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentTeam.driverRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setIntakeRate:(NSString *)newPick {
-    currentTeam.intakeRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.intakeRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setAssistRate:(NSString *)newPick {
-    NSLog(@"Hook up asssit rating");
-    currentTeam.assistRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_assistRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentTeam.assistRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 

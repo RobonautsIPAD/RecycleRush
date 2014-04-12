@@ -1243,379 +1243,339 @@
             <objects>
                 <viewController id="7Lj-vb-YQb" customClass="ElimDataViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SBR-5q-KgD">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="o7Y-Pw-6R1">
-                                <rect key="frame" x="20" y="92" width="97" height="30"/>
+                                <rect key="frame" x="20" y="65" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="288-PN-ro6">
-                                <rect key="frame" x="152" y="92" width="97" height="30"/>
+                                <rect key="frame" x="115" y="65" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="izv-bn-Xl6">
-                                <rect key="frame" x="280" y="92" width="97" height="30"/>
+                                <rect key="frame" x="210" y="65" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="9qB-w7-cgs">
-                                <rect key="frame" x="20" y="172" width="97" height="30"/>
+                                <rect key="frame" x="20" y="420" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ian-JC-Nfq">
-                                <rect key="frame" x="152" y="172" width="97" height="30"/>
+                                <rect key="frame" x="115" y="420" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="O1f-MU-x3i">
-                                <rect key="frame" x="280" y="172" width="97" height="30"/>
+                                <rect key="frame" x="210" y="420" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="74x-Ya-AAi">
-                                <rect key="frame" x="20" y="258" width="97" height="30"/>
+                                <rect key="frame" x="20" y="580" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="g81-7x-HJg">
-                                <rect key="frame" x="152" y="258" width="97" height="30"/>
+                                <rect key="frame" x="115" y="580" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="YZI-Eu-uLK">
-                                <rect key="frame" x="280" y="258" width="97" height="30"/>
+                                <rect key="frame" x="210" y="580" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Ubg-d8-Ebe">
-                                <rect key="frame" x="20" y="343" width="97" height="30"/>
+                                <rect key="frame" x="20" y="235" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Ynf-yN-J4y">
-                                <rect key="frame" x="152" y="343" width="97" height="30"/>
+                                <rect key="frame" x="115" y="235" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="4T5-m3-z2l">
-                                <rect key="frame" x="280" y="343" width="97" height="30"/>
+                                <rect key="frame" x="210" y="235" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="1ve-sW-xLr">
-                                <rect key="frame" x="20" y="423" width="97" height="30"/>
+                                <rect key="frame" x="20" y="300" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="vlo-ut-zmV">
-                                <rect key="frame" x="152" y="423" width="97" height="30"/>
+                                <rect key="frame" x="115" y="300" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="f0D-bm-dTP">
-                                <rect key="frame" x="280" y="423" width="97" height="30"/>
+                                <rect key="frame" x="210" y="300" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="VSN-RE-vKf">
-                                <rect key="frame" x="20" y="498" width="97" height="30"/>
+                                <rect key="frame" x="22" y="645" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fES-Pn-ezr">
-                                <rect key="frame" x="152" y="498" width="97" height="30"/>
+                                <rect key="frame" x="115" y="645" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="8xC-R4-jFG">
-                                <rect key="frame" x="280" y="498" width="97" height="30"/>
+                                <rect key="frame" x="210" y="645" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2sz-ex-GmU">
-                                <rect key="frame" x="20" y="578" width="97" height="30"/>
+                                <rect key="frame" x="20" y="485" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ThV-gV-Xsn">
-                                <rect key="frame" x="152" y="578" width="97" height="30"/>
+                                <rect key="frame" x="115" y="485" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="zuE-tf-knV">
-                                <rect key="frame" x="280" y="578" width="97" height="30"/>
+                                <rect key="frame" x="210" y="485" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Lpp-mQ-8cI">
-                                <rect key="frame" x="20" y="658" width="97" height="30"/>
+                                <rect key="frame" x="20" y="130" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="cH9-GF-Zy3">
-                                <rect key="frame" x="152" y="658" width="97" height="30"/>
+                                <rect key="frame" x="115" y="130" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2F8-eS-p35">
-                                <rect key="frame" x="280" y="658" width="97" height="30"/>
+                                <rect key="frame" x="210" y="130" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6ss-2x-nSo">
-                                <rect key="frame" x="165" y="55" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6ss-2x-nSo">
+                                <rect key="frame" x="103" y="40" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oQJ-P3-bkp">
-                                <rect key="frame" x="165" y="147" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oQJ-P3-bkp">
+                                <rect key="frame" x="103" y="395" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kiB-4k-yFu">
-                                <rect key="frame" x="165" y="227" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kiB-4k-yFu">
+                                <rect key="frame" x="103" y="555" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4GU-R6-3Bo">
-                                <rect key="frame" x="165" y="307" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4GU-R6-3Bo">
+                                <rect key="frame" x="103" y="210" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H9t-OB-d63">
-                                <rect key="frame" x="165" y="394" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H9t-OB-d63">
+                                <rect key="frame" x="103" y="275" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5N8-jB-nRJ">
-                                <rect key="frame" x="165" y="475" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5N8-jB-nRJ">
+                                <rect key="frame" x="103" y="620" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 7" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VY1-09-a4M">
-                                <rect key="frame" x="165" y="550" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VY1-09-a4M">
+                                <rect key="frame" x="103" y="460" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aliance 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pwM-Vy-Tr5">
-                                <rect key="frame" x="165" y="630" width="71" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance 8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pwM-Vy-Tr5">
+                                <rect key="frame" x="103" y="105" width="84" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="do7-kt-AaW" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="412" y="94" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="mQ2-wo-G9e"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g0I-9v-ILp">
-                                <rect key="frame" x="412" y="55" width="21" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g0I-9v-ILp">
+                                <rect key="frame" x="288" y="40" width="35" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vws-GS-IGL" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="469" y="95" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="do7-kt-AaW" userLabel="Button - SF Alliance 1">
+                                <rect key="frame" x="295" y="70" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="36M-qe-Aso"/>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="UPl-l3-yEr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pqe-YT-hma">
-                                <rect key="frame" x="472" y="55" width="15" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zz0-aY-fer" userLabel="Button - SF Alliance 2">
+                                <rect key="frame" x="295" y="425" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="dQy-sQ-bv7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f88-3N-wnW" userLabel="Button - SF Alliance 3">
+                                <rect key="frame" x="295" y="585" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="2NQ-zq-enV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vfO-2Y-71o" userLabel="Button - SF Alliance 4">
+                                <rect key="frame" x="295" y="240" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="hJW-ay-SfL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bUG-BI-Lbc" userLabel="Button - SF Alliance 5">
+                                <rect key="frame" x="295" y="305" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="QgO-M5-y3A"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mpY-5v-Y9Q" userLabel="Button - SF Alliance 6">
+                                <rect key="frame" x="295" y="650" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="eHX-ZD-bxH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yGU-Fa-TvI" userLabel="Button - SF Alliance 7">
+                                <rect key="frame" x="295" y="490" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="YHP-zD-ZUH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IDq-2p-JXj" userLabel="Button - SF Alliance 8">
+                                <rect key="frame" x="295" y="135" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="6iJ-Kg-efy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pqe-YT-hma">
+                                <rect key="frame" x="692" y="71" width="35" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IDq-2p-JXj" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="412" y="177" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vws-GS-IGL" userLabel="Button - Finalist 1">
+                                <rect key="frame" x="699" y="99" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="SK6-ZW-47N"/>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="F53-OH-egd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jhg-IY-G45" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="469" y="177" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Bfl-J7-45M" userLabel="Button - Finalist 2">
+                                <rect key="frame" x="699" y="270" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="6sl-mC-uKk"/>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="k0V-vc-hxD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vfO-2Y-71o" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="412" y="263" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MQu-G5-DWH" userLabel="Button - Finalist 3">
+                                <rect key="frame" x="699" y="454" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="F2P-hX-3JY"/>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="XZ7-dE-u9A"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Bfl-J7-45M" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="469" y="263" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KOE-yk-xo9" userLabel="Button - Finalist 4">
+                                <rect key="frame" x="699" y="614" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="fcD-YP-svv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bUG-BI-Lbc" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="412" y="348" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="aqp-8U-Jqp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0TJ-Eg-IB5" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="469" y="348" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="Irn-ky-OFf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Zz0-aY-fer" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="413" y="428" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="GOX-NF-7rq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MQu-G5-DWH" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="470" y="428" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="kwn-PZ-kZ9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yGU-Fa-TvI" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="413" y="503" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="0QZ-2X-VGb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rLf-Ke-Q1x" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="470" y="503" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="oyd-1D-OB0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f88-3N-wnW" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="413" y="583" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="DdJ-8E-29b"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KOE-yk-xo9" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="470" y="583" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="Ueo-UU-2rP"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mpY-5v-Y9Q" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="413" y="663" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="Yzx-eV-jH7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7vZ-1w-sLC" userLabel="Button - Auton Mobility">
-                                <rect key="frame" x="470" y="663" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="3c1-ow-mjH"/>
+                                    <action selector="toggleRadioButtonState:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="0xP-Wg-fu8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hoE-gR-x0w">
-                                <rect key="frame" x="379" y="796" width="137" height="44"/>
+                                <rect key="frame" x="407" y="655" width="137" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Generate Match">
@@ -1629,52 +1589,302 @@
                                     <action selector="generateMatch:" destination="7Lj-vb-YQb" eventType="touchUpInside" id="1J7-iP-gZf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quarter Finals 1-x, Matches 1, 5, 9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="klb-AQ-8fB">
+                                <rect key="frame" x="12" y="20" width="266" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quarter Finals 4-x, Matches 4, 8, 12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PnV-ux-La8">
+                                <rect key="frame" x="8" y="535" width="275" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quarter Finals 3-x, Matches 3, 7, 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vnY-vE-bSl">
+                                <rect key="frame" x="8" y="375" width="275" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quarter Finals 2-x, Matches 2, 6, 10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xLJ-tX-FCf">
+                                <rect key="frame" x="8" y="190" width="275" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semi Finals 1-x, Matches 13, 15 and 17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1fa-Iy-PQw">
+                                <rect key="frame" x="432" y="20" width="304" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semi Finals 2-x, Matches 14, 16 and 18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pjW-qW-mOY">
+                                <rect key="frame" x="432" y="375" width="304" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="9jx-9X-maV" userLabel="Text Field SF1 Red1">
+                                <rect key="frame" x="407" y="96" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2Rd-YQ-e7g" userLabel="Text Field SF1 Red2">
+                                <rect key="frame" x="502" y="96" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Pzr-VL-3ib" userLabel="Text Field SF1 Red3">
+                                <rect key="frame" x="597" y="96" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fz7-aj-irM">
+                                <rect key="frame" x="490" y="71" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fSi-cP-aKw">
+                                <rect key="frame" x="407" y="266" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="HDD-w5-roK">
+                                <rect key="frame" x="502" y="266" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="MXr-av-GH7">
+                                <rect key="frame" x="597" y="266" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9iZ-Z3-usB">
+                                <rect key="frame" x="490" y="241" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="hVb-Vc-e50">
+                                <rect key="frame" x="407" y="451" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="hnt-qI-Zbz">
+                                <rect key="frame" x="502" y="451" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="N3b-3R-xJw">
+                                <rect key="frame" x="597" y="451" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KZF-R4-VNt">
+                                <rect key="frame" x="490" y="426" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Xt3-xn-mCq">
+                                <rect key="frame" x="407" y="611" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="U41-pS-JLk">
+                                <rect key="frame" x="502" y="611" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3ur-Ax-7GC">
+                                <rect key="frame" x="597" y="611" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance Q" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="miR-qo-lZ6">
+                                <rect key="frame" x="490" y="586" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Krd-cJ-aMc">
+                                <rect key="frame" x="415" y="71" width="32" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9oj-uS-3gt">
+                                <rect key="frame" x="415" y="241" width="35" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2zM-yz-9HI">
+                                <rect key="frame" x="415" y="427" width="32" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8xK-y4-p9c">
+                                <rect key="frame" x="415" y="586" width="35" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="r5y-21-7fb" userLabel="Text Field SF1 Red1">
+                                <rect key="frame" x="738" y="174" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Lfz-q0-0T2" userLabel="Text Field SF1 Red2">
+                                <rect key="frame" x="833" y="174" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="g8d-Mr-adR" userLabel="Text Field SF1 Red3">
+                                <rect key="frame" x="928" y="174" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance R" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SSQ-Jt-qYG">
+                                <rect key="frame" x="821" y="149" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tqv-Hx-Uly">
+                                <rect key="frame" x="746" y="149" width="32" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2L8-tH-CwV" userLabel="Text Field SF1 Red1">
+                                <rect key="frame" x="738" y="532" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="kFU-Rd-Tw3" userLabel="Text Field SF1 Red2">
+                                <rect key="frame" x="833" y="532" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ZrY-mE-vw2" userLabel="Text Field SF1 Red3">
+                                <rect key="frame" x="928" y="532" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alliance S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vqC-bZ-aLh">
+                                <rect key="frame" x="821" y="507" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jFT-wZ-Bga">
+                                <rect key="frame" x="745" y="507" width="35" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="H12-wy-hII"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="aliance1Captian" destination="o7Y-Pw-6R1" id="EkR-C1-iYA"/>
-                        <outlet property="aliance1Partner1" destination="288-PN-ro6" id="nwN-PR-5Ty"/>
-                        <outlet property="aliance1Partner2" destination="izv-bn-Xl6" id="9gg-KF-smi"/>
-                        <outlet property="aliance2Captian" destination="9qB-w7-cgs" id="dMO-Sf-J8S"/>
-                        <outlet property="aliance2Partner1" destination="ian-JC-Nfq" id="xys-0Z-0jh"/>
-                        <outlet property="aliance2Partner2" destination="O1f-MU-x3i" id="Nqf-kQ-KpR"/>
-                        <outlet property="aliance3Captian" destination="74x-Ya-AAi" id="Afa-yW-fjd"/>
-                        <outlet property="aliance3Partner1" destination="g81-7x-HJg" id="njw-F0-oNV"/>
-                        <outlet property="aliance3Partner2" destination="YZI-Eu-uLK" id="HfA-Ch-dE2"/>
-                        <outlet property="aliance4Captian" destination="Ubg-d8-Ebe" id="Ndd-Lt-Swq"/>
-                        <outlet property="aliance4Partner1" destination="Ynf-yN-J4y" id="4dH-xm-DDc"/>
-                        <outlet property="aliance4Partner2" destination="4T5-m3-z2l" id="IWp-bz-a5f"/>
-                        <outlet property="aliance5Captian" destination="1ve-sW-xLr" id="ffn-bD-aIi"/>
-                        <outlet property="aliance5Partner1" destination="vlo-ut-zmV" id="Xeu-gX-pDB"/>
-                        <outlet property="aliance5Partner2" destination="f0D-bm-dTP" id="ZcT-hJ-ZAD"/>
-                        <outlet property="aliance6Captian" destination="VSN-RE-vKf" id="eus-2r-IdF"/>
-                        <outlet property="aliance6Partner1" destination="fES-Pn-ezr" id="4Ba-TS-7M6"/>
-                        <outlet property="aliance6Partner2" destination="8xC-R4-jFG" id="Yzw-RC-ZyO"/>
-                        <outlet property="aliance7Captian" destination="2sz-ex-GmU" id="MZn-h7-Jqm"/>
-                        <outlet property="aliance7Partner1" destination="ThV-gV-Xsn" id="sge-nr-ROu"/>
-                        <outlet property="aliance7Partner2" destination="zuE-tf-knV" id="BRk-4g-NRy"/>
-                        <outlet property="aliance8Captian" destination="Lpp-mQ-8cI" id="cI0-Qy-iJo"/>
-                        <outlet property="aliance8Partner1" destination="cH9-GF-Zy3" id="S4u-lU-oYA"/>
-                        <outlet property="aliance8Partner2" destination="2F8-eS-p35" id="9IY-j1-sDv"/>
-                        <outlet property="fiAliance1Button" destination="vws-GS-IGL" id="90Y-df-rPf"/>
-                        <outlet property="fiAliance2Button" destination="Jhg-IY-G45" id="mo5-l3-o4g"/>
-                        <outlet property="fiAliance3Button" destination="Bfl-J7-45M" id="wB8-vV-k3d"/>
-                        <outlet property="fiAliance4Button" destination="0TJ-Eg-IB5" id="rUT-ha-s1d"/>
-                        <outlet property="fiAliance5Button" destination="MQu-G5-DWH" id="dDO-Xo-7g1"/>
-                        <outlet property="fiAliance6Button" destination="rLf-Ke-Q1x" id="o0g-sn-dNO"/>
-                        <outlet property="fiAliance7Button" destination="KOE-yk-xo9" id="2Pu-5n-2w6"/>
-                        <outlet property="fiAliance8Button" destination="7vZ-1w-sLC" id="qgQ-0M-Yl5"/>
+                        <outlet property="alliance1Captain" destination="o7Y-Pw-6R1" id="vyB-sB-Z7s"/>
+                        <outlet property="alliance1Partner1" destination="288-PN-ro6" id="m9x-SL-kmg"/>
+                        <outlet property="alliance1Partner2" destination="izv-bn-Xl6" id="cxY-At-ZNi"/>
+                        <outlet property="alliance2Captain" destination="9qB-w7-cgs" id="hL1-5t-toA"/>
+                        <outlet property="alliance2Partner1" destination="ian-JC-Nfq" id="68i-fp-1w8"/>
+                        <outlet property="alliance2Partner2" destination="O1f-MU-x3i" id="0DL-Dg-Pob"/>
+                        <outlet property="alliance3Captain" destination="74x-Ya-AAi" id="tkT-2Z-qt1"/>
+                        <outlet property="alliance3Partner1" destination="g81-7x-HJg" id="A0C-AZ-kw3"/>
+                        <outlet property="alliance3Partner2" destination="YZI-Eu-uLK" id="YGl-uD-zUy"/>
+                        <outlet property="alliance4Captain" destination="Ubg-d8-Ebe" id="b62-A2-h64"/>
+                        <outlet property="alliance4Partner1" destination="Ynf-yN-J4y" id="Y1t-3w-DvD"/>
+                        <outlet property="alliance4Partner2" destination="4T5-m3-z2l" id="MS1-Bz-p8m"/>
+                        <outlet property="alliance5Captain" destination="1ve-sW-xLr" id="j6d-BK-xoN"/>
+                        <outlet property="alliance5Partner1" destination="vlo-ut-zmV" id="6Qx-9k-als"/>
+                        <outlet property="alliance5Partner2" destination="f0D-bm-dTP" id="58i-vg-ljs"/>
+                        <outlet property="alliance6Captain" destination="VSN-RE-vKf" id="6hC-fH-vJk"/>
+                        <outlet property="alliance6Partner1" destination="fES-Pn-ezr" id="YXT-a1-q5l"/>
+                        <outlet property="alliance6Partner2" destination="8xC-R4-jFG" id="RVS-pD-I6i"/>
+                        <outlet property="alliance7Captain" destination="2sz-ex-GmU" id="o2h-Z6-QCp"/>
+                        <outlet property="alliance7Partner1" destination="ThV-gV-Xsn" id="yOw-AB-lMu"/>
+                        <outlet property="alliance7Partner2" destination="zuE-tf-knV" id="nA7-9A-nUz"/>
+                        <outlet property="alliance8Captain" destination="Lpp-mQ-8cI" id="uSU-JA-OFx"/>
+                        <outlet property="alliance8Partner1" destination="cH9-GF-Zy3" id="Qq5-k0-HmG"/>
+                        <outlet property="alliance8Partner2" destination="2F8-eS-p35" id="UqL-6a-j45"/>
+                        <outlet property="finalBlue1" destination="2L8-tH-CwV" id="cZd-aW-Xjm"/>
+                        <outlet property="finalBlue2" destination="kFU-Rd-Tw3" id="eXZ-un-epL"/>
+                        <outlet property="finalBlue3" destination="ZrY-mE-vw2" id="PIg-eB-eAc"/>
+                        <outlet property="finalBlueLabel" destination="vqC-bZ-aLh" id="ARp-XQ-iPI"/>
+                        <outlet property="finalRed1" destination="r5y-21-7fb" id="Ugk-HK-87b"/>
+                        <outlet property="finalRed2" destination="Lfz-q0-0T2" id="pWp-6z-CnI"/>
+                        <outlet property="finalRed3" destination="g8d-Mr-adR" id="TAl-zr-scL"/>
+                        <outlet property="finalRedLabel" destination="SSQ-Jt-qYG" id="rEl-HO-p2y"/>
+                        <outlet property="finalist1Button" destination="vws-GS-IGL" id="4RN-tN-XYN"/>
+                        <outlet property="finalist2Button" destination="Bfl-J7-45M" id="MO8-Dv-J38"/>
+                        <outlet property="finalist3Button" destination="MQu-G5-DWH" id="uCk-ID-5vy"/>
+                        <outlet property="finalist4Button" destination="KOE-yk-xo9" id="h0S-t1-Bf2"/>
                         <outlet property="generateButton" destination="hoE-gR-x0w" id="jbV-yc-BGh"/>
-                        <outlet property="sfAliance1Button" destination="do7-kt-AaW" id="0EA-ld-8l1"/>
-                        <outlet property="sfAliance2Button" destination="IDq-2p-JXj" id="a1z-Bs-0N4"/>
-                        <outlet property="sfAliance3Button" destination="vfO-2Y-71o" id="8Kk-KF-atg"/>
-                        <outlet property="sfAliance4Button" destination="bUG-BI-Lbc" id="ldR-xW-DQC"/>
-                        <outlet property="sfAliance5Button" destination="Zz0-aY-fer" id="2cp-xn-4o3"/>
-                        <outlet property="sfAliance6Button" destination="yGU-Fa-TvI" id="tL4-oM-HbE"/>
-                        <outlet property="sfAliance7Button" destination="f88-3N-wnW" id="W2m-1c-eqe"/>
-                        <outlet property="sfAliance8Button" destination="mpY-5v-Y9Q" id="8zh-1e-tAF"/>
+                        <outlet property="semiFinal1Blue1" destination="fSi-cP-aKw" id="KjP-hn-NaP"/>
+                        <outlet property="semiFinal1Blue2" destination="HDD-w5-roK" id="XlL-es-08u"/>
+                        <outlet property="semiFinal1Blue3" destination="MXr-av-GH7" id="y6G-i9-jJw"/>
+                        <outlet property="semiFinal1BlueLabel" destination="9iZ-Z3-usB" id="OLG-Ti-MX3"/>
+                        <outlet property="semiFinal1Red1" destination="9jx-9X-maV" id="9q8-g4-X7R"/>
+                        <outlet property="semiFinal1Red2" destination="2Rd-YQ-e7g" id="N10-NT-fhG"/>
+                        <outlet property="semiFinal1Red3" destination="Pzr-VL-3ib" id="6cn-sv-iVT"/>
+                        <outlet property="semiFinal1RedLabel" destination="fz7-aj-irM" id="R5h-jr-pdZ"/>
+                        <outlet property="semiFinal2Blue1" destination="Xt3-xn-mCq" id="Fqr-lp-h7w"/>
+                        <outlet property="semiFinal2Blue2" destination="U41-pS-JLk" id="E5Q-gs-PAd"/>
+                        <outlet property="semiFinal2Blue3" destination="3ur-Ax-7GC" id="lhV-sv-WbQ"/>
+                        <outlet property="semiFinal2BlueLabel" destination="miR-qo-lZ6" id="V0d-X1-iyV"/>
+                        <outlet property="semiFinal2Red1" destination="hVb-Vc-e50" id="hwo-9V-VZd"/>
+                        <outlet property="semiFinal2Red2" destination="hnt-qI-Zbz" id="atJ-7W-Cjl"/>
+                        <outlet property="semiFinal2Red3" destination="N3b-3R-xJw" id="hc1-Cx-bD3"/>
+                        <outlet property="semiFinal2RedLabel" destination="KZF-R4-VNt" id="P0z-bu-Iu3"/>
+                        <outlet property="sfAlliance1Button" destination="do7-kt-AaW" id="2sz-vY-oOS"/>
+                        <outlet property="sfAlliance2Button" destination="Zz0-aY-fer" id="pfn-0E-27d"/>
+                        <outlet property="sfAlliance3Button" destination="f88-3N-wnW" id="gRq-Vd-rxr"/>
+                        <outlet property="sfAlliance4Button" destination="vfO-2Y-71o" id="yeD-fM-8hj"/>
+                        <outlet property="sfAlliance5Button" destination="bUG-BI-Lbc" id="ghk-xF-z2s"/>
+                        <outlet property="sfAlliance6Button" destination="mpY-5v-Y9Q" id="yfN-G6-Os2"/>
+                        <outlet property="sfAlliance7Button" destination="yGU-Fa-TvI" id="Rwz-nh-Ys6"/>
+                        <outlet property="sfAlliance8Button" destination="IDq-2p-JXj" id="Ce2-FV-WfR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gla-fc-rTP" userLabel="First Responder" sceneMemberID="firstResponder"/>

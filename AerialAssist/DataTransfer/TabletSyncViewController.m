@@ -474,10 +474,13 @@ GKPeerPickerController *picker;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!exportFilePath) {
-        exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Transfer Data"];
-        NSError *error;
-        [fileManager removeItemAtPath:exportFilePath error:&error];
-        success &= [fileManager createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+        exportFilePath = [self applicationDocumentsDirectory];
+        /*
+         exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Transfer Data"];
+         NSError *error;
+         [fileManager removeItemAtPath:exportFilePath error:&error];
+         success &= [fileManager createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+         */
     }
     if (!success) {
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert"

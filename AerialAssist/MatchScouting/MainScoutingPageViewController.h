@@ -163,7 +163,6 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet UIButton *teamEdit;
 @property (nonatomic, weak) IBOutlet UIButton *syncButton;
 @property (nonatomic, assign) id<MainScoutingPageDelegate> delegate;
-- (NSString *)applicationDocumentsDirectory;
 
 // Make It Look Good
 -(void)SetTextBoxDefaults:(UITextField *)textField;
