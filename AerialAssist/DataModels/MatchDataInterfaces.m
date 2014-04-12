@@ -16,6 +16,7 @@
 #import "TeamScoreInterfaces.h"
 
 @implementation MatchDataInterfaces
+
 @synthesize dataManager = _dataManager;
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -92,7 +93,7 @@
         matchRecord = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
                                                     inManagedObjectContext:_dataManager.managedObjectContext];
     }
-    // check retieved match, if the saved and saveby match the imcoming data then just do nothing
+    // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [myDictionary objectForKey:@"saved"];
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
     
@@ -124,6 +125,38 @@
     NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchRecord.matchType, @"Y", nil];
     NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return matchTransfer;
+}
+
+-(MatchData *)updateMatch:(NSDictionary *)matchInfo {
+    NSLog(@"Match data = %@", matchInfo);
+    NSNumber *matchNumber = [matchInfo objectForKey:@"number"];
+    NSString *matchType = [matchInfo objectForKey:@"matchType"];
+    NSString *tournamentName = [matchInfo objectForKey:@"tournamentName"];
+    if (!matchNumber || !matchType || !tournamentName) return nil;
+    MatchData *matchRecord = [self getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];
+    if (!matchRecord) {
+        matchRecord = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
+                                                    inManagedObjectContext:_dataManager.managedObjectContext];
+    }
+    for (NSString *key in matchInfo) {
+        if ([key isEqualToString:@"teams"]) continue; // Skip the team list for the moment
+        [matchRecord setValue:[matchInfo objectForKey:key] forKey:key];
+    }
+    NSDictionary *teams = [matchInfo objectForKey:@"teams"];
+    for (NSString *key in teams) {
+        [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];
+    }
+    [self addBlankScores:matchRecord];
+    // NSLog(@"Teams = %@", teams);
+    matchRecord.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    matchRecord.savedBy = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceName"];
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        return nil;
+    }
+    return matchRecord;
+    NSLog(@"Match record = %@", matchRecord);
 }
 
 -(void)addBlankScores:(MatchData *)match {
