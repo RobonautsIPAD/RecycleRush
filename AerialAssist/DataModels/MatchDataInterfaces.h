@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AddRecordResults.h"
 
 @class DataManager;
 @class MatchData;
@@ -19,5 +20,6 @@
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath;
 -(NSData *)packageMatchForXFer:(MatchData *)match;
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
+-(MatchData *)updateMatch:(NSDictionary *)matchInfo;
 -(MatchData *)getMatch:(NSNumber *)matchNumber forMatchType:(NSString *) type forTournament:(NSString *) tournament;
 @end

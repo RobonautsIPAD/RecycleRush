@@ -12,6 +12,7 @@
 #import "TeamScore.h"
 #import "MatchData.h"
 #import "TeamDataInterfaces.h"
+#import "MatchDataInterfaces.h"
 #import "TournamentData.h"
 
 @interface ElimDataViewController (){
@@ -433,7 +434,27 @@
 }
 
 -(IBAction)generateMatch:(id)sender {
- 
+    // Test with semi 1
+    NSArray *allianceList = [NSArray arrayWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
+    NSArray *teamList = [NSArray arrayWithObjects:[NSNumber numberWithInt:[_semiFinal1Red1.text intValue]],
+                                [NSNumber numberWithInt:[_semiFinal1Red2.text intValue]],
+                                [NSNumber numberWithInt:[_semiFinal1Red3.text intValue]],
+                                [NSNumber numberWithInt:[_semiFinal1Blue1.text intValue]],
+                                [NSNumber numberWithInt:[_semiFinal1Blue2.text intValue]],
+                                [NSNumber numberWithInt:[_semiFinal1Blue3.text intValue]],
+                                nil];
+;
+    NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamList forKeys:allianceList];
+    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:13],
+                     tournamentName,
+                     @"Elimination",
+                     teams,
+                     nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"number", @"tournamentName", @"matchType", @"teams", nil];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+    MatchData *match = [matchDataPackage updateMatch:dictionary];
 }
 
 - (void)didReceiveMemoryWarning
