@@ -986,13 +986,13 @@ GKPeerPickerController *picker;
 }
 
 - (void)configureReceivedTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSString *tournament = [receivedTournamentList objectAtIndex:indexPath.row];
+    NSArray *tournament = [receivedTournamentList objectAtIndex:indexPath.row];
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = tournament;
+	label1.text = tournament[0];
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = @"";
+    label2.text = tournament[1];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = @"";

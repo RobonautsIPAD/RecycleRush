@@ -178,8 +178,8 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 
-    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"Y", nil];
+    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"results", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.alliance, score.team.number, score.results, @"Y", nil];
     NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
