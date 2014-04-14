@@ -24,6 +24,13 @@ typedef enum {
 } Troolean;
 
 typedef enum {
+    QuadUnknown = -1,
+    QuadNo,
+    QuadYes,
+    QuadMaybe,
+} QuadState;
+
+typedef enum {
     NumberUnknown = -1,
     NZero,
     NOne,

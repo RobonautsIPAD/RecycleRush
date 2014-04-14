@@ -154,5 +154,13 @@
 		<key>format</key>
 		<string>trooleanDictionary</string>
 	</dict>
+	<dict>
+		<key>key</key>
+		<string>Spit Bot</string>
+		<key>header</key>
+		<string>spitBot</string>
+		<key>format</key>
+		<string>quadStateDictionary</string>
+	</dict>
 </array>
 </plist>

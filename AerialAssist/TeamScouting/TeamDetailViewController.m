@@ -23,6 +23,7 @@
 #import "IntakeTypeDictionary.h"
 #import "ShooterTypeDictionary.h"
 #import "TunnelDictionary.h"
+#import "QuadStateDictionary.h"
 #import "NumberEnumDictionary.h"
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
@@ -48,6 +49,7 @@
     @property (nonatomic, weak) IBOutlet UIButton *classEButton;
     @property (nonatomic, weak) IBOutlet UIButton *classFButton;
     @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
+    @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
 @end
 
 
@@ -76,6 +78,11 @@
     UIPopoverController *trooleanPickerPopover;
     NSMutableArray *trooleanList;
     TrooleanDictionary *trooleanDictionary;
+
+    PopUpPickerViewController *quadStatePicker;
+    UIPopoverController *quadStatePickerPopover;
+    NSMutableArray *quadStateList;
+    QuadStateDictionary *quadStateDictionary;
 
     PopUpPickerViewController *shooterPicker;
     UIPopoverController *shooterPickerPopover;
@@ -191,6 +198,7 @@
     [self SetBigButtonDefaults:_tunnelButton];
     [self SetBigButtonDefaults:_autonMobilityButton];
     [self SetBigButtonDefaults:_catcherButton];
+    [self SetBigButtonDefaults:_spitBotButton];
     [self SetBigButtonDefaults:_goalieButton];
     [self SetBigButtonDefaults:_hotTrackerButton];
     [self SetBigButtonDefaults:_shooterButton];
@@ -223,6 +231,8 @@
     shooterList = [[shooterDictionary getShooterTypes] mutableCopy];
     tunnelDictionary = [[TunnelDictionary alloc] init];
     tunnelList = [[tunnelDictionary getTunnelTypes] mutableCopy];
+    quadStateDictionary = [[QuadStateDictionary alloc] init];
+    quadStateList = [[quadStateDictionary getQuadTypes] mutableCopy];
     
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
@@ -364,6 +374,7 @@
     [_goalieButton setTitle:[trooleanDictionary getString:_team.goalie] forState:UIControlStateNormal];
     [_catcherButton setTitle:[trooleanDictionary getString:_team.catcher] forState:UIControlStateNormal];
     [_tunnelButton setTitle:[tunnelDictionary getString:_team.tunneler] forState:UIControlStateNormal];
+    [_spitBotButton setTitle:[quadStateDictionary getString:_team.spitBot] forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:[trooleanDictionary getString:_team.autonMobility] forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:[trooleanDictionary getString:_team.hotTracker] forState:UIControlStateNormal];
 
@@ -542,6 +553,20 @@
         [tunnelPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if (PressedButton == _spitBotButton) {
+        if (quadStatePicker == nil) {
+            quadStatePicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            quadStatePicker.delegate = self;
+            quadStatePicker.pickerChoices = quadStateList;
+        }
+        if (!quadStatePickerPopover) {
+            quadStatePickerPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:quadStatePicker];
+        }
+        [quadStatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
     else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
              PressedButton == _catcherButton) {
         if (trooleanPicker == nil) {
@@ -586,6 +611,10 @@
     else if (popUp == _tunnelButton) {
         [tunnelPickerPopover dismissPopoverAnimated:YES];
         _team.tunneler = [self changeSelected:newPick forButton:popUp forDictionary:tunnelDictionary];
+    }
+    else if (popUp == _spitBotButton) {
+        [quadStatePickerPopover dismissPopoverAnimated:YES];
+        _team.spitBot = [self changeSelected:newPick forButton:popUp forDictionary:quadStateDictionary];
     }
     else if (popUp == _autonMobilityButton) {
         [trooleanPickerPopover dismissPopoverAnimated:YES];

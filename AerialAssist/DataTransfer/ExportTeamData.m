@@ -14,6 +14,7 @@
 #import "IntakeTypeDictionary.h"
 #import "ShooterTypeDictionary.h"
 #import "TunnelDictionary.h"
+#import "QuadStateDictionary.h"
 
 @implementation ExportTeamData {
     NSUserDefaults *prefs;
@@ -25,6 +26,7 @@
     TrooleanDictionary *trooleanDictionary;
     ShooterTypeDictionary *shooterDictionary;
     TunnelDictionary *tunnelDictionary;
+    QuadStateDictionary *quadStateDictionary;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -58,6 +60,9 @@
     }
     if (!tunnelDictionary) {
         tunnelDictionary = [[TunnelDictionary alloc] init];
+    }
+    if (!quadStateDictionary) {
+        quadStateDictionary = [[QuadStateDictionary alloc] init];
     }
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -146,6 +151,9 @@
     }
     else if ([type isEqualToString:@"tunnelDictionary"]) {
         return [NSString stringWithFormat:@"%@", [tunnelDictionary getString:data]];
+    }
+    else if ([type isEqualToString:@"quadStateDictionary"]) {
+        return [NSString stringWithFormat:@"%@", [quadStateDictionary getString:data]];
     }
     else return [NSString stringWithFormat:@"%@", data];
 }

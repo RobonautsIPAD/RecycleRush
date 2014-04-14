@@ -50,18 +50,33 @@
         NSDictionary *parameter = [parameterList objectAtIndex:j];
  //       NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[parameter objectForKey:@"header"], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"average", @"total", nil]];
         float total = 0.0;
+        float percentDenominator = 0.0;
+        NSString *percentItems = [parameter objectForKey:@"percent"];
+        NSArray *percentKeys;
+        if (percentItems) {
+            percentKeys = [percentItems componentsSeparatedByString:@", "];
+        }
         for (int i=0; i<numberOfMatches; i++) {
             TeamScore *match = [matches objectAtIndex:i];
             total += [[match valueForKey:[parameter objectForKey:@"key"]] floatValue];
+            for (NSString *key in percentKeys) {
+                percentDenominator += [[match valueForKey:key] floatValue];
+            }
         }
         if (numberOfMatches) {
             float average = total/numberOfMatches;
             NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:average], [NSNumber numberWithFloat:total], nil] forKeys:[NSArray arrayWithObjects:@"average", @"total", nil]];
+            if (percentItems && percentDenominator) {
+                float percent  = total/percentDenominator;
+                [calculation setObject:[NSNumber numberWithFloat:percent] forKey:@"percent"];
+            }
             [stats setObject:calculation forKey:[parameter objectForKey:@"header"]];
         }
     }
     [stats setObject:[NSNumber numberWithInteger:numberOfMatches] forKey:@"matches"];
     return stats;
 }
+//        NSArray *allKeys = [list componentsSeparatedByString:@", "];
+
 
 @end

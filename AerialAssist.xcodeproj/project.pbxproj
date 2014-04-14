@@ -13,7 +13,6 @@
 		2F004E2118AEF8F6004DE471 /* ExportTeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F004E2018AEF8F6004DE471 /* ExportTeamData.m */; };
 		2F042013181F19D4003B994B /* LucienTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F042012181F19D4003B994B /* LucienTableViewController.m */; };
 		2F05F82318ED8E180065D74A /* TunnelDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82218ED8E180065D74A /* TunnelDictionary.m */; };
-		2F05F82618EDCCD80065D74A /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F05F82518EDCCD80065D74A /* TeamData.m */; };
 		2F05F83118EE13790065D74A /* Intake from Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83018EE13790065D74A /* Intake from Robot.png */; };
 		2F05F83818EE4EA20065D74A /* Intake from Human.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83718EE4EA20065D74A /* Intake from Human.png */; };
 		2F05F83A18EE4ECE0065D74A /* Truss Catch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F05F83918EE4ECE0065D74A /* Truss Catch.png */; };
@@ -44,6 +43,8 @@
 		2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F21C5CE170BCC31008A3C24 /* ImportDataViewController.m */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
+		2F2F45FA18FC5F26002F89B0 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2F45F918FC5F26002F89B0 /* TeamData.m */; };
+		2F2F45FD18FC5FA2002F89B0 /* QuadStateDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2F45FC18FC5FA2002F89B0 /* QuadStateDictionary.m */; };
 		2F30EABC16A0EB4F0026B258 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABB16A0EB4F0026B258 /* UIKit.framework */; };
 		2F30EABE16A0EB4F0026B258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABD16A0EB4F0026B258 /* Foundation.framework */; };
 		2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */; };
@@ -166,8 +167,6 @@
 		2F042012181F19D4003B994B /* LucienTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienTableViewController.m; path = MatchAnalysis/LucienTableViewController.m; sourceTree = "<group>"; };
 		2F05F82118ED8E180065D74A /* TunnelDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TunnelDictionary.h; path = Utilities/TunnelDictionary.h; sourceTree = "<group>"; };
 		2F05F82218ED8E180065D74A /* TunnelDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TunnelDictionary.m; path = Utilities/TunnelDictionary.m; sourceTree = "<group>"; };
-		2F05F82418EDCCD80065D74A /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
-		2F05F82518EDCCD80065D74A /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
 		2F05F83018EE13790065D74A /* Intake from Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot.png"; path = "Resources/Intake from Robot.png"; sourceTree = "<group>"; };
 		2F05F83718EE4EA20065D74A /* Intake from Human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human.png"; path = "Resources/Intake from Human.png"; sourceTree = "<group>"; };
 		2F05F83918EE4ECE0065D74A /* Truss Catch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch.png"; path = "Resources/Truss Catch.png"; sourceTree = "<group>"; };
@@ -214,6 +213,10 @@
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		2F2C33C818A09E28003475C3 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		2F2F45F818FC5F26002F89B0 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = DataModels/TeamData.h; sourceTree = "<group>"; };
+		2F2F45F918FC5F26002F89B0 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = DataModels/TeamData.m; sourceTree = "<group>"; };
+		2F2F45FB18FC5FA2002F89B0 /* QuadStateDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuadStateDictionary.h; path = Utilities/QuadStateDictionary.h; sourceTree = "<group>"; };
+		2F2F45FC18FC5FA2002F89B0 /* QuadStateDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuadStateDictionary.m; path = Utilities/QuadStateDictionary.m; sourceTree = "<group>"; };
 		2F30EAB716A0EB4F0026B258 /* AerialAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AerialAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F30EABB16A0EB4F0026B258 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F30EABD16A0EB4F0026B258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -306,7 +309,7 @@
 		2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchAnalysisViewController.m; path = MatchAnalysis/MatchAnalysisViewController.m; sourceTree = "<group>"; };
 		2FB3A4C516CF044C00E895E5 /* RossPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RossPageViewController.h; path = MatchAnalysis/RossPageViewController.h; sourceTree = "<group>"; };
 		2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RossPageViewController.m; path = MatchAnalysis/RossPageViewController.m; sourceTree = "<group>"; };
-		2FB3E8D518F9B1EF000457DC /* AerialAssist CH.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AerialAssist CH.xcdatamodel"; sourceTree = "<group>"; };
+		2FB3E8D518F9B1EF000457DC /* AerialAssist CH.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AerialAssist CH.xcdatamodel"; sourceTree = "<group>"; };
 		2FB3E8DC18F9BCE5000457DC /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentData.h; path = DataModels/TournamentData.h; sourceTree = "<group>"; };
 		2FB3E8DD18F9BCE5000457DC /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentData.m; path = DataModels/TournamentData.m; sourceTree = "<group>"; };
 		2FC18E9F16A1F9A900D42251 /* AerialAssist-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AerialAssist-Info.plist"; path = "MainApp/AerialAssist-Info.plist"; sourceTree = "<group>"; };
@@ -542,12 +545,12 @@
 			isa = PBXGroup;
 			children = (
 				2F146EE91880E0B300B76B32 /* AerialAssist.xcdatamodeld */,
+				2F2F45F818FC5F26002F89B0 /* TeamData.h */,
+				2F2F45F918FC5F26002F89B0 /* TeamData.m */,
 				2FB3E8DC18F9BCE5000457DC /* TournamentData.h */,
 				2FB3E8DD18F9BCE5000457DC /* TournamentData.m */,
 				2F3359C118EEEC5000B090E5 /* TeamScore.h */,
 				2F3359C218EEEC5000B090E5 /* TeamScore.m */,
-				2F05F82418EDCCD80065D74A /* TeamData.h */,
-				2F05F82518EDCCD80065D74A /* TeamData.m */,
 				2F14894918CD7953008F0E87 /* Photo.h */,
 				2F14894A18CD7953008F0E87 /* Photo.m */,
 				2FDC819C18AC700F008E2E0B /* MatchData.h */,
@@ -771,6 +774,8 @@
 				2FD8EDC618B7D56D009071A3 /* NumberEnumDictionary.m */,
 				2F05F82118ED8E180065D74A /* TunnelDictionary.h */,
 				2F05F82218ED8E180065D74A /* TunnelDictionary.m */,
+				2F2F45FB18FC5FA2002F89B0 /* QuadStateDictionary.h */,
+				2F2F45FC18FC5FA2002F89B0 /* QuadStateDictionary.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -907,6 +912,7 @@
 				2F0CF6C5187E42900000D6F6 /* FieldDrawing.m in Sources */,
 				2FC18F1016A215EA00D42251 /* DownloadPageViewController.m in Sources */,
 				2F5AF6B918D3E3E8008FB71B /* MatchOverlayViewController.m in Sources */,
+				2F2F45FD18FC5FA2002F89B0 /* QuadStateDictionary.m in Sources */,
 				2FC18F1316A21AA900D42251 /* DataManager.m in Sources */,
 				2F14894B18CD7953008F0E87 /* Photo.m in Sources */,
 				2F8002D918551326008F031C /* SettingsAndPreferences.m in Sources */,
@@ -948,7 +954,6 @@
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
 				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
-				2F05F82618EDCCD80065D74A /* TeamData.m in Sources */,
 				2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */,
 				2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */,
 				2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
@@ -957,6 +962,7 @@
 				2F137CFA18537B6E00D87F30 /* CreateTeam.m in Sources */,
 				2FDC819818AC6651008E2E0B /* MatchDataInterfaces.m in Sources */,
 				2F621F2B170DF2FE00D2ABD1 /* ImportDeviceViewController.m in Sources */,
+				2F2F45FA18FC5F26002F89B0 /* TeamData.m in Sources */,
 				2F4D059A18A6CEC2005ED0AA /* FullSizeViewer.m in Sources */,
 				2F13339F170E20CD006669FF /* iPhoneMainViewController.m in Sources */,
 				2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */,

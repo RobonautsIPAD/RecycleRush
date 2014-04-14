@@ -55,15 +55,6 @@
 // Team Statistics Table
 @property (nonatomic, strong) NSMutableArray *teamData;
 @property (nonatomic, strong) NSMutableArray *teamList;
-@property (nonatomic, strong) NSMutableArray *teamMatches;
-@property (nonatomic, strong) NSMutableArray *teamAuton;
-@property (nonatomic, strong) NSMutableArray *teamTeleOp;
-@property (nonatomic, strong) NSMutableArray *teamHang;
-@property (nonatomic, strong) NSMutableArray *teamHangLevel;
-@property (nonatomic, strong) NSMutableArray *teamDriving;
-@property (nonatomic, strong) NSMutableArray *teamDefense;
-@property (nonatomic, strong) NSMutableArray *teamSpeed;
-@property (nonatomic, strong) NSMutableArray *teamHeight;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
 @property (nonatomic, strong) UIView *teamHeader;

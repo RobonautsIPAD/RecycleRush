@@ -17,6 +17,8 @@
 		<string>HighHot</string>
 		<key>order</key>
 		<integer>1</integer>
+		<key>percent</key>
+		<string>totalAutonShots</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -137,6 +139,8 @@
 		<string>High</string>
 		<key>order</key>
 		<integer>16</integer>
+		<key>percent</key>
+		<string>totalTeleOpShots</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -185,6 +189,8 @@
 		<string>IntakefromHuman</string>
 		<key>order</key>
 		<integer>22</integer>
+		<key>percent</key>
+		<string>humanPickUp, humanMiss</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -249,6 +255,8 @@
 		<string>HPTruss</string>
 		<key>order</key>
 		<integer>30</integer>
+		<key>percent</key>
+		<string>trussCatchHuman, trussCatchHuman</string>
 	</dict>
 	<dict>
 		<key>key</key>
