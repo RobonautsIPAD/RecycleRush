@@ -36,13 +36,20 @@
     tournamentName = [data objectAtIndex: 0];
     TournamentData *tournament = [self getTournament:tournamentName];
     if (tournament) {
+        tournament.code = [data objectAtIndex: 1];
+        NSLog(@"%@", tournament);
+        NSError *error;
+        if (![_dataManager.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            return DB_ERROR;
+        }
         //NSLog(@"createTournamentFromFile:Tournament %@ already exists", tournament);
         return DB_MATCHED;
-    }
-    else {
+    } else {
         TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
                                                                    inManagedObjectContext:_dataManager.managedObjectContext];
         tournament.name = tournamentName;
+        tournament.code = [data objectAtIndex: 1];
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -55,26 +62,31 @@
 }
 
 -(NSData *)packageTournamentsForXFer:(NSMutableArray *)tournamentList {
-    NSLog(@"tournaments = %@", tournamentList);
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:tournamentList];
+    NSArray *xferData = [[NSArray alloc] initWithArray:tournamentList];
+    NSLog(@"sending %@", xferData);
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:xferData];
     return myData;
 }
 
 -(NSArray *)unpackageTournamentsForXFer:(NSData *)xferData {
-    NSArray *tournamentArray = (NSArray*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
-    for (int i=0; i<[tournamentArray count]; i++) {
-        TournamentData *tournament = [self getTournament:[tournamentArray objectAtIndex:i]];
-        if (!tournament) {
+    if (!_dataManager) {
+        _dataManager = [DataManager new];
+    }
+    NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    for (NSArray *t in tournamentList) {
+        TournamentData *tournamentdata = [self getTournament:t[1]];
+        if (!tournamentdata) {
             TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
                                                                        inManagedObjectContext:_dataManager.managedObjectContext];
-            tournament.name = [tournamentArray objectAtIndex:i];
+            tournament.code = t[0];
+            tournament.name = t[1];
             NSError *error;
             if (![_dataManager.managedObjectContext save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
         }
     }
-    return tournamentArray;
+    return tournamentList;
 }
 
 -(TournamentData *)getTournament:(NSString *)name {
