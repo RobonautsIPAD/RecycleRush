@@ -18,6 +18,7 @@
 @interface ElimDataViewController (){
     NSString *tournamentName;
     NSUserDefaults *prefs;
+    NSArray *matchKeys;
 }
 // Quarter Final Alliance 1 Radio Button
 @property (nonatomic, weak) IBOutlet UIButton *sfAlliance1Button;
@@ -152,7 +153,8 @@
         self.title = @"Elim Data";
     }
 
-    
+    NSArray *matchKeys = [NSArray arrayWithObjects:@"number", @"tournamentName", @"matchType", @"teams", nil];
+   
     //Set SF & FI RadioButtons to Default to Off
     
     //SF Butttons
@@ -188,33 +190,87 @@
     pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:1]];
     NSArray *match = [matchList filteredArrayUsingPredicate:pred];
     if ([match count]) {
-        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance1Captain forSlot2:_alliance1Partner1 forSlot:_alliance1Partner2];
-        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance8Captain forSlot2:_alliance8Partner1 forSlot:_alliance8Partner2];
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance1Captain forSlot2:_alliance1Partner1 forSlot:_alliance1Partner2];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance8Captain forSlot2:_alliance8Partner1 forSlot:_alliance8Partner2];
     }
     // Q2
     pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:2]];
     match = [matchList filteredArrayUsingPredicate:pred];
     if ([match count]) {
-        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance4Captain forSlot2:_alliance4Partner1 forSlot:_alliance4Partner2];
-        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance5Captain forSlot2:_alliance5Partner1 forSlot:_alliance5Partner2];
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance4Captain forSlot2:_alliance4Partner1 forSlot:_alliance4Partner2];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance5Captain forSlot2:_alliance5Partner1 forSlot:_alliance5Partner2];
     }
     // Q3
     pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:3]];
     match = [matchList filteredArrayUsingPredicate:pred];
     if ([match count]) {
-        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance2Captain forSlot2:_alliance2Partner1 forSlot:_alliance2Partner2];
-        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance7Captain forSlot2:_alliance7Partner1 forSlot:_alliance7Partner2];
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance2Captain forSlot2:_alliance2Partner1 forSlot:_alliance2Partner2];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance7Captain forSlot2:_alliance7Partner1 forSlot:_alliance7Partner2];
     }
     // Q4
     pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:4]];
     match = [matchList filteredArrayUsingPredicate:pred];
     if ([match count]) {
-        [self showQuarterFinal:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance3Captain forSlot2:_alliance3Partner1 forSlot:_alliance3Partner2];
-        [self showQuarterFinal:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance6Captain forSlot2:_alliance6Partner1 forSlot:_alliance6Partner2];
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_alliance3Captain forSlot2:_alliance3Partner1 forSlot:_alliance3Partner2];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_alliance6Captain forSlot2:_alliance6Partner1 forSlot:_alliance6Partner2];
+    }
+
+    // Semi 1
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:13]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_semiFinal1Red1 forSlot2:_semiFinal1Red2 forSlot:_semiFinal1Red3];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_semiFinal1Blue1 forSlot2:_semiFinal1Blue2 forSlot:_semiFinal1Blue3];
+        [_finalist1Button setHidden:NO];
+        [_finalist2Button setHidden:NO];
+    }
+    else {
+        _semiFinal1Red1.text = @"";
+        _semiFinal1Red2.text = @"";
+        _semiFinal1Red3.text = @"";
+        _semiFinal1Blue1.text = @"";
+        _semiFinal1Blue2.text = @"";
+        _semiFinal1Blue3.text = @"";
+        [_finalist1Button setHidden:YES];
+        [_finalist2Button setHidden:YES];
+    }
+    // Semi 2
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:14]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_semiFinal2Red1 forSlot2:_semiFinal2Red2 forSlot:_semiFinal2Red3];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_semiFinal2Blue1 forSlot2:_semiFinal2Blue2 forSlot:_semiFinal2Blue3];
+        [_finalist3Button setHidden:NO];
+        [_finalist4Button setHidden:NO];
+    }
+    else {
+        _semiFinal2Red1.text = @"";
+        _semiFinal2Red2.text = @"";
+        _semiFinal2Red3.text = @"";
+        _semiFinal2Blue1.text = @"";
+        _semiFinal2Blue2.text = @"";
+        _semiFinal2Blue3.text = @"";
+        [_finalist3Button setHidden:YES];
+        [_finalist4Button setHidden:YES];
+    }
+    // Final
+    pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:19]];
+    match = [matchList filteredArrayUsingPredicate:pred];
+    if ([match count]) {
+        [self showMatch:@"Red" forMatch:[match objectAtIndex:0] forSlot1:_finalRed1 forSlot2:_finalRed2 forSlot:_finalRed3];
+        [self showMatch:@"Blue" forMatch:[match objectAtIndex:0] forSlot1:_finalBlue1 forSlot2:_finalBlue2 forSlot:_finalBlue3];
+    }
+    else {
+        _finalRed1.text = @"";
+        _finalRed2.text = @"";
+        _finalRed3.text = @"";
+        _finalBlue1.text = @"";
+        _finalBlue2.text = @"";
+        _finalBlue3.text = @"";
     }
 }
 
--(void)showQuarterFinal:(NSString *)alliance forMatch:(MatchData *)match forSlot1:(UITextField *)team1 forSlot2:(UITextField *)team2 forSlot:(UITextField *)team3 {
+-(void)showMatch:(NSString *)alliance forMatch:(MatchData *)match forSlot1:(UITextField *)team1 forSlot2:(UITextField *)team2 forSlot:(UITextField *)team3 {
     NSArray *scores = [match.score allObjects];
     NSString *allianceStation = [alliance stringByAppendingString:@" 1"];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
@@ -320,6 +376,7 @@
         _semiFinal1Red1.text = _alliance1Captain.text;
         _semiFinal1Red2.text = _alliance1Partner1.text;
         _semiFinal1Red3.text = _alliance1Partner2.text;
+        [_finalist1Button setHidden:NO];
     }
     else if ([_sfAlliance8Button isSelected]) {
         // move the #8 alliance over
@@ -327,6 +384,7 @@
         _semiFinal1Red1.text = _alliance8Captain.text;
         _semiFinal1Red2.text = _alliance8Partner1.text;
         _semiFinal1Red3.text = _alliance8Partner2.text;
+        [_finalist1Button setHidden:NO];
     }
     else {
         // clear the semi
@@ -334,6 +392,8 @@
         _semiFinal1Red1.text = @"";
         _semiFinal1Red2.text = @"";
         _semiFinal1Red3.text = @"";
+        [_finalist1Button setSelected:NO];
+        [_finalist1Button setHidden:YES];
     }
 }
 
@@ -344,6 +404,7 @@
         _semiFinal1Blue1.text = _alliance4Captain.text;
         _semiFinal1Blue2.text = _alliance4Partner1.text;
         _semiFinal1Blue3.text = _alliance4Partner2.text;
+        [_finalist2Button setHidden:NO];
     }
     else if ([_sfAlliance5Button isSelected]) {
         // move the #5 alliance over
@@ -351,6 +412,7 @@
         _semiFinal1Blue1.text = _alliance5Captain.text;
         _semiFinal1Blue2.text = _alliance5Partner1.text;
         _semiFinal1Blue3.text = _alliance5Partner2.text;
+        [_finalist2Button setHidden:NO];
     }
     else {
         // clear the semi
@@ -358,6 +420,8 @@
         _semiFinal1Blue1.text = @"";
         _semiFinal1Blue2.text = @"";
         _semiFinal1Blue3.text = @"";
+        [_finalist2Button setSelected:NO];
+        [_finalist2Button setHidden:YES];
     }
 }
 
@@ -368,6 +432,7 @@
         _semiFinal2Red1.text = _alliance2Captain.text;
         _semiFinal2Red2.text = _alliance2Partner1.text;
         _semiFinal2Red3.text = _alliance2Partner2.text;
+        [_finalist3Button setHidden:NO];
     }
     else if ([_sfAlliance7Button isSelected]) {
         // move the #7 alliance over
@@ -375,6 +440,7 @@
         _semiFinal2Red1.text = _alliance7Captain.text;
         _semiFinal2Red2.text = _alliance7Partner1.text;
         _semiFinal2Red3.text = _alliance7Partner2.text;
+        [_finalist3Button setHidden:NO];
     }
     else {
         // clear the semi
@@ -382,6 +448,8 @@
         _semiFinal2Red1.text = @"";
         _semiFinal2Red2.text = @"";
         _semiFinal2Red3.text = @"";
+        [_finalist3Button setSelected:NO];
+        [_finalist3Button setHidden:YES];
     }
 }
 
@@ -392,6 +460,7 @@
         _semiFinal2Blue1.text = _alliance3Captain.text;
         _semiFinal2Blue2.text = _alliance3Partner1.text;
         _semiFinal2Blue3.text = _alliance3Partner2.text;
+        [_finalist4Button setHidden:NO];
     }
     else if ([_sfAlliance6Button isSelected]) {
         // move the #6 alliance over
@@ -399,6 +468,7 @@
         _semiFinal2Blue1.text = _alliance6Captain.text;
         _semiFinal2Blue2.text = _alliance6Partner1.text;
         _semiFinal2Blue3.text = _alliance6Partner2.text;
+        [_finalist4Button setHidden:NO];
     }
     else {
         // clear the semi
@@ -406,6 +476,8 @@
         _semiFinal2Blue1.text = @"";
         _semiFinal2Blue2.text = @"";
         _semiFinal2Blue3.text = @"";
+        [_finalist4Button setSelected:NO];
+        [_finalist4Button setHidden:YES];
     }
 }
 
@@ -434,6 +506,8 @@
 }
 
 -(IBAction)generateMatch:(id)sender {
+    // Semi Final 1
+    [self makeMatches13_15_17];
     // Test with semi 1
     NSArray *allianceList = [NSArray arrayWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
     NSArray *teamList = [NSArray arrayWithObjects:[NSNumber numberWithInt:[_semiFinal1Red1.text intValue]],
@@ -443,18 +517,29 @@
                                 [NSNumber numberWithInt:[_semiFinal1Blue2.text intValue]],
                                 [NSNumber numberWithInt:[_semiFinal1Blue3.text intValue]],
                                 nil];
-;
+
     NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamList forKeys:allianceList];
     NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:13],
                      tournamentName,
                      @"Elimination",
                      teams,
                      nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"number", @"tournamentName", @"matchType", @"teams", nil];
     
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:matchKeys];
     MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
     MatchData *match = [matchDataPackage updateMatch:dictionary];
+}
+
+-(void)makeMatches13_15_17 {
+    NSString *red1, *red2, *red3;
+    NSDictionary *teams = [[NSDictionary alloc] init];
+    if ([_sfAlliance1Button isSelected]) {
+        red1 = _semiFinal1Red1.text;
+        red2 = _semiFinal1Red2.text;
+        red3 = _semiFinal1Red3.text;
+    }
+    //        [row setObject:validChoice forKey:key];
+
 }
 
 - (void)didReceiveMemoryWarning
