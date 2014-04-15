@@ -61,10 +61,9 @@
     return results;
 }
 
--(NSData *)packageTournamentsForXFer:(NSMutableArray *)tournamentList {
-    NSArray *xferData = [[NSArray alloc] initWithArray:tournamentList];
-    NSLog(@"sending %@", xferData);
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:xferData];
+-(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList {
+    NSLog(@"sending %@", tournamentList);
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:tournamentList];
     return myData;
 }
 
@@ -72,18 +71,23 @@
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }
+    NSLog(@"xferData = %@", xferData);
     NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    NSLog(@"tournamentList = %@", tournamentList);
     for (NSArray *t in tournamentList) {
+        NSLog(@"for %@", t[1]);
         TournamentData *tournamentdata = [self getTournament:t[1]];
         if (!tournamentdata) {
             TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
                                                                        inManagedObjectContext:_dataManager.managedObjectContext];
             tournament.code = t[0];
             tournament.name = t[1];
-            NSError *error;
-            if (![_dataManager.managedObjectContext save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            }
+        } else {
+            tournamentdata.code = t[0];
+        }
+        NSError *error;
+        if (![_dataManager.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
     }
     return tournamentList;

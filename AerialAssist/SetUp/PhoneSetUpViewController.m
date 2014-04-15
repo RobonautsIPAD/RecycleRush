@@ -70,14 +70,6 @@
         }
     }
     NSLog(@"Tournament List = %@", tournamentList);
-
-    // Set Bluetooth segment
-    if ([[prefs objectForKey:@"bluetooth"] intValue] == Scouter) {
-        _bluetoothSegment.selectedSegmentIndex = Scouter;
-    }
-    else {
-        _bluetoothSegment.selectedSegmentIndex = Master;
-    }
 }
 
 - (IBAction)tournamentSelection:(id)sender {
@@ -101,13 +93,6 @@
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
     int current;
     current = segmentedControl.selectedSegmentIndex;
-    
-    if (current == 0) {
-        [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
-    }
-    else {
-        [prefs setObject:[NSNumber numberWithInt:Master] forKey:@"bluetooth"];
-    }
 }
 
 - (void)didReceiveMemoryWarning

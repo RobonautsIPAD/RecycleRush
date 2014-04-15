@@ -1679,6 +1679,7 @@
         [segue.destinationViewController setDataManager:_dataManager];
         detailViewController.team = currentTeam.team;
     }
+    /*
     else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
@@ -1687,6 +1688,7 @@
     else {
         [segue.destinationViewController setDataManager:_dataManager];    
     }
+    */
 }
 
 -(void)setTeamList {

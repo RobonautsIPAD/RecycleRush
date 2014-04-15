@@ -42,9 +42,6 @@
 // Mode Selection
 @synthesize modeSegment = _modeSegment;
 
-// Bluetooth Selection
-@synthesize bluetoothSegment = _bluetoothSegment;
-
 // User access control
 @synthesize adminText = _adminText;
 @synthesize overrideText = _overrideText;
@@ -56,7 +53,6 @@
 @synthesize adminLabel = _adminLabel;
 @synthesize overideLabel = _overideLabel;
 @synthesize modeLabel = _modeLabel;
-@synthesize bluetoothLabel = _bluetoothLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -128,14 +124,6 @@
     }
     else {
         _modeSegment.selectedSegmentIndex = 1;
-    }
-
-    // Set Bluetooth segment
-    if ([[prefs objectForKey:@"bluetooth"] intValue] == Scouter) {
-        _bluetoothSegment.selectedSegmentIndex = Scouter;
-    }
-    else {
-        _bluetoothSegment.selectedSegmentIndex = Master;
     }
 }
 
@@ -260,20 +248,6 @@
     }
     else {
         [prefs setObject:@"Tournament" forKey:@"mode"];
-    }
-}
-
-- (IBAction)bluetoothSelectionChanged:(id)sender {
-    NSLog(@"Bluetooth selection change");
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    int current;
-    current = segmentedControl.selectedSegmentIndex;
-
-    if (current == 0) {
-        [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
-    }
-    else {
-        [prefs setObject:[NSNumber numberWithInt:Master] forKey:@"bluetooth"];
     }
 }
 

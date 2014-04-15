@@ -93,6 +93,7 @@
 		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
 		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */; };
+		2F9BBEDD18FCADB70097F97F /* SharedSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9BBEDC18FCADB70097F97F /* SharedSyncController.m */; };
 		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FA28B5E1879B1C40039C28D /* InfoPlist.strings */; };
 		2FAFB48418637970003A2661 /* SyncOptionDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAFB48318637970003A2661 /* SyncOptionDictionary.m */; };
@@ -295,6 +296,8 @@
 		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F9A1B3518B6577C004E987D /* PhoneSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSyncViewController.h; path = DataTransfer/PhoneSyncViewController.h; sourceTree = "<group>"; };
 		2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSyncViewController.m; path = DataTransfer/PhoneSyncViewController.m; sourceTree = "<group>"; };
+		2F9BBEDB18FCADB70097F97F /* SharedSyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedSyncController.h; path = DataTransfer/SharedSyncController.h; sourceTree = "<group>"; };
+		2F9BBEDC18FCADB70097F97F /* SharedSyncController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedSyncController.m; path = DataTransfer/SharedSyncController.m; sourceTree = "<group>"; };
 		2F9E5377186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALAssetsLibrary+CustomPhotoAlbum.h"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALAssetsLibrary+CustomPhotoAlbum.m"; path = "Utilities/ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		2FA28B5F1879B1C40039C28D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -672,6 +675,8 @@
 				2F004E2018AEF8F6004DE471 /* ExportTeamData.m */,
 				2FD455F218B0162C0014C1BE /* ExportScoreData.h */,
 				2FD455F318B0162C0014C1BE /* ExportScoreData.m */,
+				2F9BBEDB18FCADB70097F97F /* SharedSyncController.h */,
+				2F9BBEDC18FCADB70097F97F /* SharedSyncController.m */,
 			);
 			name = "Data Transfer";
 			sourceTree = "<group>";
@@ -978,6 +983,7 @@
 				2FD8EDC118B7BB91009071A3 /* ShooterTypeDictionary.m in Sources */,
 				2F004E1E18AEF8CD004DE471 /* PhoneExportViewController.m in Sources */,
 				2FB3E8DE18F9BCE5000457DC /* TournamentData.m in Sources */,
+				2F9BBEDD18FCADB70097F97F /* SharedSyncController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

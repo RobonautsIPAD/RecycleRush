@@ -18,6 +18,7 @@
 #import "MatchDataInterfaces.h"
 #import "TeamScore.h"
 #import "TeamScoreInterfaces.h"
+#import "SharedSyncController.h"
 
 @interface PhoneSyncViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *syncTypeButton;
@@ -41,6 +42,7 @@ typedef enum {
     NSString *tournamentName;
     NSString *deviceName;
     GKSession *currentSession;
+    SharedSyncController *syncController;
     
     XFerOption xFerOption;
     SyncType syncType;
@@ -60,7 +62,7 @@ typedef enum {
     UILabel *headerLabel3;
 
     NSArray *tournamentList;
-    NSMutableArray *filteredTournamentList;
+    NSArray *filteredTournamentList;
     NSArray *receivedTournamentList;
     TournamentDataInterfaces *tournamentDataPackage;
     
@@ -85,8 +87,7 @@ typedef enum {
 
 GKPeerPickerController *picker;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -95,13 +96,14 @@ GKPeerPickerController *picker;
 }
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
 
+    syncController = [[SharedSyncController alloc] initWithDataManager:_dataManager];
+    
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
@@ -155,8 +157,7 @@ GKPeerPickerController *picker;
 
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
+- (void) viewWillDisappear:(BOOL)animated {
     //    NSLog(@"viewWillDisappear");
     NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
@@ -284,159 +285,21 @@ GKPeerPickerController *picker;
 -(void)updateTableData {
     switch (syncType) {
         case SyncTournaments:
-            [self createTournamentList];
+            filteredTournamentList = [syncController fetchTournamentList:syncType];
             break;
         case SyncTeams:
-            [self createTeamList];
+            filteredTeamList = [syncController fetchTeamList:syncType];
             break;
         case SyncMatchList:
-            [self createMatchList];
+            filteredMatchList = [syncController fetchMatchList:syncType];
             break;
         case SyncMatchResults:
-            [self createResultsList];
+            filteredResultsList = [syncController fetchResultsList:syncType];
             break;
         default:
             break;
     }
     [_syncDataTable reloadData];
-}
-
--(void)createTournamentList {
-    if (!tournamentList) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        tournamentList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    }
-    if (filteredTournamentList) {
-        [filteredTournamentList removeAllObjects];
-    }
-    else {
-        filteredTournamentList = [[NSMutableArray alloc] init];
-    }
-    for (int i=0; i<[tournamentList count]; i++) {
-        [filteredTournamentList addObject:[NSArray arrayWithObjects:[[tournamentList objectAtIndex:i] valueForKey:@"code"], [[tournamentList objectAtIndex:i] valueForKey:@"name"], nil]];
-    }
-    NSLog(@"T List = %@", filteredTournamentList);
-}
-
--(void)createTeamList {
-    if (!teamList) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
-        [fetchRequest setPredicate:pred];
-        teamList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    }
-    
-    NSPredicate *pred;
-    filteredTeamList = [NSArray arrayWithArray:teamList];
-    switch (syncOption) {
-        case SyncAll:
-            filteredTeamList = [NSArray arrayWithArray:teamList];
-            break;
-        case SyncAllSavedHere:
-            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
-            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
-            break;
-        case SyncAllSavedSince:
-            // For the phone, we are interested in passing along anything
-            //  saved or received
-            pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", teamDataSync, teamDataSync];
-            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
-            break;
-        default:
-            filteredTeamList = [NSArray arrayWithArray:teamList];
-            break;
-    }
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
-    filteredTeamList = [filteredTeamList sortedArrayUsingDescriptors:sortDescriptors];
-}
-
--(void)createMatchList {
-    if (!matchScheduleList) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"MatchData" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
-        [fetchRequest setPredicate:pred];
-        matchScheduleList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    }
-    
-    NSPredicate *pred;
-    filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
-    switch (syncOption) {
-        case SyncAll:
-            filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
-            break;
-        case SyncAllSavedHere:
-            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
-            filteredMatchList = [matchScheduleList filteredArrayUsingPredicate:pred];
-            break;
-        case SyncAllSavedSince:
-            // For the phone, we are interested in passing along anything
-            //  saved or received
-            pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", matchScheduleSync, matchScheduleSync];
-            filteredMatchList = [matchScheduleList filteredArrayUsingPredicate:pred];
-            break;
-        default:
-            filteredMatchList = [NSArray arrayWithArray:matchScheduleList];
-            break;
-    }
-    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchTypeSection" ascending:YES];
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-    filteredMatchList = [filteredMatchList sortedArrayUsingDescriptors:sortDescriptors];
-}
-
--(void)createResultsList {
-    if (!matchResultsList) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
-        [fetchRequest setPredicate:pred];
-        matchResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    }
-    
-    NSPredicate *pred;
-    filteredResultsList = [NSArray arrayWithArray:matchResultsList];
-    switch (syncOption) {
-        case SyncAll:
-            filteredResultsList = [NSArray arrayWithArray:matchResultsList];
-            break;
-        case SyncAllSavedHere:
-            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
-            filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
-            break;
-        case SyncAllSavedSince:
-            // For the phone, we are interested in passing along anything
-            //  saved or received
-            pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", matchResultsSync, matchResultsSync];
-            filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
-            break;
-        default:
-            filteredResultsList = [NSArray arrayWithArray:matchResultsList];
-            break;
-    }
-    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-    filteredResultsList = [filteredResultsList sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 -(IBAction) createDataPackage:(id) sender {
@@ -629,6 +492,7 @@ GKPeerPickerController *picker;
     }
     switch (syncType) {
         case SyncTournaments:
+            NSLog(@"Tournament Data Detected");
             receivedTournamentList = [tournamentDataPackage unpackageTournamentsForXFer:data];
             break;
         case SyncTeams: {

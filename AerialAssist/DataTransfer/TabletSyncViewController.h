@@ -16,11 +16,9 @@
 @class TeamScore;
 
 @interface TabletSyncViewController : UIViewController <GKPeerPickerControllerDelegate, GKSessionDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, PopUpPickerDelegate>
+
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, assign) SyncType syncType;
-@property (nonatomic, assign) SyncOptions syncOption;
-@property (nonatomic, assign) BlueToothType blueToothType;
-@property (nonatomic, retain) GKSession *currentSession;
+
 @property (nonatomic, weak) IBOutlet UITableView *sendDataTable;
 @property (nonatomic, weak) IBOutlet UITableView *receiveDataTable;
 @property (nonatomic, weak) IBOutlet UIButton *connectButton;
@@ -43,8 +41,6 @@
 
 -(void)setHeaders;
 -(void)createHeaders;
--(void)createTeamList;
--(void)createTournamentList;
 
 -(IBAction) btnConnect:(id) sender;
 -(IBAction) btnDisconnect:(id) sender;

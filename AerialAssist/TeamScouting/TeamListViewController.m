@@ -288,6 +288,7 @@
 {
     UIColor *lightBlueColor = [UIColor colorWithRed:(154/255.0) green:(212/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = lightBlueColor;
+    // Xcode 4.6.3 compatibility issue
     //cell.accessoryView.tintColor = [UIColor blackColor];
     
 }
