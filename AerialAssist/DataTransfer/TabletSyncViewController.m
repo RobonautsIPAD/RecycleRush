@@ -262,16 +262,16 @@ GKPeerPickerController *picker;
 -(void)updateTableData {
     switch (syncType) {
         case SyncTournaments:
-            filteredTournamentList = [syncController fetchTournamentList:syncType];
+            filteredTournamentList = [syncController fetchTournamentList];
             break;
         case SyncTeams:
-            filteredTeamList = [syncController fetchTeamList:syncType];
+            filteredTeamList = [syncController fetchTeamList];
             break;
         case SyncMatchList:
-            filteredMatchList = [syncController fetchMatchList:syncType];
+            filteredMatchList = [syncController fetchMatchList];
             break;
         case SyncMatchResults:
-            filteredResultsList = [syncController fetchResultsList:syncType];
+            filteredResultsList = [syncController fetchResultsList];
             break;
         default:
             break;

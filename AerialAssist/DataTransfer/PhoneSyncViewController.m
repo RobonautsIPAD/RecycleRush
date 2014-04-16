@@ -30,11 +30,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *peerName;
 @property (nonatomic, weak) IBOutlet UITableView *syncDataTable;
 
-typedef enum {
-    Sending,
-	Receiving,
-} XFerOption;
-
 @end
 
 @implementation PhoneSyncViewController {
@@ -60,29 +55,6 @@ typedef enum {
     UILabel *headerLabel1;
     UILabel *headerLabel2;
     UILabel *headerLabel3;
-
-    NSArray *tournamentList;
-    NSArray *filteredTournamentList;
-    NSArray *receivedTournamentList;
-    TournamentDataInterfaces *tournamentDataPackage;
-    
-    NSNumber *teamDataSync;
-    NSArray *teamList;
-    NSArray *filteredTeamList;
-    NSMutableArray *receivedTeamList;
-    TeamDataInterfaces *teamDataPackage;
-    
-    NSNumber *matchScheduleSync;
-    NSArray *matchScheduleList;
-    NSArray *filteredMatchList;
-    NSMutableArray *receivedMatchList;
-    MatchDataInterfaces *matchDataPackage;
-    
-    NSNumber *matchResultsSync;
-    NSArray *matchResultsList;
-    NSArray *filteredResultsList;
-    NSMutableArray *receivedResultsList;
-    TeamScoreInterfaces *matchResultsPackage;
 }
 
 GKPeerPickerController *picker;
@@ -102,22 +74,25 @@ GKPeerPickerController *picker;
         _dataManager = [[DataManager alloc] init];
     }
 
-    syncController = [[SharedSyncController alloc] initWithDataManager:_dataManager];
+    syncController = [[SharedSyncController alloc] initWithDataManager:_dataManager andTableView:_syncDataTable];
+    self.syncDataTable.delegate = syncController;
+    self.syncDataTable.dataSource = syncController;
     
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
+    /*
     teamDataSync = [prefs objectForKey:@"teamDataSync"];
     matchScheduleSync = [prefs objectForKey:@"matchScheduleSync"];
     matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
-    
+    */
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Sync", tournamentName];
     }
     else {
         self.title = @"Sync";
     }
-    
+    /*
     if (!tournamentDataPackage) {
         tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
     }
@@ -130,8 +105,9 @@ GKPeerPickerController *picker;
     if (!matchResultsPackage) {
         matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
-    
+     
     firstReceipt = TRUE;
+    */
     [_xFerOptionButton setHidden:NO];
     [_syncTypeButton setHidden:YES];
     [_syncOptionButton setHidden:YES];
@@ -219,7 +195,6 @@ GKPeerPickerController *picker;
             [_syncTypeButton setHidden:NO];
             [_syncOptionButton setHidden:NO];
             [_connectButton setHidden:NO];
-            [self updateTableData];
             break;
         case 1:     // Receive button
             xFerOption = Receiving;
@@ -234,10 +209,12 @@ GKPeerPickerController *picker;
         default:
             break;
     }
+    [syncController setXFerOption:xFerOption];
 }
 
 -(void)selectSyncType:(SyncType)typeChoice {
     syncType = typeChoice;
+    [syncController setSyncType:syncType];
     if (syncType == SyncMatchList) {
         [_syncDataTable setRowHeight:52];
     } else {
@@ -260,11 +237,11 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [self updateTableData];
 }
 
 -(void)selectSyncOption:(SyncOptions)optionChoice {
     syncOption = optionChoice;
+    [syncController setSyncOption:syncOption];
     switch (optionChoice) {
         case SyncAll:
             [_syncOptionButton setTitle:@"All" forState:UIControlStateNormal];
@@ -279,29 +256,28 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [self updateTableData];
 }
-
+/*
 -(void)updateTableData {
     switch (syncType) {
         case SyncTournaments:
-            filteredTournamentList = [syncController fetchTournamentList:syncType];
+            filteredTournamentList = [syncController fetchTournamentList];
             break;
         case SyncTeams:
-            filteredTeamList = [syncController fetchTeamList:syncType];
+            filteredTeamList = [syncController fetchTeamList];
             break;
         case SyncMatchList:
-            filteredMatchList = [syncController fetchMatchList:syncType];
+            filteredMatchList = [syncController fetchMatchList];
             break;
         case SyncMatchResults:
-            filteredResultsList = [syncController fetchResultsList:syncType];
+            filteredResultsList = [syncController fetchResultsList];
             break;
         default:
             break;
     }
     [_syncDataTable reloadData];
 }
-
+ 
 -(IBAction) createDataPackage:(id) sender {
     NSDictionary *syncDict = [NSDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:syncType]] forKeys:@[@"syncType"]];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:syncDict];
@@ -343,8 +319,7 @@ GKPeerPickerController *picker;
             break;
     }
 }
-
-
+*/
 #pragma mark - Game Kit
 
 - (IBAction)btnConnect:(id)sender {
@@ -358,12 +333,12 @@ GKPeerPickerController *picker;
 }
 
 - (IBAction)btnDisconnect:(id)sender {
-    [self shutdownBluetooth];
+    [syncController shutdownBluetooth];
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
     [_sendButton setHidden:YES];
 }
-
+/*
 -(void)connectionFailed:(NSNotification *)notification {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"BOOM!"
                                                     message:@"Connection Failed."
@@ -524,200 +499,7 @@ GKPeerPickerController *picker;
     }
     [_syncDataTable reloadData];
 }
-
-#pragma mark - Table view
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    if (xFerOption == Sending) {
-        if (syncType == SyncTeams) return [filteredTeamList count];
-        if (syncType == SyncTournaments) return [filteredTournamentList count];
-        if (syncType == SyncMatchList) return [filteredMatchList count];
-        if (syncType == SyncMatchResults) return [filteredResultsList count];
-    } else {
-        NSLog(@"number of rows");
-        if (syncType == SyncTournaments) return [receivedTournamentList count];
-        if (syncType == SyncTeams) return [receivedTeamList count];
-        if (syncType == SyncMatchList) return [receivedMatchList count];
-        if (syncType == SyncMatchResults) return [receivedResultsList count];
-        NSLog(@"number of rows end");
-    }
-    return 0;
-}
-
-- (void)configureTournamentCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSArray *tournament;
-    if (xFerOption == Sending) {
-        tournament = [filteredTournamentList objectAtIndex:indexPath.row];
-    } else {
-        tournament = [receivedTournamentList objectAtIndex:indexPath.row];
-    }
-    
-	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = tournament[0];
-    
-	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = tournament[1];
-}
-
-- (void)configureTeamCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (xFerOption == Sending) {
-        TeamData *team = [filteredTeamList objectAtIndex:indexPath.row];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%@", team.number];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = team.name;
-    } else {
-        NSDictionary *team = [receivedTeamList objectAtIndex:indexPath.row];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%@", [team objectForKey:@"team"]];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [team objectForKey:@"name"];
-    }
-}
-
-- (void)configureMatchListCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (xFerOption == Sending) {
-        MatchData *match = [filteredMatchList objectAtIndex:indexPath.row];
-        
-        NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
-        NSArray *data = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%@", match.number];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [match.matchType substringToIndex:4];
-        
-        TeamScore *score;
-        for (int i = 0; i < 6; i++) {
-            score = [data objectAtIndex:i];
-            UILabel *label = (UILabel *)[cell viewWithTag:(i + 3) * 10];
-            label.text = [NSString stringWithFormat:@"%@", score.team.number];
-        }
-    } else {
-        NSDictionary *match = [receivedMatchList objectAtIndex:indexPath.row];
-        NSDictionary *teams = [match objectForKey:@"teams"];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%d", [[match objectForKey:@"match"] intValue]];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [[match objectForKey:@"type"] substringToIndex:4];
-        
-        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-        label3.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Red 1"]];
-        
-        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-        label4.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Red 2"]];
-        
-        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
-        label5.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Red 3"]];
-        
-        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
-        label6.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Blue 1"]];
-        
-        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
-        label7.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Blue 2"]];
-        
-        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
-        label8.text = [NSString stringWithFormat:@"%@", [teams objectForKey:@"Blue 3"]];
-    }
-}
-
-- (void)configureResultsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (xFerOption == Sending) {
-        TeamScore *score = [filteredResultsList objectAtIndex:indexPath.row];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%@", score.match.number];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [score.match.matchType substringToIndex:4];
-        
-        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-        label3.text = score.alliance;
-        
-        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-        label4.text = [NSString stringWithFormat:@"%@", score.team.number];
-        
-        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
-        label5.text = [NSString stringWithFormat:@"%@", score.results];
-        
-        UIColor *color;
-        if ([[score.alliance substringToIndex:1] isEqualToString:@"R"]) {
-            color = [UIColor colorWithRed:1 green: 0 blue: 0 alpha:1];
-        } else {
-            color = [UIColor colorWithRed:0 green: 0 blue: 1 alpha:1];
-        }
-        label3.textColor = color;
-        label4.textColor = color;
-        label5.textColor = color;
-    } else {
-        NSDictionary *score = [receivedResultsList objectAtIndex:indexPath.row];
-        
-        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-        label1.text = [NSString stringWithFormat:@"%@", [score objectForKey:@"match"]];
-        
-        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [[score objectForKey:@"type"] substringToIndex:4];
-        
-        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-        label3.text = [score objectForKey:@"alliance"];
-        
-        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-        label4.text = [NSString stringWithFormat:@"%@", [score objectForKey:@"team"]];
-        
-        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
-        label5.text = [NSString stringWithFormat:@"%@", [score objectForKey:@"results"]];
-        
-        UIColor *color;
-        if ([[[score objectForKey:@"alliance"] substringToIndex:1] isEqualToString:@"R"]) {
-            color = [UIColor colorWithRed:1 green: 0 blue: 0 alpha:1];
-        } else {
-            color = [UIColor colorWithRed:0 green: 0 blue: 1 alpha:1];
-        }
-        label3.textColor = color;
-        label4.textColor = color;
-        label5.textColor = color;
-    }
- }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier1 = @"Tournament";
-    static NSString *identifier2 = @"Team";
-    static NSString *identifier3 = @"MatchList";
-    static NSString *identifier4 = @"MatchResult";
-    UITableViewCell *cell;
-    // Set up the cell...
-    switch (syncType) {
-        case SyncTournaments:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
-            [self configureTournamentCell:cell atIndexPath:indexPath];
-            break;
-        case SyncTeams:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier2 forIndexPath:indexPath];
-            [self configureTeamCell:cell atIndexPath:indexPath];
-            break;
-        case SyncMatchList:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier3 forIndexPath:indexPath];
-            [self configureMatchListCell:cell atIndexPath:indexPath];
-            break;
-        case SyncMatchResults:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier4 forIndexPath:indexPath];
-            [self configureResultsCell:cell atIndexPath:indexPath];
-            break;
-        default:
-            break;
-    }
-    return cell;
-}
-
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

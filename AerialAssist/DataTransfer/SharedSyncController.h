@@ -11,17 +11,27 @@
 
 @class DataManager;
 
-@interface SharedSyncController : NSObject <GKSessionDelegate, GKPeerPickerControllerDelegate>
+@interface SharedSyncController : NSObject <UITableViewDelegate, UITableViewDataSource, GKSessionDelegate, GKPeerPickerControllerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
--(NSArray *)fetchTournamentList:(SyncType)syncOption;
--(NSArray *)fetchTeamList:(SyncType)syncOption;
--(NSArray *)fetchMatchList:(SyncType)syncOption;
--(NSArray *)fetchResultsList:(SyncType)syncOption;
+-(id)initWithDataManager:(DataManager *)initManager andTableView:(UITableView *)tableView;
 
-- (void) mySendDataToPeers:(NSData *)data type:(SyncType)syncType withSession:(GKSession *)currentSession;
--(IBAction) createDataPackage:(SyncType)syncType withSession:(GKSession *)currentSession;
+-(void)connectionFailed:(NSNotification *)notification;
+-(void)bluetoothNotice:(NSNotification *)notification;
+-(void)shutdownBluetooth;
+
+-(void)setXFerOption:(XFerOption)optionChoice;
+-(void)setSyncType:(SyncType)typeChoice;
+-(void)setSyncOption:(SyncOptions)optionChoice;
+
+-(void)updateTableData;
+
+-(NSMutableArray *)fetchTournamentList;
+-(NSArray *)fetchTeamList;
+-(NSArray *)fetchMatchList;
+-(NSArray *)fetchResultsList;
+
+-(void)sendData;
 
 @end

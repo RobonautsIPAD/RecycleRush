@@ -87,6 +87,11 @@ typedef enum {
 } TunnelType;
 
 typedef enum {
+    Sending,
+	Receiving,
+} XFerOption;
+
+typedef enum {
     SyncTeams,
     SyncTournaments,
     SyncMatchResults,

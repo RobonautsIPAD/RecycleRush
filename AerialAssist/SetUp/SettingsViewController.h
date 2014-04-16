@@ -48,11 +48,6 @@
 @property (nonatomic, weak) IBOutlet UISegmentedControl *modeSegment;
 - (IBAction)modeSelectionChanged:(id)sender;
 
-// Bluetooth Selection
-@property (nonatomic, weak) IBOutlet UISegmentedControl *bluetoothSegment;
-- (IBAction)bluetoothSelectionChanged:(id)sender;
-
-
 // User Access Control
 typedef enum {
     NoOverride,

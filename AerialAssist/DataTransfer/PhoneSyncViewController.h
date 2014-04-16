@@ -11,7 +11,7 @@
 
 @class DataManager;
 
-@interface PhoneSyncViewController : UIViewController <GKPeerPickerControllerDelegate, GKSessionDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface PhoneSyncViewController : UIViewController <GKPeerPickerControllerDelegate, GKSessionDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 

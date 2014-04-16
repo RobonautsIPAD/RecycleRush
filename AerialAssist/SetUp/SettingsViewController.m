@@ -328,7 +328,6 @@
             _adminText.frame = CGRectMake(770, 380, 208, 30);
             _overrideText.frame = CGRectMake(770, 440, 208, 30);
             _modeSegment.frame = CGRectMake(770, 500, 208, 30);
-            _bluetoothSegment.frame = CGRectMake(770, 560, 208, 30);
             _tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
             _allianceLabel.frame = CGRectMake(580, 315, 144, 21);
             _adminLabel.frame = CGRectMake(580, 385, 144, 21);
@@ -347,7 +346,6 @@
             _adminText.frame = CGRectMake(530, 235, 208, 30);
             _overrideText.frame = CGRectMake(530, 305, 208, 30);
             _modeSegment.frame = CGRectMake(530, 376, 208, 30);
-            _bluetoothSegment.frame = CGRectMake(530, 437, 208, 30);
             _tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
             _allianceLabel.frame = CGRectMake(340, 158, 144, 21);
             _adminLabel.frame = CGRectMake(340, 235, 144, 21);
