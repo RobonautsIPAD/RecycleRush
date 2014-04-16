@@ -34,6 +34,8 @@
     NSString *deviceName;
     GKSession *currentSession;
     SharedSyncController *syncController;
+    
+    XFerOption xFerOption;
     SyncType syncType;
     SyncOptions syncOption;
     
@@ -91,7 +93,6 @@
 }
 
 @synthesize sendDataTable = _sendDataTable;
-@synthesize receiveDataTable = _receiveDataTable;
 @synthesize connectButton = _connectButton;
 @synthesize disconnectButton = _disconnectButton;
 @synthesize sendButton = _sendButton;
@@ -164,7 +165,6 @@ GKPeerPickerController *picker;
     [_sendButton setHidden:YES];
 
     [_sendDataTable setHidden:NO];
-    [_receiveDataTable setHidden:NO];
     
     if (!tournamentDataPackage) {
         tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
@@ -387,7 +387,7 @@ GKPeerPickerController *picker;
             receivedMatchList = [importPackage importData:importFile];
         }
     }
-    [_receiveDataTable reloadData];
+    [_sendDataTable reloadData];
 }
 
 - (IBAction)popUpChanged:(id)sender {
@@ -588,7 +588,6 @@ GKPeerPickerController *picker;
     [_peerName setHidden:NO];
     _peerName.text = [session displayNameForPeer:peerID];
     [_sendDataTable setHidden:NO];
-    [_receiveDataTable setHidden:NO];
     firstReceipt = TRUE;
     picker.delegate = nil;
     
@@ -713,16 +712,13 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [_receiveDataTable reloadData];
+    [_sendDataTable reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (tableView == _receiveDataTable) {
-        return receiveHeader;
-    }
-    else return sendHeader;
+    return sendHeader;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -737,20 +733,24 @@ GKPeerPickerController *picker;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    /*
     if (tableView == _sendDataTable) {
         if (_sendDataTable.hidden) return 0;
+    */
         if (syncType == SyncTeams) return [filteredTeamList count];
         if (syncType == SyncTournaments) return [filteredTournamentList count];
         if (syncType == SyncMatchList) return [filteredMatchList count];
         if (syncType == SyncMatchResults) return [filteredResultsList count];
+    /*
     }
     else {
-        if (_receiveDataTable.hidden) return 0;
+        if (_sendDataTable.hidden) return 0;
         if (syncType == SyncTournaments) return [receivedTournamentList count];
         if (syncType == SyncTeams) return [receivedTeamList count];
         if (syncType == SyncMatchList) return [receivedMatchList count];
         if (syncType == SyncMatchResults) return [receivedResultsList count];
     }
+    */
     return 0;
 }
 

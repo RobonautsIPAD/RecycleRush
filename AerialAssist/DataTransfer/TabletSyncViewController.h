@@ -20,7 +20,6 @@
 @property (nonatomic, strong) DataManager *dataManager;
 
 @property (nonatomic, weak) IBOutlet UITableView *sendDataTable;
-@property (nonatomic, weak) IBOutlet UITableView *receiveDataTable;
 @property (nonatomic, weak) IBOutlet UIButton *connectButton;
 @property (nonatomic, weak) IBOutlet UIButton *disconnectButton;
 @property (nonatomic, weak) IBOutlet UIButton *sendButton;
