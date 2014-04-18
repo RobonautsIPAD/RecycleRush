@@ -1,17 +1,18 @@
 //
-//  PhoneSyncViewController.h
+//  PadSyncViewController.h
 //  AerialAssist
 //
-//  Created by FRC on 2/20/14.
+//  Created by Kylor Wang on 4/17/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
+#import "PopUpPickerViewController.h"
 
 @class DataManager;
 
-@interface PhoneSyncViewController : UIViewController <UIActionSheetDelegate>
+@interface PadSyncViewController : UIViewController <UIActionSheetDelegate, PopUpPickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 

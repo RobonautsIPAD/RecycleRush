@@ -91,7 +91,6 @@
 		2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8864A116B76DAB00867385 /* LoadCSVData.m */; };
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F93379A1899DE5800FBDBE0 /* TournamentDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */; };
-		2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */; };
 		2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */; };
 		2F9BBEDD18FCADB70097F97F /* SharedSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9BBEDC18FCADB70097F97F /* SharedSyncController.m */; };
 		2F9E5379186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E5378186C8C9B001CC9AA /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
@@ -151,6 +150,7 @@
 		2FFC493918560F68009A391E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC493818560F68009A391E /* SettingsViewController.m */; };
 		2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */; };
 		2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */; };
+		A0A52AC11900E4F00083E1D2 /* PadSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A52AC01900E4F00083E1D2 /* PadSyncViewController.m */; };
 		A0EB100518ECD82E004CA547 /* parseUSFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100418ECD82E004CA547 /* parseUSFirst.m */; };
 		A0EB100818ECDC8F004CA547 /* USFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EB100718ECDC8F004CA547 /* USFirstViewController.m */; };
 /* End PBXBuildFile section */
@@ -292,8 +292,6 @@
 		2F8FC25F16E999E500992F85 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2F9337981899DE5800FBDBE0 /* TournamentDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TournamentDataInterfaces.h; path = DataModels/TournamentDataInterfaces.h; sourceTree = "<group>"; };
 		2F9337991899DE5800FBDBE0 /* TournamentDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TournamentDataInterfaces.m; path = DataModels/TournamentDataInterfaces.m; sourceTree = "<group>"; };
-		2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = DataTransfer/TabletSyncViewController.h; sourceTree = "<group>"; };
-		2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = DataTransfer/TabletSyncViewController.m; sourceTree = "<group>"; };
 		2F9A1B3518B6577C004E987D /* PhoneSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSyncViewController.h; path = DataTransfer/PhoneSyncViewController.h; sourceTree = "<group>"; };
 		2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSyncViewController.m; path = DataTransfer/PhoneSyncViewController.m; sourceTree = "<group>"; };
 		2F9BBEDB18FCADB70097F97F /* SharedSyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedSyncController.h; path = DataTransfer/SharedSyncController.h; sourceTree = "<group>"; };
@@ -388,6 +386,8 @@
 		2FFC493818560F68009A391E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = SetUp/SettingsViewController.m; sourceTree = "<group>"; };
 		2FFD94F916D1AC5F007052EA /* Small Grey Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Small Grey Button.jpg"; path = "Resources/Small Grey Button.jpg"; sourceTree = "<group>"; };
 		2FFD94FB16D1ACA1007052EA /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "Resources/robonauts app banner.jpg"; sourceTree = "<group>"; };
+		A0A52ABF1900E4F00083E1D2 /* PadSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PadSyncViewController.h; path = DataTransfer/PadSyncViewController.h; sourceTree = "<group>"; };
+		A0A52AC01900E4F00083E1D2 /* PadSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PadSyncViewController.m; path = DataTransfer/PadSyncViewController.m; sourceTree = "<group>"; };
 		A0EB100318ECD82E004CA547 /* parseUSFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseUSFirst.h; path = DataImport/parseUSFirst.h; sourceTree = "<group>"; };
 		A0EB100418ECD82E004CA547 /* parseUSFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseUSFirst.m; path = DataImport/parseUSFirst.m; sourceTree = "<group>"; };
 		A0EB100618ECDC8F004CA547 /* USFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USFirstViewController.h; path = DataImport/USFirstViewController.h; sourceTree = "<group>"; };
@@ -663,8 +663,6 @@
 		2F50BF9716F2D799004569F2 /* Data Transfer */ = {
 			isa = PBXGroup;
 			children = (
-				2F989BBD1853A72200E3AA6F /* TabletSyncViewController.h */,
-				2F989BBE1853A72200E3AA6F /* TabletSyncViewController.m */,
 				2F9A1B3518B6577C004E987D /* PhoneSyncViewController.h */,
 				2F9A1B3618B6577C004E987D /* PhoneSyncViewController.m */,
 				2F004E1C18AEF8CD004DE471 /* PhoneExportViewController.h */,
@@ -677,6 +675,8 @@
 				2FD455F318B0162C0014C1BE /* ExportScoreData.m */,
 				2F9BBEDB18FCADB70097F97F /* SharedSyncController.h */,
 				2F9BBEDC18FCADB70097F97F /* SharedSyncController.m */,
+				A0A52ABF1900E4F00083E1D2 /* PadSyncViewController.h */,
+				A0A52AC01900E4F00083E1D2 /* PadSyncViewController.m */,
 			);
 			name = "Data Transfer";
 			sourceTree = "<group>";
@@ -948,6 +948,7 @@
 				2F0B468818A5C031001FAF1D /* PhotoAttributes.m in Sources */,
 				2F05F82318ED8E180065D74A /* TunnelDictionary.m in Sources */,
 				2F5E6BFB18E3ABE000DD5046 /* MatchIntegrityViewController.m in Sources */,
+				A0A52AC11900E4F00083E1D2 /* PadSyncViewController.m in Sources */,
 				2F0E3A7516D7FB4D00A359D5 /* DefensePickerController.m in Sources */,
 				2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
@@ -957,7 +958,6 @@
 				2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */,
 				2F12350316FB71E200DBF4B0 /* MasonPageViewController.m in Sources */,
 				2FAFB48718637AB6003A2661 /* SyncTypeDictionary.m in Sources */,
-				2F989BBF1853A72200E3AA6F /* TabletSyncViewController.m in Sources */,
 				2F56B532170517F70093A976 /* CalculateTeamStats.m in Sources */,
 				2FDC819E18AC700F008E2E0B /* MatchData.m in Sources */,
 				2F21C5CF170BCC31008A3C24 /* ImportDataViewController.m in Sources */,

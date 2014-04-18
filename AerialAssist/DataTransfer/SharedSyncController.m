@@ -16,10 +16,9 @@
 #import "MatchDataInterfaces.h"
 #import "TeamScore.h"
 #import "TeamScoreInterfaces.h"
+#import "ImportDataFromiTunes.h"
 
 @implementation SharedSyncController {
-    UITableView *syncDataTable;
-    
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
@@ -52,17 +51,37 @@
     NSArray *filteredResultsList;
     NSMutableArray *receivedResultsList;
     TeamScoreInterfaces *matchResultsPackage;
+    
+    //NSFileManager *fileManager;
+    NSString *exportFilePath;
+    NSString *transferFilePath;
+    NSString *transferDataFile;
+    
+    NSArray *receivedPhotoList;
+    ImportDataFromiTunes *importPackage;
 }
+GKPeerPickerController *picker;
 
 /*
  * Initializes class
  */
--(id)initWithDataManager:(DataManager *)initManager andTableView:(UITableView *)tableView {
+- (id)initWithDataManager:(DataManager *)initManager {
     if (self = [super init]) {
         _dataManager = initManager;
 	}
     
-    syncDataTable = tableView;
+    [_connectButton addTarget:self action:@selector(btnConnect) forControlEvents:UIControlEventTouchUpInside];
+    [_disconnectButton addTarget:self action:@selector(btnDisconnect) forControlEvents:UIControlEventTouchUpInside];
+    [_sendButton addTarget:self action:@selector(btnSend) forControlEvents:UIControlEventTouchUpInside];
+    [_packageDataButton addTarget:self action:@selector(packageDataForiTunes) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_xFerOptionButton setHidden:NO];
+    [_syncTypeButton setHidden:YES];
+    [_syncOptionButton setHidden:YES];
+    [_connectButton setHidden:YES];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+    [_peerName setHidden:YES];
     
     // Retrieve all preferences
     prefs = [NSUserDefaults standardUserDefaults];
@@ -85,6 +104,7 @@
     if (!matchResultsPackage) {
         matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
+    importPackage = [[ImportDataFromiTunes alloc] init:_dataManager];
     
     // Set the notification to receive information after a bluetooth has been received
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:@"BluetoothDeviceConnectFailedNotification" object:nil];
@@ -99,13 +119,18 @@
 /*
  * Bluetooth notifications and stuff
  */
--(void)connectionFailed:(NSNotification *)notification {
+- (void)connectionFailed:(NSNotification *)notification {
     [self shutdownBluetooth];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"BOOM!" message:@"Connection Failed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+    picker.delegate = nil;
+    [picker dismiss];
 }
 
--(void)bluetoothNotice:(NSNotification *)notification {
+- (void)bluetoothNotice:(NSNotification *)notification {
     NSLog(@"%@ %@", notification.name, [notification userInfo]);
 }
 
@@ -114,25 +139,21 @@
     currentSession.available = NO;
     [currentSession setDataReceiveHandler:nil withContext:nil];
     currentSession = nil;
-    currentSession = nil;
 }
 
 /*
  * Set sync options
  */
--(void)setXFerOption:(XFerOption)optionChoice {
+- (void)setXFerOption:(XFerOption)optionChoice {
     xFerOption = optionChoice;
-    [self updateTableData];
 }
 
--(void)setSyncType:(SyncType)typeChoice {
+- (void)setSyncType:(SyncType)typeChoice {
     syncType = typeChoice;
-    [self updateTableData];
 }
 
--(void)setSyncOption:(SyncOptions)optionChoice {
+- (void)setSyncOption:(SyncOptions)optionChoice {
     syncOption = optionChoice;
-    [self updateTableData];
 }
 
 /*
@@ -144,7 +165,7 @@
         if (syncType == SyncTournaments) return [filteredTournamentList count];
         if (syncType == SyncMatchList) return [filteredMatchList count];
         if (syncType == SyncMatchResults) return [filteredResultsList count];
-    } else {
+    } else if (xFerOption == Receiving) {
         NSLog(@"number of rows");
         if (syncType == SyncTournaments) return [receivedTournamentList count];
         if (syncType == SyncTeams) return [receivedTeamList count];
@@ -327,7 +348,10 @@
     }
 }
 
--(void)updateTableData {
+/*
+ * Updates data in the table
+ */
+- (void)updateTableData {
     switch (syncType) {
         case SyncTournaments:
             filteredTournamentList = [self fetchTournamentList];
@@ -344,13 +368,13 @@
         default:
             break;
     }
-    [syncDataTable reloadData];
+    [_syncDataTable reloadData];
 }
 
 /*
  * Fetches filtered lists
  */
--(NSMutableArray *)fetchTournamentList {
+- (NSMutableArray *)fetchTournamentList {
     if (!tournamentList) {
         NSError *error;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -372,7 +396,7 @@
     return filteredTournamentList;
 }
 
--(NSArray *)fetchTeamList {
+- (NSArray *)fetchTeamList {
     if (!teamList) {
         NSError *error;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -411,7 +435,7 @@
     return filteredTeamList;
 }
 
--(NSArray *)fetchMatchList {
+- (NSArray *)fetchMatchList {
     if (!matchScheduleList) {
         NSError *error;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -451,7 +475,7 @@
     return filteredMatchList;
 }
 
--(NSArray *)fetchResultsList {
+- (NSArray *)fetchResultsList {
     if (!matchResultsList) {
         NSError *error;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -494,17 +518,19 @@
 /*
  * GKSessionDelegate methods
  */
--(void)session:(GKSession *)sessionpeer peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
+- (void)session:(GKSession *)sessionpeer peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
     switch (state)
     {
         case GKPeerStateConnected:
             NSLog(@"connected");
-            // [_sendDataTable setHidden:NO];
-            // [_receiveDataTable setHidden:NO];
             break;
         case GKPeerStateDisconnected:
             NSLog(@"disconnected");
             [self shutdownBluetooth];
+            [_connectButton setHidden:NO];
+            [_disconnectButton setHidden:YES];
+            [_sendButton setHidden:YES];
+            [_peerName setHidden:YES];
             break;
         case GKPeerStateAvailable:
             NSLog(@"GKPeerStateAvailable");
@@ -536,29 +562,51 @@
 /*
  * GKPeerPickerControllerDelegate methods
  */
-- (void)peerPickerController:(GKPeerPickerController *)picker
-              didConnectPeer:(NSString *)peerID
-                   toSession:(GKSession *) session {
+- (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *) session {
     NSLog(@"didConnectPeer");
     currentSession = session;
     session.delegate = self;
     [session setDataReceiveHandler:self withContext:nil];
+    [_peerName setHidden:NO];
+    _peerName.text = [session displayNameForPeer:peerID];
+    firstReceipt = TRUE;
     picker.delegate = nil;
     
     [picker dismiss];
 }
 
-- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
-{
+- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker {
     NSLog(@"peerPickerControllerDidCancel");
     picker.delegate = nil;
     [self shutdownBluetooth];
+    [_connectButton setHidden:NO];
+    [_sendButton setHidden:YES];
+    [_disconnectButton setHidden:YES];
+    [_peerName setHidden:YES];
 }
 
 /*
- * uncategorized
+ * Data handling methods
  */
-- (void)sendData {
+- (void)btnConnect {
+    [self shutdownBluetooth];
+    picker = [[GKPeerPickerController alloc] init];
+    picker.delegate = self;
+    picker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
+    [_connectButton setHidden:YES];
+    [_disconnectButton setHidden:NO];
+    [_sendButton setHidden:NO];
+    [picker show];
+}
+
+- (void)btnDisconnect {
+    [self shutdownBluetooth];
+    [_connectButton setHidden:NO];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+}
+
+- (void)btnSend {
     NSDictionary *syncDict = [NSDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:syncType]] forKeys:@[@"syncType"]];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:syncDict];
     NSLog(@"syncDict = %@", syncDict);
@@ -599,9 +647,7 @@
 
 - (void)sendData:(NSData *)data {
     if (currentSession)
-        [currentSession sendDataToAllPeers:data
-                              withDataMode:GKSendDataReliable
-                                     error:nil];
+        [currentSession sendDataToAllPeers:data withDataMode:GKSendDataReliable error:nil];
     switch (syncType) {
         case SyncTeams:
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
@@ -661,7 +707,129 @@
         default:
             break;
     }
-    [syncDataTable reloadData];
+    [self updateTableData];
+}
+
+/*
+ * iTune related methods
+ */
+- (void)packageDataForiTunes {
+    if (![self createExportPaths]) return;
+    switch (syncType) {
+        case SyncTournaments: {
+            NSData *myData = [tournamentDataPackage packageTournamentsForXFer:filteredTournamentList];
+        }
+            break;
+        case SyncTeams:
+            for (int i=0; i<[filteredTeamList count]; i++) {
+                TeamData *team = [filteredTeamList objectAtIndex:i];
+                [teamDataPackage exportTeamForXFer:team toFile:transferFilePath];
+                NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+            }
+            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Team Data %0.f.tmd", deviceName, tournamentName, [teamDataSync floatValue]]];
+            [self serializeDataForTransfer:transferDataFile];
+            break;
+        case SyncMatchList:
+            for (int i=0; i<[filteredMatchList count]; i++) {
+                MatchData *match = [filteredMatchList objectAtIndex:i];
+                [matchDataPackage exportMatchForXFer:match toFile:transferFilePath];
+                NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+                matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+                transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Schedule %0.f.msd", deviceName, tournamentName, [matchScheduleSync floatValue]]];
+                [self serializeDataForTransfer:transferDataFile];
+            }
+            break;
+        case SyncMatchResults:
+            for (int i=0; i<[filteredResultsList count]; i++) {
+                TeamScore *score = [filteredResultsList objectAtIndex:i];
+                [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
+                //  NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
+            }
+            matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:matchResultsSync forKey:@"matchResultsSync"];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Results %0.f.mrd", deviceName, tournamentName, [matchResultsSync floatValue]]];
+            [self serializeDataForTransfer:transferDataFile];
+            break;
+            
+        default:
+            break;
+    }
+    NSError *error = nil;
+    for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:transferFilePath error:&error]) {
+        NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
+        [[NSFileManager defaultManager] removeItemAtPath:name error:&error];
+    }
+}
+
+- (BOOL)createExportPaths {
+    BOOL success = TRUE;
+    if (!transferFilePath) {
+        transferFilePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
+        NSError *error;
+        success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    if (!exportFilePath) {
+        exportFilePath = [self applicationDocumentsDirectory];
+        /*
+         exportFilePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Transfer Data"];
+         NSError *error;
+         [fileManager removeItemAtPath:exportFilePath error:&error];
+         success &= [fileManager createDirectoryAtPath:exportFilePath withIntermediateDirectories:YES attributes:nil error:&error];
+         */
+    }
+    if (!success) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert" message:@"Unable to Save Transfer Data" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
+    return success;
+}
+
+- (void) serializeDataForTransfer:(NSString *)fileName {
+    NSError *error;
+    NSURL *url = [NSURL fileURLWithPath:transferFilePath];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:transferDataFile atomically:YES];
+}
+
+- (NSArray *)getImportFileList {
+    return [importPackage getImportFileList];
+}
+
+- (void)importiTunesSelected:(NSString *)importFile {
+    NSLog(@"file selected = %@", importFile);
+    if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        NSLog(@"Photo package");
+        receivedPhotoList = [importPackage importDataPhoto:importFile];
+        //receiveLabel1.text = @"Photo";
+        //receiveLabel2.text = @"";
+        //receiveLabel3.text = @"Thumbnail";
+    } else {
+        if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedResultsList = [importPackage importData:importFile];
+        } else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedTeamList = [importPackage importData:importFile];
+        } else if ([importFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedMatchList = [importPackage importData:importFile];
+        }
+    }
+    [self updateTableData];
+}
+
+- (NSString *)applicationLibraryDirectory {
+    // Returns the path to the application's Library directory.
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (NSString *)applicationDocumentsDirectory {
+    // Returns the path to the application's Documents directory.
+	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end

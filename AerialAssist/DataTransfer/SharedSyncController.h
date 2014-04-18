@@ -13,13 +13,22 @@
 
 @interface SharedSyncController : NSObject <UITableViewDelegate, UITableViewDataSource, GKSessionDelegate, GKPeerPickerControllerDelegate>
 
+@property (nonatomic, weak) UIButton *xFerOptionButton;
+@property (nonatomic, weak) UIButton *syncTypeButton;
+@property (nonatomic, weak) UIButton *syncOptionButton;
+@property (nonatomic, weak) UIButton *connectButton;
+@property (nonatomic, weak) UIButton *disconnectButton;
+@property (nonatomic, weak) UILabel *peerName;
+@property (nonatomic, weak) UIButton *sendButton;
+@property (nonatomic, weak) UITableView *syncDataTable;
+@property (nonatomic, weak) UIButton *packageDataButton;
+@property (nonatomic, weak) UIButton *importFromiTunesButton;
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager andTableView:(UITableView *)tableView;
+-(id)initWithDataManager:(DataManager *)initManager;
 
 -(void)connectionFailed:(NSNotification *)notification;
 -(void)bluetoothNotice:(NSNotification *)notification;
--(void)shutdownBluetooth;
 
 -(void)setXFerOption:(XFerOption)optionChoice;
 -(void)setSyncType:(SyncType)typeChoice;
@@ -27,11 +36,11 @@
 
 -(void)updateTableData;
 
--(NSMutableArray *)fetchTournamentList;
--(NSArray *)fetchTeamList;
--(NSArray *)fetchMatchList;
--(NSArray *)fetchResultsList;
+-(void)btnConnect;
+-(void)btnDisconnect;
+-(void)btnSend;
 
--(void)sendData;
+-(NSArray *)getImportFileList;
+-(void)importiTunesSelected:(NSString *)importFile;
 
 @end
