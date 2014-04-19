@@ -195,7 +195,7 @@
     
 	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
 	label1.text = @"Inbound %";
-//    label1.backgroundColor = [UIColor clearColor];
+    label1.backgroundColor = [UIColor clearColor];
 //    label1.numberOfLines = 0;
     label1.adjustsFontSizeToFitWidth = NO;
     [_teamHeader addSubview:label1];
