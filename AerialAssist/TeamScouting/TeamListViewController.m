@@ -168,10 +168,10 @@
 }
 
 - (void)teamAdded:(NSNumber *)newTeamNumber forName:(NSString *) newTeamName {
-    NSLog(@"Team Added");
-    NSLog(@"Team = [%@]", newTeamNumber);
+    // NSLog(@"Team Added");
+    // NSLog(@"Team = [%@]", newTeamNumber);
     if (!newTeamNumber || ([newTeamNumber intValue] == 0) ) {
-        NSLog(@"blank team data");
+        // NSLog(@"blank team data");
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Add Alert"
                                                           message:@"You must have a non-zero team number"
                                                          delegate:nil
@@ -199,7 +199,7 @@
         [segue.destinationViewController setTeamIndex:indexPath];
     }
     if ([segue.identifier isEqualToString:@"Add"]) {
-        NSLog(@"add");
+        // NSLog(@"add");
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
         AddTeamViewController *addvc = (AddTeamViewController *)nv.topViewController;
         addvc.delegate = self;

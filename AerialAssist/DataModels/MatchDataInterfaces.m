@@ -70,7 +70,7 @@
     [valueList addObject:teams];
 
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"sending %@", dictionary);
+    // NSLog(@"sending %@", dictionary);
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
     return myData;
@@ -128,7 +128,7 @@
 }
 
 -(MatchData *)updateMatch:(NSDictionary *)matchInfo {
-    NSLog(@"Match data = %@", matchInfo);
+    // NSLog(@"Match data = %@", matchInfo);
     NSNumber *matchNumber = [matchInfo objectForKey:@"number"];
     NSString *matchType = [matchInfo objectForKey:@"matchType"];
     NSString *tournamentName = [matchInfo objectForKey:@"tournamentName"];
@@ -156,7 +156,7 @@
         return nil;
     }
     return matchRecord;
-    NSLog(@"Match record = %@", matchRecord);
+    // NSLog(@"Match record = %@", matchRecord);
 }
 
 -(void)addBlankScores:(MatchData *)match {

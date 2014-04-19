@@ -114,7 +114,7 @@
     NSLog(@"%@", stats);
     NSLog(@"%@", tournamentName);
 }
-
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return _teamHeader;
 }
@@ -122,7 +122,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 50;
 }
-
+*/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections DONT CHANGE!!!.

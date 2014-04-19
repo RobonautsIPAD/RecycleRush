@@ -119,22 +119,28 @@
 -(NSString *)createTeam:(TeamData *)team {
     NSString *csvString;
     csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@", team.number, team.name, tournamentName];
-    for (int i=0; i<[teamDataList count]; i++) {
-        NSDictionary *entry = [teamDataList objectAtIndex:i];
+    for (NSDictionary *entry in teamDataList) {
         NSString *output = [team valueForKey:[entry objectForKey:@"key"]];
         if (output) {
+            if ([[entry objectForKey:@"key"] isEqualToString:@"notes"]) {
+            NSLog(@"key = p%@p", output);
+            }
             csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[entry objectForKey:@"format"] forValue:[team valueForKey:[entry objectForKey:@"key"]]]];
-            //NSLog(@"output = %@, value = %@", output, [team valueForKey:item]);
         }
     }
     csvString = [csvString stringByAppendingString:@"\n"];
+    NSLog(@"%@", csvString);
     
     return csvString;
 }
 
 -(NSString *) outputFormat:(NSString *)type forValue:data {
     if ([type isEqualToString:@"string"]) {
-        if (data) return [NSString stringWithFormat:@",\"%@\"", data];
+        NSLog(@"data = p%@p", data);
+        if (data) {
+            NSLog(@",\"%@\"", data);
+            return [NSString stringWithFormat:@"\"%@\"", data];
+        }
         else return @"";
     }
     else if ([type isEqualToString:@"driveTypeDictionary"]) {

@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 4/4/14.
+//  Created by FRC on 4/16/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -91,6 +91,8 @@
 @dynamic trussCatchMiss;
 @dynamic trussThrow;
 @dynamic trussThrowMiss;
+@dynamic scouter;
+@dynamic defensiveDisruption;
 @dynamic fieldDrawing;
 @dynamic match;
 @dynamic team;

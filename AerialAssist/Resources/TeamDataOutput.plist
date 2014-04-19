@@ -156,11 +156,19 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>Spit Bot</string>
-		<key>header</key>
 		<string>spitBot</string>
+		<key>header</key>
+		<string>Spit Bot</string>
 		<key>format</key>
 		<string>quadStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>notes</string>
+		<key>header</key>
+		<string>Notes</string>
+		<key>format</key>
+		<string>string</string>
 	</dict>
 </array>
 </plist>

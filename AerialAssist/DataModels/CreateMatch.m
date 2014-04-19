@@ -587,11 +587,12 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
     sortedMatches = [matchData sortedArrayUsingDescriptors:sortDescriptors];
     
+    /*
     for (int i=0; i<[sortedMatches count]; i++) {
         TeamScore *score = [sortedMatches objectAtIndex:i];
         NSLog(@"Match = %@, Type = %@", score.match.number, score.match.matchType);
     }
-
+     */
     return sortedMatches;
 }
 

@@ -18,7 +18,7 @@
 @interface ElimDataViewController (){
     NSString *tournamentName;
     NSUserDefaults *prefs;
-    NSArray *matchKeys;
+    NSMutableDictionary *matchDictionary;
 }
 // Quarter Final Alliance 1 Radio Button
 @property (nonatomic, weak) IBOutlet UIButton *sfAlliance1Button;
@@ -153,7 +153,9 @@
         self.title = @"Elim Data";
     }
 
-    NSArray *matchKeys = [NSArray arrayWithObjects:@"number", @"tournamentName", @"matchType", @"teams", nil];
+    NSArray *matchKeys = [NSArray arrayWithObjects:@"tournamentName", @"matchType", nil];
+    NSArray *matchObjects = [NSArray arrayWithObjects:tournamentName, @"Elimination", nil];
+    matchDictionary = [NSMutableDictionary dictionaryWithObjects:matchObjects forKeys:matchKeys];
    
     //Set SF & FI RadioButtons to Default to Off
     
@@ -274,7 +276,7 @@
     NSArray *scores = [match.score allObjects];
     NSString *allianceStation = [alliance stringByAppendingString:@" 1"];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
-    NSLog(@"Alliance = %@", allianceStation);
+    // NSLog(@"Alliance = %@", allianceStation);
     // Search for Alliance Station 1
     NSArray *score = [scores filteredArrayUsingPredicate:pred];
     NSNumber *teamNumber;
@@ -285,7 +287,7 @@
     // Search for Alliance Station 2
     allianceStation = [alliance stringByAppendingString:@" 2"];
     pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
-    NSLog(@"Alliance = %@", allianceStation);
+    // NSLog(@"Alliance = %@", allianceStation);
     score = [scores filteredArrayUsingPredicate:pred];
     if ([score count]) {
         teamNumber = [[[score objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
@@ -294,7 +296,7 @@
     // Search for Alliance Station 3
     allianceStation = [alliance stringByAppendingString:@" 3"];
     pred = [NSPredicate predicateWithFormat:@"alliance = %@", allianceStation];
-    NSLog(@"Alliance = %@", allianceStation);
+    // NSLog(@"Alliance = %@", allianceStation);
     score = [scores filteredArrayUsingPredicate:pred];
     if ([score count]) {
         teamNumber = [[[score objectAtIndex:0] valueForKey:@"team"] valueForKey:@"number"];
@@ -345,15 +347,15 @@
     }
     else if (sender == _finalist2Button) {
         [self coupledRadioButtons:(UIButton *)_finalist2Button forPair:(UIButton *)_finalist1Button];
-        //   [self createSemiMatch2Blue];
+        [self createFinalMatchRed];
     }
     else if (sender == _finalist3Button) {
         [self coupledRadioButtons:(UIButton *)_finalist3Button forPair:(UIButton *)_finalist4Button];
-        //   [self createSemiMatch2Blue];
+        [self createFinalMatchBlue];
     }
     else if (sender == _finalist4Button) {
         [self coupledRadioButtons:(UIButton *)_finalist4Button forPair:(UIButton *)_finalist3Button];
-        //   [self createSemiMatch2Blue];
+        [self createFinalMatchBlue];
     }
 }
 
@@ -505,41 +507,116 @@
     }
 }
 
--(IBAction)generateMatch:(id)sender {
-    // Semi Final 1
-    [self makeMatches13_15_17];
-    // Test with semi 1
-    NSArray *allianceList = [NSArray arrayWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
-    NSArray *teamList = [NSArray arrayWithObjects:[NSNumber numberWithInt:[_semiFinal1Red1.text intValue]],
-                                [NSNumber numberWithInt:[_semiFinal1Red2.text intValue]],
-                                [NSNumber numberWithInt:[_semiFinal1Red3.text intValue]],
-                                [NSNumber numberWithInt:[_semiFinal1Blue1.text intValue]],
-                                [NSNumber numberWithInt:[_semiFinal1Blue2.text intValue]],
-                                [NSNumber numberWithInt:[_semiFinal1Blue3.text intValue]],
-                                nil];
-
-    NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamList forKeys:allianceList];
-    NSArray *objects = [NSArray arrayWithObjects:[NSNumber numberWithInt:13],
-                     tournamentName,
-                     @"Elimination",
-                     teams,
-                     nil];
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:matchKeys];
-    MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
-    MatchData *match = [matchDataPackage updateMatch:dictionary];
+-(void)createFinalMatchBlue{
+    if ([_finalist3Button isSelected]) {
+        // move the winning alliance over
+        _finalBlueLabel.text = _semiFinal2RedLabel.text;
+        _finalBlue1.text = _semiFinal2Red1.text;
+        _finalBlue2.text = _semiFinal2Red2.text;
+        _finalBlue3.text = _semiFinal2Red3.text;
+    }
+    else if ([_finalist4Button isSelected]) {
+        // move the winning alliance over
+        _finalBlueLabel.text = _semiFinal1BlueLabel.text;
+        _finalBlue1.text = _semiFinal2Blue1.text;
+        _finalBlue2.text = _semiFinal2Blue2.text;
+        _finalBlue3.text = _semiFinal2Blue3.text;
+    }
+    else {
+        // clear the semi
+        _finalBlueLabel.text = @"Alliance R";
+        _finalBlue1.text = @"";
+        _finalBlue2.text = @"";
+        _finalBlue3.text = @"";
+    }
 }
 
--(void)makeMatches13_15_17 {
-    NSString *red1, *red2, *red3;
-    NSDictionary *teams = [[NSDictionary alloc] init];
-    if ([_sfAlliance1Button isSelected]) {
-        red1 = _semiFinal1Red1.text;
-        red2 = _semiFinal1Red2.text;
-        red3 = _semiFinal1Red3.text;
+-(IBAction)generateMatch:(id)sender {
+    // Semi Final 1
+    if ([_sfAlliance1Button isSelected] || [_sfAlliance8Button isSelected] || [_sfAlliance4Button isSelected] || [_sfAlliance5Button isSelected]) {
+        [self makeMatches:([_sfAlliance1Button isSelected] || [_sfAlliance8Button isSelected])
+                     blueStatus:([_sfAlliance4Button isSelected] || [_sfAlliance5Button isSelected])
+         forStartingMatch:13 forIncrement:2
+                    forRed1:_semiFinal1Red1.text forRed2:_semiFinal1Red2.text forRed3:_semiFinal1Red3.text
+                    forBlue1:_semiFinal1Blue1.text forforBlue2:_semiFinal1Blue2.text forBlue3:_semiFinal1Blue3.text];
     }
-    //        [row setObject:validChoice forKey:key];
+    // Semi Final 2
+    if ([_sfAlliance2Button isSelected] || [_sfAlliance7Button isSelected] || [_sfAlliance3Button isSelected] || [_sfAlliance6Button isSelected]) {
+        [self makeMatches:([_sfAlliance2Button isSelected] || [_sfAlliance7Button isSelected])
+               blueStatus:([_sfAlliance3Button isSelected] || [_sfAlliance6Button isSelected])
+         forStartingMatch:14 forIncrement:2
+                  forRed1:_semiFinal2Red1.text forRed2:_semiFinal2Red2.text forRed3:_semiFinal2Red3.text
+                 forBlue1:_semiFinal2Blue1.text forforBlue2:_semiFinal2Blue2.text forBlue3:_semiFinal2Blue3.text];
+    }
+    // Finals
+    if ([_finalist1Button isSelected] || [_finalist2Button isSelected] || [_finalist3Button isSelected] || [_finalist4Button isSelected]) {
+        [self makeMatches:([_finalist1Button isSelected] || [_finalist2Button isSelected])
+               blueStatus:([_finalist3Button isSelected] || [_finalist4Button isSelected])
+         forStartingMatch:19 forIncrement:1
+                  forRed1:_finalRed1.text forRed2:_finalRed2.text forRed3:_finalRed3.text
+                 forBlue1:_finalBlue1.text forforBlue2:_finalBlue2.text forBlue3:_finalBlue3.text];
+    }
+}
 
+-(void)makeMatches:(BOOL)redSelected blueStatus:(BOOL)blueSelected forStartingMatch:(int)startMatch
+            forIncrement:(int)intcrementMatch
+           forRed1:(NSString *)red1 forRed2:(NSString *)red2 forRed3:(NSString *)red3
+           forBlue1:(NSString *)blue1 forforBlue2:(NSString *)blue2 forBlue3:(NSString *)blue3
+{
+    [matchDictionary setObject:[NSNumber numberWithInt:startMatch] forKey:@"number"];
+    NSMutableDictionary *teamsA = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *teamsB = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *teamsC = [[NSMutableDictionary alloc] init];
+
+    if (redSelected) {
+        if (red1 && ![red1 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[red1 intValue]] forKey:@"Red 1"];
+            [teamsB setObject:[NSNumber numberWithInt:[red1 intValue]] forKey:@"Red 2"];
+            [teamsC setObject:[NSNumber numberWithInt:[red1 intValue]] forKey:@"Red 3"];
+        }
+        if (red2 && ![red2 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[red2 intValue]] forKey:@"Red 2"];
+            [teamsB setObject:[NSNumber numberWithInt:[red2 intValue]] forKey:@"Red 3"];
+            [teamsC setObject:[NSNumber numberWithInt:[red2 intValue]] forKey:@"Red 1"];
+        }
+        if (red3 && ![red3 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[red3 intValue]] forKey:@"Red 3"];
+            [teamsB setObject:[NSNumber numberWithInt:[red3 intValue]] forKey:@"Red 1"];
+            [teamsC setObject:[NSNumber numberWithInt:[red3 intValue]] forKey:@"Red 2"];
+        }
+    }
+    if (blueSelected) {
+        if (blue1 && ![blue1 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[blue1 intValue]] forKey:@"Blue 1"];
+            [teamsB setObject:[NSNumber numberWithInt:[blue1 intValue]] forKey:@"Blue 2"];
+            [teamsC setObject:[NSNumber numberWithInt:[blue1 intValue]] forKey:@"Blue 3"];
+        }
+        if (blue2 && ![blue2 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[blue2 intValue]] forKey:@"Blue 2"];
+            [teamsB setObject:[NSNumber numberWithInt:[blue2 intValue]] forKey:@"Blue 3"];
+            [teamsC setObject:[NSNumber numberWithInt:[blue2 intValue]] forKey:@"Blue 1"];
+        }
+        if (blue3 && ![blue3 isEqualToString:@""]) {
+            [teamsA setObject:[NSNumber numberWithInt:[blue3 intValue]] forKey:@"Blue 3"];
+            [teamsB setObject:[NSNumber numberWithInt:[blue3 intValue]] forKey:@"Blue 1"];
+            [teamsC setObject:[NSNumber numberWithInt:[blue3 intValue]] forKey:@"Blue 2"];
+        }
+    }
+    // First Match
+    [matchDictionary setObject:teamsA forKey:@"teams"];
+    // NSLog(@"matchDictionary = %@", matchDictionary);
+    MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+    MatchData *match = [matchDataPackage updateMatch:matchDictionary];
+    // Second Match
+    [matchDictionary setObject:[NSNumber numberWithInt:(startMatch+intcrementMatch)] forKey:@"number"];
+    [matchDictionary setObject:teamsB forKey:@"teams"];
+    // NSLog(@"matchDictionary = %@", matchDictionary);
+    match = [matchDataPackage updateMatch:matchDictionary];
+    // Third Match
+    [matchDictionary setObject:[NSNumber numberWithInt:(startMatch+intcrementMatch*2)] forKey:@"number"];
+    [matchDictionary setObject:teamsC forKey:@"teams"];
+    // NSLog(@"matchDictionary = %@", matchDictionary);
+    match = [matchDataPackage updateMatch:matchDictionary];
 }
 
 - (void)didReceiveMemoryWarning

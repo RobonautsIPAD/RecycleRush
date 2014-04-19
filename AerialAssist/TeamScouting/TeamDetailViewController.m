@@ -261,7 +261,7 @@
     //  saved filed and set the device name into the field to indicated who made the change.
     _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     _team.savedBy = deviceName;
-    NSLog(@"Saved by:%@\tTime = %@", _team.savedBy, _team.saved);
+    // NSLog(@"Saved by:%@\tTime = %@", _team.savedBy, _team.saved);
     dataChange = TRUE;
 }
 
@@ -798,7 +798,7 @@
 //    [self addTeamPhotoRecord:_team forPhoto:photoName forThumbNail:thumbNailName];
     [self setDataChange];
     [self.pictureController dismissPopoverAnimated:true];
-    NSLog(@"image picker finish");
+    // NSLog(@"image picker finish");
     [picker dismissViewControllerAnimated:YES completion:Nil];
 }
 
@@ -1056,7 +1056,7 @@
 
 -(IBAction)MatchNumberChanged {
     // The user has typed a new team number in the field. Access that team and display it.
-     NSLog(@"TeamNumberChanged");
+     // NSLog(@"MatchNumberChanged");
     [self checkDataStatus];
     int currentTeam = [_numberText.text intValue];
     printf("%d", currentTeam);

@@ -333,7 +333,7 @@
 
     // Drawing Stuff
     autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
-    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Pass", @"Miss Pass", @"Blocked Shot", @"Miss Shot", @"Low", @"High", @"Truss Throw", @"Truss Miss", nil];
+    teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Pass", @"Miss Pass", @"Disrupt", @"Miss Shot", @"Low", @"High", @"Truss Throw", @"Truss Miss", nil];
     teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Robot Intake", @"Robot Miss", @"Floor Pick Up", @"Miss Pick Up", @"Knockout", @"Truss Catch", @"Truss Catch Miss", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", nil];
     rateList = [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
@@ -2225,7 +2225,7 @@
         [self updateButton:_passesFloorMissButton forKey:@"floorPassMiss" forAction:@"Increment"];
         [self drawSymbol:passMissImage location:textPoint];
     }
-    else if ([newScore isEqualToString:@"Blocked Shot"]) {
+    else if ([newScore isEqualToString:@"Disrupt"]) {
         [self updateButton:_disruptShotButton forKey:@"disruptedShot" forAction:@"Increment"];
         [self drawSymbol:disruptedShotImage location:textPoint];
     }

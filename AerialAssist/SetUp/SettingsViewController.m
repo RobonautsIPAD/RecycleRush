@@ -115,7 +115,7 @@
             [_tournamentList addObject:t.name];
         }
     }
-    NSLog(@"Tournament List = %@", _tournamentList);
+    // NSLog(@"Tournament List = %@", _tournamentList);
     
     // Alliance Selection
     [_allianceButton setTitle:[prefs objectForKey:@"alliance"] forState:UIControlStateNormal];
