@@ -9,7 +9,6 @@
 #import <QuartzCore/CALayer.h>
 #import "MainScoutingPageViewController.h"
 #import "TeamDetailViewController.h"
-#import "TabletSyncViewController.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "FieldDrawing.h"

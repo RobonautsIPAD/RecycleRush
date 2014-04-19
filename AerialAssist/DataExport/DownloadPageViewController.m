@@ -7,7 +7,6 @@
 //
 
 #import "DownloadPageViewController.h"
-#import "TabletSyncViewController.h"
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
 #import "MatchData.h"
