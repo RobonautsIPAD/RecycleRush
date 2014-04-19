@@ -42,9 +42,6 @@
 // Mode Selection
 @synthesize modeSegment = _modeSegment;
 
-// Bluetooth Selection
-@synthesize bluetoothSegment = _bluetoothSegment;
-
 // User access control
 @synthesize adminText = _adminText;
 @synthesize overrideText = _overrideText;
@@ -56,7 +53,6 @@
 @synthesize adminLabel = _adminLabel;
 @synthesize overideLabel = _overideLabel;
 @synthesize modeLabel = _modeLabel;
-@synthesize bluetoothLabel = _bluetoothLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -128,14 +124,6 @@
     }
     else {
         _modeSegment.selectedSegmentIndex = 1;
-    }
-
-    // Set Bluetooth segment
-    if ([[prefs objectForKey:@"bluetooth"] intValue] == Scouter) {
-        _bluetoothSegment.selectedSegmentIndex = Scouter;
-    }
-    else {
-        _bluetoothSegment.selectedSegmentIndex = Master;
     }
 }
 
@@ -263,20 +251,6 @@
     }
 }
 
-- (IBAction)bluetoothSelectionChanged:(id)sender {
-    NSLog(@"Bluetooth selection change");
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    int current;
-    current = segmentedControl.selectedSegmentIndex;
-
-    if (current == 0) {
-        [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
-    }
-    else {
-        [prefs setObject:[NSNumber numberWithInt:Master] forKey:@"bluetooth"];
-    }
-}
-
 -(void) viewWillDisappear:(BOOL)animated
 {
     //    NSLog(@"viewWillDisappear");
@@ -354,7 +328,6 @@
             _adminText.frame = CGRectMake(770, 380, 208, 30);
             _overrideText.frame = CGRectMake(770, 440, 208, 30);
             _modeSegment.frame = CGRectMake(770, 500, 208, 30);
-            _bluetoothSegment.frame = CGRectMake(770, 560, 208, 30);
             _tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
             _allianceLabel.frame = CGRectMake(580, 315, 144, 21);
             _adminLabel.frame = CGRectMake(580, 385, 144, 21);
@@ -373,7 +346,6 @@
             _adminText.frame = CGRectMake(530, 235, 208, 30);
             _overrideText.frame = CGRectMake(530, 305, 208, 30);
             _modeSegment.frame = CGRectMake(530, 376, 208, 30);
-            _bluetoothSegment.frame = CGRectMake(530, 437, 208, 30);
             _tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
             _allianceLabel.frame = CGRectMake(340, 158, 144, 21);
             _adminLabel.frame = CGRectMake(340, 235, 144, 21);

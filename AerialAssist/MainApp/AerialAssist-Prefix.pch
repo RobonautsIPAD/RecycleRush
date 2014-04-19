@@ -87,6 +87,11 @@ typedef enum {
 } TunnelType;
 
 typedef enum {
+    Sending,
+	Receiving,
+} XFerOption;
+
+typedef enum {
     SyncTeams,
     SyncTournaments,
     SyncMatchResults,
@@ -98,11 +103,6 @@ typedef enum {
     SyncAllSavedHere,
     SyncAllSavedSince,
 } SyncOptions;
-
-typedef enum {
-	Scouter,     // This is a scounting iPad
-	Master,      // This is the master iPad
-} BlueToothType;
 
 #endif
 

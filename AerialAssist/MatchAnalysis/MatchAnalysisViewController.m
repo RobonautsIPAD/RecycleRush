@@ -163,6 +163,7 @@
     UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = goldColor;
     
+    // Xcode 4.6.3 compatibility issue
     //self.matchesTable.layer.borderWidth = 2;
     //self.matchesTable.layer.borderColor = [[UIColor blackColor] CGColor];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

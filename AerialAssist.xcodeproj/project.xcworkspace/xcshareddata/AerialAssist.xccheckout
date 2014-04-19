@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>4A7AFC41-D8F9-4E22-B62F-C059AA4D4F47</string>
+	<string>2FDE4CA3-16F1-46BD-ADBF-CA845D786E54</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AerialAssist</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</key>
+		<key>715AA39D-5867-47A3-B3D2-2F3266F93FD7</key>
 		<string>https://github.com/RobonautsIPAD/AerialAssist.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>AerialAssist.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</key>
+		<key>715AA39D-5867-47A3-B3D2-2F3266F93FD7</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</string>
+	<string>715AA39D-5867-47A3-B3D2-2F3266F93FD7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D1DB7DC5-3A30-47EE-90CB-F424CCA98E68</string>
+			<string>715AA39D-5867-47A3-B3D2-2F3266F93FD7</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AerialAssist</string>
 		</dict>

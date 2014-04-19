@@ -19,6 +19,6 @@
 -(AddRecordResults)createTournamentFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(TournamentData *)getTournament:(NSString *)name;
 
--(NSData *)packageTournamentsForXFer:(NSMutableArray *)tournamentList;
+-(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList;
 -(NSArray *)unpackageTournamentsForXFer:(NSData *)xferData;
 @end

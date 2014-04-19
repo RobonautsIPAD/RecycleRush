@@ -62,11 +62,6 @@
         [prefs setObject:[NSNumber numberWithInt:0] forKey:@"matchResultsSync"];
     }
 
-    NSNumber *bluetoothType = [prefs objectForKey:@"bluetooth"];
-    if (bluetoothType == nil) {
-        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"bluetooth"];
-    }
-
     // It is easier to just set these than check to see if they are set right and
     // set them if they are not.
     [prefs setObject:appName forKey:@"appName"];
