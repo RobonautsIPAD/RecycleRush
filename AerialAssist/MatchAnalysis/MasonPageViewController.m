@@ -188,57 +188,57 @@
     teamLabel.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:teamLabel];
     
-	UILabel *nMatchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 0, 200, 50)];
+	UILabel *nMatchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 50)];
 	nMatchesLabel.text = @"Matches";
     nMatchesLabel.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:nMatchesLabel];
     
-	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 200, 50)];
+	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
 	label1.text = @"Inbound %";
-    label1.backgroundColor = [UIColor clearColor];
+//    label1.backgroundColor = [UIColor clearColor];
 //    label1.numberOfLines = 0;
-//    label1.adjustsFontSizeToFitWidth = NO;
+    label1.adjustsFontSizeToFitWidth = NO;
     [_teamHeader addSubview:label1];
 
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(290, 0, 200, 50)];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(250, 0, 200, 50)];
 	label2.text = @"Auton High %";
     label2.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:label2];
 
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(420, 0, 200, 50)];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(370, 0, 200, 50)];
 	label3.text = @"High Goal %";
     label3.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:label3];
    
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(540, 0, 200, 50)];
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(480, 0, 200, 50)];
 	label4.text = @"HP Truss %";
     label4.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:label4];
 
-    UILabel *lable5 = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
-	lable5.text = @"Knockouts";
-    lable5.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:lable5];
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(580, 0, 200, 50)];
+	label5.text = @"Knockouts";
+    label5.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:label5];
 
-    UILabel *lable6 = [[UILabel alloc] initWithFrame:CGRectMake(680, 0, 200, 50)];
+    UILabel *lable6 = [[UILabel alloc] initWithFrame:CGRectMake(725, 0, 200, 50)];
 	lable6.text = @"Speed";
     lable6.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:lable6];
 
-    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(710, 0, 200, 50)];
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(675, 0, 200, 50)];
 	label7.text = @"Drive";
     label7.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:label7];
     
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(800, 0, 200, 50)];
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(790, 0, 200, 50)];
 	label8.text = @"Bully";
     label8.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label7];
+    [_teamHeader addSubview:label8];
     
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(880, 0, 200, 50)];
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
 	label9.text = @"Block";
     label9.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label8];
+    [_teamHeader addSubview:label9];
 
     teamData = [NSMutableArray arrayWithCapacity:6];
     _teamList = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
@@ -533,7 +533,7 @@
             [column1 replaceObjectAtIndex:i
                                     withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"percent"] floatValue]*100]];
             [column2 replaceObjectAtIndex:i
-                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"average"] floatValue]*100]];
+                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"percent"] floatValue]*100]];
             [column3 replaceObjectAtIndex:i
                                    withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"percent"] floatValue]*100]];
             [column4 replaceObjectAtIndex:i

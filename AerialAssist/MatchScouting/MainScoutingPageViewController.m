@@ -388,6 +388,7 @@
         // Temporary method to save the data markers
         storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
         fileManager = [NSFileManager defaultManager];
+                [fileManager removeItemAtPath:storePath error:&error];
         if (![fileManager fileExistsAtPath:storePath]) {
             // Loading Default Data Markers
             currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];

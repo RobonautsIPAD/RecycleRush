@@ -97,40 +97,51 @@
     teamLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:teamLabel];
 
-	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(150, 0, 200, 50)];
-	label1.text = @"High Hot";
+	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
+	label1.text = @"Inbound %";
     label1.backgroundColor = [UIColor clearColor];
+    label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
     
- 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
-	label2.text = @"TeleOp High";
+ 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(250, 0, 200, 50)];
+	label2.text = @"Auton High %";
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
-	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(390, 0, 200, 50)];
-	label3.text = @"Truss Throw";
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(370, 0, 200, 50)];
+	label3.text = @"High Goal %";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
-	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(525, 0, 200, 50)];
-	label4.text = @"Speed";
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(480, 0, 200, 50)];
+	label4.text = @"HP Truss %";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *lable5 = [[UILabel alloc] initWithFrame:CGRectMake(620, 0, 200, 50)];
-	lable5.text = @"Drive";
-    lable5.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:lable5];
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(580, 0, 200, 50)];
+	label5.text = @"Knockouts";
+    label5.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label5];
     
-    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(705, 0, 200, 50)];
-	label6.text = @"Bully";
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(725, 0, 200, 50)];
+	label6.text = @"Speed";
     label6.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label6];
     
-    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(805, 0, 200, 50)];
-	label7.text = @"Block";
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(675, 0, 200, 50)];
+	label7.text = @"Drive";
     label7.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label7];
+
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(790, 0, 200, 50)];
+	label8.text = @"Bully";
+    label8.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label8];
+    
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
+	label9.text = @"Block";
+    label9.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label9];
 
     [super viewDidLoad];
 
@@ -247,27 +258,32 @@
     
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:20];
-    label1.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"average"] floatValue]];
+    label1.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"percent"] floatValue]*100];
 
 	UILabel *label2 = (UILabel *)[cell viewWithTag:30];
-	label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"average"] floatValue]];
+	label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"percent"] floatValue]*100];
 
 	UILabel *label3 = (UILabel *)[cell viewWithTag:40];
-	label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"average"] floatValue]];
+	label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"percent"] floatValue]*100];
 
 	UILabel *label4 = (UILabel *)[cell viewWithTag:50];
-	label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]];
+	label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"percent"] floatValue]*100];
 
     UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-    label5.text = [driveDictionary getString:info.driveTrainType];
-    if ([label5.text isEqualToString:@"Unknown"]) label5.text = @"";
+    label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"knockout"] objectForKey:@"average"] floatValue]];
     
     UILabel *label6 = (UILabel *)[cell viewWithTag:80];
-	label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]];
+	label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]];
 
     UILabel *label7 = (UILabel *)[cell viewWithTag:90];
-	label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]];
-
+	label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"DriverSkill"] objectForKey:@"average"] floatValue]];
+    
+    UILabel *label8 = (UILabel *) [cell viewWithTag:100];
+    label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]];
+    
+    UILabel *label9 = (UILabel *) [cell viewWithTag:110];
+    label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]];
+    
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:60];
     nameLabel.text = info.name;
     
