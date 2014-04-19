@@ -88,12 +88,15 @@
     for (NSString *tournament in tournamentList) {
         [actionSheet addButtonWithTitle:[tournament componentsSeparatedByString: @":"][1]];
     }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[tournamentList count]];
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
 }
 
 // Handles ActionSheet for both tournament and year
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
     [self changeTour:buttonIndex];
 }
 

@@ -27,6 +27,7 @@
     XFerOption xFerOption;
     SyncType syncType;
     SyncOptions syncOption;
+    BOOL helloReceipt;
     BOOL firstReceipt;
     
     NSArray *tournamentList;
@@ -126,6 +127,7 @@ GKPeerPickerController *picker;
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
     [_sendButton setHidden:YES];
+    [_peerName setHidden:YES];
     picker.delegate = nil;
     [picker dismiss];
 }
@@ -139,6 +141,7 @@ GKPeerPickerController *picker;
     currentSession.available = NO;
     [currentSession setDataReceiveHandler:nil withContext:nil];
     currentSession = nil;
+    _xFerOptionButton.enabled = true;
 }
 
 /*
@@ -146,6 +149,20 @@ GKPeerPickerController *picker;
  */
 - (void)setXFerOption:(XFerOption)optionChoice {
     xFerOption = optionChoice;
+    if (currentSession == nil) {
+        [_connectButton setHidden:NO];
+        [_disconnectButton setHidden:YES];
+    } else {
+        [_connectButton setHidden:YES];
+        [_disconnectButton setHidden:NO];
+    }
+    if (xFerOption == Sending) {
+        [_syncTypeButton setHidden:NO];
+        [_syncOptionButton setHidden:NO];
+    } else if (xFerOption == Receiving) {
+        [_syncTypeButton setHidden:YES];
+        [_syncOptionButton setHidden:YES];
+    }
 }
 
 - (void)setSyncType:(SyncType)typeChoice {
@@ -519,8 +536,7 @@ GKPeerPickerController *picker;
  * GKSessionDelegate methods
  */
 - (void)session:(GKSession *)sessionpeer peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
-    switch (state)
-    {
+    switch (state) {
         case GKPeerStateConnected:
             NSLog(@"connected");
             break;
@@ -569,10 +585,12 @@ GKPeerPickerController *picker;
     [session setDataReceiveHandler:self withContext:nil];
     [_peerName setHidden:NO];
     _peerName.text = [session displayNameForPeer:peerID];
-    firstReceipt = TRUE;
+    _xFerOptionButton.enabled = false;
     picker.delegate = nil;
-    
     [picker dismiss];
+    helloReceipt = TRUE;
+    firstReceipt = TRUE;
+    [self sendData:[NSKeyedArchiver archivedDataWithRootObject:[NSDictionary dictionaryWithObjects:@[[NSNumber numberWithInt:xFerOption]] forKeys:@[@"xFerOption"]]]];
 }
 
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker {
@@ -604,6 +622,7 @@ GKPeerPickerController *picker;
     [_connectButton setHidden:NO];
     [_disconnectButton setHidden:YES];
     [_sendButton setHidden:YES];
+    [_peerName setHidden:YES];
 }
 
 - (void)btnSend {
@@ -667,6 +686,22 @@ GKPeerPickerController *picker;
 }
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
+    if (helloReceipt) {
+        NSDictionary *peerXFer = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSLog(@"Peer xFerOption = %@", peerXFer);
+        if ([[peerXFer valueForKey:@"xFerOption"] intValue] == xFerOption) {
+            [self shutdownBluetooth];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Conflicting Tranfer Option"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            helloReceipt = FALSE;
+        }
+        return;
+    }
     if (firstReceipt) {
         NSDictionary *myType = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
         NSLog(@"myType = %@", myType);

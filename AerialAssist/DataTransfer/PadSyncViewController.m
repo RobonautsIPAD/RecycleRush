@@ -89,7 +89,7 @@
     deviceName = [prefs objectForKey:@"deviceName"];
     
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Sync", tournamentName];
+        self.title = [NSString stringWithFormat:@"%@ Sync", tournamentName];
     }
     else {
         self.title = @"Sync";
@@ -175,14 +175,8 @@
     [_xFerOptionButton setTitle:xFerChoice forState:UIControlStateNormal];
     if ([xFerChoice isEqualToString:@"Send Data"]) {
         [syncController setXFerOption:Sending];
-        [_syncTypeButton setHidden:NO];
-        [_syncOptionButton setHidden:NO];
-        [_connectButton setHidden:NO];
     } else if ([xFerChoice isEqualToString:@"Receive Data"]) {
         [syncController setXFerOption:Receiving];
-        [_connectButton setHidden:NO];
-        [_syncTypeButton setHidden:YES];
-        [_syncOptionButton setHidden:YES];
     }
     [syncController updateTableData];
 }

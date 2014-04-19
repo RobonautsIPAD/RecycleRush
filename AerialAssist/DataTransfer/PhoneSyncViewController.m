@@ -53,6 +53,7 @@
     
     BOOL firstReceipt;
 }
+GKPeerPickerController *picker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -102,7 +103,7 @@
     syncOptionDictionary = [[SyncOptionDictionary alloc] init];
     syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
     
-    [self selectXFerOption:Sending];
+    [self selectXFerOption:Receiving];
     [self selectSyncType:SyncMatchResults];
     [self selectSyncOption:SyncAllSavedHere];
 }
@@ -119,29 +120,33 @@
 - (IBAction)selectAction:(id)sender {
     if (sender == _xFerOptionButton) {
         if (!xFerOptionAction) {
-            xFerOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Transfer Mode" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Send Data", @"Receive Data", nil];
+            xFerOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Transfer Mode" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            [xFerOptionAction addButtonWithTitle:@"Send Data"];
+            [xFerOptionAction addButtonWithTitle:@"Receive Data"];
+            [xFerOptionAction addButtonWithTitle:@"Cancel"];
+            [xFerOptionAction setCancelButtonIndex:2];
             xFerOptionAction.actionSheetStyle = UIActionSheetStyleDefault;
         }
         [xFerOptionAction showInView:self.view];
-    }
-    else if (sender == _syncTypeButton) {
-        NSLog(@"Sync Type Button");
+    } else if (sender == _syncTypeButton) {
         if (!syncTypeAction) {
             syncTypeAction = [[UIActionSheet alloc] initWithTitle:@"Select Data Sync" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
             for (NSString *item in syncTypeList) {
                 [syncTypeAction addButtonWithTitle:item];
             }
+            [syncTypeAction addButtonWithTitle:@"Cancel"];
+            [syncTypeAction setCancelButtonIndex:[syncTypeList count]];
             syncTypeAction.actionSheetStyle = UIActionSheetStyleDefault;
         }
         [syncTypeAction showInView:self.view];
-    }
-    else if (sender == _syncOptionButton) {
-        NSLog(@"Sync Option Button");
+    } else if (sender == _syncOptionButton) {
         if (!syncOptionAction) {
             syncOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Data Type" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
             for (NSString *item in syncOptionList) {
                 [syncOptionAction addButtonWithTitle:item];
             }
+            [syncOptionAction addButtonWithTitle:@"Cancel"];
+            [syncOptionAction setCancelButtonIndex:[syncOptionList count]];
             syncOptionAction.actionSheetStyle = UIActionSheetStyleDefault;
         }
         [syncOptionAction showInView:self.view];
@@ -149,6 +154,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
     if (actionSheet == xFerOptionAction) {
         [self selectXFerOption:buttonIndex];
     } else if (actionSheet == syncTypeAction) {
@@ -163,16 +169,10 @@
         case 0:     // Send button
             [syncController setXFerOption:Sending];
             [_xFerOptionButton setTitle:@"Sending" forState:UIControlStateNormal];
-            [_syncTypeButton setHidden:NO];
-            [_syncOptionButton setHidden:NO];
-            [_connectButton setHidden:NO];
             break;
         case 1:     // Receive button
             [syncController setXFerOption:Receiving];
             [_xFerOptionButton setTitle:@"Receiving" forState:UIControlStateNormal];
-            [_connectButton setHidden:NO];
-            [_syncTypeButton setHidden:YES];
-            [_syncOptionButton setHidden:YES];
             break;
         case 2:     // Cancel button
             NSLog(@"Cancelled");
@@ -228,8 +228,7 @@
     [syncController updateTableData];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

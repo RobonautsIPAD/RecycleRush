@@ -74,16 +74,19 @@
 
 - (IBAction)tournamentSelection:(id)sender {
     NSLog(@"Tournament Button");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tournament" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tournament" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     for (NSString *tournament in tournamentList) {
         [actionSheet addButtonWithTitle:tournament];
     }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[tournamentList count]];
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *newTournament = [tournamentList objectAtIndex:(buttonIndex-1)];
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
+    NSString *newTournament = [tournamentList objectAtIndex:(buttonIndex)];
     [_tournamentButton setTitle:newTournament forState:UIControlStateNormal];
     [prefs setObject:newTournament forKey:@"tournament"];
 }
