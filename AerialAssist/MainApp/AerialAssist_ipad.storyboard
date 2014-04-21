@@ -5641,7 +5641,7 @@
                                         <rect key="frame" x="0.0" y="22" width="413" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="346" height="33"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="380" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Match" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YUe-o2-adz">
@@ -7041,7 +7041,7 @@
         <segue reference="6V1-MF-63T"/>
         <segue reference="gMh-cN-6SD"/>
         <segue reference="yXx-K9-Sbl"/>
-        <segue reference="hA4-za-hde"/>
         <segue reference="Ssx-dF-9xL"/>
+        <segue reference="0QU-hg-CV0"/>
     </inferredMetricsTieBreakers>
 </document>

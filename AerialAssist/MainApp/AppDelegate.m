@@ -37,6 +37,7 @@
     }];
 #endif
     
+    
     NSLog(@"didFinishLaunchingWithOptions");
     SettingsAndPreferences *settings = [[SettingsAndPreferences alloc] init];
     [settings initializeSettings];
@@ -47,6 +48,8 @@
     [loadData loadCSVDataFromBundle];
     
     navigationController = (UINavigationController *)self.window.rootViewController;
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
