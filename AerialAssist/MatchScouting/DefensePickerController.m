@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = YES;
-    self.contentSizeForViewInPopover = CGSizeMake(100.0, 92.0);
+    self.contentSizeForViewInPopover = CGSizeMake(150.0, 92.0);
 }
 
 - (void)didReceiveMemoryWarning

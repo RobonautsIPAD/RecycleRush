@@ -15,15 +15,25 @@
 #import "TournamentData.h"
 
 @interface FieldDrawingViewController ()
-@property (weak, nonatomic) IBOutlet UISlider *bullySlider;
-@property (weak, nonatomic) IBOutlet UISlider *blockSlider;
-@property (weak, nonatomic) IBOutlet UISlider *driverSlider;
-@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
+@property (weak, nonatomic) IBOutlet UITextField *trussThrowMiss;
 @property (weak, nonatomic) IBOutlet UITextField *floorCatch;
 @property (weak, nonatomic) IBOutlet UITextField *airCatch;
-@property (weak, nonatomic) IBOutlet UITextField *autonMobility;
-@property (weak, nonatomic) IBOutlet UITextField *noShow;
-@property (weak, nonatomic) IBOutlet UITextField *deadOnArrival;
+@property (weak, nonatomic) IBOutlet UIButton *autonMobility;
+@property (weak, nonatomic) IBOutlet UIButton *noShow;
+@property (weak, nonatomic) IBOutlet UIButton *deadOnArrival;
+@property (weak, nonatomic) IBOutlet UITextField *miss1;
+@property (weak, nonatomic) IBOutlet UITextField *miss2;
+@property (weak, nonatomic) IBOutlet UITextField *miss3;
+@property (weak, nonatomic) IBOutlet UITextField *miss4;
+@property (weak, nonatomic) IBOutlet UITextField *speedRating;
+@property (weak, nonatomic) IBOutlet UITextField *driverRating;
+@property (weak, nonatomic) IBOutlet UITextField *blockRating;
+@property (weak, nonatomic) IBOutlet UITextField *bullyRating;
+@property (weak, nonatomic) IBOutlet UITextField *intakeRating;
+@property (weak, nonatomic) IBOutlet UITextField *assistRating;
+@property (weak, nonatomic) IBOutlet UITextField *fouls;
+@property (weak, nonatomic) IBOutlet UITextField *scouter;
+
 @end
 
 @implementation FieldDrawingViewController {
@@ -137,6 +147,7 @@
     [self SetSmallTextBoxDefaults:_pickUpFLoor];
     [self SetSmallTextBoxDefaults:_pickUpHuman];
     [self SetSmallTextBoxDefaults:_trussThrow];
+    [self SetSmallTextBoxDefaults:_trussThrowMiss];
     [self SetSmallTextBoxDefaults:_trussCatch];
     [self SetSmallTextBoxDefaults:_passFloor];
     [self SetSmallTextBoxDefaults:_passAir];
@@ -147,15 +158,24 @@
     [self SetSmallTextBoxDefaults:_wall2];
     [self SetSmallTextBoxDefaults:_wall3];
     [self SetSmallTextBoxDefaults:_wall4];
+    [self SetSmallTextBoxDefaults:_miss1];
+    [self SetSmallTextBoxDefaults:_miss2];
+    [self SetSmallTextBoxDefaults:_miss3];
+    [self SetSmallTextBoxDefaults:_miss4];
+    [_miss1 setTextColor:[UIColor redColor]];
+    [_miss2 setTextColor:[UIColor redColor]];
+    [_miss3 setTextColor:[UIColor redColor]];
+    [_miss4 setTextColor:[UIColor redColor]];
 
-    _driverSlider.maximumValue = 5.0;
-    _driverSlider.continuous = NO;
-    _speedSlider.maximumValue = 5.0;
-    _speedSlider.continuous = NO;
-    _blockSlider.maximumValue = 5.0;
-    _blockSlider.continuous = NO;
-    _bullySlider.maximumValue = 5.0;
-    _bullySlider.continuous = NO;
+    [self SetSmallTextBoxDefaults:_speedRating];
+    [self SetSmallTextBoxDefaults:_driverRating];
+    [self SetSmallTextBoxDefaults:_bullyRating];
+    [self SetSmallTextBoxDefaults:_blockRating];
+    [self SetSmallTextBoxDefaults:_intakeRating];
+    [self SetSmallTextBoxDefaults:_assistRating];
+
+    [self SetSmallTextBoxDefaults:_fouls];
+    [self SetSmallTextBoxDefaults:_scouter];
 
     [self setDisplayData];
 }
@@ -187,31 +207,43 @@
     _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp2 intValue]];
     _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp3 intValue]];
     _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp4 intValue]];
+    _miss1.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss1 intValue]];
+    _miss2.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss2 intValue]];
+    _miss3.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss3 intValue]];
+    _miss4.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss4 intValue]];
     
     _pickUpFLoor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
     _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];
     _trussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatch intValue]];
     _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
+    _trussThrowMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrowMiss intValue]];
     _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
     _passAir.text = [NSString stringWithFormat:@"%d", [currentScore.airPasses intValue]];
     _floorCatch.text = [NSString stringWithFormat:@"%d", [currentScore.floorCatch intValue]];
     _airCatch.text = [NSString stringWithFormat:@"%d", [currentScore.airCatch intValue]];
     
     //NSLog(@"block = %@", currentScore.defenseBlockRating);
-    _blockSlider.value = [currentScore.defenseBlockRating floatValue];
-    _bullySlider.value = [currentScore.defenseBullyRating floatValue];
-    _driverSlider.value = [currentScore.driverRating floatValue];
-    _speedSlider.value = [currentScore.robotSpeed floatValue];
+    _speedRating.text = [NSString stringWithFormat:@"%d", [currentScore.robotSpeed intValue]];
+    _driverRating.text = [NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]];
+    _bullyRating.text = [NSString stringWithFormat:@"%d", [currentScore.defenseBullyRating intValue]];
+    _blockRating.text = [NSString stringWithFormat:@"%d", [currentScore.defenseBlockRating intValue]];
+    _intakeRating.text = [NSString stringWithFormat:@"%d", [currentScore.intakeRating intValue]];
+    _assistRating.text = [NSString stringWithFormat:@"%d", [currentScore.assistRating intValue]];
     
-    if ([currentScore.autonMobility boolValue]) [_autonMobility setTextColor:[UIColor greenColor]];
-    else [_autonMobility setTextColor:[UIColor redColor]];
-    
-    if ([currentScore.deadOnArrival boolValue]) [_deadOnArrival setHidden:NO];
-    else [_deadOnArrival setHidden:YES];
-    if ([currentScore.noShow boolValue]) [_noShow setHidden:NO];
-    else [_noShow setHidden:YES];
+    [self setRadioButtonState:_autonMobility forState:[currentScore.autonMobility boolValue]];
+    [self setRadioButtonState:_noShow forState:[currentScore.noShow boolValue]];
+    [self setRadioButtonState:_deadOnArrival forState:[currentScore.deadOnArrival boolValue]];
     
     [self loadFieldDrawing];
+}
+
+-(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
+    if (selection == -1 || selection == 0) {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
+    }
 }
 
 -(void)loadFieldDrawing {

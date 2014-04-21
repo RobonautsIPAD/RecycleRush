@@ -113,10 +113,10 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Analysis", tournamentName];
+        self.title =  [NSString stringWithFormat:@"%@ Brogan Analysis", tournamentName];
     }
     else {
-        self.title = @"Match Analysis";
+        self.title = @"Brogan Analysis";
     }
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
@@ -195,7 +195,7 @@
     
 	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
 	label1.text = @"Inbound %";
-//    label1.backgroundColor = [UIColor clearColor];
+    label1.backgroundColor = [UIColor clearColor];
 //    label1.numberOfLines = 0;
     label1.adjustsFontSizeToFitWidth = NO;
     [_teamHeader addSubview:label1];
