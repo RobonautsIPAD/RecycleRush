@@ -43,7 +43,7 @@
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
     //Set Font And Text For Mason Page Button
-    [_masonPageButton setTitle:@"Mason Page" forState:UIControlStateNormal];
+    [_masonPageButton setTitle:@"Brogan Page" forState:UIControlStateNormal];
     _masonPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //Set Font And Text For Lucian Page Button
     [_lucianPageButton setTitle:@"Lucien Page" forState:UIControlStateNormal];

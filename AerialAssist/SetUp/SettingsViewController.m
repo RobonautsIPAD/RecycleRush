@@ -163,9 +163,9 @@
         }
     }
     NSError *error;
-    NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarker.csv"];
+    NSString *storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
     [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
-    storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
+    storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarkerMason.csv"];
     [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
 
 }
@@ -366,6 +366,12 @@
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
+/**
+ Returns the path to the application's Library directory.
+ */
+- (NSString *)applicationLibraryDirectory {
+	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

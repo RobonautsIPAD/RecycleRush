@@ -113,10 +113,10 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Analysis", tournamentName];
+        self.title =  [NSString stringWithFormat:@"%@ Brogan Analysis", tournamentName];
     }
     else {
-        self.title = @"Match Analysis";
+        self.title = @"Brogan Analysis";
     }
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
