@@ -15,10 +15,12 @@
 #import "TeamData.h"
 
 @interface MatchOverlayViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *btnUseless;
 @end
 
 @implementation MatchOverlayViewController{
     CalculateTeamStats *teamStats;
+    NSMutableDictionary *stats;
     NSString *tournamentName;
     NSUserDefaults *prefs;
 }
@@ -59,8 +61,7 @@
     }
     
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
-    NSMutableDictionary *stats = [teamStats calculateMasonStats:_numberTeam forTournament:tournamentName];
-    
+    stats = [teamStats calculateMasonStats:_numberTeam forTournament:tournamentName];
     
     _teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     _teamHeader.backgroundColor = [UIColor lightGrayColor];
@@ -123,30 +124,206 @@
     return 50;
 }
 */
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections DONT CHANGE!!!.
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 7;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Temp"];
+    
+    if (indexPath.row == 0) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"";
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = @"HP Intake";
+        label2.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = @"High Hot";
+        label3.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"High";
+        label4.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = @"HP Truss";
+        label5.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = @"Bot Intake";
+        label6.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = @"Truss";
+        label7.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = @"Catch";
+        label8.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = @"Low";
+        label9.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = @"Pass";
+        label10.font = [UIFont boldSystemFontOfSize:16.0];
+    } else if (indexPath.row == 1) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"Total";
+        label1.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"total"] floatValue]];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"total"] floatValue]];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"total"] floatValue]];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"total"] floatValue]];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromRobot"] objectForKey:@"total"] floatValue]];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"total"] floatValue]];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussCatch"] objectForKey:@"total"] floatValue]];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Low"] objectForKey:@"total"] floatValue]];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Pass"] objectForKey:@"total"] floatValue]];
+    } else if (indexPath.row == 2) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"Average";
+        label1.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"average"] floatValue]];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"average"] floatValue]];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"average"] floatValue]];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"average"] floatValue]];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromRobot"] objectForKey:@"average"] floatValue]];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"average"] floatValue]];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussCatch"] objectForKey:@"average"] floatValue]];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Low"] objectForKey:@"average"] floatValue]];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Pass"] objectForKey:@"average"] floatValue]];
+    } else if (indexPath.row == 3) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"Percent";
+        label1.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromRobot"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussThrow"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"TrussCatch"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Low"] objectForKey:@"percent"] floatValue]*100];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Pass"] objectForKey:@"percent"] floatValue]*100];
+    } else if (indexPath.row == 4) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"";
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = @"High Cold";
+        label2.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = @"Knockout";
+        label3.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = @"Pickup";
+        label4.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = @"Block";
+        label5.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = @"Foul";
+        label6.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = @"Mobility";
+        label7.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = @"Driver";
+        label8.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = @"Bully";
+        label9.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = @"Block";
+        label10.font = [UIFont boldSystemFontOfSize:16.0];
+    } else if (indexPath.row == 5) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"Total";
+        label1.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighCold"] objectForKey:@"total"] floatValue]];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Knockout"] objectForKey:@"total"] floatValue]];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Pickup"] objectForKey:@"total"] floatValue]];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Block"] objectForKey:@"total"] floatValue]];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Foul"] objectForKey:@"total"] floatValue]];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Mobility"] objectForKey:@"total"] floatValue]];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"DriverSkill"] objectForKey:@"total"] floatValue]];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"total"] floatValue]];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"total"] floatValue]];
+    } else if (indexPath.row == 6) {
+        UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+        label1.text = @"Average";
+        label1.font = [UIFont boldSystemFontOfSize:16.0];
+        UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+        label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighCold"] objectForKey:@"average"] floatValue]];
+        UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+        label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Knockout"] objectForKey:@"average"] floatValue]];
+        UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+        label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Pickup"] objectForKey:@"average"] floatValue]];
+        UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+        label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Block"] objectForKey:@"average"] floatValue]];
+        UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+        label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Foul"] objectForKey:@"average"] floatValue]];
+        UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+        label7.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Mobility"] objectForKey:@"average"] floatValue]];
+        UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+        label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"DriverSkill"] objectForKey:@"average"] floatValue]];
+        UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+        label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]];
+        UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+        label10.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]];
+    }
     return cell;
 }
 
 - (void)configureScoreCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)btnUseless:(id)sender {
+    NSArray *titles = [NSArray arrayWithObjects:@"HEY!", @"OUCH!", @"STOP!", @"OW!", nil];
+    NSArray *messages = [NSArray arrayWithObjects:@"Don't press me!", @"That hurts!", @"My eyes!", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[titles objectAtIndex:arc4random() % [titles count]]
+                                                    message:[messages objectAtIndex:arc4random() % [messages count]]
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

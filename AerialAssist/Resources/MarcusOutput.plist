@@ -83,6 +83,8 @@
 		<string>Pass</string>
 		<key>order</key>
 		<integer>9</integer>
+		<key>percent</key>
+		<string>floorPasses, floorPassMiss</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -99,6 +101,8 @@
 		<string>TrussThrow</string>
 		<key>order</key>
 		<integer>11</integer>
+		<key>percent</key>
+		<string>trussThrow, trussThrowMiss</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -115,6 +119,8 @@
 		<string>TrussCatch</string>
 		<key>order</key>
 		<integer>13</integer>
+		<key>percent</key>
+		<string>trussCatch, trussCatchMiss</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -165,6 +171,8 @@
 		<string>Low</string>
 		<key>order</key>
 		<integer>19</integer>
+		<key>percent</key>
+		<string>totalTeleOpShots</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -207,6 +215,8 @@
 		<string>IntakefromRobot</string>
 		<key>order</key>
 		<integer>24</integer>
+		<key>percent</key>
+		<string>robotIntake, robotIntakeMiss</string>
 	</dict>
 	<dict>
 		<key>key</key>
