@@ -1009,6 +1009,7 @@
     else if (popUp == _floorPickUpsButton) [self floorPickUpSelected:newPick];
     else if (popUp == _floorPickUpMissButton) [self updateButton:_floorPickUpMissButton forKey:@"floorPickUpMiss" forAction:newPick];
     else if (popUp == passesFloorButton) [self floorPass:newPick];
+    else if (popUp == _passesFloorMissButton) [self updateButton:_passesFloorMissButton forKey:@"floorPassMiss" forAction:newPick];
     else if (popUp == passesAirButton) [self airPass:newPick];
     else if (popUp == _knockoutButton) [self updateButton:_knockoutButton forKey:@"knockout" forAction:newPick];
     else if (popUp == _floorCatchButton) [self floorCatch:newPick];
@@ -2601,6 +2602,7 @@
     currentTeam.floorPasses = [NSNumber numberWithInt:0];
     currentTeam.floorPassMiss = [NSNumber numberWithInt:0];
     currentTeam.floorPickUp = [NSNumber numberWithInt:0];
+    currentTeam.floorPickUpMiss = [NSNumber numberWithInt:0];
     currentTeam.fouls = [NSNumber numberWithInt:0];
     currentTeam.humanMiss = [NSNumber numberWithInt:0];
     currentTeam.humanMiss1 = [NSNumber numberWithInt:0];
