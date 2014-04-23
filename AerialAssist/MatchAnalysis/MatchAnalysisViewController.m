@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"Set-Up Page");
+    NSLog(@"Match Analysis Page");
     // Display the Robonauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Display the Label for the Picture
@@ -60,11 +60,11 @@
     }
     
     scoreList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
-    NSLog(@"score count = %d", [scoreList count]);
+    // NSLog(@"score count = %d", [scoreList count]);
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"match.number > 0 AND match.matchType = %@", @"Seeding"];
     scoreList = [scoreList filteredArrayUsingPredicate:pred];
 
-    NSLog(@"score count = %d", [scoreList count]);
+    // NSLog(@"score count = %d", [scoreList count]);
     matchList = [[NSMutableArray alloc] init];
     for (int i=0; i<[scoreList count]; i++) {
         TeamScore *score = [scoreList objectAtIndex:i];
@@ -80,7 +80,7 @@
     //  VC is the FieldDrawing VC.
     NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
     [segue.destinationViewController setDataManager:_dataManager];
-    NSLog(@"Match list = %@", matchList);
+    // NSLog(@"Match list = %@", matchList);
     [segue.destinationViewController setTeamScores:matchList];
     [segue.destinationViewController setStartingIndex:indexPath.row];
     [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];

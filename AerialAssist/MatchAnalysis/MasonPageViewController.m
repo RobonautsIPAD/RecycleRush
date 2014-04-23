@@ -527,7 +527,7 @@
             [_teamList replaceObjectAtIndex:i
                                 withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
             NSMutableDictionary *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-            NSLog(@"%@", stats);
+            // NSLog(@"%@", stats);
             [teamMatches replaceObjectAtIndex:i
                                     withObject:[NSString stringWithFormat:@"%d", [[stats objectForKey:@"matches"] intValue]]];
             [column1 replaceObjectAtIndex:i

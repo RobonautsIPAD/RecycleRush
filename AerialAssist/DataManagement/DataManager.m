@@ -19,7 +19,6 @@
 @synthesize smManagedObjectContext = _smManagedObjectContext;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize loadDataFromBundle;
-@synthesize photoLibrary = _photoLibrary;
 
 - (AppDelegate *)appDelegate {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -32,7 +31,7 @@
         prefs = [NSUserDefaults standardUserDefaults];
         appName = [prefs objectForKey:@"appName"];
         [self managedObjectContext];
-        self.photoLibrary = [[ALAssetsLibrary alloc] init];
+        //self.photoLibrary = [[ALAssetsLibrary alloc] init];
     }
 	return self;
 }
@@ -60,7 +59,7 @@
         } 
     }
 }
-
+/*
 -(void)savePhotoToAlbum:(UIImage*)image {
     [self.photoLibrary saveImage:image toAlbum:appName withCompletionBlock:^(NSError *error) {
         if (error!=nil) {
@@ -92,6 +91,7 @@
         }
     }];
 }
+*/
 
 #pragma mark - Core Data stack
 

@@ -124,7 +124,6 @@
 @synthesize dataManager = _dataManager;
 @synthesize teamIndex = _teamIndex;
 @synthesize team = _team;
-@synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize teamList = _teamList;
 
 - (id)initWithDataManager:(DataManager *)initManager {

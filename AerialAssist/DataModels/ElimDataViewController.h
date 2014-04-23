@@ -16,7 +16,6 @@
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSIndexPath *teamIndex;
 @property (nonatomic, strong) TeamData *team;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSMutableArray *teamList;
 
 -(IBAction)toggleRadioButtonState:(id)sender;

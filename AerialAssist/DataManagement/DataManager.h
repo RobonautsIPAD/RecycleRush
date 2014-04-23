@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import <AssetsLibrary/AssetsLibrary.h>
+/*#import <AssetsLibrary/AssetsLibrary.h>
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
-
+*/
 @interface DataManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -18,14 +18,14 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, assign) BOOL loadDataFromBundle;
-@property (strong, atomic) ALAssetsLibrary *photoLibrary;
+//@property (strong, atomic) ALAssetsLibrary *photoLibrary;
 
 -(void)saveContext;
 -(NSString *)applicationDocumentsDirectory;
 -(BOOL)databaseExists;
 
--(void)savePhotoToAlbum:(UIImage*)image;
--(void)addPhotoToAlbum:(NSURL*)assetURL;
--(void)getPhotoFromAlbum:(NSURL *)photoURL;
--(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate;
+//-(void)savePhotoToAlbum:(UIImage*)image;
+//-(void)addPhotoToAlbum:(NSURL*)assetURL;
+//-(void)getPhotoFromAlbum:(NSURL *)photoURL;
+//-(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate;
 @end

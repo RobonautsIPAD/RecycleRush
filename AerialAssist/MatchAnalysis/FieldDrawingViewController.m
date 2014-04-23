@@ -8,6 +8,7 @@
 
 #import <QuartzCore/CALayer.h>
 #import "FieldDrawingViewController.h"
+#import "MatchOverlayViewController.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "FieldDrawing.h"
@@ -15,7 +16,21 @@
 #import "TournamentData.h"
 
 @interface FieldDrawingViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
+@property (weak, nonatomic) IBOutlet UITextField *disruptedShot;
 @property (weak, nonatomic) IBOutlet UITextField *trussThrowMiss;
+@property (weak, nonatomic) IBOutlet UITextField *humanTrussCatch;
+@property (weak, nonatomic) IBOutlet UITextField *humanTrussCatchMiss;
+@property (weak, nonatomic) IBOutlet UITextField *passMiss;
+@property (weak, nonatomic) IBOutlet UITextField *robotIntake;
+@property (weak, nonatomic) IBOutlet UITextField *robotIntakeMiss;
+@property (nonatomic, weak) IBOutlet UITextField *defensiveBlock;
+@property (weak, nonatomic) IBOutlet UITextField *defensiveDisruption;
+@property (weak, nonatomic) IBOutlet UITextField *humanIntakeMiss;
+@property (weak, nonatomic) IBOutlet UITextField *floorPickUp;
+@property (weak, nonatomic) IBOutlet UITextField *floorPickUpMiss;
+@property (weak, nonatomic) IBOutlet UITextField *knockout;
+
 @property (weak, nonatomic) IBOutlet UITextField *floorCatch;
 @property (weak, nonatomic) IBOutlet UITextField *airCatch;
 @property (weak, nonatomic) IBOutlet UIButton *autonMobility;
@@ -55,7 +70,6 @@
 @synthesize teleOpHigh = _teleOpHigh;
 @synthesize teleOpLow = _teleOpLow;
 @synthesize teleOpMissed = _teleOpMissed;
-@synthesize teleOpBlocked = _teleOpBlocked;
 @synthesize autonScoreMade = _autonScoreMade;
 @synthesize autonScoreShot = _autonScoreShot;
 @synthesize autonHotHigh = _autonHotHigh;
@@ -69,7 +83,6 @@
 @synthesize wall2 = _wall2;
 @synthesize wall3 = _wall3;
 @synthesize wall4 = _wall4;
-@synthesize pickUpFLoor = _pickUpFLoor;
 @synthesize pickUpHuman = _pickUpHuman;
 @synthesize trussCatch = _trussCatch;
 @synthesize trussThrow = _trussThrow;
@@ -124,8 +137,11 @@
     [self SetBigButtonDefaults:_nextMatchButton];
     [self SetTextBoxDefaults:_teamName];
     [self SetTextBoxDefaults:_teamNumber];
+    [self SetSmallButtonDefaults:_matchOverlayButton];
+
     [self SetSmallTextBoxDefaults:_autonScoreMade];
     [self SetSmallTextBoxDefaults:_autonScoreShot];
+ 
     [self SetSmallTextBoxDefaults:_autonHotHigh];
     [_autonHotHigh setTextColor:[UIColor redColor]];
     [self SetSmallTextBoxDefaults:_autonColdHigh];
@@ -142,14 +158,28 @@
     [self SetSmallTextBoxDefaults:_teleOpHigh];
     [self SetSmallTextBoxDefaults:_teleOpLow];
     [self SetSmallTextBoxDefaults:_teleOpMissed];
-    [self SetSmallTextBoxDefaults:_teleOpBlocked];
+    [self SetSmallTextBoxDefaults:_disruptedShot];
     
-    [self SetSmallTextBoxDefaults:_pickUpFLoor];
-    [self SetSmallTextBoxDefaults:_pickUpHuman];
     [self SetSmallTextBoxDefaults:_trussThrow];
     [self SetSmallTextBoxDefaults:_trussThrowMiss];
-    [self SetSmallTextBoxDefaults:_trussCatch];
+    [self SetSmallTextBoxDefaults:_humanTrussCatch];
+    [self SetSmallTextBoxDefaults:_humanTrussCatchMiss];
+
     [self SetSmallTextBoxDefaults:_passFloor];
+    [self SetSmallTextBoxDefaults:_passMiss];
+    [self SetSmallTextBoxDefaults:_robotIntake];
+    [self SetSmallTextBoxDefaults:_robotIntakeMiss];
+
+    [self SetSmallTextBoxDefaults:_defensiveBlock];
+    [self SetSmallTextBoxDefaults:_defensiveDisruption];
+
+    [self SetSmallTextBoxDefaults:_pickUpHuman];
+    [self SetSmallTextBoxDefaults:_humanIntakeMiss];
+    [self SetSmallTextBoxDefaults:_floorPickUp];
+    [self SetSmallTextBoxDefaults:_floorPickUpMiss];
+    [self SetSmallTextBoxDefaults:_knockout];
+
+    [self SetSmallTextBoxDefaults:_trussCatch];
     [self SetSmallTextBoxDefaults:_passAir];
     [self SetSmallTextBoxDefaults:_floorCatch];
     [self SetSmallTextBoxDefaults:_airCatch];
@@ -177,6 +207,8 @@
     [self SetSmallTextBoxDefaults:_fouls];
     [self SetSmallTextBoxDefaults:_scouter];
 
+    
+
     [self setDisplayData];
 }
 
@@ -188,6 +220,7 @@
     _notes.text = currentScore.notes;
     _autonScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.autonShotsMade intValue]];
     _autonScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalAutonShots intValue]];
+
     _autonHotHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighHot intValue]];
     _autonColdHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighCold intValue]];
     _autonHotLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLowHot intValue]];
@@ -201,8 +234,27 @@
     _teleOpHigh.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpHigh intValue]];
     _teleOpLow.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpLow intValue]];
     _teleOpMissed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMissed intValue]];
-    _teleOpBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpBlocks intValue]];
+    _disruptedShot.text = [NSString stringWithFormat:@"%d", [currentScore.disruptedShot intValue]];
     
+    _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
+    _trussThrowMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrowMiss intValue]];
+    _humanTrussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatchHuman intValue]];
+    _humanTrussCatchMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatchHumanMiss intValue]];
+
+    _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
+    _passMiss.text = [NSString stringWithFormat:@"%d", [currentScore.floorPassMiss intValue]];
+    _robotIntake.text = [NSString stringWithFormat:@"%d", [currentScore.robotIntake intValue]];
+    _robotIntakeMiss.text = [NSString stringWithFormat:@"%d", [currentScore.robotIntakeMiss intValue]];
+ 
+    _defensiveBlock.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpBlocks intValue]];
+    _defensiveDisruption.text = [NSString stringWithFormat:@"%d", [currentScore.defensiveDisruption intValue]];
+
+    _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];
+    _humanIntakeMiss.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss intValue]];
+    _floorPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
+    _floorPickUpMiss.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUpMiss intValue]];
+    _knockout.text = [NSString stringWithFormat:@"%d", [currentScore.knockout intValue]];
+
     _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp1 intValue]];
     _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp2 intValue]];
     _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp3 intValue]];
@@ -212,12 +264,7 @@
     _miss3.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss3 intValue]];
     _miss4.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss4 intValue]];
     
-    _pickUpFLoor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
-    _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];
     _trussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatch intValue]];
-    _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
-    _trussThrowMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrowMiss intValue]];
-    _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
     _passAir.text = [NSString stringWithFormat:@"%d", [currentScore.airPasses intValue]];
     _floorCatch.text = [NSString stringWithFormat:@"%d", [currentScore.floorCatch intValue]];
     _airCatch.text = [NSString stringWithFormat:@"%d", [currentScore.airCatch intValue]];
@@ -281,6 +328,15 @@
     else currentIndex--;
     currentScore = [_teamScores objectAtIndex:currentIndex];
     [self setDisplayData];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Segue occurs when the user selects a match out of the match list table. Receiving
+    //  VC is the FieldDrawing VC.
+    if ([segue.identifier isEqualToString:@"MatchOverlay"]) {
+        [segue.destinationViewController setMatchList:_teamScores];
+        [segue.destinationViewController setNumberTeam:currentScore.team];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

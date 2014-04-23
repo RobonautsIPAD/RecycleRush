@@ -15,14 +15,15 @@
 #import "TeamData.h"
 
 @interface MatchOverlayViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *btnUseless;
 @end
 
-@implementation MatchOverlayViewController{
+@implementation MatchOverlayViewController {
     CalculateTeamStats *teamStats;
     NSMutableDictionary *stats;
     NSString *tournamentName;
     NSUserDefaults *prefs;
+    NSMutableArray *matchViews;
+    NSMutableArray *matchButtons;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -37,8 +38,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    for (int i=0; i<[_matchList count]; i++) {
-        TeamScore *score = [_matchList objectAtIndex:i];
+    prefs = [NSUserDefaults standardUserDefaults];
+    tournamentName = [prefs objectForKey:@"tournament"];
+    if (tournamentName) {
+        self.title =  [NSString stringWithFormat:@"%@ %d Match Overlay", tournamentName, [_numberTeam.number intValue]];
+        
+    }
+    else {
+        self.title = @"Match Overlay";
+    }
+
+    matchViews = [[NSMutableArray alloc] init];
+    matchButtons = [[NSMutableArray alloc] init];
+    UILabel *mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(890,15,104,24)];
+    mainLabel.text = @"Matches";
+    mainLabel.textColor = [UIColor greenColor];
+    mainLabel.textColor = [UIColor colorWithRed:1.0 green:190.0/255 blue:0.0 alpha:1];
+    mainLabel.backgroundColor = [UIColor clearColor];
+    mainLabel.font = [UIFont systemFontOfSize:24.0];
+    [self.view addSubview:mainLabel];
+    CGFloat yPos = 50;
+    NSUInteger count = 0;
+    for (TeamScore *score in _matchList) {
         if ([score.results boolValue] && score.fieldDrawing.trace) {
             UIImageView *trace =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,848,424)];
             trace.image = [UIImage imageWithData:score.fieldDrawing.trace];
@@ -46,18 +67,24 @@
                 trace.transform = CGAffineTransformMakeScale(-1, 1);
             }
             [self.view addSubview:trace];
+            [matchViews addObject:trace];
+            NSString *labelText = [NSString stringWithFormat:@"%@ %@", [score.match.matchType substringToIndex:4], score.match.number];
+            NSLog(@"%@", labelText);
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(915,yPos,84,24)];
+            label.text = labelText;
+            label.textColor = [UIColor colorWithRed:1.0 green:190.0/255 blue:0.0 alpha:1];
+            label.backgroundColor = [UIColor clearColor];
+            label.font = [UIFont boldSystemFontOfSize:18.0];
+            [self.view addSubview:label];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(875,yPos+2,20,20)];
+            [button setSelected:YES];
+            [button addTarget:self action:@selector(toggleButton:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTag:count];
+            [self setRadioButtonState:button forState:YES];
+            [self.view addSubview:button];
+            yPos += 25;
+            count++;
         }
-        
-        
-    }
-    prefs = [NSUserDefaults standardUserDefaults];
-    tournamentName = [prefs objectForKey:@"tournament"];
-    if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Match Overlay", tournamentName];
-        
-    }
-    else {
-        self.title = @"Match Overlay";
     }
     
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
@@ -111,19 +138,33 @@
 	label8.text = @"Floor Pass";
     label8.backgroundColor = [UIColor clearColor];
     [_teamHeader addSubview:label8];
-    
-    NSLog(@"%@", stats);
-    NSLog(@"%@", tournamentName);
-}
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return _teamHeader;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50;
+-(void)setRadioButtonState:(UIButton *)button forState:(BOOL)selection {
+    if (selection == 0) {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
+    }
 }
-*/
+
+-(IBAction)toggleButton:(id)sender {
+    UIButton * pressedButton = (UIButton*)sender;
+
+    NSUInteger which = pressedButton.tag;
+    if ([pressedButton isSelected]) {
+        [self setRadioButtonState:pressedButton forState:NO];
+        [pressedButton setSelected:NO];
+        [[matchViews objectAtIndex:which] setHidden:YES];
+    }
+    else {
+        [self setRadioButtonState:pressedButton forState:YES];
+        [pressedButton setSelected:YES];
+        [[matchViews objectAtIndex:which] setHidden:NO];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 7;
 }
@@ -313,17 +354,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)btnUseless:(id)sender {
-    NSArray *titles = [NSArray arrayWithObjects:@"HEY!", @"OUCH!", @"STOP!", @"OW!", nil];
-    NSArray *messages = [NSArray arrayWithObjects:@"Don't press me!", @"That hurts!", @"My eyes!", nil];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[titles objectAtIndex:arc4random() % [titles count]]
-                                                    message:[messages objectAtIndex:arc4random() % [messages count]]
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
 }
 
 @end

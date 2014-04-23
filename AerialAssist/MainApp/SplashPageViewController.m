@@ -73,7 +73,7 @@
     [_matchScoutingButton setTitle:@"Match Scouting" forState:UIControlStateNormal];
     _matchScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     // Set Font and Text for Match Analysis Button
-    [_matchAnalysisButton setTitle:@"Brogan Page" forState:UIControlStateNormal];
+    [_matchAnalysisButton setTitle:@"brogan Page" forState:UIControlStateNormal];
     _matchAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //set Font and Text for Tournament Analysis Button
     [_tournamentAnalysisButton setTitle:@"analysis" forState:UIControlStateNormal];

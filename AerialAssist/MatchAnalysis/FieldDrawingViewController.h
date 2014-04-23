@@ -41,15 +41,12 @@
 @property (nonatomic, weak) IBOutlet UITextField *wall2;
 @property (nonatomic, weak) IBOutlet UITextField *wall3;
 @property (nonatomic, weak) IBOutlet UITextField *wall4;
-@property (nonatomic, weak) IBOutlet UITextField *floorPickUp;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpBlocked;
 @property (nonatomic, weak) IBOutlet UITextField *teleOpMissed;
 
 @property (nonatomic, weak) IBOutlet UITextField *trussThrow;
 @property (nonatomic, weak) IBOutlet UITextField *trussCatch;
 
 @property (nonatomic, weak) IBOutlet UITextField *pickUpHuman;
-@property (nonatomic, weak) IBOutlet UITextField *pickUpFLoor;
 
 @property (nonatomic, weak) IBOutlet UITextField *passFloor;
 @property (nonatomic, weak) IBOutlet UITextField *passAir;
