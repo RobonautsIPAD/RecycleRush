@@ -16,5 +16,6 @@
 -(id)initWithDataManager:(DataManager *)initManager;
 -(NSString *)teamScoreCSVExport;
 -(NSString *)spreadsheetCSVExport:(TeamData *)team forMatches:(NSString *)choice;
+-(void)exportFullMatchData:(NSArray *)teamList;
 
 @end

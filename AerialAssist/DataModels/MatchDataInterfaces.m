@@ -14,6 +14,7 @@
 #import "TournamentDataInterfaces.h"
 #import "TeamDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
+#include "MatchTypeDictionary.h"
 
 @implementation MatchDataInterfaces
 
@@ -142,6 +143,8 @@
         if ([key isEqualToString:@"teams"]) continue; // Skip the team list for the moment
         [matchRecord setValue:[matchInfo objectForKey:key] forKey:key];
     }
+    MatchTypeDictionary *matchDictionary = [[MatchTypeDictionary alloc] init];
+    matchRecord.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
     NSDictionary *teams = [matchInfo objectForKey:@"teams"];
     for (NSString *key in teams) {
         [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];

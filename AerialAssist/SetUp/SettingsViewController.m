@@ -13,6 +13,7 @@
 #import "AlertPromptViewController.h"
 
 @interface SettingsViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *cleanPrefsButton;
 @end
 
 @implementation SettingsViewController {
@@ -249,6 +250,18 @@
     else {
         [prefs setObject:@"Tournament" forKey:@"mode"];
     }
+}
+- (IBAction)cleanPrefsAction:(id)sender {
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *prefsPath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences"];
+    NSString *prefsFile = [prefsPath stringByAppendingPathComponent: @"dataMarker.csv"];
+   [fileManager removeItemAtPath: prefsFile error: &error];
+    prefsFile = [prefsPath stringByAppendingPathComponent: @"lucienPagePreferences.plist"];
+    [fileManager removeItemAtPath: prefsFile error: &error];
+    prefsPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
+    [fileManager removeItemAtPath: prefsPath error: &error];
+
 }
 
 -(void) viewWillDisappear:(BOOL)animated

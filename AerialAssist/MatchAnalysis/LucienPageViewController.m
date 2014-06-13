@@ -371,6 +371,7 @@
         }
         else {
             NSMutableDictionary *defaultParameterDictionary = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:validChoice, @"", [NSNumber numberWithFloat:1.0], [NSNumber numberWithFloat:1.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"selection", @"normal", @"factor", nil]];
+            NSLog(@"para dict = %@", parameterDictionary);
             [parameterDictionary setObject:defaultParameterDictionary forKey:line];
             [self setDisplayData];
         }

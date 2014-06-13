@@ -24,6 +24,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *sendButton;
 @property (nonatomic, weak) IBOutlet UIButton *packageDataButton;
 @property (nonatomic, weak) IBOutlet UIButton *importFromiTunesButton;
+@property (weak, nonatomic) IBOutlet UIButton *createElimMatches;
 
 @end
 
@@ -68,6 +69,15 @@
 	if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
+    [self SetBigButtonDefaults:_xFerOptionButton];
+    [self SetBigButtonDefaults:_syncTypeButton];
+    [self SetBigButtonDefaults:_syncOptionButton];
+    [self SetBigButtonDefaults:_connectButton];
+    [self SetBigButtonDefaults:_disconnectButton];
+    [self SetBigButtonDefaults:_sendButton];
+    [self SetBigButtonDefaults:_packageDataButton];
+    [self SetBigButtonDefaults:_importFromiTunesButton];
+    [self SetBigButtonDefaults:_createElimMatches];
     syncController = [SharedSyncController alloc];
     syncController.xFerOptionButton = _xFerOptionButton;
     syncController.syncTypeButton = _syncTypeButton;
@@ -203,11 +213,31 @@
     [syncController updateTableData];
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [segue.destinationViewController setDataManager:_dataManager];
+}
+
 - (void) viewWillDisappear:(BOOL)animated {
     NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
+}
+
+-(void)SetBigButtonDefaults:(UIButton *)currentButton {
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0];
+    // Round button corners
+    CALayer *btnLayer = [currentButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
+    // Apply a 1 pixel, black border
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    // Set the button Background Color
+    [currentButton setBackgroundColor:[UIColor whiteColor]];
+    // Set the button Text Color
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -48,7 +48,6 @@
     int numberOfMatches = [matches count];
     for (int j=1; j<[parameterList count]; j++) {
         NSDictionary *parameter = [parameterList objectAtIndex:j];
- //       NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[parameter objectForKey:@"header"], [NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.0], nil] forKeys:[NSArray arrayWithObjects:@"name", @"average", @"total", nil]];
         float total = 0.0;
         float percentDenominator = 0.0;
         NSString *percentItems = [parameter objectForKey:@"percent"];
@@ -56,15 +55,28 @@
         if (percentItems) {
             percentKeys = [percentItems componentsSeparatedByString:@", "];
         }
+        NSString *skipZeros = [parameter objectForKey:@"skipZeros"];
+        int count=0;
         for (int i=0; i<numberOfMatches; i++) {
             TeamScore *match = [matches objectAtIndex:i];
-            total += [[match valueForKey:[parameter objectForKey:@"key"]] floatValue];
+            float item = [[match valueForKey:[parameter objectForKey:@"key"]] floatValue];
+            // Add skipZeros stuff
+            if (skipZeros && [skipZeros boolValue]) {
+                if (fabs(item) > 0.000001) {
+                    total += item;
+                    count++;
+                }
+            }
+            else {
+                total += item;
+                count++;
+            }
             for (NSString *key in percentKeys) {
                 percentDenominator += [[match valueForKey:key] floatValue];
             }
         }
-        if (numberOfMatches) {
-            float average = total/numberOfMatches;
+        if (count) {
+            float average = total/count;
             NSMutableDictionary *calculation = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:average], [NSNumber numberWithFloat:total], nil] forKeys:[NSArray arrayWithObjects:@"average", @"total", nil]];
             if (percentItems && percentDenominator) {
                 float percent  = total/percentDenominator;

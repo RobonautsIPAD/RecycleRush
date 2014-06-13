@@ -3563,6 +3563,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Clean Prefs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hpm-hg-yqq">
+                                <rect key="frame" x="340" y="444" width="122" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="zgx-Un-rcQ">
                                 <rect key="frame" x="530" y="235" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3586,6 +3593,21 @@
                                     <action selector="modeSelectionChanged:" destination="IC0-8Z-knh" eventType="valueChanged" id="Be8-gk-VhR"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hdx-XN-nUK" userLabel="Button - Alliance">
+                                <rect key="frame" x="530" y="437" width="208" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cleanPrefsAction:" destination="IC0-8Z-knh" eventType="touchUpInside" id="6JI-rY-gIu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3596,6 +3618,7 @@
                         <outlet property="adminText" destination="zgx-Un-rcQ" id="n9b-i4-x6s"/>
                         <outlet property="allianceButton" destination="49Z-04-8Pc" id="FVm-fB-6sK"/>
                         <outlet property="allianceLabel" destination="rd0-1c-zBt" id="6BG-43-y63"/>
+                        <outlet property="cleanPrefsButton" destination="Hdx-XN-nUK" id="IQr-fz-MR1"/>
                         <outlet property="mainLogo" destination="55f-y1-ALK" id="ztA-ro-pv3"/>
                         <outlet property="modeLabel" destination="C6t-jV-Mfh" id="aVc-20-VZ7"/>
                         <outlet property="modeSegment" destination="ueb-S3-4rq" id="Rps-C5-kHU"/>
@@ -3758,16 +3781,15 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -3946,7 +3968,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="CXH-09-OGT"/>
+                                    <action selector="exportFullMatchData:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="P9a-4K-Oka"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="photo.JPG" id="dab-GT-vw3">
@@ -3969,7 +3991,7 @@
                         <outlet property="firstImportButton" destination="elh-Um-nzT" id="qms-L9-dwf"/>
                         <outlet property="mainLogo" destination="qzp-fZ-Mdo" id="nFZ-uD-6Jx"/>
                         <outlet property="pictureCaption" destination="wlf-zr-3iE" id="nty-ao-5jU"/>
-                        <outlet property="scoutingSheetButton" destination="1kf-Y9-Nr2" id="8qc-HF-AYL"/>
+                        <outlet property="scoutingSheetButton" destination="1kf-Y9-Nr2" id="jGA-7l-40Z"/>
                         <outlet property="splashPicture" destination="dab-GT-vw3" id="0kg-Qg-NnS"/>
                         <outlet property="syncButton" destination="QAv-yQ-RKf" id="REp-yK-Ogd"/>
                         <outlet property="transferPhotosButton" destination="2cN-Fv-ew1" id="HD3-7o-XAh"/>
@@ -6751,7 +6773,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -6863,7 +6885,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Match" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -6897,7 +6918,7 @@
             <objects>
                 <viewController id="rCL-DE-Sx9" customClass="MatchDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1jO-E5-jgJ">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="Aq2-BS-C03" userLabel="Text Field - Red 1">
@@ -7021,7 +7042,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="I32-xv-f5E"/>
                     <connections>
@@ -7347,6 +7367,21 @@
                                     <action selector="selectAction:" destination="l5q-rI-yYt" eventType="touchUpInside" id="ttJ-jL-Wfb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KzA-7d-0IN">
+                                <rect key="frame" x="808" y="131" width="196" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Create Elim Matches">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="7Lj-vb-YQb" kind="push" id="6aF-Vd-QwC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -7355,6 +7390,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="connectButton" destination="fNA-1K-BIN" id="h9b-hu-VrV"/>
+                        <outlet property="createElimMatches" destination="KzA-7d-0IN" id="xrs-Dw-A4W"/>
                         <outlet property="disconnectButton" destination="cRZ-lC-hS9" id="vwU-2E-uL8"/>
                         <outlet property="importFromiTunesButton" destination="bxt-zf-Gpz" id="nQk-Wo-d0U"/>
                         <outlet property="packageDataButton" destination="Utg-yv-Sly" id="Bfm-Lz-bDw"/>
@@ -7384,11 +7420,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="M4x-HG-6MQ"/>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="gMh-cN-6SD"/>
-        <segue reference="6V1-MF-63T"/>
-        <segue reference="Ssx-dF-9xL"/>
+        <segue reference="0QU-hg-CV0"/>
+        <segue reference="M4x-HG-6MQ"/>
         <segue reference="k7w-uJ-Zdr"/>
+        <segue reference="V8E-cb-V1s"/>
+        <segue reference="npl-Y5-KtP"/>
+        <segue reference="x0L-aV-aR3"/>
     </inferredMetricsTieBreakers>
 </document>

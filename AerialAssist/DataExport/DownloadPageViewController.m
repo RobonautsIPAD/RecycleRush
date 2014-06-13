@@ -103,7 +103,7 @@
         [prompt setAlertViewStyle:UIAlertViewStyleDefault];
         [prompt show];
     }
-    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match", nil];
+    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match", @"Spreadsheet", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
     photoOptionList = [[NSMutableArray alloc] initWithObjects:@"iTunes", @"Computer", nil];
 
@@ -140,9 +140,6 @@
 
     if (sender == _emailDataButton) {
         optionPicker.pickerChoices = emailOptionList;
-    }
-     else if (sender == _scoutingSheetButton) {
-        optionPicker.pickerChoices = exportOptionList;
     }
     optionPopover = [[UIPopoverController alloc]
                                initWithContentViewController:optionPicker];
@@ -206,12 +203,12 @@
         if ([newPick isEqualToString:@"Team"]) {
             [self emailTeamData];
         }
-        else {
+        else if ([newPick isEqualToString:@"Match"]) {
             [self emailMatchData];
         }
-    }
-    else if (popUp == _scoutingSheetButton) {
-        [self createScoutingSpreadsheet:newPick];
+        else if ([newPick isEqualToString:@"Spreadsheet"]) {
+            [self createScoutingSpreadsheet:@"Competition"];
+        }
     }
 }
 
@@ -267,6 +264,13 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller
          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:Nil];
+}
+
+- (IBAction)exportFullMatchData:(id)sender {
+    // Export Scores
+    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
+    ExportScoreData *fullData = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    [fullData exportFullMatchData:teamData];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

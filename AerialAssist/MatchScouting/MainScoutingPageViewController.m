@@ -435,7 +435,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-//    NSLog(@"viewWillDisappear");
+    NSLog(@"viewWillDisappear");
     NSString *dataMarkerString;
     storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
     dataMarkerString = [NSString stringWithFormat:@"%d, %d, %d\n", rowIndex, currentSectionType, teamIndex];
@@ -910,8 +910,9 @@
         currentTeam.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
     }
     else if (textField == _scouterTextField) {
-		currentTeam.scouter = _scouterTextField.text;
-        [prefs setObject:_scouterTextField.text forKey:@"scouter"];
+        scouter = _scouterTextField.text;
+		currentTeam.scouter = scouter;
+        [prefs setObject:scouter forKey:@"scouter"];
 	}
 	return YES;
 }

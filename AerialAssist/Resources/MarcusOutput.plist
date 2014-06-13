@@ -233,6 +233,8 @@
 		<string>DriverSkill</string>
 		<key>order</key>
 		<integer>26</integer>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -241,6 +243,8 @@
 		<string>Speed</string>
 		<key>order</key>
 		<integer>27</integer>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -249,6 +253,8 @@
 		<string>BlockSkill</string>
 		<key>order</key>
 		<integer>28</integer>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -257,6 +263,8 @@
 		<string>BullySkill</string>
 		<key>order</key>
 		<integer>29</integer>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
