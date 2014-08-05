@@ -11,6 +11,7 @@
 #import "TeamDataInterfaces.h"
 #import "MatchDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
+#import "LoadCSVData.h"
 
 @implementation ImportDataFromiTunes {
     NSUserDefaults *prefs;
@@ -58,7 +59,8 @@
         if ([file.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
-            [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
            // NSLog(@"file = %@", file);
             [fileList addObject:file];
         }
@@ -121,6 +123,13 @@
         [self showAlert:@"Unable to create import workspace"];
         return nil;
     }
+    if ([importFile.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        LoadCSVData *csvImport = [[LoadCSVData alloc] initWithDataManager:_dataManager];
+        [csvImport loadMatchFile:importFile];
+        [fileManager removeItemAtPath:transferPath error:&error];
+        return nil;
+    }
+
     NSData *importData = [NSData dataWithContentsOfFile:importFile];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
     if (dirWrapper == nil) {
@@ -177,7 +186,6 @@
             }
         }
     }
-
     [fileManager removeItemAtPath:transferPath error:&error];
 
     return receivedData;

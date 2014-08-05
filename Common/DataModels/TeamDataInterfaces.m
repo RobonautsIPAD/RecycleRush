@@ -11,7 +11,7 @@
 #import "TeamData.h"
 #import "TournamentData.h"
 #import "Photo.h"
-#import "TournamentDataInterfaces.h"
+#import "DataConvenienceMethods.h"
 #import "Regional.h"
 
 @implementation TeamDataInterfaces {
@@ -39,7 +39,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     // Check to make sure tournament exists, if not, error out
-    TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournamentName];
+    TournamentData *tournamentRecord = [DataConvenienceMethods getTournament:tournamentName fromContext:_dataManager.managedObjectContext];
     if (!tournamentRecord) {
         NSString *msg = [NSString stringWithFormat:@"Tournament %@ does not exist", tournamentName];
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Add Alert"
@@ -140,7 +140,7 @@
         NSRelationshipDescription *destination = [value inverseRelationship];
         if ([destination.entity.name isEqualToString:@"TournamentData"]) {
             // Check to make sure that the tournament exists in the TournamentData db
-            TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:data];
+            TournamentData *tournamentRecord = [DataConvenienceMethods getTournament:data fromContext:_dataManager.managedObjectContext];
             if (tournamentRecord) {
                 // NSLog(@"Found = %@", tournamentRecord.name);
                 // Check to make sure this team does not already have this tournament
@@ -400,7 +400,7 @@
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
     NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);
     // Check to make sure that the tournament exists in the TournamentData db
-    TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournamentName];
+    TournamentData *tournamentRecord = [DataConvenienceMethods getTournament:tournamentName fromContext:_dataManager.managedObjectContext];
     if (tournamentRecord) {
         // NSLog(@"Found = %@", tournamentRecord.name);
         // Check to make sure this team does not already have this tournament

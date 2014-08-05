@@ -9,7 +9,7 @@
 #import "SharedSyncController.h"
 #import "DataManager.h"
 #import "TournamentData.h"
-#import "TournamentDataInterfaces.h"
+#import "TournamentUtilities.h"
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
 #import "MatchData.h"
@@ -33,7 +33,7 @@
     NSArray *tournamentList;
     NSMutableArray *filteredTournamentList;
     NSArray *receivedTournamentList;
-    TournamentDataInterfaces *tournamentDataPackage;
+    TournamentUtilities *tournamentDataPackage;
     
     NSNumber *teamDataSync;
     NSArray *teamList;
@@ -94,7 +94,7 @@ GKPeerPickerController *picker;
     
     // Initialize all data packages
     if (!tournamentDataPackage) {
-        tournamentDataPackage = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
+        tournamentDataPackage = [[TournamentUtilities alloc] initWithDataManager:_dataManager];
     }
     if (!teamDataPackage) {
         teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
@@ -508,7 +508,9 @@ GKPeerPickerController *picker;
     NSPredicate *pred;
     switch (syncOption) {
         case SyncAll:
-            filteredResultsList = [NSArray arrayWithArray:matchResultsList];
+            pred = [NSPredicate predicateWithFormat:@"results = %@", [NSNumber numberWithBool:YES]];
+            filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
+  //          filteredResultsList = matchResultsList;
             break;
         case SyncAllSavedHere:
             pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
@@ -851,6 +853,8 @@ GKPeerPickerController *picker;
         } else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedTeamList = [importPackage importData:importFile];
         } else if ([importFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            receivedMatchList = [importPackage importData:importFile];
+        } else if ([importFile.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedMatchList = [importPackage importData:importFile];
         }
     }

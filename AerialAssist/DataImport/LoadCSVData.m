@@ -12,7 +12,7 @@
 #import "parseCSV.h"
 #import "TeamDataInterfaces.h"
 #import "CreateMatch.h"
-#import "TournamentDataInterfaces.h"
+#import "TournamentUtilities.h"
 #import "AddRecordResults.h"
 
 @implementation LoadCSVData {
@@ -77,24 +77,8 @@
 }
 
 -(void)loadTournamentFile:(NSString *)filePath {
-    CSVParser *parser = [CSVParser new];
-    [parser openFile: filePath];
-    NSMutableArray *csvContent = [parser parseFile];
-
-    if (![csvContent count]) return;
-
-    if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Tournament"]) {
-        TournamentDataInterfaces *tournament = [[TournamentDataInterfaces alloc] initWithDataManager:_dataManager];
-        int c;
-        for (c = 1; c < [csvContent count]; c++) {
-            // NSLog(@"loadTournamentFile:Tournament = %@", [[csvContent objectAtIndex: c] objectAtIndex:0]);
-            AddRecordResults results = [tournament createTournamentFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
-            if (results != DB_ADDED) {
-                NSLog(@"Check database - Tournament Add Code %d", results);
-            }
-        }
-    }
-    [parser closeFile];
+    TournamentUtilities *tournamentUtil = [[TournamentUtilities alloc] initWithDataManager:_dataManager];
+    [tournamentUtil createTournamentFromFile:filePath];
 }
 
 -(void)loadTeamFile:(NSString *)filePath {

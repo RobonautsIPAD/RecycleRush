@@ -584,7 +584,23 @@
     if ([lucienObjects count]) return [lucienObjects objectAtIndex:0];
     else return nil;
 }
-
+/*        NSString *skipZeros = [parameter objectForKey:@"skipZeros"];
+ int count=0;
+ for (int i=0; i<numberOfMatches; i++) {
+ TeamScore *match = [matches objectAtIndex:i];
+ float item = [[match valueForKey:[parameter objectForKey:@"key"]] floatValue];
+ // Add skipZeros stuff
+ if (skipZeros && [skipZeros boolValue]) {
+ if (fabs(item) > 0.000001) {
+ total += item;
+ count++;
+ }
+ else {
+ total += item;
+ count++;
+ }
+ }
+*/
 -(float)calculateAverage:(TeamData *)team forScores:matches forParameter:(NSDictionary *)parameter forData:(NSDictionary *)lucienSelection {
     // NSLog(@"%@", [matches valueForKey:[lucienSelection objectForKey:@"key"]]);
     NSSortDescriptor *highestToLowest = [[NSSortDescriptor alloc] initWithKey:[lucienSelection objectForKey:@"key"] ascending:NO];
@@ -602,14 +618,30 @@
     }
     if (number > [matches count]) number = [matches count];
     if (number == 0) return 0.0;
-    float total, average;
-    total = 0.0;
+    float total = 0.0;
+    float average = 0.0;
+    int count = 0;
+    NSString *skipZeros = [lucienSelection objectForKey:@"skipZeros"];
+    BOOL skipping = NO;
+    skipping = (skipZeros && [skipZeros boolValue]);
     for (int i=0; i<number; i++) {
         TeamScore *score = [matches objectAtIndex:i];
-        // NSLog(@"Match = %@, Value = %@", score.match.number, [score valueForKey:[lucienSelection objectForKey:@"key"]]);
-        total += [[score valueForKey:[lucienSelection objectForKey:@"key"]] floatValue];
+        float item = [[score valueForKey:[lucienSelection objectForKey:@"key"]] floatValue];
+        //NSLog(@"Match = %@, Value = %@", score.match.number, [score valueForKey:[lucienSelection objectForKey:@"key"]]);
+        if (skipping) {
+            if (fabs(item) > 0.000001) {
+                total += item;
+                count++;
+            }
+        }
+        else {
+            total += item;
+            count++;
+        }
     }
-    average = total/number;
+    if (count) {
+        average = total/count;
+    }
     // NSLog(@"Average = %f", average);
     return average;
 }

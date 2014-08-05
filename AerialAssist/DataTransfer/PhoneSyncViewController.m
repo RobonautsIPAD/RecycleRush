@@ -11,7 +11,7 @@
 #import "SyncTypeDictionary.h"
 #import "SyncOptionDictionary.h"
 #import "TournamentData.h"
-#import "TournamentDataInterfaces.h"
+#import "TournamentUtilities.h"
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
 #import "MatchData.h"

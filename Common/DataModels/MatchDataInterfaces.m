@@ -87,7 +87,7 @@
     NSString *matchType = [myDictionary objectForKey:@"matchType"];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     if (!matchNumber || !matchType || !tournamentName) return nil;
-    //NSLog(@"receiving %@", myDictionary);
+    NSLog(@"receiving %@", myDictionary);
     
     MatchData *matchRecord = [self getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];
     if (!matchRecord) {

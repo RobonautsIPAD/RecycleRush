@@ -215,7 +215,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // NSLog(@"Main Scouting viewDidLoad");
+    NSLog(@"Main Scouting viewDidLoad");
     NSError *error = nil;
     if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
@@ -376,7 +376,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    // NSLog(@"viewWillAppear");
+    NSLog(@"viewWillAppear");
 	NSError *error = nil;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		/*
@@ -521,13 +521,13 @@
     currentTeam.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     currentTeam.savedBy = deviceName;
     currentTeam.scouter = scouter;
-    //NSLog(@"Team = %@, Match = %@ Saved by:%@\tTime = %@", currentTeam.team.number, currentTeam.match.number, currentTeam.savedBy, currentTeam.saved);
+    NSLog(@"Team = %@, Match = %@ Saved by:%@\tTime = %@", currentTeam.team.number, currentTeam.match.number, currentTeam.savedBy, currentTeam.saved);
     dataChange = TRUE;
 }
 
 -(void)CheckDataStatus {
     //    NSLog(@"Check to Save");
-    //    NSLog (@"Data changed: %@", dataChange ? @"YES" : @"NO");
+    NSLog (@"Data changed: %@", dataChange ? @"YES" : @"NO");
     if (fieldDrawingChange) {
         // Save the picture
         if (!currentTeam.fieldDrawing) {
@@ -1771,7 +1771,7 @@
 }
 
 -(void)disableButtons{
-    NSLog(@"disabling buttons");
+    // NSLog(@"disabling buttons");
     [_autonHighHotButton setUserInteractionEnabled:NO];
     [_autonHighColdButton setUserInteractionEnabled:NO];
     [_autonLowHotButton setUserInteractionEnabled:NO];

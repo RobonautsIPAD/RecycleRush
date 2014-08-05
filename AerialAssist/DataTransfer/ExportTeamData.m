@@ -122,9 +122,6 @@
     for (NSDictionary *entry in teamDataList) {
         NSString *output = [team valueForKey:[entry objectForKey:@"key"]];
         if (output) {
-            if ([[entry objectForKey:@"key"] isEqualToString:@"notes"]) {
-            NSLog(@"key = p%@p", output);
-            }
             csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[entry objectForKey:@"format"] forValue:[team valueForKey:[entry objectForKey:@"key"]]]];
         }
     }
@@ -136,10 +133,13 @@
 
 -(NSString *) outputFormat:(NSString *)type forValue:data {
     if ([type isEqualToString:@"string"]) {
-        NSLog(@"data = p%@p", data);
-        if (data) {
-            NSLog(@",\"%@\"", data);
-            return [NSString stringWithFormat:@"\"%@\"", data];
+        NSString *replaced;
+        NSLog(@"key = p%@p", data);
+        replaced = [data stringByReplacingOccurrencesOfString:@"," withString:@";"];
+        if (replaced) {
+            replaced = [replaced stringByReplacingOccurrencesOfString:@"\n" withString:@";"];
+            NSLog(@",\"%@\"", replaced);
+            return [NSString stringWithFormat:@"\"%@\"", replaced];
         }
         else return @"";
     }

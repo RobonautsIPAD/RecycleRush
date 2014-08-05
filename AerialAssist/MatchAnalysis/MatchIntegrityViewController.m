@@ -42,6 +42,20 @@
         self.title = @"Match Integrity Page";
     }
 
+    NSError *error1;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND alliance = %@", tournamentName, @"Red 2"];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *scoreData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error1];
+    
+    for (TeamScore *score in scoreData) {
+        NSLog(@"Match = %@, Team = %@, Results = %@", score.match.number, score.team.number, score.results);
+    }
+
     NSError *error = nil;
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*

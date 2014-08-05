@@ -151,6 +151,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -161,6 +163,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -171,6 +175,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -201,6 +207,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -291,6 +299,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -301,6 +311,8 @@
 		<string>TeamScore</string>
 		<key>operators</key>
 		<string>List</string>
+		<key>skipZeros</key>
+		<true/>
 	</dict>
 	<dict>
 		<key>key</key>

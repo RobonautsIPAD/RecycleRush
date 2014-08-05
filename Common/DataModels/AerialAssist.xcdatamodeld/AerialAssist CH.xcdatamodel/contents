@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FieldDrawing" representedClassName="FieldDrawing" syncable="YES">
         <attribute name="trace" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="fieldDrawing" inverseEntity="TeamScore" syncable="YES"/>
@@ -15,11 +15,6 @@
         <attribute name="savedBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tournamentName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="score" optional="YES" toMany="YES" maxCount="6" deletionRule="Cascade" destinationEntity="TeamScore" inverseName="match" inverseEntity="TeamScore" syncable="YES"/>
-    </entity>
-    <entity name="Photo" representedClassName="Photo" syncable="YES">
-        <attribute name="fullImage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="thumbNail" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="teamPhoto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="photoList" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="Regional" representedClassName="Regional" syncable="YES">
         <attribute name="awards" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,6 +43,9 @@
         <attribute name="seedingRecord" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="week" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="regional" inverseEntity="TeamData" syncable="YES"/>
+    </entity>
+    <entity name="String" representedClassName="String" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
@@ -186,6 +184,7 @@
                 <entry key="output" value="Shooter Type"/>
             </userInfo>
         </attribute>
+        <attribute name="spitBot" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing4" optional="YES" attributeType="String" syncable="YES"/>
@@ -196,6 +195,7 @@
         <attribute name="thing3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tunneler" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="key" value="wheel diameter, diameter, wheel size, wheelsize"/>
@@ -209,9 +209,8 @@
             </userInfo>
         </attribute>
         <relationship name="match" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="team" inverseEntity="TeamScore" syncable="YES"/>
-        <relationship name="photoList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="teamPhoto" inverseEntity="Photo" syncable="YES"/>
         <relationship name="regional" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
-        <relationship name="tournament" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TournamentData" inverseName="teams" inverseEntity="TournamentData" syncable="YES">
+        <relationship name="tournament" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TournamentData" syncable="YES">
             <userInfo>
                 <entry key="key" value="tournament, tournament data"/>
             </userInfo>
@@ -223,7 +222,6 @@
                 <entry key="output" value="Air Catch"/>
             </userInfo>
         </attribute>
-        <attribute name="airCatchHuman" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="airPasses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="output" value="Air Passes"/>
@@ -232,6 +230,7 @@
         <attribute name="airPassMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="alliance" optional="YES" attributeType="String" maxValueString="7" syncable="YES"/>
         <attribute name="allianceSection" optional="YES" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
+        <attribute name="assistRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="autonBlocks" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Auton Blocks"/>
@@ -279,7 +278,7 @@
                 <entry key="output" value="Auton Missed"/>
             </userInfo>
         </attribute>
-        <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
+        <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Auton Mobile Score"/>
                 <entry key="marcus" value="Mobility"/>
@@ -306,6 +305,8 @@
                 <entry key="output" value="Defense Bully"/>
             </userInfo>
         </attribute>
+        <attribute name="defensiveDisruption" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="disruptedShot" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Driver Rating"/>
@@ -313,6 +314,7 @@
             </userInfo>
         </attribute>
         <attribute name="floorCatch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="floorCatchMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="floorPasses" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="marcus" value="FloorPass"/>
@@ -327,6 +329,13 @@
                 <entry key="output" value="Floor Pick Up"/>
             </userInfo>
         </attribute>
+        <attribute name="floorPickUpMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanMiss1" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanMiss2" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanMiss3" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="humanMiss4" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="humanPickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Human Pick Up"/>
@@ -337,6 +346,8 @@
         <attribute name="humanPickUp2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="humanPickUp3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="humanPickUp4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="intakeRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
+        <attribute name="knockout" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="noShow" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" minValueString="0" maxValueString="500" syncable="YES">
             <userInfo>
@@ -347,6 +358,8 @@
         <attribute name="passesCaught" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="results" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="robotIntake" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="robotIntakeMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="robotSpeed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Speed"/>
@@ -364,6 +377,7 @@
         <attribute name="sc7" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sc8" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sc9" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scouter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teleOpBlocks" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="TeleOp Blocks"/>
@@ -425,6 +439,8 @@
                 <entry key="output" value="Truss Catch"/>
             </userInfo>
         </attribute>
+        <attribute name="trussCatchHuman" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="trussCatchHumanMiss" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="trussCatchMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="trussThrow" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
             <userInfo>
@@ -438,16 +454,16 @@
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="match" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="TournamentData" representedClassName="TournamentData" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="teams" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournament" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FieldDrawing" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MatchData" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Photo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Regional" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="TeamData" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="TeamScore" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="TournamentData" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FieldDrawing" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="MatchData" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Regional" positionX="0" positionY="0" width="128" height="315"/>
+        <element name="TeamData" positionX="0" positionY="0" width="128" height="763"/>
+        <element name="TeamScore" positionX="0" positionY="0" width="128" height="1275"/>
+        <element name="TournamentData" positionX="0" positionY="0" width="128" height="73"/>
+        <element name="String" positionX="9" positionY="153" width="128" height="60"/>
     </elements>
 </model>

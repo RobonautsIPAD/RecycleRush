@@ -14,7 +14,7 @@
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
 #import "TournamentData.h"
-#import "TournamentDataInterfaces.h"
+#import "DataConvenienceMethods.h"
 #import "FieldDrawing.h"
 
 @implementation TeamScoreInterfaces {
@@ -85,7 +85,10 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    
+    if ([score.match.number intValue] == 1) {
+        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.match.number, score.match.matchType, score.team.number, score.saved);
+        NSLog(@"Data = %@", dictionary);
+    }
     return myData;
 }
 
@@ -94,12 +97,12 @@
         _dataManager = [DataManager new];
     }
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
-
     NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
     NSString *matchType = [myDictionary objectForKey:@"matchType"];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     NSNumber *teamNumber = [myDictionary objectForKey:@"teamNumber"];
     NSString *alliance = [myDictionary objectForKey:@"alliance"];
+
     if (!matchNumber || !matchType || !teamNumber) return nil;
     // Fetch score record
     // Copy the data into the right places
@@ -122,7 +125,6 @@
     TeamScore *score;
     if([scoreData count] > 0) {  // Score Exists
         score = [scoreData objectAtIndex:0];
-       // NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     }
     else {
         MatchData *matchRecord = [[[MatchDataInterfaces alloc] initWithDataManager:_dataManager] getMatch:matchNumber forMatchType:matchType forTournament:tournamentName];
@@ -146,15 +148,15 @@
     // check retieved match, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [myDictionary objectForKey:@"saved"];
     NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+//    if ([matchNumber intValue] == 1) saved = [NSNumber numberWithFloat:0.0];
 
     if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
-        // NSLog(@"Match has already transferred, match = %@", score.match.number);
+        NSLog(@"Match has already transferred, match = %@", score.match.number);
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
         NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         return teamTransfer;
     }
-    //[NSDictionary dictionaryWithObjects:@[[asset valueForProperty:ALAssetPropertyAssetURL], image] forKeys:@[@"assetURL", @"photoImage"]]]];
 
     for (NSString *key in myDictionary) {
         if ([key isEqualToString:@"matchNumber"]) continue; // Comes with the relationship
@@ -180,7 +182,6 @@
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"results", @"transfer", nil];
     NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.alliance, score.team.number, score.results, @"Y", nil];
-    NSLog(@"match = %@, type = %@, team = %@", score.match.number, score.match.matchType, score.team.number);
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }
@@ -224,7 +225,7 @@
          forTournament:(NSString *)tournament
 {
     // Error checking
-    TournamentData *tournamentRecord = [[[TournamentDataInterfaces alloc] initWithDataManager:_dataManager] getTournament:tournament];
+    TournamentData *tournamentRecord = [DataConvenienceMethods getTournament:tournament fromContext:_dataManager.managedObjectContext];
     if (!tournamentRecord) return nil; // Tournament does not exist. Bail out!!
     
     NSUInteger allianceSection = [self getAllianceSection:alliance];
