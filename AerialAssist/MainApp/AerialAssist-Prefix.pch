@@ -23,6 +23,12 @@ typedef enum {
     TriYes,
 } Troolean;
 
+/*typedef enum {
+    TriUnknown = -1,
+    TriNo,
+    TriYes,
+} TriState;
+*/
 typedef enum {
     QuadUnknown = -1,
     QuadNo,

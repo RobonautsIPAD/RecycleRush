@@ -33,7 +33,7 @@
 }
 
 -(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName {
-    if (!_dataManager) {
+/*    if (!_dataManager) {
         _dataManager = [DataManager new];
     }
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -90,48 +90,12 @@
         teamRecord.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
         teamRecord.savedBy = [prefs objectForKey:@"deviceName"];
         return teamRecord;
-    }
-}
-
--(AddRecordResults)createTeamFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data {
-    NSNumber *teamNumber;
-    TeamData *team;
-    AddRecordResults results = DB_ADDED;
-
-    if (![data count]) return DB_ERROR;
-    
-    // For now, I am going to only allow it to work if the team number is in the first column
-    if (![[headers objectAtIndex:0] isEqualToString:@"Team Number"]) {
-        return DB_ERROR;
-    }
-    teamNumber = [NSNumber numberWithInt:[[data objectAtIndex: 0] intValue]];
-    // NSLog(@"Found team number = %@", teamNumber);
-    team = [self getTeam:teamNumber];
-    if (team) {
-        // NSLog(@"createTeamFromFile:Team %@ already exists", teamNumber);
-        // NSLog(@"Team = %@", team);
-        results = DB_MATCHED;
-    }
-    else {
-        team = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
-                                                       inManagedObjectContext:_dataManager.managedObjectContext];
-        [team setValue:teamNumber forKey:@"number"];
-    }
-    if (!_teamDataProperties) _teamDataProperties = [[team entity] propertiesByName];
-    for (int i=1; i<[data count]; i++) {
-        [self setTeamValue:team forHeader:[headers objectAtIndex:i] withValue:[data objectAtIndex:i] withProperties:_teamDataProperties];
-    }
-    //    NSLog(@"Team = %@", team);
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        results = DB_ERROR;
-    }
-    return results;
+    }*/
+    return Nil;
 }
 
 -(void)setTeamValue:(TeamData *)team forHeader:header withValue:data withProperties:(NSDictionary *)properties {
-
+/*
     id value = [properties valueForKey:header];
     if (!value) {
         value = [self checkAlternateKeys:properties forEntry:header];
@@ -161,7 +125,7 @@
     }
     else if ([value isKindOfClass:[NSAttributeDescription class]]) {
         [self setAttributeValue:team forValue:data forAttribute:value];
-    }
+    }*/
 }
 
 -(AddRecordResults)addTeamHistoryFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data {
@@ -258,6 +222,7 @@
 }
 
 -(NSData *)packageTeamForXFer:(TeamData *)team {
+    /*
     NSMutableArray *keyList = [NSMutableArray array];
     NSMutableArray *valueList = [NSMutableArray array];
     if (!_teamDataAttributes) _teamDataAttributes = [[team entity] attributesByName];
@@ -277,7 +242,6 @@
     [keyList addObject:@"tournament"];
     [valueList addObject:tournamentNames];
 
-/*
     NSArray *allRegionals = [team.regional allObjects];
     NSMutableArray *regionalData = [NSMutableArray array];
     for (int i=0; i<[allRegionals count]; i++) {
@@ -286,10 +250,10 @@
     [keyList addObject:allRegionals];
     [valueList addObject:[team valueForKey:@"regional"]];
 */
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+ //   NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
-    return myData;
+    return Nil;
 }
 
 -(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
@@ -398,7 +362,7 @@
 }
 
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
-    NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);
+/*    NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);
     // Check to make sure that the tournament exists in the TournamentData db
     TournamentData *tournamentRecord = [DataConvenienceMethods getTournament:tournamentName fromContext:_dataManager.managedObjectContext];
     if (tournamentRecord) {
@@ -416,7 +380,7 @@
         else {
             // NSLog(@"Tournament Exists, count = %d", [list count]);
         }
-    }
+    }*/
 }
 
 -(Regional *)getRegionalRecord:(TeamData *)team forWeek:(NSNumber *)week {

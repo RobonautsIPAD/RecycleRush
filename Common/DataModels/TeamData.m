@@ -2,14 +2,14 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 4/14/14.
+//  Created by FRC on 9/16/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "TeamData.h"
+#import "Competitions.h"
 #import "Regional.h"
 #import "TeamScore.h"
-#import "TournamentData.h"
 
 
 @implementation TeamData
@@ -45,6 +45,7 @@
 @dynamic saved;
 @dynamic savedBy;
 @dynamic shooterType;
+@dynamic spitBot;
 @dynamic sthing1;
 @dynamic sthing3;
 @dynamic sthing4;
@@ -58,9 +59,8 @@
 @dynamic tunneler;
 @dynamic wheelDiameter;
 @dynamic wheelType;
-@dynamic spitBot;
 @dynamic match;
 @dynamic regional;
-@dynamic tournament;
+@dynamic tournaments;
 
 @end

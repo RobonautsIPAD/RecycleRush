@@ -229,7 +229,7 @@
 }
 
 -(AddRecordResults)ValidateTeam:(NSNumber *)team forTournament:(NSString *)tournament {
-    if ([team intValue] == 0) return DB_GOOD;
+/*    if ([team intValue] == 0) return DB_GOOD;
     TeamData *teamRec = [self GetTeam:team];
     if (!teamRec) {
         teamError = [NSString stringWithFormat:@"Team %@ does not exist", team];
@@ -254,7 +254,7 @@
                                             cancelButtonTitle:@"Ok"
                                             otherButtonTitles:nil];
     [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-    [prompt show];
+    [prompt show];*/
     return DB_ERROR;
 }
 

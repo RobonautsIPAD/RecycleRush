@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>autonCapacity</string>
+		<key>input</key>
+		<string>Auton Capacity, Auton Cap, Auton Balls</string>
+		<key>output</key>
+		<string>Auton Balls</string>
+		<key>lucien</key>
+		<string>Auton Capacity</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonMobility</string>
+		<key>input</key>
+		<string>Auton Mobility</string>
+		<key>output</key>
+		<string>Auton Mobility</string>
+		<key>lucien</key>
+		<string>Auton Mobility</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>ballReleaseHeight</string>
+		<key>input</key>
+		<string>Ball Release Height</string>
+		<key>output</key>
+		<string>Ball Release Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>catcher</string>
+		<key>input</key>
+		<string>Catch System</string>
+		<key>output</key>
+		<string>Catcher</string>
+		<key>lucien</key>
+		<string>Catcher</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cims</string>
+		<key>output</key>
+		<string>CIMS</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driveTrainType</string>
+		<key>input</key>
+		<string>drive train type, drive train, drive, drivetrain type, drive traintype</string>
+		<key>output</key>
+		<string>Drive Train Type</string>
+		<key>dictionary</key>
+		<string>driveTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>goalie</string>
+		<key>output</key>
+		<string>Goalie</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>hotTracker</string>
+		<key>input</key>
+		<string>Tracks Hots, Hot Tracker, Track Hot, Hot Tracking</string>
+		<key>output</key>
+		<string>Hot Tracking</string>
+		<key>lucien</key>
+		<string>Track Hot</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>intake</string>
+		<key>input</key>
+		<string>intaketype, intake type</string>
+		<key>output</key>
+		<string>Intake</string>
+		<key>dictionary</key>
+		<string>intakeTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxHeight</string>
+		<key>input</key>
+		<string>max height, maximum height</string>
+		<key>output</key>
+		<string>Maximum Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>minHeight</string>
+		<key>input</key>
+		<string>min height, minimum height</string>
+		<key>output</key>
+		<string>Minimum Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>name</string>
+		<key>input</key>
+		<string>Team Name, teamname</string>
+		<key>output</key>
+		<string>Team Name</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>notes</string>
+		<key>output</key>
+		<string>Notes</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>number</string>
+		<key>input</key>
+		<string>Team Number, teamnumber</string>
+		<key>output</key>
+		<string>Team Number</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>nwheels</string>
+		<key>input</key>
+		<string>number of wheels, numberwheels, number wheels</string>
+		<key>output</key>
+		<string>Number of Wheels</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>shooterType</string>
+		<key>input</key>
+		<string>Shooter Type</string>
+		<key>output</key>
+		<string>Shooter Type</string>
+		<key>dictionary</key>
+		<string>shooterTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>spitBot</string>
+		<key>input</key>
+		<string>Spit Bot, spits, spitter</string>
+		<key>output</key>
+		<string>Spit Bot</string>
+		<key>lucien</key>
+		<string>Spits</string>
+		<key>dictionary</key>
+		<string>quadStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>tournaments</string>
+		<key>input</key>
+		<string>Tournament Name, Tournamentname, tournament</string>
+		<key>output</key>
+		<string>Tournament</string>
+		<key>lucien</key>
+		<string></string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>tunneler</string>
+		<key>input</key>
+		<string>Tunnel Bot</string>
+		<key>output</key>
+		<string>Tunneler</string>
+		<key>lucien</key>
+		<string>Tunnel</string>
+		<key>dictionary</key>
+		<string>tunnelDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>wheelDiameter</string>
+		<key>input</key>
+		<string>Wheel Diameter</string>
+		<key>output</key>
+		<string>Wheel Diameter</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+</array>
+</plist>

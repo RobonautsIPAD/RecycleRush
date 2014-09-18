@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 @class TournamentData;
+@class TeamData;
 
 @interface DataConvenienceMethods : NSObject
 +(TournamentData *)getTournament:(NSString *)name fromContext:(NSManagedObjectContext *)managedObjectContext;
-
++(TeamData *)getTeam:(NSNumber *)teamNumber fromContext:(NSManagedObjectContext *)managedObjectContext;
++(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary;
++(void)setAttributeValue:record forValue:data forAttribute:description forEnumDictionary:enumDictionary;
 @end

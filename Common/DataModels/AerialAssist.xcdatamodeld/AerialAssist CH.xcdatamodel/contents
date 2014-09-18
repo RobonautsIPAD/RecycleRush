@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Competitions" representedClassName="Competitions" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
+    </entity>
     <entity name="FieldDrawing" representedClassName="FieldDrawing" syncable="YES">
         <attribute name="trace" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="fieldDrawing" inverseEntity="TeamScore" syncable="YES"/>
@@ -44,146 +48,38 @@
         <attribute name="week" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="regional" inverseEntity="TeamData" syncable="YES"/>
     </entity>
-    <entity name="String" representedClassName="String" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
-        <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Auton Capacity"/>
-                <entry key="lucien" value="Auton Capacity"/>
-                <entry key="output" value="Auton Balls"/>
-            </userInfo>
-        </attribute>
-        <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Auton Mobility"/>
-                <entry key="lucien" value="Auton Mobility"/>
-                <entry key="output" value="Mobility Bonus"/>
-            </userInfo>
-        </attribute>
-        <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Ball Release Height"/>
-                <entry key="output" value="Ball Release Height"/>
-            </userInfo>
-        </attribute>
-        <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Catch System"/>
-                <entry key="lucien" value="Catcher"/>
-                <entry key="output" value="Catch System"/>
-            </userInfo>
-        </attribute>
-        <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="output" value="CIMS"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class A"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class B"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class C"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class D"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class E"/>
-            </userInfo>
-        </attribute>
-        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Class F"/>
-            </userInfo>
-        </attribute>
-        <attribute name="driveTrainType" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="drive train type, drive train, drive, drivetrain type, drive traintype"/>
-                <entry key="output" value="Drive Train Type"/>
-            </userInfo>
-        </attribute>
+        <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES"/>
+        <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="fthing1" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing2" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="goalie" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="output" value="Goalie"/>
-            </userInfo>
-        </attribute>
-        <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Tracks Hots,Hot Tracker, Track Hot, Hot Tracking"/>
-                <entry key="lucien" value="Tracks Hot"/>
-                <entry key="output" value="Track Hot Goals"/>
-            </userInfo>
-        </attribute>
-        <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="intaketype, intake type"/>
-                <entry key="output" value="Intake"/>
-            </userInfo>
-        </attribute>
-        <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="max height, maximum height"/>
-                <entry key="output" value="Maximum Height"/>
-            </userInfo>
-        </attribute>
-        <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="min height, minimum height"/>
-                <entry key="output" value="Minimum Height"/>
-            </userInfo>
-        </attribute>
-        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Team Name, teamname"/>
-                <entry key="output" value="Team Name"/>
-            </userInfo>
-        </attribute>
-        <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES">
-            <userInfo>
-                <entry key="output" value="Notes"/>
-            </userInfo>
-        </attribute>
-        <attribute name="number" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Team Number, teamnumber"/>
-                <entry key="output" value="Team Number"/>
-            </userInfo>
-        </attribute>
-        <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="number of wheels, numberwheels, number wheels"/>
-                <entry key="output" value="Number of Wheels"/>
-            </userInfo>
-        </attribute>
+        <attribute name="goalie" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES"/>
+        <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
+        <attribute name="number" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
-        <attribute name="shooterType" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES">
-            <userInfo>
-                <entry key="key" value="Shooter Type"/>
-                <entry key="output" value="Shooter Type"/>
-            </userInfo>
-        </attribute>
+        <attribute name="shooterType" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
         <attribute name="spitBot" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
@@ -196,25 +92,11 @@
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tunneler" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="key" value="wheel diameter, diameter, wheel size, wheelsize"/>
-                <entry key="output" value="Wheel Diameter"/>
-            </userInfo>
-        </attribute>
-        <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="key" value="wheel type"/>
-                <entry key="output" value="Wheel Type"/>
-            </userInfo>
-        </attribute>
+        <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="match" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="team" inverseEntity="TeamScore" syncable="YES"/>
         <relationship name="regional" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
-        <relationship name="tournament" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TournamentData" syncable="YES">
-            <userInfo>
-                <entry key="key" value="tournament, tournament data"/>
-            </userInfo>
-        </relationship>
+        <relationship name="tournaments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Competitions" inverseName="team" inverseEntity="Competitions" syncable="YES"/>
     </entity>
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="airCatch" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
@@ -458,12 +340,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Competitions" positionX="18" positionY="162" width="128" height="73"/>
         <element name="FieldDrawing" positionX="0" positionY="0" width="128" height="75"/>
         <element name="MatchData" positionX="0" positionY="0" width="128" height="195"/>
         <element name="Regional" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="TeamData" positionX="0" positionY="0" width="128" height="763"/>
+        <element name="TeamData" positionX="0" positionY="0" width="128" height="765"/>
         <element name="TeamScore" positionX="0" positionY="0" width="128" height="1275"/>
         <element name="TournamentData" positionX="0" positionY="0" width="128" height="73"/>
-        <element name="String" positionX="9" positionY="153" width="128" height="60"/>
     </elements>
 </model>

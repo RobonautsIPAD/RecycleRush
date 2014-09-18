@@ -2,14 +2,14 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 4/14/14.
+//  Created by FRC on 9/16/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Regional, TeamScore, TournamentData;
+@class Competitions, Regional, TeamScore;
 
 @interface TeamData : NSManagedObject
 
@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSNumber * classD;
 @property (nonatomic, retain) NSNumber * classE;
 @property (nonatomic, retain) NSNumber * classF;
-@property (nonatomic, retain) NSNumber * driveTrainType;
+@property (nonatomic, retain) NSString * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
 @property (nonatomic, retain) NSNumber * fthing3;
@@ -44,6 +44,7 @@
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
 @property (nonatomic, retain) NSNumber * shooterType;
+@property (nonatomic, retain) NSNumber * spitBot;
 @property (nonatomic, retain) NSString * sthing1;
 @property (nonatomic, retain) NSString * sthing3;
 @property (nonatomic, retain) NSString * sthing4;
@@ -57,10 +58,9 @@
 @property (nonatomic, retain) NSNumber * tunneler;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
-@property (nonatomic, retain) NSNumber * spitBot;
 @property (nonatomic, retain) NSSet *match;
 @property (nonatomic, retain) NSSet *regional;
-@property (nonatomic, retain) NSSet *tournament;
+@property (nonatomic, retain) NSSet *tournaments;
 @end
 
 @interface TeamData (CoreDataGeneratedAccessors)
@@ -75,9 +75,9 @@
 - (void)addRegional:(NSSet *)values;
 - (void)removeRegional:(NSSet *)values;
 
-- (void)addTournamentObject:(TournamentData *)value;
-- (void)removeTournamentObject:(TournamentData *)value;
-- (void)addTournament:(NSSet *)values;
-- (void)removeTournament:(NSSet *)values;
+- (void)addTournamentsObject:(Competitions *)value;
+- (void)removeTournamentsObject:(Competitions *)value;
+- (void)addTournaments:(NSSet *)values;
+- (void)removeTournaments:(NSSet *)values;
 
 @end

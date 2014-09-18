@@ -70,7 +70,7 @@
         // NSLog(@"createTeamFromFile:************************************* Really need to add new tournament");
         tournament = [data objectAtIndex: 2];
         tournamentRecord = [self getTournamentRecord:tournament];
-        [team addTournamentObject:tournamentRecord];
+//        [team addTournamentObject:tournamentRecord];
         // NSLog(@"Team = %@", team);
         return DB_MATCHED;
     }
@@ -116,7 +116,7 @@
                 tournament = [data objectAtIndex: 2];
                 if (tournament && ![tournament isEqualToString:@""]) {
                     tournamentRecord = [self getTournamentRecord:tournament];
-                    [team addTournamentObject:tournamentRecord];
+ //                   [team addTournamentObject:tournamentRecord];
                 }
             case 2:
                 team.name = [data objectAtIndex: 1];

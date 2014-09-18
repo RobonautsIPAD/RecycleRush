@@ -11,7 +11,7 @@
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
-#import "TournamentDataInterfaces.h"
+#import "TournamentUtilities.h"
 #import "TeamDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
 #include "MatchTypeDictionary.h"

@@ -11,7 +11,8 @@
 #import "TeamDataInterfaces.h"
 #import "TeamData.h"
 #import "DataManager.h"
-#import "TournamentData.h"
+#import "Competitions.h"
+#import "FileIOMethods.h"
 #import "CalculateTeamStats.h"
 #import "DriveTypeDictionary.h"
 
@@ -19,6 +20,8 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     UIView *headerView;
+    NSMutableDictionary *settingsDictionary;
+    NSString *previousTournament;
     DriveTypeDictionary *driveDictionary;
     CalculateTeamStats *teamStats;
 }
@@ -74,6 +77,7 @@
         self.title = @"Team List";
     }
     
+    [self loadSettings];
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
     driveDictionary = [[DriveTypeDictionary alloc] init];
 
@@ -164,12 +168,39 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self saveSettings];
     [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+}
+
+-(void)saveSettings {
+    if (!settingsDictionary) {
+        settingsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
+
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/TeamListSettings.plist"]];
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:plistPath atomically:YES];
+    }
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
+}
+
+-(void)loadSettings {
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/TeamListSettings.plist"]];
+    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
+    NSLog(@"Settings dictionary = %@", settingsDictionary);
+    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
+    NSLog(@"Prev tourn = %@", [settingsDictionary valueForKey:@"Tournament"]);
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -350,6 +381,7 @@
 
 #pragma mark -
 #pragma mark Team List Management
+//+ (void)deleteCacheWithName:(NSString *)name
 
 - (NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
@@ -364,7 +396,7 @@
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
         // Add the search for tournament name
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournamentName];
         [fetchRequest setPredicate:pred];
         
         [fetchRequest setSortDescriptors:sortDescriptors];
@@ -372,12 +404,14 @@
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController = 
+
+        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {NSLog(@"Clear Cache");}
+        NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc] 
          initWithFetchRequest:fetchRequest 
          managedObjectContext:_dataManager.managedObjectContext
          sectionNameKeyPath:nil 
-         cacheName:@"Root"];
+         cacheName:@"TeamList"];
         aFetchedResultsController.delegate = self;
         self.fetchedResultsController = aFetchedResultsController;
         

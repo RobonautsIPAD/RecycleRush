@@ -1,17 +1,19 @@
 //
-//  String.h
+//  Competitions.h
 //  AerialAssist
 //
-//  Created by FRC on 7/1/14.
+//  Created by FRC on 9/12/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class TeamData;
 
-@interface String : NSManagedObject
+@interface Competitions : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) TeamData *team;
 
 @end

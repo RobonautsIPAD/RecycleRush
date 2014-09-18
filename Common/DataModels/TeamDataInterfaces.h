@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSMutableDictionary *regionalDictionary;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(AddRecordResults)createTeamFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(void)setTeamValue:(TeamData *)team forHeader:header withValue:data withProperties:(NSDictionary *)properties;
 -(void)setAttributeValue:record forValue:data forAttribute:(id) attribute;
 -(AddRecordResults)addTeamHistoryFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;

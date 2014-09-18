@@ -12,7 +12,7 @@
 #import "DataManager.h"
 #import "parseCSV.h"
 
-#define TEST_MODE
+//#define TEST_MODE
 
 @implementation TournamentUtilities {
     NSDictionary *tournamentDataAttributes;
@@ -154,7 +154,7 @@
     TournamentData *tournament = [DataConvenienceMethods getTournament:name fromContext:_dataManager.managedObjectContext];
     if (tournament) return tournament;
     else {
-        TournamentData *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
+        tournament = [NSEntityDescription insertNewObjectForEntityForName:@"TournamentData"
                                             inManagedObjectContext:_dataManager.managedObjectContext];
         if (tournament) {
             tournament.name = name;

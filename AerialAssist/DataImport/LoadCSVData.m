@@ -10,7 +10,7 @@
 #import "TournamentData.h"
 #import "LoadCSVData.h"
 #import "parseCSV.h"
-#import "TeamDataInterfaces.h"
+#import "TeamUtilities.h"
 #import "CreateMatch.h"
 #import "TournamentUtilities.h"
 #import "AddRecordResults.h"
@@ -50,13 +50,13 @@
         [self loadTeamFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"TeamHistory" ofType:@"csv"];
-        [self loadTeamHistory:filePath];
+//        [self loadTeamHistory:filePath];
         
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchList" ofType:@"csv"];
-        [self loadMatchFile:filePath];
+//        [self loadMatchFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchResults" ofType:@"csv"];
-        [self loadMatchResults:filePath];
+//        [self loadMatchResults:filePath];
     }
  
 }
@@ -70,9 +70,9 @@
     NSLog(@"Add decision for team or match file");
     [self loadTournamentFile:filePath];
     [self loadTeamFile:filePath];
-    [self loadTeamHistory:filePath];
+ //   [self loadTeamHistory:filePath];
     NSLog(@"loaded history");
-    [self loadMatchFile:filePath];
+//    [self loadMatchFile:filePath];
 //    [self loadMatchResults:filePath];
 }
 
@@ -82,37 +82,18 @@
 }
 
 -(void)loadTeamFile:(NSString *)filePath {
-    CSVParser *parser = [CSVParser new];
-    [parser openFile: filePath];
-    NSMutableArray *csvContent = [parser parseFile];
-
-    if (![csvContent count]) return;
-
-    if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Team Number"]) {
-        TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-        int c;
-        for (c = 1; c < [csvContent count]; c++) {
-            // NSLog(@"loadTeamFile:TeamNumber = %@", [[csvContent objectAtIndex: c] objectAtIndex:0]);
-            AddRecordResults results = [team createTeamFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
-            if (results != DB_ADDED) {
-                NSLog(@"Check database - Team Add Code %d", results);
-            }
-        }
-#ifdef TEST_MODE
-        [team testTeamInterfaces];
-#endif
-    }
-    [parser closeFile]; 
+    TeamUtilities *teamUtil = [[TeamUtilities alloc] initWithDataManager:_dataManager];
+    [teamUtil createTeamFromFile:filePath];
 }
 
 -(void)loadTeamHistory:(NSString *)filePath {
     NSLog(@"Team History");
-    CSVParser *parser = [CSVParser new];
+/*    CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
 
     if (![csvContent count]) return;
-    
+
     if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Team History"]) {
         TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
         int c;
@@ -127,7 +108,7 @@
         [team testTeamInterfaces];
 #endif
     }
-    [parser closeFile];
+    [parser closeFile];*/
 }
 
 -(void)loadMatchFile:(NSString *)filePath {

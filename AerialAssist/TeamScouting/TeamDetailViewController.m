@@ -368,7 +368,7 @@
     
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
     
-    [_driveType setTitle:[driveDictionary getString:_team.driveTrainType] forState:UIControlStateNormal];
+    [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
     [_intakeType setTitle:[intakeDictionary getString:_team.intake] forState:UIControlStateNormal];
     [_shooterButton setTitle:[shooterDictionary getString:_team.shooterType] forState:UIControlStateNormal];
     [_goalieButton setTitle:[trooleanDictionary getString:_team.goalie] forState:UIControlStateNormal];
