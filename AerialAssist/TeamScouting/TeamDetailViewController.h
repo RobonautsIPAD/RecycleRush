@@ -38,14 +38,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *cameraBtn;
 @property (nonatomic, strong) UIPopoverController *pictureController;
 
-@property (nonatomic, strong) PopUpPickerViewController *driveTypePicker;
-@property (nonatomic, strong) UIPopoverController *drivePickerPopover;
-@property (nonatomic, strong) NSMutableArray *driveTypeList;
-
-@property (nonatomic, strong) PopUpPickerViewController *intakePicker;
-@property (nonatomic, strong) UIPopoverController *intakePickerPopover;
-@property (nonatomic, strong) NSMutableArray *intakeList;
-
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
 

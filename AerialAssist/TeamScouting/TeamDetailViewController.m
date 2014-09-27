@@ -18,13 +18,7 @@
 #import "Photo.h"
 #import "PhotoCell.h"
 #import "PhotoAttributes.h"
-#import "DriveTypeDictionary.h"
-#import "TrooleanDictionary.h"
-#import "IntakeTypeDictionary.h"
-#import "ShooterTypeDictionary.h"
-#import "TunnelDictionary.h"
-#import "QuadStateDictionary.h"
-#import "NumberEnumDictionary.h"
+#import "FileIOMethods.h"
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
@@ -57,8 +51,6 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
-    DriveTypeDictionary *driveDictionary;
-    IntakeTypeDictionary *intakeDictionary;
     UIView *matchHeader;
     NSArray *matchList;
     UIView *regionalHeader;
@@ -73,26 +65,31 @@
     PhotoAttributes *primePhoto;
     BOOL getAssetURL;
     NSFileManager *fileManager;
-
-    PopUpPickerViewController *trooleanPicker;
-    UIPopoverController *trooleanPickerPopover;
-    NSMutableArray *trooleanList;
-    TrooleanDictionary *trooleanDictionary;
+    NSDictionary *triStateDictionary;
+    
+    PopUpPickerViewController *triStatePicker;
+    UIPopoverController *triStatePickerPopover;
+    NSArray *triStateList;
 
     PopUpPickerViewController *quadStatePicker;
     UIPopoverController *quadStatePickerPopover;
-    NSMutableArray *quadStateList;
-    QuadStateDictionary *quadStateDictionary;
+    NSArray *quadStateList;
+
+    PopUpPickerViewController *intakePicker;
+    UIPopoverController *intakePickerPopover;
+    NSArray *intakeList;
+
+    PopUpPickerViewController *driveTypePicker;
+    UIPopoverController *drivePickerPopover;
+    NSArray *driveTypeList;
 
     PopUpPickerViewController *shooterPicker;
     UIPopoverController *shooterPickerPopover;
-    NSMutableArray *shooterList;
-    ShooterTypeDictionary *shooterDictionary;
+    NSArray *shooterList;
     
     PopUpPickerViewController *tunnelPicker;
     UIPopoverController *tunnelPickerPopover;
-    TunnelDictionary *tunnelDictionary;
-    NSMutableArray *tunnelList;
+    NSArray *tunnelList;
 
     NSArray *photoList;
     NSString *selectedPhoto;
@@ -103,14 +100,7 @@
 @synthesize teamIndex = _teamIndex;
 @synthesize team = _team;
 
-@synthesize driveTypePicker = _driveTypePicker;
-@synthesize drivePickerPopover = _drivePickerPopover;
-@synthesize driveTypeList = _driveTypeList;
 @synthesize driveType = _driveType;
-
-@synthesize intakePicker = _intakePicker;
-@synthesize intakePickerPopover = _intakePickerPopover;
-@synthesize intakeList = _intakeList;
 @synthesize intakeType = _intakeType;
 
 @synthesize numberText = _numberText;
@@ -182,6 +172,8 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
+    triStateDictionary = [self initializeDictionaries:@"TriState"];
+
     [self createPhotoDirectories];
  
     // Set defaults for all the text boxes
@@ -219,21 +211,7 @@
     // Initialize the headers for the regional and match tables
     [self createRegionalHeader];
     [self createMatchHeader];
-    
-    // Initialize the choices for the pop-up menus.
-    driveDictionary = [[DriveTypeDictionary alloc] init];
-    _driveTypeList = [[driveDictionary getDriveTypes] mutableCopy];
-    intakeDictionary = [[IntakeTypeDictionary alloc] init];
-    _intakeList = [[intakeDictionary getIntakeTypes] mutableCopy];
-    trooleanDictionary = [[TrooleanDictionary alloc] init];
-    trooleanList = [[trooleanDictionary getTrooleanTypes] mutableCopy];
-    shooterDictionary = [[ShooterTypeDictionary alloc] init];
-    shooterList = [[shooterDictionary getShooterTypes] mutableCopy];
-    tunnelDictionary = [[TunnelDictionary alloc] init];
-    tunnelList = [[tunnelDictionary getTunnelTypes] mutableCopy];
-    quadStateDictionary = [[QuadStateDictionary alloc] init];
-    quadStateList = [[quadStateDictionary getQuadTypes] mutableCopy];
-    
+ 
     // Team Detail can be reached from different views. If the parent VC is Team List VC, then
     //  the whole team list is passed in through the fetchedResultsController, so the prev and next
     //  buttons are activated. If the parent is the Mason VC, then only just one team is passed in, so
@@ -369,29 +347,30 @@
     matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
     
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
-    [_intakeType setTitle:[intakeDictionary getString:_team.intake] forState:UIControlStateNormal];
-    [_shooterButton setTitle:[shooterDictionary getString:_team.shooterType] forState:UIControlStateNormal];
-    [_goalieButton setTitle:[trooleanDictionary getString:_team.goalie] forState:UIControlStateNormal];
-    [_catcherButton setTitle:[trooleanDictionary getString:_team.catcher] forState:UIControlStateNormal];
-    [_tunnelButton setTitle:[tunnelDictionary getString:_team.tunneler] forState:UIControlStateNormal];
-    [_spitBotButton setTitle:[quadStateDictionary getString:_team.spitBot] forState:UIControlStateNormal];
-    [_autonMobilityButton setTitle:[trooleanDictionary getString:_team.autonMobility] forState:UIControlStateNormal];
-    [_hotTrackerButton setTitle:[trooleanDictionary getString:_team.hotTracker] forState:UIControlStateNormal];
+    [_intakeType setTitle:_team.intake forState:UIControlStateNormal];
+    [_shooterButton setTitle:_team.shooterType forState:UIControlStateNormal];
+    [_goalieButton setTitle:_team.goalie forState:UIControlStateNormal];
+    [_catcherButton setTitle:_team.catcher forState:UIControlStateNormal];
+    [_tunnelButton setTitle:_team.tunneler forState:UIControlStateNormal];
+    [_spitBotButton setTitle:_team.spitBot forState:UIControlStateNormal];
+    [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
+    [_hotTrackerButton setTitle:_team.hotTracker forState:UIControlStateNormal];
 
-    [self setRadioButtonState:_classAButton forState:[_team.classA intValue]];
-    [self setRadioButtonState:_classBButton forState:[_team.classB intValue]];
-    [self setRadioButtonState:_classCButton forState:[_team.classC intValue]];
-    [self setRadioButtonState:_classDButton forState:[_team.classD intValue]];
-    [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
-    [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
+    [self setRadioButtonState:_classAButton forState:_team.classA];
+    [self setRadioButtonState:_classBButton forState:_team.classB];
+    [self setRadioButtonState:_classCButton forState:_team.classC];
+    [self setRadioButtonState:_classDButton forState:_team.classD];
+    [self setRadioButtonState:_classEButton forState:_team.classE];
+    [self setRadioButtonState:_classFButton forState:_team.classF];
     [self getPhoto];
     photoList = [self getPhotoList];
     [_photoCollectionView reloadData];
     dataChange = NO;
 }
 
--(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
-    if (selection == -1 || selection == 0) {
+-(void)setRadioButtonState:(UIButton *)button forState:(NSString *)selection {
+    NSNumber *newState = [triStateDictionary objectForKey:selection];
+    if ([newState intValue] == -1 || [newState intValue] == 0) {
         [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
     }
     else {
@@ -430,60 +409,49 @@
 
 - (IBAction)radioButtonTapped:(id)sender {
     if (sender == _classAButton) {
-        if ([_team.classA intValue] == -1 || [_team.classA intValue] == 0) {
-            _team.classA = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classA = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classAButton forState:[_team.classA intValue]];
+        _team.classA = [self getNextTriState:_team.classA];
+        [self setRadioButtonState:_classAButton forState:_team.classA];
     }
     if (sender == _classBButton) {
-        if ([_team.classB intValue] == -1 || [_team.classB intValue] == 0) {
-            _team.classB = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classB = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classBButton forState:[_team.classB intValue]];
+        _team.classB = [self getNextTriState:_team.classB];
+        [self setRadioButtonState:_classBButton forState:_team.classB];
     }
     if (sender == _classCButton) {
-        if ([_team.classC intValue] == -1 || [_team.classC intValue] == 0) {
-            _team.classC = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classC = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classCButton forState:[_team.classC intValue]];
+        _team.classC = [self getNextTriState:_team.classC];
+        [self setRadioButtonState:_classCButton forState:_team.classC];
     }
     if (sender == _classDButton) {
-        if ([_team.classD intValue] == -1 || [_team.classD intValue] == 0) {
-            _team.classD = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classD = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classDButton forState:[_team.classD intValue]];
+        _team.classD = [self getNextTriState:_team.classD];
+
+        [self setRadioButtonState:_classDButton forState:_team.classD];
     }
     if (sender == _classEButton) {
-        if ([_team.classE intValue] == -1 || [_team.classE intValue] == 0) {
-            _team.classE = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classE = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classEButton forState:[_team.classE intValue]];
+        _team.classE = [self getNextTriState:_team.classE];
+        [self setRadioButtonState:_classEButton forState:_team.classE];
     }
     if (sender == _classFButton) {
-        if ([_team.classF intValue] == -1 || [_team.classF intValue] == 0) {
-            _team.classF = [NSNumber numberWithInt:1];
-        }
-        else {
-            _team.classF = [NSNumber numberWithInt:0];
-        }
-        [self setRadioButtonState:_classFButton forState:[_team.classF intValue]];
+        _team.classF = [self getNextTriState:_team.classF];
+        [self setRadioButtonState:_classFButton forState:_team.classF];
     }
     [self setDataChange];
+}
+
+-(NSString *)getNextTriState:(NSString *)currentState {
+    if ([triStateDictionary objectForKey:currentState]) {
+        // Good, the current value is valid.
+        if ([currentState isEqualToString:@"Yes"]) {
+            // It is currently Yes, set it to No
+            return @"No";
+        }
+        else {
+            // It is currently No, set it to Yes
+            return @"Yes";
+        }
+    }
+    else {
+        // The current value is invalid. Set to Unknown.
+        return @"Unknown";
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -498,34 +466,37 @@
     UIButton * PressedButton = (UIButton*)sender;
     popUp = PressedButton;
     if (PressedButton == _intakeType) {
-        if (_intakePicker == nil) {
-            _intakePicker = [[PopUpPickerViewController alloc]
+        if (!intakeList) intakeList = [self initializePopUpList:@"IntakeType"];
+        if (intakePicker == nil) {
+            intakePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
-            _intakePicker.delegate = self;
-            _intakePicker.pickerChoices = _intakeList;
+            intakePicker.delegate = self;
+            intakePicker.pickerChoices = intakeList;
         }
-        if (!_intakePickerPopover) {
-            self.intakePickerPopover = [[UIPopoverController alloc]
-                                            initWithContentViewController:_intakePicker];
+        if (!intakePickerPopover) {
+            intakePickerPopover = [[UIPopoverController alloc]
+                                            initWithContentViewController:intakePicker];
         }
-        [self.intakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [intakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _driveType) {
-        if (_driveTypePicker == nil) {
-            _driveTypePicker = [[PopUpPickerViewController alloc]
+        if (!driveTypeList) driveTypeList = [self initializePopUpList:@"DriveType"];
+        if (driveTypePicker == nil) {
+            driveTypePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
-            _driveTypePicker.delegate = self;
-            _driveTypePicker.pickerChoices = _driveTypeList;
+            driveTypePicker.delegate = self;
+            driveTypePicker.pickerChoices = driveTypeList;
         }
-        if (!_drivePickerPopover) {
-            self.drivePickerPopover = [[UIPopoverController alloc]
-                                            initWithContentViewController:_driveTypePicker];
+        if (!drivePickerPopover) {
+            drivePickerPopover = [[UIPopoverController alloc]
+                                            initWithContentViewController:driveTypePicker];
         }
-        [self.drivePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [drivePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _shooterButton) {
+        if (!shooterList) shooterList = [self initializePopUpList:@"ShooterType"];
         if (shooterPicker == nil) {
             shooterPicker = [[PopUpPickerViewController alloc]
                                 initWithStyle:UITableViewStylePlain];
@@ -540,6 +511,7 @@
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _tunnelButton) {
+        if (!tunnelList) tunnelList = [self initializePopUpList:@"Tunnel"];
         if (tunnelPicker == nil) {
             tunnelPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
@@ -554,6 +526,7 @@
                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _spitBotButton) {
+        if (!quadStateList) quadStateList = [self initializePopUpList:@"QuadState"];
         if (quadStatePicker == nil) {
             quadStatePicker = [[PopUpPickerViewController alloc]
                             initWithStyle:UITableViewStylePlain];
@@ -569,69 +542,63 @@
     }
     else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
              PressedButton == _catcherButton) {
-        if (trooleanPicker == nil) {
-            trooleanPicker = [[PopUpPickerViewController alloc]
+        if (!triStateList) triStateList = [self initializePopUpList:@"TriState"];
+        if (triStatePicker == nil) {
+            triStatePicker = [[PopUpPickerViewController alloc]
                                    initWithStyle:UITableViewStylePlain];
-            trooleanPicker.delegate = self;
-            trooleanPicker.pickerChoices = trooleanList;
+            triStatePicker.delegate = self;
+            triStatePicker.pickerChoices = triStateList;
         }
-        if (!trooleanPickerPopover) {
-            trooleanPickerPopover = [[UIPopoverController alloc]
-                                        initWithContentViewController:trooleanPicker];
+        if (!triStatePickerPopover) {
+            triStatePickerPopover = [[UIPopoverController alloc]
+                                        initWithContentViewController:triStatePicker];
         }
-        [trooleanPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [triStatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-}
-
--(NSNumber *)changeSelected:(NSString *)newPick forButton:(UIButton *)button forDictionary:dictionary {
-    NSNumber *valueSelected;
-    valueSelected = [dictionary getEnumValue:newPick];
-    [button setTitle:[dictionary getString:valueSelected] forState:UIControlStateNormal];
-
-    [self setDataChange];
-    return valueSelected;
 }
 
 - (void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
+    NSLog(@"new pick = %@", newPick);
     if (popUp == _driveType) {
-        [_drivePickerPopover dismissPopoverAnimated:YES];
-        _team.driveTrainType = [self changeSelected:newPick forButton:popUp forDictionary:driveDictionary];
+        [drivePickerPopover dismissPopoverAnimated:YES];
+        _team.driveTrainType = newPick;
     }
     else if (popUp == _intakeType) {
-        [_intakePickerPopover dismissPopoverAnimated:YES];
-        _team.intake = [self changeSelected:newPick forButton:popUp forDictionary:intakeDictionary];
+        [intakePickerPopover dismissPopoverAnimated:YES];
+        _team.intake = newPick;
     }
     else if (popUp == _shooterButton) {
         [shooterPickerPopover dismissPopoverAnimated:YES];
-        _team.shooterType = [self changeSelected:newPick forButton:popUp forDictionary:shooterDictionary];
+        _team.shooterType = newPick;
     }
     else if (popUp == _tunnelButton) {
         [tunnelPickerPopover dismissPopoverAnimated:YES];
-        _team.tunneler = [self changeSelected:newPick forButton:popUp forDictionary:tunnelDictionary];
+        _team.tunneler = newPick;
     }
     else if (popUp == _spitBotButton) {
         [quadStatePickerPopover dismissPopoverAnimated:YES];
-        _team.spitBot = [self changeSelected:newPick forButton:popUp forDictionary:quadStateDictionary];
+        _team.spitBot = newPick;
     }
     else if (popUp == _autonMobilityButton) {
-        [trooleanPickerPopover dismissPopoverAnimated:YES];
-        _team.autonMobility = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+        [triStatePickerPopover dismissPopoverAnimated:YES];
+        _team.autonMobility = newPick;
     }
     else if (popUp == _catcherButton) {
-        [trooleanPickerPopover dismissPopoverAnimated:YES];
-        _team.catcher = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+        [triStatePickerPopover dismissPopoverAnimated:YES];
+        _team.catcher = newPick;
     }
     else if (popUp == _goalieButton) {
-        [trooleanPickerPopover dismissPopoverAnimated:YES];
-        _team.goalie = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];
+        [triStatePickerPopover dismissPopoverAnimated:YES];
+        _team.goalie = newPick;
     }
     else if (popUp == _hotTrackerButton) {
-        [trooleanPickerPopover dismissPopoverAnimated:YES];
-        _team.hotTracker = [self changeSelected:newPick forButton:popUp forDictionary:trooleanDictionary];;
+        [triStatePickerPopover dismissPopoverAnimated:YES];
+        _team.hotTracker = newPick;
     }
+    [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -866,7 +833,7 @@
 -(void)createPhotoDirectories {
     // Set and create the robot photo directories
     fileManager = [NSFileManager defaultManager];
-    NSString *library = [self applicationDocumentsDirectory];
+    NSString *library = [FileIOMethods applicationDocumentsDirectory];
     robotPhotoLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos/Images"]];
     // Check if robot directory exists, if not, create it
     if (![fileManager fileExistsAtPath:robotPhotoLibrary isDirectory:NO]) {
@@ -1055,6 +1022,7 @@
 }
 
 -(IBAction)MatchNumberChanged {
+    NSLog(@"Team detail change method name");
     // The user has typed a new team number in the field. Access that team and display it.
      // NSLog(@"MatchNumberChanged");
     [self checkDataStatus];
@@ -1095,11 +1063,15 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+-(NSDictionary *)initializeDictionaries:(NSString *)fileName {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
+    return [FileIOMethods getDictionaryFromPListFile:plistPath];
+}
+
+-(NSArray *)initializePopUpList:(NSString *)fileName {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
+    NSDictionary *dictionary = [FileIOMethods getDictionaryFromPListFile:plistPath];
+    return [dictionary keysSortedByValueUsingSelector:@selector(compare:)];
 }
 
 @end

@@ -8,13 +8,12 @@
 
 #import "TeamListViewController.h"
 #import "TeamDetailViewController.h"
-#import "TeamDataInterfaces.h"
+#import "TeamUtilities.h"
 #import "TeamData.h"
 #import "DataManager.h"
 #import "Competitions.h"
 #import "FileIOMethods.h"
 #import "CalculateTeamStats.h"
-#import "DriveTypeDictionary.h"
 
 @implementation TeamListViewController {
     NSUserDefaults *prefs;
@@ -22,7 +21,6 @@
     UIView *headerView;
     NSMutableDictionary *settingsDictionary;
     NSString *previousTournament;
-    DriveTypeDictionary *driveDictionary;
     CalculateTeamStats *teamStats;
 }
 
@@ -36,19 +34,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    NSLog(@"TeamList Unload");
-    prefs = nil;
-    tournamentName = nil;
-    headerView = nil;
-    driveDictionary = nil;
-    teamStats = nil;
-    _fetchedResultsController = nil;
-    _dataManager = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,7 +64,6 @@
     
     [self loadSettings];
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
-    driveDictionary = [[DriveTypeDictionary alloc] init];
 
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
@@ -197,10 +181,7 @@
 -(void)loadSettings {
     NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/TeamListSettings.plist"]];
     settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
-    NSLog(@"Settings dictionary = %@", settingsDictionary);
     if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
-    NSLog(@"Prev tourn = %@", [settingsDictionary valueForKey:@"Tournament"]);
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -223,7 +204,8 @@
         [prompt show];
         return;
     }
-    TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+    NSLog(@"Team list .... Add check for adding a team that alredy exists");
+    TeamUtilities *team = [[TeamUtilities alloc] initWithDataManager:_dataManager];
     if ([team addTeam:newTeamNumber forName:newTeamName forTournament:tournamentName]) {
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
@@ -340,48 +322,8 @@
     
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark -
 #pragma mark Team List Management
-//+ (void)deleteCacheWithName:(NSString *)name
 
 - (NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
@@ -405,7 +347,10 @@
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
 
-        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {NSLog(@"Clear Cache");}
+        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
+            // NSLog(@"Clear Cache");
+            [NSFetchedResultsController deleteCacheWithName:@"TeamList"];
+        }
         NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc] 
          initWithFetchRequest:fetchRequest 

@@ -12,6 +12,7 @@
 +(NSDictionary *)getDictionaryFromPListFile:(NSString *)fileName;
 +(void)writePListFileFromDictionary:(NSString *)fileName forDictionary:(NSDictionary *)dictionary error:(out NSError **)error NS_AVAILABLE(10_6, 4_0);
 +(NSString *)applicationLibraryDirectory;
++(NSString *)applicationDocumentsDirectory;
 
 
 @end

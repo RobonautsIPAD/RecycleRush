@@ -51,15 +51,15 @@
 		2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F35184C18AEE62100DA3952 /* PhoneSplashViewController.m */; };
 		2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */; };
 		2F43B32C19C8AAC20015DEF8 /* DriveType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F43B32B19C8AAC20015DEF8 /* DriveType.plist */; };
-		2F43B33219C8B83E0015DEF8 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43B33119C8B83E0015DEF8 /* TeamData.m */; };
 		2F43B33519C8C5150015DEF8 /* FileIOMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43B33419C8C5150015DEF8 /* FileIOMethods.m */; };
 		2F44958818847F530095DCAB /* AerialAssist_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */; };
 		2F47B7C219C3724A00E8E817 /* Competitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F47B7C119C3724A00E8E817 /* Competitions.m */; };
+		2F47FC9619D479840021006A /* TournamentData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F47FC9519D479840021006A /* TournamentData.plist */; };
+		2F47FC9919D484880021006A /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F47FC9819D484880021006A /* TeamData.m */; };
 		2F4CD04417122E1600428859 /* PopUpPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CD04317122E1600428859 /* PopUpPickerViewController.m */; };
 		2F4D059A18A6CEC2005ED0AA /* FullSizeViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D059918A6CEC2005ED0AA /* FullSizeViewer.m */; };
 		2F4DC6E218CC022D00552F0E /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4DC6E118CC022D00552F0E /* PhotoCell.m */; };
 		2F5247CA1963B28100468E4F /* CreateMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247AE1963B28100468E4F /* CreateMatch.m */; };
-		2F5247CB1963B28100468E4F /* CreateTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B01963B28100468E4F /* CreateTeam.m */; };
 		2F5247CC1963B28100468E4F /* CreateTournament.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B21963B28100468E4F /* CreateTournament.m */; };
 		2F5247CD1963B28100468E4F /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B41963B28100468E4F /* FieldDrawing.m */; };
 		2F5247CE1963B28100468E4F /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B61963B28100468E4F /* MatchData.m */; };
@@ -109,6 +109,11 @@
 		2FB29C8316F9620700086C08 /* FieldDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB29C8216F9620700086C08 /* FieldDrawingViewController.m */; };
 		2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */; };
 		2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */; };
+		2FC066D719CF391A00AAEFFC /* IntakeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FC066D619CF391A00AAEFFC /* IntakeType.plist */; };
+		2FC066D919CF3ABB00AAEFFC /* ShooterType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FC066D819CF3ABB00AAEFFC /* ShooterType.plist */; };
+		2FC066DB19CF3B8900AAEFFC /* TriState.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FC066DA19CF3B8900AAEFFC /* TriState.plist */; };
+		2FC066DD19CF3B9C00AAEFFC /* QuadState.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FC066DC19CF3B9C00AAEFFC /* QuadState.plist */; };
+		2FC066DF19CF3BC100AAEFFC /* Tunnel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FC066DE19CF3BC100AAEFFC /* Tunnel.plist */; };
 		2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC18EAB16A202FD00D42251 /* parseCSV.m */; };
 		2FC18EAF16A2042000D42251 /* SplashPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC18EAE16A2042000D42251 /* SplashPageViewController.m */; };
 		2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2FC18ED816A2083500D42251 /* Blue Fade.gif */; };
@@ -145,7 +150,6 @@
 		2FDB496A18BB05DA00B431C7 /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */; };
 		2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D218A9BFC200533BEC /* 2014_field.png */; };
 		2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D418B0208D00533BEC /* 2014_field_grid.png */; };
-		2FF1459818BC39710078D1B4 /* TeamDataOutput.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FF1459718BC39710078D1B4 /* TeamDataOutput.plist */; };
 		2FF1459C18BC4E3A0078D1B4 /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */; };
 		2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF6800717261BA30003F86A /* CFNetwork.framework */; };
 		2FFAE1B416D29B9600B180F9 /* AlertPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFAE1B316D29B9600B180F9 /* AlertPromptViewController.m */; };
@@ -224,13 +228,14 @@
 		2F43A1C916E4F219005CAFD9 /* AddMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMatchViewController.h; path = MatchScouting/AddMatchViewController.h; sourceTree = "<group>"; };
 		2F43A1CA16E4F219005CAFD9 /* AddMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMatchViewController.m; path = MatchScouting/AddMatchViewController.m; sourceTree = "<group>"; };
 		2F43B32B19C8AAC20015DEF8 /* DriveType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DriveType.plist; path = Resources/DriveType.plist; sourceTree = "<group>"; };
-		2F43B33019C8B83E0015DEF8 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = Common/DataModels/TeamData.h; sourceTree = SOURCE_ROOT; };
-		2F43B33119C8B83E0015DEF8 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = Common/DataModels/TeamData.m; sourceTree = SOURCE_ROOT; };
 		2F43B33319C8C5150015DEF8 /* FileIOMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileIOMethods.h; path = Utilities/FileIOMethods.h; sourceTree = "<group>"; };
 		2F43B33419C8C5150015DEF8 /* FileIOMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileIOMethods.m; path = Utilities/FileIOMethods.m; sourceTree = "<group>"; };
 		2F44958718847F530095DCAB /* AerialAssist_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AerialAssist_ipad.storyboard; path = MainApp/AerialAssist_ipad.storyboard; sourceTree = "<group>"; };
 		2F47B7C019C3724A00E8E817 /* Competitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Competitions.h; path = Common/DataModels/Competitions.h; sourceTree = SOURCE_ROOT; };
 		2F47B7C119C3724A00E8E817 /* Competitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Competitions.m; path = Common/DataModels/Competitions.m; sourceTree = SOURCE_ROOT; };
+		2F47FC9519D479840021006A /* TournamentData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TournamentData.plist; path = Resources/TournamentData.plist; sourceTree = "<group>"; };
+		2F47FC9719D484880021006A /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamData.h; path = Common/DataModels/TeamData.h; sourceTree = SOURCE_ROOT; };
+		2F47FC9819D484880021006A /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamData.m; path = Common/DataModels/TeamData.m; sourceTree = SOURCE_ROOT; };
 		2F4CD04217122E1600428859 /* PopUpPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopUpPickerViewController.h; path = Utilities/PopUpPickerViewController.h; sourceTree = "<group>"; };
 		2F4CD04317122E1600428859 /* PopUpPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopUpPickerViewController.m; path = Utilities/PopUpPickerViewController.m; sourceTree = "<group>"; };
 		2F4D059818A6CEC2005ED0AA /* FullSizeViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullSizeViewer.h; path = Utilities/FullSizeViewer.h; sourceTree = "<group>"; };
@@ -239,8 +244,6 @@
 		2F4DC6E118CC022D00552F0E /* PhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoCell.m; path = Utilities/PhotoCell.m; sourceTree = "<group>"; };
 		2F5247AD1963B28100468E4F /* CreateMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateMatch.h; path = Common/DataModels/CreateMatch.h; sourceTree = SOURCE_ROOT; };
 		2F5247AE1963B28100468E4F /* CreateMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateMatch.m; path = Common/DataModels/CreateMatch.m; sourceTree = SOURCE_ROOT; };
-		2F5247AF1963B28100468E4F /* CreateTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTeam.h; path = Common/DataModels/CreateTeam.h; sourceTree = SOURCE_ROOT; };
-		2F5247B01963B28100468E4F /* CreateTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTeam.m; path = Common/DataModels/CreateTeam.m; sourceTree = SOURCE_ROOT; };
 		2F5247B11963B28100468E4F /* CreateTournament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateTournament.h; path = Common/DataModels/CreateTournament.h; sourceTree = SOURCE_ROOT; };
 		2F5247B21963B28100468E4F /* CreateTournament.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateTournament.m; path = Common/DataModels/CreateTournament.m; sourceTree = SOURCE_ROOT; };
 		2F5247B31963B28100468E4F /* FieldDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawing.h; path = Common/DataModels/FieldDrawing.h; sourceTree = SOURCE_ROOT; };
@@ -327,6 +330,11 @@
 		2FB3A4C016CEC17C00E895E5 /* MatchAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchAnalysisViewController.m; path = MatchAnalysis/MatchAnalysisViewController.m; sourceTree = "<group>"; };
 		2FB3A4C516CF044C00E895E5 /* RossPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RossPageViewController.h; path = MatchAnalysis/RossPageViewController.h; sourceTree = "<group>"; };
 		2FB3A4C616CF044C00E895E5 /* RossPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RossPageViewController.m; path = MatchAnalysis/RossPageViewController.m; sourceTree = "<group>"; };
+		2FC066D619CF391A00AAEFFC /* IntakeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = IntakeType.plist; path = Resources/IntakeType.plist; sourceTree = "<group>"; };
+		2FC066D819CF3ABB00AAEFFC /* ShooterType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ShooterType.plist; path = Resources/ShooterType.plist; sourceTree = "<group>"; };
+		2FC066DA19CF3B8900AAEFFC /* TriState.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TriState.plist; path = Resources/TriState.plist; sourceTree = "<group>"; };
+		2FC066DC19CF3B9C00AAEFFC /* QuadState.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = QuadState.plist; path = Resources/QuadState.plist; sourceTree = "<group>"; };
+		2FC066DE19CF3BC100AAEFFC /* Tunnel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Tunnel.plist; path = Resources/Tunnel.plist; sourceTree = "<group>"; };
 		2FC18E9F16A1F9A900D42251 /* AerialAssist-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AerialAssist-Info.plist"; path = "MainApp/AerialAssist-Info.plist"; sourceTree = "<group>"; };
 		2FC18EA016A1F9A900D42251 /* AerialAssist-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AerialAssist-Prefix.pch"; path = "MainApp/AerialAssist-Prefix.pch"; sourceTree = "<group>"; };
 		2FC18EA716A202FD00D42251 /* AddRecordResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddRecordResults.h; path = DataImport/AddRecordResults.h; sourceTree = "<group>"; };
@@ -383,7 +391,6 @@
 		2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RadioButton-Unselected.png"; path = "Resources/RadioButton-Unselected.png"; sourceTree = "<group>"; };
 		2FF112D218A9BFC200533BEC /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = Resources/2014_field.png; sourceTree = "<group>"; };
 		2FF112D418B0208D00533BEC /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = Resources/2014_field_grid.png; sourceTree = "<group>"; };
-		2FF1459718BC39710078D1B4 /* TeamDataOutput.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamDataOutput.plist; path = Resources/TeamDataOutput.plist; sourceTree = "<group>"; };
 		2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = Resources/TeamList.csv; sourceTree = "<group>"; };
 		2FF6800717261BA30003F86A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2FFAE1B216D29B9600B180F9 /* AlertPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertPromptViewController.h; path = Utilities/AlertPromptViewController.h; sourceTree = "<group>"; };
@@ -558,14 +565,12 @@
 			isa = PBXGroup;
 			children = (
 				2F5247DE1963B5D400468E4F /* AerialAssist.xcdatamodeld */,
+				2F47FC9719D484880021006A /* TeamData.h */,
+				2F47FC9819D484880021006A /* TeamData.m */,
 				2F47B7C019C3724A00E8E817 /* Competitions.h */,
 				2F47B7C119C3724A00E8E817 /* Competitions.m */,
-				2F43B33019C8B83E0015DEF8 /* TeamData.h */,
-				2F43B33119C8B83E0015DEF8 /* TeamData.m */,
 				2F5247AD1963B28100468E4F /* CreateMatch.h */,
 				2F5247AE1963B28100468E4F /* CreateMatch.m */,
-				2F5247AF1963B28100468E4F /* CreateTeam.h */,
-				2F5247B01963B28100468E4F /* CreateTeam.m */,
 				2F5247B11963B28100468E4F /* CreateTournament.h */,
 				2F5247B21963B28100468E4F /* CreateTournament.m */,
 				2F5247B31963B28100468E4F /* FieldDrawing.h */,
@@ -615,6 +620,18 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F67D4281728815300FA04CF /* InitialDefaults.plist */,
+				2FDB495D18BAA22D00B431C7 /* LucienNumberFields.plist */,
+				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
+				2FDB496518BAC2A000B431C7 /* MarcusOutput.plist */,
+				2FCF9FBA1994586B00A872CD /* TeamData.plist */,
+				2F47FC9519D479840021006A /* TournamentData.plist */,
+				2F43B32B19C8AAC20015DEF8 /* DriveType.plist */,
+				2FC066D619CF391A00AAEFFC /* IntakeType.plist */,
+				2FC066D819CF3ABB00AAEFFC /* ShooterType.plist */,
+				2FC066DA19CF3B8900AAEFFC /* TriState.plist */,
+				2FC066DC19CF3B9C00AAEFFC /* QuadState.plist */,
+				2FC066DE19CF3BC100AAEFFC /* Tunnel.plist */,
 				2F3359C418EF3FEA00B090E5 /* Blocked Shot.png */,
 				2F05F83718EE4EA20065D74A /* Intake from Human.png */,
 				2F05F84518EE64AA0065D74A /* Intake from Human Miss.png */,
@@ -657,13 +674,6 @@
 				2F17D54716BA092B00DC81C1 /* TournamentList.csv */,
 				2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */,
 				2FCD9FE8189338F500422F97 /* MatchList.csv */,
-				2F67D4281728815300FA04CF /* InitialDefaults.plist */,
-				2FDB495D18BAA22D00B431C7 /* LucienNumberFields.plist */,
-				2F8002D518550F1B008F031C /* Robonauts.AerialAssist.plist */,
-				2FDB496518BAC2A000B431C7 /* MarcusOutput.plist */,
-				2FF1459718BC39710078D1B4 /* TeamDataOutput.plist */,
-				2FCF9FBA1994586B00A872CD /* TeamData.plist */,
-				2F43B32B19C8AAC20015DEF8 /* DriveType.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -867,7 +877,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F05F83118EE13790065D74A /* Intake from Robot.png in Resources */,
-				2FF1459818BC39710078D1B4 /* TeamDataOutput.plist in Resources */,
 				2FF1459C18BC4E3A0078D1B4 /* TeamList.csv in Resources */,
 				2F8002D618550F1B008F031C /* Robonauts.AerialAssist.plist in Resources */,
 				2FDB496618BAC2A000B431C7 /* MarcusOutput.plist in Resources */,
@@ -879,6 +888,7 @@
 				2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */,
 				2FCD954B18972B550076F7BF /* ios-7-camera-icon.png in Resources */,
 				2F30EAE916A100250026B258 /* Default-568h@2x.png in Resources */,
+				2FC066DD19CF3B9C00AAEFFC /* QuadState.plist in Resources */,
 				2FCD9FE9189338F500422F97 /* MatchList.csv in Resources */,
 				2FB0B48518B4319700F67D74 /* check-tick.png in Resources */,
 				2FC18EEA16A2083500D42251 /* Blue Fade.gif in Resources */,
@@ -895,6 +905,7 @@
 				2FC18EF516A2083500D42251 /* photo.JPG in Resources */,
 				2FC18EF616A2083500D42251 /* R Big Icon.png in Resources */,
 				2FC18EF716A2083500D42251 /* R Icon.png in Resources */,
+				2FC066DF19CF3BC100AAEFFC /* Tunnel.plist in Resources */,
 				2FDB495E18BAA22D00B431C7 /* LucienNumberFields.plist in Resources */,
 				2FC18EF916A2083500D42251 /* robonauts button.png in Resources */,
 				2F05F84418EE63040065D74A /* Intake from Robot Miss.png in Resources */,
@@ -903,20 +914,24 @@
 				2F17D54816BA092B00DC81C1 /* TournamentList.csv in Resources */,
 				2FCE54FA16CC271A00884191 /* Small Blue Button.jpg in Resources */,
 				2FCE54FD16CC29AB00884191 /* Small Green Button.jpg in Resources */,
+				2F47FC9619D479840021006A /* TournamentData.plist in Resources */,
 				2FCE54FF16CC29B600884191 /* Small White Button.jpg in Resources */,
 				2FFD94FA16D1AC5F007052EA /* Small Grey Button.jpg in Resources */,
 				2FFD94FC16D1ACA1007052EA /* robonauts app banner.jpg in Resources */,
 				2F05F84A18EE6B5F0065D74A /* Pass to Robot.png in Resources */,
 				2F05F83E18EE53D30065D74A /* Pick Up.png in Resources */,
 				2F05F84018EE60180065D74A /* Truss Catch Miss.png in Resources */,
+				2FC066D919CF3ABB00AAEFFC /* ShooterType.plist in Resources */,
 				2FFAE1C816D51BDD00B180F9 /* robonauts app banner original.jpg in Resources */,
 				2F113D1B18FF651700B62C77 /* Small Red Button.jpg in Resources */,
 				2FA28B601879B1C40039C28D /* InfoPlist.strings in Resources */,
 				2F621F2D170E18CA00D2ABD1 /* AerialAssist_iphone.storyboard in Resources */,
 				2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */,
+				2FC066DB19CF3B8900AAEFFC /* TriState.plist in Resources */,
 				2F05F84618EE64AA0065D74A /* Intake from Human Miss.png in Resources */,
 				2F67D4291728815300FA04CF /* InitialDefaults.plist in Resources */,
 				2F05F83D18EE53D30065D74A /* Pick Up Miss.png in Resources */,
+				2FC066D719CF391A00AAEFFC /* IntakeType.plist in Resources */,
 				2F05F84E18EE6E800065D74A /* Truss Throw.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -951,7 +966,7 @@
 				2FFC493918560F68009A391E /* SettingsViewController.m in Sources */,
 				2F47B7C219C3724A00E8E817 /* Competitions.m in Sources */,
 				2F88649A16B76B1700867385 /* AlliancePickerController.m in Sources */,
-				2F43B33219C8B83E0015DEF8 /* TeamData.m in Sources */,
+				2F47FC9919D484880021006A /* TeamData.m in Sources */,
 				2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */,
 				2F88649B16B76B1700867385 /* MainScoutingPageViewController.m in Sources */,
 				2F6D01EF1884B32400F0635C /* TournamentAnalysisViewController.m in Sources */,
@@ -969,7 +984,6 @@
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,
 				2FD8EDB518B79E75009071A3 /* TrooleanDictionary.m in Sources */,
 				2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */,
-				2F5247CB1963B28100468E4F /* CreateTeam.m in Sources */,
 				2FB3A4C716CF044C00E895E5 /* RossPageViewController.m in Sources */,
 				2F43B33519C8C5150015DEF8 /* FileIOMethods.m in Sources */,
 				2F35184D18AEE62100DA3952 /* PhoneSplashViewController.m in Sources */,

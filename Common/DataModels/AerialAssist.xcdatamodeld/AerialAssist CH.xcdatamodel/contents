@@ -50,25 +50,25 @@
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES"/>
-        <attribute name="autonMobility" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="autonMobility" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="catcher" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="catcher" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="classA" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classB" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classC" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classD" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classE" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="classF" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="classA" attributeType="String" defaultValueString="No" syncable="YES"/>
+        <attribute name="classB" attributeType="String" defaultValueString="No" syncable="YES"/>
+        <attribute name="classC" attributeType="String" defaultValueString="No" syncable="YES"/>
+        <attribute name="classD" attributeType="String" defaultValueString="No" syncable="YES"/>
+        <attribute name="classE" attributeType="String" defaultValueString="No" syncable="YES"/>
+        <attribute name="classF" attributeType="String" defaultValueString="No" syncable="YES"/>
         <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="fthing1" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing2" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="goalie" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="hotTracker" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="intake" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="15" defaultValueString="-1" syncable="YES"/>
+        <attribute name="goalie" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="hotTracker" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="intake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
@@ -79,8 +79,8 @@
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
-        <attribute name="shooterType" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
-        <attribute name="spitBot" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="shooterType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="spitBot" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing4" optional="YES" attributeType="String" syncable="YES"/>
@@ -91,7 +91,7 @@
         <attribute name="thing3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="tunneler" optional="YES" attributeType="Integer 16" minValueString="-1" defaultValueString="-1" syncable="YES"/>
+        <attribute name="tunneler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="match" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="team" inverseEntity="TeamScore" syncable="YES"/>
@@ -344,7 +344,7 @@
         <element name="FieldDrawing" positionX="0" positionY="0" width="128" height="75"/>
         <element name="MatchData" positionX="0" positionY="0" width="128" height="195"/>
         <element name="Regional" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="TeamData" positionX="0" positionY="0" width="128" height="765"/>
+        <element name="TeamData" positionX="0" positionY="0" width="128" height="763"/>
         <element name="TeamScore" positionX="0" positionY="0" width="128" height="1275"/>
         <element name="TournamentData" positionX="0" positionY="0" width="128" height="73"/>
     </elements>

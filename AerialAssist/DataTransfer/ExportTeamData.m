@@ -9,76 +9,35 @@
 #import "ExportTeamData.h"
 #import "DataManager.h"
 #import "TeamData.h"
-#import "DriveTypeDictionary.h"
-#import "TrooleanDictionary.h"
-#import "IntakeTypeDictionary.h"
-#import "ShooterTypeDictionary.h"
-#import "TunnelDictionary.h"
-#import "QuadStateDictionary.h"
+#import "DataConvenienceMethods.h"
 
 @implementation ExportTeamData {
-    NSUserDefaults *prefs;
-    NSString *tournamentName;
     NSDictionary *attributes;
     NSArray *teamDataList;
-    DriveTypeDictionary *driveDictionary;
-    IntakeTypeDictionary *intakeDictionary;
-    TrooleanDictionary *trooleanDictionary;
-    ShooterTypeDictionary *shooterDictionary;
-    TunnelDictionary *tunnelDictionary;
-    QuadStateDictionary *quadStateDictionary;
 }
 
-- (id)initWithDataManager:(DataManager *)initManager {
-	if ((self = [super init]))
-	{
-        _dataManager = initManager;
-	}
-	return self;
-}
+-(NSString *)teamDataCSVExport:(NSString *)tournamentName fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return nil;
 
--(NSString *)teamDataCSVExport {
-    if (!_dataManager) {
-        _dataManager = [[DataManager alloc] init];
-    }
     if (!teamDataList) {
         // Load dictionary with list of parameters for the scouting spreadsheet
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamDataOutput" ofType:@"plist"];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
         teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     }
-    if (!driveDictionary) {
-        driveDictionary = [[DriveTypeDictionary alloc] init];
-    }
-    if (!intakeDictionary) {
-        intakeDictionary = [[IntakeTypeDictionary alloc] init];
-    }
-    if (!shooterDictionary) {
-        shooterDictionary = [[ShooterTypeDictionary alloc] init];
-    }
-    if (!trooleanDictionary) {
-        trooleanDictionary = [[TrooleanDictionary alloc] init];
-    }
-    if (!tunnelDictionary) {
-        tunnelDictionary = [[TunnelDictionary alloc] init];
-    }
-    if (!quadStateDictionary) {
-        quadStateDictionary = [[QuadStateDictionary alloc] init];
-    }
-    prefs = [NSUserDefaults standardUserDefaults];
-    tournamentName = [prefs objectForKey:@"tournament"];
-
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-    entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
+    entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
      
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
-    [fetchRequest setPredicate:pred];
-    NSArray *teamData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (tournamentName) {
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournamentName];
+        [fetchRequest setPredicate:pred];
+    }
+    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if(!teamData) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Minor Problem Encountered"
                                                          message:@"No Team data to email"
@@ -92,77 +51,61 @@
     NSString *csvString;
     team = [teamData objectAtIndex:0];
     attributes = [[team entity] attributesByName];
-    csvString = [self createHeader:team];
-
-    for (int i=0; i<[teamData count]; i++) {
-        team = [teamData objectAtIndex:i];
-        csvString = [csvString stringByAppendingString:[self createTeam:team]];
-    }
-    return csvString;
-}
-
--(NSString *)createHeader:(TeamData *)team {
-    NSString *csvString;
-
-    csvString = @"Team Number, Team Name, Tournament";
-    for (int i=0; i<[teamDataList count]; i++) {
-        NSString *output = [[teamDataList objectAtIndex:i] objectForKey:@"header"];
-        if (output) {
-            csvString = [csvString stringByAppendingFormat:@", %@", output];
-        }
-    }
-    csvString = [csvString stringByAppendingString:@"\n"];
-
-    return csvString;
-}
-
--(NSString *)createTeam:(TeamData *)team {
-    NSString *csvString;
-    csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@", team.number, team.name, tournamentName];
-    for (NSDictionary *entry in teamDataList) {
-        NSString *output = [team valueForKey:[entry objectForKey:@"key"]];
-        if (output) {
-            csvString = [csvString stringByAppendingFormat:@", %@",[self outputFormat:[entry objectForKey:@"format"] forValue:[team valueForKey:[entry objectForKey:@"key"]]]];
-        }
-    }
-    csvString = [csvString stringByAppendingString:@"\n"];
+    csvString = [self createHeader:team forTournament:tournamentName];
     NSLog(@"%@", csvString);
-    
+
+    for (TeamData *team in teamData) {
+        csvString = [csvString stringByAppendingString:[self createTeam:team forTournament:tournamentName]];
+    }
     return csvString;
 }
 
--(NSString *) outputFormat:(NSString *)type forValue:data {
-    if ([type isEqualToString:@"string"]) {
-        NSString *replaced;
-        NSLog(@"key = p%@p", data);
-        replaced = [data stringByReplacingOccurrencesOfString:@"," withString:@";"];
-        if (replaced) {
-            replaced = [replaced stringByReplacingOccurrencesOfString:@"\n" withString:@";"];
-            NSLog(@",\"%@\"", replaced);
-            return [NSString stringWithFormat:@"\"%@\"", replaced];
+-(NSString *)createHeader:(TeamData *)team forTournament:(NSString *)tournament {
+    NSString *csvString = [[NSString alloc] init];
+
+    BOOL firstPass = TRUE;
+    for (NSDictionary *item in teamDataList) {
+        NSString *output = [item objectForKey:@"output"];
+        if (output) {
+            if (firstPass) {
+                csvString = [csvString stringByAppendingFormat:@"%@", output];
+                firstPass = FALSE;
+            }
+            else {
+                csvString = [csvString stringByAppendingFormat:@", %@", output];
+            }
         }
-        else return @"";
     }
-    else if ([type isEqualToString:@"driveTypeDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [driveDictionary getString:data]];
-    }
-    else if ([type isEqualToString:@"intakeTypeDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [intakeDictionary getString:data]];
-    }
-    else if ([type isEqualToString:@"shooterTypeDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [shooterDictionary getString:data]];
-    }
-    else if ([type isEqualToString:@"trooleanDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [trooleanDictionary getString:data]];
-    }
-    else if ([type isEqualToString:@"tunnelDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [tunnelDictionary getString:data]];
-    }
-    else if ([type isEqualToString:@"quadStateDictionary"]) {
-        return [NSString stringWithFormat:@"%@", [quadStateDictionary getString:data]];
-    }
-    else return [NSString stringWithFormat:@"%@", data];
+    csvString = [csvString stringByAppendingString:@"\n"];
+    return csvString;
 }
 
+-(NSString *)createTeam:(TeamData *)team forTournament:(NSString *)tournament {
+    NSString *csvString = [[NSString alloc] init];
+    
+    BOOL firstPass = TRUE;
+    for (NSDictionary *item in teamDataList) {
+        NSString *output = [item objectForKey:@"output"];
+        if (output) {
+            NSString *key = [item objectForKey:@"key"];
+            if ([key isEqualToString:@"tournaments"]) {
+                csvString = [csvString stringByAppendingFormat:@", %@", tournament];
+            }
+            else {
+                NSDictionary *description = [attributes valueForKey:key];
+                if (firstPass) {
+                    firstPass = FALSE;
+                }
+                else {
+                    csvString = [csvString stringByAppendingFormat:@", "];
+                }
+                csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[team valueForKey:key] forAttribute:description]];
+            }
+        }
+    }
+    csvString = [csvString stringByAppendingString:@"\n"];
+    
+  return csvString;
+}
 
 @end

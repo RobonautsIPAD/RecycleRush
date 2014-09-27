@@ -15,5 +15,6 @@
 
 -(id)initWithDataManager:(DataManager *)initManager;
 -(void)createTeamFromFile:(NSString *)filePath;
+-(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName;
 
 @end

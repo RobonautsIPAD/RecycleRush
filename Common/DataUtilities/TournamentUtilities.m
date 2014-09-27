@@ -17,6 +17,7 @@
 @implementation TournamentUtilities {
     NSDictionary *tournamentDataAttributes;
     NSArray *attributeNames;
+    NSArray *tournamentDataList;
 }
 
 - (id)initWithDataManager:(DataManager *)initManager {
@@ -26,6 +27,7 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
         tournamentDataAttributes = [entity attributesByName];
         attributeNames = tournamentDataAttributes.allKeys;
+        [self initializePreferences];
 	}
 	return self;
 }
@@ -34,6 +36,7 @@
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
+    BOOL inputError = FALSE;
  
     if (![csvContent count]) return;
  
@@ -42,6 +45,12 @@
 
     // Check the first header to make sure this is a tournament file
     if (![[headerLine objectAtIndex:0] isEqualToString:@"Tournament"]) return;
+    NSMutableArray *columnDetails = [NSMutableArray array];
+    NSLog(@"Header line = %@", headerLine);
+    for (NSString *item in headerLine) {
+        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:tournamentDataList];
+        [columnDetails addObject:column];
+    }
 
     for (int c = 1; c < [csvContent count]; c++) {
         NSArray *line = [NSArray arrayWithArray:[csvContent objectAtIndex: c]];
@@ -58,26 +67,26 @@
         tournament.name = tournamentName;
         // Parse the rest of the line for any more data
         for (int i=1; i<[line count]; i++) {
-            NSString *header = [headerLine objectAtIndex:i];
-            id key = [tournamentDataAttributes valueForKey:header];
-            if (!key) {
-                NSPredicate *pred = [NSPredicate predicateWithFormat:@"self LIKE[c] %@", header];
-                NSArray *alternates = [attributeNames filteredArrayUsingPredicate: pred];
-                if (alternates && [alternates count]) {
-                    key = [tournamentDataAttributes valueForKey:[alternates objectAtIndex:0]];
-                    if (!key) {
-                        NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@, from Tournament file", header];
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tournament File Data Error"
-                                                                        message:msg
-                                                                       delegate:self
-                                                              cancelButtonTitle:@"OK"
-                                                              otherButtonTitles:nil];
-                        [alert show];
-                        return;
-                    }
+            NSDictionary *column = [columnDetails objectAtIndex:i];
+            NSLog(@"%@", column);
+            NSString *key = [column valueForKey:@"key"];
+            if ([key isEqualToString:@"Invalid Key"]) {
+                NSLog(@"Skipping");
+                if (!inputError) {
+                    // Only pop up one warning per file
+                    inputError = TRUE;
+                    NSString *msg = [NSString stringWithFormat:@"Invalid Data Member %@ from Tournament Data file", [headerLine objectAtIndex:i]];
+                    [self errorAlertMessage:msg];
                 }
+                continue;
             }
-            [self setAttributeValue:tournament forValue:[line objectAtIndex:i] forAttribute:key];
+            NSDictionary *description = [tournamentDataAttributes valueForKey:key];
+            if ([DataConvenienceMethods setAttributeValue:tournament forValue:[line objectAtIndex:i] forAttribute:description forEnumDictionary:nil]) {
+                // Only pop up one warning per file
+                inputError = TRUE;
+                NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Tournament Data file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
+                [self errorAlertMessage:msg];
+            }
         }
     }
     [parser closeFile];
@@ -132,24 +141,6 @@
     return tournamentList;
 }
 
-
-
--(void)setAttributeValue:record forValue:data forAttribute:(id) attribute {
-    NSAttributeType attributeType = [attribute attributeType];
-    if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
-        [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
-    }
-    else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
-        [record setValue:[NSNumber numberWithFloat:[data floatValue]] forKey:[attribute name]];
-    }
-    else if (attributeType == NSBooleanAttributeType) {
-        [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
-    }
-    else if (attributeType == NSStringAttributeType) {
-        [record setValue:data forKey:[attribute name]];
-    }
-}
-
 -(TournamentData *)createNewTournament:(NSString *)name {
     TournamentData *tournament = [DataConvenienceMethods getTournament:name fromContext:_dataManager.managedObjectContext];
     if (tournament) return tournament;
@@ -171,6 +162,22 @@
         return tournament;
     }
 }
+
+-(void)initializePreferences {
+    // Create a dictionary with
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TournamentData" ofType:@"plist"];
+    tournamentDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
+}
+
+-(void)errorAlertMessage:(NSString *)msg {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tournament File Data Error"
+                                                    message:msg
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 
 #ifdef TEST_MODE
 -(void)testTournamentRecords {

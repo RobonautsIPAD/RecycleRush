@@ -114,9 +114,9 @@
     NSDictionary *attributeInfo;
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"self == [cd] %@", name];
  
-    NSLog(@"looking for %@", name);
+    // NSLog(@"looking for %@", name);
     // Look in the data dictionary first, if the name is not there, then look in the
-    // in the list off attributes. The dictionary contains additional information
+    // in the list of attributes. The dictionary contains additional information
     // useful for input. Not every atttribute has of needs additional info.
     
     for (NSDictionary *item in dataDictionary) {
@@ -140,18 +140,19 @@
         }
         else {
             itemDictionary = [NSDictionary dictionaryWithObject:@"Invalid Key" forKey:@"key"];
-            NSLog(@"%@ not found", name);
+            // NSLog(@"%@ not found", name);
         }
     }
     return itemDictionary;
 }
 
-+(void)setAttributeValue:record forValue:data forAttribute:attribute forEnumDictionary:enumDictionary {
++(BOOL)setAttributeValue:record forValue:data forAttribute:attribute forEnumDictionary:enumDictionary {
+    BOOL error = FALSE;
     NSAttributeType attributeType = [attribute attributeType];
     if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
         NSScanner *scanner = [NSScanner scannerWithString:data];
         BOOL isNumeric = [scanner scanInteger:NULL] && [scanner isAtEnd];
-        NSLog(@"Is numeric??? %d", isNumeric);
+        // NSLog(@"Is numeric??? %d", isNumeric);
         if (isNumeric) {
             [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
         }
@@ -160,6 +161,10 @@
                 NSLog(@"Do something with enum %@", enumDictionary);
       //          NSNumber *numericValue = [enumDictionary valueForKey:data];
       //          NSLog(@"data = %@, value = %@", data, numericValue);
+                error = TRUE;
+            }
+            else {
+                error = TRUE;
             }
         }
     }
@@ -176,32 +181,62 @@
             // Check if the data is a number.
             NSScanner *scanner = [NSScanner scannerWithString:data];
             BOOL isNumeric = [scanner scanInteger:NULL] && [scanner isAtEnd];
-            NSLog(@"Is numeric??? %d", isNumeric);
+            // NSLog(@"Is numeric??? %d", isNumeric);
             if (isNumeric) {
                 // The data is numeric. Get the associated string value
                 // from the dictionary
             //    [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
+                error = TRUE;
             }
             else {
                 // The data is non-numeric. Make sure the string is
                 // in the dictionary
-                NSLog(@"Do something with enum %@", enumDictionary);
-                NSLog(@"keys = %@", [enumDictionary allKeys]);
+                // NSLog(@"Do something with enum %@", enumDictionary);
+                // NSLog(@"keys = %@", [enumDictionary allKeys]);
                 if ([enumDictionary objectForKey:data]) {
-                    NSLog(@"Found key = %@", data);
+                    // NSLog(@"Found key = %@", data);
                     [record setValue:data forKey:[attribute name]];
                 }
- //               NSPredicate *pred = [NSPredicate predicateWithFormat:@"key = %@", data];
- //               NSArray *acceptableStrings = [[enumDictionary allKeys] filteredArrayUsingPredicate:pred];
-                    //   NSNumber *numericValue = [enumDictionary getEnumValue:data];
-   //             NSLog(@"data = %@, string = %@", data, acceptableStrings);
-            }
+                else {
+                    error = TRUE;
+                }
+             }
         }
         else {
             [record setValue:data forKey:[attribute name]];
         }
     }
+    return error;
 }
 
++(NSString *)outputCSVValue:data forAttribute:attribute {
+    NSString *csvString;
+    NSAttributeType attributeType = [attribute attributeType];
+    if (attributeType == NSStringAttributeType) {
+        // NSLog(@"String");
+        NSString *replaced;
+        replaced = [data stringByReplacingOccurrencesOfString:@"," withString:@";"];
+        if (replaced) {
+            replaced = [replaced stringByReplacingOccurrencesOfString:@"\n" withString:@"\\"];
+            csvString = [NSString stringWithFormat:@"%@", replaced];
+        }
+    }
+    else if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
+        // NSLog(@"Integer");
+        csvString = [NSString stringWithFormat:@"%@", data];
+    }
+    else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
+        // NSLog(@"Float");
+        csvString = [NSString stringWithFormat:@"%@", data];
+    }
+    else if (attributeType == NSBooleanAttributeType) {
+        // NSLog(@"Boolean");
+        csvString = [NSString stringWithFormat:@"%@", data];
+    }
+    else {
+        NSLog(@"Unsupported Type");
+    }
+    return csvString;
+}
 
 @end

@@ -4,15 +4,47 @@
 <array>
 	<dict>
 		<key>key</key>
-		<string>autonCapacity</string>
+		<string>number</string>
 		<key>input</key>
-		<string>Auton Capacity, Auton Cap, Auton Balls</string>
+		<string>Team Number, teamnumber</string>
 		<key>output</key>
-		<string>Auton Balls</string>
-		<key>lucien</key>
-		<string>Auton Capacity</string>
+		<string>Team Number</string>
 		<key>format</key>
 		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>name</string>
+		<key>input</key>
+		<string>Team Name, teamname</string>
+		<key>output</key>
+		<string>Team Name</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>tournaments</string>
+		<key>input</key>
+		<string>Tournament Name, Tournamentname, tournament</string>
+		<key>output</key>
+		<string>Tournament</string>
+		<key>lucien</key>
+		<string></string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>tunneler</string>
+		<key>input</key>
+		<string>Tunnel Bot</string>
+		<key>output</key>
+		<string>Tunneler</string>
+		<key>lucien</key>
+		<string>Tunnel</string>
+		<key>dictionary</key>
+		<string>tunnelDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -25,6 +57,18 @@
 		<string>Auton Mobility</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>autonCapacity</string>
+		<key>input</key>
+		<string>Auton Capacity, Auton Cap, Auton Balls</string>
+		<key>output</key>
+		<string>Auton Balls</string>
+		<key>lucien</key>
+		<string>Auton Capacity</string>
+		<key>format</key>
+		<string>integer</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -108,44 +152,6 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>minHeight</string>
-		<key>input</key>
-		<string>min height, minimum height</string>
-		<key>output</key>
-		<string>Minimum Height</string>
-		<key>format</key>
-		<string>float</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>name</string>
-		<key>input</key>
-		<string>Team Name, teamname</string>
-		<key>output</key>
-		<string>Team Name</string>
-		<key>format</key>
-		<string>string</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>notes</string>
-		<key>output</key>
-		<string>Notes</string>
-		<key>format</key>
-		<string>string</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>number</string>
-		<key>input</key>
-		<string>Team Number, teamnumber</string>
-		<key>output</key>
-		<string>Team Number</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
 		<string>nwheels</string>
 		<key>input</key>
 		<string>number of wheels, numberwheels, number wheels</string>
@@ -166,6 +172,16 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>wheelDiameter</string>
+		<key>input</key>
+		<string>Wheel Diameter</string>
+		<key>output</key>
+		<string>Wheel Diameter</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>spitBot</string>
 		<key>input</key>
 		<string>Spit Bot, spits, spitter</string>
@@ -178,37 +194,77 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>tournaments</string>
+		<string>classA</string>
 		<key>input</key>
-		<string>Tournament Name, Tournamentname, tournament</string>
-		<key>output</key>
-		<string>Tournament</string>
-		<key>lucien</key>
-		<string></string>
-		<key>format</key>
-		<string>string</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>tunneler</string>
-		<key>input</key>
-		<string>Tunnel Bot</string>
-		<key>output</key>
-		<string>Tunneler</string>
-		<key>lucien</key>
-		<string>Tunnel</string>
+		<string>Class A</string>
 		<key>dictionary</key>
-		<string>tunnelDictionary</string>
+		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>wheelDiameter</string>
+		<string>classB</string>
 		<key>input</key>
-		<string>Wheel Diameter</string>
+		<string>Class B</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classC</string>
+		<key>input</key>
+		<string>Class C</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classD</string>
+		<key>input</key>
+		<string>Class D</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classD</string>
+		<key>input</key>
+		<string>Class D</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classE</string>
+		<key>input</key>
+		<string>Class E</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>classF</string>
+		<key>input</key>
+		<string>Class F</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>minHeight</string>
+		<key>input</key>
+		<string>min height, minimum height</string>
 		<key>output</key>
-		<string>Wheel Diameter</string>
+		<string>Minimum Height</string>
 		<key>format</key>
 		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>notes</string>
+		<key>output</key>
+		<string>Notes</string>
+		<key>format</key>
+		<string>string</string>
 	</dict>
 </array>
 </plist>

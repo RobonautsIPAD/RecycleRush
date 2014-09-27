@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Unknown</key>
+	<integer>-1</integer>
+	<key>None</key>
+	<integer>0</integer>
+	<key>Other</key>
+	<integer>1</integer>
+	<key>Wheel</key>
+	<integer>2</integer>
+	<key>Plunger</key>
+	<integer>3</integer>
+	<key>Catapult</key>
+	<integer>4</integer>
+	<key>Kicker</key>
+	<integer>5</integer>
+</dict>
+</plist>

@@ -21,14 +21,12 @@
 @property (nonatomic, strong) NSMutableDictionary *regionalDictionary;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(void)setTeamValue:(TeamData *)team forHeader:header withValue:data withProperties:(NSDictionary *)properties;
 -(void)setAttributeValue:record forValue:data forAttribute:(id) attribute;
 -(AddRecordResults)addTeamHistoryFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(void)setRegionalValue:(Regional *)regional forHeader:(NSString *)header withValue:(NSString *)data withProperties:(NSDictionary *)properties;
 -(TeamData *)getTeam:(NSNumber *)teamNumber;
 -(NSArray *)getTeamListTournament:(NSString *)tournament;
 -(Regional *)getRegionalRecord:(TeamData *)team forWeek:(NSNumber *)week;
--(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName;
 -(id)checkAlternateKeys:(NSDictionary *)keyList forEntry:header;
 -(void)setTeamDefaults:(TeamData *)blankTeam;
 -(NSData *)packageTeamForXFer:(TeamData *)team;

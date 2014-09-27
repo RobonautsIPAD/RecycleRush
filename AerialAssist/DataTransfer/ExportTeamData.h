@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@class DataManager;
 
 @interface ExportTeamData : NSObject 
-@property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
--(NSString *)teamDataCSVExport;
+-(NSString *)teamDataCSVExport:(NSString *)tournamentName fromContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

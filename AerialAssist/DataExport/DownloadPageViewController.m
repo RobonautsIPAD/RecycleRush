@@ -149,8 +149,7 @@
 
 -(void)emailTeamData {
     NSString *csvString;
-    ExportTeamData *teamCSVExport = [[ExportTeamData alloc] initWithDataManager:_dataManager];
-    csvString = [teamCSVExport teamDataCSVExport];
+    csvString = [[[ExportTeamData alloc] init] teamDataCSVExport:tournamentName fromContext:_dataManager.managedObjectContext];
     if (csvString) {
         NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
         [csvString writeToFile:filePath

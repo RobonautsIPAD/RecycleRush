@@ -37,9 +37,9 @@
     NSInteger totalRowsHeight = rowsCount * singleRowHeight;
     //Calculate how wide the view should be by finding how wide each string is expected to be
     CGFloat largestLabelWidth = 0;
-    for (NSString *colorName in _pickerChoices) {
+    for (NSString *labelName in _pickerChoices) {
         //Checks size of text using the default font for UITableViewCell's textLabel.
-        CGSize labelSize = [colorName sizeWithFont:[UIFont boldSystemFontOfSize:20.0f]];
+        CGSize labelSize = [labelName sizeWithFont:[UIFont boldSystemFontOfSize:20.0f]];
         if (labelSize.width > largestLabelWidth) {
             largestLabelWidth = labelSize.width;
         }
