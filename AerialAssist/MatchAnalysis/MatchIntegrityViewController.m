@@ -11,6 +11,7 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "TeamData.h"
+#import "EnumerationDictionary.h"
 
 @interface MatchIntegrityViewController ()
 
@@ -19,6 +20,7 @@
 @implementation MatchIntegrityViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSDictionary *matchDictionary;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -42,6 +44,7 @@
         self.title = @"Match Integrity Page";
     }
 
+    matchDictionary = [self getEnumDictionary:@"MatchType"];;
     NSError *error1;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
@@ -81,6 +84,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(id)getEnumDictionary:(NSString *) dictionaryName {
+    if (!dictionaryName) {
+        return nil;
+    }
+    else if ([dictionaryName isEqualToString:@"MatchType"]) {
+        if (!matchDictionary) matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        return matchDictionary;
+    }
+    else return nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -108,7 +122,7 @@
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
     
 	UILabel *matchTypeLabel = (UILabel *)[cell viewWithTag:20];
-    matchTypeLabel.text = [info.matchType substringToIndex:4];
+    matchTypeLabel.text = [[EnumerationDictionary getKeyFromValue:info.matchType forDictionary:matchDictionary] substringToIndex:4];
    
     int nScores = 0;
     NSArray *allScores = [info.score allObjects];
@@ -256,7 +270,7 @@
         [fetchRequest setEntity:entity];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchTypeSection" ascending:YES];
+        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         

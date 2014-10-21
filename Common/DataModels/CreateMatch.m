@@ -71,63 +71,6 @@
 	return self;
 }
 
--(AddRecordResults)createMatchFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data {
-    NSNumber *matchNumber;
-    NSString *type;
-    NSString *tournament;
-
-    if (![data count]) return DB_ERROR;
-    
-    if (!managedObjectContext) {
-        if (_dataManager) {
-            managedObjectContext = _dataManager.managedObjectContext;
-        }
-        else {
-            _dataManager = [DataManager new];
-            managedObjectContext = [_dataManager managedObjectContext];
-        }
-    }
-    
-    matchNumber = [NSNumber numberWithInt:[[data objectAtIndex: 0] intValue]];
-    type = [data objectAtIndex:7];
-    tournament = [data objectAtIndex:8];
-    tournamentRecord = [self getTournamentRecord:tournament];
-    // NSLog(@"createMatchFromFile:Match Number = %@", matchNumber);
-    MatchData *match = [self GetMatch:matchNumber forMatchType:type forTournament:tournament];
-    if (match) {
-        // NSLog(@"createMatchFromFile:Match %@ %@ already exists", matchNumber, type);
-        if ([data count] == 11) {
-            match.redScore = [NSNumber numberWithInt:[[data objectAtIndex: 9] intValue]];
-            match.blueScore = [NSNumber numberWithInt:[[data objectAtIndex: 10] intValue]];
-            NSError *error;
-            if (![managedObjectContext save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-                return DB_ERROR;
-            }
-            return DB_MATCHED;
-        }
-    }
-    else {
-        if ([data count] != 11) return DB_ERROR;
-        [self CreateMatch:matchNumber   // Match Number 
-                     forTeam1:[data objectAtIndex: 1]   // Red 1
-                     forTeam2:[data objectAtIndex: 2]   // Red 2  
-                     forTeam3:[data objectAtIndex: 3]   // Red 3
-                     forTeam4:[data objectAtIndex: 4]   // Blue 1
-                     forTeam5:[data objectAtIndex: 5]   // Blue 2
-                     forTeam6:[data objectAtIndex: 6]   // Blue 3
-                     forMatch:[data objectAtIndex: 7]   // Match Type
-                forTournament:tournament                // Tournament
-                forRedScore:[NSNumber numberWithInt:[[data objectAtIndex: 9] intValue]] 
-                forBlueScore:[NSNumber numberWithInt:[[data objectAtIndex: 10] intValue]]];
-        NSError *error;
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            return DB_ERROR;
-        }
-        else return DB_ADDED;
-    }
-}
 
 -(MatchData *)AddMatchObjectWithValidate:(NSNumber *)number
                                 forTeam1:(NSNumber *)red1
@@ -164,7 +107,7 @@
                                                          inManagedObjectContext:managedObjectContext];
         matchDictionary = [[MatchTypeDictionary alloc] init];
         match.matchType = matchType;
-        match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
+//        match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
         match.number = number;
         tournamentRecord = [self getTournamentRecord:tournament];
         
@@ -264,7 +207,7 @@
 {
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
-    [teamScore setAlliance:alliance];
+/*    [teamScore setAlliance:alliance];
     if ([alliance isEqualToString:@"Red 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:0]];
     else if ([alliance isEqualToString:@"Red 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:1]];
     else if ([alliance isEqualToString:@"Red 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:2]];
@@ -276,7 +219,7 @@
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
     }
     [teamScore setTournamentName:tournamentRecord.name];
-    // NSLog(@"   For Team = %@", teamScore.team);
+    // NSLog(@"   For Team = %@", teamScore.team);*/
     /*    if (!teamScore.teamInfo) {
      teamScore.teamInfo = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
      inManagedObjectContext:managedObjectContext];
@@ -425,7 +368,7 @@
                                                      inManagedObjectContext:managedObjectContext];        
     matchDictionary = [[MatchTypeDictionary alloc] init];
     match.matchType = matchType;
-    match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
+//    match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
     match.number = number;
     
     [match addScoreObject:[self CreateScore:red1 forAlliance:@"Red 1"]];
@@ -451,7 +394,7 @@
     
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:managedObjectContext];
-    [teamScore setAlliance:alliance];
+/*    [teamScore setAlliance:alliance];
     if ([alliance isEqualToString:@"Red 1"]) [teamScore setAllianceSection:[NSNumber numberWithInt:0]];
     else if ([alliance isEqualToString:@"Red 2"]) [teamScore setAllianceSection:[NSNumber numberWithInt:1]];
     else if ([alliance isEqualToString:@"Red 3"]) [teamScore setAllianceSection:[NSNumber numberWithInt:2]];
@@ -464,7 +407,7 @@
     if (!teamScore.team && [teamNumber intValue] !=0) {
         teamError = [NSString stringWithFormat:@"Error Adding Team: %d", [teamNumber intValue]];
     } 
-    [teamScore setTournamentName:tournamentRecord.name]; 
+    [teamScore setTournamentName:tournamentRecord.name]; */
      // NSLog(@"   For Team = %@", teamScore.team);
 /*    if (!teamScore.teamInfo) {
         teamScore.teamInfo = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData" 

@@ -531,7 +531,7 @@
     for (int j=0; j<[teamData count]; j++) {
         TeamData *team = [teamData objectAtIndex:j];
         // Get the matches for this team, this tournament and that have recorded results
-        NSArray *matches = [[team.match allObjects] filteredArrayUsingPredicate:pred];
+        NSArray *matches;// = [[team.match allObjects] filteredArrayUsingPredicate:pred];
         // For each requested parameter (ie row on this display), calculate its lucien number. Store in a dictionary
         //  using the same key as the parameterDictionary
         NSMutableDictionary *lucienDictionary = [[NSMutableDictionary alloc] init];

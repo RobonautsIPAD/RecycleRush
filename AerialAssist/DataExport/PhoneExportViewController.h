@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+
 @class DataManager;
 
 @interface PhoneExportViewController : UIViewController <MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
-
--(NSString *)applicationDocumentsDirectory;
 
 @end

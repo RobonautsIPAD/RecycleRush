@@ -10,11 +10,6 @@
 
 @class DataManager;
 
-@interface MatchAnalysisViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MatchAnalysisViewController : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
-@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
-@property (nonatomic, weak) IBOutlet UIImageView *matchPicture;
-@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
-
 @end

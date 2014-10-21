@@ -11,9 +11,9 @@
 #import "TournamentData.h"
 #import "TournamentUtilities.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
+#import "ExportTeamData.h"
 #import "MatchData.h"
-#import "MatchDataInterfaces.h"
+#import "ExportMatchData.h"
 #import "TeamScore.h"
 #import "TeamScoreInterfaces.h"
 #import "ImportDataFromiTunes.h"
@@ -32,20 +32,20 @@
     
     NSArray *tournamentList;
     NSMutableArray *filteredTournamentList;
-    NSArray *receivedTournamentList;
+    NSMutableArray *receivedTournamentList;
     TournamentUtilities *tournamentDataPackage;
     
     NSNumber *teamDataSync;
     NSArray *teamList;
     NSArray *filteredTeamList;
     NSMutableArray *receivedTeamList;
-    TeamDataInterfaces *teamDataPackage;
+    ExportTeamData *teamDataPackage;
     
     NSNumber *matchScheduleSync;
     NSArray *matchScheduleList;
     NSArray *filteredMatchList;
     NSMutableArray *receivedMatchList;
-    MatchDataInterfaces *matchDataPackage;
+    ExportMatchData *matchDataPackage;
     
     NSNumber *matchResultsSync;
     NSArray *matchResultsList;
@@ -94,13 +94,13 @@ GKPeerPickerController *picker;
     
     // Initialize all data packages
     if (!tournamentDataPackage) {
-        tournamentDataPackage = [[TournamentUtilities alloc] initWithDataManager:_dataManager];
+        tournamentDataPackage = [[TournamentUtilities alloc] init:_dataManager];
     }
     if (!teamDataPackage) {
-        teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+        teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
     }
     if (!matchDataPackage) {
-        matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+        matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
     }
     if (!matchResultsPackage) {
         matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
@@ -269,7 +269,7 @@ GKPeerPickerController *picker;
         label1.text = [NSString stringWithFormat:@"%@", match.number];
         
         UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [match.matchType substringToIndex:4];
+ //       label2.text = [match.matchType substringToIndex:4];
         
         TeamScore *score;
         for (int i = 0; i < 6; i++) {
@@ -315,10 +315,10 @@ GKPeerPickerController *picker;
         label1.text = [NSString stringWithFormat:@"%@", score.match.number];
         
         UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-        label2.text = [score.match.matchType substringToIndex:4];
+//        label2.text = [score.match.matchType substringToIndex:4];
         
         UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-        label3.text = score.alliance;
+        label3.text = score.allianceStation;
         
         UILabel *label4 = (UILabel *)[cell viewWithTag:40];
         label4.text = [NSString stringWithFormat:@"%@", score.team.number];
@@ -327,11 +327,11 @@ GKPeerPickerController *picker;
         label5.text = [NSString stringWithFormat:@"%@", score.results];
         
         UIColor *color;
-        if ([[score.alliance substringToIndex:1] isEqualToString:@"R"]) {
+//        if ([[score.allianceStation substringToIndex:1] isEqualToString:@"R"]) {
             color = [UIColor colorWithRed:1 green: 0 blue: 0 alpha:1];
-        } else {
+//        } else {
             color = [UIColor colorWithRed:0 green: 0 blue: 1 alpha:1];
-        }
+//        }
         label3.textColor = color;
         label4.textColor = color;
         label5.textColor = color;
@@ -421,7 +421,7 @@ GKPeerPickerController *picker;
         NSEntityDescription *entity = [NSEntityDescription
                                        entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
         [fetchRequest setEntity:entity];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournament.name = %@", tournamentName];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournamentName];
         [fetchRequest setPredicate:pred];
         teamList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     }
@@ -713,9 +713,11 @@ GKPeerPickerController *picker;
         return;
     }
     switch (syncType) {
-        case SyncTournaments:
+        case SyncTournaments: {
             NSLog(@"Tournament Data Detected");
-            receivedTournamentList = [tournamentDataPackage unpackageTournamentsForXFer:data];
+            NSDictionary *tournamentReceived = [tournamentDataPackage unpackageTournamentsForXFer:data];
+            if (tournamentReceived) [receivedTournamentList addObject:tournamentReceived];
+        }
             break;
         case SyncTeams: {
             if (receivedTeamList == nil) {

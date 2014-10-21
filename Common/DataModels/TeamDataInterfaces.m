@@ -125,41 +125,6 @@
     }
 }
 
--(NSData *)packageTeamForXFer:(TeamData *)team {
-    /*
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!_teamDataAttributes) _teamDataAttributes = [[team entity] attributesByName];
-    for (NSString *item in _teamDataAttributes) {
-        if ([team valueForKey:item] && [team valueForKey:item] != [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]) {
-            // NSLog(@"%@ = %@, not equal to default = %@", item, [team valueForKey:item], [[_teamDataAttributes valueForKey:item] valueForKey:@"defaultValue"]);
-            [keyList addObject:item];
-            [valueList addObject:[team valueForKey:item]];
-        }
-    }
-
-    NSArray *allTournaments = [team.tournament allObjects];
-    NSMutableArray *tournamentNames = [NSMutableArray array];
-    for (int i=0; i<[allTournaments count]; i++) {
-        [tournamentNames addObject:[[allTournaments objectAtIndex:i] valueForKey:@"name"]];
-    }
-    [keyList addObject:@"tournament"];
-    [valueList addObject:tournamentNames];
-
-    NSArray *allRegionals = [team.regional allObjects];
-    NSMutableArray *regionalData = [NSMutableArray array];
-    for (int i=0; i<[allRegionals count]; i++) {
-        [tournamentNames addObject:[[allRegionals objectAtIndex:i] valueForKey:@"name"]];
-    }
-    [keyList addObject:allRegionals];
-    [valueList addObject:[team valueForKey:@"regional"]];
-*/
-//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
- //   NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    
-    return Nil;
-}
-
 -(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
     // File name format T#.pck
     NSString *fileNameBase;
@@ -171,8 +136,8 @@
         fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
     }
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
-    NSData *myData = [self packageTeamForXFer:team];
-    [myData writeToFile:exportFile atomically:YES];
+//    NSData *myData = [self packageTeamForXFer:team];
+  //  [myData writeToFile:exportFile atomically:YES];
 }
 
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
@@ -242,19 +207,6 @@
     NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
-}
-
--(void)exportPhotosiTunes:(NSString *)tournament {
-    [self setPhotoDirectories];
-    NSError *error;
-    NSURL *url = [NSURL fileURLWithPath:robotPhotoLibrary];
-    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
-    if (dirWrapper == nil) {
-        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
-        return;
-    }
-    NSData *transferData = [dirWrapper serializedRepresentation];
-    [transferData writeToFile:photoExportPath atomically:YES];
 }
 
 -(void)setPhotoDirectories {
@@ -357,23 +309,6 @@
  */
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
--(void)setTeamDefaults:(TeamData *)blankTeam {
-    blankTeam.number = [NSNumber numberWithInt:0];
-    blankTeam.name = @"";
-    blankTeam.driveTrainType = [NSNumber numberWithInt:-1];
-//    blankTeam.history = @"";
-    blankTeam.intake = [NSNumber numberWithInt:-1];
-//    blankTeam.climbSpeed = [NSNumber numberWithFloat:0.0];
-    blankTeam.notes = @"";
-    blankTeam.wheelDiameter = [NSNumber numberWithFloat:0.0];
-    blankTeam.cims = [NSNumber numberWithInt:0];
-    blankTeam.minHeight = [NSNumber numberWithFloat:0.0];
-    blankTeam.maxHeight = [NSNumber numberWithFloat:0.0];
-//    blankTeam.shooterHeight = [NSNumber numberWithFloat:0.0];
-//    blankTeam.pyramidDump = [NSNumber numberWithInt:-1];
-    blankTeam.saved = [NSNumber numberWithInt:0];
 }
 
 - (void)dealloc

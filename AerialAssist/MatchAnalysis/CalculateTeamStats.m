@@ -38,7 +38,7 @@
     NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
 // fetch all score records for this tournament
-    NSArray *allMatches = [team.match allObjects];
+    NSArray *allMatches;// = [team.match allObjects];
     if (![allMatches count]) return nil;
     
     NSMutableDictionary *stats = [[NSMutableDictionary alloc] init];

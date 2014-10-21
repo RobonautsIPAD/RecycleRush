@@ -205,7 +205,7 @@
         return;
     }
     NSLog(@"Team list .... Add check for adding a team that alredy exists");
-    TeamUtilities *team = [[TeamUtilities alloc] initWithDataManager:_dataManager];
+    TeamUtilities *team = [[TeamUtilities alloc] init:_dataManager];
     if ([team addTeam:newTeamNumber forName:newTeamName forTournament:tournamentName]) {
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {

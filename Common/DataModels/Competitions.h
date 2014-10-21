@@ -2,7 +2,7 @@
 //  Competitions.h
 //  AerialAssist
 //
-//  Created by FRC on 9/12/14.
+//  Created by FRC on 9/30/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 

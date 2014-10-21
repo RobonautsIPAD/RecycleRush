@@ -32,7 +32,7 @@
 }
 
 -(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath {
-    // File name format M(Type)#T#
+/*    // File name format M(Type)#T#
     NSString *match;
     if ([score.match.number intValue] < 10) {
         match = [NSString stringWithFormat:@"M%c%@", [score.match.matchType characterAtIndex:0], [NSString stringWithFormat:@"00%d", [score.match.number intValue]]];
@@ -51,7 +51,7 @@
     }
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@_%@.pck", match, team]];
     NSData *myData = [self packageScoreForXFer:score];
-    [myData writeToFile:exportFile atomically:YES];
+    [myData writeToFile:exportFile atomically:YES];*/
 
 }
 
@@ -181,7 +181,7 @@
     }
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"results", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.alliance, score.team.number, score.results, @"Y", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.allianceStation, score.team.number, score.results, @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }
@@ -235,8 +235,8 @@
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:_dataManager.managedObjectContext];
     [teamScore setTeam:team];
-    [teamScore setAlliance:alliance];
-    [teamScore setAllianceSection:[NSNumber numberWithInt:allianceSection]];
+//    [teamScore setAlliance:alliance];
+//    [teamScore setAllianceSection:[NSNumber numberWithInt:allianceSection]];
     [teamScore setTournamentName:tournament];
     
     return teamScore;

@@ -16,8 +16,5 @@
 @interface MatchListViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate, AddMatchDelegate, MatchDetailDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
--(void)setTeamList:(MatchData *)match;
 
 @end

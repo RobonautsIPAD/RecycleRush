@@ -9,7 +9,6 @@
 #import "MasonPageViewController.h"
 #import "TournamentData.h"
 #import "DataManager.h"
-#import "MatchTypeDictionary.h"
 #import "MatchData.h"
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
@@ -17,16 +16,24 @@
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 #import "FieldDrawingViewController.h"
+#import "EnumerationDictionary.h"
+#import "FileIOMethods.h"
 #import "parseCSV.h"
 #import "QuartzCore/QuartzCore.h"
 
 @implementation MasonPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSMutableDictionary *settingsDictionary;
+    NSString *previousTournament;
     int numberMatchTypes;
     int ourCurrentIndex;
     CalculateTeamStats *teamStats;
-    MatchTypeDictionary *matchDictionary;
+    NSDictionary *matchDictionary;
+    NSArray *matchTypeList;
+    PopUpPickerViewController *matchTypePicker;
+    UIPopoverController *matchTypePickerPopover;
+    id popUp;
     NSFileManager *fileManager;
     NSString *storePath;
     NSMutableArray *teamMatches;
@@ -40,8 +47,6 @@
     NSMutableArray *column8;
     NSMutableArray *column9;
 }
-@synthesize dataManager = _dataManager;
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 // Match Control Buttons
 @synthesize prevMatch;
@@ -50,9 +55,6 @@
 // Match Data
 @synthesize matchNumber;
 @synthesize matchType;
-@synthesize matchTypeList;
-@synthesize matchTypePicker;
-@synthesize matchTypePickerPopover;
 
 @synthesize teamData;
 @synthesize teamList = _teamList;
@@ -118,6 +120,7 @@
     else {
         self.title = @"Brogan Analysis";
     }
+    [self loadSettings];
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
@@ -129,9 +132,9 @@
         abort();
     }
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
-    matchDictionary = [[MatchTypeDictionary alloc] init];
+    matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    matchTypeList = [matchDictionary keysSortedByValueUsingSelector:@selector(compare:)];
     
-    matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
     // NSLog(@"Match Type List Count = %@", matchTypeList);
     
@@ -143,7 +146,7 @@
         fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:storePath]) {
             // Loading Default Data Markers
-            _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
+         //   _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
             _rowIndex = 0;
             _teamIndex = 0;
             _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
@@ -159,7 +162,7 @@
             _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
             if (_sectionIndex == -1) { // The selected match type does not exist
                 // Go back to the first section in the table
-                _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
+      //          _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
                 _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
             }
         }
@@ -264,19 +267,6 @@
     [self ShowMatch];
 }
 
-
--(NSMutableArray *)getMatchTypeList {
-    NSMutableArray *matchTypes = [NSMutableArray array];
-    NSString *sectionName;
-    for (int i=0; i < [[_fetchedResultsController sections] count]; i++) {
-        sectionName = [[[_fetchedResultsController sections] objectAtIndex:i] name];
-        // NSLog(@"Section = %@", sectionName);
-        [matchTypes addObject:[matchDictionary getMatchTypeString:[NSNumber numberWithInt:[sectionName intValue]]]];
-    }
-    return matchTypes;
-    
-}
-
 -(NSUInteger)getMatchSectionInfo:(MatchType)matchSection {
     NSString *sectionName;
     _sectionIndex = -1;
@@ -315,34 +305,35 @@
     
 }
 
--(IBAction)MatchTypeSelectionChanged:(id)sender {
+-(IBAction)matchTypeSelectionChanged:(id)sender {
     //    NSLog(@"matchTypeSelectionChanged");
+    popUp = matchType;
     if (matchTypePicker == nil) {
-        self.matchTypePicker = [[MatchTypePickerController alloc]
-                                initWithStyle:UITableViewStylePlain];
+        matchTypePicker = [[PopUpPickerViewController alloc]
+                           initWithStyle:UITableViewStylePlain];
         matchTypePicker.delegate = self;
-        matchTypePicker.matchTypeChoices = matchTypeList;
-        self.matchTypePickerPopover = [[UIPopoverController alloc]
-                                       initWithContentViewController:matchTypePicker];
+        matchTypePicker.pickerChoices = matchTypeList;
     }
-    [self.matchTypePickerPopover presentPopoverFromRect:matchType.bounds inView:matchType
-                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    if (!matchTypePickerPopover) {
+        matchTypePickerPopover = [[UIPopoverController alloc]
+                                  initWithContentViewController:matchTypePicker];
+    }
+    [matchTypePickerPopover presentPopoverFromRect:matchType.bounds inView:matchType
+                          permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)matchTypeSelected:(NSString *)newMatchType {
-    [self.matchTypePickerPopover dismissPopoverAnimated:YES];
-    
-    for (int i = 0 ; i < [matchTypeList count] ; i++) {
-        if ([newMatchType isEqualToString:[matchTypeList objectAtIndex:i]]) {
-            // NSLog(@"New section = %@", newMatchType);
-            _currentSectionType = [[matchDictionary getMatchTypeEnum:newMatchType] intValue];
-            _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
-            break;
-        }
+- (void)pickerSelected:(NSString *)newPick {
+    // The user has made a selection on one of the pop-ups. Dismiss the pop-up
+    //  and call the correct method to change the right field.
+    // NSLog(@"new pick = %@", newPick);
+    if (popUp == matchType) {
+        [matchTypePickerPopover dismissPopoverAnimated:YES];
+        _currentSectionType  = [EnumerationDictionary getValueFromKey:newPick forDictionary:matchDictionary];
+        _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
+        _currentMatch = [self getCurrentMatch];
+        [self ShowMatch];
     }
-    _rowIndex = 0;
-    _currentMatch = [self getCurrentMatch];
-    [self ShowMatch];
+    [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 
 -(IBAction)PrevButton {
@@ -500,8 +491,7 @@
 
 -(void)ShowMatch {
     [self setTeamList];
-    
-    [matchType setTitle:_currentMatch.matchType forState:UIControlStateNormal];
+    [matchType setTitle:[EnumerationDictionary getKeyFromValue:_currentMatch.matchType forDictionary:matchDictionary] forState:UIControlStateNormal];
     matchNumber.text = [NSString stringWithFormat:@"%d", [_currentMatch.number intValue]];
 //    [red1 setTitle: [teamOrder objectAtIndex:0] forState:UIControlStateNormal];
 //    [red2 setTitle:[teamOrder objectAtIndex:1] forState:UIControlStateNormal];
@@ -578,7 +568,7 @@
 }
 
 -(NSMutableArray *)getScoreList:(TeamData *)team {
-    NSArray *allMatches = [team.match allObjects];
+    NSArray *allMatches;// = [team.match allObjects];
     NSMutableArray *scores = [allMatches mutableCopy];
 
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
@@ -761,7 +751,7 @@
         number.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
  
         UILabel *type = (UILabel *)[cell viewWithTag:20];
-        type.text = score.match.matchType; 
+        type.text = [EnumerationDictionary getKeyFromValue:score.match.matchType forDictionary:matchDictionary];
         return cell;
     }
 }
@@ -772,6 +762,30 @@
 //        cell.frame.size.width = 125.0;
     }
 }*/
+
+-(void)loadSettings {
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
+    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
+}
+
+-(void)saveSettings {
+    if (!settingsDictionary) {
+        settingsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
+    
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:plistPath atomically:YES];
+    }
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
+}
+
 
 -(void)SetTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
@@ -847,7 +861,7 @@
         [fetchRequest setEntity:entity];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchTypeSection" ascending:YES];
+        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         // Add the search for tournament name
@@ -856,13 +870,17 @@
         [fetchRequest setSortDescriptors:sortDescriptors];
         
         // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
+        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
+            // NSLog(@"Clear Cache");
+            [NSFetchedResultsController deleteCacheWithName:@"MasonPage"];
+        }
+       // nil for section name key path means "no sections".
         NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc]
          initWithFetchRequest:fetchRequest
          managedObjectContext:_dataManager.managedObjectContext
-         sectionNameKeyPath:@"matchTypeSection"
-         cacheName:@"Root"];
+         sectionNameKeyPath:@"matchType"
+         cacheName:@"MasonPage"];
         aFetchedResultsController.delegate = self;
         self.fetchedResultsController = aFetchedResultsController;
     }

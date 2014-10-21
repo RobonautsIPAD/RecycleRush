@@ -20,7 +20,7 @@
     NSArray *tournamentDataList;
 }
 
-- (id)initWithDataManager:(DataManager *)initManager {
+-(id)init:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
         _dataManager = initManager;

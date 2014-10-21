@@ -16,6 +16,8 @@
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
+#import "PhotoUtilities.h"
+#import "FileIOMethods.h"
 
 @interface DownloadPageViewController ()
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
@@ -92,7 +94,7 @@
         self.title = @"Data Transfer";
     }
     
-    exportPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Outbox"];
+    exportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"Outbox"];
     NSError *error;
     if (![[NSFileManager defaultManager] createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Email Data Alert"
@@ -103,7 +105,7 @@
         [prompt setAlertViewStyle:UIAlertViewStyleDefault];
         [prompt show];
     }
-    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match", @"Spreadsheet", nil];
+    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Spreadsheet", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
     photoOptionList = [[NSMutableArray alloc] initWithObjects:@"iTunes", @"Computer", nil];
 
@@ -134,7 +136,7 @@
     optionPicker.delegate = self;
    
     if (sender == _transferPhotosButton) {
-        [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] exportPhotosiTunes:tournamentName];
+        [[[PhotoUtilities alloc] init:_dataManager] exportTournamentPhotos:tournamentName];
         return;
     }
 
@@ -149,7 +151,7 @@
 
 -(void)emailTeamData {
     NSString *csvString;
-    csvString = [[[ExportTeamData alloc] init] teamDataCSVExport:tournamentName fromContext:_dataManager.managedObjectContext];
+    csvString = [[[ExportTeamData alloc] init:_dataManager] teamDataCSVExport:tournamentName];
     if (csvString) {
         NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
         [csvString writeToFile:filePath
@@ -166,32 +168,19 @@
 
 -(void)emailMatchData {
     NSString *csvString;
-    NSString *fileListPath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
-    NSString *fileDataPath = [exportPath stringByAppendingPathComponent: @"ScoreData.csv"];
-    // Export Match List
-    ExportMatchData *matchCSVExport = [[ExportMatchData alloc] initWithDataManager:_dataManager];
-    csvString = [matchCSVExport matchDataCSVExport];
+    csvString = [[[ExportMatchData alloc] init:_dataManager] matchDataCSVExport:tournamentName];
     if (csvString) {
-        [csvString writeToFile:fileListPath
+        NSString *filePath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
+        [csvString writeToFile:filePath
                     atomically:YES
                       encoding:NSUTF8StringEncoding
                          error:nil];
+        NSString *emailSubject = @"Match Schedule CSV File";
+        NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchData.csv", nil];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
     }
-    // Export Scores
-    ExportScoreData *scoreCSVExport = [[ExportScoreData alloc] initWithDataManager:_dataManager];
-    csvString = [scoreCSVExport teamScoreCSVExport];
-    if (csvString) {
-        [csvString writeToFile:fileDataPath
-                    atomically:YES
-                      encoding:NSUTF8StringEncoding
-                         error:nil];
-    }
-    NSString *emailSubject = @"Match Data CSV Files";
-    NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
-    NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
-    
-    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com", @"misnard30@gmail.com", nil];
-    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
 - (void)pickerSelected:(NSString *)newPick {
@@ -202,7 +191,7 @@
         if ([newPick isEqualToString:@"Team"]) {
             [self emailTeamData];
         }
-        else if ([newPick isEqualToString:@"Match"]) {
+        else if ([newPick isEqualToString:@"Match List"]) {
             [self emailMatchData];
         }
         else if ([newPick isEqualToString:@"Spreadsheet"]) {
@@ -315,13 +304,6 @@
     }
     // Return YES for supported orientations
 	return YES;
-}
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end

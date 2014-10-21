@@ -2,14 +2,13 @@
 //  TeamData.m
 //  AerialAssist
 //
-//  Created by FRC on 9/25/14.
+//  Created by FRC on 10/13/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "TeamData.h"
 #import "Competitions.h"
 #import "Regional.h"
-#import "TeamScore.h"
 
 
 @implementation TeamData
@@ -59,7 +58,6 @@
 @dynamic tunneler;
 @dynamic wheelDiameter;
 @dynamic wheelType;
-@dynamic match;
 @dynamic regional;
 @dynamic tournaments;
 

@@ -4560,6 +4560,7 @@
                                 <rect key="frame" x="293" y="90" width="468" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="1" green="0.88640234159999998" blue="0.23999005109999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchSchedule" id="wrZ-1l-r2R">
                                         <rect key="frame" x="0.0" y="22" width="468" height="44"/>
@@ -4598,6 +4599,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" red="1" green="0.88640234159999998" blue="0.23999005109999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="smL-wy-wEE" kind="push" id="gMh-cN-6SD"/>
                                         </connections>
@@ -4608,10 +4610,66 @@
                                     <outlet property="delegate" destination="Svo-Ej-nRw" id="UW1-t4-gkg"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Matches" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cXa-ft-2D2">
-                                <rect key="frame" x="456" y="36" width="143" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Team #" minimumFontSize="17" id="BCG-dq-z5v" userLabel="Text Field - Team #">
+                                <rect key="frame" x="293" y="45" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Svo-Ej-nRw" id="Aee-3N-Lkf"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uFd-1v-gan">
+                                <rect key="frame" x="431" y="14" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="matchTypeSelected:" destination="Svo-Ej-nRw" eventType="touchUpInside" id="w57-RO-3p0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IHc-JX-quW">
+                                <rect key="frame" x="431" y="34" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="matchTypeSelected:" destination="Svo-Ej-nRw" eventType="touchUpInside" id="zSb-Cz-6aW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SEw-IB-l9L">
+                                <rect key="frame" x="431" y="54" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="matchTypeSelected:" destination="Svo-Ej-nRw" eventType="touchUpInside" id="jP4-Te-cNe"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Competition Matches" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8EH-Fm-T6n">
+                                <rect key="frame" x="471" y="13" width="213" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Practice Matches" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yib-jo-TFX">
+                                <rect key="frame" x="471" y="33" width="213" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Test/Other Matches" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lhN-c1-DcX">
+                                <rect key="frame" x="471" y="53" width="213" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -4620,16 +4678,20 @@
                     </view>
                     <navigationItem key="navigationItem" id="bZX-e4-3xb"/>
                     <connections>
+                        <outlet property="competitionButton" destination="uFd-1v-gan" id="CNr-mv-3BB"/>
                         <outlet property="mainLogo" destination="tht-cD-KK2" id="aNU-UN-LbI"/>
                         <outlet property="matchPicture" destination="U5j-xW-bfs" id="R1R-Qy-Ipl"/>
                         <outlet property="matchesTable" destination="SNH-87-8GP" id="JsP-8p-VNM"/>
                         <outlet property="pictureCaption" destination="IiL-vJ-taL" id="sFs-N1-IXK"/>
+                        <outlet property="practiceButton" destination="IHc-JX-quW" id="IMh-JM-qLL"/>
                         <outlet property="splashPicture" destination="U5j-xW-bfs" id="4d2-g1-GEl"/>
+                        <outlet property="teamNumberText" destination="BCG-dq-z5v" id="G3i-rT-D1s"/>
+                        <outlet property="testButton" destination="SEw-IB-l9L" id="iqV-gE-5uu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4a-q9-JNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3521" y="729"/>
+            <point key="canvasLocation" x="-3561" y="731"/>
         </scene>
         <!--Lucien Page View Controller-->
         <scene sceneID="nbW-1T-hv3">
@@ -6064,7 +6126,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="NextButton" destination="kha-eL-sUY" eventType="touchUpInside" id="7H0-Xv-AzB"/>
+                                    <action selector="nextButton" destination="kha-eL-sUY" eventType="touchUpInside" id="Avw-YQ-eUb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mji-Qb-Ii1">
@@ -6085,7 +6147,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="PrevButton" destination="kha-eL-sUY" eventType="touchUpInside" id="6bb-UK-fLA"/>
+                                    <action selector="prevButton" destination="kha-eL-sUY" eventType="touchUpInside" id="Vuk-Vi-p0d"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Team #" minimumFontSize="17" id="rn6-Oc-X7B">
@@ -6094,7 +6156,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                 <connections>
-                                    <action selector="MatchNumberChanged" destination="kha-eL-sUY" eventType="editingDidEnd" id="MSw-Cw-u1t"/>
+                                    <action selector="teamNumberChanged" destination="kha-eL-sUY" eventType="editingDidEnd" id="FWJ-JZ-ena"/>
                                     <outlet property="delegate" destination="kha-eL-sUY" id="ubq-vK-AyQ"/>
                                 </connections>
                             </textField>
@@ -7020,7 +7082,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="z3x-cW-Q02">
-                                <rect key="frame" x="378" y="39" width="140" height="44"/>
+                                <rect key="frame" x="378" y="39" width="170" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -7037,7 +7099,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="MatchTypeSelectionChanged:" destination="rCL-DE-Sx9" eventType="touchUpInside" id="ijF-I1-O3V"/>
+                                    <action selector="popupSelected:" destination="rCL-DE-Sx9" eventType="touchUpInside" id="oVp-eA-hMx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -7420,12 +7482,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0QU-hg-CV0"/>
+        <segue reference="npl-Y5-KtP"/>
         <segue reference="Ssx-dF-9xL"/>
-        <segue reference="M4x-HG-6MQ"/>
-        <segue reference="k7w-uJ-Zdr"/>
         <segue reference="6aF-Vd-QwC"/>
         <segue reference="gMh-cN-6SD"/>
-        <segue reference="npl-Y5-KtP"/>
+        <segue reference="hA4-za-hde"/>
+        <segue reference="k7w-uJ-Zdr"/>
+        <segue reference="M4x-HG-6MQ"/>
     </inferredMetricsTieBreakers>
 </document>

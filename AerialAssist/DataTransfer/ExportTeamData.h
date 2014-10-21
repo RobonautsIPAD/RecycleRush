@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ExportTeamData : NSObject 
+@class DataManager;
+@class TeamData;
 
--(NSString *)teamDataCSVExport:(NSString *)tournamentName fromContext:(NSManagedObjectContext *)managedObjectContext;
+@interface ExportTeamData : NSObject
+@property (nonatomic, strong) DataManager *dataManager;
+-(id)init:(DataManager *)initManager;
+-(NSString *)teamDataCSVExport:(NSString *)tournamentName;
+-(NSData *)packageTeamForXFer:(TeamData *)team;
+-(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
+-(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath;
 
 @end

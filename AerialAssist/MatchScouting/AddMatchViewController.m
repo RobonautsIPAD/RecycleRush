@@ -89,7 +89,7 @@
     if ([_popover isPopoverVisible]) {
         [_popover dismissPopoverAnimated:YES];
     }
-    
+/*
     NSString *passedString = [[notification userInfo] objectForKey:@"selectedChoice"];
     if ([passedString isEqualToString:@"Practice"]) {
             gameType = kMatchTypePractice;
@@ -103,7 +103,7 @@
             gameType = kMatchTypeOther;
         }
     _matchTypeButton.titleLabel.text = passedString;
-    [newMatch replaceObjectAtIndex:1 withObject:passedString];
+    [newMatch replaceObjectAtIndex:1 withObject:passedString];*/
 }
 
 - (IBAction)showPopup:(id)sender {

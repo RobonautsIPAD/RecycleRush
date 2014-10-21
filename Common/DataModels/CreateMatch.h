@@ -22,7 +22,6 @@
 
 @property (nonatomic, strong) TournamentData *tournamentRecord;
 
--(AddRecordResults)createMatchFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(AddRecordResults)addMatchResultsFromFile:(NSMutableArray *)headers dataFields:(NSMutableArray *)data;
 -(MatchData *)GetMatch:(NSNumber *)matchNumber forMatchType:(NSString *) type forTournament:(NSString *) tournament;
 -(void)CreateMatch:(NSNumber *)number forTeam1:(NSNumber *)red1 

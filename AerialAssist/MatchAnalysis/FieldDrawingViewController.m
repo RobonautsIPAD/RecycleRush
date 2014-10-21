@@ -14,6 +14,7 @@
 #import "FieldDrawing.h"
 #import "TeamData.h"
 #import "TournamentData.h"
+#import "EnumerationDictionary.h"
 
 @interface FieldDrawingViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
@@ -54,7 +55,7 @@
 @implementation FieldDrawingViewController {
     TeamScore *currentScore;
     int currentIndex;
-    
+    NSDictionary *matchTypeDictionary;
 }
 @synthesize startingIndex = _startingIndex;
 @synthesize teamScores = _teamScores;
@@ -118,6 +119,8 @@
     else {
         self.title = @"Match Analysis";
     }
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoNextMatch:)];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     swipeLeft.numberOfTouchesRequired = 1;
@@ -214,7 +217,7 @@
 
 -(void)setDisplayData {
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentScore.match.number intValue]];
-    [_matchType setTitle:currentScore.match.matchType forState:UIControlStateNormal];
+    [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentScore.match.matchType forDictionary:matchTypeDictionary] forState:UIControlStateNormal];
     _teamName.text = currentScore.team.name;
     _teamNumber.text = [NSString stringWithFormat:@"%d", [currentScore.team.number intValue]];
     _notes.text = currentScore.notes;

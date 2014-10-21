@@ -135,7 +135,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     
-    NSArray *allScores = [team.match allObjects];
+    NSArray *allScores;// = [team.match allObjects];
  //   NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], choice];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], @"Seeding"];
     NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchTypeSection" ascending:YES];
@@ -263,7 +263,7 @@
 }
 
 -(NSString *)createFieldDrawing:(TeamScore *)score toPath:(NSString *)pathName {
-    if (score.fieldDrawing && score.fieldDrawing.trace) {
+/*    if (score.fieldDrawing && score.fieldDrawing.trace) {
         // Build field drawing file name
         NSString *match;
         if ([score.match.number intValue] < 10) {
@@ -295,7 +295,7 @@
         [UIImagePNGRepresentation(combinedDrawing) writeToFile:fullPath atomically:YES];
         return fieldDrawingFile;
     }
-    else return @"";
+    else return @"";*/
 }
 
 /**

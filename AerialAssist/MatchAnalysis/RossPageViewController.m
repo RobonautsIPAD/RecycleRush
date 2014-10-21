@@ -462,7 +462,7 @@
 -(NSArray *)GetTeamMatches:(NSUInteger)currentTeamIndex {
     TeamScore *score = [self GetTeam:currentTeamIndex];
     NSLog(@"team number = %@", score.team.number);
-    NSArray* objectsArray = [score.team.match allObjects];
+    NSArray* objectsArray;// = [score.team.match allObjects];
 /*    switch (currentTeamIndex) {
         case 0:
             teamNumber = [teamOrder objectAtIndex:currentTeamIndex];  // Red 1

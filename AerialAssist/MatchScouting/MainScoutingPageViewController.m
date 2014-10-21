@@ -1735,7 +1735,7 @@
 -(void)setPartnerList {
     TeamScore *score;
     int indexStart, indexEnd;
-    if ([currentTeam.allianceSection intValue] < 3) {
+    if ([currentTeam.allianceStation intValue] < 3) {
         // Reds
         indexStart = 0;
         indexEnd = 3;

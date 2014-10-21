@@ -9,8 +9,9 @@
 #import "DataConvenienceMethods.h"
 #import "TournamentData.h"
 #import "TeamData.h"
-#import "QuadStateDictionary.h"
-#import "TriStateDictionary.h"
+#import "MatchData.h"
+#import "TeamScore.h"
+#import "EnumerationDictionary.h"
 
 @implementation DataConvenienceMethods
 +(TournamentData *)getTournament:(NSString *)name fromContext:(NSManagedObjectContext *)managedObjectContext {
@@ -104,6 +105,223 @@
                 break;
         }
     }
+}
+
++(TeamData *)getTeamInTournament:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    TeamData *team;
+    NSError *error;
+    
+    // NSLog(@"Searching for team = %@", teamNumber);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"number == %@ AND (ANY tournaments.name = %@)", teamNumber, tournament];
+    [fetchRequest setPredicate:pred];
+    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!teamData) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
+                                                        message:@"Not able to fetch team record"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return Nil;
+    }
+    else {
+        switch ([teamData count]) {
+            case 0:
+                return Nil;
+                break;
+            case 1:
+                team = [teamData objectAtIndex:0];
+                // NSLog(@"Team %@ exists", team.number);
+                return team;
+                break;
+            default: {
+                NSString *msg = [NSString stringWithFormat:@"Team %@ found multiple times", teamNumber];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Database Error"
+                                                                message:msg
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                team = [teamData objectAtIndex:0];
+                return team;
+            }
+                break;
+        }
+    }
+}
+
++(NSArray *)getTournamentTeamList:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    NSMutableArray *teamList = [[NSMutableArray alloc] init];
+    NSError *error;
+    
+    // NSLog(@"Searching for team = %@", teamNumber);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournament];
+    [fetchRequest setPredicate:pred];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (TeamData *team in teamData) {
+        [teamList addObject:team.number];
+    }
+    return teamList;
+}
+
++(MatchData *)getMatch:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    MatchData *match;
+    NSError *error;
+    // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
+    //NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"MatchData" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND number = %@ AND matchType = %@", tournament, matchNumber, matchType];
+    [fetchRequest setPredicate:pred];
+    NSArray *matchData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!matchData) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
+                                                        message:@"Not able to fetch match record"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return Nil;
+    }
+    else {
+        switch ([matchData count]) {
+            case 0:
+                return Nil;
+                break;
+            case 1:
+                match = [matchData objectAtIndex:0];
+                // NSLog(@"Match %@ %@ exists", matchType, matchNumber);
+                return match;
+                break;
+            default: {
+                NSString *msg = [NSString stringWithFormat:@"Match %@ %@ found multiple times", matchType, matchNumber];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Match Database Error"
+                                                                message:msg
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                match = [matchData objectAtIndex:0];
+                return match;
+            }
+                break;
+        }
+    }
+    return nil;
+}
+
++(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    
+    NSError *error;
+    // NSLog(@"Searching for team %@ matches in tournament %@", teamNumber, tournament);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND teamNumber = %@", tournament, teamNumber];
+    [fetchRequest setPredicate:pred];
+    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchNumber" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    NSArray *matchList = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!matchList) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
+                                                        message:@"Not able to fetch match record"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return Nil;
+    }
+    return matchList;
+}
+
+
++(NSArray *)getMatchScores:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    NSError *error;
+    // A match needs 4 unique items to define it. A match number, the match type and the tournament name.
+    NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND matchNumber = %@ AND matchType = %@", tournament, matchNumber, matchType];
+    [fetchRequest setPredicate:pred];
+    NSArray *matchScores = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!matchScores) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
+                                                        message:@"Not able to fetch score records"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return Nil;
+    }
+    else return matchScores;
+}
+
++(TeamScore *)getScoreRecord:(NSNumber *)matchNumber forType:(NSNumber *)matchType forAlliance:(NSNumber *)alliance forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    // Only one record should meet all these criteria. If more than one
+    // is found, then a database corruption has occurred.
+    TeamScore *scoreRecord;
+    NSError *error;
+    // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
+    NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND matchNumber = %@ AND matchType = %@ AND allianceStation = %@", tournament, matchNumber, matchType, alliance];
+    [fetchRequest setPredicate:pred];
+    NSArray *matchScores = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!matchScores) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
+                                                        message:@"Not able to fetch score records"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return Nil;
+    }
+    else {
+        switch ([matchScores count]) {
+            case 0:
+                return Nil;
+                break;
+            case 1:
+                scoreRecord = [matchScores objectAtIndex:0];
+                NSLog(@"Match %@ %@ exists", matchType, matchNumber);
+                return scoreRecord;
+                break;
+            default: {
+                NSString *msg = [NSString stringWithFormat:@"Match %@ %@ found multiple times", matchType, matchNumber];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Match Database Error"
+                                                                message:msg
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                scoreRecord = [matchScores objectAtIndex:0];
+                return scoreRecord;
+            }
+                break;
+        }
+    }
+    return Nil;
 }
 
 +(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary {
@@ -209,8 +427,35 @@
     return error;
 }
 
-+(NSString *)outputCSVValue:data forAttribute:attribute {
-    NSString *csvString;
++(BOOL)compareAttributeToDefault:(id)value forAttribute:attribute {
+    BOOL defaultValue = FALSE;
+    NSAttributeType attributeType = [attribute attributeType];
+    if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
+        if ([value intValue] == [[attribute valueForKey:@"defaultValue"] intValue]) {
+            defaultValue = TRUE;
+        }
+    }
+    else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
+        if ([value floatValue] == [[attribute valueForKey:@"defaultValue"] floatValue]) {
+            defaultValue = TRUE;
+        }
+
+    }
+    else if (attributeType == NSBooleanAttributeType) {
+        if ([value intValue] == [[attribute valueForKey:@"defaultValue"] intValue]) {
+            defaultValue = TRUE;
+        }
+    }
+    else if (attributeType == NSStringAttributeType) {
+        if ([value isEqualToString:[attribute valueForKey:@"defaultValue"]]) {
+            defaultValue = TRUE;
+        }
+    }
+    return defaultValue;
+}
+
++(NSString *)outputCSVValue:data forAttribute:attribute forEnumDictionary:enumDictionary; {
+    NSString *csvString = [[NSString alloc] init];
     NSAttributeType attributeType = [attribute attributeType];
     if (attributeType == NSStringAttributeType) {
         // NSLog(@"String");
@@ -222,8 +467,14 @@
         }
     }
     else if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
-        // NSLog(@"Integer");
-        csvString = [NSString stringWithFormat:@"%@", data];
+        NSLog(@"Integer");
+        if (enumDictionary) {
+            // There is a dictionary of strings to output
+            csvString = [EnumerationDictionary getKeyFromValue:data forDictionary:enumDictionary];
+        }
+        else {
+            csvString = [NSString stringWithFormat:@"%@", data];
+        }
     }
     else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
         // NSLog(@"Float");

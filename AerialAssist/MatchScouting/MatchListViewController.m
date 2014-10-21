@@ -9,24 +9,29 @@
 #import "MatchListViewController.h"
 #import "MatchDetailViewController.h"
 #import "MatchData.h"
+#import "MatchUtilities.h"
 #import "CreateMatch.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
 #import "TournamentData.h"
-#include "MatchTypeDictionary.h"
+#import "EnumerationDictionary.h"
 
 @implementation MatchListViewController {
     NSIndexPath *pushedIndexPath;
     NSUserDefaults *prefs;
     NSString *tournamentName;
-    NSArray *teamData;
-    NSMutableArray *teamOrder;
+    NSMutableDictionary *settingsDictionary;
+    NSString *previousTournament;
+    NSArray *teamList;
+    NSDictionary *matchTypeDictionary;
+    NSDictionary *allianceDictionary;
     UIView *headerView;
+    NSFetchedResultsController *fetchedResultsController;
+    MatchUtilities *matchUtilities;
 }
 @synthesize dataManager = _dataManager;
-@synthesize fetchedResultsController = _fetchedResultsController;
-
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -47,17 +52,6 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    pushedIndexPath = nil;
-    prefs = nil;
-    tournamentName = nil;
-    teamData = nil;
-    teamOrder = nil;
-    headerView = nil;
-}
-
 - (void)viewDidLoad
 {
     NSError *error = nil;
@@ -73,6 +67,8 @@
     else {
         self.title = @"Match List";
     }
+    [self loadSettings];
+
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
@@ -83,7 +79,11 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-        
+
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    matchTypeDictionary = [self getEnumDictionary:@"matchTypeDictionary"];
+    allianceDictionary = [self getEnumDictionary:@"allianceListDictionary"];
+    
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     headerView.backgroundColor = [UIColor lightGrayColor];
     headerView.opaque = YES;
@@ -156,6 +156,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [self saveSettings];
     [super viewDidDisappear:animated];
 }
 
@@ -165,39 +166,31 @@
 	return YES;
 }
 
--(void)setTeamList:(MatchData *)match {
-    TeamScore *score;
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"alliance" ascending:YES];
-    teamData = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+-(id)getEnumDictionary:(NSString *) dictionaryName {
+    if (!dictionaryName) {
+        return nil;
+    }
+    else if ([dictionaryName isEqualToString:@"matchTypeDictionary"]) {
+        if (!matchTypeDictionary) matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        return matchTypeDictionary;
+    }
+    else if ([dictionaryName isEqualToString:@"allianceListDictionary"]) {
+        if (!allianceDictionary) allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+        return allianceDictionary;
+    }
+    else return nil;
+}
 
-    if (teamOrder == nil) {
-        teamOrder = [NSMutableArray array];
-        // Reds
-        for (int i = 3; i < 6; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamOrder addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-        }
-        // Blues
-        for (int i = 0; i < 3; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamOrder addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-        }
-        
-    }
-    else {
-        // Reds
-        for (int i = 3; i < 6; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamOrder replaceObjectAtIndex:(i-3)
-                                withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-        }
-        // Blues
-        for (int i = 0; i < 3; i++) {
-            score = [teamData objectAtIndex:i];
-            [teamOrder replaceObjectAtIndex:(i+3)
-                                withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-        }
-    }
+-(void)setTeamList:(MatchData *)match {
+    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceStation" ascending:YES];
+    teamList = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+}
+
+-(NSString *)getTeamNumber:(NSString *)allianceStation {
+    if (!teamList || ![teamList count]) return @"";
+    NSNumber *teamNumber = [matchUtilities getTeamFromList:teamList forAllianceStation:[EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary]];
+    if (teamNumber) return [NSString stringWithFormat:@"%d", [teamNumber intValue]];
+    else return @"";
 }
 
 - (void)matchAdded:(NSMutableArray *)newMatch {
@@ -260,13 +253,35 @@
     }
 }
 
+-(void)loadSettings {
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MatchListSettings.plist"]];
+    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
+    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
+}
+
+-(void)saveSettings {
+    if (!settingsDictionary) {
+        settingsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
+    
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MatchListSettings.plist"]];
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:plistPath atomically:YES];
+    }
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"MatchDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         pushedIndexPath = [self.tableView indexPathForCell:sender];
-        [segue.destinationViewController setMatch:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        [segue.destinationViewController setMatch:[fetchedResultsController objectAtIndexPath:indexPath]];
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setDelegate:self];
     }
@@ -302,7 +317,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger count = [[_fetchedResultsController sections] count];
+    NSInteger count = [[fetchedResultsController sections] count];
 	if (count == 0) {
 		count = 1;
 	}
@@ -313,19 +328,19 @@
 {
     // Return the number of rows in the section.
     id <NSFetchedResultsSectionInfo> sectionInfo = 
-    [[_fetchedResultsController sections] objectAtIndex:section];
+    [[fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSIndexPath *matchIndex = [NSIndexPath indexPathForRow:0 inSection:section];
-    MatchData *matchData = [_fetchedResultsController objectAtIndexPath:matchIndex];
+    MatchData *matchData = [fetchedResultsController objectAtIndexPath:matchIndex];
     
-    return matchData.matchType;
+    return [EnumerationDictionary getKeyFromValue:matchData.matchType forDictionary:matchTypeDictionary];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    MatchData *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    MatchData *info = [fetchedResultsController objectAtIndexPath:indexPath];
     // Configure the cell...
     // Set a background for the cell
     //UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
@@ -338,25 +353,25 @@
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
     
 	UILabel *matchTypeLabel = (UILabel *)[cell viewWithTag:15];
-    matchTypeLabel.text = [info.matchType substringToIndex:4];
+    matchTypeLabel.text = [[EnumerationDictionary getKeyFromValue:info.matchType forDictionary:matchTypeDictionary] substringToIndex:4];
 
 	UILabel *red1Label = (UILabel *)[cell viewWithTag:20];
-    red1Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:0] intValue]];
+    red1Label.text = [self getTeamNumber:@"Red 1"];
 
     UILabel *red2Label = (UILabel *)[cell viewWithTag:30];
-    red2Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:1] intValue]];
+    red2Label.text = [self getTeamNumber:@"Red 2"];
 
 	UILabel *red3Label = (UILabel *)[cell viewWithTag:40];
-    red3Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:2] intValue]];
+    red3Label.text = [self getTeamNumber:@"Red 3"];
 
 	UILabel *blue1Label = (UILabel *)[cell viewWithTag:50];
-    blue1Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:3] intValue]];
+    blue1Label.text = [self getTeamNumber:@"Blue 1"];
 
 	UILabel *blue2Label = (UILabel *)[cell viewWithTag:60];
-    blue2Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:4] intValue]];
+    blue2Label.text = [self getTeamNumber:@"Blue 2"];
 
 	UILabel *blue3Label = (UILabel *)[cell viewWithTag:70];
-    blue3Label.text = [NSString stringWithFormat:@"%d", [[teamOrder objectAtIndex:5] intValue]];
+    blue3Label.text = [self getTeamNumber:@"Blue 3"];
 
 	UILabel *redScoreLabel = (UILabel *)[cell viewWithTag:80];
     redScoreLabel.text = [NSString stringWithFormat:@"%d", [info.redScore intValue]];
@@ -436,23 +451,12 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
-
 #pragma mark -
 #pragma mark Match List Management
 
 - (NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
-    if (_fetchedResultsController == nil) {
+    if (fetchedResultsController == nil) {
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         // Edit the entity name as appropriate.
@@ -460,7 +464,7 @@
         [fetchRequest setEntity:entity];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchTypeSection" ascending:YES];
+        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         
@@ -472,16 +476,21 @@
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        NSFetchedResultsController *aFetchedResultsController = 
+        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
+            // NSLog(@"Clear Cache");
+            [NSFetchedResultsController deleteCacheWithName:@"MatchList"];
+        }
+
+        NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc] 
          initWithFetchRequest:fetchRequest 
          managedObjectContext:_dataManager.managedObjectContext
          sectionNameKeyPath:nil
-         cacheName:@"Root"];
+         cacheName:@"MatchList"];
         aFetchedResultsController.delegate = self;
-        self.fetchedResultsController = aFetchedResultsController;
+        fetchedResultsController = aFetchedResultsController;
     }
-	return _fetchedResultsController;
+	return fetchedResultsController;
 }    
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

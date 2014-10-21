@@ -13,7 +13,7 @@
 @interface TournamentUtilities : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
+-(id)init:(DataManager *)initManager;
 -(void)createTournamentFromFile:(NSString *)filePath;
 -(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList;
 -(NSDictionary *)unpackageTournamentsForXFer:(NSData *)xferData;

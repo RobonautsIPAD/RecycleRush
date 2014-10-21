@@ -8,26 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class MatchTypePickerController;
-@class MatchTypeDictionary;
 @class MatchData;
 
 @protocol AddMatchDelegate
 - (void)matchAdded:(NSMutableArray *)newMatch;
 @end
 
-typedef enum {
-    kMatchTypePractice,
-    kMatchTypeSeeding,
-    kMatchTypeElimination,
-    kMatchTypeTesting,
-    kMatchTypeOther
-} GameType;
-
-@interface AddMatchViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, UITextFieldDelegate> {
-    
-    GameType gameType;
-}
+@interface AddMatchViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UIPopoverController *popover;
 @property (weak, nonatomic) IBOutlet UIButton *matchTypeButton;

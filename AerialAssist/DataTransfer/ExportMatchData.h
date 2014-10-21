@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 @class DataManager;
+@class MatchData;
 
 @interface ExportMatchData : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
--(NSString *)matchDataCSVExport;
+-(id)init:(DataManager *)initManager;
+
+-(NSString *)matchDataCSVExport:(NSString *)tournamentName;
+-(NSData *)packageMatchForXFer:(MatchData *)match;
+-(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
+-(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath;
 
 
 @end

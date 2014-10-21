@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface PhotoAttributes : NSObject
-@property (nonatomic, weak) UIImage *regularImage;
 @property (nonatomic, weak) UIImage *fullImage;
 @property (nonatomic, strong) UIImage *thumbnail;
 

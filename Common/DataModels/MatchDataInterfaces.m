@@ -14,7 +14,6 @@
 #import "TournamentUtilities.h"
 #import "TeamDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
-#include "MatchTypeDictionary.h"
 
 @implementation MatchDataInterfaces
 
@@ -29,7 +28,7 @@
 }
 
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
-    NSString *baseName;
+/*    NSString *baseName;
     if ([match.number intValue] < 10) {
         baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"00%d", [match.number intValue]]];
     } else if ( [match.number intValue] < 100) {
@@ -39,44 +38,9 @@
     }
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", baseName]];
     NSData *myData = [self packageMatchForXFer:match];
-    [myData writeToFile:exportFile atomically:YES];
+    [myData writeToFile:exportFile atomically:YES];*/
 }
 
--(NSData *)packageMatchForXFer:(MatchData *)match {
-    if (!_dataManager) {
-        _dataManager = [DataManager new];
-    }
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!_matchDataAttributes) _matchDataAttributes = [[match entity] attributesByName];
-    for (NSString *item in _matchDataAttributes) {
-        if ([match valueForKey:item]) {
-            [keyList addObject:item];
-            [valueList addObject:[match valueForKey:item]];
-        }
-    }
-
-    NSMutableArray *allianceList = [NSMutableArray array];
-    NSMutableArray *teamList = [NSMutableArray array];
-    NSArray *allTeams = [match.score allObjects];
-    for (TeamScore *score in allTeams) {
-        if (score.team) {
-          //  NSLog(@"score team = %@", score.team);
-            [allianceList addObject:score.alliance];
-            [teamList addObject:score.team.number];
-        }
-    }
-    NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamList forKeys:allianceList];
-    [keyList addObject:@"teams"];
-    [valueList addObject:teams];
-
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    // NSLog(@"sending %@", dictionary);
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    
-    return myData;
-
-}
 
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
     if (!_dataManager) {
@@ -143,8 +107,7 @@
         if ([key isEqualToString:@"teams"]) continue; // Skip the team list for the moment
         [matchRecord setValue:[matchInfo objectForKey:key] forKey:key];
     }
-    MatchTypeDictionary *matchDictionary = [[MatchTypeDictionary alloc] init];
-    matchRecord.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
+//    matchRecord.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
     NSDictionary *teams = [matchInfo objectForKey:@"teams"];
     for (NSString *key in teams) {
         [[[TeamScoreInterfaces alloc] initWithDataManager:_dataManager] addScoreToMatch:matchRecord forTeam:[teams objectForKey:key] forAlliance:key];

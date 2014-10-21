@@ -11,6 +11,7 @@
 #import "LoadCSVData.h"
 #import "parseCSV.h"
 #import "TeamUtilities.h"
+#import "MatchUtilities.h"
 #import "CreateMatch.h"
 #import "TournamentUtilities.h"
 #import "AddRecordResults.h"
@@ -53,7 +54,7 @@
 //        [self loadTeamHistory:filePath];
         
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchList" ofType:@"csv"];
-//        [self loadMatchFile:filePath];
+        [self loadMatchFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchResults" ofType:@"csv"];
 //        [self loadMatchResults:filePath];
@@ -72,17 +73,17 @@
     [self loadTeamFile:filePath];
  //   [self loadTeamHistory:filePath];
     NSLog(@"loaded history");
-//    [self loadMatchFile:filePath];
+    [self loadMatchFile:filePath];
 //    [self loadMatchResults:filePath];
 }
 
 -(void)loadTournamentFile:(NSString *)filePath {
-    TournamentUtilities *tournamentUtil = [[TournamentUtilities alloc] initWithDataManager:_dataManager];
+    TournamentUtilities *tournamentUtil = [[TournamentUtilities alloc] init:_dataManager];
     [tournamentUtil createTournamentFromFile:filePath];
 }
 
 -(void)loadTeamFile:(NSString *)filePath {
-    TeamUtilities *teamUtil = [[TeamUtilities alloc] initWithDataManager:_dataManager];
+    TeamUtilities *teamUtil = [[TeamUtilities alloc] init:_dataManager];
     [teamUtil createTeamFromFile:filePath];
 }
 
@@ -112,25 +113,9 @@
 }
 
 -(void)loadMatchFile:(NSString *)filePath {
-    CSVParser *parser = [CSVParser new];
-    [parser openFile: filePath];
-    NSMutableArray *csvContent = [parser parseFile];
-
-    if (![csvContent count]) return;
-
-    if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Match"]) {
-        CreateMatch *match = [[CreateMatch alloc] initWithDataManager:_dataManager];
-        int c;
-        for (c = 1; c < [csvContent count]; c++) {
-//            NSLog(@"Match = %@", [csvContent objectAtIndex: c]);
-            AddRecordResults results = [match createMatchFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
-            if (results != DB_ADDED) {
-                NSLog(@"Check database - Match Add Code %d", results);
-            }
-        }
-    }
-    [parser closeFile]; 
-} 
+    MatchUtilities *matchUtil = [[MatchUtilities alloc] init:_dataManager];
+    [matchUtil createMatchFromFile:filePath];
+}
 
 -(void)loadMatchResults:(NSString *)filePath {
     CSVParser *parser = [CSVParser new];

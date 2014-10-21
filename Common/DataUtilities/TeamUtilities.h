@@ -13,7 +13,7 @@
 @interface TeamUtilities : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
+-(id)init:(DataManager *)initManager;
 -(void)createTeamFromFile:(NSString *)filePath;
 -(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName;
 

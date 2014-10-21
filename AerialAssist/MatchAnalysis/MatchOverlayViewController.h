@@ -13,7 +13,6 @@
 @interface MatchOverlayViewController :UIViewController <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSArray *matchList;
 @property (nonatomic, strong) TeamData *numberTeam;
-@property (nonatomic, strong) UIView *teamHeader;
 @property (nonatomic, strong) DataManager *dataManager;
 
 @end

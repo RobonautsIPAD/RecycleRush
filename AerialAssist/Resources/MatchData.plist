@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>number</string>
+		<key>input</key>
+		<string>Match</string>
+		<key>output</key>
+		<string>Match</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Red 1, Red1</string>
+		<key>output</key>
+		<string>Red 1</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Red 2, Red2</string>
+		<key>output</key>
+		<string>Red 2</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Red 3, Red3</string>
+		<key>output</key>
+		<string>Red 3</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Blue 1, Blue1</string>
+		<key>output</key>
+		<string>Blue 1</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Blue 2, Blue2</string>
+		<key>output</key>
+		<string>Blue 2</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Blue 3, Blue3</string>
+		<key>output</key>
+		<string>Blue 3</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>matchType</string>
+		<key>input</key>
+		<string>Type, Match Type</string>
+		<key>output</key>
+		<string>Type</string>
+		<key>dictionary</key>
+		<string>matchTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>tournamentName</string>
+		<key>input</key>
+		<string>Tournament, Tournament Name</string>
+		<key>output</key>
+		<string>Tournament</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>redScore</string>
+		<key>input</key>
+		<string>Red Score</string>
+		<key>output</key>
+		<string>Red Score</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>blueScore</string>
+		<key>input</key>
+		<string>Blue Score</string>
+		<key>output</key>
+		<string>Blue Score</string>
+	</dict>
+</array>
+</plist>

@@ -12,6 +12,7 @@
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
 #import "TeamDataInterfaces.h"
+#import "FileIOMethods.h"
 
 @interface PhoneExportViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *exportTeamData;
@@ -53,14 +54,23 @@
     else {
         self.title = @"Export";
     }
-
-    exportPath = [self applicationDocumentsDirectory];
+    exportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"Outbox"];
+    NSError *error;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Email Data Alert"
+                                                          message:@"Unable to Save Email Data"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
 }
 
 - (IBAction)buttonPress:(id)sender {
     NSString *csvString;
     if (sender == _exportTeamData) {
-        csvString = [[[ExportTeamData alloc] init] teamDataCSVExport:tournamentName fromContext:_dataManager.managedObjectContext];
+        csvString = [[[ExportTeamData alloc] init:_dataManager] teamDataCSVExport:tournamentName];
         if (csvString) {
             NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
             [csvString writeToFile:filePath
@@ -75,29 +85,19 @@
          }
     }
     else if (sender == _exportMatchData) {
-        NSString *fileListPath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
-        NSString *fileDataPath = [exportPath stringByAppendingPathComponent: @"ScoreData.csv"];
+        NSString *filePath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
         // Export Match List
-        ExportMatchData *matchCSVExport = [[ExportMatchData alloc] initWithDataManager:_dataManager];
-        csvString = [matchCSVExport matchDataCSVExport];
+        ExportMatchData *matchCSVExport = [[ExportMatchData alloc] init:_dataManager];
+        csvString = [matchCSVExport matchDataCSVExport:tournamentName];
         if (csvString) {
-            [csvString writeToFile:fileListPath
-                        atomically:YES
-                        encoding:NSUTF8StringEncoding
-                        error:nil];
-        }
-        // Export Scores
-        ExportScoreData *scoreCSVExport = [[ExportScoreData alloc] initWithDataManager:_dataManager];
-        csvString = [scoreCSVExport teamScoreCSVExport];
-        if (csvString) {
-            [csvString writeToFile:fileDataPath
+            [csvString writeToFile:filePath
                         atomically:YES
                         encoding:NSUTF8StringEncoding
                         error:nil];
         }
         NSString *emailSubject = @"Match Data CSV Files";
-        NSArray *fileList = [[NSArray alloc] initWithObjects:fileListPath, fileDataPath, nil];
-        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", @"ScoreData.csv", nil];
+        NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", nil];
         NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
 
         [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
@@ -160,13 +160,6 @@
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
      [controller dismissViewControllerAnimated:YES completion:Nil];
  }
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
 
 - (void)didReceiveMemoryWarning
 {

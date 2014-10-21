@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  AerialAssist
 //
-//  Created by FRC on 4/16/14.
+//  Created by FRC on 10/14/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
@@ -16,8 +16,7 @@
 @property (nonatomic, retain) NSNumber * airCatch;
 @property (nonatomic, retain) NSNumber * airPasses;
 @property (nonatomic, retain) NSNumber * airPassMiss;
-@property (nonatomic, retain) NSString * alliance;
-@property (nonatomic, retain) NSNumber * allianceSection;
+@property (nonatomic, retain) NSNumber * allianceStation;
 @property (nonatomic, retain) NSNumber * assistRating;
 @property (nonatomic, retain) NSNumber * autonBlocks;
 @property (nonatomic, retain) NSNumber * autonHighCold;
@@ -32,6 +31,7 @@
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * defenseBlockRating;
 @property (nonatomic, retain) NSNumber * defenseBullyRating;
+@property (nonatomic, retain) NSNumber * defensiveDisruption;
 @property (nonatomic, retain) NSNumber * disruptedShot;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * floorCatch;
@@ -53,6 +53,8 @@
 @property (nonatomic, retain) NSNumber * humanPickUp4;
 @property (nonatomic, retain) NSNumber * intakeRating;
 @property (nonatomic, retain) NSNumber * knockout;
+@property (nonatomic, retain) NSNumber * matchNumber;
+@property (nonatomic, retain) NSNumber * matchType;
 @property (nonatomic, retain) NSNumber * noShow;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * otherRating;
@@ -73,6 +75,8 @@
 @property (nonatomic, retain) NSString * sc7;
 @property (nonatomic, retain) NSString * sc8;
 @property (nonatomic, retain) NSString * sc9;
+@property (nonatomic, retain) NSString * scouter;
+@property (nonatomic, retain) NSNumber * teamNumber;
 @property (nonatomic, retain) NSNumber * teleOpBlocks;
 @property (nonatomic, retain) NSNumber * teleOpHigh;
 @property (nonatomic, retain) NSNumber * teleOpHighMiss;
@@ -90,8 +94,6 @@
 @property (nonatomic, retain) NSNumber * trussCatchMiss;
 @property (nonatomic, retain) NSNumber * trussThrow;
 @property (nonatomic, retain) NSNumber * trussThrowMiss;
-@property (nonatomic, retain) NSString * scouter;
-@property (nonatomic, retain) NSNumber * defensiveDisruption;
 @property (nonatomic, retain) FieldDrawing *fieldDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) TeamData *team;

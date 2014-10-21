@@ -8,24 +8,43 @@
 
 #import <QuartzCore/CALayer.h>
 #import "TeamDetailViewController.h"
-#import "TournamentData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
-#import "CreateMatch.h"
+#import "DataConvenienceMethods.h"
 #import "MatchData.h"
 #import "DataManager.h"
 #import "Regional.h"
 #import "Photo.h"
 #import "PhotoCell.h"
 #import "PhotoAttributes.h"
+#import "PhotoUtilities.h"
+#import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
-#import <ImageIO/ImageIO.h>
-#import <ImageIO/CGImageProperties.h>
 
 @interface TeamDetailViewController ()
+    @property (nonatomic, weak) IBOutlet UIButton *prevTeamButton;
+    @property (nonatomic, weak) IBOutlet UIButton *nextTeamButton;
+    @property (nonatomic, weak) IBOutlet UITextField *numberText;
+    @property (nonatomic, weak) IBOutlet UITextField *nameTextField;
+    @property (nonatomic, weak) IBOutlet UITextView *notesViewField;
+    @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+    @property (nonatomic, weak) IBOutlet UIButton *intakeType;
+    @property (nonatomic, weak) IBOutlet UITextField *minHeight;
+    @property (nonatomic, weak) IBOutlet UITextField *shootingLevel;
+    @property (nonatomic, weak) IBOutlet UITextField *maxHeight;
+    @property (nonatomic, weak) IBOutlet UITextField *wheelType;
+    @property (nonatomic, weak) IBOutlet UITextField *nwheels;
+    @property (nonatomic, weak) IBOutlet UITextField *wheelDiameter;
+    @property (nonatomic, weak) IBOutlet UIButton *driveType;
+    @property (nonatomic, weak) IBOutlet UITextField *cims;
+    @property (nonatomic, weak) IBOutlet UIButton *cameraBtn;
+    @property (nonatomic, strong) UIPopoverController *pictureController;
+    @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
+    @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
+    @property (nonatomic, strong) UIImagePickerController *imagePickerController;
     @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
     @property (weak, nonatomic) IBOutlet UIButton *tunnelButton;
 //    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
@@ -46,7 +65,6 @@
     @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
 @end
 
-
 @implementation TeamDetailViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
@@ -63,8 +81,11 @@
     id action;
     BOOL dataChange;
     PhotoAttributes *primePhoto;
+    PhotoUtilities *photoUtilities;
     BOOL getAssetURL;
     NSFileManager *fileManager;
+    NSDictionary *matchTypeDictionary;
+    NSDictionary *allianceDictionary;
     NSDictionary *triStateDictionary;
     
     PopUpPickerViewController *triStatePicker;
@@ -94,34 +115,6 @@
     NSArray *photoList;
     NSString *selectedPhoto;
 }
-
-@synthesize dataManager = _dataManager;
-@synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize teamIndex = _teamIndex;
-@synthesize team = _team;
-
-@synthesize driveType = _driveType;
-@synthesize intakeType = _intakeType;
-
-@synthesize numberText = _numberText;
-@synthesize nameTextField = _nameTextField;
-@synthesize notesViewField = _notesViewField;
-
-@synthesize shootingLevel = _shootingLevel;
-@synthesize maxHeight = _maxHeight;
-@synthesize minHeight = _minHeight;
-@synthesize wheelType = _wheelType;
-@synthesize nwheels = _nwheels;
-@synthesize wheelDiameter = _wheelDiameter;
-@synthesize cims = _cims;
-
-@synthesize pictureController = _pictureController;
-@synthesize imageView = _imageView;
-@synthesize cameraBtn = _cameraBtn;
-@synthesize imagePickerController = _imagePickerController;
-
-@synthesize matchInfo = _matchInfo;
-@synthesize regionalInfo = _regionalInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -172,29 +165,31 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
-    triStateDictionary = [self initializeDictionaries:@"TriState"];
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+    triStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"TriState"];
 
-    [self createPhotoDirectories];
+    photoUtilities = [[PhotoUtilities alloc] init:_dataManager];
  
     // Set defaults for all the text boxes
-    [self SetTextBoxDefaults:_numberText];
-    [self SetTextBoxDefaults:_nameTextField];
-    [self SetTextBoxDefaults:_ballReleaseHeightText];
-    [self SetTextBoxDefaults:_minHeight];
-    [self SetTextBoxDefaults:_maxHeight];
-    [self SetTextBoxDefaults:_wheelType];
-    [self SetTextBoxDefaults:_nwheels];
-    [self SetTextBoxDefaults:_wheelDiameter];
-    [self SetTextBoxDefaults:_cims];
-    [self SetTextBoxDefaults:_ballReleaseHeightText];
-    [self SetBigButtonDefaults:_tunnelButton];
-    [self SetBigButtonDefaults:_autonMobilityButton];
-    [self SetBigButtonDefaults:_catcherButton];
-    [self SetBigButtonDefaults:_spitBotButton];
-    [self SetBigButtonDefaults:_goalieButton];
-    [self SetBigButtonDefaults:_hotTrackerButton];
-    [self SetBigButtonDefaults:_shooterButton];
-    [self SetBigButtonDefaults:_matchOverlayButton];
+    [self setTextBoxDefaults:_numberText];
+    [self setTextBoxDefaults:_nameTextField];
+    [self setTextBoxDefaults:_ballReleaseHeightText];
+    [self setTextBoxDefaults:_minHeight];
+    [self setTextBoxDefaults:_maxHeight];
+    [self setTextBoxDefaults:_wheelType];
+    [self setTextBoxDefaults:_nwheels];
+    [self setTextBoxDefaults:_wheelDiameter];
+    [self setTextBoxDefaults:_cims];
+    [self setTextBoxDefaults:_ballReleaseHeightText];
+    [self setBigButtonDefaults:_tunnelButton];
+    [self setBigButtonDefaults:_autonMobilityButton];
+    [self setBigButtonDefaults:_catcherButton];
+    [self setBigButtonDefaults:_spitBotButton];
+    [self setBigButtonDefaults:_goalieButton];
+    [self setBigButtonDefaults:_hotTrackerButton];
+    [self setBigButtonDefaults:_shooterButton];
+    [self setBigButtonDefaults:_matchOverlayButton];
 
     //sets text colors for "shoots" buttons relative to UIControllerState
     
@@ -206,7 +201,6 @@
     [_photoCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCell"];
     primePhoto = [[PhotoAttributes alloc] init];
     getAssetURL = FALSE;
-
 
     // Initialize the headers for the regional and match tables
     [self createRegionalHeader];
@@ -344,7 +338,7 @@
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
-    matchList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:_team.number forTournament:tournamentName];
+    matchList = [DataConvenienceMethods getMatchListForTeam:_team.number forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
     
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
     [_intakeType setTitle:_team.intake forState:UIControlStateNormal];
@@ -363,7 +357,7 @@
     [self setRadioButtonState:_classEButton forState:_team.classE];
     [self setRadioButtonState:_classFButton forState:_team.classF];
     [self getPhoto];
-    photoList = [self getPhotoList];
+    photoList = [self getPhotoList:_team.number];
     [_photoCollectionView reloadData];
     dataChange = NO;
 }
@@ -378,12 +372,11 @@
     }
 }
 
-
 -(NSInteger)getNumberOfTeams {
     return [[[_fetchedResultsController sections] objectAtIndex:0] numberOfObjects];
 }
 
--(IBAction)PrevButton {
+-(IBAction)prevButton {
     //  Access the previous team in the list
     [self checkDataStatus];
     NSInteger nteams = [self getNumberOfTeams];
@@ -393,9 +386,11 @@
     _teamIndex = [NSIndexPath indexPathForRow:row inSection:0];
     _team = [_fetchedResultsController objectAtIndexPath:_teamIndex];
     [self showTeam];
+    [_matchInfo reloadData];
+    [_regionalInfo reloadData];
 }
 
--(IBAction)NextButton {
+-(IBAction)nextButton {
     //  Access the next team in the list
     [self checkDataStatus];
     NSInteger nteams = [self getNumberOfTeams];
@@ -405,6 +400,8 @@
     _teamIndex = [NSIndexPath indexPathForRow:row inSection:0];
     _team = [_fetchedResultsController objectAtIndexPath:_teamIndex];
     [self showTeam];
+    [_matchInfo reloadData];
+    [_regionalInfo reloadData];
 }
 
 - (IBAction)radioButtonTapped:(id)sender {
@@ -558,7 +555,7 @@
     }
 }
 
-- (void)pickerSelected:(NSString *)newPick {
+-(void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
     NSLog(@"new pick = %@", newPick);
@@ -599,6 +596,24 @@
         _team.hotTracker = newPick;
     }
     [popUp setTitle:newPick forState:UIControlStateNormal];
+}
+
+-(IBAction)teamNumberChanged {
+    // The user has typed a new team number in the field. Access that team and display it.
+    // NSLog(@"MatchNumberChanged");
+    [self checkDataStatus];
+    int currentTeam = [_numberText.text intValue];
+    printf("%d", currentTeam);
+    for(int x = 0; x < [self getNumberOfTeams]; x++){
+        NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
+        TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
+        if([team.number intValue] == currentTeam){
+            _teamIndex = teamIndex;
+            _team = team;
+            [self showTeam];
+            break;
+        }
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -683,20 +698,14 @@
     _imageView.image = nil;
     _imageView.userInteractionEnabled = YES;
     if (!_team.primePhoto) return;
-    NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:_team.primePhoto];
-    [_imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
+    [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:_team.primePhoto]]];
 }
 
--(NSArray *)getPhotoList {
-    NSString *baseName = [self createPhotoName];
-    NSError *error;
-    NSArray *thumbNailDirectory = [fileManager contentsOfDirectoryAtPath:robotThumbnailLibrary error:&error];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", baseName];
-    NSArray *list = [thumbNailDirectory filteredArrayUsingPredicate:pred];
-    return list;
+-(NSArray *)getPhotoList:(NSNumber *)teamNumber {
+    return [photoUtilities getThumbnailList:teamNumber];
 }
 
--(void) takePhoto {
+-(void)takePhoto {
     //  Use the camera to take a new robot photo
     if (!_imagePickerController) {
         _imagePickerController = [[UIImagePickerController alloc] init];
@@ -713,7 +722,7 @@
     [self presentViewController:_imagePickerController animated:YES completion:Nil];
 }
 
-- (void)choosePhoto {
+-(void)choosePhoto {
     if (!_imagePickerController) {
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
@@ -730,46 +739,19 @@
                       permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSString *photoNameBase = [self createPhotoName];
-    // Use the time to create unique photo names
-    float currentTime = CFAbsoluteTimeGetCurrent();
-    // Create full sized photo name
-    NSString *photoName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
-    NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
-    if ([fileManager fileExistsAtPath:fullPath]) {
-        currentTime /= 2;
-        fullPath = [robotPhotoLibrary stringByAppendingPathComponent:photoName];
-    }
-    
-    NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1.0);
-    [imageData writeToFile:fullPath atomically:YES];
+    NSString *photoNameBase = [photoUtilities createBaseName:_team.number];
+    NSString *photoName = [photoUtilities savePhoto:photoNameBase withImage:_imageView.image];
     _team.primePhoto = photoName;
 
-    // Create and save thumbnail
-    fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:photoName];
-    CGImageSourceRef myImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
-                                                         (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                                                         (id)[NSNumber numberWithFloat:100], (id)kCGImageSourceThumbnailMaxPixelSize,
-                                                         nil];
-    CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
-    UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
-    [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
-    CGImageRelease(myThumbnailImage);
-
-    // add photo to photo list
-    // set as prime photo
-//    [self addTeamPhotoRecord:_team forPhoto:photoName forThumbNail:thumbNailName];
     [self setDataChange];
     [self.pictureController dismissPopoverAnimated:true];
     // NSLog(@"image picker finish");
     [picker dismissViewControllerAnimated:YES completion:Nil];
 }
 
-- (IBAction)photoControllerActionSheet:(id)sender {
+-(IBAction)photoControllerActionSheet:(id)sender {
     action = sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing",  nil];
     
@@ -777,7 +759,7 @@
     [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (action == _cameraBtn) {
         if (buttonIndex == 0) {
             [self takePhoto];
@@ -787,15 +769,13 @@
     }
     else if (action == _photoCollectionView) {
         if (buttonIndex == 0) {
-            NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
             _team.primePhoto = selectedPhoto;
-            [_imageView setImage:[UIImage imageWithContentsOfFile:fullPath]];
+            [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:selectedPhoto]]];
             [self setDataChange];
         }
         if (buttonIndex == 1) {
-            NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
             FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
-            photoViewer.fullImage = [UIImage imageWithContentsOfFile:fullPath];
+            photoViewer.fullImage = [UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:selectedPhoto]];
             [self.navigationController pushViewController:photoViewer animated:YES];
         }
         if (buttonIndex == 2) {
@@ -806,19 +786,15 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        NSError *error;
-        NSString *fullPath = [robotPhotoLibrary stringByAppendingPathComponent:selectedPhoto];
-        [fileManager removeItemAtPath:fullPath error:&error];
-        fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:selectedPhoto];
-        [fileManager removeItemAtPath:fullPath error:&error];
+        [photoUtilities removePhoto:selectedPhoto];
         if ([selectedPhoto isEqualToString:_team.primePhoto]) {
             _team.primePhoto = nil;
             [_imageView setImage:nil];
             [self setDataChange];
         }
-        photoList = [self getPhotoList];
+        photoList = [self getPhotoList:_team.number];
         [_photoCollectionView reloadData];
     }
 }
@@ -828,43 +804,6 @@
     photoViewer.fullImage = _imageView.image;
 //    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationController pushViewController:photoViewer animated:YES];
-}
-
--(void)createPhotoDirectories {
-    // Set and create the robot photo directories
-    fileManager = [NSFileManager defaultManager];
-    NSString *library = [FileIOMethods applicationDocumentsDirectory];
-    robotPhotoLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos/Images"]];
-    // Check if robot directory exists, if not, create it
-    if (![fileManager fileExistsAtPath:robotPhotoLibrary isDirectory:NO]) {
-        if (![fileManager createDirectoryAtPath:robotPhotoLibrary
-                                      withIntermediateDirectories: YES
-                                                       attributes: nil
-                                                            error: NULL]) {
-            NSLog(@"Dreadful error creating directory to save photos");
-        }
-    }
-    robotThumbnailLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos/Thumbnails"]];
-    if (![fileManager fileExistsAtPath:robotThumbnailLibrary isDirectory:NO]) {
-        if (![fileManager createDirectoryAtPath:robotThumbnailLibrary
-                                      withIntermediateDirectories: YES
-                                                       attributes: nil
-                                                            error: NULL]) {
-            NSLog(@"Dreadful error creating directory to save thumbnails");
-        }
-    }
-}
-
--(NSString *)createPhotoName {
-    NSString *number;
-    if ([_team.number intValue] < 100) {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [_team.number intValue]]];
-    } else if ( [_team.number intValue] < 1000) {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [_team.number intValue]]];
-    } else {
-        number = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [_team.number intValue]]];
-    }
-    return number;
 }
 
 #pragma mark - UICollectionView Datasource
@@ -884,8 +823,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"thumbnail" forIndexPath:indexPath];
-    NSString *fullPath = [robotThumbnailLibrary stringByAppendingPathComponent:[photoList objectAtIndex:indexPath.row]];
-    cell.thumbnail = [UIImage imageWithContentsOfFile:fullPath];
+    NSString *photo = [photoList objectAtIndex:indexPath.row];
+    cell.thumbnail = [UIImage imageWithContentsOfFile:[photoUtilities getThumbnailPath:photo]];
     return cell;
 }
 
@@ -980,20 +919,21 @@
     TeamScore *score = [matchList objectAtIndex:indexPath.row];
 
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [score.matchNumber intValue]];
 
     UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-	label2.text = score.match.matchType;
+    label2.text  = [[EnumerationDictionary getKeyFromValue:score.matchType forDictionary:matchTypeDictionary] substringToIndex:4];
 
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = @"";
     
-//    if ([score.saved intValue] || [score.synced intValue]) label3.text = @"Y";
-//    else label3.text = @"N";
+    if ([score.saved intValue] || [score.results boolValue]) label3.text = @"Y";
+    else label3.text = @"N";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"table view");
     UITableViewCell *cell = nil;
     if (tableView == _regionalInfo) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Regional"];
@@ -1009,46 +949,15 @@
     return cell;
 }
 
--(MatchData *)getMatchData: (TeamScore *) teamScore {
-    // Future plans
-/*  if (teamScore.red1) return teamScore.red1;
-    if (teamScore.red2) return teamScore.red2;
-    if (teamScore.red3) return teamScore.red3;
-    if (teamScore.blue1) return teamScore.blue1;
-    if (teamScore.blue2) return teamScore.blue2;
-    if (teamScore.blue3) return teamScore.blue3; */
-    
-    return nil; 
-}
-
--(IBAction)MatchNumberChanged {
-    NSLog(@"Team detail change method name");
-    // The user has typed a new team number in the field. Access that team and display it.
-     // NSLog(@"MatchNumberChanged");
-    [self checkDataStatus];
-    int currentTeam = [_numberText.text intValue];
-    printf("%d", currentTeam);
-    for(int x = 0; x < [self getNumberOfTeams]; x++){
-        NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
-        TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
-        if([team.number intValue] == currentTeam){
-            _teamIndex = teamIndex;
-            _team = team;
-            [self showTeam];
-            break;
-        }
-    }
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {   return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
--(void)SetTextBoxDefaults:(UITextField *)currentTextField {
+-(void)setTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:22.0];
 }
 
--(void)SetBigButtonDefaults:(UIButton *)currentButton {
+-(void)setBigButtonDefaults:(UIButton *)currentButton {
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
@@ -1061,11 +970,6 @@
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-}
-
--(NSDictionary *)initializeDictionaries:(NSString *)fileName {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-    return [FileIOMethods getDictionaryFromPListFile:plistPath];
 }
 
 -(NSArray *)initializePopUpList:(NSString *)fileName {

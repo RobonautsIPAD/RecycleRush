@@ -7,36 +7,41 @@
 //
 
 #import "MatchDetailViewController.h"
-#import "MatchTypeDictionary.h"
-#import "MatchTypePickerController.h"
 #import "MatchData.h"
+#import "MatchUtilities.h"
+#import "DataConvenienceMethods.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "DataManager.h"
+#import "EnumerationDictionary.h"
+
+@interface MatchDetailViewController()
+    @property (nonatomic, weak) IBOutlet UIButton *matchTypeButton;
+    @property (nonatomic, weak) IBOutlet UITextField *numberTextField;
+    @property (nonatomic, weak) IBOutlet UITextField *red1TextField;
+    @property (nonatomic, weak) IBOutlet UITextField *red2TextField;
+    @property (nonatomic, weak) IBOutlet UITextField *red3TextField;
+    @property (nonatomic, weak) IBOutlet UITextField *blue1TextField;
+    @property (nonatomic, weak) IBOutlet UITextField *blue2TextField;
+    @property (nonatomic, weak) IBOutlet UITextField *blue3TextField;
+@end
 
 @implementation MatchDetailViewController {
     NSUserDefaults *prefs;
-    NSArray *scoreData;
     BOOL dataChange;
-    MatchTypeDictionary *matchDictionary;
+    NSArray *teamList;
+    NSDictionary *matchDictionary;
+    NSDictionary *allianceDictionary;
+    PopUpPickerViewController *matchTypePicker;
+    UIPopoverController *matchTypePickerPopover;
     NSArray *matchTypeList;
     NSNumber *newMatchNumber;
     BOOL textChangeDetected;
     OverrideMode overrideMode;
+    id popUp;
+    MatchUtilities *matchUtilities;
 }
-@synthesize dataManager = _dataManager;
-@synthesize match = _match;
 @synthesize delegate = _delegate;
-@synthesize numberTextField = _numberTextField;
-@synthesize matchTypeButton = _matchTypeButton;
-@synthesize matchTypePicker = _matchTypePicker;
-@synthesize matchTypePickerPopover = _matchTypePickerPopover;
-@synthesize red1TextField = _red1TextField;
-@synthesize red2TextField = _red2TextField;
-@synthesize red3TextField = _red3TextField;
-@synthesize blue1TextField = _blue1TextField;
-@synthesize blue2TextField = _blue2TextField;
-@synthesize blue3TextField = _blue3TextField;
 // User Access Control
 @synthesize alertPrompt = _alertPrompt;
 @synthesize alertPromptPopover = _alertPromptPopover;
@@ -51,18 +56,6 @@
 }
 
 #pragma mark - View lifecycle
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    _dataManager = nil;
-    _match = nil;
-    prefs = nil;
-    scoreData = nil;
-    matchDictionary = nil;
-    matchTypeList = nil;
-    newMatchNumber = nil;
-}
 
 - (void)viewDidLoad
 {
@@ -80,16 +73,15 @@
     }
     dataChange = NO;
 
-    matchDictionary = [[MatchTypeDictionary alloc] init];
-    matchTypeList = [matchDictionary getMatchTypes];
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    matchDictionary = [self getEnumDictionary:@"MatchType"];;
+    matchTypeList = [matchDictionary keysSortedByValueUsingSelector:@selector(compare:)];
+    allianceDictionary = [self getEnumDictionary:@"allianceListDictionary"];
 
     _numberTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     _numberTextField.text = [NSString stringWithFormat:@"%d", [_match.number intValue]];
     _matchTypeButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
-    [_matchTypeButton setTitle:_match.matchType forState:UIControlStateNormal];
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"alliance" ascending:YES];
-    scoreData = [[_match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-
+    [_matchTypeButton setTitle:[self getMatchTypeString:_match.matchType] forState:UIControlStateNormal];
     
     _red1TextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     _red2TextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
@@ -98,12 +90,14 @@
     _blue2TextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     _blue3TextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
 
-    [self setTeamField:_red1TextField forTeam:[scoreData objectAtIndex:3]];
-    [self setTeamField:_red2TextField forTeam:[scoreData objectAtIndex:4]];
-    [self setTeamField:_red3TextField forTeam:[scoreData objectAtIndex:5]];
-    [self setTeamField:_blue1TextField forTeam:[scoreData objectAtIndex:0]];
-    [self setTeamField:_blue2TextField forTeam:[scoreData objectAtIndex:1]];
-    [self setTeamField:_blue3TextField forTeam:[scoreData objectAtIndex:2]];
+    [self setTeamList:_match];
+
+    [self setTeamField:_red1TextField forAlliance:@"Red 1"];
+    [self setTeamField:_red2TextField forAlliance:@"Red 2"];
+    [self setTeamField:_red3TextField forAlliance:@"Red 3"];
+    [self setTeamField:_blue1TextField forAlliance:@"Blue 1"];
+    [self setTeamField:_blue2TextField forAlliance:@"Blue 2"];
+    [self setTeamField:_blue3TextField forAlliance:@"Blue 3"];
     textChangeDetected = NO;
 
     [_numberTextField addTarget:self action:@selector(textFieldDidChange:)
@@ -123,35 +117,47 @@
 
 }
 
--(IBAction)MatchTypeSelectionChanged:(id)sender {
-    //    NSLog(@"matchTypeSelectionChanged");
-    overrideMode = OverrideMatchTypeSelection;
-    [self checkOverrideCode];
+-(void)setTeamList:(MatchData *)match {
+    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceStation" ascending:YES];
+    teamList = [[match.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
 }
 
--(void)MatchTypeSelectionPopUp {
-    if (_matchTypePicker == nil) {
-        self.matchTypePicker = [[MatchTypePickerController alloc]
-                                initWithStyle:UITableViewStylePlain];
-        _matchTypePicker.delegate = self;
-        _matchTypePicker.matchTypeChoices = [matchTypeList copy];
-        self.matchTypePickerPopover = [[UIPopoverController alloc]
-                                       initWithContentViewController:_matchTypePicker];
-    }
-    [self.matchTypePickerPopover presentPopoverFromRect:_matchTypeButton.bounds inView:_matchTypeButton
-                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+-(TeamScore *)getScoreRecord:(NSString *)allianceStation {
+    if (!teamList || ![teamList count]) return Nil;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"allianceStation = %@", [EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary]];
+    NSArray *scoreList = [teamList filteredArrayUsingPredicate:pred];
+    if ([scoreList count]) return [scoreList objectAtIndex:0];
+    else return Nil;
 }
 
-- (void)matchTypeSelected:(NSString *)newMatchType {
-    [self.matchTypePickerPopover dismissPopoverAnimated:YES];
-    
-    for (int i = 0 ; i < [matchTypeList count] ; i++) {
-        if ([newMatchType isEqualToString:[matchTypeList objectAtIndex:i]]) {
-            [self editMatch:_match.number forMatchType:newMatchType];
-            [_matchTypeButton setTitle:_match.matchType forState:UIControlStateNormal];
-            break;
+-(IBAction)popupSelected:(id)sender {
+    UIButton * PressedButton = (UIButton*)sender;
+    popUp = PressedButton;
+    if (PressedButton == _matchTypeButton) {
+        if (matchTypePicker == nil) {
+            matchTypePicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            matchTypePicker.delegate = self;
+            matchTypePicker.pickerChoices = matchTypeList;
         }
+        if (!matchTypePickerPopover) {
+            matchTypePickerPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:matchTypePicker];
+        }
+        [matchTypePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+}
+
+- (void)pickerSelected:(NSString *)newPick {
+    // The user has made a selection on one of the pop-ups. Dismiss the pop-up
+    //  and call the correct method to change the right field.
+    // NSLog(@"new pick = %@", newPick);
+    if (popUp == _matchTypeButton) {
+        [matchTypePickerPopover dismissPopoverAnimated:YES];
+        _match.matchType  = [EnumerationDictionary getValueFromKey:newPick forDictionary:matchDictionary ];
+    }
+    [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 
 -(void)matchNumberChanged:(NSNumber *)number forMatchType:(NSString *)matchType {
@@ -187,7 +193,7 @@
             success = TRUE;
             _match.number = number;
             _match.matchType = matchType;
-            _match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
+//            _match.matchTypeSection = [matchDictionary getMatchTypeEnum:matchType];
         }
     }
     if (success) {
@@ -241,7 +247,7 @@
             
         case OverrideMatchTypeSelection:
             if ([passCodeAttempt isEqualToString:overrideCode]) {
-                [self MatchTypeSelectionPopUp];
+//                [self MatchTypeSelectionPopUp];
             }
             break;
                         
@@ -251,15 +257,26 @@
     overrideMode = NoOverride;
 }
 
--(void)setTeamField:(UITextField *)textBox forTeam:(TeamScore *)score {
-    textBox.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-    if ([score.saved intValue]) {
+-(void)setTeamField:(UITextField *)textBox forAlliance:(NSString *)alliance {
+    TeamScore *score = [self getScoreRecord:alliance];
+    if (score) {
+        textBox.text = [NSString stringWithFormat:@"%d", [score.teamNumber intValue]];
+    /*    if (textField == _numberTextField) {
+     int number = [textField.text intValue];
+     newMatchNumber = [NSNumber numberWithInt:number];
+*/
+    
+    /*    if ([score.saved intValue]) {
         textBox.textColor = [UIColor redColor];
         [textBox setEnabled:NO];
     }
     else {
         textBox.textColor = [UIColor blackColor];
         [textBox setEnabled:YES];
+    }*/
+    }
+    else {
+        textBox.text = @"";
     }
 }
 
@@ -271,6 +288,10 @@
     _match.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     _match.savedBy = [prefs objectForKey:@"deviceName"];
     [_delegate matchDetailReturned:dataChange];
+}
+
+-(NSString *)getMatchTypeString:(NSNumber *)matchType {
+    return [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchDictionary];
 }
 
 - (void)didReceiveMemoryWarning
@@ -302,46 +323,46 @@
         [self checkOverrideCode];
     }
 	else if (textField == _red1TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:3]]) {
+/*        if (![self editTeam:number forScore:[scoreData objectAtIndex:3]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_red1TextField forTeam:[scoreData objectAtIndex:3]];
-        }
+            [self setTeamField:_red1TextField forAlliance:@"Red 1"];
+        }*/
 	}
     else if (textField == _red2TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:4]]) {
+      /*  if (![self editTeam:number forScore:[scoreData objectAtIndex:4]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_red2TextField forTeam:[scoreData objectAtIndex:4]];
-        }
+            [self setTeamField:_red2TextField forAlliance:@"Red 2"];
+        }*/
 	}
 	else if (textField == _red3TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:5]]) {
+     /*   if (![self editTeam:number forScore:[scoreData objectAtIndex:5]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_red3TextField forTeam:[scoreData objectAtIndex:5]];
-        }
+            [self setTeamField:_red3TextField forAlliance:@"Red 3"];
+        }*/
 	}
 	else if (textField == _blue1TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:0]]) {
+   /*     if (![self editTeam:number forScore:[scoreData objectAtIndex:0]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_blue1TextField forTeam:[scoreData objectAtIndex:0]];
-        }
+            [self setTeamField:_blue1TextField forAlliance:@"Blue 1"];
+        }*/
 	}
 	else if (textField == _blue2TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:1]]) {
+   /*     if (![self editTeam:number forScore:[scoreData objectAtIndex:1]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_blue2TextField forTeam:[scoreData objectAtIndex:1]];
-        }
+            [self setTeamField:_blue2TextField forAlliance:@"Blue 1"];
+        }*/
 	}
 	else if (textField == _blue3TextField) {
-        if (![self editTeam:number forScore:[scoreData objectAtIndex:2]]) {
+      /*  if (![self editTeam:number forScore:[scoreData objectAtIndex:2]]) {
             success = FALSE;
             // The change failed. Reset the field to what it used to be
-            [self setTeamField:_blue3TextField forTeam:[scoreData objectAtIndex:2]];
-        }
+            [self setTeamField:_blue3TextField forAlliance:@"Blue 1"];
+        }*/
 	}
     
     textChangeDetected = NO;
@@ -386,7 +407,7 @@
 -(BOOL)editTeam:(int)teamNumber forScore:(TeamScore *)score{
     // NSLog(@"EditTeam");
     // Get team data object for team number
-    TeamData *team = [self getTeam:teamNumber forTournament:_match.tournamentName];
+    TeamData *team = [DataConvenienceMethods getTeamInTournament:[NSNumber numberWithInt:teamNumber] forTournament:_match.tournamentName fromContext:_dataManager.managedObjectContext];
     // NSLog(@"Team data = %@", team);
     if (!team) return 0;
     // check score to see if it is allocated
@@ -414,30 +435,19 @@
     score.fieldDrawing = nil;
 }
 
--(TeamData *)getTeam:(int)teamNumber forTournament:(NSString *)tournament {
-    TeamData *team;
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(number == %@) AND (ANY tournament.name = %@)", [NSNumber numberWithInt:teamNumber], tournament];
-    [fetchRequest setPredicate:pred];    
-    NSArray *teamData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    //   NSLog(@"Matchin team? = %@", teamData);
-    if(!teamData) {
-        NSLog(@"Karma disruption error");
+-(id)getEnumDictionary:(NSString *) dictionaryName {
+    if (!dictionaryName) {
         return nil;
-    } 
-    else {
-        if([teamData count] > 0) {  // Team Exists
-            team = [teamData objectAtIndex:0];
-            // NSLog(@"Team %@ exists", team.number);
-            return team;
-        }
-        else return nil;
     }
+    if ([dictionaryName isEqualToString:@"MatchType"]) {
+        if (!matchDictionary) matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        return matchDictionary;
+    }
+    else if ([dictionaryName isEqualToString:@"allianceListDictionary"]) {
+        if (!allianceDictionary) allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+        return allianceDictionary;
+    }
+    else return nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -2,14 +2,14 @@
 //  TeamData.h
 //  AerialAssist
 //
-//  Created by FRC on 9/25/14.
+//  Created by FRC on 10/13/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Competitions, Regional, TeamScore;
+@class Competitions, Regional;
 
 @interface TeamData : NSManagedObject
 
@@ -58,17 +58,11 @@
 @property (nonatomic, retain) NSString * tunneler;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
-@property (nonatomic, retain) NSSet *match;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournaments;
 @end
 
 @interface TeamData (CoreDataGeneratedAccessors)
-
-- (void)addMatchObject:(TeamScore *)value;
-- (void)removeMatchObject:(TeamScore *)value;
-- (void)addMatch:(NSSet *)values;
-- (void)removeMatch:(NSSet *)values;
 
 - (void)addRegionalObject:(Regional *)value;
 - (void)removeRegionalObject:(Regional *)value;

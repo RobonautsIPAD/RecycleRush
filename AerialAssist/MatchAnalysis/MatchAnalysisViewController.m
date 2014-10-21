@@ -9,31 +9,38 @@
 #import "MatchAnalysisViewController.h"
 #import "FieldDrawingViewController.h"
 #import "DataManager.h"
+#import "DataConvenienceMethods.h"
 #import "TeamData.h"
 #import "TeamDataInterfaces.h"
 #import "TournamentData.h"
 #import "CreateMatch.h"
 #import "MatchData.h"
 #import "TeamScore.h"
+#import "EnumerationDictionary.h"
 
 @interface MatchAnalysisViewController ()
     @property  (nonatomic, weak) IBOutlet UITableView *matchesTable;
+    @property (nonatomic, weak) IBOutlet UITextField *teamNumberText;
+    @property (nonatomic, weak) IBOutlet UIButton *competitionButton;
+    @property (nonatomic, weak) IBOutlet UIButton *practiceButton;
+    @property (nonatomic, weak) IBOutlet UIButton *testButton;
+    @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+    @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+    @property (nonatomic, weak) IBOutlet UIImageView *matchPicture;
+    @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+
 @end
 
 
 @implementation MatchAnalysisViewController{
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSDictionary *matchTypeDictionary;
     NSMutableArray *teamList;
-    NSArray *scoreList;
+    NSArray *fullMatchList;
     NSMutableArray *matchList;
    TeamData *team;
 }
-@synthesize dataManager = _dataManager;
-@synthesize mainLogo = _mainLogo;
-@synthesize matchPicture = _matchPicture;
-@synthesize splashPicture = _splashPicture;
-@synthesize pictureCaption = _pictureCaption;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,21 +65,33 @@
     if (tournamentName) {
         self.title = tournamentName;
     }
-    
-    scoreList = [[[CreateMatch alloc] initWithDataManager:_dataManager] getMatchListTournament:[NSNumber numberWithInt:118] forTournament:tournamentName];
-    // NSLog(@"score count = %d", [scoreList count]);
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"match.number > 0 AND match.matchType = %@", @"Seeding"];
-    scoreList = [scoreList filteredArrayUsingPredicate:pred];
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
 
+    // Default to our team
+    _teamNumberText.text = @"118";
+    [self createMatchList:_teamNumberText.text];
+ 
+    self.title = @"Match Analysis";
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+}
+
+-(void)createMatchList:(NSString *)teamNumberString {
+    NSLog(@"Analysis view - createMatchList - add check for valid team");
+    int teamNumber = [teamNumberString intValue];
+    fullMatchList = [DataConvenienceMethods getMatchListForTeam:[NSNumber numberWithInt:teamNumber] forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+     NSLog(@"score count = %d", [fullMatchList count]);
+/*   NSPredicate *pred = [NSPredicate predicateWithFormat:@"match.number > 0 AND match.matchType = %@", @"Seeding"];
+    scoreList = [scoreList filteredArrayUsingPredicate:pred];
+    
     // NSLog(@"score count = %d", [scoreList count]);
     matchList = [[NSMutableArray alloc] init];
     for (int i=0; i<[scoreList count]; i++) {
         TeamScore *score = [scoreList objectAtIndex:i];
         [matchList addObject:score.match];
     }
-    self.title = @"Match Analysis";
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    NSLog(@"Team Number = %d", teamNumber);*/
+    matchList = [fullMatchList mutableCopy];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -86,6 +105,38 @@
     [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
     
 }
+
+- (IBAction)matchTypeSelected:(id)sender {
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSLog(@"Change char");
+    // Limit the text field to numbers only.
+    NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+    
+    // This allows backspace
+    if ([resultingString length] == 0) {
+        return true;
+    }
+    NSInteger holder;
+    NSScanner *scan = [NSScanner scannerWithString: resultingString];
+        
+    return [scan scanInteger: &holder] && [scan isAtEnd];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    NSLog(@"End edit");
+    [self createMatchList:textField.text];
+    [_matchesTable reloadData];
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"Resign");
+	[textField resignFirstResponder];
+	return YES;
+}
+
 -(NSInteger)numberOfRowsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -98,17 +149,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        return [scoreList count];
+        return [matchList count];
 }
 
 - (void)configureMatchCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    TeamScore  *score = [scoreList objectAtIndex:indexPath.row];
+    TeamScore  *score = [matchList objectAtIndex:indexPath.row];
   //  NSLog(@"score = %@", score);
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [score.matchNumber intValue]];
     
     UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-	label2.text = score.match.matchType;
+    label2.text = [EnumerationDictionary getKeyFromValue:score.matchType forDictionary:matchTypeDictionary];
     
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = @"";

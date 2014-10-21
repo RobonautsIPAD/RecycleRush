@@ -12,13 +12,23 @@
 #import "DataConvenienceMethods.h"
 
 @implementation ExportTeamData {
-    NSDictionary *attributes;
+    NSDictionary *teamDataAttributes;
     NSArray *teamDataList;
 }
 
--(NSString *)teamDataCSVExport:(NSString *)tournamentName fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return nil;
+-(id)init:(DataManager *)initManager {
+	if ((self = [super init])) {
+        NSLog(@"init export team data");
+        _dataManager = initManager;
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
+        teamDataAttributes = [entity attributesByName];
+ 	}
+	return self;
+}
 
+-(NSString *)teamDataCSVExport:(NSString *)tournamentName {
+    // Check if init function has run properly
+    if (!_dataManager) return nil;
     if (!teamDataList) {
         // Load dictionary with list of parameters for the scouting spreadsheet
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
@@ -27,7 +37,7 @@
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-    entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
+    entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
     [fetchRequest setEntity:entity];
      
     NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
@@ -37,7 +47,7 @@
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournamentName];
         [fetchRequest setPredicate:pred];
     }
-    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *teamData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if(!teamData) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Minor Problem Encountered"
                                                          message:@"No Team data to email"
@@ -47,12 +57,9 @@
         [alert show];
     }
 
-    TeamData *team;
     NSString *csvString;
-    team = [teamData objectAtIndex:0];
-    attributes = [[team entity] attributesByName];
-    csvString = [self createHeader:team forTournament:tournamentName];
-    NSLog(@"%@", csvString);
+    csvString = [self createHeader:tournamentName];
+    // NSLog(@"%@", csvString);
 
     for (TeamData *team in teamData) {
         csvString = [csvString stringByAppendingString:[self createTeam:team forTournament:tournamentName]];
@@ -60,7 +67,7 @@
     return csvString;
 }
 
--(NSString *)createHeader:(TeamData *)team forTournament:(NSString *)tournament {
+-(NSString *)createHeader:(NSString *)tournament {
     NSString *csvString = [[NSString alloc] init];
 
     BOOL firstPass = TRUE;
@@ -92,20 +99,73 @@
                 csvString = [csvString stringByAppendingFormat:@", %@", tournament];
             }
             else {
-                NSDictionary *description = [attributes valueForKey:key];
+                NSDictionary *description = [teamDataAttributes valueForKey:key];
                 if (firstPass) {
                     firstPass = FALSE;
                 }
                 else {
                     csvString = [csvString stringByAppendingFormat:@", "];
                 }
-                csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[team valueForKey:key] forAttribute:description]];
+                csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[team valueForKey:key] forAttribute:description forEnumDictionary:Nil]];
             }
         }
     }
     csvString = [csvString stringByAppendingString:@"\n"];
     
   return csvString;
+}
+
+-(NSData *)packageTeamForXFer:(TeamData *)team {
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    if (!teamDataAttributes) teamDataAttributes = [[team entity] attributesByName];
+    for (NSString *item in teamDataAttributes) {
+        if ([team valueForKey:item]) {
+            if (![DataConvenienceMethods compareAttributeToDefault:[team valueForKey:item] forAttribute:[teamDataAttributes valueForKey:item]]) {
+                [keyList addObject:item];
+                [valueList addObject:[team valueForKey:item]];
+            }
+        }
+    }
+
+    NSArray *allTournaments = [team.tournaments allObjects];
+    NSMutableArray *tournamentNames = [NSMutableArray array];
+    for (NSString *competition in allTournaments) {
+        [tournamentNames addObject:[competition valueForKey:@"name"]];
+    }
+    if ([tournamentNames count]) {
+        [keyList addObject:@"tournament"];
+        [valueList addObject:tournamentNames];
+    }
+    
+    NSArray *allRegionals = [team.regional allObjects];
+    NSMutableArray *regionalData = [NSMutableArray array];
+    for (NSString *regional in allRegionals) {
+        [regionalData addObject:[regional valueForKey:@"week"]];
+    }
+    if ([regionalData count]) {
+        [keyList addObject:allRegionals];
+        [valueList addObject:regionalData];
+    }
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    NSLog(@"Dictionary = %@", dictionary);
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+    return myData;
+}
+
+-(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
+    // File name format T#.pck
+    NSString *fileNameBase;
+    if ([team.number intValue] < 100) {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [team.number intValue]]];
+    } else if ( [team.number intValue] < 1000) {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [team.number intValue]]];
+    } else {
+        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
+    }
+    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
+    NSData *myData = [self packageTeamForXFer:team];
+    [myData writeToFile:exportFile atomically:YES];
 }
 
 @end

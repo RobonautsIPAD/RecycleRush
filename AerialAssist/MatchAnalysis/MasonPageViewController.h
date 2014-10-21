@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MatchTypePickerController.h"
+#import "PopUpPickerViewController.h"
 
 @class MatchData;
 @class TeamScore;
@@ -15,7 +15,7 @@
 @class Statistics;
 @class DataManager;
 
-@interface MasonPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MatchTypePickerDelegate>
+@interface MasonPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, PopUpPickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSArray *teamScores;
@@ -38,7 +38,6 @@
 -(NSUInteger)GetPreviousSection:(NSUInteger) currentSection;
 -(int)getNumberOfMatches:(NSUInteger)section;
 -(MatchData *)getCurrentMatch;
--(NSMutableArray *)getMatchTypeList;
 -(NSUInteger)getMatchSectionInfo:(MatchType)matchSection;
 
 // Match Number
@@ -47,10 +46,6 @@
 
 // Match Type
 @property (nonatomic, weak) IBOutlet UIButton *matchType;
-@property (nonatomic, strong) NSMutableArray *matchTypeList;
-@property (nonatomic, strong) MatchTypePickerController *matchTypePicker;
-@property (nonatomic, strong) UIPopoverController *matchTypePickerPopover;
--(IBAction)MatchTypeSelectionChanged:(id)sender;
 
 // Team Statistics Table
 @property (nonatomic, strong) NSMutableArray *teamData;

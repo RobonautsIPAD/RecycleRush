@@ -11,13 +11,15 @@
 #import "TeamData.h"
 #import "Competitions.h"
 #import "TournamentUtilities.h"
+#import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
-#import "TriStateDictionary.h"
-#import "QuadStateDictionary.h"
 #import "DataManager.h"
 #import "parseCSV.h"
 
 #define TEST_MODE
+#ifdef TEST_MODE
+#import "ExportTeamData.h"
+#endif
 
 @implementation TeamUtilities {
     NSDictionary *teamDataAttributes;
@@ -31,7 +33,7 @@
     NSDictionary *tunnelDictionary;
 }
 
-- (id)initWithDataManager:(DataManager *)initManager {
+- (id)init:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
         _dataManager = initManager;
@@ -129,7 +131,7 @@
     [parser closeFile];
     
 #ifdef TEST_MODE
-    [self testTeamInterfaces];
+    [self testTeamUtilities];
 #endif
     
 }
@@ -159,6 +161,7 @@
 }
 
 -(TeamData *)createNewTeam:(NSNumber *)teamNumber {
+    if (!teamNumber || ([teamNumber intValue] < 1)) return nil;
     TeamData *team = [DataConvenienceMethods getTeam:teamNumber fromContext:_dataManager.managedObjectContext];
     if (team) return team;
     else {
@@ -198,38 +201,32 @@
     else return FALSE;
 }
 
--(NSDictionary *)initializeDictionaries:(NSString *)fileName {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-    return [FileIOMethods getDictionaryFromPListFile:plistPath];
-}
-
 -(id)getEnumDictionary:(NSString *) dictionaryName {
     if (!dictionaryName) {
         return nil;
     }
     else if ([dictionaryName isEqualToString:@"triStateDictionary"]) {
-        if (!triStateDictionary) triStateDictionary = [self initializeDictionaries:@"TriState"];
+        if (!triStateDictionary) triStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"TriState"];
         return triStateDictionary;
     }
     else if ([dictionaryName isEqualToString:@"quadStateDictionary"]) {
-        if (!quadStateDictionary) quadStateDictionary = [self initializeDictionaries:@"QuadState"];
+        if (!quadStateDictionary) quadStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"QuadState"];
         return quadStateDictionary;
- 
     }
     else if ([dictionaryName isEqualToString:@"driveTypeDictionary"]) {
-        if (!driveTypeDictionary) driveTypeDictionary = [self initializeDictionaries:@"DriveType"];
+        if (!driveTypeDictionary) driveTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"DriveType"];
         return driveTypeDictionary;
     }
     else if ([dictionaryName isEqualToString:@"intakeTypeDictionary"]) {
-        if (!intakeTypeDictionary) intakeTypeDictionary = [self initializeDictionaries:@"IntakeType"];
+        if (!intakeTypeDictionary) intakeTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"IntakeType"];
         return intakeTypeDictionary;
     }
     else if ([dictionaryName isEqualToString:@"shooterTypeDictionary"]) {
-        if (!shooterTypeDictionary) shooterTypeDictionary = [self initializeDictionaries:@"ShooterType"];
+        if (!shooterTypeDictionary) shooterTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"ShooterType"];
         return shooterTypeDictionary;
     }
     else if ([dictionaryName isEqualToString:@"tunnelDictionary"]) {
-        if (!tunnelDictionary) tunnelDictionary = [self initializeDictionaries:@"Tunnel"];
+        if (!tunnelDictionary) tunnelDictionary = [EnumerationDictionary initializeBundledDictionary:@"Tunnel"];
         return tunnelDictionary;
     }
     else {
@@ -247,17 +244,18 @@
 }
 
 -(void)errorAlertMessage:(NSString *)msg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Database Error"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Data Error"
                                                     message:msg
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
+    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
     [alert show];
 }
 
 #ifdef TEST_MODE
--(void)testTeamInterfaces {
-    NSLog(@"Testing Team Interfaces");
+-(void)testTeamUtilities {
+    NSLog(@"Testing Team Utilities");
     NSError *error;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -276,7 +274,10 @@
     int prev_int = -99;
     BOOL firstTime = TRUE;
     int counter = 0;
+    ExportTeamData *teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
+        NSData *xferData = [teamDataPackage packageTeamForXFer:[teamData objectAtIndex:i]];
+//        NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
         int driveType = [[[teamData objectAtIndex:i] valueForKey:@"driveTrainType"] intValue];
         // NSLog(@"%d\t%d", i+1, driveType);
         if (driveType == prev_int) {

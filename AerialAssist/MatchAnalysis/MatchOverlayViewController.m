@@ -24,6 +24,7 @@
     NSUserDefaults *prefs;
     NSMutableArray *matchViews;
     NSMutableArray *matchButtons;
+    UIView *teamHeader;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,15 +64,15 @@
         if ([score.results boolValue] && score.fieldDrawing.trace) {
             UIImageView *trace =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,848,424)];
             trace.image = [UIImage imageWithData:score.fieldDrawing.trace];
-            if ([score.allianceSection intValue] > 2) {
+            if ([score.allianceStation intValue] > 2) {
                 trace.transform = CGAffineTransformMakeScale(-1, 1);
             }
             [self.view addSubview:trace];
             [matchViews addObject:trace];
-            NSString *labelText = [NSString stringWithFormat:@"%@ %@", [score.match.matchType substringToIndex:4], score.match.number];
-            NSLog(@"%@", labelText);
+//            NSString *labelText = [NSString stringWithFormat:@"%@ %@", [score.match.matchType substringToIndex:4], score.match.number];
+//            NSLog(@"%@", labelText);
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(915,yPos,84,24)];
-            label.text = labelText;
+//            label.text = labelText;
             label.textColor = [UIColor colorWithRed:1.0 green:190.0/255 blue:0.0 alpha:1];
             label.backgroundColor = [UIColor clearColor];
             label.font = [UIFont boldSystemFontOfSize:18.0];
@@ -90,54 +91,54 @@
     teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
     stats = [teamStats calculateMasonStats:_numberTeam forTournament:tournamentName];
     
-    _teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
-    _teamHeader.backgroundColor = [UIColor lightGrayColor];
-    _teamHeader.opaque = YES;
+    teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
+    teamHeader.backgroundColor = [UIColor lightGrayColor];
+    teamHeader.opaque = YES;
     
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 50)];
 	headerLabel.text = @"Header";
     headerLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:headerLabel];
+    [teamHeader addSubview:headerLabel];
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 200, 50)];
 	label1.text = @"High Hot";
     label1.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label1];
+    [teamHeader addSubview:label1];
     
     UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(230, 0, 200, 50)];
 	label2.text = @"TeleOp High";
     label2.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label2];
+    [teamHeader addSubview:label2];
     
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(360, 0, 200, 50)];
 	label3.text = @"Truss Throw";
     label3.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label3];
+    [teamHeader addSubview:label3];
     
     UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(480, 0, 200, 50)];
 	label4.text = @"Speed";
     label4.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label4];
+    [teamHeader addSubview:label4];
     
     UILabel *lable5 = [[UILabel alloc] initWithFrame:CGRectMake(560, 0, 200, 50)];
 	lable5.text = @"Drive";
     lable5.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:lable5];
+    [teamHeader addSubview:lable5];
     
     UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(650, 0, 200, 50)];
 	label6.text = @"Bully";
     label6.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label6];
+    [teamHeader addSubview:label6];
     
     UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(740, 0, 200, 50)];
 	label7.text = @"Block";
     label7.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label7];
+    [teamHeader addSubview:label7];
     
     UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(820, 0, 200, 50)];
 	label8.text = @"Floor Pass";
     label8.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label8];
+    [teamHeader addSubview:label8];
 }
 
 -(void)setRadioButtonState:(UIButton *)button forState:(BOOL)selection {
