@@ -12,10 +12,4 @@
 
 @interface TournamentAnalysisViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
-@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
-@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
-@property (nonatomic, weak) IBOutlet UIButton *masonPageButton;
-@property (nonatomic, weak) IBOutlet UIButton *lucianPageButton;
-@property (nonatomic, weak) IBOutlet UIButton *ridleyPageButton;
 @end

@@ -8,7 +8,7 @@
 
 #import "ImportDataFromiTunes.h"
 #import "DataManager.h"
-#import "TeamDataInterfaces.h"
+#import "ExportTeamData.h"
 #import "MatchDataInterfaces.h"
 #import "TeamScoreInterfaces.h"
 #import "LoadCSVData.h"
@@ -163,7 +163,7 @@
         }
     }
     else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        TeamDataInterfaces *teamDataPackage = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
+        ExportTeamData *teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 NSLog(@"file = %@", file);

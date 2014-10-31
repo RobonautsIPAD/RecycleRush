@@ -11,13 +11,15 @@
 
 #import "TournamentData.h"
 
+@interface ImportDataViewController()
+    @property (nonatomic, weak) IBOutlet UIButton *importUSFirstButton;
+    @property (nonatomic, weak) IBOutlet UIButton *importMatchList;
+@end
+
 @implementation ImportDataViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
 }
-@synthesize dataManager = _dataManager;
-@synthesize importUSFirstButton = _importUSFirstButton;
-@synthesize importMatchList = _importMatchList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

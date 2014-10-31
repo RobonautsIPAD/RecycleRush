@@ -7,13 +7,9 @@
 //
 
 #import "MatchAnalysisViewController.h"
-#import "FieldDrawingViewController.h"
+#import "MasonPageViewController.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
-#import "TeamData.h"
-#import "TeamDataInterfaces.h"
-#import "TournamentData.h"
-#import "CreateMatch.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "EnumerationDictionary.h"
@@ -36,10 +32,12 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSDictionary *matchTypeDictionary;
-    NSMutableArray *teamList;
     NSArray *fullMatchList;
     NSMutableArray *matchList;
    TeamData *team;
+    BOOL competitionState;
+    BOOL testState;
+    BOOL practiceState;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,8 +65,16 @@
     }
     matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
 
-    // Default to our team
+    // Default to our team. Someday create saveable preferences
     _teamNumberText.text = @"118";
+    competitionState = TRUE;
+    practiceState = FALSE;
+    testState = FALSE;
+    
+    [self setRadioButtonState:_competitionButton forState:competitionState];
+    [self setRadioButtonState:_practiceButton forState:practiceState];
+    [self setRadioButtonState:_testButton forState:testState];
+
     [self createMatchList:_teamNumberText.text];
  
     self.title = @"Match Analysis";
@@ -81,32 +87,67 @@
     int teamNumber = [teamNumberString intValue];
     fullMatchList = [DataConvenienceMethods getMatchListForTeam:[NSNumber numberWithInt:teamNumber] forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
      NSLog(@"score count = %d", [fullMatchList count]);
-/*   NSPredicate *pred = [NSPredicate predicateWithFormat:@"match.number > 0 AND match.matchType = %@", @"Seeding"];
-    scoreList = [scoreList filteredArrayUsingPredicate:pred];
-    
-    // NSLog(@"score count = %d", [scoreList count]);
-    matchList = [[NSMutableArray alloc] init];
-    for (int i=0; i<[scoreList count]; i++) {
-        TeamScore *score = [scoreList objectAtIndex:i];
-        [matchList addObject:score.match];
-    }
-    NSLog(@"Team Number = %d", teamNumber);*/
+    [self filterMatchList];
+}
+
+-(void)filterMatchList {
+    NSPredicate *pred;
     matchList = [fullMatchList mutableCopy];
+    if (!practiceState) {
+        pred = [NSPredicate predicateWithFormat:@"matchType != %@", [EnumerationDictionary getValueFromKey:@"Practice" forDictionary:matchTypeDictionary]];
+        [matchList filterUsingPredicate:pred];
+    }
+    if (!competitionState) {
+        pred = [NSPredicate predicateWithFormat:@"matchType != %@ AND matchType != %@", [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary],  [EnumerationDictionary getValueFromKey:@"Elimination" forDictionary:matchTypeDictionary]];
+        [matchList filterUsingPredicate:pred];
+    }
+    if (!testState) {
+        pred = [NSPredicate predicateWithFormat:@"matchType != %@ AND matchType != %@", [EnumerationDictionary getValueFromKey:@"Other" forDictionary:matchTypeDictionary],  [EnumerationDictionary getValueFromKey:@"Testing" forDictionary:matchTypeDictionary]];
+        [matchList filterUsingPredicate:pred];
+    }
+    for (TeamScore *score in matchList) {
+            NSLog(@"%@", score.matchNumber);
+    }
+    [_matchesTable reloadData];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Segue occurs when the user selects a match out of the match list table. Receiving
-    //  VC is the FieldDrawing VC.
+    //  VC is the Mason Page VC.
     NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
     [segue.destinationViewController setDataManager:_dataManager];
     // NSLog(@"Match list = %@", matchList);
-    [segue.destinationViewController setTeamScores:matchList];
-    [segue.destinationViewController setStartingIndex:indexPath.row];
+    [segue.destinationViewController setTeamNumber:[NSNumber numberWithInt:[_teamNumberText.text intValue]]];
+    TeamScore  *current = [matchList objectAtIndex:indexPath.row];
+    [segue.destinationViewController setInitialMatchNumber:current.matchNumber];
+    [segue.destinationViewController setInitialMatchType:current.matchType];
     [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 
+-(void)setRadioButtonState:(UIButton *)button forState:(BOOL)selection {
+    if (selection) {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+    }
+}
+
 - (IBAction)matchTypeSelected:(id)sender {
+    if (sender == _competitionButton) {
+        competitionState = !competitionState;
+        [self setRadioButtonState:_competitionButton forState:competitionState];
+    }
+    else if (sender == _practiceButton) {
+        practiceState = !practiceState;
+        [self setRadioButtonState:_practiceButton forState:practiceState];
+    }
+    else if (sender == _testButton) {
+        testState = !testState;
+        [self setRadioButtonState:_testButton forState:testState];
+    }
+    [self filterMatchList];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

@@ -88,7 +88,7 @@
         }
     }
     
-    teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
+    teamStats = [[CalculateTeamStats alloc] init:_dataManager];
     stats = [teamStats calculateMasonStats:_numberTeam forTournament:tournamentName];
     
     teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];

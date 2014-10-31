@@ -27,6 +27,7 @@
     NSArray *matchDataList;
     NSDictionary *matchTypeDictionary;
     NSDictionary *allianceDictionary;
+    ScoreUtilities *scoreRecords;
 }
 
 -(id)init:(DataManager *)initManager {
@@ -37,7 +38,9 @@
         matchDataProperties = [entity attributesByName];
         attributeNames = matchDataProperties.allKeys;
         [self initializePreferences];
+        matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
         allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+        scoreRecords =[[ScoreUtilities alloc] init:_dataManager];
  	}
 	return self;
 }
@@ -47,7 +50,6 @@
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
-    ScoreUtilities *scoreRecords =[[ScoreUtilities alloc] init:_dataManager];
     
     if (![csvContent count]) return;
     // Get the first row, column headers
@@ -199,8 +201,23 @@
     else return nil;
 }
 
--(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSNumber *)matchType forTournament:(NSString *)tournamentName {
-    return nil;
+-(NSString *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName {
+    NSString *error;
+    MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName];
+    if (!match) return @"Unable to add match";
+    NSLog(@"%@", teamList);
+    for (NSDictionary *team in teamList) {
+        NSArray *keys = [team allKeys];
+        if (keys && [keys count]) {
+            NSString *key = [keys objectAtIndex:0];
+            error = [scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]]];
+        }
+    }
+    NSError *err;
+    if (![_dataManager.managedObjectContext save:&err]) {
+        NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
+    }
+    return error;
 }
 
 -(NSNumber *)getNumber:inputData {

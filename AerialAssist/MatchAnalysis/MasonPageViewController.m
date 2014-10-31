@@ -9,91 +9,75 @@
 #import "MasonPageViewController.h"
 #import "TournamentData.h"
 #import "DataManager.h"
+#import "DataConvenienceMethods.h"
 #import "MatchData.h"
+#import "MatchUtilities.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
 #import "TeamScore.h"
+#import "MatchFlow.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 #import "FieldDrawingViewController.h"
 #import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
-#import "parseCSV.h"
-#import "QuartzCore/QuartzCore.h"
+
+@interface MasonPageViewController ()
+@property (nonatomic, weak) IBOutlet UIButton *prevMatch;
+@property (nonatomic, weak) IBOutlet UIButton *nextMatch;
+@property (nonatomic, weak) IBOutlet UIButton *ourPrevMatchButton;
+@property (nonatomic, weak) IBOutlet UIButton *ourNextMatchButton;
+@property (nonatomic, weak) IBOutlet UITextField *matchNumber;
+@property (nonatomic, weak) IBOutlet UIButton *matchType;
+@property (nonatomic, strong) NSMutableArray *teamData;
+
+@property (nonatomic, weak) IBOutlet UITableView *teamInfo;
+@property (nonatomic, strong) UIView *teamHeader;
+@property (nonatomic, weak) IBOutlet UILabel *red1Team;
+@property (nonatomic, weak) IBOutlet UILabel *red2Team;
+@property (nonatomic, weak) IBOutlet UILabel *red3Team;
+@property (nonatomic, weak) IBOutlet UILabel *blue1Team;
+@property (nonatomic, weak) IBOutlet UILabel *blue2Team;
+@property (nonatomic, weak) IBOutlet UILabel *blue3Team;
+
+@property (nonatomic, weak) IBOutlet UITableView *red1Table;
+@property (nonatomic, weak) IBOutlet UITableView *red2Table;
+@property (nonatomic, weak) IBOutlet UITableView *red3Table;
+@property (nonatomic, weak) IBOutlet UITableView *blue1Table;
+@property (nonatomic, weak) IBOutlet UITableView *blue2Table;
+@property (nonatomic, weak) IBOutlet UITableView *blue3Table;
+
+@end
 
 @implementation MasonPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
-    NSMutableDictionary *settingsDictionary;
     NSString *previousTournament;
+    NSMutableDictionary *settingsDictionary;
+    NSArray *outputDictionary;
     int numberMatchTypes;
-    int ourCurrentIndex;
-    CalculateTeamStats *teamStats;
+    NSMutableArray *teamList;
+    NSUInteger sectionIndex;
+    NSUInteger rowIndex;
+    MatchData *currentMatch;
+    NSArray *scoreList;
+    MatchUtilities *matchUtilities;
+    CalculateTeamStats *teamStatsPackage;
     NSDictionary *matchDictionary;
+    NSDictionary *allianceDictionary;
     NSArray *matchTypeList;
     PopUpPickerViewController *matchTypePicker;
     UIPopoverController *matchTypePickerPopover;
     id popUp;
-    NSFileManager *fileManager;
-    NSString *storePath;
-    NSMutableArray *teamMatches;
-    NSMutableArray *column1;
-    NSMutableArray *column2;
-    NSMutableArray *column3;
-    NSMutableArray *column4;
-    NSMutableArray *column5;
-    NSMutableArray *column6;
-    NSMutableArray *column7;
-    NSMutableArray *column8;
-    NSMutableArray *column9;
+
+    int ourCurrentIndex;
+    NSArray *red1Scores;
+    NSArray *red2Scores;
+    NSArray *red3Scores;
+    NSArray *blue1Scores;
+    NSArray *blue2Scores;
+    NSArray *blue3Scores;
+    NSMutableArray *teamStats;
 }
-
-// Match Control Buttons
-@synthesize prevMatch;
-@synthesize nextMatch;
-
-// Match Data
-@synthesize matchNumber;
-@synthesize matchType;
-
-@synthesize teamData;
-@synthesize teamList = _teamList;
-@synthesize teamHeader = _teamHeader;
-@synthesize teamInfo = _teamInfo;
-
-// Team Match List
-@synthesize red1Matches = _red1Matches;
-@synthesize red1 = _red1;
-
-
-
-// Team Tables
-@synthesize red1Team = _red1Team;
-@synthesize red1Stats = _red1Stats;
-@synthesize red1Table = _red1Table;
-
-@synthesize red2Team = _red2Team;
-@synthesize red2Table = _red2Table;
-
-@synthesize red3Team = _red3Team;
-@synthesize red3Table = _red3Table;
-
-@synthesize blue1Team = _blue1Team;
-@synthesize blue1Table = _blue1Table;
-
-@synthesize blue2Team = _blue2Team;
-@synthesize blue2Table = _blue2Table;
-
-@synthesize blue3Team = _blue3Team;
-@synthesize blue3Table = _blue3Table;
-
-// Team Score for Segue
-@synthesize red1Scores = _red1Scores;
-@synthesize red2Scores = _red2Scores;
-@synthesize red3Scores = _red3Scores;
-@synthesize blue1Scores = _blue1Scores;
-@synthesize blue2Scores = _blue2Scores;
-@synthesize blue3Scores = _blue3Scores;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -106,6 +90,12 @@
 
 - (void)viewDidLoad
 {
+    // can be reached 2 ways, one will load specific match info the other won't
+    // For the one that won't, datamanager should be the only instance variable with a value
+        // In this case, the saved match number info in the settings will be used to set the initial match
+        // labels for our next and prev should change to say 118
+    // For the one that does, a match number and type and a team number should be passed in for the
+        // the initial match. Label out next and prev should change to show team number next and prev
     [super viewDidLoad];
     NSError *error = nil;
     if (!_dataManager) {
@@ -131,183 +121,125 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
+    
+    [_ourPrevMatchButton setTitle:[NSString stringWithFormat:@"%@ Prev", _teamNumber] forState:UIControlStateNormal];
+    [_ourNextMatchButton setTitle:[NSString stringWithFormat:@"%@ Next", _teamNumber] forState:UIControlStateNormal];
+
+    [self setTableDefaults];
+    [self createStatsTableHeader];
+    [self setTextBoxDefaults:_matchNumber];
+    [self setBigButtonDefaults:_matchType];
+    [self setBigButtonDefaults:_prevMatch];
+    [self setBigButtonDefaults:_nextMatch];
+    [self setBigButtonDefaults:_ourPrevMatchButton];
+    [self setBigButtonDefaults:_ourNextMatchButton];
+
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
     matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-    matchTypeList = [matchDictionary keysSortedByValueUsingSelector:@selector(compare:)];
+    matchTypeList = [self getMatchTypeList];
+    teamStatsPackage = [[CalculateTeamStats alloc] init:_dataManager];
+    [self setValidMatchNumber:_initialMatchNumber forType:_initialMatchType];
     
     numberMatchTypes = [matchTypeList count];
-    // NSLog(@"Match Type List Count = %@", matchTypeList);
-    
-    // If there are no matches in any section then don't set this stuff. ShowMatch will set currentMatch to
-    // nil, printing out blank info in all the display items.
-    if (numberMatchTypes) {
-        // Temporary method to save the data markers
-        storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
-        fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:storePath]) {
-            // Loading Default Data Markers
-         //   _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
-            _rowIndex = 0;
-            _teamIndex = 0;
-            _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
-        }
-        else {
-            CSVParser *parser = [CSVParser new];
-            [parser openFile: storePath];
-            NSMutableArray *csvContent = [parser parseFile];
-            // NSLog(@"data marker = %@", csvContent);
-            _rowIndex = [[[csvContent objectAtIndex:0] objectAtIndex:0] intValue];
-            _teamIndex = [[[csvContent objectAtIndex:0] objectAtIndex:2] intValue];
-            _currentSectionType = [[[csvContent objectAtIndex:0] objectAtIndex:1] intValue];
-            _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
-            if (_sectionIndex == -1) { // The selected match type does not exist
-                // Go back to the first section in the table
-      //          _currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
-                _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
-            }
-        }
-    }
-        
-    [self SetTextBoxDefaults:matchNumber];
-    [self SetBigButtonDefaults:matchType];
-    [self SetBigButtonDefaults:prevMatch];
-    [self SetBigButtonDefaults:nextMatch];
-    [self SetBigButtonDefaults:_ourPrevMatchButton];
-    [self SetBigButtonDefaults:_ourNextMatchButton];
-
-    _red1Table.layer.borderWidth = 2.0;
-    _red2Table.layer.borderWidth = 2.0;
-    _red3Table.layer.borderWidth = 2.0;
-    _blue1Table.layer.borderWidth = 2.0;
-    _blue2Table.layer.borderWidth = 2.0;
-    _blue3Table.layer.borderWidth = 2.0;
-
-    _teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
-    _teamHeader.backgroundColor = [UIColor lightGrayColor];
-    _teamHeader.opaque = YES;
-    
-	UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 50)];
-	teamLabel.text = @"Team";
-    teamLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:teamLabel];
-    
-	UILabel *nMatchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 50)];
-	nMatchesLabel.text = @"Matches";
-    nMatchesLabel.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:nMatchesLabel];
-    
-	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
-	label1.text = @"Inbound %";
-    label1.backgroundColor = [UIColor clearColor];
-//    label1.numberOfLines = 0;
-    label1.adjustsFontSizeToFitWidth = NO;
-    [_teamHeader addSubview:label1];
-
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(250, 0, 200, 50)];
-	label2.text = @"Auton High %";
-    label2.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label2];
-
-    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(370, 0, 200, 50)];
-	label3.text = @"High Goal %";
-    label3.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label3];
-   
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(480, 0, 200, 50)];
-	label4.text = @"HP Truss %";
-    label4.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label4];
-
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(580, 0, 200, 50)];
-	label5.text = @"Knockouts";
-    label5.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label5];
-
-    UILabel *lable6 = [[UILabel alloc] initWithFrame:CGRectMake(725, 0, 200, 50)];
-	lable6.text = @"Speed";
-    lable6.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:lable6];
-
-    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(675, 0, 200, 50)];
-	label7.text = @"Drive";
-    label7.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label7];
-    
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(790, 0, 200, 50)];
-	label8.text = @"Bully";
-    label8.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label8];
-    
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
-	label9.text = @"Block";
-    label9.backgroundColor = [UIColor clearColor];
-    [_teamHeader addSubview:label9];
-
-    teamData = [NSMutableArray arrayWithCapacity:6];
-    _teamList = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
-    teamMatches = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
-    column1 = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
-    column2 = [[NSMutableArray alloc] initWithObjects:@"0", @"0", @"0", @"0", @"0", @"0", nil];
-    column3 = [[NSMutableArray alloc] initWithObjects:@"", @"", @"", @"", @"", @"", nil];
-    column4 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-    column5 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-    column6 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-    column7 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-    column8 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-    column9 = [[NSMutableArray alloc] initWithObjects:@"0.0", @"0.0", @"0.0", @"0.0", @"0.0", @"0.0", nil];
-
-    if (_teamScores) {
-        _currentMatch = [self getOurCurrentMatch:_startingIndex];
-    }
-    else {
-        _currentMatch = [self getCurrentMatch];
-        [_ourPrevMatchButton setHidden:YES];
-        [_ourNextMatchButton setHidden:YES];
-    }
-    [self ShowMatch];
+    teamList = [[NSMutableArray alloc] init];
+    teamStats = [[NSMutableArray alloc] init];
+    currentMatch = [self getCurrentMatch];
+    [self showMatch];
 }
 
--(NSUInteger)getMatchSectionInfo:(MatchType)matchSection {
+-(NSMutableArray *)getMatchTypeList {
+    NSMutableArray *matchTypes = [[NSMutableArray alloc] init];
     NSString *sectionName;
-    _sectionIndex = -1;
-    // Loop for number of sections in table
     for (int i=0; i < [[_fetchedResultsController sections] count]; i++) {
         sectionName = [[[_fetchedResultsController sections] objectAtIndex:i] name];
-        if ([sectionName intValue] == matchSection) {
-            _sectionIndex = i;
-            break;
-        }
+        // NSLog(@"Section = %@", sectionName);
+        [matchTypes addObject:[EnumerationDictionary getKeyFromValue:[NSNumber numberWithInt:[sectionName intValue]] forDictionary:matchDictionary]];
     }
-    return _sectionIndex;
+    // NSLog(@"match types = %@", matchTypes);
+    return matchTypes;
 }
 
 -(int)getNumberOfMatches:(NSUInteger)section {
     if ([[_fetchedResultsController sections] count]) {
-        return [[[[_fetchedResultsController sections] objectAtIndex:_sectionIndex] objects] count];
+        return [[[[_fetchedResultsController sections] objectAtIndex:section] objects] count];
     }
     else return 0;
 }
 
--(IBAction)MatchNumberChanged {
+-(void)setValidMatchNumber:(NSNumber *)matchNumber forType:(NSNumber *)matchType {
+    if (matchNumber && matchType) {
+        // Find the sectionIndex of the match type first
+        NSString *typeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchDictionary];
+        sectionIndex = [matchTypeList indexOfObject:typeString];
+        if (sectionIndex == NSNotFound) {
+            // If that section does not exist, go to the first section and match
+            sectionIndex = 0;
+            rowIndex = 0;
+        }
+        else {
+            // Process the match number
+            rowIndex = [self findMatchNumber:matchNumber];
+            if (rowIndex == NSNotFound) rowIndex = 0;
+        }
+    }
+    else {
+        if (sectionIndex > [[_fetchedResultsController sections] count]) {
+            sectionIndex = 0;
+            rowIndex = 0;
+        }
+        else {
+            NSUInteger maxRow = [self getNumberOfMatches:sectionIndex];
+            if (rowIndex > maxRow) rowIndex = maxRow - 1;
+        }
+    }
+}
+
+
+-(NSInteger)findMatchNumber:(NSNumber *)matchNumber {
+    // NSLog(@"findMatchNumber");
+    for(int i = 0; i < [self getNumberOfMatches:sectionIndex]; i++){
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:sectionIndex];
+        MatchData *match = [_fetchedResultsController objectAtIndexPath:index];
+        if([match.number intValue] == [matchNumber intValue]) {
+            return i;
+        }
+    }
+    return NSNotFound;
+}
+
+-(IBAction)matchNumberChanged {
     // NSLog(@"MatchNumberChanged");
-    
-    int matchField = [matchNumber.text intValue];
-    int nmatches =  [self getNumberOfMatches:_sectionIndex];
+    if ([_matchNumber.text isEqualToString:@""]) {
+        _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
+        return;
+    }
+    int matchField = [_matchNumber.text intValue];
+    int nmatches =  [self getNumberOfMatches:sectionIndex];
     
     if (matchField > nmatches) { /* Ooops, not that many matches */
         // For now, just change the match field to the last match in the section
         matchField = nmatches;
+        rowIndex = matchField-1;
     }
-    _rowIndex = matchField-1;
+    else {
+        NSInteger newIndex = [self findMatchNumber:[NSNumber numberWithInt:[_matchNumber.text intValue]]];
+        if (newIndex == NSNotFound) {
+            _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
+        }
+        else {
+            rowIndex = newIndex;
+        }
+    }
     
-    _currentMatch = [self getCurrentMatch];
-    [self ShowMatch];
+    currentMatch = [self getCurrentMatch];
+    [self showMatch];
     
 }
 
 -(IBAction)matchTypeSelectionChanged:(id)sender {
     //    NSLog(@"matchTypeSelectionChanged");
-    popUp = matchType;
+    popUp = _matchType;
     if (matchTypePicker == nil) {
         matchTypePicker = [[PopUpPickerViewController alloc]
                            initWithStyle:UITableViewStylePlain];
@@ -318,7 +250,7 @@
         matchTypePickerPopover = [[UIPopoverController alloc]
                                   initWithContentViewController:matchTypePicker];
     }
-    [matchTypePickerPopover presentPopoverFromRect:matchType.bounds inView:matchType
+    [matchTypePickerPopover presentPopoverFromRect:_matchType.bounds inView:_matchType
                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
@@ -326,152 +258,106 @@
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
     // NSLog(@"new pick = %@", newPick);
-    if (popUp == matchType) {
+    if (popUp == _matchType) {
         [matchTypePickerPopover dismissPopoverAnimated:YES];
-        _currentSectionType  = [EnumerationDictionary getValueFromKey:newPick forDictionary:matchDictionary];
-        _sectionIndex = [self getMatchSectionInfo:_currentSectionType];
-        _currentMatch = [self getCurrentMatch];
-        [self ShowMatch];
+
+        NSUInteger currectSection = sectionIndex;
+        sectionIndex = [matchTypeList indexOfObject:newPick];
+        if (sectionIndex == NSNotFound) sectionIndex = currectSection;
+        [self setValidMatchNumber:Nil forType:Nil];
+        currentMatch = [self getCurrentMatch];
+        [self showMatch];
     }
     [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 
--(IBAction)PrevButton {
-    if (_rowIndex > 0) _rowIndex--;
-    else {
-        _sectionIndex = [self GetPreviousSection:_currentSectionType];
-        _rowIndex =  [[[[_fetchedResultsController sections] objectAtIndex:_sectionIndex] objects] count]-1;
-    }
-    _currentMatch = [self getCurrentMatch];
-   [self ShowMatch];
-}
-
--(IBAction)NextButton {
-    int nrows;
-    nrows =  [self getNumberOfMatches:_sectionIndex];
-    if (_rowIndex < (nrows-1)) _rowIndex++;
-    else {
-        _rowIndex = 0;
-        _sectionIndex = [self GetNextSection:_currentSectionType];
-    }
-    _currentMatch = [self getCurrentMatch];
-    [self ShowMatch];
-}
-
--(NSUInteger)GetNextSection:(MatchType) currentSection {
-    //    NSLog(@"GetNextSection");
-    NSUInteger nextSection;
-    switch (currentSection) {
-        case Practice:
-            _currentSectionType = Seeding;
-            nextSection = [self getMatchSectionInfo:_currentSectionType];
-            if (nextSection == -1) { // There are no seeding matches
-                nextSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Seeding:
-            _currentSectionType = Elimination;
-            nextSection = [self getMatchSectionInfo:_currentSectionType];
-            if (nextSection == -1) { // There are no Elimination matches
-                nextSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Elimination:
-            _currentSectionType = Practice;
-            nextSection = [self getMatchSectionInfo:_currentSectionType];
-            if (nextSection == -1) { // There are no Practice matches
-                // Try seeding matches instead
-                _currentSectionType = Seeding;
-                nextSection = [self getMatchSectionInfo:_currentSectionType];
-                if (nextSection == -1) { // There are no seeding matches either
-                    nextSection = [self getMatchSectionInfo:currentSection];
-                    _currentSectionType = currentSection;
-                }
-            }
-            break;
-        case OtherMatch:
-            _currentSectionType = Testing;
-            nextSection = [self getMatchSectionInfo:_currentSectionType];
-            if (nextSection == -1) { // There are no Test matches
-                nextSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Testing:
-            _currentSectionType = OtherMatch;
-            nextSection = [self getMatchSectionInfo:_currentSectionType];
-            if (nextSection == -1) { // There are no Other matches
-                nextSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-    }
-    return nextSection;
-}
-
 // Move through the rounds
--(NSUInteger)GetPreviousSection:(NSUInteger) currentSection {
-    //    NSLog(@"GetPreviousSection");
-    NSUInteger newSection;
-    switch (currentSection) {
-        case Practice:
-            _currentSectionType = Testing;
-            newSection = [self getMatchSectionInfo:_currentSectionType];
-            if (newSection == -1) { // There are no Test matches
-                newSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Seeding:
-            _currentSectionType = Practice;
-            newSection = [self getMatchSectionInfo:_currentSectionType];
-            if (newSection == -1) { // There are no Practice matches
-                newSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Elimination:
-            _currentSectionType = Seeding;
-            newSection = [self getMatchSectionInfo:_currentSectionType];
-            if (newSection == -1) { // There are no Seeding matches
-                newSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case OtherMatch:
-            _currentSectionType = Testing;
-            newSection = [self getMatchSectionInfo:_currentSectionType];
-            if (newSection == -1) { // There are no Test matches
-                newSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
-        case Testing:
-            _currentSectionType = OtherMatch;
-            newSection = [self getMatchSectionInfo:_currentSectionType];
-            if (newSection == -1) { // There are no Other matches
-                newSection = [self getMatchSectionInfo:currentSection];
-                _currentSectionType = currentSection;
-            }
-            break;
+-(IBAction)prevButton {
+    if (rowIndex > 0) rowIndex--;
+    else {
+        sectionIndex = [self getPreviousSection:currentMatch.matchType];
+        rowIndex =  [[[[_fetchedResultsController sections] objectAtIndex:sectionIndex] objects] count]-1;
     }
-    return newSection;
+    currentMatch = [self getCurrentMatch];
+   [self showMatch];
+}
+
+-(IBAction)nextButton {
+    int nrows;
+    nrows =  [self getNumberOfMatches:sectionIndex];
+    if (rowIndex < (nrows-1)) rowIndex++;
+    else {
+        rowIndex = 0;
+        sectionIndex = [self getNextSection:currentMatch.matchType];
+    }
+    currentMatch = [self getCurrentMatch];
+    [self showMatch];
+}
+
+-(NSUInteger)getNextSection:(NSNumber *) currentType {
+    NSUInteger newSection;
+    // NSLog(@"getNextSection");
+    NSString *typeString = [EnumerationDictionary getKeyFromValue:currentType forDictionary:matchDictionary];
+    
+    newSection = [MatchFlow getNextMatchType:matchTypeList forCurrent:typeString];
+    if (newSection == NSNotFound) return sectionIndex;
+    else return newSection;
+}
+
+-(NSUInteger)getPreviousSection:(NSNumber *) currentType {
+    NSUInteger newSection;
+    //    NSLog(@"getPreviousSection");
+    NSString *typeString = [EnumerationDictionary getKeyFromValue:currentType forDictionary:matchDictionary];
+
+    newSection = [MatchFlow getPreviousMatchType:matchTypeList forCurrent:typeString];
+    if (newSection == NSNotFound) return sectionIndex;
+    else return newSection;
 }
 
 - (IBAction)ourPreviousMatch:(id)sender {
-    ourCurrentIndex--;
-    if (ourCurrentIndex < 0) ourCurrentIndex = [_teamScores count]-1;
-    _currentMatch = [self getOurCurrentMatch:ourCurrentIndex];
-    [self ShowMatch];
+    NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
+    int start = rowIndex-1;
+    int nMatches = [self getNumberOfMatches:sectionIndex];
+    BOOL found = FALSE;
+    for (int j=0; j<2; j++) {
+        for(int i=start; i > 0; i--) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:sectionIndex];
+            MatchData *match = [_fetchedResultsController objectAtIndexPath:index];
+            NSArray *scores = [[match.score allObjects] filteredArrayUsingPredicate:pred];
+            if (scores && [scores count]) {
+                rowIndex = i;
+                currentMatch = [self getCurrentMatch];
+                [self showMatch];
+                found = TRUE;
+                break;
+            }
+        }
+        if (found) break;
+        else start = nMatches-1;
+    }
 }
 
 - (IBAction)ourNextMatch:(id)sender {
-    ourCurrentIndex++;
-    if (ourCurrentIndex == [_teamScores count]) ourCurrentIndex = 0;
-    _currentMatch = [self getOurCurrentMatch:ourCurrentIndex];
-    [self ShowMatch];
+    NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
+    int start = rowIndex + 1;
+    int nMatches = [self getNumberOfMatches:sectionIndex];
+    BOOL found = FALSE;
+    for (int j=0; j<2; j++) {
+        for(int i=start; i < nMatches; i++) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:sectionIndex];
+            MatchData *match = [_fetchedResultsController objectAtIndexPath:index];
+            NSArray *scores = [[match.score allObjects] filteredArrayUsingPredicate:pred];
+            if (scores && [scores count]) {
+                rowIndex = i;
+                currentMatch = [self getCurrentMatch];
+                [self showMatch];
+                found = TRUE;
+                break;
+            }
+        }
+        if (found) break;
+        else start = 0;
+    }
 }
 
 -(MatchData *)getCurrentMatch {
@@ -479,86 +365,72 @@
         return nil;
     }
     else {
-        NSIndexPath *matchIndex = [NSIndexPath indexPathForRow:_rowIndex inSection:_sectionIndex];
+        NSIndexPath *matchIndex = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
         return [_fetchedResultsController objectAtIndexPath:matchIndex];
     }
 }
 
--(MatchData *)getOurCurrentMatch:(int) desiredIndex {
-    ourCurrentIndex = desiredIndex;
-    return [_teamScores objectAtIndex:desiredIndex];
-}
-
--(void)ShowMatch {
+-(void)showMatch {
     [self setTeamList];
-    [matchType setTitle:[EnumerationDictionary getKeyFromValue:_currentMatch.matchType forDictionary:matchDictionary] forState:UIControlStateNormal];
-    matchNumber.text = [NSString stringWithFormat:@"%d", [_currentMatch.number intValue]];
-//    [red1 setTitle: [teamOrder objectAtIndex:0] forState:UIControlStateNormal];
-//    [red2 setTitle:[teamOrder objectAtIndex:1] forState:UIControlStateNormal];
-//    [red3 setTitle:[teamOrder objectAtIndex:2] forState:UIControlStateNormal];
-//    [blue1 setTitle:[teamOrder objectAtIndex:3] forState:UIControlStateNormal];
-//    [blue2 setTitle:[teamOrder objectAtIndex:4] forState:UIControlStateNormal];
-//    [blue3 setTitle:[teamOrder objectAtIndex:5] forState:UIControlStateNormal];
+    [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentMatch.matchType forDictionary:matchDictionary] forState:UIControlStateNormal];
+    _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
 }
 
 -(void)setTeamList {
-    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceSection" ascending:YES];
-    NSArray *data = [[_currentMatch.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
-
-    if (!data) return;
-
-    TeamScore *score;
-    [teamData removeAllObjects];
-
-    if ([data count] == 6) {
-        // Reds
-        for (int i=0; i<6; i++) {
-            score = [data objectAtIndex:i];
-            [_teamList replaceObjectAtIndex:i
-                                withObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
-            NSMutableDictionary *stats = [teamStats calculateMasonStats:score.team forTournament:tournamentName];
-            // NSLog(@"%@", stats);
-            [teamMatches replaceObjectAtIndex:i
-                                    withObject:[NSString stringWithFormat:@"%d", [[stats objectForKey:@"matches"] intValue]]];
-            [column1 replaceObjectAtIndex:i
-                                    withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"percent"] floatValue]*100]];
-            [column2 replaceObjectAtIndex:i
-                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"percent"] floatValue]*100]];
-            [column3 replaceObjectAtIndex:i
-                                   withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"percent"] floatValue]*100]];
-            [column4 replaceObjectAtIndex:i
-                                    withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"percent"] floatValue]*100]];
-            [column5 replaceObjectAtIndex:i
-                               withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"knockout"] objectForKey:@"average"] floatValue]]];
-            [column6 replaceObjectAtIndex:i
-                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]]];
-            [column7 replaceObjectAtIndex:i
-                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"DriverSkill"] objectForKey:@"average"] floatValue]]];
-            [column8 replaceObjectAtIndex:i
-                                 withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BullySkill"] objectForKey:@"average"] floatValue]]];
-            [column9 replaceObjectAtIndex:i
-                                  withObject:[NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"BlockSkill"] objectForKey:@"average"] floatValue]]];
-         } //HPTruss
+    NSSortDescriptor *allianceSort = [NSSortDescriptor sortDescriptorWithKey:@"allianceStation" ascending:YES];
+    scoreList = [[currentMatch.score allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:allianceSort]];
+    [teamList removeAllObjects];
+    [teamStats removeAllObjects];
+    for (TeamScore *score in scoreList) {
+        TeamData *team = [DataConvenienceMethods getTeamInTournament:score.teamNumber forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+        [teamList addObject:team];
+        NSMutableDictionary *stats = [teamStatsPackage calculateMasonStats:team forTournament:tournamentName];
+        [teamStats addObject:stats];
     }
-    _red1Team.text = [_teamList objectAtIndex:0];
-    [_red1Scores removeAllObjects];
-    _red1Scores = [self getScoreList:[[data objectAtIndex:0] valueForKey:@"team"]];
-    _red2Team.text = [_teamList objectAtIndex:1];
-    [_red2Scores removeAllObjects];
-    _red2Scores = [self getScoreList:[[data objectAtIndex:1] valueForKey:@"team"]];
-    _red3Team.text = [_teamList objectAtIndex:2];
-    [_red3Scores removeAllObjects];
-    _red3Scores = [self getScoreList:[[data objectAtIndex:2] valueForKey:@"team"]];
-    _blue1Team.text = [_teamList objectAtIndex:3];
-    [_blue1Scores removeAllObjects];
-    _blue1Scores = [self getScoreList:[[data objectAtIndex:3] valueForKey:@"team"]];
-    _blue2Team.text = [_teamList objectAtIndex:4];
-    [_blue2Scores removeAllObjects];
-    _blue2Scores = [self getScoreList:[[data objectAtIndex:4] valueForKey:@"team"]];
-    _blue3Team.text = [_teamList objectAtIndex:5];
-    [_blue3Scores removeAllObjects];
-    _blue3Scores = [self getScoreList:[[data objectAtIndex:5] valueForKey:@"team"]];
     [self.teamInfo reloadData];
+    [self setTeamMatches];
+}
+
+-(NSNumber *)getTeamNumber:(NSString *)allianceStation {
+    // current match
+    // make pred for alliance
+    // get the team number from alliance
+    if (!teamList || ![teamList count]) return Nil;
+    NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary]];
+    return teamNumber;
+}
+
+-(NSArray *)getMatchList:(NSNumber *)team {
+    NSArray *scores = [DataConvenienceMethods getMatchListForTeam:team forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    return scores;
+}
+
+-(void)setTeamMatches {
+    // Red 1
+    NSNumber *team = [self getTeamNumber:@"Red 1"];
+    _red1Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Red 1";
+    red1Scores = [self getMatchList:team];
+
+    team = [self getTeamNumber:@"Red 2"];
+    _red2Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Red 2";
+    red2Scores = [self getMatchList:team];
+
+    team = [self getTeamNumber:@"Red 3"];
+    _red3Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Red 3";
+    red3Scores = [self getMatchList:team];
+
+    team = [self getTeamNumber:@"Blue 1"];
+    _blue1Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Blue 1";
+    blue1Scores = [self getMatchList:team];
+
+    team = [self getTeamNumber:@"Blue 2"];
+    _blue2Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Blue 2";
+    blue2Scores = [self getMatchList:team];
+
+    team = [self getTeamNumber:@"Blue 3"];
+    _blue3Team.text = team ? [NSString stringWithFormat:@"%d", [team intValue]]: @"Blue 3";
+    blue3Scores = [self getMatchList:team];
+
     [self.red1Table reloadData];
     [self.red2Table reloadData];
     [self.red3Table reloadData];
@@ -582,16 +454,32 @@
     return scores;
 }
 
+-(void)createStatsTableHeader {
+    _teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
+    _teamHeader.backgroundColor = [UIColor lightGrayColor];
+    _teamHeader.opaque = YES;
+    
+	UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 50)];
+	teamLabel.text = @"Team";
+    teamLabel.backgroundColor = [UIColor clearColor];
+    [_teamHeader addSubview:teamLabel];
+    
+    for (NSDictionary *column in outputDictionary) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake([[column objectForKey:@"location"] floatValue], 0, 200, 50)];
+        label.text = [column objectForKey:@"header"];
+        label.backgroundColor = [UIColor clearColor];
+        [_teamHeader addSubview:label];
+    }
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamDetail"]) {
         NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
         TeamDetailViewController *detailViewController = [segue destinationViewController];
-        [segue.destinationViewController setDataManager:_dataManager];
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
-        TeamData *team = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:[_teamList objectAtIndex:indexPath.row]];
-        detailViewController.team = team;
+        detailViewController.team = [teamList objectAtIndex:indexPath.row];
         [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
     }
     else {
@@ -599,32 +487,32 @@
         if ([segue.identifier isEqualToString:@"Red1"]) {
             indexPath = [self.red1Table indexPathForCell:sender];
             [_red1Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_red1Scores];
+            [segue.destinationViewController setTeamScores:red1Scores];
         }
         else if ([segue.identifier isEqualToString:@"Red2"]) {
             indexPath = [self.red2Table indexPathForCell:sender];
             [_red2Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_red2Scores];
+            [segue.destinationViewController setTeamScores:red2Scores];
         }
         else if ([segue.identifier isEqualToString:@"Red3"]) {
             indexPath = [self.red3Table indexPathForCell:sender];
             [_red3Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_red3Scores];
+            [segue.destinationViewController setTeamScores:red3Scores];
         }
         else if ([segue.identifier isEqualToString:@"Blue1"]) {
             indexPath = [self.blue1Table indexPathForCell:sender];
             [_blue1Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_blue1Scores];
+            [segue.destinationViewController setTeamScores:blue1Scores];
         }
         else if ([segue.identifier isEqualToString:@"Blue2"]) {
             indexPath = [self.blue2Table indexPathForCell:sender];
             [_blue2Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_blue2Scores];
+            [segue.destinationViewController setTeamScores:blue2Scores];
         }
         else if ([segue.identifier isEqualToString:@"Blue3"]) {
             indexPath = [self.blue3Table indexPathForCell:sender];
             [_blue3Table deselectRowAtIndexPath:indexPath animated:YES];
-            [segue.destinationViewController setTeamScores:_blue3Scores];
+            [segue.destinationViewController setTeamScores:blue3Scores];
         }
         [segue.destinationViewController setStartingIndex:indexPath.row];
     }
@@ -632,14 +520,44 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [self saveSettings];
     //    NSLog(@"viewWillDisappear");
-    NSString *dataMarkerString;
-    storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
-    dataMarkerString = [NSString stringWithFormat:@"%d, %d, %d\n", _rowIndex, _currentSectionType, _teamIndex];
-    [dataMarkerString writeToFile:storePath
-                       atomically:YES
-                         encoding:NSUTF8StringEncoding
-                            error:nil];
+}
+
+-(void)loadSettings {
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
+    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
+    if (!_teamNumber) _teamNumber = [NSNumber numberWithInt:118];
+    sectionIndex = 0;
+    rowIndex = 0;
+    if ([tournamentName isEqualToString:previousTournament]) {
+        if (!_initialMatchType || !_initialMatchNumber) {
+            sectionIndex = [[settingsDictionary valueForKey:@"Section Index"] intValue];
+            rowIndex = [[settingsDictionary valueForKey:@"Row Index"] intValue];
+        }
+    }
+    plistPath = [[NSBundle mainBundle] pathForResource:@"MasonPage" ofType:@"plist"];
+    outputDictionary = [[NSArray alloc] initWithContentsOfFile:plistPath];
+}
+
+-(void)saveSettings {
+    if (!settingsDictionary) {
+        settingsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
+    [settingsDictionary setObject:[NSNumber numberWithInt:sectionIndex] forKey:@"Section Index"];
+    [settingsDictionary setObject:[NSNumber numberWithInt:rowIndex] forKey:@"Row Index"];
+
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:plistPath atomically:YES];
+    }
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
 }
 
 #pragma mark - Table view data source
@@ -663,14 +581,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == _teamInfo) return [_teamList count];
-    if (tableView == _red1Table) return [_red1Scores count];
-    if (tableView == _red2Table) return [_red2Scores count];
-    if (tableView == _red3Table) return [_red3Scores count];
-    if (tableView == _blue1Table) return [_blue1Scores count];
-    if (tableView == _blue2Table) return [_blue2Scores count];
-    if (tableView == _blue3Table) return [_blue3Scores count];
-    else return [teamData count];
+    if (tableView == _teamInfo) return [teamList count];
+    if (tableView == _red1Table) return [red1Scores count];
+    if (tableView == _red2Table) return [red2Scores count];
+    if (tableView == _red3Table) return [red3Scores count];
+    if (tableView == _blue1Table) return [blue1Scores count];
+    if (tableView == _blue2Table) return [blue2Scores count];
+    if (tableView == _blue3Table) return [blue3Scores count];
+    else return 0;
 }
 
 - (void)configureScoreCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -679,40 +597,19 @@
     // UIImageView *tableBackground = [[UIImageView alloc] initWithFrame:cell.frame];
     // UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
     // tableBackground.image = image;
-    //  cell.backgroundView = imageView; Change Varable Name "soon"
+    //  cell.backgroundView = imageView; Change Variable Name "soon"
     
 	UILabel *teamNumber = (UILabel *)[cell viewWithTag:10];
-	teamNumber.text = [_teamList objectAtIndex:indexPath.row];
+    TeamData *team = [teamList objectAtIndex:indexPath.row];
+	teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
+    NSMutableDictionary *stats = [teamStats objectAtIndex:indexPath.row];
 
-	UILabel *nMatchesLabel = (UILabel *)[cell viewWithTag:20];
-    nMatchesLabel.text = [teamMatches objectAtIndex:indexPath.row];
-
-	UILabel *label1 = (UILabel *)[cell viewWithTag:30];
-	label1.text = [column1 objectAtIndex:indexPath.row];
-
-    UILabel *label2 = (UILabel *)[cell viewWithTag:40];
-	label2.text = [column2 objectAtIndex:indexPath.row];
-
-    UILabel *label3 = (UILabel *)[cell viewWithTag:50];
-    label3.text = [column3 objectAtIndex:indexPath.row];
-
-    UILabel *label4 = (UILabel *)[cell viewWithTag:55];
-	label4.text = [column4 objectAtIndex:indexPath.row];
-
-    UILabel *label5 = (UILabel *)[cell viewWithTag:60];
-	label5.text = [column5 objectAtIndex:indexPath.row];
-
-    UILabel *label6 = (UILabel *)[cell viewWithTag:70];
-	label6.text = [column6 objectAtIndex:indexPath.row];
-
-    UILabel *label7 = (UILabel *)[cell viewWithTag:80];
-	label7.text = [column7 objectAtIndex:indexPath.row];
-
-    UILabel *label8 = (UILabel *)[cell viewWithTag:90];
-	label8.text = [column8 objectAtIndex:indexPath.row];
-
-    UILabel *label9 = (UILabel *)[cell viewWithTag:100];
-	label9.text = [column9 objectAtIndex:indexPath.row];
+    NSInteger tag = 20;
+    for (NSDictionary *column in outputDictionary) {
+        UILabel *label = (UILabel *)[cell viewWithTag:tag];
+        label.text = [DataConvenienceMethods getTableFormat:stats forField:column];
+        tag += 10;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -730,22 +627,22 @@
                              dequeueReusableCellWithIdentifier:@"TeamCell"];
         TeamScore *score;
         if (tableView == _red1Table) {
-            score = [_red1Scores objectAtIndex:indexPath.row];
+            score = [red1Scores objectAtIndex:indexPath.row];
         }
         else if (tableView == _red2Table) {
-            score = [_red2Scores objectAtIndex:indexPath.row];
+            score = [red2Scores objectAtIndex:indexPath.row];
         }
         else if (tableView == _red3Table) {
-            score = [_red3Scores objectAtIndex:indexPath.row];
+            score = [red3Scores objectAtIndex:indexPath.row];
         }
         else if (tableView == _blue1Table) {
-            score = [_blue1Scores objectAtIndex:indexPath.row];
+            score = [blue1Scores objectAtIndex:indexPath.row];
         }
         else if (tableView == _blue2Table) {
-            score = [_blue2Scores objectAtIndex:indexPath.row];
+            score = [blue2Scores objectAtIndex:indexPath.row];
         }
         else if (tableView == _blue3Table) {
-            score = [_blue3Scores objectAtIndex:indexPath.row];
+            score = [blue3Scores objectAtIndex:indexPath.row];
         }
         UILabel *number = (UILabel *)[cell viewWithTag:10];
         number.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
@@ -763,35 +660,11 @@
     }
 }*/
 
--(void)loadSettings {
-    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
-    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
-    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
-}
-
--(void)saveSettings {
-    if (!settingsDictionary) {
-        settingsDictionary = [[NSMutableDictionary alloc] init];
-    }
-    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
-    
-    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
-    NSError *error;
-    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
-    if(data) {
-        [data writeToFile:plistPath atomically:YES];
-    }
-    else {
-        NSLog(@"An error has occured %@", error);
-    }
-}
-
-
--(void)SetTextBoxDefaults:(UITextField *)currentTextField {
+-(void)setTextBoxDefaults:(UITextField *)currentTextField {
     currentTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
 }
 
--(void)SetBigButtonDefaults:(UIButton *)currentButton {
+-(void)setBigButtonDefaults:(UIButton *)currentButton {
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
@@ -806,7 +679,7 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
--(void)SetSmallButtonDefaults:(UIButton *)currentButton {
+-(void)setSmallButtonDefaults:(UIButton *)currentButton {
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
@@ -821,9 +694,18 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
+-(void)setTableDefaults {
+    _red1Table.layer.borderWidth = 2.0;
+    _red2Table.layer.borderWidth = 2.0;
+    _red3Table.layer.borderWidth = 2.0;
+    _blue1Table.layer.borderWidth = 2.0;
+    _blue2Table.layer.borderWidth = 2.0;
+    _blue3Table.layer.borderWidth = 2.0;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    if (textField != matchNumber)  return YES;
+    if (textField != _matchNumber)  return YES;
     
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     
@@ -839,6 +721,9 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    if (textField == _matchNumber) {
+        
+    }
     //    NSLog(@"should end editing");
 	return YES;
 }
@@ -888,13 +773,6 @@
 	return _fetchedResultsController;
 }
 
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {   return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
@@ -905,14 +783,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
-    [self setRed2Team:nil];
-    [self setRed3Team:nil];
-    [self setRed3Table:nil];
-    [self setBlue1Table:nil];
-    [self setBlue2Team:nil];
-    [self setBlue2Table:nil];
-    [self setBlue3Table:nil];
-    [super viewDidUnload];
-}
 @end

@@ -13,7 +13,7 @@
 @class DataManager;
 @class MatchData;
 
-@interface MatchListViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate, AddMatchDelegate, MatchDetailDelegate>
+@interface MatchListViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate, MatchDetailDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 

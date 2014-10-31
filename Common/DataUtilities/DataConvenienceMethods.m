@@ -15,6 +15,7 @@
 
 @implementation DataConvenienceMethods
 +(TournamentData *)getTournament:(NSString *)name fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     TournamentData *tournament;
     NSError *error;
         
@@ -61,6 +62,7 @@
 }
 
 +(TeamData *)getTeam:(NSNumber *)teamNumber fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     TeamData *team;
     NSError *error;
 
@@ -108,6 +110,7 @@
 }
 
 +(TeamData *)getTeamInTournament:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     TeamData *team;
     NSError *error;
     
@@ -155,6 +158,7 @@
 }
 
 +(NSArray *)getTournamentTeamList:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     NSMutableArray *teamList = [[NSMutableArray alloc] init];
     NSError *error;
     
@@ -176,6 +180,7 @@
 }
 
 +(MatchData *)getMatch:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     MatchData *match;
     NSError *error;
     // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
@@ -225,6 +230,7 @@
 
 +(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
     
+    if (!managedObjectContext) return Nil;
     NSError *error;
     // NSLog(@"Searching for team %@ matches in tournament %@", teamNumber, tournament);
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -253,6 +259,7 @@
 
 +(NSArray *)getMatchScores:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
     NSError *error;
+    if (!managedObjectContext) return Nil;
     // A match needs 4 unique items to define it. A match number, the match type and the tournament name.
     NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -275,6 +282,7 @@
 }
 
 +(TeamScore *)getScoreRecord:(NSNumber *)matchNumber forType:(NSNumber *)matchType forAlliance:(NSNumber *)alliance forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
+    if (!managedObjectContext) return Nil;
     // Only one record should meet all these criteria. If more than one
     // is found, then a database corruption has occurred.
     TeamScore *scoreRecord;
@@ -488,6 +496,31 @@
         NSLog(@"Unsupported Type");
     }
     return csvString;
+}
+
++(NSString *)getTableFormat:(NSDictionary *)data forField:(NSDictionary *)formatData {
+    NSString *result = @"";
+    NSString *type = [formatData objectForKey:@"type"];
+    NSString *descriptor = [formatData objectForKey:@"format"];
+    NSNumber *value = [data objectForKey:@"key"];
+    
+    if ([type isEqualToString:@"integer"]) {
+        if (value) {
+            result = [NSString stringWithFormat:descriptor, [value intValue]];
+        }
+        else {
+            result = [NSString stringWithFormat:descriptor, 0];
+        }
+    }
+    if ([type isEqualToString:@"float"]) {
+        if (value) {
+            result = [NSString stringWithFormat:descriptor, [value floatValue]];
+        }
+        else {
+            result = [NSString stringWithFormat:descriptor, 0];
+        }
+    }
+    return result;
 }
 
 @end

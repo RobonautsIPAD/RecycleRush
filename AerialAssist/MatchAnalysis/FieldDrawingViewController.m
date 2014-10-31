@@ -8,15 +8,54 @@
 
 #import <QuartzCore/CALayer.h>
 #import "FieldDrawingViewController.h"
+#import "DataManager.h"
 #import "MatchOverlayViewController.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "TeamData.h"
 #import "TournamentData.h"
+#import "DataConvenienceMethods.h"
 #import "EnumerationDictionary.h"
 
 @interface FieldDrawingViewController ()
+@property (nonatomic, weak) IBOutlet UIButton *prevMatchButton;
+@property (nonatomic, weak) IBOutlet UIButton *nextMatchButton;
+@property (nonatomic, weak) IBOutlet UITextField *matchNumber;
+@property (nonatomic, weak) IBOutlet UIButton *matchType;
+@property (nonatomic, weak) IBOutlet UITextField *teamName;
+@property (nonatomic, weak) IBOutlet UITextField *teamNumber;
+@property (nonatomic, weak) IBOutlet UITextField *autonScoreMade;
+@property (nonatomic, weak) IBOutlet UITextField *autonScoreShot;
+@property (nonatomic, weak) IBOutlet UITextField *autonHotHigh;
+@property (nonatomic, weak) IBOutlet UITextField *autonColdHigh;
+@property (nonatomic, weak) IBOutlet UITextField *autonHotLow;
+@property (nonatomic, weak) IBOutlet UITextField *autonColdLow;
+@property (nonatomic, weak) IBOutlet UITextField *autonMissed;
+@property (nonatomic, weak) IBOutlet UITextField *autonBlocked;
+
+@property (nonatomic, weak) IBOutlet UITextField *teleOpScoreMade;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpScoreShot;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpHigh;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpLow;
+@property (nonatomic, weak) IBOutlet UITextField *wallPickUp;
+@property (nonatomic, weak) IBOutlet UITextField *wall1;
+@property (nonatomic, weak) IBOutlet UITextField *wall2;
+@property (nonatomic, weak) IBOutlet UITextField *wall3;
+@property (nonatomic, weak) IBOutlet UITextField *wall4;
+@property (nonatomic, weak) IBOutlet UITextField *teleOpMissed;
+
+@property (nonatomic, weak) IBOutlet UITextField *trussThrow;
+@property (nonatomic, weak) IBOutlet UITextField *trussCatch;
+
+@property (nonatomic, weak) IBOutlet UITextField *pickUpHuman;
+
+@property (nonatomic, weak) IBOutlet UITextField *passFloor;
+@property (nonatomic, weak) IBOutlet UITextField *passAir;
+
+@property (nonatomic, weak) IBOutlet UITextView  *notes;
+@property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
+@property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
 @property (weak, nonatomic) IBOutlet UITextField *disruptedShot;
 @property (weak, nonatomic) IBOutlet UITextField *trussThrowMiss;
@@ -57,40 +96,6 @@
     int currentIndex;
     NSDictionary *matchTypeDictionary;
 }
-@synthesize startingIndex = _startingIndex;
-@synthesize teamScores = _teamScores;
-@synthesize prevMatchButton = _prevMatchButton;
-@synthesize nextMatchButton = _nextMatchButton;
-@synthesize fieldImage = _fieldImage;
-@synthesize matchNumber = _matchNumber;
-@synthesize matchType = _matchType;
-@synthesize teamName = _teamName;
-@synthesize teamNumber = _teamNumber;
-@synthesize teleOpScoreMade = _teleOpScoreMade;
-@synthesize teleOpScoreShot = _teleOpScoreShot;
-@synthesize teleOpHigh = _teleOpHigh;
-@synthesize teleOpLow = _teleOpLow;
-@synthesize teleOpMissed = _teleOpMissed;
-@synthesize autonScoreMade = _autonScoreMade;
-@synthesize autonScoreShot = _autonScoreShot;
-@synthesize autonHotHigh = _autonHotHigh;
-@synthesize autonColdHigh = _autonColdHigh;
-@synthesize autonHotLow = _autonHotLow;
-@synthesize autonColdLow = _autonColdLow;
-@synthesize autonBlocked = _autonBlocked;
-@synthesize autonMissed = _autonMissed;
-@synthesize wallPickUp = _wallPickUp;
-@synthesize wall1 = _wall1;
-@synthesize wall2 = _wall2;
-@synthesize wall3 = _wall3;
-@synthesize wall4 = _wall4;
-@synthesize pickUpHuman = _pickUpHuman;
-@synthesize trussCatch = _trussCatch;
-@synthesize trussThrow = _trussThrow;
-@synthesize passFloor = _passFloor;
-@synthesize passAir = _passAir;
-@synthesize notes = _notes;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -216,10 +221,11 @@
 }
 
 -(void)setDisplayData {
-    _matchNumber.text = [NSString stringWithFormat:@"%d", [currentScore.match.number intValue]];
-    [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentScore.match.matchType forDictionary:matchTypeDictionary] forState:UIControlStateNormal];
-    _teamName.text = currentScore.team.name;
-    _teamNumber.text = [NSString stringWithFormat:@"%d", [currentScore.team.number intValue]];
+    _matchNumber.text = [NSString stringWithFormat:@"%d", [currentScore.matchNumber intValue]];
+    [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentScore.matchType forDictionary:matchTypeDictionary] forState:UIControlStateNormal];
+    TeamData *team = [DataConvenienceMethods getTeam:currentScore.teamNumber fromContext:_dataManager.managedObjectContext];
+    _teamName.text = team.name;
+    _teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     _notes.text = currentScore.notes;
     _autonScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.autonShotsMade intValue]];
     _autonScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalAutonShots intValue]];

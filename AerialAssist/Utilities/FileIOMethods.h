@@ -11,6 +11,7 @@
 @interface FileIOMethods : NSObject
 +(NSDictionary *)getDictionaryFromPListFile:(NSString *)fileName;
 +(void)writePListFileFromDictionary:(NSString *)fileName forDictionary:(NSDictionary *)dictionary error:(out NSError **)error NS_AVAILABLE(10_6, 4_0);
++(NSArray *)initializePopUpList:(NSString *)fileName;
 +(NSString *)applicationLibraryDirectory;
 +(NSString *)applicationDocumentsDirectory;
 

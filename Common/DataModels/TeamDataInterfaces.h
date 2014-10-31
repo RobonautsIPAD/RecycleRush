@@ -28,9 +28,7 @@
 -(NSArray *)getTeamListTournament:(NSString *)tournament;
 -(Regional *)getRegionalRecord:(TeamData *)team forWeek:(NSNumber *)week;
 -(id)checkAlternateKeys:(NSDictionary *)keyList forEntry:header;
--(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName;
--(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath;
 
 #ifdef TEST_MODE
 -(void)testTeamInterfaces;

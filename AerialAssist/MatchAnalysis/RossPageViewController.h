@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MatchTypePickerController.h"
 
 @class MatchData;
 @class TeamScore;
 @class TeamData;
 @class DataManager;
 
-@interface RossPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, MatchTypePickerDelegate>
+@interface RossPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign) MatchType currentSectionType;
@@ -46,7 +45,7 @@
 // Match Type
 @property (nonatomic, retain) IBOutlet UIButton *matchType;
 @property (nonatomic, retain) NSMutableArray *matchTypeList;
-@property (nonatomic, retain) MatchTypePickerController *matchTypePicker;
+//@property (nonatomic, retain) MatchTypePickerController *matchTypePicker;
 @property (nonatomic, retain) UIPopoverController *matchTypePickerPopover;
 -(IBAction)MatchTypeSelectionChanged:(id)sender;
 

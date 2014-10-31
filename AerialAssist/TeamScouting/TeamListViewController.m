@@ -63,7 +63,7 @@
     }
     
     [self loadSettings];
-    teamStats = [[CalculateTeamStats alloc] initWithDataManager:_dataManager];
+    teamStats = [[CalculateTeamStats alloc] init:_dataManager];
 
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
@@ -140,25 +140,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-   [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self saveSettings];
     [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 -(void)saveSettings {

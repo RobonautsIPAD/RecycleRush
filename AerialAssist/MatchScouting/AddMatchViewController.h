@@ -7,29 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopUpPickerViewController.h"
 
+@class DataManager;
 @class MatchData;
 
-@protocol AddMatchDelegate
-- (void)matchAdded:(NSMutableArray *)newMatch;
-@end
+@interface AddMatchViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, UITextFieldDelegate, PopUpPickerDelegate>
 
-@interface AddMatchViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, UITextFieldDelegate>
-
-@property (nonatomic, strong) UIPopoverController *popover;
-@property (weak, nonatomic) IBOutlet UIButton *matchTypeButton;
-@property (nonatomic, strong) IBOutlet UITextField *matchNumber;
-@property (nonatomic, strong) IBOutlet UITextField *red1;
-@property (nonatomic, strong) IBOutlet UITextField *red2;
-@property (nonatomic, strong) IBOutlet UITextField *red3;
-@property (nonatomic, strong) IBOutlet UITextField *blue1;
-@property (nonatomic, strong) IBOutlet UITextField *blue2;
-@property (nonatomic, strong) IBOutlet UITextField *blue3;
-@property (nonatomic, assign) id<AddMatchDelegate> delegate;
-
-- (IBAction)cancelVC:(id)sender;
-- (IBAction)addAction:(id)sender;
-- (IBAction)showPopup:(id)sender;
-- (void)gameTypeSelected:(NSNotification *)notification;
+@property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSString *tournamentName;
+@property (nonatomic, strong) NSDictionary *matchTypeDictionary;
 
 @end

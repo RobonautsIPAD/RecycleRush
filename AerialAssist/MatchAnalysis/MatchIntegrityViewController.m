@@ -11,6 +11,7 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "TeamData.h"
+#import "FileIOMethods.h"
 #import "EnumerationDictionary.h"
 
 @interface MatchIntegrityViewController ()
@@ -20,7 +21,11 @@
 @implementation MatchIntegrityViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSMutableDictionary *settingsDictionary;
+    NSString *previousTournament;
     NSDictionary *matchDictionary;
+    NSDictionary *allianceDictionary;
+    NSArray *scoreList;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -44,8 +49,10 @@
         self.title = @"Match Integrity Page";
     }
 
-    matchDictionary = [self getEnumDictionary:@"MatchType"];;
-    NSError *error1;
+    [self loadSettings];
+    matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+/*    NSError *error1;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
@@ -58,7 +65,7 @@
     for (TeamScore *score in scoreData) {
         NSLog(@"Match = %@, Team = %@, Results = %@", score.match.number, score.team.number, score.results);
     }
-
+*/
     NSError *error = nil;
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
@@ -78,21 +85,56 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(NSString *)getTeamNumber:(NSString *)allianceStation {
+    NSString *value = @"";
+    if (!scoreList || ![scoreList count]) return value;
+    NSNumber *alliance = [EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"allianceStation = %@", alliance];
+    NSArray *scoreData = [scoreList filteredArrayUsingPredicate:pred];
+    if (scoreData && [scoreData count]) {
+        TeamScore *score = [scoreData objectAtIndex:0];
+        if (![score.results boolValue]) {
+            value = [NSString stringWithFormat:@"%d", [score.teamNumber intValue]];
+        }
+    }
+    else {
+        value = @"No Team";
+    }
+    return value;
+}
+
+-(void)loadSettings {
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MatchIntegritySettings.plist"]];
+    settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
+    if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
+}
+
+-(void)saveSettings {
+    if (!settingsDictionary) {
+        settingsDictionary = [[NSMutableDictionary alloc] init];
+    }
+    [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
+    
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MatchIntegritySettings.plist"]];
+    NSError *error;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
+    if(data) {
+        [data writeToFile:plistPath atomically:YES];
+    }
+    else {
+        NSLog(@"An error has occured %@", error);
+    }
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self saveSettings];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(id)getEnumDictionary:(NSString *) dictionaryName {
-    if (!dictionaryName) {
-        return nil;
-    }
-    else if ([dictionaryName isEqualToString:@"MatchType"]) {
-        if (!matchDictionary) matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-        return matchDictionary;
-    }
-    else return nil;
 }
 
 #pragma mark - Table view data source
@@ -117,6 +159,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MatchData *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    //    red3Label.text = [self getTeamNumber:@"Red 3"];
 
 	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
@@ -125,109 +168,32 @@
     matchTypeLabel.text = [[EnumerationDictionary getKeyFromValue:info.matchType forDictionary:matchDictionary] substringToIndex:4];
    
     int nScores = 0;
-    NSArray *allScores = [info.score allObjects];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 3"];
-    NSArray *alliance = [allScores filteredArrayUsingPredicate:pred];
 
-    UILabel *blue3Label = (UILabel *)[cell viewWithTag:80];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            blue3Label.text = @"";
-            nScores++;
-        }
-        else {
-            blue3Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        blue3Label.text = @"No Team";
-    }
-    pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 2"];
-    alliance = [allScores filteredArrayUsingPredicate:pred];
-    
-    UILabel *blue2Label = (UILabel *)[cell viewWithTag:70];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            blue2Label.text = @"";
-            nScores++;
-        }
-        else {
-            blue2Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        blue2Label.text = @"No Team";
-    }
-    pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Blue 1"];
-    alliance = [allScores filteredArrayUsingPredicate:pred];
-    
-    UILabel *blue1Label = (UILabel *)[cell viewWithTag:60];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            blue1Label.text = @"";
-            nScores++;
-        }
-        else {
-            blue1Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        blue1Label.text = @"No Team";
-    }
-    pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 3"];
-    alliance = [allScores filteredArrayUsingPredicate:pred];
+    scoreList = [info.score allObjects];
+    UILabel *red1Label = (UILabel *)[cell viewWithTag:30];
+    red1Label.text = [self getTeamNumber:@"Red 1"];
+    if ([red1Label.text isEqualToString:@""]) nScores++;
+
+    UILabel *red2Label = (UILabel *)[cell viewWithTag:40];
+    red2Label.text = [self getTeamNumber:@"Red 2"];
+    if ([red2Label.text isEqualToString:@""]) nScores++;
     
     UILabel *red3Label = (UILabel *)[cell viewWithTag:50];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            red3Label.text = @"";
-            nScores++;
-        }
-        else {
-            red3Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        red3Label.text = @"No Team";
-    }
-    pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 2"];
-    alliance = [allScores filteredArrayUsingPredicate:pred];
-    
-    UILabel *red2Label = (UILabel *)[cell viewWithTag:40];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            red2Label.text = @"";
-            nScores++;
-        }
-        else {
-            red2Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        red2Label.text = @"No Team";
-    }
-    pred = [NSPredicate predicateWithFormat:@"alliance = %@", @"Red 1"];
-    alliance = [allScores filteredArrayUsingPredicate:pred];
-    
-    UILabel *red1Label = (UILabel *)[cell viewWithTag:30];
-    if ([alliance count]) {
-        TeamScore *score = [alliance objectAtIndex:0];
-        if ([score.results boolValue]) {
-            red1Label.text = @"";
-            nScores++;
-        }
-        else {
-            red1Label.text = [NSString stringWithFormat:@"%d", [score.team.number intValue]];
-        }
-    }
-    else {
-        red1Label.text = @"No Team";
-    }
+    red3Label.text = [self getTeamNumber:@"Red 3"];
+    if ([red3Label.text isEqualToString:@""]) nScores++;
+
+    UILabel *blue1Label = (UILabel *)[cell viewWithTag:60];
+    blue1Label.text = [self getTeamNumber:@"Blue 1"];
+    if ([blue1Label.text isEqualToString:@""]) nScores++;
+ 
+    UILabel *blue2Label = (UILabel *)[cell viewWithTag:70];
+    blue2Label.text = [self getTeamNumber:@"Blue 2"];
+    if ([blue2Label.text isEqualToString:@""]) nScores++;
+ 
+    UILabel *blue3Label = (UILabel *)[cell viewWithTag:80];
+    blue3Label.text = [self getTeamNumber:@"Blue 3"];
+    if ([blue3Label.text isEqualToString:@""]) nScores++;
+ 
     if (nScores == 6) {
         red1Label.text = @"Complete";
     }
@@ -281,13 +247,17 @@
         [fetchRequest setFetchBatchSize:20];
         
         // Edit the section name key path and cache name if appropriate.
+        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
+            // NSLog(@"Clear Cache");
+            [NSFetchedResultsController deleteCacheWithName:@"MatchIntegrity"];
+        }
         // nil for section name key path means "no sections".
         NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc]
          initWithFetchRequest:fetchRequest
          managedObjectContext:_dataManager.managedObjectContext
          sectionNameKeyPath:nil
-         cacheName:@"Root"];
+         cacheName:@"MatchIntegrity"];
         aFetchedResultsController.delegate = self;
         self.fetchedResultsController = aFetchedResultsController;
     }

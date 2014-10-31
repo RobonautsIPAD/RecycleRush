@@ -31,7 +31,6 @@
     NSFetchedResultsController *fetchedResultsController;
     MatchUtilities *matchUtilities;
 }
-@synthesize dataManager = _dataManager;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -81,8 +80,8 @@
     }
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
-    matchTypeDictionary = [self getEnumDictionary:@"matchTypeDictionary"];
-    allianceDictionary = [self getEnumDictionary:@"allianceListDictionary"];
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
     
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     headerView.backgroundColor = [UIColor lightGrayColor];
@@ -139,22 +138,7 @@
     [headerView addSubview:blueLabel];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
 {
     [self saveSettings];
     [super viewDidDisappear:animated];
@@ -164,21 +148,6 @@
 {
     // Return YES for supported orientations
 	return YES;
-}
-
--(id)getEnumDictionary:(NSString *) dictionaryName {
-    if (!dictionaryName) {
-        return nil;
-    }
-    else if ([dictionaryName isEqualToString:@"matchTypeDictionary"]) {
-        if (!matchTypeDictionary) matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-        return matchTypeDictionary;
-    }
-    else if ([dictionaryName isEqualToString:@"allianceListDictionary"]) {
-        if (!allianceDictionary) allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
-        return allianceDictionary;
-    }
-    else return nil;
 }
 
 -(void)setTeamList:(MatchData *)match {
@@ -191,66 +160,6 @@
     NSNumber *teamNumber = [matchUtilities getTeamFromList:teamList forAllianceStation:[EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary]];
     if (teamNumber) return [NSString stringWithFormat:@"%d", [teamNumber intValue]];
     else return @"";
-}
-
-- (void)matchAdded:(NSMutableArray *)newMatch {
-    NSLog(@"matchAdded");
-    // Data map
-    // newMatch[0] = Match Number
-    // newMatch[1] = Match Type
-    // newMatch[2] = Red 1
-    // newMatch[3] = Red 2
-    // newMatch[4] = Red 3
-    // newMatch[5] = Blue 1
-    // newMatch[6] = Blue 2
-    // newMatch[7] = Blue 3
-    // Check to make sure a match number and type have been set
-    NSString *matchNumberString = [newMatch objectAtIndex:0];
-    NSString *matchType = [newMatch objectAtIndex:1];
-    
-    NSLog(@"number string = (%@)", matchNumberString);
-    NSLog(@"type = (%@)", [newMatch objectAtIndex:1]);
-
-    if ([matchNumberString isEqualToString:@""] || [matchType isEqualToString:@""]) {
-        NSLog(@"blank match data");
-        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Match Add Alert"
-                                                          message:@"You must have both a match number and type"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];        
-        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-        [prompt show];
-        return;
-    }
-    NSNumber *matchNumber = [NSNumber numberWithInt:[matchNumberString intValue]];
-    NSNumber *red1 = [NSNumber numberWithInt:[[newMatch objectAtIndex:2] intValue]];
-    NSNumber *red2 = [NSNumber numberWithInt:[[newMatch objectAtIndex:3] intValue]];
-    NSNumber *red3 = [NSNumber numberWithInt:[[newMatch objectAtIndex:4] intValue]];
-    NSNumber *blue1 = [NSNumber numberWithInt:[[newMatch objectAtIndex:5] intValue]];
-    NSNumber *blue2 = [NSNumber numberWithInt:[[newMatch objectAtIndex:6] intValue]];
-    NSNumber *blue3 = [NSNumber numberWithInt:[[newMatch objectAtIndex:7] intValue]];
-    CreateMatch *matchObject = [CreateMatch new];
-    matchObject.managedObjectContext = _dataManager.managedObjectContext;
-    MatchData *match = [matchObject AddMatchObjectWithValidate:matchNumber
-                                              forTeam1:red1
-                                              forTeam2:red2
-                                              forTeam3:red3
-                                              forTeam4:blue1
-                                              forTeam5:blue2
-                                              forTeam6:blue3
-                                              forMatch:matchType
-                                         forTournament:tournamentName
-                                           forRedScore:[NSNumber numberWithInt:-1]
-                                          forBlueScore:[NSNumber numberWithInt:-1]];
-    NSLog(@"Move from match list to create match");
-    match.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    match.savedBy = [prefs objectForKey:@"deviceName"];
-    if (match) {
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-    }
 }
 
 -(void)loadSettings {
@@ -282,18 +191,21 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         pushedIndexPath = [self.tableView indexPathForCell:sender];
         [segue.destinationViewController setMatch:[fetchedResultsController objectAtIndexPath:indexPath]];
-        [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setDelegate:self];
+        [segue.destinationViewController setDataManager:_dataManager];
     }
     if ([segue.identifier isEqualToString:@"Add"]) {
         NSLog(@"add");
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
         AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
-        addvc.delegate = self;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+        [addvc setMatchTypeDictionary:matchTypeDictionary];
     }
  }
 
 - (void)matchDetailReturned:(BOOL)dataChange {
+    NSLog(@"is this needed");
     if (dataChange) {
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {

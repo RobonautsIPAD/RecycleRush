@@ -35,6 +35,12 @@
     }
 }
 
++(NSArray *)initializePopUpList:(NSString *)fileName {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
+    NSDictionary *dictionary = [FileIOMethods getDictionaryFromPListFile:plistPath];
+    return [dictionary keysSortedByValueUsingSelector:@selector(compare:)];
+}
+
 /**
  Returns the path to the application's Library directory.
  */

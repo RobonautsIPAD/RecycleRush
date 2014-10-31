@@ -13,7 +13,7 @@
 
 @interface CalculateTeamStats : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
-- (id)initWithDataManager:(DataManager *)initManager;
+- (id)init:(DataManager *)initManager;
 -(NSMutableDictionary *)calculateMasonStats:(TeamData *)team forTournament:(NSString *)tournament;
 
 @end

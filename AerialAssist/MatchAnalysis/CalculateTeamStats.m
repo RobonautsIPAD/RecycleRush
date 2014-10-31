@@ -16,7 +16,7 @@
 @implementation CalculateTeamStats
 @synthesize dataManager = _dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager {
+- (id)init:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
         _dataManager = initManager;
@@ -25,11 +25,8 @@
 }
 
 -(NSMutableDictionary *)calculateMasonStats:(TeamData *)team forTournament:(NSString *)tournament {
-    if (_dataManager == nil) {
-        _dataManager = [DataManager new];
-    }
-
-    if (!team) {
+    NSMutableDictionary *stats = [[NSMutableDictionary alloc] init];
+   if (!team) {
         return nil;
     }
 
@@ -39,9 +36,8 @@
     
 // fetch all score records for this tournament
     NSArray *allMatches;// = [team.match allObjects];
-    if (![allMatches count]) return nil;
+    if (![allMatches count]) return stats;
     
-    NSMutableDictionary *stats = [[NSMutableDictionary alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (match.matchType = %@ || match.matchType = %@)", tournament, [NSNumber numberWithBool:YES], @"Seeding", @"Elimination"];
     NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];
 

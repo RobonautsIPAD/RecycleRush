@@ -463,7 +463,7 @@
     UIButton * PressedButton = (UIButton*)sender;
     popUp = PressedButton;
     if (PressedButton == _intakeType) {
-        if (!intakeList) intakeList = [self initializePopUpList:@"IntakeType"];
+        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"IntakeType"];
         if (intakePicker == nil) {
             intakePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
@@ -478,7 +478,7 @@
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _driveType) {
-        if (!driveTypeList) driveTypeList = [self initializePopUpList:@"DriveType"];
+        if (!driveTypeList) driveTypeList = [FileIOMethods initializePopUpList:@"DriveType"];
         if (driveTypePicker == nil) {
             driveTypePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
@@ -493,7 +493,7 @@
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _shooterButton) {
-        if (!shooterList) shooterList = [self initializePopUpList:@"ShooterType"];
+        if (!shooterList) shooterList = [FileIOMethods initializePopUpList:@"ShooterType"];
         if (shooterPicker == nil) {
             shooterPicker = [[PopUpPickerViewController alloc]
                                 initWithStyle:UITableViewStylePlain];
@@ -508,7 +508,7 @@
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _tunnelButton) {
-        if (!tunnelList) tunnelList = [self initializePopUpList:@"Tunnel"];
+        if (!tunnelList) tunnelList = [FileIOMethods initializePopUpList:@"Tunnel"];
         if (tunnelPicker == nil) {
             tunnelPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
@@ -523,7 +523,7 @@
                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _spitBotButton) {
-        if (!quadStateList) quadStateList = [self initializePopUpList:@"QuadState"];
+        if (!quadStateList) quadStateList = [FileIOMethods initializePopUpList:@"QuadState"];
         if (quadStatePicker == nil) {
             quadStatePicker = [[PopUpPickerViewController alloc]
                             initWithStyle:UITableViewStylePlain];
@@ -539,7 +539,7 @@
     }
     else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
              PressedButton == _catcherButton) {
-        if (!triStateList) triStateList = [self initializePopUpList:@"TriState"];
+        if (!triStateList) triStateList = [FileIOMethods initializePopUpList:@"TriState"];
         if (triStatePicker == nil) {
             triStatePicker = [[PopUpPickerViewController alloc]
                                    initWithStyle:UITableViewStylePlain];
@@ -600,20 +600,26 @@
 
 -(IBAction)teamNumberChanged {
     // The user has typed a new team number in the field. Access that team and display it.
-    // NSLog(@"MatchNumberChanged");
+    // NSLog(@"teamNumberChanged");
     [self checkDataStatus];
+    if ([_numberText.text isEqualToString:@""]) {
+        _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
+        return;
+    }
     int currentTeam = [_numberText.text intValue];
-    printf("%d", currentTeam);
+    BOOL found = FALSE;
     for(int x = 0; x < [self getNumberOfTeams]; x++){
         NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
         TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
-        if([team.number intValue] == currentTeam){
+        if([team.number intValue] == currentTeam) {
             _teamIndex = teamIndex;
             _team = team;
             [self showTeam];
+            found = TRUE;
             break;
         }
     }
+    if (!found) _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];        
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -846,6 +852,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Segue occurs when the user selects a match out of the match list table. Receiving
     //  VC is the FieldDrawing VC.
+    [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"MatchSchedule"]) {
         NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
         [segue.destinationViewController setTeamScores:matchList];
@@ -970,12 +977,6 @@
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-}
-
--(NSArray *)initializePopUpList:(NSString *)fileName {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-    NSDictionary *dictionary = [FileIOMethods getDictionaryFromPListFile:plistPath];
-    return [dictionary keysSortedByValueUsingSelector:@selector(compare:)];
 }
 
 @end

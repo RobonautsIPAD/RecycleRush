@@ -125,97 +125,14 @@
     }
 }
 
--(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
-    // File name format T#.pck
-    NSString *fileNameBase;
-    if ([team.number intValue] < 100) {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [team.number intValue]]];
-    } else if ( [team.number intValue] < 1000) {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [team.number intValue]]];
-    } else {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
-    }
-    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
-//    NSData *myData = [self packageTeamForXFer:team];
-  //  [myData writeToFile:exportFile atomically:YES];
-}
-
--(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
-    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
-    //     Assign unpacked data to the team record
-    //     Return team record
-    NSNumber *teamNumber = [myDictionary objectForKey:@"number"];
-    if (!teamNumber) return nil;
-    
-    TeamData *teamRecord = [self getTeam:teamNumber];
-    if (!teamRecord) {
-        teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
-                                             inManagedObjectContext:_dataManager.managedObjectContext];
-        [teamRecord setValue:teamNumber forKey:@"number"];
-    }
-    // Create the property dictionary if it hasn't been created yet
-    if (!_teamDataProperties) _teamDataProperties = [[teamRecord entity] propertiesByName];
-    // check retrieved team, if the saved and saveby match the imcoming data then just do nothing
-    NSNumber *saved = [myDictionary objectForKey:@"saved"];
-    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
-
-    if ([saved floatValue] == [teamRecord.saved floatValue] && [savedBy isEqualToString:teamRecord.savedBy]) {
-        NSLog(@"Team has already transferred, team = %@", teamNumber);
-        NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
-        NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
-        return teamTransfer;
-    }
-
-    // Cycle through each object in the transfer data dictionary
-    for (NSString *key in myDictionary) {
-        if ([key isEqualToString:@"number"]) continue; // We have already processed team number
-        if ([key isEqualToString:@"primePhoto"]) {
-            // Only do something with the prime photo if there is not photo already
-            if (!teamRecord.primePhoto) {
-                [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
-            }
-            continue;
-        }
-        // if key is property, branch to photoList or tournamentList to decode
-        id value = [_teamDataProperties valueForKey:key];
-        if ([value isKindOfClass:[NSAttributeDescription class]]) {
-            [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
-        }
-        else {   // This is a relationship property
-            NSRelationshipDescription *destination = [value inverseRelationship];
-            if ([destination.entity.name isEqualToString:@"TournamentData"]) {
-                // NSLog(@"T dictionary = %@", [myDictionary objectForKey:key]);
-                for (int i=0; i<[[myDictionary objectForKey:key] count]; i++) {
-                    [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
-                }
-             }
-/*            else if ([destination.entity.name isEqualToString:@"Photo"]) {
-                [self syncPhotoList:teamRecord forSender:[myDictionary objectForKey:key]];
-            }*/
-        }
-    }
-    
-    teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
-    
-    NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
-    NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
-    return teamTransfer;
-}
-
+/*
 -(void)setPhotoDirectories {
     // Get the robot photo directories
     fileManager = [NSFileManager defaultManager];
     NSString *library = [self applicationDocumentsDirectory];
     robotPhotoLibrary = [library stringByAppendingPathComponent:[NSString stringWithFormat:@"RobotPhotos"]];
     photoExportPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"iTunes Photo Transfer"]];
-}
+}*/
 
 -(void)addTournamentToTeam:(TeamData *)team forTournament:(NSString *)tournamentName {
 /*    NSLog(@"Team = %@, Tourney = %@", team.number, tournamentName);

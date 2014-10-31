@@ -13,9 +13,6 @@
 @end
 
 @implementation PopUpPickerViewController
-@synthesize pickerChoices = _pickerChoices;
-@synthesize delegate = _delegate;
-
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

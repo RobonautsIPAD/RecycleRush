@@ -10,18 +10,15 @@
 #import "DataManager.h"
 
 @interface TournamentAnalysisViewController ()
-
+    @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+    @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+    @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+    @property (nonatomic, weak) IBOutlet UIButton *masonPageButton;
+    @property (nonatomic, weak) IBOutlet UIButton *lucianPageButton;
+    @property (nonatomic, weak) IBOutlet UIButton *ridleyPageButton;
 @end
 
 @implementation TournamentAnalysisViewController
-
-@synthesize dataManager = _dataManager;
-@synthesize mainLogo = _mainLogo;
-@synthesize splashPicture = _splashPicture;
-@synthesize pictureCaption = _pictureCaption;
-@synthesize masonPageButton = _masonPageButton;
-@synthesize lucianPageButton = _lucianPageButton;
-@synthesize ridleyPageButton = _ridleyPageButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,8 +48,6 @@
     //Set Font And Page For Ridley Page Button
     [_ridleyPageButton setTitle:@"Ridley Page" forState:UIControlStateNormal];
     _ridleyPageButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning

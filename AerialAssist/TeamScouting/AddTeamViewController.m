@@ -10,19 +10,19 @@
 
 @interface AddTeamViewController ()
 
+@property (nonatomic, weak) IBOutlet UITextField *teamNumberTextField;
+@property (nonatomic, weak) IBOutlet UITextField *teamNameTextField;
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+
+
 @end
 
 @implementation AddTeamViewController {
     NSNumber *teamNumber;
     NSString *teamName;
 }
-
-@synthesize teamNumberTextField = _teamNumberTextField;
-@synthesize teamNameTextField = _teamNameTextField;
-@synthesize delegate = _delegate;
-@synthesize splashPicture =_splashPicture;
-@synthesize mainLogo = _mainLogo;
-@synthesize pictureCaption = _pictureCaption;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,11 +45,6 @@
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
     [_teamNameTextField setHidden:TRUE];
-}
-
-- (void)viewDidUnload {
-    teamName = nil;
-    teamNumber = nil;
 }
 
 - (IBAction)cancelVC:(id)sender {

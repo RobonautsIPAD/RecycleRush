@@ -34,4 +34,6 @@
 
 +(NSString *)outputCSVValue:data forAttribute:attribute forEnumDictionary:enumDictionary;
 
++(NSString *)getTableFormat:(NSDictionary *)data forField:(NSDictionary *)formatData;
+
 @end

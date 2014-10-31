@@ -7,22 +7,33 @@
 //
 
 #import "AddMatchViewController.h"
-#import "MatchTypePickerController.h"
-#import "MatchTypeDictionary.h"
+#import "PopUpPickerViewController.h"
+#import "FileIOMethods.h"
+#import "DataManager.h"
+#import "MatchUtilities.h"
+#import "EnumerationDictionary.h"
+
+@interface AddMatchViewController ()
+    @property (weak, nonatomic) IBOutlet UIButton *matchTypeButton;
+    @property (nonatomic, strong) IBOutlet UITextField *matchNumber;
+    @property (nonatomic, strong) IBOutlet UITextField *red1;
+    @property (nonatomic, strong) IBOutlet UITextField *red2;
+    @property (nonatomic, strong) IBOutlet UITextField *red3;
+    @property (nonatomic, strong) IBOutlet UITextField *blue1;
+    @property (nonatomic, strong) IBOutlet UITextField *blue2;
+    @property (nonatomic, strong) IBOutlet UITextField *blue3;
+    @property (nonatomic, strong) IBOutlet UITextField *red4;
+    @property (nonatomic, strong) IBOutlet UITextField *blue4;
+@end
 
 @implementation AddMatchViewController {
     NSMutableArray *newMatch;
+    MatchUtilities *matchUtilities;
+    PopUpPickerViewController *matchTypePicker;
+    UIPopoverController *matchTypePickerPopover;
+    NSArray *matchTypeList;
+    id popUp;
 }
-
-@synthesize popover = _popover;
-@synthesize delegate;
-@synthesize matchNumber;
-@synthesize red1;
-@synthesize red2;
-@synthesize red3;
-@synthesize blue1;
-@synthesize blue2;
-@synthesize blue3;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,17 +64,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameTypeSelected:) name:@"cellSelected" object:nil];
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    NSLog(@"Add blue 4 and red 4 for elim matches");
     newMatch = [[NSMutableArray alloc] initWithObjects:@"", @"", @"", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
-}
-
-- (void)viewDidUnload
-{
-    [self setMatchTypeButton:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -76,47 +79,63 @@
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
+-(NSMutableArray *) buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
+    // Return a thing with the alliance station in the first slot
+    // and the team number in the second slot
+    if (!alliance || [alliance isEqualToString:@""]) return teamList;
+    if (!teamTextField.text || [teamTextField.text isEqualToString:@""]) return teamList;
+    NSNumber *teamNumber = [NSNumber numberWithInt:[teamTextField.text intValue]];
+    NSDictionary *teamInfo = [NSDictionary dictionaryWithObject:teamNumber forKey:alliance];
+    [teamList addObject:teamInfo];
+    return teamList;
+}
+
 - (IBAction)addAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:Nil];
-    NSLog(@"Adding match");
-    NSLog(@"match = %@", newMatch);
-    if (delegate == nil) NSLog(@"no delegate");
-    [delegate matchAdded:newMatch];
-}
+    NSNumber *matchNumber = [NSNumber numberWithInt:[_matchNumber.text intValue]];
+    NSLog(@"add check to make sure there is a match number and type");
+    NSLog(@"do something about create new match that returns an exising one if it exists");
+    NSMutableArray *teamList = [[NSMutableArray alloc] init];
+    teamList = [self buildTeamList:@"Red 1" forTextBox:_red1 forTeamList:teamList];
+    teamList = [self buildTeamList:@"Red 2" forTextBox:_red2 forTeamList:teamList];
+    teamList = [self buildTeamList:@"Red 3" forTextBox:_red3 forTeamList:teamList];
+    teamList = [self buildTeamList:@"Blue 1" forTextBox:_blue1 forTeamList:teamList];
+    teamList = [self buildTeamList:@"Blue 2" forTextBox:_blue2 forTeamList:teamList];
+    teamList = [self buildTeamList:@"Blue 3" forTextBox:_blue3 forTeamList:teamList];
 
-- (void)gameTypeSelected:(NSNotification *)notification {
-    NSLog(@"Object in dictionary: %@", [[notification userInfo] objectForKey:@"selectedChoice"]);
-    if ([_popover isPopoverVisible]) {
-        [_popover dismissPopoverAnimated:YES];
+    if ([_matchTypeButton.titleLabel.text isEqualToString:@"Elimination"]) {
+        teamList = [self buildTeamList:@"Red 4" forTextBox:_red4 forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
-/*
-    NSString *passedString = [[notification userInfo] objectForKey:@"selectedChoice"];
-    if ([passedString isEqualToString:@"Practice"]) {
-            gameType = kMatchTypePractice;
-        } else if ([passedString isEqualToString:@"Seeding"]) {
-            gameType = kMatchTypeSeeding;
-        } else if ([passedString isEqualToString:@"Elimination"]) {
-            gameType = kMatchTypeElimination;
-        } else if ([passedString isEqualToString:@"Testing"]) {
-            gameType = kMatchTypeTesting;
-        } else if ([passedString isEqualToString:@"Other"]) {
-            gameType = kMatchTypeOther;
-        }
-    _matchTypeButton.titleLabel.text = passedString;
-    [newMatch replaceObjectAtIndex:1 withObject:passedString];*/
+    NSString *errMsg = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName];
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
-- (IBAction)showPopup:(id)sender {
+- (IBAction)matchTypeSelectionChanged:(id)sender {
+    UIButton *PressedButton = (UIButton*)sender;
+    popUp = PressedButton;
+    if (!matchTypeList) matchTypeList = [FileIOMethods initializePopUpList:@"MatchType"];
+        if (matchTypePicker == nil) {
+            matchTypePicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            matchTypePicker.delegate = self;
+            matchTypePicker.pickerChoices = matchTypeList;
+        }
+        if (!matchTypePickerPopover) {
+            matchTypePickerPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:matchTypePicker];
+        }
+        [matchTypePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
 
-    MatchTypePickerController *pickerTable = [[MatchTypePickerController alloc] initWithStyle:UITableViewStylePlain];
-    pickerTable.senderID = @"addMatch";
-    MatchTypeDictionary *dict = [[MatchTypeDictionary alloc] init];
-    NSMutableArray *types = [[dict getMatchTypes] copy];
-    [pickerTable setMatchTypeChoices:types];
-    _popover = [[UIPopoverController alloc] initWithContentViewController:pickerTable];
-    [_popover setDelegate:self];
-    [_popover setPopoverContentSize:[pickerTable contentSizeForViewInPopover]];
-    [_popover presentPopoverFromRect:CGRectMake(213, 90, 100, 145) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+-(void)pickerSelected:(NSString *)newPick {
+    // The user has made a selection on one of the pop-ups. Dismiss the pop-up
+    //  and call the correct method to change the right field.
+    NSLog(@"new pick = %@", newPick);
+    if (popUp == _matchTypeButton) {
+        [matchTypePickerPopover dismissPopoverAnimated:YES];
+    }
+    [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -138,28 +157,28 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     //    NSLog(@"team should end editing");
-    if (textField == matchNumber) {
+    if (textField == _matchNumber) {
         [newMatch replaceObjectAtIndex:0
-                            withObject:matchNumber.text];
+                            withObject:_matchNumber.text];
 	}
-	else if (textField == red1) {
+	else if (textField == _red1) {
         [newMatch replaceObjectAtIndex:2
-                            withObject:red1.text];	}
-	else if (textField == red2) {
+                            withObject:_red1.text];	}
+	else if (textField == _red2) {
         [newMatch replaceObjectAtIndex:3
-                            withObject:red2.text];	}
-	else if (textField == red3) {
+                            withObject:_red2.text];	}
+	else if (textField == _red3) {
         [newMatch replaceObjectAtIndex:4
-                            withObject:red3.text];	}
-	else if (textField == blue1) {
+                            withObject:_red3.text];	}
+	else if (textField == _blue1) {
         [newMatch replaceObjectAtIndex:5
-                            withObject:blue1.text];	}
-	else if (textField == blue2) {
+                            withObject:_blue1.text];	}
+	else if (textField == _blue2) {
         [newMatch replaceObjectAtIndex:6
-                            withObject:blue2.text];	}
-	else if (textField == blue3) {
+                            withObject:_blue2.text];	}
+	else if (textField == _blue3) {
         [newMatch replaceObjectAtIndex:7
-                            withObject:blue3.text];	}
+                            withObject:_blue3.text];	}
 	return YES;
 }
 

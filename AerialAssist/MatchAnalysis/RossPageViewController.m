@@ -50,7 +50,7 @@
 @synthesize matchNumber;
 @synthesize matchType;
 @synthesize matchTypeList;
-@synthesize matchTypePicker;
+//@synthesize matchTypePicker;
 @synthesize matchTypePickerPopover;
 
 // Team Data
@@ -301,7 +301,7 @@
 
 -(IBAction)MatchTypeSelectionChanged:(id)sender {
     //    NSLog(@"matchTypeSelectionChanged");
-    if (matchTypePicker == nil) {
+/*    if (matchTypePicker == nil) {
         self.matchTypePicker = [[MatchTypePickerController alloc]
                                 initWithStyle:UITableViewStylePlain];
         matchTypePicker.delegate = self;
@@ -310,7 +310,7 @@
                                        initWithContentViewController:matchTypePicker];
     }
     [self.matchTypePickerPopover presentPopoverFromRect:matchType.bounds inView:matchType
-                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];*/
 }
 
 - (void)matchTypeSelected:(NSString *)newMatchType {
