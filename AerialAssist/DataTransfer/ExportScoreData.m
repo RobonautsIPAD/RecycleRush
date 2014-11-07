@@ -8,27 +8,30 @@
 
 #import "ExportScoreData.h"
 #import "DataManager.h"
+#import "DataConvenienceMethods.h"
 #import "TeamScore.h"
 #import "FieldDrawing.h"
+#import "EnumerationDictionary.h"
 #import "TeamData.h"
 #import "MatchData.h"
 #import "CreateMatch.h"
-#import "MatchTypeDictionary.h"
 
 @implementation ExportScoreData {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSDictionary *teamScoreAttributes;
     NSDictionary *properties;
     NSDictionary *attributes;
-    MatchTypeDictionary *matchDictionary;
+    NSDictionary *matchDictionary;
     NSArray *scoutingSpreadsheetList;
     BOOL firstPass;
 }
 
-- (id)initWithDataManager:(DataManager *)initManager {
+-(id)init:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
         _dataManager = initManager;
+        matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
 	}
     firstPass = TRUE;
 	return self;
@@ -40,7 +43,6 @@
     }
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
-    matchDictionary = [[MatchTypeDictionary alloc] init];
     
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -98,7 +100,7 @@
 
 -(NSString *)createScore:(TeamScore *)score {
     NSString *csvString;
-    csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@, %@", score.team.number, score.match.number, score.match.matchType, tournamentName];
+    csvString = [[NSString alloc] initWithFormat:@"%@, %@, %@, %@", score.teamNumber, score.matchNumber, score.matchType, tournamentName];
     for (NSString *item in properties) {
         if ([item isEqualToString:@"team"]) continue; // We have already printed the team number
         if ([item isEqualToString:@"match"]) continue; // We have already printed the match number
@@ -296,6 +298,63 @@
         return fieldDrawingFile;
     }
     else return @"";*/
+    return @"";
+}
+
+-(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath {
+    // File name format M(Type)#T#
+    NSString *match;
+    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:score.matchType forDictionary:matchDictionary];
+    char matchCode;
+    if (matchTypeString) matchCode = [matchTypeString characterAtIndex:0];
+    if ([score.matchNumber intValue] < 10) {
+        match = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"00%d", [score.matchNumber intValue]]];
+     } else if ( [score.match.number intValue] < 100) {
+     match = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"0%d", [score.matchNumber intValue]]];
+     } else {
+     match = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"%d", [score.matchNumber intValue]]];
+     }
+     NSString *team;
+     if ([score.teamNumber intValue] < 100) {
+     team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [score.teamNumber intValue]]];
+     } else if ( [score.teamNumber intValue] < 1000) {
+     team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [score.teamNumber intValue]]];
+     } else {
+     team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [score.teamNumber intValue]]];
+     }
+     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@_%@.pck", match, team]];
+     NSData *myData = [self packageScoreForXFer:score];
+     [myData writeToFile:exportFile atomically:YES];
+    
+}
+
+-(NSData *)packageScoreForXFer:(TeamScore *)score {
+    if (!_dataManager) {
+        _dataManager = [DataManager new];
+    }
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    for (NSString *item in teamScoreAttributes) {
+        if ([score valueForKey:item]) {
+            if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
+                [keyList addObject:item];
+                [valueList addObject:[score valueForKey:item]];
+            }
+        }
+    }
+    if (score.fieldDrawing && score.fieldDrawing.trace) {
+        [keyList addObject:@"fieldDrawing"];
+        [valueList addObject:score.fieldDrawing.trace];
+    }
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
+    if ([score.match.number intValue] == 1) {
+        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
+        NSLog(@"Data = %@", dictionary);
+    }
+    return myData;
 }
 
 /**

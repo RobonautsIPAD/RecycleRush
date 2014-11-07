@@ -261,7 +261,7 @@
     NSError *error;
     if (!managedObjectContext) return Nil;
     // A match needs 4 unique items to define it. A match number, the match type and the tournament name.
-    NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
+    // NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
@@ -288,7 +288,7 @@
     TeamScore *scoreRecord;
     NSError *error;
     // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
-    NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
+    // NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
@@ -312,7 +312,7 @@
                 break;
             case 1:
                 scoreRecord = [matchScores objectAtIndex:0];
-                NSLog(@"Match %@ %@ exists", matchType, matchNumber);
+                // NSLog(@"Match %@ %@ exists", matchType, matchNumber);
                 return scoreRecord;
                 break;
             default: {
@@ -436,30 +436,32 @@
 }
 
 +(BOOL)compareAttributeToDefault:(id)value forAttribute:attribute {
-    BOOL defaultValue = FALSE;
+    BOOL isDefaultValue = FALSE;
+    id defaultValue = [attribute valueForKey:@"defaultValue"];
+    if (!defaultValue) return isDefaultValue;
     NSAttributeType attributeType = [attribute attributeType];
     if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
-        if ([value intValue] == [[attribute valueForKey:@"defaultValue"] intValue]) {
-            defaultValue = TRUE;
+        if ([value intValue] == [defaultValue intValue]) {
+            isDefaultValue = TRUE;
         }
     }
     else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
         if ([value floatValue] == [[attribute valueForKey:@"defaultValue"] floatValue]) {
-            defaultValue = TRUE;
+            isDefaultValue = TRUE;
         }
 
     }
     else if (attributeType == NSBooleanAttributeType) {
         if ([value intValue] == [[attribute valueForKey:@"defaultValue"] intValue]) {
-            defaultValue = TRUE;
+            isDefaultValue = TRUE;
         }
     }
     else if (attributeType == NSStringAttributeType) {
         if ([value isEqualToString:[attribute valueForKey:@"defaultValue"]]) {
-            defaultValue = TRUE;
+            isDefaultValue = TRUE;
         }
     }
-    return defaultValue;
+    return isDefaultValue;
 }
 
 +(NSString *)outputCSVValue:data forAttribute:attribute forEnumDictionary:enumDictionary; {

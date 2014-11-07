@@ -9,13 +9,14 @@
 #import <Foundation/Foundation.h>
 @class DataManager;
 @class TeamData;
+@class TeamScore;
 
 @interface ExportScoreData : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 
--(id)initWithDataManager:(DataManager *)initManager;
+-(id)init:(DataManager *)initManager;
 -(NSString *)teamScoreCSVExport;
 -(NSString *)spreadsheetCSVExport:(TeamData *)team forMatches:(NSString *)choice;
 -(void)exportFullMatchData:(NSArray *)teamList;
-
+-(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath;
 @end

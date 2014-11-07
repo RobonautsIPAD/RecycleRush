@@ -72,7 +72,7 @@
         [keyList addObject:@"fieldDrawing"];
         [valueList addObject:score.fieldDrawing.trace];
     }
-    if (score.team) {
+ /*   if (score.team) {
         [keyList addObject:@"teamNumber"];
         [valueList addObject:score.team.number];
     }
@@ -81,21 +81,19 @@
         [valueList addObject:score.match.number];
         [keyList addObject:@"matchType"];
         [valueList addObject:score.match.matchType];
-    }
+    }*/
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     if ([score.match.number intValue] == 1) {
-        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.match.number, score.match.matchType, score.team.number, score.saved);
+        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
         NSLog(@"Data = %@", dictionary);
     }
     return myData;
 }
 
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData {
-    if (!_dataManager) {
-        _dataManager = [DataManager new];
-    }
+    if (!_dataManager) return Nil;
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
     NSString *matchType = [myDictionary objectForKey:@"matchType"];
@@ -153,7 +151,7 @@
     if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
         NSLog(@"Match has already transferred, match = %@", score.match.number);
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"team", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.team.number, @"N", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, score.matchType, score.teamNumber, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         return teamTransfer;
     }
@@ -181,7 +179,7 @@
     }
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"results", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:score.match.number, score.match.matchType, score.allianceStation, score.team.number, score.results, @"Y", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, score.matchType, score.allianceStation, score.teamNumber, score.results, @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }
@@ -198,7 +196,7 @@
 
     if (oldScore) {
         // A score record already exists in this alliance
-        if ([oldScore.team.number intValue] != [teamNumber intValue]) {
+        if ([oldScore.teamNumber intValue] != [teamNumber intValue]) {
             // A different team already exists at this spot.
             // If the team that is already there has not been saved (as in the record has been
             //   created, but no one has saved any actual score data, then delete the old team and add the new.
@@ -234,7 +232,7 @@
     
     TeamScore *teamScore = [NSEntityDescription insertNewObjectForEntityForName:@"TeamScore"
                                                          inManagedObjectContext:_dataManager.managedObjectContext];
-    [teamScore setTeam:team];
+ //   [teamScore setTeam:team];
 //    [teamScore setAlliance:alliance];
 //    [teamScore setAllianceSection:[NSNumber numberWithInt:allianceSection]];
     [teamScore setTournamentName:tournament];

@@ -2,14 +2,13 @@
 //  TeamScore.m
 //  AerialAssist
 //
-//  Created by FRC on 10/14/14.
+//  Created by FRC on 11/4/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
 //
 
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "MatchData.h"
-#import "TeamData.h"
 
 
 @implementation TeamScore
@@ -97,6 +96,5 @@
 @dynamic trussThrowMiss;
 @dynamic fieldDrawing;
 @dynamic match;
-@dynamic team;
 
 @end

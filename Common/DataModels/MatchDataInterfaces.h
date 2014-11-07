@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSDictionary *matchDataAttributes;
 
 -(id)initWithDataManager:(DataManager *)initManager;
--(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath;
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
 -(MatchData *)updateMatch:(NSDictionary *)matchInfo;
 -(MatchData *)getMatch:(NSNumber *)matchNumber forMatchType:(NSString *) type forTournament:(NSString *) tournament;

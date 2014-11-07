@@ -14,7 +14,7 @@
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "TournamentData.h"
-#include "MatchTypeDictionary.h"
+//#include "MatchTypeDictionary.h"
 
 // Current Match Results File Order
 /*
@@ -55,7 +55,7 @@
 */
 
 @implementation CreateMatch {
-    MatchTypeDictionary *matchDictionary;
+   // MatchTypeDictionary *matchDictionary;
     NSString *teamError;
 }
 
@@ -84,7 +84,7 @@
                              forRedScore:(NSNumber *)redScore
                             forBlueScore:(NSNumber *)blueScore
 {
-    if (!managedObjectContext) {
+/*    if (!managedObjectContext) {
         if (_dataManager) {
             managedObjectContext = _dataManager.managedObjectContext;
         }
@@ -125,7 +125,7 @@
         // NSLog(@"   Team Score = %@", match.score);
         return match;
     }
-    else return nil;
+    else*/ return nil;
 }
 
 -(AddRecordResults)ValidateMatch:(NSNumber *)number
@@ -266,7 +266,7 @@
         // NSLog(@"Team Number = %d", teamNumber);
         for (int i=0; i<[teamScores count]; i++) {
             score = [teamScores objectAtIndex:i];
-            if ([score.team.number intValue] == teamNumber) {
+            if ([score.teamNumber intValue] == teamNumber) {
                 found = YES;
                 break;
             };
@@ -364,7 +364,7 @@
                                       forRedScore:(NSNumber *)redScore
                                       forBlueScore:(NSNumber *)blueScore {
     
-    MatchData *match = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData" 
+/*    MatchData *match = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
                                                      inManagedObjectContext:managedObjectContext];        
     matchDictionary = [[MatchTypeDictionary alloc] init];
     match.matchType = matchType;
@@ -382,7 +382,7 @@
     match.blueScore = blueScore;
 //    NSLog(@"Adding New Match = %@, Tournament = %@, Type = %@, Section = %@", match.number, match.tournament, match.matchType, match.matchTypeSection);
 //  NSLog(@" Tournament = %@", match.tournament);
-// NSLog(@"   Team Score = %@", match.score);
+// NSLog(@"   Team Score = %@", match.score);*/
 }
 
 

@@ -74,9 +74,9 @@
     dataChange = NO;
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
-    matchDictionary = [self getEnumDictionary:@"MatchType"];;
+    matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
     matchTypeList = [matchDictionary keysSortedByValueUsingSelector:@selector(compare:)];
-    allianceDictionary = [self getEnumDictionary:@"allianceListDictionary"];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
 
     _numberTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
     _numberTextField.text = [NSString stringWithFormat:@"%d", [_match.number intValue]];
@@ -407,47 +407,17 @@
 -(BOOL)editTeam:(int)teamNumber forScore:(TeamScore *)score{
     // NSLog(@"EditTeam");
     // Get team data object for team number
-    TeamData *team = [DataConvenienceMethods getTeamInTournament:[NSNumber numberWithInt:teamNumber] forTournament:_match.tournamentName fromContext:_dataManager.managedObjectContext];
+/*    TeamData *team = [DataConvenienceMethods getTeamInTournament:[NSNumber numberWithInt:teamNumber] forTournament:_match.tournamentName fromContext:_dataManager.managedObjectContext];
     // NSLog(@"Team data = %@", team);
     if (!team) return 0;
     // check score to see if it is allocated
     if (score) {
         [self setScoreData:score];
-        [score setTeam:team]; // Set Relationship!!! */
+   //     [score setTeam:team]; // Set Relationship!!!
         return 1;
     }
-    else return 0;
-}
-
--(void)setScoreData:(TeamScore *)score {
-    score.airCatch = [NSNumber numberWithInt:0];
-    score.airPasses = [NSNumber numberWithInt:0];
-    score.autonBlocks = [NSNumber numberWithInt:0];
-    score.autonHighCold = [NSNumber numberWithInt:0];
-    score.autonHighHot = [NSNumber numberWithInt:0];
-    score.autonLowCold = [NSNumber numberWithInt:0];
-    score.autonLowHot = [NSNumber numberWithInt:0];
-    score.autonMissed = [NSNumber numberWithInt:0];
-    score.autonLowMiss = [NSNumber numberWithInt:0];
-    score.autonHighMiss = [NSNumber numberWithInt:0];
-    score.autonShotsMade = [NSNumber numberWithInt:0];
-    score.autonMobility = [NSNumber numberWithInt:0];
-    score.fieldDrawing = nil;
-}
-
--(id)getEnumDictionary:(NSString *) dictionaryName {
-    if (!dictionaryName) {
-        return nil;
-    }
-    if ([dictionaryName isEqualToString:@"MatchType"]) {
-        if (!matchDictionary) matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-        return matchDictionary;
-    }
-    else if ([dictionaryName isEqualToString:@"allianceListDictionary"]) {
-        if (!allianceDictionary) allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
-        return allianceDictionary;
-    }
-    else return nil;
+    else return 0;*/
+    return 0;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

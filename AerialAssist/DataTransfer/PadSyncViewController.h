@@ -7,11 +7,14 @@
 //
 
 #import "PopUpPickerViewController.h"
+#import "SyncMethods.h"
 
 @class DataManager;
 
-@interface PadSyncViewController : UIViewController <UIActionSheetDelegate, PopUpPickerDelegate>
+@interface PadSyncViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, PopUpPickerDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, assign) SyncType syncType;
+@property (nonatomic, assign) SyncOptions syncOption;
 
 @end

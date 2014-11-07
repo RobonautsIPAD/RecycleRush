@@ -17,7 +17,6 @@
 
 -(NSString *)matchDataCSVExport:(NSString *)tournamentName;
 -(NSData *)packageMatchForXFer:(MatchData *)match;
--(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath;
 
 

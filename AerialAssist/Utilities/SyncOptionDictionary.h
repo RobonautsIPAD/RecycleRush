@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SyncMethods.h"
 @interface SyncOptionDictionary : NSObject
 -(NSString *)getSyncOptionString:(SyncOptions) key;
 -(id)getSyncOptionEnum:(NSString *) value;

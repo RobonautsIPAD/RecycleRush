@@ -10,6 +10,7 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "FieldDrawing.h"
+#import "EnumerationDictionary.h"
 #import "CalculateTeamStats.h"
 #import "DataManager.h"
 #import "TeamData.h"
@@ -25,6 +26,7 @@
     NSMutableArray *matchViews;
     NSMutableArray *matchButtons;
     UIView *teamHeader;
+    NSDictionary *matchTypeDictionary;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +51,7 @@
         self.title = @"Match Overlay";
     }
 
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
     matchViews = [[NSMutableArray alloc] init];
     matchButtons = [[NSMutableArray alloc] init];
     UILabel *mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(890,15,104,24)];
@@ -69,10 +72,11 @@
             }
             [self.view addSubview:trace];
             [matchViews addObject:trace];
-//            NSString *labelText = [NSString stringWithFormat:@"%@ %@", [score.match.matchType substringToIndex:4], score.match.number];
+            NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:score.matchType forDictionary:matchTypeDictionary];
+            NSString *labelText = [NSString stringWithFormat:@"%@ %@", [matchTypeString substringToIndex:4], score.matchNumber];
 //            NSLog(@"%@", labelText);
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(915,yPos,84,24)];
-//            label.text = labelText;
+            label.text = labelText;
             label.textColor = [UIColor colorWithRed:1.0 green:190.0/255 blue:0.0 alpha:1];
             label.backgroundColor = [UIColor clearColor];
             label.font = [UIFont boldSystemFontOfSize:18.0];

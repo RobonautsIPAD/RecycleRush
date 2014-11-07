@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DefensePickerController.h"
 #import "AlertPromptViewController.h"
 #import "ValuePromptViewController.h"
 #import "PopUpPickerViewController.h"
 
 @class DataManager;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, DefensePickerDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate, PopUpPickerDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate, PopUpPickerDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
@@ -42,8 +41,6 @@ typedef enum {
 // Match Scores
 
 
-@property (nonatomic, strong) PopUpPickerViewController *scoreButtonReset;
-@property (nonatomic, strong) UIPopoverController *scoreButtonPickerPopover;
 @property (nonatomic, strong) ValuePromptViewController *valuePrompt;
 @property (nonatomic, strong) UIPopoverController *valuePromptPopover;
 
@@ -55,14 +52,5 @@ typedef enum {
     DrawDefense,
     DrawLock,
 } DrawingMode;
-
-
-@property (nonatomic, strong) NSMutableArray *defenseList;
-@property (nonatomic, strong) DefensePickerController *defensePicker;
-@property (nonatomic, strong) UIPopoverController *defensePickerPopover;
-@property (nonatomic, assign) int popCounter;
-@property (nonatomic, assign) CGPoint currentPoint;
-@property (nonatomic, assign) DrawingMode drawMode;
-
 
 @end

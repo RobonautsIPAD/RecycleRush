@@ -27,20 +27,6 @@
 	return self;
 }
 
--(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
-/*    NSString *baseName;
-    if ([match.number intValue] < 10) {
-        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"00%d", [match.number intValue]]];
-    } else if ( [match.number intValue] < 100) {
-        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"0%d", [match.number intValue]]];
-    } else {
-        baseName = [NSString stringWithFormat:@"M%c%@", [match.matchType characterAtIndex:0], [NSString stringWithFormat:@"%d", [match.number intValue]]];
-    }
-    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", baseName]];
-    NSData *myData = [self packageMatchForXFer:match];
-    [myData writeToFile:exportFile atomically:YES];*/
-}
-
 
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
     if (!_dataManager) {

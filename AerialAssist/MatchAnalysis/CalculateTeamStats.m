@@ -14,7 +14,6 @@
 #import "TournamentData.h"
 
 @implementation CalculateTeamStats
-@synthesize dataManager = _dataManager;
 
 - (id)init:(DataManager *)initManager {
 	if ((self = [super init]))

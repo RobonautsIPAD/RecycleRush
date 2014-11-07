@@ -18,6 +18,8 @@
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "TeamData.h"
+#import "SyncMethods.h"
+#import "PadSyncViewController.h"
 #import "TeamDetailViewController.h"
 #import "parseCSV.h"
 #import "PopUpPickerViewController.h"
@@ -145,15 +147,11 @@
 
     // Drawing Pop Ups
     NSArray *scoreButtonChoices;
-
-    BOOL eraseMode;
-    BOOL dataChange;
-    BOOL fieldDrawingChange;
-    
-    // Rating Pop Up
-    UIPopoverController *ratingPickerPopover;
-    PopUpPickerViewController *ratePicker;
-    NSMutableArray *rateList;
+    PopUpPickerViewController *scoreButtonReset;
+    UIPopoverController *scoreButtonPickerPopover;
+    NSArray *defenseList;
+    PopUpPickerViewController *defensePicker;
+    UIPopoverController *defensePickerPopover;
     // Auton Scoring pop up
     NSMutableArray *autonScoreList;
     UIPopoverController *autonPickerPopover;
@@ -170,6 +168,18 @@
     NSMutableArray *partnerActionsList;
     UIPopoverController *partnerActionsPickerPopover;
     PopUpPickerViewController *partnerActionsPicker;
+    // Rating Pop Up
+    NSArray *rateList;
+    UIPopoverController *ratingPickerPopover;
+    PopUpPickerViewController *ratePicker;
+    
+    BOOL eraseMode;
+    BOOL dataChange;
+    BOOL fieldDrawingChange;
+    
+    int popCounter;
+    CGPoint currentPoint;
+    DrawingMode drawMode;
 
     // Drawing Symbols
     UIImage *robotIntakeImage;
@@ -193,28 +203,8 @@
 @synthesize alertPromptPopover;
 
 // Match Score
-@synthesize scoreButtonReset = _scoreButtonReset;
-@synthesize scoreButtonPickerPopover = _scoreButtonPickerPopover;
 @synthesize valuePrompt = _valuePrompt;
 @synthesize valuePromptPopover = _valuePromptPopover;
-
-// Other Stuff
-@synthesize redScore;
-@synthesize blueScore;
-@synthesize teamEdit;
-@synthesize matchListButton;
-@synthesize syncButton;
-@synthesize toggleGridButton;
-
-// Field Drawing
-@synthesize imageContainer;
-@synthesize fieldImage;
-@synthesize defenseList;
-@synthesize defensePicker;
-@synthesize defensePickerPopover;
-@synthesize popCounter;
-@synthesize currentPoint;
-@synthesize drawMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -278,23 +268,13 @@
     
     [self drawingSettings];
     [self setGestures];
-    [imageContainer sendSubviewToBack:_backgroundImage];
+    [_imageContainer sendSubviewToBack:_backgroundImage];
     [super viewDidLoad];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     NSLog(@"viewWillAppear");
-	NSError *error = nil;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}		
     // Set the list of match types
     matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
@@ -430,7 +410,7 @@
                                                         inManagedObjectContext:_dataManager.managedObjectContext];
             currentScore.fieldDrawing = drawing;
         }
-        currentScore.fieldDrawing.trace = [NSData dataWithData:UIImagePNGRepresentation(fieldImage.image)];
+        currentScore.fieldDrawing.trace = [NSData dataWithData:UIImagePNGRepresentation(_fieldImage.image)];
         fieldDrawingChange = NO;
         [self setDataChange];
     }
@@ -699,7 +679,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    if (textField != _matchNumber && textField != redScore && textField != blueScore && textField != _foulTextField)  return YES;
+    if (textField != _matchNumber && textField != _redScore && textField != _blueScore && textField != _foulTextField)  return YES;
     
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     
@@ -733,11 +713,11 @@
     if (textField == _notes) {
 		currentScore.notes = _notes.text;
 	}
-    else if (textField == redScore) {
-        currentMatch.redScore = [NSNumber numberWithInt:[redScore.text intValue]];     
+    else if (textField == _redScore) {
+        currentMatch.redScore = [NSNumber numberWithInt:[_redScore.text intValue]];
     }
-    else if (textField == blueScore) {
-        currentMatch.blueScore = [NSNumber numberWithInt:[blueScore.text intValue]];     
+    else if (textField == _blueScore) {
+        currentMatch.blueScore = [NSNumber numberWithInt:[_blueScore.text intValue]];
     }
     else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
@@ -756,17 +736,17 @@
 
 - (IBAction)scoreButtons:(id)sender {    
     UIButton *button = (UIButton *)sender;
-    if (_scoreButtonReset == nil) {
-        self.scoreButtonReset = [[PopUpPickerViewController alloc]
+    if (scoreButtonReset == nil) {
+        scoreButtonReset = [[PopUpPickerViewController alloc]
                               initWithStyle:UITableViewStylePlain];
-        _scoreButtonReset.delegate = self;
-        _scoreButtonReset.pickerChoices = scoreButtonChoices;
-        self.scoreButtonPickerPopover = [[UIPopoverController alloc]
-                                     initWithContentViewController:_scoreButtonReset];
+        scoreButtonReset.delegate = self;
+        scoreButtonReset.pickerChoices = scoreButtonChoices;
+        scoreButtonPickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:scoreButtonReset];
     }
-    _scoreButtonReset.pickerChoices = scoreButtonChoices;
+    scoreButtonReset.pickerChoices = scoreButtonChoices;
     popUp = sender;
-    [self.scoreButtonPickerPopover presentPopoverFromRect:button.bounds inView:button
+    [scoreButtonPickerPopover presentPopoverFromRect:button.bounds inView:button
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
@@ -799,6 +779,11 @@
     if (popUp == teleOpPickUpPicker) {
         [teleOpPickUpPickerPopover dismissPopoverAnimated:YES];
         [self teleOpPickUpSelected:newPick];
+        return;
+    }
+    if (popUp == defensePicker) {
+        [defensePickerPopover dismissPopoverAnimated:YES];
+        [self defenseSelected:newPick];
         return;
     }
     if (popUp == partnerActionsPicker) {
@@ -836,7 +821,7 @@
         [self setAssistRate:newPick];
         return;
     }
-    [self.scoreButtonPickerPopover dismissPopoverAnimated:YES];
+    [scoreButtonPickerPopover dismissPopoverAnimated:YES];
     if (popUp == _autonHighHotButton) [self autonHighHot:newPick];
     else if (popUp == _autonHighColdButton) [self autonHighCold:newPick];
     else if (popUp == _autonLowColdButton) [self autonLowCold:newPick];
@@ -1545,9 +1530,9 @@
     if ([segue.identifier isEqualToString:@"TeamInfo"]) {
         TeamDetailViewController *detailViewController = [segue destinationViewController];
         [segue.destinationViewController setDataManager:_dataManager];
-        detailViewController.team = currentScore.team;
+        detailViewController.team = currentTeam;
     }
-    /*
+    
     else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
@@ -1556,7 +1541,7 @@
     else {
         [segue.destinationViewController setDataManager:_dataManager];    
     }
-    */
+    
 }
 
 -(void)setTeamList {
@@ -1576,26 +1561,18 @@
 }
 
 -(void)setPartnerList {
-    TeamScore *score;
-    int indexStart, indexEnd;
-    if ([currentScore.allianceStation intValue] < 3) {
-        // Reds
-        indexStart = 0;
-        indexEnd = 3;
-    }
-    else {
-        // Blues
-        indexStart = 3;
-        indexEnd = 6;
-    }
+    NSString *allianceString = [EnumerationDictionary getKeyFromValue:currentScore.allianceStation forDictionary:allianceDictionary];
+    NSString  *whichAlliance = [allianceString substringToIndex:1];
     NSMutableArray *list = [[NSMutableArray alloc] init];
-    // NSLog(@"Current team = %@", currentScore.team.number);
-    for (int i=indexStart; i<indexEnd; i++) {
-  //      score = [teamData objectAtIndex:i];
-        if ([score.team.number intValue] != [currentScore.team.number intValue]) {
-            [list addObject:[NSString stringWithFormat:@"%d", [score.team.number intValue]]];
+    for (TeamScore *score in scoreList) {
+        allianceString = [EnumerationDictionary getKeyFromValue:score.allianceStation forDictionary:allianceDictionary];
+        if ([[allianceString substringToIndex:1] isEqualToString:whichAlliance]) {
+            if ([score.teamNumber intValue] != [currentScore.teamNumber intValue]) {
+                [list addObject:[NSString stringWithFormat:@"%d", [score.teamNumber intValue]]];
+            }
         }
     }
+    
     [list addObject:[NSString stringWithFormat:@"Human Truss"]];
     [list addObject:[NSString stringWithFormat:@"Human Truss Miss"]];
     partnerActionsList = list;
@@ -1659,7 +1636,7 @@
     [_assistRatingButton setUserInteractionEnabled:NO];
     [_notes setUserInteractionEnabled:NO];
     [_foulTextField setUserInteractionEnabled:NO];
-    [fieldImage setUserInteractionEnabled:FALSE];
+    [_fieldImage setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
 }
 
@@ -1713,7 +1690,7 @@
     [_assistRatingButton setUserInteractionEnabled:YES];
     [_notes setUserInteractionEnabled:YES];
     [_foulTextField setUserInteractionEnabled:YES];
-    [fieldImage setUserInteractionEnabled:YES];
+    [_fieldImage setUserInteractionEnabled:YES];
     [_eraserButton setUserInteractionEnabled:YES];
 }
 
@@ -1721,16 +1698,16 @@
     [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentMatch.matchType forDictionary:matchDictionary] forState:UIControlStateNormal];
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
     if ([currentMatch.redScore intValue] == -1) {
-        redScore.text = @"";
+        _redScore.text = @"";
     }
     else {
-        redScore.text = [NSString stringWithFormat:@"%d", [currentMatch.redScore intValue]];
+        _redScore.text = [NSString stringWithFormat:@"%d", [currentMatch.redScore intValue]];
     }
     if ([currentMatch.blueScore intValue] == -1) {
-        blueScore.text = @"";
+        _blueScore.text = @"";
     }
     else {
-        blueScore.text = [NSString stringWithFormat:@"%d", [currentMatch.blueScore intValue]];
+        _blueScore.text = [NSString stringWithFormat:@"%d", [currentMatch.blueScore intValue]];
     }
  
     currentScore = [scoreList objectAtIndex:teamIndex];
@@ -1803,15 +1780,15 @@
     // Check the database to see if this team and match have a drawing already
     [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
     if (currentScore.fieldDrawing.trace) {
-        [fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
+        [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
     else {
-        [fieldImage setImage:[[UIImage alloc] init]];
+        [_fieldImage setImage:[[UIImage alloc] init]];
     }
     [self drawModeSettings:drawMode];
     eraseMode = FALSE;
     [_eraserButton setBackgroundImage:nil forState:UIControlStateNormal];
- //   [self setPartnerList];
+    [self setPartnerList];
     
     NSLog(@"Saved by = %@", currentScore.savedBy);
 }
@@ -1821,7 +1798,7 @@
     if(drawMode == DrawAuton){
         // NSLog(@"floorPickUp");
         NSString *marker = @"O";
-        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
         [self drawText:marker location:currentPoint];
     }
     else {
@@ -1832,28 +1809,29 @@
             teleOpPickUpPickerPopover = [[UIPopoverController alloc] initWithContentViewController:teleOpPickUpPicker];
         }
         popUp = teleOpPickUpPicker;
-        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
         CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [teleOpPickUpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [teleOpPickUpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
 }
 
 -(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer {
     fieldDrawingChange = YES;
-    currentPoint = [gestureRecognizer locationInView:fieldImage];
+    currentPoint = [gestureRecognizer locationInView:_fieldImage];
     // NSLog(@"scoreDisk point = %f %f", currentPoint.x, currentPoint.y);
     popCounter = 0;
     if (drawMode == DrawDefense) {
         if (defensePicker == nil) {
-            self.defensePicker = [[DefensePickerController alloc]
+            defensePicker = [[PopUpPickerViewController alloc]
                                   initWithStyle:UITableViewStylePlain];
             defensePicker.delegate = self;
-            defensePicker.defenseChoices = defenseList;
-            self.defensePickerPopover = [[UIPopoverController alloc]
+            defensePicker.pickerChoices = defenseList;
+            defensePickerPopover = [[UIPopoverController alloc]
                                          initWithContentViewController:defensePicker];
+            popUp = defensePicker;
         }
         CGPoint popPoint = [self defensePopOverLocation:currentPoint];
-        [self.defensePickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [defensePickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
     else if(drawMode == DrawAuton){
         if (autonPicker == nil) {
@@ -1864,7 +1842,7 @@
         }
         popUp = autonPicker;
         CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
     else {
         if (teleOpPicker == nil) {
@@ -1875,7 +1853,7 @@
         }
         popUp = teleOpPicker;
         CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [teleOpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [teleOpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
 }
 
@@ -1889,9 +1867,9 @@
             partnerActionsPickerPopover = [[UIPopoverController alloc] initWithContentViewController:partnerActionsPicker];
         }
         popUp = partnerActionsPicker;
-        currentPoint = [gestureRecognizer locationInView:fieldImage];
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
         CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [partnerActionsPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [partnerActionsPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     }
 }
 
@@ -2005,7 +1983,7 @@
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Blue Button.jpg"] forState:UIControlStateNormal];
             [_drawModeButton setTitle:@"TeleOp" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
-            fieldImage.userInteractionEnabled = TRUE;
+            _fieldImage.userInteractionEnabled = TRUE;
             break;
         case DrawDefense:
             red = 255.0/255.0;
@@ -2014,7 +1992,7 @@
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Grey Button.jpg"] forState:UIControlStateNormal];
             [_drawModeButton setTitle:@"Defense" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
-            fieldImage.userInteractionEnabled = TRUE;
+            _fieldImage.userInteractionEnabled = TRUE;
             break;
         case DrawLock:
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
@@ -2217,7 +2195,7 @@
 }
 
 - (void)defenseSelected:(NSString *)newDefense {
-    [self.defensePickerPopover dismissPopoverAnimated:YES];
+    [defensePickerPopover dismissPopoverAnimated:YES];
     NSString *marker;
     CGPoint textPoint;
     textPoint.x = currentPoint.x;
@@ -2239,14 +2217,14 @@
     fieldDrawingChange = YES;
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         // NSLog(@"drawPath Began");
-        lastPoint = [gestureRecognizer locationInView:fieldImage];
+        lastPoint = [gestureRecognizer locationInView:_fieldImage];
     }
     else {
-        currentPoint = [gestureRecognizer locationInView: fieldImage];
+        currentPoint = [gestureRecognizer locationInView: _fieldImage];
         // NSLog(@"current point = %lf, %lf", currentPoint.x, currentPoint.y);
         //        CGContextRef context = UIGraphicsGetCurrentContext();
-        UIGraphicsBeginImageContext(fieldImage.frame.size);
-        [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
+        UIGraphicsBeginImageContext(_fieldImage.frame.size);
+        [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
@@ -2270,8 +2248,8 @@
 
 -(void)drawText:(NSString *) marker location:(CGPoint) point {
     fieldDrawingChange = YES;
-    UIGraphicsBeginImageContext(fieldImage.frame.size);
-    [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
+    UIGraphicsBeginImageContext(_fieldImage.frame.size);
+    [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
     CGContextRef myContext = UIGraphicsGetCurrentContext();
     CGContextSetLineCap(myContext, kCGLineCapRound);
     CGContextSetLineWidth(myContext, 1);
@@ -2293,8 +2271,8 @@
 
 -(void)drawSymbol:(UIImage *) marker location:(CGPoint) point {
     fieldDrawingChange = YES;
-    UIGraphicsBeginImageContext(fieldImage.frame.size);
-    [self.fieldImage.image drawInRect:CGRectMake(0, 0, fieldImage.frame.size.width, fieldImage.frame.size.height)];
+    UIGraphicsBeginImageContext(_fieldImage.frame.size);
+    [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
 //    CGContextRef myContext = UIGraphicsGetCurrentContext();
     CGRect imageRect = CGRectMake(point.x, point.y, 18, 18);
 //    CGContextScaleCTM(myContext, 1.0, -1.0);
@@ -2491,11 +2469,11 @@
 -(IBAction)toggleGrid:(id)sender{
     if(_backgroundImage.image == [UIImage imageNamed:@"2014_field.png"]){
         _backgroundImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
-        [toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
+        [_toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
     }
     else{
         _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
-        [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
+        [_toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     }
 }
 
@@ -2630,19 +2608,19 @@
     [_humanMiss3Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [_humanMiss4Button setTitleColor:[UIColor redColor]forState: UIControlStateNormal];
     [self setSmallButtonDefaults:_eraserButton];
-    [self setTextBoxDefaults:redScore forSize:24.0];
-    [self setTextBoxDefaults:blueScore forSize:24.0];
+    [self setTextBoxDefaults:_redScore forSize:24.0];
+    [self setTextBoxDefaults:_blueScore forSize:24.0];
     [self setTextBoxDefaults:_foulTextField forSize:18.0];
     [self setTextBoxDefaults:_scouterTextField forSize:18.0];
     _matchResetButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
-    [self setBigButtonDefaults:teamEdit];
-    [teamEdit setTitle:@"Team Info" forState:UIControlStateNormal];
-    [self setBigButtonDefaults:syncButton];
-    [syncButton setTitle:@"Sync" forState:UIControlStateNormal];
-    [self setBigButtonDefaults:matchListButton];
-    [matchListButton setTitle:@"Match List" forState:UIControlStateNormal];
-    [self setSmallButtonDefaults:toggleGridButton];
-    [toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
+    [self setBigButtonDefaults:_teamEdit];
+    [_teamEdit setTitle:@"Team Info" forState:UIControlStateNormal];
+    [self setBigButtonDefaults:_syncButton];
+    [_syncButton setTitle:@"Sync" forState:UIControlStateNormal];
+    [self setBigButtonDefaults:_matchListButton];
+    [_matchListButton setTitle:@"Match List" forState:UIControlStateNormal];
+    [self setSmallButtonDefaults:_toggleGridButton];
+    [_toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     [self setSmallButtonDefaults:_matchResetButton];
     [self setBigButtonDefaults:_trussCatchButton];
     [self setBigButtonDefaults:_passesAirButton];
@@ -2695,21 +2673,21 @@
 -(void)setGestures {
     UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(partnerCatch:)];
     tripleTapGesture.numberOfTapsRequired=3;
-    [fieldImage addGestureRecognizer:tripleTapGesture];
+    [_fieldImage addGestureRecognizer:tripleTapGesture];
     
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [doubleTapGestureRecognizer requireGestureRecognizerToFail: tripleTapGesture];
-    [fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
+    [_fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
     
     UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
-    [fieldImage addGestureRecognizer:drawGesture];
+    [_fieldImage addGestureRecognizer:drawGesture];
     
     UITapGestureRecognizer *tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreDisk:)];
     tapPressGesture.numberOfTapsRequired = 1;
     [tapPressGesture requireGestureRecognizerToFail: doubleTapGestureRecognizer];
     [tapPressGesture requireGestureRecognizerToFail: tripleTapGesture];
-    [fieldImage addGestureRecognizer:tapPressGesture];
+    [_fieldImage addGestureRecognizer:tapPressGesture];
 }
 
 -(void)drawingSettings {
@@ -2761,6 +2739,66 @@
     }
 	
 	return fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    // [self.tableView beginUpdates];
+    NSLog(@"controllerWillChangeContent");
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+ //   UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            NSLog(@"didChangeObject 1");
+           // [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            NSLog(@"didChangeObject 2");
+            //[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            NSLog(@"didChangeObject 3");
+          //  [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            NSLog(@"didChangeObject 4");
+           // [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            NSLog(@"didChangeSection 1");
+           //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            NSLog(@"didChangeSection 2");
+           //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    //[self.tableView endUpdates];
+    NSLog(@"controllerDidChangeContent");
+
 }
 
 @end

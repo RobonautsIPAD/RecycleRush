@@ -12,7 +12,6 @@
 #import "TeamScore.h"
 #import "TeamData.h"
 #import "DataManager.h"
-#import "MatchTypeDictionary.h"
 #import "FieldDrawingViewController.h"
 
 @interface RossPageViewController ()
@@ -22,51 +21,13 @@
 @implementation RossPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
-    MatchTypeDictionary *matchDictionary;
+  //  MatchTypeDictionary *matchDictionary;
     int numberMatchTypes;
     NSMutableArray *r1Matches;
     NSMutableArray *r1MatchTypes;
     NSMutableArray *r1MatchAuton;
     NSMutableArray *r1MatchTeleOp;
 }
-
-@synthesize dataManager = _dataManager;
-@synthesize fetchedResultsController;
-
-// Data Markers
-@synthesize rowIndex;
-@synthesize sectionIndex;
-@synthesize teamIndex;
-@synthesize currentMatch;
-@synthesize currentSectionType;
-
-// Match Control Buttons
-@synthesize prevMatch;
-@synthesize nextMatch;
-@synthesize ourPrevMatch;
-@synthesize ourNextMatch;
-
-// Match Data
-@synthesize matchNumber;
-@synthesize matchType;
-@synthesize matchTypeList;
-//@synthesize matchTypePicker;
-@synthesize matchTypePickerPopover;
-
-// Team Data
-@synthesize teamData;
-@synthesize teamOrder;
-@synthesize red1;
-@synthesize red2;
-@synthesize red3;
-@synthesize blue1;
-@synthesize blue2;
-@synthesize blue3;
-@synthesize red1table;
-
-// Other Stuff
-@synthesize redScore;
-@synthesize blueScore;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -104,8 +65,8 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    matchDictionary = [[MatchTypeDictionary alloc] init];
-
+ //   matchDictionary = [[MatchTypeDictionary alloc] init];
+/*
     matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
     // NSLog(@"Match Type List Count = %@", matchTypeList);
@@ -114,7 +75,7 @@
     // nil, printing out blank info in all the display items.
     if (numberMatchTypes) {
         // Loading Default Data Markers
-        currentSectionType = [[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
+        currentSectionType = 0; //[[matchDictionary getMatchTypeEnum:[matchTypeList objectAtIndex:0]] intValue];
         rowIndex = 0;
         teamIndex = 0;
         sectionIndex = [self getMatchSectionInfo:currentSectionType];
@@ -141,23 +102,24 @@
     NSLog(@"r1matches = %@", r1Matches);
     NSLog(@"r1matchestype = %@", r1MatchTypes);
     NSLog(@"r1MatchAuton = %@", r1MatchAuton);
-    NSLog(@"r1MatchTeleOp = %@", r1MatchTeleOp);
+    NSLog(@"r1MatchTeleOp = %@", r1MatchTeleOp);*/
 }
 
+#ifdef NOTUSED
 -(NSMutableArray *)getMatchTypeList {
     NSMutableArray *matchTypes = [NSMutableArray array];
     NSString *sectionName;
     for (int i=0; i < [[fetchedResultsController sections] count]; i++) {
         sectionName = [[[fetchedResultsController sections] objectAtIndex:i] name];
         // NSLog(@"Section = %@", sectionName);
-        [matchTypes addObject:[matchDictionary getMatchTypeString:[NSNumber numberWithInt:[sectionName intValue]]]];
+      //  [matchTypes addObject:[matchDictionary getMatchTypeString:[NSNumber numberWithInt:[sectionName intValue]]]];
     }
     return matchTypes;
 
 }
 
 -(NSUInteger)getMatchSectionInfo:(MatchType)matchSection {
-    NSString *sectionName;
+/*    NSString *sectionName;
     sectionIndex = -1;
     // Loop for number of sections in table
     for (int i=0; i < [[fetchedResultsController sections] count]; i++) {
@@ -166,8 +128,8 @@
             sectionIndex = i;
             break;
         }
-    }
-    return sectionIndex;
+    }*/
+    return 0; //sectionIndex;
 }
 
 -(int)getNumberOfMatches:(NSUInteger)section {
@@ -319,7 +281,7 @@
     for (int i = 0 ; i < [matchTypeList count] ; i++) {
         if ([newMatchType isEqualToString:[matchTypeList objectAtIndex:i]]) {
             // NSLog(@"New section = %@", newMatchType);
-            currentSectionType = [[matchDictionary getMatchTypeEnum:newMatchType] intValue];
+            currentSectionType = 0; //[[matchDictionary getMatchTypeEnum:newMatchType] intValue];
             sectionIndex = [self getMatchSectionInfo:currentSectionType];
             break;
         }
@@ -581,7 +543,7 @@
     
     return [scan scanInteger: &holder] && [scan isAtEnd];
 }
-
+#endif
 #pragma mark -
 #pragma mark Text
 
@@ -592,7 +554,7 @@
 
 - (NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
-    if (fetchedResultsController == nil) {
+    if (_fetchedResultsController == nil) {
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         // Edit the entity name as appropriate.
@@ -620,7 +582,7 @@
         self.fetchedResultsController = aFetchedResultsController;
     }
 	
-	return fetchedResultsController;
+	return _fetchedResultsController;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

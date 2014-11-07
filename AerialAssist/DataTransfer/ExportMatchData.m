@@ -27,6 +27,8 @@
         _dataManager = initManager;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MatchData" inManagedObjectContext:_dataManager.managedObjectContext];
         matchDataAttributes = [entity attributesByName];
+        matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
  	}
 	return self;
 }
@@ -46,24 +48,40 @@
         }
     }
     
-    NSMutableArray *allianceList = [NSMutableArray array];
     NSMutableArray *teamList = [NSMutableArray array];
     NSArray *allTeams = [match.score allObjects];
     for (TeamScore *score in allTeams) {
         //  NSLog(@"score team = %@", score.team);
-        [allianceList addObject:score.allianceStation];
-        [teamList addObject:score.teamNumber];
+        NSDictionary *teamInfo = [NSDictionary dictionaryWithObject:score.teamNumber forKey:[EnumerationDictionary getKeyFromValue:score.allianceStation forDictionary:allianceDictionary]];
+        [teamList addObject:teamInfo];
     }
-    NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamList forKeys:allianceList];
     [keyList addObject:@"teams"];
-    [valueList addObject:teams];
+    [valueList addObject:teamList];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    NSLog(@"%@", dictionary);
     NSLog(@"packaging %@", dictionary);
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     
     return myData;
     
+}
+
+-(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
+    NSString *baseName;
+    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:match.matchType forDictionary:matchTypeDictionary];
+    char matchCode;
+    if (matchTypeString) matchCode = [matchTypeString characterAtIndex:0];
+    if ([match.number intValue] < 10) {
+    baseName = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"00%d", [match.number intValue]]];
+    } else if ( [match.number intValue] < 100) {
+    baseName = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"0%d", [match.number intValue]]];
+    } else {
+    baseName = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"%d", [match.number intValue]]];
+    }
+    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", baseName]];
+    NSData *myData = [self packageMatchForXFer:match];
+    [myData writeToFile:exportFile atomically:YES];
 }
 
 -(NSString *)matchDataCSVExport:(NSString *)tournamentName {
@@ -75,8 +93,6 @@
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MatchData" ofType:@"plist"];
         matchDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     }
-    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
 
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

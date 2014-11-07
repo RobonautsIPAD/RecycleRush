@@ -11,6 +11,8 @@
 #import "TeamDataInterfaces.h"
 #import "MatchData.h"
 #import "TeamScore.h"
+#import "SyncMethods.h"
+#import "PadSyncViewController.h"
 #import "DataManager.h"
 #import "TournamentData.h"
 #import "ExportTeamData.h"
@@ -206,7 +208,7 @@
     
     // Export Scores
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
-    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
         csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
     }
@@ -257,19 +259,17 @@
 - (IBAction)exportFullMatchData:(id)sender {
     // Export Scores
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
-    ExportScoreData *fullData = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    ExportScoreData *fullData = [[ExportScoreData alloc] init:_dataManager];
     [fullData exportFullMatchData:teamData];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDataManager:_dataManager];
-    /*
     if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
         [segue.destinationViewController setSyncType:SyncTeams];
     }
-    */
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

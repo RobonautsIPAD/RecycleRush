@@ -11,7 +11,6 @@
 #import "FileIOMethods.h"
 #import "DataManager.h"
 #import "MatchUtilities.h"
-#import "EnumerationDictionary.h"
 
 @interface AddMatchViewController ()
     @property (weak, nonatomic) IBOutlet UIButton *matchTypeButton;
@@ -106,7 +105,13 @@
         teamList = [self buildTeamList:@"Red 4" forTextBox:_red4 forTeamList:teamList];
         teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
-    NSString *errMsg = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName];
+    MatchData *match = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName];
+    NSError *err;
+    if (match) {
+        if (![_dataManager.managedObjectContext save:&err]) {
+            NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
+        }
+    }
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 

@@ -18,7 +18,4 @@
 @property (nonatomic, strong) TeamData *team;
 @property (nonatomic, strong) NSMutableArray *teamList;
 
--(IBAction)toggleRadioButtonState:(id)sender;
--(IBAction)generateMatch:(id)sender;
-
 @end

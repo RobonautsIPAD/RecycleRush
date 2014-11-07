@@ -8,9 +8,13 @@
 
 #import "PadSyncViewController.h"
 #import "DataManager.h"
+#import "DataSync.h"
+#import "TeamData.h"
+#import "MatchData.h"
+#import "SyncTableCells.h"
+#import "EnumerationDictionary.h"
 #import "SyncTypeDictionary.h"
 #import "SyncOptionDictionary.h"
-#import "SharedSyncController.h"
 #import "PopUpPickerViewController.h"
 
 @interface PadSyncViewController ()
@@ -32,28 +36,33 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
-    SharedSyncController *syncController;
+    DataSync *dataSyncPackage;
+
+    NSArray *filteredSendList;
+    NSArray *receivedList;
+    NSDictionary *matchTypeDictionary;
+    NSDictionary *allianceDictionary;
     
     id popUp;
     
+    XFerOption xFerOption;
     PopUpPickerViewController *xFerOptionPicker;
     UIPopoverController *xFerOptionPopover;
     
-    SyncTypeDictionary *syncTypeDictionary;
-    NSMutableArray *syncTypeList;
+    NSArray *syncTypeList;
     PopUpPickerViewController *syncTypePicker;
     UIPopoverController *syncTypePopover;
     
-    SyncOptionDictionary *syncOptionDictionary;
-    NSMutableArray *syncOptionList;
+    NSArray *syncOptionList;
     PopUpPickerViewController *syncOptionPicker;
     UIPopoverController *syncOptionPopover;
     
-    BOOL firstReceipt;
-    
+    NSArray *importFileList;
     PopUpPickerViewController *importFileListPicker;
     UIPopoverController *importFileListPopover;
-    NSArray *importFileList;
+    NSString *importedFile;
+
+    BOOL firstReceipt;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -69,31 +78,29 @@
 	if (!_dataManager) {
         _dataManager = [[DataManager alloc] init];
     }
-    [self SetBigButtonDefaults:_xFerOptionButton];
-    [self SetBigButtonDefaults:_syncTypeButton];
-    [self SetBigButtonDefaults:_syncOptionButton];
-    [self SetBigButtonDefaults:_connectButton];
-    [self SetBigButtonDefaults:_disconnectButton];
-    [self SetBigButtonDefaults:_sendButton];
-    [self SetBigButtonDefaults:_packageDataButton];
-    [self SetBigButtonDefaults:_importFromiTunesButton];
-    [self SetBigButtonDefaults:_createElimMatches];
-    syncController = [SharedSyncController alloc];
-    syncController.xFerOptionButton = _xFerOptionButton;
-    syncController.syncTypeButton = _syncTypeButton;
-    syncController.syncOptionButton = _syncOptionButton;
-    syncController.connectButton = _connectButton;
-    syncController.disconnectButton = _disconnectButton;
-    syncController.peerName = _peerName;
-    syncController.sendButton = _sendButton;
-    syncController.syncDataTable = _syncDataTable;
-    syncController.packageDataButton = _packageDataButton;
-    syncController.importFromiTunesButton = _importFromiTunesButton;
-    syncController = [syncController initWithDataManager:_dataManager];
+    [self setBigButtonDefaults:_xFerOptionButton];
+    [self setBigButtonDefaults:_syncTypeButton];
+    [self setBigButtonDefaults:_syncOptionButton];
+    [self setBigButtonDefaults:_connectButton];
+    [self setBigButtonDefaults:_disconnectButton];
+    [self setBigButtonDefaults:_sendButton];
+    [self setBigButtonDefaults:_packageDataButton];
+    [self setBigButtonDefaults:_importFromiTunesButton];
+    [self setBigButtonDefaults:_createElimMatches];
+    dataSyncPackage = [[DataSync alloc] init:_dataManager];
+
+    syncTypeList = [SyncMethods getSyncTypeList];
+    syncOptionList = [SyncMethods getSyncOptionList];
+    [_syncTypeButton setTitle:[SyncMethods getSyncTypeString:_syncType] forState:UIControlStateNormal];
+    [_syncOptionButton setTitle:[SyncMethods getSyncOptionString:_syncOption] forState:UIControlStateNormal];
+    xFerOption = Sending;
+    [self setSendList];
     
-    self.syncDataTable.delegate = syncController;
-    self.syncDataTable.dataSource = syncController;
-    
+    [_xFerOptionButton setHidden:YES];
+    [_disconnectButton setHidden:YES];
+    [_sendButton setHidden:YES];
+    [_peerName setHidden:YES];
+
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
@@ -104,18 +111,29 @@
     else {
         self.title = @"Sync";
     }
-    
-    [syncController setSyncType:SyncMatchResults];
-    syncTypeDictionary = [[SyncTypeDictionary alloc] init];
-    syncTypeList = [[syncTypeDictionary getSyncTypes] mutableCopy];
-    
-    [syncController setSyncOption:SyncAllSavedSince];
-    syncOptionDictionary = [[SyncOptionDictionary alloc] init];
-    syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
-    
-    [self selectXFerOption:@"Send Data"];
-    [self selectSyncType:[syncTypeDictionary getSyncTypeString:SyncMatchResults]];
-    [self selectSyncOption:[syncOptionDictionary getSyncOptionString:SyncAllSavedSince]];
+    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+}
+
+-(void)setSendList {
+    if (_syncType == SyncTeams) {
+        filteredSendList = [dataSyncPackage getFilteredTeamList:_syncOption];
+    }
+    else if (_syncType == SyncMatchList) {
+        filteredSendList = [dataSyncPackage getFilteredMatchList:_syncOption];
+    }
+    else if (_syncType == SyncMatchResults) {
+        filteredSendList = [dataSyncPackage getFilteredResultsList:_syncOption];
+    }
+}
+
+- (IBAction)selectPackageData:(id)sender {
+    NSString *error = [dataSyncPackage packageDataForiTunes:_syncType forData:filteredSendList];
+    if (error && ![error isEqualToString:@""]) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
 }
 
 - (IBAction)selectAction:(id)sender {
@@ -135,7 +153,9 @@
             syncTypePicker.delegate = self;
             syncTypePicker.pickerChoices = syncTypeList;
         }
-        syncTypePopover = [[UIPopoverController alloc] initWithContentViewController:syncTypePicker];
+        if (!syncTypePopover) {
+            syncTypePopover = [[UIPopoverController alloc] initWithContentViewController:syncTypePicker];
+        }
         [syncTypePopover presentPopoverFromRect:((UIButton*)popUp).bounds inView:((UIButton*)popUp) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     } else if (popUp == _syncOptionButton) {
         if (syncOptionPicker == nil) {
@@ -144,7 +164,9 @@
             syncOptionPicker.delegate = self;
             syncOptionPicker.pickerChoices = syncOptionList;
         }
-        syncOptionPopover = [[UIPopoverController alloc] initWithContentViewController:syncOptionPicker];
+        if (!syncOptionPopover) {
+            syncOptionPopover = [[UIPopoverController alloc] initWithContentViewController:syncOptionPicker];
+        }
         [syncOptionPopover presentPopoverFromRect:((UIButton*)popUp).bounds inView:((UIButton*)popUp) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     } else if (popUp == _importFromiTunesButton) {
         popUp = _importFromiTunesButton;
@@ -153,64 +175,80 @@
                                     initWithStyle:UITableViewStylePlain];
             importFileListPicker.delegate = self;
         }
-        importFileList = [syncController getImportFileList];
+        importFileList = [dataSyncPackage getImportFileList];
         importFileListPicker.pickerChoices = [importFileList mutableCopy];
-        importFileListPopover = [[UIPopoverController alloc] initWithContentViewController:importFileListPicker];
+        if (!importFileListPopover) {
+            importFileListPopover = [[UIPopoverController alloc] initWithContentViewController:importFileListPicker];
+        }
         [importFileListPopover presentPopoverFromRect:((UIButton*)popUp).bounds inView:((UIButton*)popUp) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
-- (void)pickerSelected:(NSString *)newPick {
+-(void)pickerSelected:(NSString *)newPick {
     if (popUp == _xFerOptionButton) {
         [xFerOptionPopover dismissPopoverAnimated:YES];
-        xFerOptionPopover = nil;
         [self selectXFerOption:newPick];
     } else if (popUp == _syncTypeButton) {
         [syncTypePopover dismissPopoverAnimated:YES];
-        syncTypePopover = nil;
         [self selectSyncType:newPick];
     } else if (popUp == _syncOptionButton) {
         [syncOptionPopover dismissPopoverAnimated:YES];
-        syncOptionPopover = nil;
         [self selectSyncOption:newPick];
     } else if (popUp == _importFromiTunesButton) {
         [importFileListPopover dismissPopoverAnimated:YES];
-        importFileListPicker = nil;
-        importFileListPopover = nil;
-        [syncController importiTunesSelected:newPick];
+        [self iTunesImportSelected:newPick];
     }
+}
+
+-(void)iTunesImportSelected:(NSString *)importFile {
+    importFileListPicker = nil;
+    importFileListPopover = nil;
+    receivedList = [dataSyncPackage importiTunesSelected:importFile];
+    importedFile = importFile;
+    xFerOption = Receiving;
+    [self checkReceivedDataType];
+    [_syncDataTable reloadData];
 }
 
 -(void)selectXFerOption:(NSString *)xFerChoice {
     [_xFerOptionButton setTitle:xFerChoice forState:UIControlStateNormal];
     if ([xFerChoice isEqualToString:@"Send Data"]) {
-        [syncController setXFerOption:Sending];
+ //       [syncController setXFerOption:Sending];
     } else if ([xFerChoice isEqualToString:@"Receive Data"]) {
-        [syncController setXFerOption:Receiving];
+//        [syncController setXFerOption:Receiving];
     }
-    [syncController updateTableData];
+ //   [syncController updateTableData];
 }
 
 -(void)selectSyncType:(NSString *)typeChoice {
     [_syncTypeButton setTitle:typeChoice forState:UIControlStateNormal];
-    for (int i = 0 ; i < [syncTypeList count] ; i++) {
-        if ([typeChoice isEqualToString:[syncTypeList objectAtIndex:i]]) {
-            [syncController setSyncType:i];
-            break;
-        }
-    }
-    [syncController updateTableData];
+    _syncType = [SyncMethods getSyncType:typeChoice];
+    [self setSendList];
+    [_syncDataTable reloadData];
 }
 
 -(void)selectSyncOption:(NSString *)optionChoice {
     [_syncOptionButton setTitle:optionChoice forState:UIControlStateNormal];
-    for (int i = 0 ; i < [syncOptionList count] ; i++) {
-        if ([optionChoice isEqualToString:[syncOptionList objectAtIndex:i]]) {
-            [syncController setSyncOption:i];
-            break;
+    _syncOption = [SyncMethods getSyncOption:optionChoice];
+    [self setSendList];
+    [_syncDataTable reloadData];
+}
+
+-(void)checkReceivedDataType {
+    if (receivedList) {
+        if ([importedFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncMatchResults;
+        } else if ([importedFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncTeams;
+        } else if ([importedFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncMatchList;
+        } else if ([importedFile.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncMatchList;
+        } else if ([importedFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncPhotos;
         }
+        [_syncTypeButton setTitle:[SyncMethods getSyncTypeString:_syncType] forState:UIControlStateNormal];
     }
-    [syncController updateTableData];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -225,7 +263,74 @@
     }
 }
 
--(void)SetBigButtonDefaults:(UIButton *)currentButton {
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"number of rows");
+    if (xFerOption == Sending) {
+        return [filteredSendList count];
+    } else if (xFerOption == Receiving) {
+        return [receivedList count];
+        NSLog(@"number of rows end");
+    }
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier1 = @"Tournament";
+    static NSString *identifier2 = @"Team";
+    static NSString *identifier3 = @"MatchList";
+    static NSString *identifier4 = @"MatchResult";
+    static NSString *identifier5 = @"Photos";
+    UITableViewCell *cell;
+    // Set up the cell...
+    if (_syncType == SyncTeams) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier2 forIndexPath:indexPath];
+        if (xFerOption == Sending) {
+            TeamData *team = [filteredSendList objectAtIndex:indexPath.row];
+            cell = [SyncTableCells configureTeamCell:cell forTeam:team];
+        }
+        else {
+            NSDictionary *team = [receivedList objectAtIndex:indexPath.row];
+            cell = [SyncTableCells configureReceivedTeamCell:cell forTeam:team];
+        }
+    }
+    else if (_syncType == SyncMatchList) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier3 forIndexPath:indexPath];
+        id match;
+        if (xFerOption == Sending) match = [filteredSendList objectAtIndex:indexPath.row];
+        else match = [receivedList objectAtIndex:indexPath.row];
+        cell = [SyncTableCells configureMatchListCell:cell forXfer:(XFerOption)xFerOption forMatch:match forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
+
+    }
+    else if (_syncType == SyncMatchResults) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier4 forIndexPath:indexPath];
+        id score;
+        if (xFerOption == Sending) score = [filteredSendList objectAtIndex:indexPath.row];
+        else score = [receivedList objectAtIndex:indexPath.row];
+        cell = [SyncTableCells configureResultsCell:cell forXfer:(XFerOption)xFerOption forScore:score forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
+    }
+    else if (_syncType == SyncPhotos) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier5 forIndexPath:indexPath];
+        cell = [SyncTableCells configurePhotoCell:cell forPhotoList:[receivedList objectAtIndex:indexPath.row]];
+    }
+    
+/*    switch (_syncType) {
+       case SyncTournaments:
+            cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
+            [self configureTournamentCell:cell atIndexPath:indexPath];
+            break;
+        case SyncMatchResults:
+            cell = [tableView dequeueReusableCellWithIdentifier:identifier4 forIndexPath:indexPath];
+            [self configureResultsCell:cell atIndexPath:indexPath];
+            break
+        default:
+            break;
+    }*/
+    return cell;
+}
+
+-(void)setBigButtonDefaults:(UIButton *)currentButton {
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];

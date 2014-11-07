@@ -65,19 +65,6 @@
         LoadCSVData *loadData = [LoadCSVData new];
         [loadData handleOpenURL:url];
     }
-
-    // Temporary fix to help Main Scouting Remember where it is
-    NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarker.csv"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:storePath]) {
-        // dataMarker.csv doesn't already not exist");
-        NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"dataMarker" ofType:@"csv"];  
-        if (defaultStorePath) {
-            // Copy dataMarker.csv from the main bundle
-            NSLog(@"Found a dataMarker.csv file in the main bundle");
-            [fileManager copyItemAtPath:defaultStorePath toPath:storePath error:NULL];
-        }
-    }
     
     return YES;
 

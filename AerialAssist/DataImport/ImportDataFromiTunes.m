@@ -8,9 +8,10 @@
 
 #import "ImportDataFromiTunes.h"
 #import "DataManager.h"
-#import "ExportTeamData.h"
-#import "MatchDataInterfaces.h"
-#import "TeamScoreInterfaces.h"
+#import "FileIOMethods.h"
+#import "TeamUtilities.h"
+#import "MatchUtilities.h"
+#import "ScoreUtilities.h"
 #import "LoadCSVData.h"
 
 @implementation ImportDataFromiTunes {
@@ -29,8 +30,8 @@
         prefs = [NSUserDefaults standardUserDefaults];
         tournamentName = [prefs objectForKey:@"tournament"];
         fileManager = [NSFileManager defaultManager];
-        documentImportPath = [self applicationDocumentsDirectory];
-        alreadyImportedPath = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Imported Data/%@", tournamentName]];
+        documentImportPath = [FileIOMethods applicationDocumentsDirectory];
+        alreadyImportedPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Imported Data/%@", tournamentName]];
         NSLog(@"Already imported path = %@", alreadyImportedPath);
 	}
 
@@ -68,29 +69,6 @@
     return fileList;
 }
 
--(NSMutableArray *)importDataPhoto:(NSString *) importFile {
-    NSError *error;
-    NSString *fullOriginalPath = [documentImportPath stringByAppendingPathComponent:importFile];
-    NSString *destinationPath = [documentImportPath stringByAppendingPathComponent:@"RobotPhotos"];
-    NSLog(@"import file = %@", importFile);
-    NSLog(@"Remove original file");
-    NSData *importData = [NSData dataWithContentsOfFile:fullOriginalPath];
-    if ([fileManager fileExistsAtPath:fullOriginalPath]) {
-        NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
-        if (dirWrapper == nil) {
-            [self showAlert:@"Unable to unpack import data"];
-        }
-        NSURL *dirUrl = [NSURL fileURLWithPath:destinationPath];
-        BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
-        if (!success) {
-            [self showAlert:@"Unable to create import files"];
-            return nil;
-        }
-        [fileManager removeItemAtPath:fullOriginalPath error:&error];
-    }
-    return nil;
-}
-
 -(NSMutableArray *)importData:(NSString *) importFile {
     NSError *error;
     NSString *fullOriginalPath = [documentImportPath stringByAppendingPathComponent:importFile];
@@ -106,7 +84,6 @@
         return nil;
     }
     // put this in success loop when the rest is done
-    NSLog(@"Remove original file");
     NSMutableArray *importedList = [self unserializeAndLoad:destinationPath];
     [fileManager removeItemAtPath:fullOriginalPath error:&error];
     
@@ -142,7 +119,6 @@
         [self showAlert:@"Unable to create import files"];
         return nil;
     }
-    NSLog(@"Decide which unpackage call to make");
 
     NSArray *files = [fileManager contentsOfDirectoryAtPath:transferPath error:&error];
     if (files == nil) {
@@ -151,7 +127,7 @@
     }
 
     if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        TeamScoreInterfaces *matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
+        ScoreUtilities *matchResultsPackage = [[ScoreUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                // NSLog(@"file = %@", file);
@@ -163,7 +139,7 @@
         }
     }
     else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        ExportTeamData *teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
+        TeamUtilities *teamDataPackage = [[TeamUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 NSLog(@"file = %@", file);
@@ -175,13 +151,13 @@
         }
     }
     else if ([importFile.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
+        MatchUtilities *matchUtilitiesPackage = [[MatchUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
                 NSData *myData = [NSData dataWithContentsOfFile:fullPath];
-                NSDictionary *matchReceived = [matchDataPackage unpackageMatchForXFer:myData];
+                NSDictionary *matchReceived = [matchUtilitiesPackage unpackageMatchForXFer:myData];
                 if (matchReceived) [receivedData addObject:matchReceived];
             }
         }
@@ -199,20 +175,6 @@
                                             otherButtonTitles:nil];
     [prompt setAlertViewStyle:UIAlertViewStyleDefault];
     [prompt show];
-}
-
-/**
- Returns the path to the application's Library directory.
- */
-- (NSString *)applicationLibraryDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
-}
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 

@@ -20,6 +20,7 @@
 -(NSArray *)getThumbnailList:(NSNumber *)teamNumber;
 -(NSString *)createBaseName:(NSNumber *)baseNumber;
 -(NSString *)savePhoto:(NSString *)photoNameBase withImage:(UIImage *)image;
+-(NSMutableArray *)importDataPhoto:(NSString *) importFile;
 
 -(void)removePhoto:(NSString *)photoName;
 @end

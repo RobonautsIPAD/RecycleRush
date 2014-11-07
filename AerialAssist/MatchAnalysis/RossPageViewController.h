@@ -16,7 +16,7 @@
 @interface RossPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, assign) MatchType currentSectionType;
+/*@property (nonatomic, assign) MatchType currentSectionType;
 @property (nonatomic, assign) NSUInteger sectionIndex;
 @property (nonatomic, assign) NSUInteger rowIndex;
 @property (nonatomic, assign) NSUInteger teamIndex;
@@ -75,6 +75,6 @@
 -(void)SetTextBoxDefaults:(UITextField *)textField;
 -(void)SetBigButtonDefaults:(UIButton *)currentButton;
 -(void)SetSmallButtonDefaults:(UIButton *)currentButton;
-
+*/
 
 @end

@@ -121,6 +121,7 @@
                 }
                 continue;
             }
+            NSLog(@"%@", key);
             NSDictionary *enumDictionary = [self getEnumDictionary:[column valueForKey:@"dictionary"]];
             NSDictionary *description = [matchDataProperties valueForKey:key];
             if ([description isKindOfClass:[NSAttributeDescription class]]) {
@@ -172,7 +173,7 @@
     if (![DataConvenienceMethods getTournament:tournament fromContext:_dataManager.managedObjectContext]) return nil;
 
     MatchData *match = [DataConvenienceMethods getMatch:matchNumber forType:matchType forTournament:tournament fromContext:_dataManager.managedObjectContext];
-    NSLog(@"match type = %@, tournament = %@", matchTypeString, tournament);
+    // NSLog(@"match type = %@, tournament = %@", matchTypeString, tournament);
     if (match) return match;
     else {
         match = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
@@ -201,11 +202,10 @@
     else return nil;
 }
 
--(NSString *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName {
+-(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName {
     NSString *error;
     MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName];
-    if (!match) return @"Unable to add match";
-    NSLog(@"%@", teamList);
+    if (!match) return Nil;
     for (NSDictionary *team in teamList) {
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
@@ -213,11 +213,51 @@
             error = [scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]]];
         }
     }
-    NSError *err;
-    if (![_dataManager.managedObjectContext save:&err]) {
-        NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
+    return match;
+}
+
+-(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
+    if (!_dataManager) {
+        _dataManager = [DataManager new];
     }
-    return error;
+    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    NSNumber *matchNumber = [myDictionary objectForKey:@"number"];
+    NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
+    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchTypeDictionary];
+    NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
+    if (!matchNumber || !matchType || !tournamentName) return nil;
+    // NSLog(@"receiving %@", myDictionary);
+
+    MatchData *matchRecord = [DataConvenienceMethods getMatch:matchNumber forType:matchType forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    
+    if (matchRecord) {
+        // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
+        NSNumber *saved = [myDictionary objectForKey:@"saved"];
+        NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+        if (saved && savedBy) {
+            if ([saved floatValue] == [matchRecord.saved floatValue] && [savedBy isEqualToString:matchRecord.savedBy]) {
+                // NSLog(@"Match has already transferred, match = %@", score.match.number);
+                NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+                NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchTypeString, @"N", nil];
+                NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+                return matchTransfer;
+            }
+        }
+    }
+    NSArray *teams = [myDictionary objectForKey:@"teams"];
+    MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName];
+    if (!match) return nil;
+    match.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    
+    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"teams", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, teams, @"Y", nil];
+    NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    // NSLog(@"%@", matchTransfer);
+    return matchTransfer;
 }
 
 -(NSNumber *)getNumber:inputData {
@@ -273,10 +313,10 @@
     
     NSLog(@"Total Matches = %d", [matchData count]);
     
-    ExportMatchData *matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
+/*    ExportMatchData *matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
     for (MatchData *match in matchData) {
         NSData *xferData = [matchDataPackage packageMatchForXFer:match];
-    }
+    }*/
 }
 #endif
 

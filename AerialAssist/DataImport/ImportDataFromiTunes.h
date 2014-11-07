@@ -14,6 +14,5 @@
 - (id)init:(DataManager *)initManager;
 -(NSArray *)getImportFileList;
 -(NSMutableArray *)importData:(NSString *) importFile;
--(NSMutableArray *)importDataPhoto:(NSString *) importFile;
 
 @end

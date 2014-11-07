@@ -60,6 +60,22 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Red 4, Red4</string>
+		<key>output</key>
+		<string>Red 4</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>score</string>
+		<key>input</key>
+		<string>Blue 4, Blue4</string>
+		<key>output</key>
+		<string>Blue 4</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>matchType</string>
 		<key>input</key>
 		<string>Type, Match Type</string>

@@ -113,7 +113,7 @@
     
     // Export Scores
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
-    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] initWithDataManager:_dataManager];
+    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
         csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
     }

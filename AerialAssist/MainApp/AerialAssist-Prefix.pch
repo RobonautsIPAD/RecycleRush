@@ -18,97 +18,9 @@
 //#define TEST_MODE
 
 typedef enum {
-    TriUnknown = -1,
-    TriNo,
-    TriYes,
-} Troolean;
-
-/*typedef enum {
-    TriUnknown = -1,
-    TriNo,
-    TriYes,
-} TriState;
-*/
-typedef enum {
-    QuadUnknown = -1,
-    QuadNo,
-    QuadYes,
-    QuadMaybe,
-} QuadState;
-
-typedef enum {
-    NumberUnknown = -1,
-    NZero,
-    NOne,
-    NTwo,
-    NThree,
-} NumberEnum;
-
-typedef enum {
-    Practice,
-	Seeding,
-    Elimination,
-    Testing,
-    OtherMatch,
-} MatchType;
-
-typedef enum {
-    DriveUnknown = -1,
-    Mech,
-    Omni,
-    Swerve,
-    Traction,
-    Multi,
-    Tread,
-    Butterfly,
-    OtherDrive
-} DriveType;
-
-typedef enum {
-    ShooterUnknown = -1,
-    ShooterNone,
-    ShooterWheel,
-    ShooterPlunger,
-    ShooterCatapult,
-    ShooterKicker,
-    ShooterOther,
-} ShooterType;
-
-typedef enum {
-    IntakeUnknown = -1,
-    IntakeNone,
-    IntakeJVN,
-    IntakeEveryBot,
-    IntakeClamp,
-    Intake118,
-    IntakeOther
-} IntakeType;
-
-typedef enum {
-    TunnelUnknown = -1,
-    TunnelNone,
-    TunnelMaybe,
-    TunnelTurn,
-   TunnelYes,
-} TunnelType;
-
-typedef enum {
     Sending,
 	Receiving,
 } XFerOption;
-
-typedef enum {
-    SyncTeams,
-    SyncTournaments,
-    SyncMatchResults,
-    SyncMatchList
-} SyncType;
-
-typedef enum {
-    SyncAll,
-    SyncAllSavedHere,
-    SyncAllSavedSince,
-} SyncOptions;
 
 #endif
 

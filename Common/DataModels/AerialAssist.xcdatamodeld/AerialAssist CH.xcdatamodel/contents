@@ -275,7 +275,6 @@
         <attribute name="trussThrowMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
-        <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="TournamentData" representedClassName="TournamentData" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
@@ -287,7 +286,7 @@
         <element name="MatchData" positionX="0" positionY="0" width="128" height="180"/>
         <element name="Regional" positionX="0" positionY="0" width="128" height="315"/>
         <element name="TeamData" positionX="0" positionY="0" width="128" height="748"/>
-        <element name="TeamScore" positionX="0" positionY="0" width="128" height="1303"/>
+        <element name="TeamScore" positionX="0" positionY="0" width="128" height="1290"/>
         <element name="TournamentData" positionX="0" positionY="0" width="128" height="73"/>
     </elements>
 </model>

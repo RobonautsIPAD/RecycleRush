@@ -14,5 +14,6 @@
 @interface ScoreUtilities : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
+-(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData;
 -(NSString *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "SyncTypeDictionary.h"
-
+#import "SyncMethods.h"
 @implementation SyncTypeDictionary {
     NSDictionary *dictionary;
     NSArray *objects;

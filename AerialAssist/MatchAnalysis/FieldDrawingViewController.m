@@ -93,6 +93,7 @@
 
 @implementation FieldDrawingViewController {
     TeamScore *currentScore;
+    TeamData *team;
     int currentIndex;
     NSDictionary *matchTypeDictionary;
 }
@@ -223,7 +224,7 @@
 -(void)setDisplayData {
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentScore.matchNumber intValue]];
     [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentScore.matchType forDictionary:matchTypeDictionary] forState:UIControlStateNormal];
-    TeamData *team = [DataConvenienceMethods getTeam:currentScore.teamNumber fromContext:_dataManager.managedObjectContext];
+    team = [DataConvenienceMethods getTeam:currentScore.teamNumber fromContext:_dataManager.managedObjectContext];
     _teamName.text = team.name;
     _teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     _notes.text = currentScore.notes;
@@ -344,7 +345,7 @@
     //  VC is the FieldDrawing VC.
     if ([segue.identifier isEqualToString:@"MatchOverlay"]) {
         [segue.destinationViewController setMatchList:_teamScores];
-        [segue.destinationViewController setNumberTeam:currentScore.team];
+        [segue.destinationViewController setNumberTeam:team];
     }
 }
 

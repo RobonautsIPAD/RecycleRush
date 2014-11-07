@@ -201,6 +201,184 @@
     else return FALSE;
 }
 
+-(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
+    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    NSLog(@"unpackage team needs work");
+    
+    //     Assign unpacked data to the team record
+    //     Return team record
+    NSNumber *teamNumber = [myDictionary objectForKey:@"number"];
+    if (!teamNumber) return nil;
+    
+    TeamData *teamRecord = [DataConvenienceMethods getTeam:teamNumber fromContext:_dataManager.managedObjectContext];
+    if (!teamRecord) {
+        teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
+                                                   inManagedObjectContext:_dataManager.managedObjectContext];
+        [teamRecord setValue:teamNumber forKey:@"number"];
+    }
+    // teamRecord = [self migrateData:myDictionary forTeam:teamRecord];
+
+    // Create the property dictionary if it hasn't been created yet
+    if (!teamDataAttributes) teamDataAttributes = [[teamRecord entity] attributesByName];
+    // check retrieved team, if the saved and saveby match the imcoming data then just do nothing
+    NSNumber *saved = [myDictionary objectForKey:@"saved"];
+    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    
+    if ([saved floatValue] == [teamRecord.saved floatValue] && [savedBy isEqualToString:teamRecord.savedBy]) {
+        NSLog(@"Team has already transferred, team = %@", teamNumber);
+        NSLog(@"Add a validation check or something");
+        NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
+        NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        return teamTransfer;
+    }
+    
+    // Cycle through each object in the transfer data dictionary
+    for (NSString *key in myDictionary) {
+        if ([key isEqualToString:@"number"]) continue; // We have already processed team number
+        if ([key isEqualToString:@"tournament"]) continue; // Deal with tournament list later
+        if ([key isEqualToString:@"regional"]) continue; // Deal with regional list later
+        if ([key isEqualToString:@"primePhoto"]) {
+            // Only do something with the prime photo if there is not photo already
+            if (!teamRecord.primePhoto) {
+                [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+            }
+            continue;
+        }
+        [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+    }
+    
+    /*        id value = [_teamDataProperties valueForKey:key];
+     if ([value isKindOfClass:[NSAttributeDescription class]]) {
+     [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+     }
+     else {   // This is a relationship property
+     NSRelationshipDescription *destination = [value inverseRelationship];
+     if ([destination.entity.name isEqualToString:@"TournamentData"]) {
+     // NSLog(@"T dictionary = %@", [myDictionary objectForKey:key]);
+     for (int i=0; i<[[myDictionary objectForKey:key] count]; i++) {
+     [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
+     }
+     }
+     
+     }*/
+    
+    teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    NSLog(@"%@", teamRecord);
+    NSError *error;
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
+    NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return teamTransfer;
+}
+
+-(TeamData *)migrateData:(NSDictionary *)myDictionary forTeam:(TeamData *)teamRecord {
+    // Cycle through each object in the transfer data dictionary
+    if (!triStateDictionary) triStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"TriState"];
+    if (!quadStateDictionary) quadStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"QuadState"];
+    if (!driveTypeDictionary) driveTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"DriveType"];
+    if (!intakeTypeDictionary) intakeTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"IntakeType"];
+    if (!shooterTypeDictionary) shooterTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"ShooterType"];
+    if (!tunnelDictionary) tunnelDictionary = [EnumerationDictionary initializeBundledDictionary:@"Tunnel"];
+    for (NSString *key in myDictionary) {
+        NSLog(@"%@", key);
+        if ([key isEqualToString:@"number"]) continue; // We have already processed team number
+        if ([key isEqualToString:@"tournament"]) continue; // Deal with tournament list later
+        if ([key isEqualToString:@"regional"]) continue; // Deal with regional list later
+        if ([key length] > 4 &&  [[key substringToIndex:5] isEqualToString:@"class"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:triStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"spitBot"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:quadStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"goalie"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:triStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"autonMobility"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:triStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"catcher"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:triStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"intake"]) {
+            id value = [myDictionary objectForKey:key];
+            NSString *newValue;
+            if ([value intValue] == -1) newValue = @"Unknown";
+            if ([value intValue] == 0) newValue = @"None";
+            if ([value intValue] == 1) newValue = @"JVN";
+            if ([value intValue] == 2) newValue = @"EveryBot";
+            if ([value intValue] == 3) newValue = @"Clamp";
+            if ([value intValue] == 4) newValue = @"118";
+            if ([value intValue] == 5) newValue = @"Other";
+            [teamRecord setValue:newValue forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"shooterType"]) {
+            id value = [myDictionary objectForKey:key];
+            NSString *newValue;
+            if ([value intValue] == -1) newValue = @"Unknown";
+            if ([value intValue] == 0) newValue = @"None";
+            if ([value intValue] == 1) newValue = @"Wheel";
+            if ([value intValue] == 2) newValue = @"Plunger";
+            if ([value intValue] == 3) newValue = @"Catapult";
+            if ([value intValue] == 4) newValue = @"Kicker";
+            if ([value intValue] == 5) newValue = @"Other";
+            [teamRecord setValue:newValue forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"tunneler"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:tunnelDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"driveTrainType"]) {
+            id value = [myDictionary objectForKey:key];
+            NSString *newValue;
+            if ([value intValue] == -1) newValue = @"Unknown";
+            if ([value intValue] == 0) newValue = @"Mech";
+            if ([value intValue] == 1) newValue = @"Omni";
+            if ([value intValue] == 2) newValue = @"Swerve";
+            if ([value intValue] == 3) newValue = @"Traction";
+            if ([value intValue] == 4) newValue = @"Multi";
+            if ([value intValue] == 5) newValue = @"Tread";
+            if ([value intValue] == 6) newValue = @"Butterfly";
+            if ([value intValue] == 7) newValue = @"Other";
+            [teamRecord setValue:newValue forKey:key];
+            continue;
+        }
+        if ([key isEqualToString:@"hotTracker"]) {
+            NSString *value = [EnumerationDictionary getKeyFromValue:[myDictionary objectForKey:key] forDictionary:triStateDictionary];
+            [teamRecord setValue:value forKey:key];
+            continue;
+        }
+        
+        if ([key isEqualToString:@"primePhoto"]) {
+            // Only do something with the prime photo if there is not photo already
+            if (!teamRecord.primePhoto) {
+                [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+            }
+            continue;
+        }
+        [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+    }
+    
+    return teamRecord;
+}
+
+
 -(id)getEnumDictionary:(NSString *) dictionaryName {
     if (!dictionaryName) {
         return nil;
@@ -274,9 +452,9 @@
     int prev_int = -99;
     BOOL firstTime = TRUE;
     int counter = 0;
-    ExportTeamData *teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
+    // ExportTeamData *teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
-        NSData *xferData = [teamDataPackage packageTeamForXFer:[teamData objectAtIndex:i]];
+        // NSData *xferData = [teamDataPackage packageTeamForXFer:[teamData objectAtIndex:i]];
 //        NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
         int driveType = [[[teamData objectAtIndex:i] valueForKey:@"driveTrainType"] intValue];
         // NSLog(@"%d\t%d", i+1, driveType);

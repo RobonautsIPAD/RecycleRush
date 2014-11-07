@@ -11,12 +11,14 @@
 #import "TournamentData.h"
 #import "TournamentUtilities.h"
 #import "TeamData.h"
+#import "TeamUtilities.h"
 #import "ExportTeamData.h"
 #import "MatchData.h"
 #import "ExportMatchData.h"
 #import "TeamScore.h"
 #import "TeamScoreInterfaces.h"
 #import "ImportDataFromiTunes.h"
+#import "SyncMethods.h"
 
 @implementation SharedSyncController {
     NSUserDefaults *prefs;
@@ -39,7 +41,8 @@
     NSArray *teamList;
     NSArray *filteredTeamList;
     NSMutableArray *receivedTeamList;
-    ExportTeamData *teamDataPackage;
+    TeamUtilities *teamDataPackage;
+    ExportTeamData *teamExportPackage;
     
     NSNumber *matchScheduleSync;
     NSArray *matchScheduleList;
@@ -75,7 +78,7 @@ GKPeerPickerController *picker;
     [_disconnectButton addTarget:self action:@selector(btnDisconnect) forControlEvents:UIControlEventTouchUpInside];
     [_sendButton addTarget:self action:@selector(btnSend) forControlEvents:UIControlEventTouchUpInside];
     [_packageDataButton addTarget:self action:@selector(packageDataForiTunes) forControlEvents:UIControlEventTouchUpInside];
-    
+/*
     [_xFerOptionButton setHidden:NO];
     [_syncTypeButton setHidden:YES];
     [_syncOptionButton setHidden:YES];
@@ -83,7 +86,7 @@ GKPeerPickerController *picker;
     [_disconnectButton setHidden:YES];
     [_sendButton setHidden:YES];
     [_peerName setHidden:YES];
-    
+    */
     // Retrieve all preferences
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
@@ -97,7 +100,7 @@ GKPeerPickerController *picker;
         tournamentDataPackage = [[TournamentUtilities alloc] init:_dataManager];
     }
     if (!teamDataPackage) {
-        teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
+        teamDataPackage = [[TeamUtilities alloc] init:_dataManager];
     }
     if (!matchDataPackage) {
         matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
@@ -275,7 +278,7 @@ GKPeerPickerController *picker;
         for (int i = 0; i < 6; i++) {
             score = [data objectAtIndex:i];
             UILabel *label = (UILabel *)[cell viewWithTag:(i + 3) * 10];
-            label.text = [NSString stringWithFormat:@"%@", score.team.number];
+            label.text = [NSString stringWithFormat:@"%@", score.teamNumber];
         }
     } else {
         NSDictionary *match = [receivedMatchList objectAtIndex:indexPath.row];
@@ -321,7 +324,7 @@ GKPeerPickerController *picker;
         label3.text = score.allianceStation;
         
         UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-        label4.text = [NSString stringWithFormat:@"%@", score.team.number];
+        label4.text = [NSString stringWithFormat:@"%@", score.teamNumber];
         
         UILabel *label5 = (UILabel *)[cell viewWithTag:50];
         label5.text = [NSString stringWithFormat:@"%@", score.results];
@@ -640,7 +643,7 @@ GKPeerPickerController *picker;
         case SyncTeams:
             for (int i = 0; i < [filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
-                NSData *myData = [teamDataPackage packageTeamForXFer:team];
+                NSData *myData = [teamExportPackage packageTeamForXFer:team];
                 [self sendData:myData];
                 //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
@@ -658,7 +661,7 @@ GKPeerPickerController *picker;
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
                 NSData *myData = [matchResultsPackage packageScoreForXFer:score];
                 [self sendData:myData];
-                NSLog(@"Match = %@, Type = %@, Team = %@", score.match.number, score.match.matchType, score.team.number);
+                NSLog(@"Match = %@, Type = %@, Team = %@", score.matchNumber, score.matchType, score.teamNumber);
             }
             break;
         default:
@@ -731,7 +734,7 @@ GKPeerPickerController *picker;
             if (receivedMatchList == nil) {
                 receivedMatchList = [NSMutableArray array];
             }
-            NSDictionary *matchReceived = [matchDataPackage unpackageMatchForXFer:data];
+            NSDictionary *matchReceived = Nil;
             if (matchReceived) [receivedMatchList addObject:matchReceived];
         }
             break;
@@ -739,8 +742,8 @@ GKPeerPickerController *picker;
             if (receivedResultsList == nil) {
                 receivedResultsList = [NSMutableArray array];
             }
-            NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
-            if (scoreReceived) [receivedResultsList addObject:scoreReceived];
+        //    NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:data];
+        //    if (scoreReceived) [receivedResultsList addObject:scoreReceived];
         }
             break;
         default:
@@ -762,7 +765,7 @@ GKPeerPickerController *picker;
         case SyncTeams:
             for (int i=0; i<[filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
-                [teamDataPackage exportTeamForXFer:team toFile:transferFilePath];
+                [teamExportPackage exportTeamForXFer:team toFile:transferFilePath];
                 NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
@@ -841,11 +844,11 @@ GKPeerPickerController *picker;
     return [importPackage getImportFileList];
 }
 
-- (void)importiTunesSelected:(NSString *)importFile {
+-(void)importiTunesSelected:(NSString *)importFile {
     NSLog(@"file selected = %@", importFile);
     if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         NSLog(@"Photo package");
-        receivedPhotoList = [importPackage importDataPhoto:importFile];
+        //receivedPhotoList = [importPackage importDataPhoto:importFile];
         //receiveLabel1.text = @"Photo";
         //receiveLabel2.text = @"";
         //receiveLabel3.text = @"Thumbnail";

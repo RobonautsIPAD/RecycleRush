@@ -86,6 +86,53 @@
     [fileManager removeItemAtPath:tmpBuildExport error:&error];
 }
 
+-(NSMutableArray *)importDataPhoto:(NSString *) importFile {
+    NSError *error;
+    NSMutableArray *importedPhotos = [[NSMutableArray alloc] init];
+    NSString *photoImportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithString:importFile]];
+    // Build a temporary directory to hold imported photo directories
+    NSString *tmpPhotoImport = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"tmpPhotoImport"];
+    // Remove the tmp directory to make sure old data is not hanging around
+    [fileManager removeItemAtPath:tmpPhotoImport error:&error];
+    NSData *importData = [NSData dataWithContentsOfFile:photoImportPath];
+
+    if ([fileManager fileExistsAtPath:photoImportPath]) {
+        NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
+        if (dirWrapper == nil) {
+            return nil;
+        }
+        NSURL *dirUrl = [NSURL fileURLWithPath:tmpPhotoImport];
+        BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
+        if (!success) {
+            return nil;
+        }
+    }
+    NSString *photos = [tmpPhotoImport stringByAppendingPathComponent:@"Images"];
+    NSArray *directoryContents = [fileManager contentsOfDirectoryAtPath:photos error:&error];
+    for (NSString *file in directoryContents) {
+        NSString *destinationPath = [robotPhotoDirectory stringByAppendingPathComponent:file];
+        if (![fileManager fileExistsAtPath:destinationPath]) {
+            NSLog(@"%@ file does not exist", file);
+            [fileManager copyItemAtPath:[photos stringByAppendingPathComponent:file] toPath:destinationPath error:NULL];
+            [importedPhotos addObject:file];
+        }
+    }
+    photos = [tmpPhotoImport stringByAppendingPathComponent:@"Thumbnails"];
+    directoryContents = [fileManager contentsOfDirectoryAtPath:photos error:&error];
+    for (NSString *file in directoryContents) {
+        NSString *destinationPath = [robotThumbnailDirectory stringByAppendingPathComponent:file];
+        if (![fileManager fileExistsAtPath:destinationPath]) {
+            NSLog(@"%@ file does not exist", file);
+            [fileManager copyItemAtPath:[photos stringByAppendingPathComponent:file] toPath:destinationPath error:NULL];
+        }
+    }
+    [fileManager removeItemAtPath:photoImportPath error:&error];
+    [fileManager removeItemAtPath:tmpPhotoImport error:&error];
+  
+    NSLog(@"import file = %@", importFile);
+    return importedPhotos;
+}
+
 -(NSString *)getFullImagePath:(NSString *)photoName {
     NSString *fullPath = [robotPhotoDirectory stringByAppendingPathComponent:photoName];
     return fullPath;
