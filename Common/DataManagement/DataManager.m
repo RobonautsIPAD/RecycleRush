@@ -3,22 +3,24 @@
 // Robonauts Scouting
 //
 //  Created by Kris Pettinger on 6/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __Robonauts__. All rights reserved.
 //
 
 #import "DataManager.h"
 #import "AppDelegate.h"
+#import "FileIOMethods.h"
 
 @implementation DataManager {
     NSUserDefaults *prefs;
     NSString *appName;
+    NSDateFormatter *dateFormatter;
+    NSFileHandle *errorFileHandle;
+    NSFileHandle *warningFileHandle;
 }
 
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
-@synthesize smManagedObjectContext = _smManagedObjectContext;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize loadDataFromBundle;
 
 - (AppDelegate *)appDelegate {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -30,68 +32,86 @@
 	{
         prefs = [NSUserDefaults standardUserDefaults];
         appName = [prefs objectForKey:@"appName"];
+        [self initializeLogFiles];
         [self managedObjectContext];
-        //self.photoLibrary = [[ALAssetsLibrary alloc] init];
     }
 	return self;
 }
 
--(BOOL)databaseExists {
-    [self managedObjectContext];
-    return loadDataFromBundle;
-}
-
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil)
-    {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
-        {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             */
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
+-(void)initializeLogFiles {
+    NSDate *date = [NSDate date];
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *errorFile = @"errorFile.txt";
+    _errorFilePath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:errorFile];
+    NSString *msg = [NSString stringWithFormat:@"%@ %@ Started\n", [dateFormatter stringFromDate:date], appName];
+    if ( !(errorFileHandle = [NSFileHandle fileHandleForWritingAtPath:_errorFilePath]) ) {
+        [msg writeToFile:_errorFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        errorFileHandle = [NSFileHandle fileHandleForWritingAtPath:_errorFilePath];
+    }
+    else {
+        errorFileHandle = [NSFileHandle fileHandleForWritingAtPath:_errorFilePath];
+        [errorFileHandle seekToEndOfFile];
+        [errorFileHandle writeData:[msg dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    NSString *warningFile = @"warningFile.txt";
+    _warningFilePath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:warningFile];
+    if ( !(warningFileHandle = [NSFileHandle fileHandleForWritingAtPath:_warningFilePath]) ) {
+        [msg writeToFile:_warningFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        warningFileHandle = [NSFileHandle fileHandleForWritingAtPath:_warningFilePath];
+    }
+    else {
+        warningFileHandle = [NSFileHandle fileHandleForWritingAtPath:_warningFilePath];
+        [warningFileHandle seekToEndOfFile];
+        [warningFileHandle writeData:[msg dataUsingEncoding:NSUTF8StringEncoding]];
     }
 }
-/*
--(void)savePhotoToAlbum:(UIImage*)image {
-    [self.photoLibrary saveImage:image toAlbum:appName withCompletionBlock:^(NSError *error) {
-        if (error!=nil) {
-            NSLog(@"Big error: %@", [error description]);
-        }
-    }];
+
+-(BOOL)databaseExists {
+    [self managedObjectContext];
+    return _loadDataFromBundle;
 }
 
--(void)addPhotoToAlbum:(NSURL*)assetURL {
-    [self.photoLibrary addImage:assetURL toAlbum:appName withCompletionBlock:^(NSError *error) {
-        if (error!=nil) {
-            NSLog(@"Big error: %@", [error description]);
-        }
-    }];
+-(void)writeErrorMessage:(NSError *)error forType:(MessageType)messageType {
+    NSDate *date = [NSDate date];
+    NSString *msg = [NSString stringWithFormat:@"%@ %@\n", [dateFormatter stringFromDate:date], [error localizedDescription]];
+    if (messageType == kErrorMessage) {
+        [errorFileHandle seekToEndOfFile];
+        [errorFileHandle writeData:[msg dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    else {
+        [warningFileHandle seekToEndOfFile];
+        [warningFileHandle writeData:[msg dataUsingEncoding:NSUTF8StringEncoding]];
+    }
 }
 
--(void)getPhotoFromAlbum:(NSURL *)photoURL; {
-    [self.photoLibrary getImageFromAssetURL:photoURL withCompletionBlock:^(NSError *error) {
-        if (error!=nil) {
-            NSLog(@"Big error: %@", [error description]);
-        }
-    }];
-}
+-(BOOL)saveContext {
+    BOOL success = TRUE;
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
 
--(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate {
-    [self.photoLibrary getImageFromAssetDate:assetDate fromAlbum:appName withCompletionBlock:^(NSError *error) {
-        if (error!=nil) {
-            NSLog(@"Big error: %@", [error description]);
+    if (managedObjectContext) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            [self writeErrorMessage:error forType:kErrorMessage];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database save error"
+                                                            message:@"Unable to save record"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
+            [alert show];
+            success = FALSE;
         }
-    }];
+    }
+    else {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey];
+        NSError *error = [NSError errorWithDomain:@"Save Database" code:kErrorMessage userInfo:userInfo];
+        [self writeErrorMessage:error forType:kErrorMessage];
+        success = FALSE;
+    }
+    return success;
 }
-*/
 
 #pragma mark - Core Data stack
 
@@ -152,7 +172,7 @@
     NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: fileName];
     NSURL *storeURL = [NSURL fileURLWithPath:storePath];
 	
-    loadDataFromBundle = NO;
+    _loadDataFromBundle = NO;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:storePath]) {
         // Database doesn't already exist, so check for one in the main bundle
@@ -165,7 +185,7 @@
         }
         else { // Load data from CSV files in the main bundle
             NSLog(@"No pre-existing databases. Check the main bundle for CSV data");
-            loadDataFromBundle = YES;
+            _loadDataFromBundle = YES;
         }
     }
 

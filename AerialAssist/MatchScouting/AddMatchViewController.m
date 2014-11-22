@@ -106,7 +106,7 @@
         teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
     MatchData *match = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName];
-    NSError *err;
+    NSError *err = nil;
     if (match) {
         if (![_dataManager.managedObjectContext save:&err]) {
             NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);

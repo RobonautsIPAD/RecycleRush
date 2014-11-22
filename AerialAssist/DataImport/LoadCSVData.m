@@ -22,8 +22,6 @@
     BOOL loadDataFromBundle;
 }
 
-@synthesize dataManager = _dataManager;
-
 - (id)initWithDataManager:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
@@ -32,9 +30,10 @@
 	return self;
 }
 
--(void)loadCSVDataFromBundle {
+-(BOOL)loadCSVDataFromBundle {
     // NSLog(@"loadCSVDataFromBundle");
 
+    BOOL inputError = FALSE;
     if (_dataManager == nil) {
         _dataManager = [DataManager new];
         loadDataFromBundle = [_dataManager databaseExists];
@@ -48,21 +47,22 @@
         [self loadTournamentFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"TeamList" ofType:@"csv"];
-        [self loadTeamFile:filePath];
+        inputError |= [self loadTeamFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"TeamHistory" ofType:@"csv"];
 //        [self loadTeamHistory:filePath];
         
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchList" ofType:@"csv"];
-        [self loadMatchFile:filePath];
+        inputError |= [self loadMatchFile:filePath];
 
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchResults" ofType:@"csv"];
 //        [self loadMatchResults:filePath];
     }
- 
+    return inputError;
 }
 
--(void) handleOpenURL:(NSURL *)url {
+-(BOOL)handleOpenURL:(NSURL *)url {
+    BOOL inputError = FALSE;
     if (_dataManager == nil) {
         _dataManager = [DataManager new];
     }
@@ -70,11 +70,12 @@
     NSLog(@"Emailed File = %@", filePath);
     NSLog(@"Add decision for team or match file");
     [self loadTournamentFile:filePath];
-    [self loadTeamFile:filePath];
+    inputError |= [self loadTeamFile:filePath];
  //   [self loadTeamHistory:filePath];
     NSLog(@"loaded history");
-    [self loadMatchFile:filePath];
+    inputError |= [self loadMatchFile:filePath];
 //    [self loadMatchResults:filePath];
+    return inputError;
 }
 
 -(void)loadTournamentFile:(NSString *)filePath {
@@ -82,9 +83,10 @@
     [tournamentUtil createTournamentFromFile:filePath];
 }
 
--(void)loadTeamFile:(NSString *)filePath {
+-(BOOL)loadTeamFile:(NSString *)filePath {
     TeamUtilities *teamUtil = [[TeamUtilities alloc] init:_dataManager];
-    [teamUtil createTeamFromFile:filePath];
+    BOOL inputError = [teamUtil createTeamFromFile:filePath];
+    return inputError;
 }
 
 -(void)loadTeamHistory:(NSString *)filePath {
@@ -112,9 +114,10 @@
     [parser closeFile];*/
 }
 
--(void)loadMatchFile:(NSString *)filePath {
+-(BOOL)loadMatchFile:(NSString *)filePath {
     MatchUtilities *matchUtil = [[MatchUtilities alloc] init:_dataManager];
-    [matchUtil createMatchFromFile:filePath];
+    BOOL inputError = [matchUtil createMatchFromFile:filePath];
+    return inputError;
 }
 
 -(void)loadMatchResults:(NSString *)filePath {

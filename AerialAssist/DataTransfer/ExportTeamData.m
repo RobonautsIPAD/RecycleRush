@@ -18,7 +18,6 @@
 
 -(id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
-        NSLog(@"init export team data");
         _dataManager = initManager;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
         teamDataAttributes = [entity attributesByName];
@@ -148,7 +147,6 @@
         [valueList addObject:regionalData];
     }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"Dictionary = %@", dictionary);
     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
     return myData;
 }
@@ -166,6 +164,9 @@
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
     NSData *myData = [self packageTeamForXFer:team];
     [myData writeToFile:exportFile atomically:YES];
+    NSString *msg = [NSString stringWithFormat:@"Exported %@.pck", fileNameBase];
+    NSError *error = [NSError errorWithDomain:@"exportTeamForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+    [_dataManager writeErrorMessage:error forType:kWarningMessage];
 }
 
 

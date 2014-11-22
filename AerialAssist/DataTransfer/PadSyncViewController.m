@@ -29,6 +29,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *packageDataButton;
 @property (nonatomic, weak) IBOutlet UIButton *importFromiTunesButton;
 @property (weak, nonatomic) IBOutlet UIButton *createElimMatches;
+@property (weak, nonatomic) IBOutlet UIButton *viewErrorsButton;
 
 @end
 
@@ -44,6 +45,8 @@
     NSDictionary *allianceDictionary;
     
     id popUp;
+    
+    BOOL transferSuccess;
     
     XFerOption xFerOption;
     PopUpPickerViewController *xFerOptionPicker;
@@ -113,6 +116,7 @@
     }
     matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
     allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+    transferSuccess = TRUE;
 }
 
 -(void)setSendList {
@@ -128,11 +132,10 @@
 }
 
 - (IBAction)selectPackageData:(id)sender {
-    NSString *error = [dataSyncPackage packageDataForiTunes:_syncType forData:filteredSendList];
-    if (error && ![error isEqualToString:@""]) {
-        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Transfer Alert" message:error delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-        [prompt show];
+    NSError *error = nil;
+    transferSuccess |= [dataSyncPackage packageDataForiTunes:_syncType forData:filteredSendList error:&error];
+    if (error) {
+        [_dataManager writeErrorMessage:error forType:[error code]];
     }
 }
 
@@ -266,12 +269,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"number of rows");
     if (xFerOption == Sending) {
         return [filteredSendList count];
     } else if (xFerOption == Receiving) {
         return [receivedList count];
-        NSLog(@"number of rows end");
     }
     return 0;
 }

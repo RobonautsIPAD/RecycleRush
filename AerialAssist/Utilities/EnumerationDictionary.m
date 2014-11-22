@@ -22,7 +22,36 @@
 
 +(id)getValueFromKey:(id)key forDictionary:(NSDictionary *)dictionary {
 //    valueObject = [EnumerationDictionary getValueFromKey:key forDictionary:allianceDictionary];
-    return [dictionary objectForKey:key];
+    id value = [dictionary objectForKey:key];
+    if (!value) {
+        NSArray *allKeys = [dictionary allKeys];
+        for (NSString *item in allKeys) {
+            if ([key caseInsensitiveCompare:item] == NSOrderedSame ) {
+                value = [dictionary objectForKey:item];
+                break;
+            }
+        }
+    }
+    return value;
+}
+
++(NSString *)getCaseInsensitiveKey:(NSString *)item forDictionary:(NSDictionary *)dictionary {
+    //    valueObject = [EnumerationDictionary getValueFromKey:key forDictionary:allianceDictionary];
+    NSString *foundKey = nil;
+    id value = [dictionary objectForKey:item];
+    if (value) {
+        foundKey = item;
+    }
+    else {
+        NSArray *allKeys = [dictionary allKeys];
+        for (NSString *key in allKeys) {
+            if ([item caseInsensitiveCompare:key] == NSOrderedSame ) {
+                foundKey = key;
+                break;
+            }
+        }
+    }
+    return foundKey;
 }
 
 +(NSDictionary *)initializeBundledDictionary:(NSString *)fileName {

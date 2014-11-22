@@ -14,8 +14,8 @@
 @property (nonatomic, strong) DataManager *dataManager;
 
 -(id)init:(DataManager *)initManager;
--(void)createTeamFromFile:(NSString *)filePath;
--(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName;
+-(BOOL)createTeamFromFile:(NSString *)filePath;
+-(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName error:(NSError **)error;
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
 
 @end

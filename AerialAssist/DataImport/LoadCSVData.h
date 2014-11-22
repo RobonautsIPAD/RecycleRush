@@ -13,13 +13,12 @@
 
 @property (nonatomic, strong) DataManager *dataManager;
 
-- (id)initWithDataManager:(DataManager *)initManager;
--(void)loadCSVDataFromBundle;
--(void)handleOpenURL:(NSURL *)url;
+-(id)initWithDataManager:(DataManager *)initManager;
+-(BOOL)loadCSVDataFromBundle;
+-(BOOL)handleOpenURL:(NSURL *)url;
 -(void)loadTournamentFile:(NSString *)filePath;
--(void)loadTeamFile:(NSString *)filePath;
 -(void)loadTeamHistory:(NSString *)filePath;
--(void)loadMatchFile:(NSString *)filePath;
 -(void)loadMatchResults:(NSString *)filePath;
+-(BOOL)loadMatchFile:(NSString *)filePath;
 
 @end

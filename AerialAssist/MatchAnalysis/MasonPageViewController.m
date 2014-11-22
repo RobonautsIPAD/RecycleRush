@@ -10,6 +10,7 @@
 #import "TournamentData.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
+#import "TeamAccessors.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
 #import "TeamData.h"
@@ -382,7 +383,7 @@
     [teamList removeAllObjects];
     [teamStats removeAllObjects];
     for (TeamScore *score in scoreList) {
-        TeamData *team = [DataConvenienceMethods getTeamInTournament:score.teamNumber forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+        TeamData *team = [TeamAccessors getTeam:score.teamNumber inTournament:tournamentName fromContext:_dataManager.managedObjectContext error:nil];
         [teamList addObject:team];
         NSMutableDictionary *stats = [teamStatsPackage calculateMasonStats:team forTournament:tournamentName];
         [teamStats addObject:stats];
@@ -550,7 +551,7 @@
     [settingsDictionary setObject:[NSNumber numberWithInt:rowIndex] forKey:@"Row Index"];
 
     NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
-    NSError *error;
+    NSError *error = nil;
     NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
     if(data) {
         [data writeToFile:plistPath atomically:YES];

@@ -59,7 +59,7 @@
 -(NSArray *)getFilteredTeamList:(SyncOptions)syncOption {
     NSArray *filteredTeamList;
     if (!teamList) {
-        NSError *error;
+        NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *entity = [NSEntityDescription
@@ -99,7 +99,7 @@
 -(NSArray *)getFilteredMatchList:(SyncOptions)syncOption {
     NSArray *filteredMatchList;
     if (!matchScheduleList) {
-        NSError *error;
+        NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *entity = [NSEntityDescription
@@ -140,7 +140,7 @@
 -(NSArray *)getFilteredResultsList:(SyncOptions)syncOption; {
     NSArray *filteredResultsList;
     if (!matchResultsList) {
-        NSError *error;
+        NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *entity = [NSEntityDescription
@@ -180,20 +180,24 @@
     return filteredResultsList;
 }
 
--(NSString *)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList {
+-(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error {
     NSString *transferDataFile;
-    NSString *error = @"";
-    if (![self createExportPaths]) return @"Error";
+    BOOL transferSuccess = TRUE;
+    if (![self createExportPaths]) {
+        NSString *msg = [NSString stringWithFormat:@"Unable to create export path for %@", transferDataFile];
+        *error = [NSError errorWithDomain:@"packageDataForiTunes" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return FALSE;
+    }
     switch (syncType) {
         case SyncTeams:
             if (!teamDataPackage) teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
             for (TeamData *team in transferList) {
                 [teamDataPackage exportTeamForXFer:team toFile:transferFilePath];
-                NSLog(@"Team = %@, saved = %@", team.number, team.saved);
+                // NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Team Data %0.f.tmd", deviceName, tournamentName, [teamDataSync floatValue]]];
-            [self serializeDataForTransfer:transferDataFile];
+            transferSuccess = [self serializeDataForTransfer:transferDataFile error:error];
             break;
         case SyncMatchList:
             if (!matchDataPackage) matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
@@ -202,7 +206,7 @@
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
                 matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
                 transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Schedule %0.f.msd", deviceName, tournamentName, [matchScheduleSync floatValue]]];
-                [self serializeDataForTransfer:transferDataFile];
+                transferSuccess = [self serializeDataForTransfer:transferDataFile  error:error];
             }
             break;
         case SyncMatchResults:
@@ -214,7 +218,7 @@
             matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
             [prefs setObject:matchResultsSync forKey:@"matchResultsSync"];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Results %0.f.mrd", deviceName, tournamentName, [matchResultsSync floatValue]]];
-            [self serializeDataForTransfer:transferDataFile];
+            transferSuccess = [self serializeDataForTransfer:transferDataFile  error:error];
             break;
         default:
             break;
@@ -224,28 +228,23 @@
         NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
         [[NSFileManager defaultManager] removeItemAtPath:name error:&fileError];
     }
-    return error;
+    return transferSuccess;
 }
 
--(NSString *)serializeDataForTransfer:(NSString *)fileName {
-    NSError *error;
+-(BOOL)serializeDataForTransfer:(NSString *)fileName error:(NSError **)error {
     NSURL *url = [NSURL fileURLWithPath:transferFilePath];
-    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
-    if (dirWrapper == nil) {
-        NSString *msg = [NSString stringWithFormat:@"Error creating directory wrapper: %@", error.localizedDescription];
-        NSLog(@"%@", msg);
-        return msg;
-    }
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:error];
+    if (dirWrapper == nil) return FALSE;
     NSData *transferData = [dirWrapper serializedRepresentation];
     [transferData writeToFile:fileName atomically:YES];
-    return @"";
+    return TRUE;
 }
 
 - (BOOL)createExportPaths {
     BOOL success = TRUE;
     if (!transferFilePath) {
         transferFilePath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Transfer Data"]];
-        NSError *error;
+        NSError *error= nil;
         success &= [[NSFileManager defaultManager] createDirectoryAtPath:transferFilePath withIntermediateDirectories:YES attributes:nil error:&error];
     }
     if (!exportFilePath) {

@@ -15,7 +15,7 @@
 #import "FieldDrawing.h"
 #import "TeamData.h"
 #import "TournamentData.h"
-#import "DataConvenienceMethods.h"
+#import "TeamAccessors.h"
 #import "EnumerationDictionary.h"
 
 @interface FieldDrawingViewController ()
@@ -224,7 +224,7 @@
 -(void)setDisplayData {
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentScore.matchNumber intValue]];
     [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentScore.matchType forDictionary:matchTypeDictionary] forState:UIControlStateNormal];
-    team = [DataConvenienceMethods getTeam:currentScore.teamNumber fromContext:_dataManager.managedObjectContext];
+    team = [TeamAccessors getTeam:currentScore.teamNumber fromDataManager:_dataManager];
     _teamName.text = team.name;
     _teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     _notes.text = currentScore.notes;

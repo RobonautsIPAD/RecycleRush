@@ -11,8 +11,10 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "MatchUtilities.h"
+#import "TeamAccessors.h"
 #import "FieldDrawing.h"
 #import "DataConvenienceMethods.h"
+#import "MatchAccessors.h"
 #import "EnumerationDictionary.h"
 
 @implementation ScoreUtilities {
@@ -33,9 +35,10 @@
 
 -(NSString *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber {
     NSString *errMsg;
+    NSError *error = nil;
     // Check team to make sure it exists
     NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:match.matchType forDictionary:matchTypeDictionary];
-    if (![DataConvenienceMethods getTeamInTournament:teamNumber forTournament:match.tournamentName fromContext:_dataManager.managedObjectContext]) return [NSString stringWithFormat:@"%@ Match %@ Team %@ does not exist", matchTypeString, match.number, teamNumber];
+    if (![TeamAccessors getTeam:teamNumber inTournament:match.tournamentName fromContext:_dataManager.managedObjectContext error:&error]) return [NSString stringWithFormat:@"%@ Match %@ Team %@ does not exist", matchTypeString, match.number, teamNumber];
     // NSLog(@"Team %@ exists", teamNumber);
     // Check match to make sure this match doesn't already have a score record in this slot
     // If there is already a score record, check to see if it is the same team we are addiing. If so, do
@@ -94,7 +97,7 @@
     
     if (newScore) {
         [match addScoreObject:newScore];
-        NSLog(@"score count = %d", [[match.score allObjects] count]);
+        NSLog(@"score count = %ul", [[match.score allObjects] count]);
         return Nil;
     }
     errMsg = [NSString stringWithFormat:@"Unable to add %@ Match %@ Team %@ in alliance station %@", matchTypeString, match.number, teamNumber, alliance];
@@ -102,8 +105,9 @@
  }
 
 -(TeamScore *)createNewScore:(MatchData *)match forTeam:(NSNumber *)teamNumber forAllianceStation:(NSNumber *)allianceStation {
+    NSError *error = nil;
     if (!teamNumber || ([teamNumber intValue] < 1)) return nil;
-    if (![DataConvenienceMethods getTeamInTournament:teamNumber forTournament:match.tournamentName fromContext:_dataManager.managedObjectContext]) return Nil;
+    if (![TeamAccessors getTeam:teamNumber inTournament:match.tournamentName fromContext:_dataManager.managedObjectContext error:&error]) return Nil;
     
     if ([DataConvenienceMethods getScoreRecord:match.number forType:match.matchType forAlliance:allianceStation forTournament:match.tournamentName fromContext:_dataManager.managedObjectContext]) return Nil;
     
@@ -134,7 +138,7 @@
     NSNumber *alliance = [myDictionary objectForKey:@"allianceStation"];
     NSString *allianceString = [EnumerationDictionary getKeyFromValue:alliance forDictionary:allianceDictionary];
     NSLog(@"%@", myDictionary);
-    MatchData *match = [DataConvenienceMethods getMatch:matchNumber forType:matchType forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
         if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
@@ -180,7 +184,7 @@
     score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
 
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    NSError *error;
+    NSError *error = nil;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }

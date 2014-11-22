@@ -12,7 +12,27 @@
 #import "DataManager.h"
 #import "SplashPageViewController.h"
 #import "PhoneSplashViewController.h"
-#import "TeamDataInterfaces.h"
+#import "TabletInputErrorViewController.h"
+
+@interface TabletErrorSegue : UIStoryboardSegue
+@end
+
+@implementation TabletErrorSegue
+
+- (void)perform
+{
+    // our custom segue is being fired, push the tablet error view controller
+    UINavigationController *sourceViewController = self.sourceViewController;
+    TabletInputErrorViewController *destinationViewController = self.destinationViewController;
+    [sourceViewController pushViewController:destinationViewController animated:YES];
+}
+
+@end
+
+@interface AppDelegate()
+@property (nonatomic, strong) TabletErrorSegue *tabletErrorSegue;
+
+@end
 
 @implementation AppDelegate
 
@@ -36,17 +56,17 @@
         NSLog(@"%@, message = %@", notification.name, [notification userInfo]);
     }];
 #endif
-    
-    
+
     NSLog(@"didFinishLaunchingWithOptions");
+    BOOL inputError = FALSE;
     SettingsAndPreferences *settings = [[SettingsAndPreferences alloc] init];
     [settings initializeSettings];
 
     // Create the managed object and persistant store
     _dataManager = [[DataManager alloc] init];
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
-    [loadData loadCSVDataFromBundle];
-    
+    inputError = [loadData loadCSVDataFromBundle];
+
     navigationController = (UINavigationController *)self.window.rootViewController;
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -63,9 +83,17 @@
     NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
     if (url != nil && [url isFileURL]) {
         LoadCSVData *loadData = [LoadCSVData new];
-        [loadData handleOpenURL:url];
+        inputError |= [loadData handleOpenURL:url];
     }
-    
+    if (inputError) {
+        TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
+        [errorViewController setDataManager:_dataManager];
+        self.tabletErrorSegue = [[TabletErrorSegue alloc] initWithIdentifier:@"TableInputErrorViewController"
+                                                                      source:self.navigationController
+                                                                 destination:errorViewController];
+        
+        [self.tabletErrorSegue perform];
+    }
     return YES;
 
 }
@@ -80,9 +108,18 @@
             _dataManager = [[DataManager alloc] init];
         }
         LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
-        [loadData handleOpenURL:url];
+        BOOL inputError = [loadData handleOpenURL:url];
         SettingsAndPreferences *settings = [[SettingsAndPreferences alloc] init];
         [settings initializeSettings];
+        if (inputError) {
+            TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
+            [errorViewController setDataManager:_dataManager];
+            self.tabletErrorSegue = [[TabletErrorSegue alloc] initWithIdentifier:@"TableInputErrorViewController"
+                                                                source:self.navigationController
+                                                           destination:errorViewController];
+            
+            [self.tabletErrorSegue perform];
+        }
     }
     NSLog(@"end of openurl");
     return YES;

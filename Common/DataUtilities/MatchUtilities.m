@@ -11,6 +11,7 @@
 #import "MatchData.h"
 #import "ScoreUtilities.h"
 #import "DataConvenienceMethods.h"
+#import "MatchAccessors.h"
 #import "FileIOMethods.h"
 #import "EnumerationDictionary.h"
 #import "parseCSV.h"
@@ -32,7 +33,6 @@
 
 -(id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
-        NSLog(@"init export team data");
         _dataManager = initManager;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MatchData" inManagedObjectContext:_dataManager.managedObjectContext];
         matchDataProperties = [entity attributesByName];
@@ -45,24 +45,29 @@
 	return self;
 }
 
--(void)createMatchFromFile:(NSString *)filePath {
+-(BOOL)createMatchFromFile:(NSString *)filePath {
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
+    NSError *error = nil;
     
-    if (![csvContent count]) return;
+    if (![csvContent count]) return inputError;
     // Get the first row, column headers
     NSMutableArray *headerLine = [NSMutableArray arrayWithArray:[csvContent objectAtIndex: 0]];
     
     // Check the first header to make sure this is a match file
-    if (![[headerLine objectAtIndex:0] isEqualToString:@"Match"]) return;
+    if (![[headerLine objectAtIndex:0] isEqualToString:@"Match"]) return inputError;
     
     NSMutableArray *columnDetails = [NSMutableArray array];
-     NSLog(@"Header line = %@", headerLine);
+    // NSLog(@"Header line = %@", headerLine);
     for (NSString *item in headerLine) {
-        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:matchDataList];
+        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:matchDataList error:&error];
         [columnDetails addObject:column];
+    }
+    if (error) {
+        [_dataManager writeErrorMessage:error forType:kErrorMessage];
+        inputError = TRUE;
     }
     
     // Find the match type and tournament name columns. These are required to uniquely define a match
@@ -79,9 +84,11 @@
         if ([key isEqualToString:@"tournamentName"]) tournamentColumn = i;
     }
     if (typeColumn < 0 || tournamentColumn < 0) {
-        NSString *msg = [NSString stringWithFormat:@"Tournament or Match Type data missing from Match Data file"];
-        [self errorAlertMessage:msg];
-        return;
+        NSString *msg = @"Tournament or Match Type data missing from Match Data file";
+        error = [NSError errorWithDomain:@"createMatchFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        inputError = TRUE;
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return inputError;
     }
 
     for (int c = 1; c < [csvContent count]; c++) {
@@ -94,12 +101,11 @@
         NSString *matchTypeString = [line objectAtIndex: typeColumn];
         // Get  the tournament
         NSString *tournament = [line objectAtIndex: tournamentColumn];
-        NSLog(@"createMatchFromFile = %@", matchNumber);
-        MatchData *match = [self createNewMatch:matchNumber forType:matchTypeString forTournament:tournament];
-        if (!match) { // Unable to create team
+        // NSLog(@"createMatchFromFile = %@", matchNumber);
+        MatchData *match = [self createNewMatch:matchNumber forType:matchTypeString forTournament:tournament error:&error];
+        if (error) [_dataManager writeErrorMessage:error forType:[error code]];
+        if (!match) { // Unable to create match
             inputError = TRUE;
-            NSString *msg = [NSString stringWithFormat:@"Error Creating Match %@ from Match Data file", match];
-            [self errorAlertMessage:msg];
             continue;
         }
         // NSLog(@"%@", line);
@@ -111,28 +117,18 @@
             if ([key isEqualToString:@"matchType"]) continue;
             if ([key isEqualToString:@"tournamentName"]) continue;
             // NSLog(@"%@", key);
-            if ([key isEqualToString:@"Invalid Key"]) {
-                // NSLog(@"Skipping");
-                if (!inputError) {
-                    // Only pop up one warning per file
-                    inputError = TRUE;
-                    NSString *msg = [NSString stringWithFormat:@"Invalid Data Member %@ from Match Data file", [headerLine objectAtIndex:i]];
-                    [self errorAlertMessage:msg];
-                }
-                continue;
-            }
+            if ([key isEqualToString:@"Invalid Key"]) continue; // Error message already generated
             NSLog(@"%@", key);
             NSDictionary *enumDictionary = [self getEnumDictionary:[column valueForKey:@"dictionary"]];
             NSDictionary *description = [matchDataProperties valueForKey:key];
             if ([description isKindOfClass:[NSAttributeDescription class]]) {
                 // NSLog(@"Key = %@", key);
                 if ([DataConvenienceMethods setAttributeValue:match forValue:[line objectAtIndex:i] forAttribute:description forEnumDictionary:enumDictionary]) {
-                    if (!inputError) {
-                        // Only pop up one warning per file
-                        inputError = TRUE;
-                        NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Match Data file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
-                        [self errorAlertMessage:msg];
-                    }
+                    inputError = TRUE;
+                    NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Match Data file",[headerLine objectAtIndex:i], [line objectAtIndex:i]];
+                    error = [NSError errorWithDomain:@"createMatchFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                    [_dataManager writeErrorMessage:error forType:[error code]];
+                    error = nil;
                 }
             }
             else {
@@ -149,32 +145,44 @@
                 }
             }
         }
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        if (![_dataManager saveContext]) {
+            inputError = TRUE;
         }
-        // NSLog(@"Team after full line = %@", team);
+       // NSLog(@"Team after full line = %@", team);
     }
     [parser closeFile];
     
 #ifdef TEST_MODE
     [self testMatchUtilities];
 #endif
-    
+    return inputError;
 }
 
--(MatchData *)createNewMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTournament:(NSString *)tournament {
+-(MatchData *)createNewMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTournament:(NSString *)tournament  error:(NSError **)error {
     // Check for input integrity
-    if (!matchNumber || ([matchNumber intValue] < 1)) return nil;
+    if (!matchNumber || ([matchNumber intValue] < 1)) {
+        NSString *msg = [NSString stringWithFormat:@"Invalid Match %@ %@", matchTypeString, matchNumber];
+        *error = [NSError errorWithDomain:@"createNewMatch" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return nil;
+    }
+
     // Check match type to make sure it is valid
     NSNumber *matchType = [EnumerationDictionary getValueFromKey:matchTypeString forDictionary:matchTypeDictionary];
     if (!matchType) return nil;
     // Check to make sure tournament exists
-    if (![DataConvenienceMethods getTournament:tournament fromContext:_dataManager.managedObjectContext]) return nil;
+    if (![DataConvenienceMethods getTournament:tournament fromContext:_dataManager.managedObjectContext]) {
+        NSString *msg = [NSString stringWithFormat:@"Invalid Tournament %@ for Match %@ %@", tournament, matchTypeString, matchNumber];
+        *error = [NSError errorWithDomain:@"createNewMatch" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return nil;
+    }
 
-    MatchData *match = [DataConvenienceMethods getMatch:matchNumber forType:matchType forTournament:tournament fromContext:_dataManager.managedObjectContext];
+    MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournament fromDataManager:_dataManager];
     // NSLog(@"match type = %@, tournament = %@", matchTypeString, tournament);
-    if (match) return match;
+    if (match) {
+        NSString *msg = [NSString stringWithFormat:@"%@ Match %@ already exists", matchTypeString, match.number];
+        *error = [NSError errorWithDomain:@"createNewMatch" code:kInfoMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return match;
+    }
     else {
         match = [NSEntityDescription insertNewObjectForEntityForName:@"MatchData"
                                              inManagedObjectContext:_dataManager.managedObjectContext];
@@ -182,10 +190,12 @@
             match.number = matchNumber;
             match.matchType = matchType;
             match.tournamentName = tournament;
+            NSString *msg = [NSString stringWithFormat:@"%@ Match %@ added", matchTypeString, matchNumber];
+            *error = [NSError errorWithDomain:@"createNewMatch" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         }
         else {
-            NSString *msg = [NSString stringWithFormat:@"Unable to add Match %@ %@", matchType, matchNumber];
-            [self errorAlertMessage:msg];
+            NSString *msg = [NSString stringWithFormat:@"Unable to add %@ Match %@", matchTypeString, matchNumber];
+            *error = [NSError errorWithDomain:@"createNewMatch" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         }
         return match;
     }
@@ -203,14 +213,15 @@
 }
 
 -(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName {
-    NSString *error;
-    MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName];
-    if (!match) return Nil;
+    NSError *error = nil;
+    MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName error:&error];
+    if (!match) return nil; // Unable to create match, error retains value from getMatch
     for (NSDictionary *team in teamList) {
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
             NSString *key = [keys objectAtIndex:0];
-            error = [scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]]];
+            NSString *fix;
+            fix = [scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]]];
         }
     }
     return match;
@@ -227,8 +238,8 @@
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     if (!matchNumber || !matchType || !tournamentName) return nil;
     // NSLog(@"receiving %@", myDictionary);
-
-    MatchData *matchRecord = [DataConvenienceMethods getMatch:matchNumber forType:matchType forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    NSError *error = nil;
+    MatchData *matchRecord = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     
     if (matchRecord) {
         // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
@@ -248,7 +259,6 @@
     MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName];
     if (!match) return nil;
     match.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
@@ -282,17 +292,6 @@
     // Create a dictionary with
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MatchData" ofType:@"plist"];
     matchDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
-}
-
-
--(void)errorAlertMessage:(NSString *)msg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Match Data Error"
-                                                    message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
-    [alert show];
 }
 
 #ifdef TEST_MODE

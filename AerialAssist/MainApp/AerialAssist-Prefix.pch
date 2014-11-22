@@ -22,5 +22,11 @@ typedef enum {
 	Receiving,
 } XFerOption;
 
+typedef enum {
+    kErrorMessage,
+    kWarningMessage,
+    kInfoMessage,
+} MessageType;
+
 #endif
 

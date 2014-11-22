@@ -37,6 +37,7 @@
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
+    NSError *error = nil;
  
     if (![csvContent count]) return;
  
@@ -48,7 +49,7 @@
     NSMutableArray *columnDetails = [NSMutableArray array];
     NSLog(@"Header line = %@", headerLine);
     for (NSString *item in headerLine) {
-        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:tournamentDataList];
+        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:tournamentDataList error:&error];
         [columnDetails addObject:column];
     }
 
@@ -90,7 +91,6 @@
         }
     }
     [parser closeFile];
-    NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }

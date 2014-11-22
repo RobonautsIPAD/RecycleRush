@@ -11,6 +11,7 @@
 @interface EnumerationDictionary : NSObject
 +(id)getValueFromKey:(id)key forDictionary:(NSDictionary *)dictionary;
 +(id)getKeyFromValue:(id)value forDictionary:(NSDictionary *)dictionary;
++(NSString *)getCaseInsensitiveKey:(NSString *)item forDictionary:(NSDictionary *)dictionary;
 +(NSDictionary *)initializeBundledDictionary:(NSString *)fileName;
 
 @end

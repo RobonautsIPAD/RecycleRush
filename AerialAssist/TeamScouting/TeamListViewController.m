@@ -190,13 +190,10 @@
         return;
     }
     NSLog(@"Team list .... Add check for adding a team that alredy exists");
-    TeamUtilities *team = [[TeamUtilities alloc] init:_dataManager];
-    if ([team addTeam:newTeamNumber forName:newTeamName forTournament:tournamentName]) {
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-    }
+    TeamUtilities *teamUtilities = [[TeamUtilities alloc] init:_dataManager];
+    NSError *error;
+    if ([teamUtilities addTeam:newTeamNumber forName:newTeamName forTournament:tournamentName error:&error]) [_dataManager saveContext];
+    else if (error) [_dataManager writeErrorMessage:error forType:[error code]];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

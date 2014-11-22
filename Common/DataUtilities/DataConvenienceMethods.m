@@ -61,101 +61,6 @@
     }
 }
 
-+(TeamData *)getTeam:(NSNumber *)teamNumber fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return Nil;
-    TeamData *team;
-    NSError *error;
-
-    // NSLog(@"Searching for team = %@", teamNumber);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"number == %@", teamNumber];
-    [fetchRequest setPredicate:pred];
-    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!teamData) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
-                                                        message:@"Not able to fetch team record"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return Nil;
-    }
-    else {
-        switch ([teamData count]) {
-            case 0:
-                return Nil;
-                break;
-            case 1:
-                team = [teamData objectAtIndex:0];
-                // NSLog(@"Team %@ exists", team.number);
-                return team;
-                break;
-            default: {
-                NSString *msg = [NSString stringWithFormat:@"Team %@ found multiple times", teamNumber];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Database Error"
-                                                                message:msg
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                team = [teamData objectAtIndex:0];
-                return team;
-            }
-                break;
-        }
-    }
-}
-
-+(TeamData *)getTeamInTournament:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return Nil;
-    TeamData *team;
-    NSError *error;
-    
-    // NSLog(@"Searching for team = %@", teamNumber);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"number == %@ AND (ANY tournaments.name = %@)", teamNumber, tournament];
-    [fetchRequest setPredicate:pred];
-    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!teamData) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
-                                                        message:@"Not able to fetch team record"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return Nil;
-    }
-    else {
-        switch ([teamData count]) {
-            case 0:
-                return Nil;
-                break;
-            case 1:
-                team = [teamData objectAtIndex:0];
-                // NSLog(@"Team %@ exists", team.number);
-                return team;
-                break;
-            default: {
-                NSString *msg = [NSString stringWithFormat:@"Team %@ found multiple times", teamNumber];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Database Error"
-                                                                message:msg
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                team = [teamData objectAtIndex:0];
-                return team;
-            }
-                break;
-        }
-    }
-}
 
 +(NSArray *)getTournamentTeamList:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
     if (!managedObjectContext) return Nil;
@@ -177,55 +82,6 @@
         [teamList addObject:team.number];
     }
     return teamList;
-}
-
-+(MatchData *)getMatch:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return Nil;
-    MatchData *match;
-    NSError *error;
-    // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
-    //NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"MatchData" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND number = %@ AND matchType = %@", tournament, matchNumber, matchType];
-    [fetchRequest setPredicate:pred];
-    NSArray *matchData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!matchData) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
-                                                        message:@"Not able to fetch match record"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return Nil;
-    }
-    else {
-        switch ([matchData count]) {
-            case 0:
-                return Nil;
-                break;
-            case 1:
-                match = [matchData objectAtIndex:0];
-                // NSLog(@"Match %@ %@ exists", matchType, matchNumber);
-                return match;
-                break;
-            default: {
-                NSString *msg = [NSString stringWithFormat:@"Match %@ %@ found multiple times", matchType, matchNumber];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Match Database Error"
-                                                                message:msg
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                match = [matchData objectAtIndex:0];
-                return match;
-            }
-                break;
-        }
-    }
-    return nil;
 }
 
 +(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
@@ -332,7 +188,7 @@
     return Nil;
 }
 
-+(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary {
++(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary error:(NSError **)error {
     
     BOOL found = FALSE;
     NSString *key;
@@ -346,13 +202,21 @@
     // useful for input. Not every atttribute has of needs additional info.
     
     for (NSDictionary *item in dataDictionary) {
-        NSArray *inputList = [[item objectForKey:@"input"] componentsSeparatedByString:@", "];
-        NSArray *match = [inputList filteredArrayUsingPredicate:pred];
-        if (match && [match count] == 1) {
+        if ([name caseInsensitiveCompare:[item objectForKey:@"key"]] == NSOrderedSame ) {
             key = [item objectForKey:@"key"];
             itemDictionary = item;
             found = TRUE;
             break;
+        }
+        else {
+            NSArray *inputList = [[item objectForKey:@"input"] componentsSeparatedByString:@", "];
+            NSArray *match = [inputList filteredArrayUsingPredicate:pred];
+            if (match && [match count] == 1) {
+                key = [item objectForKey:@"key"];
+                itemDictionary = item;
+                found = TRUE;
+                break;
+            }
         }
     }
     if (found) {
@@ -366,6 +230,8 @@
         }
         else {
             itemDictionary = [NSDictionary dictionaryWithObject:@"Invalid Key" forKey:@"key"];
+            NSString *msg = [NSString stringWithFormat:@"Invalid Key: %@", name];
+            *error = [NSError errorWithDomain:@"findKey" code:100 userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
             // NSLog(@"%@ not found", name);
         }
     }
@@ -375,8 +241,8 @@
 +(BOOL)setAttributeValue:record forValue:data forAttribute:attribute forEnumDictionary:enumDictionary {
     BOOL error = FALSE;
     NSAttributeType attributeType = [attribute attributeType];
+    NSScanner *scanner = [NSScanner scannerWithString:data];
     if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
-        NSScanner *scanner = [NSScanner scannerWithString:data];
         BOOL isNumeric = [scanner scanInteger:NULL] && [scanner isAtEnd];
         // NSLog(@"Is numeric??? %d", isNumeric);
         if (isNumeric) {
@@ -395,7 +261,13 @@
         }
     }
     else if (attributeType == NSFloatAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSDecimalAttributeType) {
-        [record setValue:[NSNumber numberWithFloat:[data floatValue]] forKey:[attribute name]];
+        BOOL isNumeric = [scanner scanFloat:NULL] && [scanner isAtEnd];
+        if (isNumeric) {
+            [record setValue:[NSNumber numberWithFloat:[data floatValue]] forKey:[attribute name]];
+        }
+        else {
+            error = true;
+        }
     }
     else if (attributeType == NSBooleanAttributeType) {
         [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
@@ -409,19 +281,35 @@
             BOOL isNumeric = [scanner scanInteger:NULL] && [scanner isAtEnd];
             // NSLog(@"Is numeric??? %d", isNumeric);
             if (isNumeric) {
-                // The data is numeric. Get the associated string value
-                // from the dictionary
-            //    [record setValue:[NSNumber numberWithInt:[data intValue]] forKey:[attribute name]];
-                error = TRUE;
+                // Check if the number is a key string in the dictionary
+                // An example is Intake type = 118. In that case, the
+                //  118 is a valid string key in the dictionary
+                NSNumber *valueObject = [EnumerationDictionary getValueFromKey:data forDictionary:enumDictionary];
+                if (valueObject) {
+                    [record setValue:data forKey:[attribute name]];
+                }
+                else {
+                    // The data is numeric. Get the associated string value
+                    // from the dictionary
+                    NSString *text = [EnumerationDictionary getKeyFromValue:[NSNumber numberWithInt:[data intValue]] forDictionary:enumDictionary];
+                    if (text && ![text isEqualToString:@""]) {
+                        // Value was found in dictionary
+                        [record setValue:text forKey:[attribute name]];
+                        error = FALSE;
+                    }
+                    else {
+                        // Value was not found in dictionary
+                        error = TRUE;
+                    }
+                }
             }
             else {
                 // The data is non-numeric. Make sure the string is
                 // in the dictionary
-                // NSLog(@"Do something with enum %@", enumDictionary);
-                // NSLog(@"keys = %@", [enumDictionary allKeys]);
-                if ([enumDictionary objectForKey:data]) {
+                NSString *actualKey = [EnumerationDictionary getCaseInsensitiveKey:data forDictionary:enumDictionary];
+                if (actualKey) {
                     // NSLog(@"Found key = %@", data);
-                    [record setValue:data forKey:[attribute name]];
+                    [record setValue:actualKey forKey:[attribute name]];
                 }
                 else {
                     error = TRUE;
@@ -516,7 +404,10 @@
     }
     if ([type isEqualToString:@"float"]) {
         if (value) {
-            result = [NSString stringWithFormat:descriptor, [value floatValue]];
+            NSNumber *factor = [data objectForKey:@"factor"];
+            float realFactor = 1.0;
+            if (factor) realFactor = [factor floatValue];
+            result = [NSString stringWithFormat:descriptor, [value floatValue]*realFactor];
         }
         else {
             result = [NSString stringWithFormat:descriptor, 0];

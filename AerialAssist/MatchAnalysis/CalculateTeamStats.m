@@ -8,17 +8,22 @@
 
 #import "CalculateTeamStats.h"
 #import "DataManager.h"
+#import "DataConvenienceMethods.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "MatchData.h"
 #import "TournamentData.h"
+#import "EnumerationDictionary.h"
 
-@implementation CalculateTeamStats
+@implementation CalculateTeamStats {
+    NSDictionary *matchTypeDictionary;
+}
 
 - (id)init:(DataManager *)initManager {
 	if ((self = [super init]))
 	{
         _dataManager = initManager;
+        matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
 	}
 	return self;
 }
@@ -34,10 +39,10 @@
     NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
 // fetch all score records for this tournament
-    NSArray *allMatches;// = [team.match allObjects];
+    NSArray *allMatches = [DataConvenienceMethods getMatchListForTeam:team.number forTournament:tournament fromContext:_dataManager.managedObjectContext];
     if (![allMatches count]) return stats;
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (match.matchType = %@ || match.matchType = %@)", tournament, [NSNumber numberWithBool:YES], @"Seeding", @"Elimination"];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (matchType = %@ || matchType = %@)", tournament, [NSNumber numberWithBool:YES], [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary], [EnumerationDictionary getValueFromKey:@"Elimination" forDictionary:matchTypeDictionary]];
     NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];
 
     int numberOfMatches = [matches count];

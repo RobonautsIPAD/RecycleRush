@@ -8,6 +8,7 @@
 
 #import "TeamUtilities.h"
 #import "DataConvenienceMethods.h"
+#import "TeamAccessors.h"
 #import "TeamData.h"
 #import "Competitions.h"
 #import "TournamentUtilities.h"
@@ -46,35 +47,42 @@
 	return self;
 }
 
--(void)createTeamFromFile:(NSString *)filePath {
+-(BOOL)createTeamFromFile:(NSString *)filePath {
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
-    
-    if (![csvContent count]) return;
+    NSError *error = nil;
+    NSLog(@"csv content = %@", csvContent);
+    if (![csvContent count]) return inputError;
     // Get the first row, column headers
     NSMutableArray *headerLine = [NSMutableArray arrayWithArray:[csvContent objectAtIndex: 0]];
 
     // Check the first header to make sure this is a team file
-    if (![[headerLine objectAtIndex:0] isEqualToString:@"Team Number"]) return;
+    if (![[headerLine objectAtIndex:0] isEqualToString:@"Team Number"]) return inputError;
     
     NSMutableArray *columnDetails = [NSMutableArray array];
     // NSLog(@"Header line = %@", headerLine);
     for (NSString *item in headerLine) {
-        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:teamDataList];
+        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:teamDataList error:&error];
         [columnDetails addObject:column];
     }
-
+    if (error) {
+        [_dataManager writeErrorMessage:error forType:kErrorMessage];
+        inputError = TRUE;
+    }
+    
     for (int c = 1; c < [csvContent count]; c++) {
         NSArray *line = [NSArray arrayWithArray:[csvContent objectAtIndex:c]];
+        NSLog(@"line %@", line);
+        NSLog(@"team num %@", [line objectAtIndex: 0]);
         NSNumber *teamNumber = [NSNumber numberWithInt:[[line objectAtIndex: 0] intValue]];
         NSLog(@"createTeamFromFile:Team = %@", teamNumber);
-        TeamData *team = [self createNewTeam:teamNumber];
+        error = nil;
+        TeamData *team = [self createNewTeam:teamNumber error:&error];
+        if (error) [_dataManager writeErrorMessage:error forType:[error code]];
         if (!team) { // Unable to create team
             inputError = TRUE;
-            NSString *msg = [NSString stringWithFormat:@"Error Creating Team %@ from Team Data file", teamNumber];
-            [self errorAlertMessage:msg];
             continue;
         }
         // NSLog(@"%@", line);
@@ -84,27 +92,17 @@
             NSDictionary *column = [columnDetails objectAtIndex:i];
             // NSLog(@"%@", column);
             NSString *key = [column valueForKey:@"key"];
-            if ([key isEqualToString:@"Invalid Key"]) {
-                // NSLog(@"Skipping");
-                if (!inputError) {
-                    // Only pop up one warning per file
-                    inputError = TRUE;
-                    NSString *msg = [NSString stringWithFormat:@"Invalid Data Member %@ from Team Data file", [headerLine objectAtIndex:i]];
-                    [self errorAlertMessage:msg];
-                }
-                continue;
-            }
+            if ([key isEqualToString:@"Invalid Key"]) continue; // Error message already generated
             NSDictionary *enumDictionary = [self getEnumDictionary:[column valueForKey:@"dictionary"]];
             NSDictionary *description = [teamDataAttributes valueForKey:key];
             if ([description isKindOfClass:[NSAttributeDescription class]]) {
                 // NSLog(@"Key = %@", key);
                 if ([DataConvenienceMethods setAttributeValue:team forValue:[line objectAtIndex:i] forAttribute:description forEnumDictionary:enumDictionary]) {
-                    if (!inputError) {
-                        // Only pop up one warning per file
-                        inputError = TRUE;
-                        NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Team Data file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
-                        [self errorAlertMessage:msg];
-                    }
+                    NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Team Data file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
+                    error = [NSError errorWithDomain:@"createTeamFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                    inputError = TRUE;
+                    [_dataManager writeErrorMessage:error forType:[error code]];
+                    error = nil;
                 }
             }
             else {
@@ -112,19 +110,17 @@
                 // NSLog(@"Key = %@, value = %@", key, [line objectAtIndex:i]);
                 if ([key isEqualToString:@"tournaments"]) {
                     if (![self addTournamentToTeam:team forTournament:[line objectAtIndex:i]]) {
-                        if (!inputError) {
-                            // Only pop up one warning per file
-                            inputError = TRUE;
-                            NSString *msg = [NSString stringWithFormat:@"Error adding Tournament %@ from Team Data file", [line objectAtIndex:i]];
-                            [self errorAlertMessage:msg];
-                        }
+                        NSString *msg = [NSString stringWithFormat:@"Unable to add Team %@ to Tournament %@", teamNumber, [line objectAtIndex:i]];
+                        error = [NSError errorWithDomain:@"createTeamFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                        inputError = TRUE;
+                        [_dataManager writeErrorMessage:error forType:[error code]];
+                        error = nil;
                     }
                 }
             }
         }
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        if (![_dataManager saveContext]) {
+            inputError = TRUE;
         }
         // NSLog(@"Team after full line = %@", team);
     }
@@ -133,46 +129,55 @@
 #ifdef TEST_MODE
     [self testTeamUtilities];
 #endif
-    
+    return inputError;
 }
 
--(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName {
-    if (!_dataManager) return nil;
+-(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName error:(NSError **)error {
+    if (!_dataManager) {
+        *error = [NSError errorWithDomain:@"addTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
+        return nil;
+    }
 
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
-    TeamData *team = [self createNewTeam:teamNumber];
-    if (!team) { // Unable to create team
-        NSString *msg = [NSString stringWithFormat:@"Error Creating Team %@ from Team Data file", teamNumber];
-        [self errorAlertMessage:msg];
-        return nil;
-    }
+    TeamData *team = [self createNewTeam:teamNumber error:error];
+    if (!team) return nil; // Unable to create team, error retains value from getTeam
 
     if (![self addTournamentToTeam:team forTournament:tournamentName]) {
-        NSString *msg = [NSString stringWithFormat:@"Error adding Team %@", teamNumber];
-        [self errorAlertMessage:msg];
+        NSString *msg = [NSString stringWithFormat:@"Unable to add Team %@ to Tournament %@", teamNumber, tournamentName];
+        *error = [NSError errorWithDomain:@"addTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         return nil;
     }
-    
+    if (teamName && ![teamName isEqualToString:@""]) team.name = teamName;
     team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     team.savedBy = [prefs objectForKey:@"deviceName"];
 
     return team;
 }
 
--(TeamData *)createNewTeam:(NSNumber *)teamNumber {
-    if (!teamNumber || ([teamNumber intValue] < 1)) return nil;
-    TeamData *team = [DataConvenienceMethods getTeam:teamNumber fromContext:_dataManager.managedObjectContext];
-    if (team) return team;
+-(TeamData *)createNewTeam:(NSNumber *)teamNumber  error:(NSError **)error {
+    if (!teamNumber || ([teamNumber intValue] < 1)) {
+        NSString *msg = [NSString stringWithFormat:@"Invalid team %@", teamNumber];
+        *error = [NSError errorWithDomain:@"createNewTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return nil;
+    }
+    TeamData *team = [TeamAccessors getTeam:teamNumber fromDataManager:_dataManager];
+    if (team) {
+        NSString *msg = [NSString stringWithFormat:@"Team %@ already exists", teamNumber];
+        *error = [NSError errorWithDomain:@"createNewTeam" code:kInfoMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return team;
+    }
     else {
         team = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
                         inManagedObjectContext:_dataManager.managedObjectContext];
         if (team) {
             team.number = teamNumber;
+            NSString *msg = [NSString stringWithFormat:@"Team %@ added", teamNumber];
+            *error = [NSError errorWithDomain:@"createNewTeam" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         }
         else {
             NSString *msg = [NSString stringWithFormat:@"Unable to add Team %@", teamNumber];
-            [self errorAlertMessage:msg];
+            *error = [NSError errorWithDomain:@"createNewTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         }
         return team;
     }
@@ -194,7 +199,7 @@
             [team addTournamentsObject:tournament];
         }
         else {
-            NSLog(@"Tournament Exists, count = %d", [list count]);
+            NSLog(@"Tournament Exists, count = %ul", [list count]);
         }
         return TRUE;
     }
@@ -203,6 +208,7 @@
 
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+    NSError *error = nil;
     NSLog(@"unpackage team needs work");
     
     //     Assign unpacked data to the team record
@@ -210,8 +216,9 @@
     NSNumber *teamNumber = [myDictionary objectForKey:@"number"];
     if (!teamNumber) return nil;
     
-    TeamData *teamRecord = [DataConvenienceMethods getTeam:teamNumber fromContext:_dataManager.managedObjectContext];
+    TeamData *teamRecord = [TeamAccessors getTeam:teamNumber fromDataManager:_dataManager];
     if (!teamRecord) {
+        NSLog(@"change this to create team");
         teamRecord = [NSEntityDescription insertNewObjectForEntityForName:@"TeamData"
                                                    inManagedObjectContext:_dataManager.managedObjectContext];
         [teamRecord setValue:teamNumber forKey:@"number"];
@@ -265,7 +272,6 @@
     
     teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     NSLog(@"%@", teamRecord);
-    NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
@@ -419,16 +425,6 @@
     // Create a dictionary with
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
     teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
-}
-
--(void)errorAlertMessage:(NSString *)msg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Team Data Error"
-                                                    message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
-    [alert show];
 }
 
 #ifdef TEST_MODE

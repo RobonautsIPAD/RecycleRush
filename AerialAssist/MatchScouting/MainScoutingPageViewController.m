@@ -11,6 +11,7 @@
 #import "DataManager.h"
 #import "FileIOMethods.h"
 #import "DataConvenienceMethods.h"
+#import "TeamAccessors.h"
 #import "EnumerationDictionary.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
@@ -1711,7 +1712,7 @@
     }
  
     currentScore = [scoreList objectAtIndex:teamIndex];
-    currentTeam = [DataConvenienceMethods getTeam:currentScore.teamNumber fromContext:_dataManager.managedObjectContext];
+    currentTeam = [TeamAccessors getTeam:currentScore.teamNumber fromDataManager:_dataManager];
    [_teamNumber setTitle:[NSString stringWithFormat:@"%d", [currentScore.teamNumber intValue]] forState:UIControlStateNormal];
     _teamName.text = currentTeam.name;
 

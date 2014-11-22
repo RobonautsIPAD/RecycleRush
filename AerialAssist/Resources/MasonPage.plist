@@ -13,6 +13,8 @@
 		<string>integer</string>
 		<key>location</key>
 		<integer>80</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -25,6 +27,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>155</integer>
+		<key>factor</key>
+		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -37,6 +41,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>250</integer>
+		<key>factor</key>
+		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -49,6 +55,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>370</integer>
+		<key>factor</key>
+		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -61,6 +69,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>480</integer>
+		<key>factor</key>
+		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -73,6 +83,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>580</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -85,6 +97,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>675</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -97,6 +111,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>725</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -109,6 +125,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>790</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -121,6 +139,8 @@
 		<string>float</string>
 		<key>location</key>
 		<integer>840</integer>
+		<key>factor</key>
+		<integer>1</integer>
 	</dict>
 </array>
 </plist>

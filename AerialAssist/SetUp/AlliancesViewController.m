@@ -8,7 +8,7 @@
 
 #import "AlliancesViewController.h"
 #import "DataManager.h"
-#import "DataConvenienceMethods.h"
+#import "TeamAccessors.h"
 #import "EnumerationDictionary.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
@@ -208,7 +208,7 @@
         _match9Red3.text = _alliance1Captain.text;
         _match9Red4.text = _alliance1Pick3.text;
     }
-    NSError *err;
+    NSError *err = nil;
     if (match) {
         if (![_dataManager.managedObjectContext save:&err]) {
             NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
@@ -539,10 +539,16 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
+    NSError *error = nil;
     NSNumber *teamNumber = [NSNumber numberWithInt:[textField.text intValue]];
-    if (![DataConvenienceMethods getTeamInTournament:teamNumber forTournament:tournamentName fromContext:_dataManager.managedObjectContext]) {
-        _errorLabel.text = [NSString stringWithFormat:@"Team %@ is not a valid team in this tournament", teamNumber];
-        textField.text = @"";
+    if (![TeamAccessors getTeam:teamNumber inTournament:tournamentName fromContext:_dataManager.managedObjectContext error:&error]) {
+        if (error) {
+            _errorLabel.text = [error localizedDescription];
+        }
+        else {
+            _errorLabel.text = [NSString stringWithFormat:@"Team %@ is not a valid team in this tournament", teamNumber];
+            textField.text = @"";
+        }
     }
     else {
         _errorLabel.text = @"";

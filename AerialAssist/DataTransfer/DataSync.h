@@ -18,7 +18,7 @@
 -(NSArray *)getFilteredMatchList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredResultsList:(SyncOptions)syncOption;
 -(NSArray *)getImportFileList;
--(NSString *)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList;
+-(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error;
 -(NSArray *)importiTunesSelected:(NSString *)importFile;
 
 @end

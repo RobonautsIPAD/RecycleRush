@@ -22,7 +22,6 @@
 
 -(id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
-        NSLog(@"init export team data");
         _dataManager = initManager;
         fileManager = [NSFileManager defaultManager];
         [self setPhotoDirectories];
@@ -112,7 +111,6 @@
     for (NSString *file in directoryContents) {
         NSString *destinationPath = [robotPhotoDirectory stringByAppendingPathComponent:file];
         if (![fileManager fileExistsAtPath:destinationPath]) {
-            NSLog(@"%@ file does not exist", file);
             [fileManager copyItemAtPath:[photos stringByAppendingPathComponent:file] toPath:destinationPath error:NULL];
             [importedPhotos addObject:file];
         }
@@ -122,7 +120,6 @@
     for (NSString *file in directoryContents) {
         NSString *destinationPath = [robotThumbnailDirectory stringByAppendingPathComponent:file];
         if (![fileManager fileExistsAtPath:destinationPath]) {
-            NSLog(@"%@ file does not exist", file);
             [fileManager copyItemAtPath:[photos stringByAppendingPathComponent:file] toPath:destinationPath error:NULL];
         }
     }

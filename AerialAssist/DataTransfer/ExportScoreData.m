@@ -337,10 +337,10 @@
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
     for (NSString *item in teamScoreAttributes) {
         if ([score valueForKey:item]) {
-            if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
-                [keyList addObject:item];
-                [valueList addObject:[score valueForKey:item]];
-            }
+            // if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
+            [keyList addObject:item];
+            [valueList addObject:[score valueForKey:item]];
+            // }
         }
     }
     if (score.fieldDrawing && score.fieldDrawing.trace) {

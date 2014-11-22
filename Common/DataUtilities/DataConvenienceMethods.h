@@ -15,11 +15,7 @@
 @interface DataConvenienceMethods : NSObject
 +(TournamentData *)getTournament:(NSString *)name fromContext:(NSManagedObjectContext *)managedObjectContext;
 
-+(TeamData *)getTeam:(NSNumber *)teamNumber fromContext:(NSManagedObjectContext *)managedObjectContext;
-+(TeamData *)getTeamInTournament:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)getTournamentTeamList:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext;
-
-+(MatchData *)getMatch:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext;
 
 +(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext;
 
@@ -28,7 +24,7 @@
 
 
 
-+(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary;
++(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary error:(NSError **)error;
 +(BOOL)setAttributeValue:record forValue:data forAttribute:description forEnumDictionary:enumDictionary;
 +(BOOL)compareAttributeToDefault:(id)value forAttribute:attribute;
 

@@ -8,24 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-/*#import <AssetsLibrary/AssetsLibrary.h>
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
-*/
 @interface DataManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSManagedObjectContext *smManagedObjectContext;
+@property (readonly, strong, nonatomic) NSString *errorFilePath;
+@property (readonly, strong, nonatomic) NSString *warningFilePath;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, assign) BOOL loadDataFromBundle;
-//@property (strong, atomic) ALAssetsLibrary *photoLibrary;
 
--(void)saveContext;
--(NSString *)applicationDocumentsDirectory;
+-(BOOL)saveContext;
 -(BOOL)databaseExists;
+-(void)writeErrorMessage:(NSError *)error forType:(MessageType)messageType;
 
-//-(void)savePhotoToAlbum:(UIImage*)image;
-//-(void)addPhotoToAlbum:(NSURL*)assetURL;
-//-(void)getPhotoFromAlbum:(NSURL *)photoURL;
-//-(void)getPhotoFromAlbumWithDate:(NSDate *)assetDate;
 @end
