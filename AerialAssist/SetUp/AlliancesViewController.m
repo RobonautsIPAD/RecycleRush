@@ -539,16 +539,10 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
-    NSError *error = nil;
     NSNumber *teamNumber = [NSNumber numberWithInt:[textField.text intValue]];
-    if (![TeamAccessors getTeam:teamNumber inTournament:tournamentName fromContext:_dataManager.managedObjectContext error:&error]) {
-        if (error) {
-            _errorLabel.text = [error localizedDescription];
-        }
-        else {
-            _errorLabel.text = [NSString stringWithFormat:@"Team %@ is not a valid team in this tournament", teamNumber];
-            textField.text = @"";
-        }
+    if (![TeamAccessors getTeam:teamNumber inTournament:tournamentName fromDataManager:_dataManager]) {
+        _errorLabel.text = [NSString stringWithFormat:@"Team %@ is not a valid team in this tournament", teamNumber];
+        textField.text = @"";
     }
     else {
         _errorLabel.text = @"";

@@ -12,6 +12,8 @@
 
 @interface TeamAccessors : NSObject
 +(TeamData *)getTeam:(NSNumber *)teamNumber fromDataManager:(DataManager *)dataManager;
-+(TeamData *)getTeam:(NSNumber *)teamNumber inTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext error:(NSError **)error;
++(TeamData *)getTeam:(NSNumber *)teamNumber inTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager;
++(NSArray *)getTeamsInTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager;
++(NSArray *)getTeamDataForTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager;
 
 @end

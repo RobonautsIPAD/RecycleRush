@@ -35,6 +35,7 @@
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
 		2F2CE08B1A21113D00646BB5 /* MatchAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */; };
+		2F2CE08E1A21277800646BB5 /* ScoreAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2CE08D1A21277800646BB5 /* ScoreAccessors.m */; };
 		2F30EABC16A0EB4F0026B258 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABB16A0EB4F0026B258 /* UIKit.framework */; };
 		2F30EABE16A0EB4F0026B258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABD16A0EB4F0026B258 /* Foundation.framework */; };
 		2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */; };
@@ -60,7 +61,6 @@
 		2F5247CA1963B28100468E4F /* CreateMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247AE1963B28100468E4F /* CreateMatch.m */; };
 		2F5247CD1963B28100468E4F /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B41963B28100468E4F /* FieldDrawing.m */; };
 		2F5247CF1963B28100468E4F /* MatchDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247B81963B28100468E4F /* MatchDataInterfaces.m */; };
-		2F5247D01963B28100468E4F /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247BA1963B28100468E4F /* Photo.m */; };
 		2F5247D11963B28100468E4F /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247BC1963B28100468E4F /* Regional.m */; };
 		2F5247D31963B28100468E4F /* TeamDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247C01963B28100468E4F /* TeamDataInterfaces.m */; };
 		2F5247D51963B28100468E4F /* TeamScoreInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247C41963B28100468E4F /* TeamScoreInterfaces.m */; };
@@ -204,6 +204,8 @@
 		2F2C33C818A09E28003475C3 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		2F2CE0891A21113D00646BB5 /* MatchAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchAccessors.h; path = Common/DataUtilities/MatchAccessors.h; sourceTree = SOURCE_ROOT; };
 		2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchAccessors.m; path = Common/DataUtilities/MatchAccessors.m; sourceTree = SOURCE_ROOT; };
+		2F2CE08C1A21277800646BB5 /* ScoreAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreAccessors.h; path = Common/DataUtilities/ScoreAccessors.h; sourceTree = SOURCE_ROOT; };
+		2F2CE08D1A21277800646BB5 /* ScoreAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreAccessors.m; path = Common/DataUtilities/ScoreAccessors.m; sourceTree = SOURCE_ROOT; };
 		2F30EAB716A0EB4F0026B258 /* AerialAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AerialAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F30EABB16A0EB4F0026B258 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F30EABD16A0EB4F0026B258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -243,8 +245,6 @@
 		2F5247B41963B28100468E4F /* FieldDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawing.m; path = Common/DataModels/FieldDrawing.m; sourceTree = SOURCE_ROOT; };
 		2F5247B71963B28100468E4F /* MatchDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchDataInterfaces.h; path = Common/DataModels/MatchDataInterfaces.h; sourceTree = SOURCE_ROOT; };
 		2F5247B81963B28100468E4F /* MatchDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchDataInterfaces.m; path = Common/DataModels/MatchDataInterfaces.m; sourceTree = SOURCE_ROOT; };
-		2F5247B91963B28100468E4F /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = Common/DataModels/Photo.h; sourceTree = SOURCE_ROOT; };
-		2F5247BA1963B28100468E4F /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = Common/DataModels/Photo.m; sourceTree = SOURCE_ROOT; };
 		2F5247BB1963B28100468E4F /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Regional.h; path = Common/DataModels/Regional.h; sourceTree = SOURCE_ROOT; };
 		2F5247BC1963B28100468E4F /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Regional.m; path = Common/DataModels/Regional.m; sourceTree = SOURCE_ROOT; };
 		2F5247BF1963B28100468E4F /* TeamDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamDataInterfaces.h; path = Common/DataModels/TeamDataInterfaces.h; sourceTree = SOURCE_ROOT; };
@@ -577,8 +577,6 @@
 				2F5247AE1963B28100468E4F /* CreateMatch.m */,
 				2F5247B31963B28100468E4F /* FieldDrawing.h */,
 				2F5247B41963B28100468E4F /* FieldDrawing.m */,
-				2F5247B91963B28100468E4F /* Photo.h */,
-				2F5247BA1963B28100468E4F /* Photo.m */,
 				2F5247BB1963B28100468E4F /* Regional.h */,
 				2F5247BC1963B28100468E4F /* Regional.m */,
 				2F5247B71963B28100468E4F /* MatchDataInterfaces.h */,
@@ -722,6 +720,8 @@
 				2F8DFF9A1A09374B00FE2FD3 /* AlliancesViewController.m */,
 				2F2CE0891A21113D00646BB5 /* MatchAccessors.h */,
 				2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */,
+				2F2CE08C1A21277800646BB5 /* ScoreAccessors.h */,
+				2F2CE08D1A21277800646BB5 /* ScoreAccessors.m */,
 			);
 			name = "Data Utilities";
 			sourceTree = "<group>";
@@ -978,6 +978,7 @@
 				2F88649D16B76B1700867385 /* MatchListViewController.m in Sources */,
 				2F5247D31963B28100468E4F /* TeamDataInterfaces.m in Sources */,
 				2F37CD2419F0759F00CFABDA /* PhoneExportViewController.m in Sources */,
+				2F2CE08E1A21277800646BB5 /* ScoreAccessors.m in Sources */,
 				2FD455F118AFF7B90014C1BE /* PhoneSetUpViewController.m in Sources */,
 				2F8864A216B76DAB00867385 /* LoadCSVData.m in Sources */,
 				2FB3A4C116CEC17C00E895E5 /* MatchAnalysisViewController.m in Sources */,
@@ -995,7 +996,6 @@
 				A0A52AC11900E4F00083E1D2 /* PadSyncViewController.m in Sources */,
 				2FD455FD18B026BB0014C1BE /* ExportMatchData.m in Sources */,
 				2F43A1CB16E4F219005CAFD9 /* AddMatchViewController.m in Sources */,
-				2F5247D01963B28100468E4F /* Photo.m in Sources */,
 				2F5247CD1963B28100468E4F /* FieldDrawing.m in Sources */,
 				2FD455F418B0162C0014C1BE /* ExportScoreData.m in Sources */,
 				2F8697E318C90E2600116527 /* ImportDataFromiTunes.m in Sources */,

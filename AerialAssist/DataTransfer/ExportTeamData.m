@@ -9,6 +9,7 @@
 #import "ExportTeamData.h"
 #import "DataManager.h"
 #import "TeamData.h"
+#import "TeamAccessors.h"
 #import "DataConvenienceMethods.h"
 
 @implementation ExportTeamData {
@@ -33,27 +34,11 @@
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
         teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     }
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-    entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-     
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    if (tournamentName) {
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournamentName];
-        [fetchRequest setPredicate:pred];
-    }
-    NSArray *teamData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!teamData) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Minor Problem Encountered"
-                                                         message:@"No Team data to email"
-                                                        delegate:self
-                                               cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil];
-        [alert show];
+    NSArray *teamData = [TeamAccessors getTeamDataForTournament:tournamentName fromDataManager:_dataManager];
+    if(![teamData count]) {
+        NSError *error;
+        error = [NSError errorWithDomain:@"teamDataCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"No Team data to email" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
     }
 
     NSString *csvString;

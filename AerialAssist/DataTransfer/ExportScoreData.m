@@ -13,8 +13,8 @@
 #import "FieldDrawing.h"
 #import "EnumerationDictionary.h"
 #import "TeamData.h"
+#import "TeamAccessors.h"
 #import "MatchData.h"
-#import "CreateMatch.h"
 
 @implementation ExportScoreData {
     NSUserDefaults *prefs;
@@ -124,19 +124,17 @@
     else return [NSString stringWithFormat:@"%@", data];
 }
 
--(NSString *)spreadsheetCSVExport:(TeamData *)team forMatches:(NSString *)choice{
-    if (!_dataManager) {
-        _dataManager = [[DataManager alloc] init];
-    }
-    if (!scoutingSpreadsheetList) {
+-(NSString *)spreadsheetCSVExport:(NSString *)tournamentName {
+    if (!_dataManager) return nil;
+
+    NSString *csvString = nil;
+/*    if (!scoutingSpreadsheetList) {
         // Load dictionary with list of parameters for the scouting spreadsheet
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
         scoutingSpreadsheetList = [[[NSArray alloc] initWithContentsOfFile:plistPath] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     }
-    prefs = [NSUserDefaults standardUserDefaults];
-    tournamentName = [prefs objectForKey:@"tournament"];
-    
+
     NSArray *allScores;// = [team.match allObjects];
  //   NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], choice];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ and match.matchType = %@", tournamentName, [NSNumber numberWithBool:YES], @"Seeding"];
@@ -155,7 +153,6 @@
         return nil;
     }
     TeamScore *score;
-    NSString *csvString;
     int nmatches = [teamScores count];
     if (nmatches == 0) {
         csvString = [[NSString alloc] init];
@@ -177,7 +174,7 @@
             csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
         }
     }
-    csvString = [csvString stringByAppendingString:@"\n"];
+    csvString = [csvString stringByAppendingString:@"\n"];*/
     return csvString;
 }
 
@@ -196,7 +193,7 @@
 }
 
 -(void)exportFullMatchData:(NSArray *)teamList {
-    prefs = [NSUserDefaults standardUserDefaults];
+/*    prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     NSString *dirName = [NSString stringWithFormat:@"%@ FieldDrawings", tournamentName];
 
@@ -249,7 +246,7 @@
                          error:nil];
         NSLog(@"%@", csvString);
         csvString = nil;
-    });
+    });*/
 }
 
 -(NSString *)createFullHeader:(NSArray *)scoreList {

@@ -13,6 +13,6 @@
 @property (nonatomic, strong) DataManager *dataManager;
 - (id)init:(DataManager *)initManager;
 -(NSArray *)getImportFileList;
--(NSMutableArray *)importData:(NSString *) importFile;
+-(NSMutableArray *)importData:(NSString *) importFile error:(NSError **)error;
 
 @end

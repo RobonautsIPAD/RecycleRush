@@ -9,7 +9,7 @@
 #import "LucienTableViewController.h"
 #import "TeamDetailViewController.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
+#import "TeamAccessors.h"
 
 @interface LucienTableViewController ()
 @property (nonatomic, strong) UIView *headerView;
@@ -88,7 +88,7 @@
         [segue.destinationViewController setDataManager:_dataManager];
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
         NSDictionary *info = [_lucienNumbers objectAtIndex:indexPath.row];
-        TeamData *team = [[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeam:[info objectForKey:@"team"]];
+        TeamData *team = [TeamAccessors getTeam:[info objectForKey:@"team"] fromDataManager:_dataManager];
         detailViewController.team = team;
        // [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
     

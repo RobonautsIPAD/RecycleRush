@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "MatchData.h"
+#import "TournamentUtilities.h"
 #import "ExportTeamData.h"
 #import "ExportMatchData.h"
 #import "ExportScoreData.h"
@@ -30,6 +31,7 @@
     NSArray *matchScheduleList;
     NSArray *matchResultsList;
 
+    TournamentUtilities *tournamentDataPackage;
     ExportTeamData *teamDataPackage;
     ExportMatchData *matchDataPackage;
     ExportScoreData *matchResultsPackage;
@@ -54,6 +56,18 @@
         photoPackage = [[PhotoUtilities alloc] init:_dataManager];
 	}
 	return self;
+}
+
+-(NSArray *)getFilteredTournamentList:(SyncOptions)syncOption {
+    if (!tournamentList) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        tournamentList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+    return tournamentList;
 }
 
 -(NSArray *)getFilteredTeamList:(SyncOptions)syncOption {
@@ -189,6 +203,11 @@
         return FALSE;
     }
     switch (syncType) {
+        case SyncTournaments:
+            if (!tournamentDataPackage) tournamentDataPackage = [[TournamentUtilities alloc] init:_dataManager];
+            transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Tournament List %0.f.tnd", deviceName, CFAbsoluteTimeGetCurrent()]];
+            [[tournamentDataPackage packageTournamentsForXFer:transferList] writeToFile:transferDataFile atomically:YES];
+            break;
         case SyncTeams:
             if (!teamDataPackage) teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
             for (TeamData *team in transferList) {
@@ -262,14 +281,14 @@
     return [importPackage getImportFileList];
 }
 
--(NSArray *)importiTunesSelected:(NSString *)importFile {
+-(NSArray *)importiTunesSelected:(NSString *)importFile error:(NSError **)error {
     NSLog(@"file selected = %@", importFile);
     NSArray *receivedList;
     if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         NSLog(@"Photo package");
-        receivedList = [photoPackage importDataPhoto:importFile];
+        receivedList = [photoPackage importDataPhoto:importFile error:error];
     } else {
-        receivedList = [importPackage importData:importFile];
+        receivedList = [importPackage importData:importFile error:error];
     }
     return receivedList;
 }

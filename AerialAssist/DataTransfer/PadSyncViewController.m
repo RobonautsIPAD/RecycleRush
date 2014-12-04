@@ -9,6 +9,7 @@
 #import "PadSyncViewController.h"
 #import "DataManager.h"
 #import "DataSync.h"
+#import "TournamentData.h"
 #import "TeamData.h"
 #import "MatchData.h"
 #import "SyncTableCells.h"
@@ -129,6 +130,9 @@
     else if (_syncType == SyncMatchResults) {
         filteredSendList = [dataSyncPackage getFilteredResultsList:_syncOption];
     }
+    else if (_syncType == SyncTournaments) {
+        filteredSendList = [dataSyncPackage getFilteredTournamentList:_syncOption];
+    }
 }
 
 - (IBAction)selectPackageData:(id)sender {
@@ -206,7 +210,12 @@
 -(void)iTunesImportSelected:(NSString *)importFile {
     importFileListPicker = nil;
     importFileListPopover = nil;
-    receivedList = [dataSyncPackage importiTunesSelected:importFile];
+    NSError *error;
+    receivedList = [dataSyncPackage importiTunesSelected:importFile error:&error];
+    if (error) {
+        [_dataManager writeErrorMessage:error forType:[error code]];
+    }
+
     importedFile = importFile;
     xFerOption = Receiving;
     [self checkReceivedDataType];
@@ -226,6 +235,7 @@
 -(void)selectSyncType:(NSString *)typeChoice {
     [_syncTypeButton setTitle:typeChoice forState:UIControlStateNormal];
     _syncType = [SyncMethods getSyncType:typeChoice];
+    xFerOption = Sending;
     [self setSendList];
     [_syncDataTable reloadData];
 }
@@ -249,6 +259,8 @@
             _syncType = SyncMatchList;
         } else if ([importedFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             _syncType = SyncPhotos;
+        } else if ([importedFile.pathExtension compare:@"tnd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+            _syncType = SyncTournaments;
         }
         [_syncTypeButton setTitle:[SyncMethods getSyncTypeString:_syncType] forState:UIControlStateNormal];
     }
@@ -285,7 +297,14 @@
     static NSString *identifier5 = @"Photos";
     UITableViewCell *cell;
     // Set up the cell...
-    if (_syncType == SyncTeams) {
+    if (_syncType == SyncTournaments) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
+        TournamentData *tournament;
+        if (xFerOption == Sending) tournament = [filteredSendList objectAtIndex:indexPath.row];
+        else tournament = [receivedList objectAtIndex:indexPath.row];
+        cell = [SyncTableCells configureTournamentCell:cell forXfer:xFerOption forTournament:tournament];
+    }
+    else if (_syncType == SyncTeams) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier2 forIndexPath:indexPath];
         if (xFerOption == Sending) {
             TeamData *team = [filteredSendList objectAtIndex:indexPath.row];
@@ -315,19 +334,6 @@
         cell = [tableView dequeueReusableCellWithIdentifier:identifier5 forIndexPath:indexPath];
         cell = [SyncTableCells configurePhotoCell:cell forPhotoList:[receivedList objectAtIndex:indexPath.row]];
     }
-    
-/*    switch (_syncType) {
-       case SyncTournaments:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
-            [self configureTournamentCell:cell atIndexPath:indexPath];
-            break;
-        case SyncMatchResults:
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier4 forIndexPath:indexPath];
-            [self configureResultsCell:cell atIndexPath:indexPath];
-            break
-        default:
-            break;
-    }*/
     return cell;
 }
 

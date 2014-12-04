@@ -383,7 +383,7 @@
     [teamList removeAllObjects];
     [teamStats removeAllObjects];
     for (TeamScore *score in scoreList) {
-        TeamData *team = [TeamAccessors getTeam:score.teamNumber inTournament:tournamentName fromContext:_dataManager.managedObjectContext error:nil];
+        TeamData *team = [TeamAccessors getTeam:score.teamNumber inTournament:tournamentName fromDataManager:_dataManager];
         [teamList addObject:team];
         NSMutableDictionary *stats = [teamStatsPackage calculateMasonStats:team forTournament:tournamentName];
         [teamStats addObject:stats];

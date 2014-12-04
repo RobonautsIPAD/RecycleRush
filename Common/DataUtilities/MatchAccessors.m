@@ -32,8 +32,8 @@
     NSString *msg;
     switch ([matchData count]) {
         case 0:
-            msg = [NSString stringWithFormat:@"Unable to get %@ Match %@", matchType, matchNumber];
-            error = [NSError errorWithDomain:@"getMatch" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+            msg = [NSString stringWithFormat:@"%@ Match %@ does not exist", matchType, matchNumber];
+            error = [NSError errorWithDomain:@"getMatch" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
             return nil;
             break;
         case 1:

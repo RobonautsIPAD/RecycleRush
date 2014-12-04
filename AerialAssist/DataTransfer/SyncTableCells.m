@@ -7,6 +7,7 @@
 //
 
 #import "SyncTableCells.h"
+#import "TournamentData.h"
 #import "TeamData.h"
 #import "MatchData.h"
 #import "TeamScore.h"
@@ -18,6 +19,17 @@
 @end
 
 @implementation SyncTableCells
++(UITableViewCell *)configureTournamentCell:(UITableViewCell *)cell forXfer:(XFerOption)xFerOption forTournament:(TournamentData *)tournament {
+    UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+    label1.text = tournament.name;
+    UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    if (tournament.code) {
+        label2.text = tournament.code;
+    }
+    else label2.text = @"";
+    return cell;
+}
+
 +(UITableViewCell *)configureTeamCell:(UITableViewCell *)cell forTeam:(TeamData *)team {
     UILabel *label1 = (UILabel *)[cell viewWithTag:10];
     label1.text = [NSString stringWithFormat:@"%@", team.number];

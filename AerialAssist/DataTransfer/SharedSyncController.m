@@ -853,7 +853,7 @@ GKPeerPickerController *picker;
         //receiveLabel2.text = @"";
         //receiveLabel3.text = @"Thumbnail";
     } else {
-        if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+/*        if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedResultsList = [importPackage importData:importFile];
         } else if ([importFile.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedTeamList = [importPackage importData:importFile];
@@ -861,7 +861,7 @@ GKPeerPickerController *picker;
             receivedMatchList = [importPackage importData:importFile];
         } else if ([importFile.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             receivedMatchList = [importPackage importData:importFile];
-        }
+        }*/
     }
     [self updateTableData];
 }

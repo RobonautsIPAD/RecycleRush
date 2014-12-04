@@ -112,6 +112,7 @@
         
         // Parse the rest of the line for any more data
         for (int i=1; i<[line count]; i++) {
+            error = nil;
             NSDictionary *column = [columnDetails objectAtIndex:i];
             NSString *key = [column valueForKey:@"key"];
             if ([key isEqualToString:@"matchType"]) continue;
@@ -128,20 +129,15 @@
                     NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Match Data file",[headerLine objectAtIndex:i], [line objectAtIndex:i]];
                     error = [NSError errorWithDomain:@"createMatchFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
                     [_dataManager writeErrorMessage:error forType:[error code]];
-                    error = nil;
                 }
             }
             else {
                 if ([key isEqualToString:@"score"]) {
                     NSLog(@"Adding team to match, fix to get error message");
-                    NSString *errMsg = [scoreRecords addTeamScoreToMatch:match forAlliance:[column valueForKey:@"output"] forTeam:[self getNumber:[line objectAtIndex:i]]];
-                  /*     if (!inputError) {
-                            // Only pop up one warning per file
-                            inputError = TRUE;
-                            NSString *msg = [NSString stringWithFormat:@"Error adding Tournament %@ from Team Data file", [line objectAtIndex:i]];
-                            [self errorAlertMessage:msg];
-                        }*/
-                    
+                    if (![scoreRecords addTeamScoreToMatch:match forAlliance:[column valueForKey:@"output"] forTeam:[self getNumber:[line objectAtIndex:i]] error:&error]) {
+                        inputError = TRUE;
+                    }
+                    if (error) [_dataManager writeErrorMessage:error forType:[error code]];                    
                 }
             }
         }
@@ -220,8 +216,11 @@
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
             NSString *key = [keys objectAtIndex:0];
-            NSString *fix;
-            fix = [scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]]];
+            NSLog(@"add match messaging");
+            if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]] error:&error]) {
+                
+            }
+            if (error) [_dataManager writeErrorMessage:error forType:[error code]];
         }
     }
     return match;

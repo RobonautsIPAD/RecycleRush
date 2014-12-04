@@ -101,7 +101,7 @@
         NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
 
         [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
-   }
+    }
     else if (sender == _exportSpreadsheetData) {
         [self createScoutingSpreadsheet:@""];
     }
@@ -115,7 +115,7 @@
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
     ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
-        csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
+//        csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
     }
     NSLog(@"%@", csvString);
     if (csvString) {

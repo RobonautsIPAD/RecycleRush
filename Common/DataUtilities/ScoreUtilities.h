@@ -10,10 +10,11 @@
 
 @class DataManager;
 @class MatchData;
+@class TeamScore;
 
 @interface ScoreUtilities : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData;
--(NSString *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber;
+-(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber error:(NSError **)error;
 @end

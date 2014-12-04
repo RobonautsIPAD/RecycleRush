@@ -61,29 +61,6 @@
     }
 }
 
-
-+(NSArray *)getTournamentTeamList:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return Nil;
-    NSMutableArray *teamList = [[NSMutableArray alloc] init];
-    NSError *error;
-    
-    // NSLog(@"Searching for team = %@", teamNumber);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamData" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"ANY tournaments.name = %@", tournament];
-    [fetchRequest setPredicate:pred];
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    NSArray *teamData = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (TeamData *team in teamData) {
-        [teamList addObject:team.number];
-    }
-    return teamList;
-}
-
 +(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
     
     if (!managedObjectContext) return Nil;
@@ -135,57 +112,6 @@
         return Nil;
     }
     else return matchScores;
-}
-
-+(TeamScore *)getScoreRecord:(NSNumber *)matchNumber forType:(NSNumber *)matchType forAlliance:(NSNumber *)alliance forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
-    if (!managedObjectContext) return Nil;
-    // Only one record should meet all these criteria. If more than one
-    // is found, then a database corruption has occurred.
-    TeamScore *scoreRecord;
-    NSError *error;
-    // A match needs 3 unique items to define it. A match number, the match type and the tournament name.
-    // NSLog(@"Searching for match = %@ %@", matchType, matchNumber);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND matchNumber = %@ AND matchType = %@ AND allianceStation = %@", tournament, matchNumber, matchType, alliance];
-    [fetchRequest setPredicate:pred];
-    NSArray *matchScores = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!matchScores) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
-                                                        message:@"Not able to fetch score records"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return Nil;
-    }
-    else {
-        switch ([matchScores count]) {
-            case 0:
-                return Nil;
-                break;
-            case 1:
-                scoreRecord = [matchScores objectAtIndex:0];
-                // NSLog(@"Match %@ %@ exists", matchType, matchNumber);
-                return scoreRecord;
-                break;
-            default: {
-                NSString *msg = [NSString stringWithFormat:@"Match %@ %@ found multiple times", matchType, matchNumber];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Match Database Error"
-                                                                message:msg
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-                scoreRecord = [matchScores objectAtIndex:0];
-                return scoreRecord;
-            }
-                break;
-        }
-    }
-    return Nil;
 }
 
 +(NSDictionary *)findKey:(NSString *)name forAttributes:(NSArray *)attributeNames forDictionary:(NSArray *)dataDictionary error:(NSError **)error {

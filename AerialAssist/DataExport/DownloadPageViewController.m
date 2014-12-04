@@ -185,32 +185,16 @@
     }
 }
 
-- (void)pickerSelected:(NSString *)newPick {
-    [optionPopover dismissPopoverAnimated:YES];
-    optionPicker = nil;
-    optionPopover = nil;
-    if (popUp == _emailDataButton) {
-        if ([newPick isEqualToString:@"Team"]) {
-            [self emailTeamData];
-        }
-        else if ([newPick isEqualToString:@"Match List"]) {
-            [self emailMatchData];
-        }
-        else if ([newPick isEqualToString:@"Spreadsheet"]) {
-            [self createScoutingSpreadsheet:@"Competition"];
-        }
-    }
-}
-
--(void)createScoutingSpreadsheet:(NSString *)choice {
-    NSString *csvString = [[NSString alloc] init];
+-(void)emailScoutingSpreadsheet:(NSString *)choice {
+    NSString *csvString;
+    csvString = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName];
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
     
     // Export Scores
     NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
     ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] init:_dataManager];
     for (int i=0; i<[teamData count]; i++) {
-        csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
+      //  csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
     }
     NSLog(@"%@", csvString);
     if (csvString) {
@@ -226,6 +210,22 @@
     [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
+- (void)pickerSelected:(NSString *)newPick {
+    [optionPopover dismissPopoverAnimated:YES];
+    optionPicker = nil;
+    optionPopover = nil;
+    if (popUp == _emailDataButton) {
+        if ([newPick isEqualToString:@"Team"]) {
+            [self emailTeamData];
+        }
+        else if ([newPick isEqualToString:@"Match List"]) {
+            [self emailMatchData];
+        }
+        else if ([newPick isEqualToString:@"Spreadsheet"]) {
+            [self emailScoutingSpreadsheet:@"Competition"];
+        }
+    }
+}
 
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:array {
     if ([MFMailComposeViewController canSendMail]) {

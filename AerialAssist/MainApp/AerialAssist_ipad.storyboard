@@ -8096,15 +8096,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="984" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="CODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3eh-qv-PWT">
-                                                    <rect key="frame" x="40" y="5" width="100" height="30"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Tournament Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="R4x-hq-RyH">
+                                                    <rect key="frame" x="40" y="5" width="202" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" text="Tournament Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="R4x-hq-RyH">
-                                                    <rect key="frame" x="160" y="5" width="202" height="30"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" text="Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3eh-qv-PWT" userLabel="Label - Code">
+                                                    <rect key="frame" x="320" y="5" width="100" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -8443,12 +8443,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="npl-Y5-KtP"/>
-        <segue reference="Ofk-bm-5rz"/>
-        <segue reference="Ssx-dF-9xL"/>
+        <segue reference="x0L-aV-aR3"/>
         <segue reference="BNM-SK-rrB"/>
-        <segue reference="M4x-HG-6MQ"/>
+        <segue reference="0QU-hg-CV0"/>
         <segue reference="k7w-uJ-Zdr"/>
+        <segue reference="M4x-HG-6MQ"/>
+        <segue reference="Ofk-bm-5rz"/>
     </inferredMetricsTieBreakers>
 </document>

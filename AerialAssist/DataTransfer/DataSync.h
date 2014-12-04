@@ -14,11 +14,12 @@
 @interface DataSync : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
+-(NSArray *)getFilteredTournamentList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredTeamList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredMatchList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredResultsList:(SyncOptions)syncOption;
 -(NSArray *)getImportFileList;
 -(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error;
--(NSArray *)importiTunesSelected:(NSString *)importFile;
+-(NSArray *)importiTunesSelected:(NSString *)importFile error:(NSError **)error;
 
 @end

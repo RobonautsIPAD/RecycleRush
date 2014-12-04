@@ -32,22 +32,21 @@
 	return self;
 }
 
--(void)createTournamentFromFile:(NSString *)filePath {
+-(BOOL)createTournamentFromFile:(NSString *)filePath {
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
     NSError *error = nil;
  
-    if (![csvContent count]) return;
+    if (![csvContent count]) return inputError;
  
     // Get the first row, column headers
     NSMutableArray *headerLine = [NSMutableArray arrayWithArray:[csvContent objectAtIndex: 0]];
 
     // Check the first header to make sure this is a tournament file
-    if (![[headerLine objectAtIndex:0] isEqualToString:@"Tournament"]) return;
+    if (![[headerLine objectAtIndex:0] isEqualToString:@"Tournament"]) return inputError;
     NSMutableArray *columnDetails = [NSMutableArray array];
-    NSLog(@"Header line = %@", headerLine);
     for (NSString *item in headerLine) {
         NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:attributeNames forDictionary:tournamentDataList error:&error];
         [columnDetails addObject:column];
@@ -68,17 +67,17 @@
         tournament.name = tournamentName;
         // Parse the rest of the line for any more data
         for (int i=1; i<[line count]; i++) {
+            error = nil;
             NSDictionary *column = [columnDetails objectAtIndex:i];
-            NSLog(@"%@", column);
+            // NSLog(@"%@", column);
             NSString *key = [column valueForKey:@"key"];
             if ([key isEqualToString:@"Invalid Key"]) {
                 NSLog(@"Skipping");
-                if (!inputError) {
                     // Only pop up one warning per file
                     inputError = TRUE;
                     NSString *msg = [NSString stringWithFormat:@"Invalid Data Member %@ from Tournament Data file", [headerLine objectAtIndex:i]];
-                    [self errorAlertMessage:msg];
-                }
+                    error = [NSError errorWithDomain:@"createTournamentFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                    [_dataManager writeErrorMessage:error forType:kErrorMessage];
                 continue;
             }
             NSDictionary *description = [tournamentDataAttributes valueForKey:key];
@@ -86,19 +85,20 @@
                 // Only pop up one warning per file
                 inputError = TRUE;
                 NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Tournament Data file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
-                [self errorAlertMessage:msg];
+                error = [NSError errorWithDomain:@"createTournamentFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                [_dataManager writeErrorMessage:error forType:kErrorMessage];
             }
         }
     }
     [parser closeFile];
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    if (![_dataManager saveContext]) {
+        inputError = TRUE;
     }
-
+    
 #ifdef TEST_MODE
     [self testTournamentRecords];
 #endif
-    
+    return inputError;
 }
 
 -(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList {
@@ -126,8 +126,9 @@
     return myData;
 }
 
--(NSDictionary *)unpackageTournamentsForXFer:(NSData *)xferData {
-    NSDictionary *tournamentList = (NSDictionary *) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
+-(NSMutableArray *)unpackageTournamentsForXFer:(NSData *)xferData {
+    NSMutableArray *receivedList = [[NSMutableArray alloc] init];
+    NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     for (NSDictionary *tournamentDictionary in tournamentList) {
         NSString *tournamentName = [tournamentDictionary objectForKey:@"name"];
         TournamentData *tournament = [self createNewTournament:tournamentName];
@@ -136,12 +137,14 @@
                 if ([key isEqualToString:@"name"]) continue; // We have already processed tournament name
                 [tournament setValue:[tournamentDictionary objectForKey:key] forKey:key];
             }
+            [receivedList addObject:tournament];
         }
     }
-    return tournamentList;
+    return receivedList;
 }
 
 -(TournamentData *)createNewTournament:(NSString *)name {
+    NSError *error = nil;
     TournamentData *tournament = [DataConvenienceMethods getTournament:name fromContext:_dataManager.managedObjectContext];
     if (tournament) return tournament;
     else {
@@ -152,12 +155,8 @@
         }
         else {
             NSString *msg = [NSString stringWithFormat:@"Unable to add Tournament %@", name];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tournament Database Error"
-                                                        message:msg
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-            [alert show];
+            error = [NSError errorWithDomain:@"createNewTournament" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+            [_dataManager writeErrorMessage:error forType:[error code]];
         }
         return tournament;
     }
@@ -168,16 +167,6 @@
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TournamentData" ofType:@"plist"];
     tournamentDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
 }
-
--(void)errorAlertMessage:(NSString *)msg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tournament File Data Error"
-                                                    message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
 
 #ifdef TEST_MODE
 -(void)testTournamentRecords {

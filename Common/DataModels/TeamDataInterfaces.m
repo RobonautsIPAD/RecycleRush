@@ -10,7 +10,6 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "TournamentData.h"
-#import "Photo.h"
 #import "DataConvenienceMethods.h"
 #import "Regional.h"
 

@@ -14,7 +14,6 @@
 #import "EnumerationDictionary.h"
 #import "TournamentData.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
 #import "TeamScore.h"
 #import "MatchData.h"
 #import "PopUpPickerViewController.h"
@@ -528,9 +527,8 @@
 
 -(void)calculateLucienNumbers {
     lucienList = [[NSMutableArray alloc] init];
-    NSError *error = nil;
     // get team list
-    NSArray *teamData = [DataConvenienceMethods getTournamentTeamList:tournamentName fromContext:_dataManager.managedObjectContext];
+    NSArray *teamData = [TeamAccessors getTeamsInTournament:tournamentName fromDataManager:_dataManager];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@ AND matchType == %@", [NSNumber numberWithBool:YES], [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary]];
     // each team will have a dictionary with team number and a lucien number for each row
     // so a dictionary where key is the team number and there is an dictionary of lucien numbers with the same key as the row

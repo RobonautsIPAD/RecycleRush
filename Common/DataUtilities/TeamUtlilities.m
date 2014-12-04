@@ -53,7 +53,6 @@
     NSMutableArray *csvContent = [parser parseFile];
     BOOL inputError = FALSE;
     NSError *error = nil;
-    NSLog(@"csv content = %@", csvContent);
     if (![csvContent count]) return inputError;
     // Get the first row, column headers
     NSMutableArray *headerLine = [NSMutableArray arrayWithArray:[csvContent objectAtIndex: 0]];
@@ -74,8 +73,6 @@
     
     for (int c = 1; c < [csvContent count]; c++) {
         NSArray *line = [NSArray arrayWithArray:[csvContent objectAtIndex:c]];
-        NSLog(@"line %@", line);
-        NSLog(@"team num %@", [line objectAtIndex: 0]);
         NSNumber *teamNumber = [NSNumber numberWithInt:[[line objectAtIndex: 0] intValue]];
         NSLog(@"createTeamFromFile:Team = %@", teamNumber);
         error = nil;
@@ -155,7 +152,7 @@
     return team;
 }
 
--(TeamData *)createNewTeam:(NSNumber *)teamNumber  error:(NSError **)error {
+-(TeamData *)createNewTeam:(NSNumber *)teamNumber error:(NSError **)error {
     if (!teamNumber || ([teamNumber intValue] < 1)) {
         NSString *msg = [NSString stringWithFormat:@"Invalid team %@", teamNumber];
         *error = [NSError errorWithDomain:@"createNewTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -192,7 +189,7 @@
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"name = %@", tournamentName];
         NSArray *list = [allTournaments filteredArrayUsingPredicate:pred];
         if (![list count]) {
-            NSLog(@"Adding Tournament");
+            // NSLog(@"Adding Tournament");
             Competitions *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"Competitions"
                                                                      inManagedObjectContext:_dataManager.managedObjectContext];
             tournament.name = tournamentName;

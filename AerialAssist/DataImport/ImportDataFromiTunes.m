@@ -9,6 +9,7 @@
 #import "ImportDataFromiTunes.h"
 #import "DataManager.h"
 #import "FileIOMethods.h"
+#import "TournamentUtilities.h"
 #import "TeamUtilities.h"
 #import "MatchUtilities.h"
 #import "ScoreUtilities.h"
@@ -61,6 +62,7 @@
             [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"tnd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
            // NSLog(@"file = %@", file);
             [fileList addObject:file];
@@ -69,60 +71,65 @@
     return fileList;
 }
 
--(NSMutableArray *)importData:(NSString *) importFile {
-    NSError *error;
+-(NSMutableArray *)importData:(NSString *) importFile error:(NSError **)error {
     NSString *fullOriginalPath = [documentImportPath stringByAppendingPathComponent:importFile];
     NSString *destinationPath = [alreadyImportedPath stringByAppendingPathComponent:importFile];
     
     BOOL success;
-    success = [fileManager createDirectoryAtPath:alreadyImportedPath withIntermediateDirectories:YES attributes:nil error:&error];
+    success = [fileManager createDirectoryAtPath:alreadyImportedPath withIntermediateDirectories:YES attributes:nil error:error];
     if (![fileManager fileExistsAtPath:destinationPath]) {
-        success &= [fileManager copyItemAtPath:fullOriginalPath toPath:destinationPath error:&error];
+        success &= [fileManager copyItemAtPath:fullOriginalPath toPath:destinationPath error:error];
     }
     if (!success) {
-        [self showAlert:@"Unable to create import directory"];
         return nil;
     }
-    // put this in success loop when the rest is done
-    NSMutableArray *importedList = [self unserializeAndLoad:destinationPath];
-    [fileManager removeItemAtPath:fullOriginalPath error:&error];
+    NSMutableArray *importedList = [self unserializeAndLoad:destinationPath error:error];
+    [fileManager removeItemAtPath:fullOriginalPath error:error];
     
     return importedList;
 }
 
--(NSMutableArray *)unserializeAndLoad:(NSString *)importFile {
+-(NSMutableArray *)unserializeAndLoad:(NSString *)importFile error:(NSError **)error {
     NSLog(@"unserialize");
     NSMutableArray *receivedData = [[NSMutableArray alloc] init];
-    NSError *error;
     NSString *transferPath = [alreadyImportedPath stringByAppendingPathComponent:@"Unpack"];
-    BOOL success = [fileManager createDirectoryAtPath:transferPath withIntermediateDirectories:YES attributes:nil error:&error];
-    if (!success) {
-        [self showAlert:@"Unable to create import workspace"];
+    if (![fileManager createDirectoryAtPath:transferPath withIntermediateDirectories:YES attributes:nil error:error]) {
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         return nil;
     }
     if ([importFile.pathExtension compare:@"csv" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         LoadCSVData *csvImport = [[LoadCSVData alloc] initWithDataManager:_dataManager];
         [csvImport loadMatchFile:importFile];
-        [fileManager removeItemAtPath:transferPath error:&error];
+        [fileManager removeItemAtPath:transferPath error:error];
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         return nil;
+    }
+    else if ([importFile.pathExtension compare:@"tnd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        TournamentUtilities *tournamentUtilitiesPackage = [[TournamentUtilities alloc] init:_dataManager];
+        NSData *importData = [NSData dataWithContentsOfFile:importFile];
+        receivedData = [tournamentUtilitiesPackage unpackageTournamentsForXFer:importData];
+        [fileManager removeItemAtPath:transferPath error:error];        
+        return receivedData;
     }
 
     NSData *importData = [NSData dataWithContentsOfFile:importFile];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
     if (dirWrapper == nil) {
-        [self showAlert:@"Unable to unpack import data"];
+         *error = [NSError errorWithDomain:@"unserializeAndLoad" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Unable to unpack import data" forKey:NSLocalizedDescriptionKey]];
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
     }
     // Calculate desired name
     NSURL *dirUrl = [NSURL fileURLWithPath:transferPath];
-    success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
-    if (!success) {
-        [self showAlert:@"Unable to create import files"];
+    if (![dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:error]) {
+        *error = [NSError errorWithDomain:@"unserializeAndLoad" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Unable to create import files" forKey:NSLocalizedDescriptionKey]];
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         return nil;
     }
 
-    NSArray *files = [fileManager contentsOfDirectoryAtPath:transferPath error:&error];
+    NSArray *files = [fileManager contentsOfDirectoryAtPath:transferPath error:error];
     if (files == nil) {
-        [self showAlert:@"Error reading transfer directory"];
+        *error = [NSError errorWithDomain:@"unserializeAndLoad" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Error reading transfer directory" forKey:NSLocalizedDescriptionKey]];
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         return nil;
     }
 
@@ -162,20 +169,9 @@
             }
         }
     }
-    [fileManager removeItemAtPath:transferPath error:&error];
+    [fileManager removeItemAtPath:transferPath error:error];
 
     return receivedData;
 }
-
--(void)showAlert:(NSString *)errorMessage {
-    UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Import Alert"
-                                                      message:errorMessage
-                                                     delegate:nil
-                                            cancelButtonTitle:@"Ok"
-                                            otherButtonTitles:nil];
-    [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-    [prompt show];
-}
-
 
 @end

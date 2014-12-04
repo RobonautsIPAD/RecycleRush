@@ -14,7 +14,6 @@
 #import "MatchData.h"
 #import "DataManager.h"
 #import "Regional.h"
-#import "Photo.h"
 #import "PhotoCell.h"
 #import "PhotoAttributes.h"
 #import "PhotoUtilities.h"

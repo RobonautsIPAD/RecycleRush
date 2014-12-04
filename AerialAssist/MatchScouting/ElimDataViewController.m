@@ -14,8 +14,6 @@
 #import "TeamScore.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
-#import "TeamDataInterfaces.h"
-#import "MatchDataInterfaces.h"
 #import "TournamentData.h"
 
 @interface ElimDataViewController (){

@@ -12,7 +12,6 @@
 #import "parseCSV.h"
 #import "TeamUtilities.h"
 #import "MatchUtilities.h"
-#import "CreateMatch.h"
 #import "TournamentUtilities.h"
 #import "AddRecordResults.h"
 
@@ -54,9 +53,6 @@
         
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchList" ofType:@"csv"];
         inputError |= [self loadMatchFile:filePath];
-
-        filePath = [[NSBundle mainBundle] pathForResource:@"MatchResults" ofType:@"csv"];
-//        [self loadMatchResults:filePath];
     }
     return inputError;
 }
@@ -74,13 +70,13 @@
  //   [self loadTeamHistory:filePath];
     NSLog(@"loaded history");
     inputError |= [self loadMatchFile:filePath];
-//    [self loadMatchResults:filePath];
     return inputError;
 }
 
--(void)loadTournamentFile:(NSString *)filePath {
+-(BOOL)loadTournamentFile:(NSString *)filePath {
     TournamentUtilities *tournamentUtil = [[TournamentUtilities alloc] init:_dataManager];
-    [tournamentUtil createTournamentFromFile:filePath];
+     BOOL inputError = [tournamentUtil createTournamentFromFile:filePath];
+    return inputError;
 }
 
 -(BOOL)loadTeamFile:(NSString *)filePath {
@@ -118,27 +114,6 @@
     MatchUtilities *matchUtil = [[MatchUtilities alloc] init:_dataManager];
     BOOL inputError = [matchUtil createMatchFromFile:filePath];
     return inputError;
-}
-
--(void)loadMatchResults:(NSString *)filePath {
-    CSVParser *parser = [CSVParser new];
-    [parser openFile: filePath];
-    NSMutableArray *csvContent = [parser parseFile];
-
-    if (![csvContent count]) return;
-
-    if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Tournament"]) {
-        CreateMatch *match = [[CreateMatch alloc] initWithDataManager:_dataManager];
-        int c;
-        for (c = 1; c < [csvContent count]; c++) {
-            // NSLog(@"Match = %@", [csvContent objectAtIndex: c]);
-            AddRecordResults results = [match addMatchResultsFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
-            if (results != DB_ADDED) {
-                NSLog(@"Check database - Match Results Code %d", results);
-            }
-        }
-    }
-    [parser closeFile];    
 }
 
 @end
