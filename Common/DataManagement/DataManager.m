@@ -9,6 +9,7 @@
 #import "DataManager.h"
 #import "AppDelegate.h"
 #import "FileIOMethods.h"
+#import "EnumerationDictionary.h"
 
 @implementation DataManager {
     NSUserDefaults *prefs;
@@ -34,6 +35,7 @@
         appName = [prefs objectForKey:@"appName"];
         [self initializeLogFiles];
         [self managedObjectContext];
+        [self initializeDictionaries];
     }
 	return self;
 }
@@ -83,6 +85,11 @@
         [warningFileHandle seekToEndOfFile];
         [warningFileHandle writeData:[msg dataUsingEncoding:NSUTF8StringEncoding]];
     }
+}
+
+-(void)initializeDictionaries {
+    _matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    _allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
 }
 
 -(BOOL)saveContext {
@@ -169,7 +176,7 @@
     }
     
     NSString *fileName = [appName stringByAppendingString:@".sqlite"];
-    NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: fileName];
+    NSString *storePath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent: fileName];
     NSURL *storeURL = [NSURL fileURLWithPath:storePath];
 	
     _loadDataFromBundle = NO;
@@ -236,15 +243,6 @@
     }    
     
     return __persistentStoreCoordinator;
-}
-
-#pragma mark - Application's Documents directory
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end

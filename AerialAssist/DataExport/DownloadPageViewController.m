@@ -8,7 +8,6 @@
 
 #import "DownloadPageViewController.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "SyncMethods.h"
@@ -189,20 +188,11 @@
     NSString *csvString;
     csvString = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName];
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    
-    // Export Scores
-    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
-    ExportScoreData *scoutingSpreadsheet = [[ExportScoreData alloc] init:_dataManager];
-    for (int i=0; i<[teamData count]; i++) {
-      //  csvString = [csvString stringByAppendingString:[scoutingSpreadsheet spreadsheetCSVExport:[teamData objectAtIndex:i] forMatches:choice]];
-    }
-    NSLog(@"%@", csvString);
-    if (csvString) {
-        [csvString writeToFile:filePath
-                    atomically:YES
-                      encoding:NSUTF8StringEncoding
-                         error:nil];
-    }
+    [csvString writeToFile:filePath
+                atomically:YES
+                  encoding:NSUTF8StringEncoding
+                     error:nil];
+
     NSString *emailSubject = @"Match Data CSV Files";
     NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
     NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingData.csv", nil];
@@ -258,9 +248,9 @@
 
 - (IBAction)exportFullMatchData:(id)sender {
     // Export Scores
-    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
+/*    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
     ExportScoreData *fullData = [[ExportScoreData alloc] init:_dataManager];
-    [fullData exportFullMatchData:teamData];
+    [fullData exportFullMatchData:teamData];*/
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

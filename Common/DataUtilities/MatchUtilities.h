@@ -15,7 +15,7 @@
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
 -(BOOL)createMatchFromFile:(NSString *)filePath;
--(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName;
+-(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error;
 -(NSNumber *)getTeamFromList:(NSArray *)teamList forAllianceStation:(NSNumber *)allianceStation;
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
 

@@ -89,6 +89,7 @@
     UILabel *label5 = (UILabel *)[cell viewWithTag:50];
     UILabel *label7 = (UILabel *)[cell viewWithTag:70];
     UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+    UILabel *label9 = (UILabel *)[cell viewWithTag:90];
     if (xFerOption == Sending) {
         MatchData *data = match;
         NSArray *scores = [data.score allObjects];
@@ -112,6 +113,7 @@
         label6.text = @"";
         label7.text = @"";
         label8.text = @"";
+        label9.text = [data objectForKey:@"transfer"];
     }
     return cell;
 }

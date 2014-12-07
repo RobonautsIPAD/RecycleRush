@@ -16,6 +16,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, assign) BOOL loadDataFromBundle;
+@property (readonly, nonatomic, strong) NSDictionary *matchTypeDictionary;
+@property (readonly, nonatomic, strong) NSDictionary *allianceDictionary;
 
 -(BOOL)saveContext;
 -(BOOL)databaseExists;

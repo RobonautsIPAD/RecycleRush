@@ -354,13 +354,6 @@
     return myData;
 }
 
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
 - (void)dealloc
 {
     NSLog(@"Export Score dealloc");

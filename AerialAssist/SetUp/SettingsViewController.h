@@ -57,7 +57,5 @@ typedef enum {
 @property (nonatomic, strong) UIPopoverController *alertPromptPopover;
 
 -(void)checkAdminCode:(UIButton *)button;
-- (NSString *)applicationDocumentsDirectory;
-
 
 @end

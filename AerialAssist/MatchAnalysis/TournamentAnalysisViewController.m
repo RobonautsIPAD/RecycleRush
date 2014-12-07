@@ -8,6 +8,7 @@
 
 #import "TournamentAnalysisViewController.h"
 #import "DataManager.h"
+#import "MainLogo.h"
 
 @interface TournamentAnalysisViewController ()
     @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
@@ -34,8 +35,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    // Display the Robotnauts Banner
-    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
@@ -56,52 +55,9 @@
     // Dispose of any resources that can be recreated.
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
 
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    switch(toInterfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            //( , , , )
-            self.mainLogo.frame = CGRectMake(0, -50, 1024, 255);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            self.splashPicture.frame = CGRectMake(50, 233, 468, 330);
-            self.pictureCaption.frame = CGRectMake(50, 571, 468, 39);
-            self.masonPageButton.frame = CGRectMake(560, 315, 400, 68);
-            self.lucianPageButton.frame = CGRectMake(560, 415, 400, 68);
-            self.ridleyPageButton.frame = CGRectMake(560, 515, 400, 68);
-            _splashPicture.frame = CGRectMake(50, 233, 468, 330);
-            break;
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            self.mainLogo.frame = CGRectMake(0, 0, 285, 960);
-            [self.mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            self.splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            self.pictureCaption.frame = CGRectMake(293, 901, 468, 39);
-            self.masonPageButton.frame = CGRectMake(328, 89, 400, 68);
-            self.lucianPageButton.frame = CGRectMake(328, 273, 400, 68);
-            self.ridleyPageButton.frame = CGRectMake(328, 470, 400, 68);
-            break;
-        default:
-            break;
-            
-    }
+- (void)viewWillLayoutSubviews {
+    _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 
 

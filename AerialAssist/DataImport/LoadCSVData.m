@@ -87,27 +87,6 @@
 
 -(void)loadTeamHistory:(NSString *)filePath {
     NSLog(@"Team History");
-/*    CSVParser *parser = [CSVParser new];
-    [parser openFile: filePath];
-    NSMutableArray *csvContent = [parser parseFile];
-
-    if (![csvContent count]) return;
-
-    if ([[[csvContent objectAtIndex: 0] objectAtIndex:0] isEqualToString:@"Team History"]) {
-        TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-        int c;
-        for (c = 1; c < [csvContent count]; c++) {
-            // NSLog(@"loadTeamFile:TeamNumber = %@", [[csvContent objectAtIndex: c] objectAtIndex:0]);
-            AddRecordResults results = [team addTeamHistoryFromFile:[csvContent objectAtIndex: 0] dataFields:[csvContent objectAtIndex: c]];
-            if (results != DB_MATCHED) {
-                NSLog(@"Check database - Team History Add Code %d", results);
-            }
-        }
-#ifdef TEST_MODE
-        [team testTeamInterfaces];
-#endif
-    }
-    [parser closeFile];*/
 }
 
 -(BOOL)loadMatchFile:(NSString *)filePath {

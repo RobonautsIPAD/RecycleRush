@@ -60,6 +60,8 @@
 
     // Display the Robotnauts Banner
     [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
+//    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
+//    [_mainLogo setFrame:CGRectMake(0, -50, 1024, 285)];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";

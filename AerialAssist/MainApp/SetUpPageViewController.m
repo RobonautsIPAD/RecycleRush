@@ -8,6 +8,7 @@
 
 #import "SetUpPageViewController.h"
 #import "DataManager.h"
+#import "MainLogo.h"
 
 @interface SetUpPageViewController ()
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
@@ -21,7 +22,6 @@
 @end
 
 @implementation SetUpPageViewController
-@synthesize dataManager = _dataManager;
 
 - (id)initWithManagedObject:(NSManagedObjectContext *)managedObjectContext {
 	if ((self = [super init]))
@@ -66,8 +66,6 @@
         _dataManager = [DataManager new];
     }
     
-    // Display the Robonauts Banner
-    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
@@ -104,13 +102,7 @@
     [segue.destinationViewController setDataManager:_dataManager];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    _dataManager = nil;
-}
-
+/*
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -159,7 +151,7 @@
             break;
     }
 }
-
+*/
 
 /*
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -196,4 +188,7 @@
  
 */
 
+- (void)viewWillLayoutSubviews {
+    _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
+}
 @end

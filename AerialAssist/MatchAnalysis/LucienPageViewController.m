@@ -10,6 +10,7 @@
 #import "LucienPageViewController.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
+#import "FileIOMethods.h"
 #import "TeamAccessors.h"
 #import "EnumerationDictionary.h"
 #import "TournamentData.h"
@@ -135,7 +136,7 @@
     gameName = [prefs objectForKey:@"gameName"];
 
     [self initializePreferences];
-    exportPath = [self applicationDocumentsDirectory];
+    exportPath = [FileIOMethods applicationDocumentsDirectory];
     matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
 
     dataChange = NO;
@@ -698,7 +699,7 @@
 }
 
 -(void)initializePreferences {
-    settingsFile = [[self applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/lucienPagePreferences.plist"]];
+    settingsFile = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/lucienPagePreferences.plist"]];
 
     fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:settingsFile]) {
@@ -768,22 +769,6 @@
 {
     // Return YES for supported orientations
 	return YES;
-}
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
-#pragma mark - Application's Library directory
-
-/**
- Returns the path to the application's Library directory.
- */
-- (NSString *)applicationLibraryDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 - (void)didReceiveMemoryWarning

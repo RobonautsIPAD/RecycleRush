@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
 #import "TournamentData.h"
 #import "PopUpPickerViewController.h"
 #import "AlertPromptViewController.h"
@@ -164,9 +165,10 @@
         }
     }
     NSError *error;
-    NSString *storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
+    NSString *libraryPath = [FileIOMethods applicationLibraryDirectory];
+    NSString *storePath = [libraryPath stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
     [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
-    storePath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences/dataMarkerMason.csv"];
+    storePath = [libraryPath stringByAppendingPathComponent: @"Preferences/dataMarkerMason.csv"];
     [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
 
 }
@@ -254,12 +256,12 @@
 - (IBAction)cleanPrefsAction:(id)sender {
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *prefsPath = [[self applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences"];
+    NSString *prefsPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent: @"Preferences"];
     NSString *prefsFile = [prefsPath stringByAppendingPathComponent: @"dataMarker.csv"];
    [fileManager removeItemAtPath: prefsFile error: &error];
     prefsFile = [prefsPath stringByAppendingPathComponent: @"lucienPagePreferences.plist"];
     [fileManager removeItemAtPath: prefsFile error: &error];
-    prefsPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
+    prefsPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent: @"dataMarkerMason.csv"];
     [fileManager removeItemAtPath: prefsPath error: &error];
 
 }
@@ -372,19 +374,6 @@
     
 }
 
-/**
- Returns the path to the application's Documents directory.
- */
--(NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-}
-
-/**
- Returns the path to the application's Library directory.
- */
-- (NSString *)applicationLibraryDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

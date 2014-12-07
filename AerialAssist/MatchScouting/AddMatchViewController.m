@@ -91,6 +91,7 @@
 
 - (IBAction)addAction:(id)sender {
     NSNumber *matchNumber = [NSNumber numberWithInt:[_matchNumber.text intValue]];
+    NSError *error = nil;
     NSLog(@"add check to make sure there is a match number and type");
     NSLog(@"do something about create new match that returns an exising one if it exists");
     NSMutableArray *teamList = [[NSMutableArray alloc] init];
@@ -105,7 +106,7 @@
         teamList = [self buildTeamList:@"Red 4" forTextBox:_red4 forTeamList:teamList];
         teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
-    MatchData *match = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName];
+    MatchData *match = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName error:&error];
     NSError *err = nil;
     if (match) {
         if (![_dataManager.managedObjectContext save:&err]) {

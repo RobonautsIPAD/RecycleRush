@@ -208,36 +208,43 @@
     else return nil;
 }
 
--(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName {
-    NSError *error = nil;
-    MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName error:&error];
+-(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error {
+    MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName error:error];
     if (!match) return nil; // Unable to create match, error retains value from getMatch
     for (NSDictionary *team in teamList) {
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
             NSString *key = [keys objectAtIndex:0];
             NSLog(@"add match messaging");
-            if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]] error:&error]) {
+            if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]] error:error]) {
                 
             }
-            if (error) [_dataManager writeErrorMessage:error forType:[error code]];
+            if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         }
     }
     return match;
 }
 
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
+    NSError *error = nil;
     if (!_dataManager) {
-        _dataManager = [DataManager new];
+        error = [NSError errorWithDomain:@"addTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"unpackageMatchForXFer" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
     }
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSNumber *matchNumber = [myDictionary objectForKey:@"number"];
     NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
     NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchTypeDictionary];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
-    if (!matchNumber || !matchType || !tournamentName) return nil;
+    if (!matchNumber || !matchType || !tournamentName) {
+        NSString *msg = [NSString stringWithFormat:@"Invalid match number, match type or tournament name %@ %@ %@", tournamentName, matchType, matchNumber];
+        error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+
     // NSLog(@"receiving %@", myDictionary);
-    NSError *error = nil;
     MatchData *matchRecord = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     
     if (matchRecord) {
@@ -250,16 +257,32 @@
                 NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
                 NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchTypeString, @"N", nil];
                 NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+                NSString *msg = [NSString stringWithFormat:@"Match has already transferred, %@ %@", matchTypeString, matchNumber];
+                error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                [_dataManager writeErrorMessage:error forType:[error code]];
                 return matchTransfer;
             }
         }
     }
     NSArray *teams = [myDictionary objectForKey:@"teams"];
-    MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName];
-    if (!match) return nil;
+    MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName error:&error];
+    if (!match) {
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:matchNumber, matchTypeString, @"N", nil];
+        NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return matchTransfer;
+    }
+
     match.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    if (![_dataManager saveContext]) {
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchTypeString, @"N", nil];
+        NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        NSString *msg = [NSString stringWithFormat:@"Database Save Error %@ %@", matchTypeString, matchNumber];
+        error = [NSError errorWithDomain:@"unpackageTeamForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return matchTransfer;
     }
     
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"teams", @"transfer", nil];

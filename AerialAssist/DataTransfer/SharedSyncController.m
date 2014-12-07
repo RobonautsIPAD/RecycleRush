@@ -718,7 +718,7 @@ GKPeerPickerController *picker;
     switch (syncType) {
         case SyncTournaments: {
             NSLog(@"Tournament Data Detected");
-            NSDictionary *tournamentReceived = [tournamentDataPackage unpackageTournamentsForXFer:data];
+            NSDictionary *tournamentReceived = nil; //[tournamentDataPackage unpackageTournamentsForXFer:data];
             if (tournamentReceived) [receivedTournamentList addObject:tournamentReceived];
         }
             break;
@@ -726,7 +726,7 @@ GKPeerPickerController *picker;
             if (receivedTeamList == nil) {
                 receivedTeamList = [NSMutableArray array];
             }
-            NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:data];
+            NSDictionary *teamReceived = nil;//[teamDataPackage unpackageTeamForXFer:data];
             if (teamReceived) [receivedTeamList addObject:teamReceived];
         }
             break;

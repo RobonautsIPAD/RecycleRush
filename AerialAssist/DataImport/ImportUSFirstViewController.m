@@ -8,7 +8,6 @@
 
 #import "ImportUSFirstViewController.h"
 #import "DataManager.h"
-#import "TeamDataInterfaces.h"
 
 @interface ImportUSFirstViewController ()
 

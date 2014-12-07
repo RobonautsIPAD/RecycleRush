@@ -10,6 +10,7 @@
 #import "LoadCSVData.h"
 #import "SettingsAndPreferences.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
 #import "SplashPageViewController.h"
 #import "PhoneSplashViewController.h"
 #import "TabletInputErrorViewController.h"
@@ -157,13 +158,6 @@
     NSLog(@"Did Terminate");
     // Saves changes in the application's managed object context before the application terminates.
     [_dataManager saveContext];
-}
-
-/**
- Returns the path to the application's Documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end

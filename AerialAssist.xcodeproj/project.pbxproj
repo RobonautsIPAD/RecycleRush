@@ -149,6 +149,7 @@
 		2FDB496618BAC2A000B431C7 /* MarcusOutput.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB496518BAC2A000B431C7 /* MarcusOutput.plist */; };
 		2FDB496918BB05DA00B431C7 /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB496718BB05DA00B431C7 /* RadioButton-Selected.png */; };
 		2FDB496A18BB05DA00B431C7 /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */; };
+		2FE298521A320BC600D6073B /* MainLogo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE298511A320BC600D6073B /* MainLogo.m */; };
 		2FF112D318A9BFC200533BEC /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D218A9BFC200533BEC /* 2014_field.png */; };
 		2FF112D518B0208D00533BEC /* 2014_field_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF112D418B0208D00533BEC /* 2014_field_grid.png */; };
 		2FF1459C18BC4E3A0078D1B4 /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */; };
@@ -389,6 +390,8 @@
 		2FDB496518BAC2A000B431C7 /* MarcusOutput.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MarcusOutput.plist; path = Resources/MarcusOutput.plist; sourceTree = "<group>"; };
 		2FDB496718BB05DA00B431C7 /* RadioButton-Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RadioButton-Selected.png"; path = "Resources/RadioButton-Selected.png"; sourceTree = "<group>"; };
 		2FDB496818BB05DA00B431C7 /* RadioButton-Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RadioButton-Unselected.png"; path = "Resources/RadioButton-Unselected.png"; sourceTree = "<group>"; };
+		2FE298501A320BC600D6073B /* MainLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainLogo.h; path = Utilities/MainLogo.h; sourceTree = "<group>"; };
+		2FE298511A320BC600D6073B /* MainLogo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainLogo.m; path = Utilities/MainLogo.m; sourceTree = "<group>"; };
 		2FF112D218A9BFC200533BEC /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = Resources/2014_field.png; sourceTree = "<group>"; };
 		2FF112D418B0208D00533BEC /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = Resources/2014_field_grid.png; sourceTree = "<group>"; };
 		2FF1459B18BC4E3A0078D1B4 /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = Resources/TeamList.csv; sourceTree = "<group>"; };
@@ -812,6 +815,8 @@
 				2FAC86A919FEBF93009A7117 /* MatchFlow.m */,
 				2FD9A4B11A0549130079870D /* SyncMethods.h */,
 				2FD9A4B21A0549130079870D /* SyncMethods.m */,
+				2FE298501A320BC600D6073B /* MainLogo.h */,
+				2FE298511A320BC600D6073B /* MainLogo.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -952,6 +957,7 @@
 				2FC18EAD16A202FD00D42251 /* parseCSV.m in Sources */,
 				2F5247E01963B5D400468E4F /* AerialAssist.xcdatamodeld in Sources */,
 				2F37CD2719F09CBB00CFABDA /* PhotoUtilities.m in Sources */,
+				2FE298521A320BC600D6073B /* MainLogo.m in Sources */,
 				2FC18EAF16A2042000D42251 /* SplashPageViewController.m in Sources */,
 				2FAC86AA19FEBF93009A7117 /* MatchFlow.m in Sources */,
 				2F9A1B3718B6577C004E987D /* PhoneSyncViewController.m in Sources */,

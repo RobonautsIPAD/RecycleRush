@@ -15,6 +15,7 @@
 
 -(id)init:(DataManager *)initManager;
 -(BOOL)createTeamFromFile:(NSString *)filePath;
+-(BOOL)addTeamHistoryFromFile:(NSString *)filePath;
 -(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName error:(NSError **)error;
 -(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData;
 

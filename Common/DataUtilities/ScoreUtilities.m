@@ -165,11 +165,12 @@
     NSString *allianceString = [EnumerationDictionary getKeyFromValue:alliance forDictionary:allianceDictionary];
     NSLog(@"%@", myDictionary);
     MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    NSError *error = nil;
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
         if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:alliance], nil];
-        match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName];
+        match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName  error:&error];
         if (!match) return Nil;
     }
 
@@ -210,7 +211,6 @@
     score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
 
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    NSError *error = nil;
     if (![_dataManager.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }

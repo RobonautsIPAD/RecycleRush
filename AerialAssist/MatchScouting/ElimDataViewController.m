@@ -654,10 +654,10 @@
         }
     }
     // First Match
-    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch] forMatchType:@"Elimination" forTeams:teamList1 forTournament:tournamentName];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch+intcrementMatch] forMatchType:@"Elimination" forTeams:teamList2 forTournament:tournamentName];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch+intcrementMatch*2] forMatchType:@"Elimination" forTeams:teamList3 forTournament:tournamentName];
     NSError *err;
+    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch] forMatchType:@"Elimination" forTeams:teamList1 forTournament:tournamentName error:&err];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch+intcrementMatch] forMatchType:@"Elimination" forTeams:teamList2 forTournament:tournamentName  error:&err];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:startMatch+intcrementMatch*2] forMatchType:@"Elimination" forTeams:teamList3 forTournament:tournamentName  error:&err];
     if (match) {
         if (![_dataManager.managedObjectContext save:&err]) {
             NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
