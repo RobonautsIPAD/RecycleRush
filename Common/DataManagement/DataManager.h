@@ -22,5 +22,7 @@
 -(BOOL)saveContext;
 -(BOOL)databaseExists;
 -(void)writeErrorMessage:(NSError *)error forType:(MessageType)messageType;
+-(void)resetWarningFile;
+-(void)resetErrorFile;
 
 @end

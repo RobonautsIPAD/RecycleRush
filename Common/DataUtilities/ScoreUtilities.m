@@ -1,6 +1,6 @@
 //
 //  ScoreUtilities.m
-//  AerialAssist
+//  RecycleRush
 //
 //  Created by FRC on 10/13/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
@@ -16,7 +16,7 @@
 #import "ScoreAccessors.h"
 #import "FieldDrawing.h"
 #import "DataConvenienceMethods.h"
-#import "EnumerationDictionary.h"
+//#import "EnumerationDictionary.h"
 
 @implementation ScoreUtilities {
     NSDictionary *allianceDictionary;
@@ -28,16 +28,16 @@
 -(id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
         _dataManager = initManager;
-        allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
-        matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        allianceDictionary = _dataManager.allianceDictionary;
+        matchTypeDictionary = _dataManager.matchTypeDictionary;
  	}
 	return self;
 }
 
--(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber error:(NSError **)error {
+-(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)allianceString forTeam:(NSNumber *)teamNumber error:(NSError **)error {
     NSString *msg;
     // Check team to make sure it exists
-    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:match.matchType forDictionary:matchTypeDictionary];
+    NSString *matchTypeString = [MatchAccessors getMatchTypeString:match.matchType fromDictionary:matchTypeDictionary];
     if (![TeamAccessors getTeam:teamNumber inTournament:match.tournamentName fromDataManager:_dataManager]) {
         msg = [NSString stringWithFormat:@"%@ Match %@ Team %@ does not exist", matchTypeString, match.number, teamNumber];
         *error = [NSError errorWithDomain:@"addTeamScoreToMatch" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -53,14 +53,14 @@
     // and create a new one.
     NSArray *allScores = [match.score allObjects];
     if (!allScores) return FALSE;
-    NSNumber *allianceStation = [EnumerationDictionary getValueFromKey:alliance forDictionary:allianceDictionary];
+    NSNumber *allianceStation = [MatchAccessors getAllianceStation:allianceString fromDictionary:allianceDictionary];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"allianceStation = %@", allianceStation];
     NSArray *allianceList = [allScores filteredArrayUsingPredicate:pred];
     if ([allianceList count]) {
         for (TeamScore *score in allianceList) {
             if ([teamNumber intValue] == [score.teamNumber intValue]) continue; // This team is in this slot
             if ([score.results boolValue]) {
-                msg = [NSString stringWithFormat:@"Results already exist for %@ Match %@, Alliance %@", matchTypeString, match.number, alliance];
+                msg = [NSString stringWithFormat:@"Results already exist for %@ Match %@, Alliance %@", matchTypeString, match.number, allianceString];
                 *error = [NSError errorWithDomain:@"addTeamScoreToMatch" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
                 return nil;
             }
@@ -68,7 +68,7 @@
                 [match removeScoreObject:score];
                 [_dataManager.managedObjectContext deleteObject:score];
                 if ([score.results boolValue]) {
-                    msg = [NSString stringWithFormat:@"Removing unused %@ Match %@, Alliance %@ Record", matchTypeString, match.number, alliance];
+                    msg = [NSString stringWithFormat:@"Removing unused %@ Match %@, Alliance %@ Record", matchTypeString, match.number, allianceString];
                     *error = [NSError errorWithDomain:@"addTeamScoreToMatch" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
                 }
             }
@@ -92,7 +92,7 @@
                 // If this team is in this alliance slot then everything is A Ok.
                 if ([score.allianceStation intValue] != [allianceStation intValue]) {
                     // Oh dear, someone has the match schedule messed up.
-                    msg = [NSString stringWithFormat:@"%@ Match %@ Team %@ is already at alliance station %@", matchTypeString, score.matchNumber, score.teamNumber, [EnumerationDictionary getKeyFromValue:score.allianceStation forDictionary:allianceDictionary]];
+                    msg = [NSString stringWithFormat:@"%@ Match %@ Team %@ is already at alliance station %@", matchTypeString, score.matchNumber, score.teamNumber, [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary]];
                     *error = [NSError errorWithDomain:@"createNewScore" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
                     return nil;
                 }
@@ -104,11 +104,11 @@
     
     if (newScore) {
         [match addScoreObject:newScore];
-        NSLog(@"score count = %ul", [[match.score allObjects] count]);
+        NSLog(@"%@ Match %@ for Alliance %@ and Team %@ added", matchTypeString, match.number, allianceString, teamNumber);
         return newScore;
     }
-    msg = [NSString stringWithFormat:@"Unable to add %@ Match %@ Team %@ in alliance station %@", matchTypeString, match.number, teamNumber, alliance];
-    *error = [NSError errorWithDomain:@"createNewScore" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+/*    msg = [NSString stringWithFormat:@"Unable to add %@ Match %@ Team %@ in alliance station %@", matchTypeString, match.number, teamNumber, allianceString];
+    *error = [NSError errorWithDomain:@"createNewScore" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];*/
     return nil;
  }
 
@@ -124,8 +124,10 @@
         return nil;
     }
     
+    NSString *matchTypeString = [MatchAccessors getMatchTypeString:match.matchType fromDictionary:matchTypeDictionary];
+    NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
     if ([ScoreAccessors getScoreRecord:match.number forType:match.matchType forAlliance:allianceStation forTournament:match.tournamentName fromDataManager:_dataManager]) {
-        NSString *msg = [NSString stringWithFormat:@"%@ Match %@ for Alliance %@ already exists", match.matchType, match.number, allianceStation];
+        NSString *msg = [NSString stringWithFormat:@"%@ Match %@ for Alliance %@ already exists", matchTypeString, match.number, allianceString];
         *error = [NSError errorWithDomain:@"createNewScore" code:kInfoMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         return nil;
     }
@@ -142,34 +144,38 @@
     
         // Set the team number
         score.teamNumber = teamNumber;
-        NSString *msg = [NSString stringWithFormat:@"%@ Match %@ for Alliance %@ and Team %@ added", match.matchType, match.number, allianceStation, teamNumber];
+        NSString *msg = [NSString stringWithFormat:@"%@ Match %@ for Alliance %@ and Team %@ added", matchTypeString, match.number, allianceString, teamNumber];
         *error = [NSError errorWithDomain:@"createNewScore" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         return score;
     }
     else {
-        NSString *msg = [NSString stringWithFormat:@"Unable to add %@ Match %@ for Alliance %@ and Team %@", match.matchType, match.number, allianceStation, teamNumber];
+        NSString *msg = [NSString stringWithFormat:@"Unable to add %@ Match %@ for Alliance %@ and Team %@", matchTypeString, match.number, allianceString, teamNumber];
         *error = [NSError errorWithDomain:@"createNewScore" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         return nil;
     }
 }
 
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData {
-    if (!_dataManager) return Nil;
+    NSError *error = nil;
+    if (!_dataManager.managedObjectContext) {
+        error = [NSError errorWithDomain:@"unpackageScoreForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
     NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
-    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchTypeDictionary];
+    NSString *matchTypeString = [MatchAccessors getMatchTypeString:matchType fromDictionary:matchTypeDictionary];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     NSNumber *teamNumber = [myDictionary objectForKey:@"teamNumber"];
-    NSNumber *alliance = [myDictionary objectForKey:@"allianceStation"];
-    NSString *allianceString = [EnumerationDictionary getKeyFromValue:alliance forDictionary:allianceDictionary];
+    NSNumber *allianceStation = [myDictionary objectForKey:@"allianceStation"];
+    NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
     NSLog(@"%@", myDictionary);
     MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
-    NSError *error = nil;
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
         if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
-        NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:alliance], nil];
+        NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:allianceStation], nil];
         match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName  error:&error];
         if (!match) return Nil;
     }
@@ -177,7 +183,7 @@
     // Fetch score record
     // Copy the data into the right places
     // Put the match drawing in the correct directory
-    TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:alliance forTournament:tournamentName fromDataManager:_dataManager];
+    TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:allianceStation forTournament:tournamentName fromDataManager:_dataManager];
     if (!score) return Nil;
     
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];

@@ -1,6 +1,6 @@
 //
 //  ScoreUtilities.h
-//  AerialAssist
+//  RecycleRush
 //
 //  Created by FRC on 10/13/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
@@ -16,5 +16,5 @@
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData;
--(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)alliance forTeam:(NSNumber *)teamNumber error:(NSError **)error;
+-(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)allianceString forTeam:(NSNumber *)teamNumber error:(NSError **)error;
 @end

@@ -1,6 +1,6 @@
 //
 //  MatchUtilities.m
-//  AerialAssist
+//  RecycleRush
 //
 //  Created by FRC on 9/30/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
@@ -38,8 +38,8 @@
         matchDataProperties = [entity attributesByName];
         attributeNames = matchDataProperties.allKeys;
         [self initializePreferences];
-        matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-        allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+        matchTypeDictionary = _dataManager.matchTypeDictionary;
+        allianceDictionary = _dataManager.allianceDictionary;
         scoreRecords =[[ScoreUtilities alloc] init:_dataManager];
  	}
 	return self;
@@ -119,7 +119,6 @@
             if ([key isEqualToString:@"tournamentName"]) continue;
             // NSLog(@"%@", key);
             if ([key isEqualToString:@"Invalid Key"]) continue; // Error message already generated
-            NSLog(@"%@", key);
             NSDictionary *enumDictionary = [self getEnumDictionary:[column valueForKey:@"dictionary"]];
             NSDictionary *description = [matchDataProperties valueForKey:key];
             if ([description isKindOfClass:[NSAttributeDescription class]]) {
@@ -133,7 +132,6 @@
             }
             else {
                 if ([key isEqualToString:@"score"]) {
-                    NSLog(@"Adding team to match, fix to get error message");
                     if (![scoreRecords addTeamScoreToMatch:match forAlliance:[column valueForKey:@"output"] forTeam:[self getNumber:[line objectAtIndex:i]] error:&error]) {
                         inputError = TRUE;
                     }
@@ -163,8 +161,12 @@
     }
 
     // Check match type to make sure it is valid
-    NSNumber *matchType = [EnumerationDictionary getValueFromKey:matchTypeString forDictionary:matchTypeDictionary];
-    if (!matchType) return nil;
+    NSNumber *matchType = [MatchAccessors getMatchTypeFromString:matchTypeString fromDictionary:matchTypeDictionary];
+    if (!matchType) {
+        NSString *msg = [NSString stringWithFormat:@"Invalid Match Type %@", matchTypeString];
+        *error = [NSError errorWithDomain:@"createMatchFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        return nil;
+    }
     // Check to make sure tournament exists
     if (![DataConvenienceMethods getTournament:tournament fromContext:_dataManager.managedObjectContext]) {
         NSString *msg = [NSString stringWithFormat:@"Invalid Tournament %@ for Match %@ %@", tournament, matchTypeString, matchNumber];
@@ -202,15 +204,27 @@
         return nil;
     }
     if ([dictionaryName isEqualToString:@"matchTypeDictionary"]) {
-        if (!matchTypeDictionary) matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
         return matchTypeDictionary;
     }
     else return nil;
 }
 
--(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error {
+-(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSDictionary *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error {
     MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName error:error];
     if (!match) return nil; // Unable to create match, error retains value from getMatch
+    NSInteger count = [teamList count];
+    id __unsafe_unretained teamNumbers[count];
+    id __unsafe_unretained alliance[count];
+    
+    [teamList getObjects:teamNumbers andKeys:alliance];
+    for (int i=0; i<count; i++) {
+        NSLog(@"%@ = %@", alliance[i], teamNumbers[i]);
+        NSLog(@"add match messaging");
+        if (![scoreRecords addTeamScoreToMatch:match forAlliance:alliance[i] forTeam:teamNumbers[i] error:error]) {
+            
+        }
+        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
+    }
     for (NSDictionary *team in teamList) {
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
@@ -228,17 +242,17 @@
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {
     NSError *error = nil;
     if (!_dataManager) {
-        error = [NSError errorWithDomain:@"addTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"unpackageMatchForXFer" forKey:NSLocalizedDescriptionKey]];
+        error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return nil;
     }
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSNumber *matchNumber = [myDictionary objectForKey:@"number"];
     NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
-    NSString *matchTypeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchTypeDictionary];
+    NSString *matchTypeString = [MatchAccessors getMatchTypeString:matchType fromDictionary:matchTypeDictionary];
     NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
     if (!matchNumber || !matchType || !tournamentName) {
-        NSString *msg = [NSString stringWithFormat:@"Invalid match number, match type or tournament name %@ %@ %@", tournamentName, matchType, matchNumber];
+        NSString *msg = [NSString stringWithFormat:@"Invalid match number, match type or tournament name %@ %@ %@", tournamentName, matchTypeString, matchNumber];
         error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return nil;
@@ -264,7 +278,8 @@
             }
         }
     }
-    NSArray *teams = [myDictionary objectForKey:@"teams"];
+    NSDictionary *teams = [myDictionary objectForKey:@"teams"];
+    NSLog(@"%@", teams);
     MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName error:&error];
     if (!match) {
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
@@ -284,10 +299,19 @@
         [_dataManager writeErrorMessage:error forType:[error code]];
         return matchTransfer;
     }
-    
-    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"teams", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, teams, @"Y", nil];
-    NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    // Rebuild the team list dictionary to reflect what actually got saved just in case something went wrong
+    NSDictionary *matchTransfer;
+    NSDictionary *teamList = [MatchAccessors buildTeamList:match forAllianceDictionary:allianceDictionary];
+    if (teamList) {
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"teams", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, teamList, @"Y", nil];
+        matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    }
+    else {
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, @"Y", nil];
+        matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    }
     // NSLog(@"%@", matchTransfer);
     return matchTransfer;
 }
@@ -299,14 +323,14 @@
     if (isNumeric) {
         return [NSNumber numberWithInt:[inputData intValue]];
     }
-    else return Nil;
+    else return nil;
 }
 
 -(NSNumber *)getTeamFromList:(NSArray *)teamList forAllianceStation:(NSNumber *)allianceStation {
-    if (!teamList || ![teamList count]) return Nil;
+    if (!teamList || ![teamList count]) return nil;
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"allianceStation = %@", allianceStation];
     NSArray *team = [teamList filteredArrayUsingPredicate:pred];
-    if (!team || ![team count]) return Nil;
+    if (!team || ![team count]) return nil;
     return [[team objectAtIndex:0] valueForKey:@"teamNumber"];
 }
 

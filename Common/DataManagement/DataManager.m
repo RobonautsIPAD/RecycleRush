@@ -69,6 +69,40 @@
     }
 }
 
+-(void)resetWarningFile {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [warningFileHandle closeFile];
+    float time = CFAbsoluteTimeGetCurrent();
+    NSString *savedWarningFile = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"warningFile%.0f.txt", time]];
+    if ([fileManager moveItemAtPath:_warningFilePath toPath:savedWarningFile error:&error]) {
+        NSDate *date = [NSDate date];
+        NSString *msg = [NSString stringWithFormat:@"%@ %@ Warning File Reset\n", [dateFormatter stringFromDate:date], appName];
+        if ( !(warningFileHandle = [NSFileHandle fileHandleForWritingAtPath:_warningFilePath]) ) {
+            [msg writeToFile:_warningFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            warningFileHandle = [NSFileHandle fileHandleForWritingAtPath:_warningFilePath];
+        }
+    }
+    else [self writeErrorMessage:error forType:kErrorMessage];
+}
+
+-(void)resetErrorFile {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    [errorFileHandle closeFile];
+    float time = CFAbsoluteTimeGetCurrent();
+    NSString *savedErrorFile = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"errorFile%.0f.txt", time]];
+    if ([fileManager moveItemAtPath:_errorFilePath toPath:savedErrorFile error:&error]) {
+        NSDate *date = [NSDate date];
+        NSString *msg = [NSString stringWithFormat:@"%@ %@ Error File Reset\n", [dateFormatter stringFromDate:date], appName];
+        if ( !(errorFileHandle = [NSFileHandle fileHandleForWritingAtPath:_errorFilePath]) ) {
+            [msg writeToFile:_errorFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            errorFileHandle = [NSFileHandle fileHandleForWritingAtPath:_errorFilePath];
+        }
+    }
+    else [self writeErrorMessage:error forType:kWarningMessage];
+}
+
 -(BOOL)databaseExists {
     [self managedObjectContext];
     return _loadDataFromBundle;

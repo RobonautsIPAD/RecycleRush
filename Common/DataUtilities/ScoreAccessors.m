@@ -1,6 +1,6 @@
 //
 //  ScoreAccessors.m
-//  AerialAssist
+//  RecycleRush
 //
 //  Created by FRC on 11/22/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
@@ -8,6 +8,8 @@
 
 #import "ScoreAccessors.h"
 #import "DataManager.h"
+#import "TeamScore.h"
+#import "MatchAccessors.h"
 
 @implementation ScoreAccessors
 +(TeamScore *)getScoreRecord:(NSNumber *)matchNumber forType:(NSNumber *)matchType forAlliance:(NSNumber *)alliance forTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager {
@@ -56,5 +58,15 @@
     }
 }
 
++(TeamScore *)getTeamScore:(NSArray *)scoreList forAllianceString:(NSString *)allianceString forAllianceDictionary:allianceDictionary {
+    NSNumber *allianceStation = [MatchAccessors getAllianceStation:allianceString fromDictionary:allianceDictionary];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"allianceStation == %@", allianceStation];
+    NSArray *score = [scoreList filteredArrayUsingPredicate:pred];
+    if (score && [score count]) {
+        TeamScore *team = [score objectAtIndex:0];
+        return team;
+    }
+    else return nil;
+}
 
 @end

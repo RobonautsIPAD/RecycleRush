@@ -1,6 +1,6 @@
 //
 //  Competitions.m
-//  AerialAssist
+//  RecycleRush
 //
 //  Created by FRC on 9/30/14.
 //  Copyright (c) 2014 FRC. All rights reserved.
