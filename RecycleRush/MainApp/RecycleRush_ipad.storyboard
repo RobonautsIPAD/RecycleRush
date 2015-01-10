@@ -18,7 +18,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="285" height="960"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAE-EC-1wz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAE-EC-1wz" userLabel="Team Scouting">
                                 <rect key="frame" x="325" y="50" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gyL-zM-4xJ">
-                                <rect key="frame" x="325" y="145" width="400" height="68"/>
+                                <rect key="frame" x="325" y="243" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -49,7 +49,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YhQ-tx-sI9">
-                                <rect key="frame" x="325" y="242" width="400" height="68"/>
+                                <rect key="frame" x="325" y="148" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -1561,7 +1561,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8oh-yD-YYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-604" y="456"/>
+            <point key="canvasLocation" x="-532" y="416"/>
         </scene>
         <!--Alliances View Controller-->
         <scene sceneID="VH8-TG-cfZ">
@@ -4977,15 +4977,16 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="748" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -7689,7 +7690,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RKT-VW-RTk">
-                                <rect key="frame" x="293" y="81" width="400" height="68"/>
+                                <rect key="frame" x="293" y="333" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -7748,7 +7749,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -7878,6 +7879,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="OzC-ih-eKX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="BsR-JQ-dZ2">
@@ -8486,13 +8488,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="k7w-uJ-Zdr"/>
-        <segue reference="0QU-hg-CV0"/>
         <segue reference="Ofk-bm-5rz"/>
-        <segue reference="npl-Y5-KtP"/>
-        <segue reference="MVE-1d-KHX"/>
-        <segue reference="x0L-aV-aR3"/>
+        <segue reference="Ssx-dF-9xL"/>
+        <segue reference="6V1-MF-63T"/>
+        <segue reference="0QU-hg-CV0"/>
         <segue reference="BNM-SK-rrB"/>
+        <segue reference="MVE-1d-KHX"/>
         <segue reference="M4x-HG-6MQ"/>
+        <segue reference="k7w-uJ-Zdr"/>
     </inferredMetricsTieBreakers>
 </document>
