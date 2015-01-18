@@ -21,6 +21,7 @@
 #import "FieldDrawingViewController.h"
 #import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
+#import <QuartzCore/CALayer.h>
 
 @interface MasonPageViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
@@ -684,11 +685,11 @@
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:10.0f];
+    //[btnLayer setMasksToBounds:YES];
+    //[btnLayer setCornerRadius:10.0f];
     // Apply a 1 pixel, black border
-    [btnLayer setBorderWidth:1.0f];
-    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    //[btnLayer setBorderWidth:1.0f];
+    //[btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
     // Set the button Background Color
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color
@@ -696,12 +697,12 @@
 }
 
 -(void)setTableDefaults {
-    _red1Table.layer.borderWidth = 2.0;
-    _red2Table.layer.borderWidth = 2.0;
-    _red3Table.layer.borderWidth = 2.0;
-    _blue1Table.layer.borderWidth = 2.0;
-    _blue2Table.layer.borderWidth = 2.0;
-    _blue3Table.layer.borderWidth = 2.0;
+    //_red1Table.layer.borderWidth = 2.0;
+    //_red2Table.layer.borderWidth = 2.0;
+    //_red3Table.layer.borderWidth = 2.0;
+    //_blue1Table.layer.borderWidth = 2.0;
+    //_blue2Table.layer.borderWidth = 2.0;
+    //_blue3Table.layer.borderWidth = 2.0;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

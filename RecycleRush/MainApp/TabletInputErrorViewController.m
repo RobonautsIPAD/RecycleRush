@@ -9,6 +9,7 @@
 #import "TabletInputErrorViewController.h"
 #import "DataManager.h"
 #import "FileIOMethods.h"
+#import <QuartzCore/CALayer.h>
 
 @interface TabletInputErrorViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *clearErrorsButton;
