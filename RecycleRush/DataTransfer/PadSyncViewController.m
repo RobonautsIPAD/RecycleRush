@@ -17,6 +17,7 @@
 #import "SyncTypeDictionary.h"
 #import "SyncOptionDictionary.h"
 #import "PopUpPickerViewController.h"
+#import <QuartzCore/CALayer.h>
 
 @interface PadSyncViewController ()
 @property (nonatomic, weak) IBOutlet UITableView *syncDataTable;
