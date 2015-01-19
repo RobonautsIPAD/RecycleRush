@@ -1779,7 +1779,7 @@
     if ([currentScore.results boolValue]) drawMode = DrawLock;
     else drawMode = DrawOff;
     // Check the database to see if this team and match have a drawing already
-    [_backgroundImage setImage:[UIImage imageNamed:@"2014_field.png"]];
+    [_backgroundImage setImage:[UIImage imageNamed:@"FIELD_IMAGE_2015_.png"]];
     if (currentScore.fieldDrawing.trace) {
         [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
@@ -2468,12 +2468,12 @@
 }
 
 -(IBAction)toggleGrid:(id)sender{
-    if(_backgroundImage.image == [UIImage imageNamed:@"2014_field.png"]){
+    if(_backgroundImage.image == [UIImage imageNamed:@"Field_Image_2015.png"]){
         _backgroundImage.image = [UIImage imageNamed:@"2014_field_grid.png"];
         [_toggleGridButton setTitle:@"On" forState:UIControlStateNormal];
     }
     else{
-        _backgroundImage.image = [UIImage imageNamed:@"2014_field.png"];
+        _backgroundImage.image = [UIImage imageNamed:@"Field_Image_2015.png"];
         [_toggleGridButton setTitle:@"Off" forState:UIControlStateNormal];
     }
 }
