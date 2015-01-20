@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F072E461A6DE66B00356BCD /* button_robonaut_gold.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */; };
+		2F072E481A6DE6C700356BCD /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F072E471A6DE6C700356BCD /* RecycleRush.sqlite */; };
 		2F21DCC01A6D74E5009B79E0 /* Field_Image_2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F21DCBF1A6D74E5009B79E0 /* Field_Image_2015.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -161,6 +163,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_robonaut_gold.png; path = RecycleRush/Resources/button_robonaut_gold.png; sourceTree = SOURCE_ROOT; };
+		2F072E471A6DE6C700356BCD /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = RecycleRush/Resources/RecycleRush.sqlite; sourceTree = SOURCE_ROOT; };
 		2F21DCBF1A6D74E5009B79E0 /* Field_Image_2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Field_Image_2015.png; path = RecycleRush/Resources/Field_Image_2015.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -580,6 +584,8 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F072E471A6DE6C700356BCD /* RecycleRush.sqlite */,
+				2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */,
 				2F21DCBF1A6D74E5009B79E0 /* Field_Image_2015.png */,
 				2F5D33251A5FA69E00E02523 /* LucienNumberFields.plist */,
 				2F5D334F1A5FA75C00E02523 /* Robonauts.RecycleRush.plist */,
@@ -884,6 +890,7 @@
 				2F5D33421A5FA69E00E02523 /* MatchType.plist in Resources */,
 				2F5D33451A5FA69E00E02523 /* Pass to Robot.png in Resources */,
 				2F5D335E1A5FA75C00E02523 /* Small Blue Button.jpg in Resources */,
+				2F072E461A6DE66B00356BCD /* button_robonaut_gold.png in Resources */,
 				2F5D333D1A5FA69E00E02523 /* LucienNumberFields.plist in Resources */,
 				2F5D33181A5FA5F700E02523 /* Blocked Shot.png in Resources */,
 				2F5D33601A5FA75C00E02523 /* Small Grey Button.jpg in Resources */,
@@ -916,6 +923,7 @@
 				2F5D335F1A5FA75C00E02523 /* Small Green Button.jpg in Resources */,
 				2F5D33441A5FA69E00E02523 /* Pass to Robot Miss.png in Resources */,
 				2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */,
+				2F072E481A6DE6C700356BCD /* RecycleRush.sqlite in Resources */,
 				2F5D333F1A5FA69E00E02523 /* MasonPage.plist in Resources */,
 				2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */,
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
