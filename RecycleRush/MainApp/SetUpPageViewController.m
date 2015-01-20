@@ -188,7 +188,7 @@
  
 */
 
-- (void)viewWillLayoutSubviews {
+-(void)viewWillLayoutSubviews {
     _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 @end

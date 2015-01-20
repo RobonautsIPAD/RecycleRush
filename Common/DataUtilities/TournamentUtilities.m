@@ -32,6 +32,28 @@
 	return self;
 }
 
+-(NSArray *)getTournamentList {
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *tournamentSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:tournamentSort]];
+    NSArray *tournamentData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!tournamentData) {
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    else {
+        NSMutableArray *tournamentList = [[NSMutableArray alloc] init];
+        for (TournamentData *tournament in tournamentData) {
+            // NSLog(@"Tournament %@ exists", t.name);
+            [tournamentList addObject:tournament.name];
+        }
+        return tournamentList;
+    }
+}
+
 -(BOOL)createTournamentFromFile:(NSString *)filePath {
     CSVParser *parser = [CSVParser new];
     [parser openFile: filePath];

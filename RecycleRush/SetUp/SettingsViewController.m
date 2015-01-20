@@ -9,31 +9,43 @@
 #import "SettingsViewController.h"
 #import "DataManager.h"
 #import "FileIOMethods.h"
-#import "TournamentData.h"
+#import "TournamentUtilities.h"
 #import "PopUpPickerViewController.h"
 #import "AlertPromptViewController.h"
+#import "MainLogo.h"
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *cleanPrefsButton;
+@property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
+@property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
+@property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
+@property (nonatomic, weak) IBOutlet UITextField *adminText;
+@property (nonatomic, weak) IBOutlet UITextField *overrideText;
+@property (nonatomic, weak) IBOutlet UILabel *tournamentLabel;
+@property (nonatomic, weak) IBOutlet UILabel *allianceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *adminLabel;
+@property (nonatomic, weak) IBOutlet UILabel *overideLabel;
+@property (nonatomic, weak) IBOutlet UILabel *modeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bluetoothLabel;
+// Tournament Picker
+@property (nonatomic, weak) IBOutlet UIButton *tournamentButton;
+// Alliance Picker
+@property (nonatomic, weak) IBOutlet UIButton *allianceButton;
+@property (nonatomic, strong) NSMutableArray *allianceList;
+@property (nonatomic, strong) PopUpPickerViewController *alliancePicker;
+@property (nonatomic, strong) UIPopoverController *alliancePickerPopover;
 @end
 
 @implementation SettingsViewController {
     id popUp;
     OverrideMode overrideMode;
     NSUserDefaults *prefs;
+    NSArray *tournamentList;
+    PopUpPickerViewController *tournamentPicker;
+    UIPopoverController *tournamentPickerPopover;
 }
-@synthesize dataManager = _dataManager;
-@synthesize mainLogo = _mainLogo;
 @synthesize splashPicture = _splashPicture;
 @synthesize pictureCaption = _pictureCaption;
-
-// Tournament Picking
-@synthesize tournamentData = _tournamentData;
-@synthesize tournamentLabel = _tournamentLabel;
-@synthesize tournamentButton = _tournamentButton;
-@synthesize tournamentPicker = _tournamentPicker;
-@synthesize tournamentList = _tournamentList;
-@synthesize tournamentPickerPopover = _tournamentPickerPopover;
 
 // Alliance Picker
 @synthesize allianceButton = _allianceButton;
@@ -80,8 +92,6 @@
     }
     
     //    NSLog(@"Set-Up Page");
-    // Display the Robotnauts Banner
-    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
@@ -93,27 +103,10 @@
     [_tournamentButton setTitle:[prefs objectForKey:@"tournament"] forState:UIControlStateNormal];
     _tournamentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:18.0];
 
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"TournamentData" inManagedObjectContext:_dataManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSSortDescriptor *tournamentSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:tournamentSort]];
-    _tournamentData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!_tournamentData) {
-        NSLog(@"Karma disruption error");
-        _tournamentList = nil;
-    }
-    else {
-        TournamentData *t;
-        self.tournamentList = [NSMutableArray array];
-        for (int i=0; i < [_tournamentData count]; i++) {
-            t = [_tournamentData objectAtIndex:i];
-            NSLog(@"Tournament %@ exists", t.name);
-            [_tournamentList addObject:t.name];
-        }
-    }
-    // NSLog(@"Tournament List = %@", _tournamentList);
+    TournamentUtilities *tournamentUtilities = [[TournamentUtilities alloc] init:_dataManager];
+    tournamentList = [tournamentUtilities getTournamentList];
+    
+    NSLog(@"Tournament List = %@", tournamentList);
     
     // Alliance Selection
     [_allianceButton setTitle:[prefs objectForKey:@"alliance"] forState:UIControlStateNormal];
@@ -131,19 +124,17 @@
 
 -(IBAction)TournamentSelectionChanged:(id)sender {
     //    NSLog(@"TournamentSelectionChanged");
-    if (_tournamentPicker == nil) {
-        self.tournamentPicker = [[PopUpPickerViewController alloc]
-                               initWithStyle:UITableViewStylePlain];
-        _tournamentPicker.delegate = self;
-        _tournamentPicker.pickerChoices = _tournamentList;
-        self.tournamentPickerPopover = [[UIPopoverController alloc]
-                                      initWithContentViewController:_tournamentPicker];
+    if (tournamentPicker == nil) {
+        tournamentPicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+        tournamentPicker.delegate = self;
+        tournamentPicker.pickerChoices = tournamentList;
+        tournamentPickerPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:tournamentPicker];
     }
-    _tournamentPicker.pickerChoices = _tournamentList;
     popUp = sender;
-    [self.tournamentPickerPopover presentPopoverFromRect:_tournamentButton.bounds inView:_tournamentButton
-                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
+    [tournamentPickerPopover presentPopoverFromRect:_tournamentButton.bounds inView:_tournamentButton
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];}
 
 -(void)pickerSelected:(NSString *)newPick {
     NSLog(@"Picker = %@", newPick);
@@ -156,21 +147,11 @@
 }
 
 -(void)tournamentSelected:(NSString *)newTournament {
-    [self.tournamentPickerPopover dismissPopoverAnimated:YES];
-    for (int i = 0 ; i < [_tournamentList count] ; i++) {
-        if ([newTournament isEqualToString:[_tournamentList objectAtIndex:i]]) {
-            [prefs setObject:newTournament forKey:@"tournament"];
-            [_tournamentButton setTitle:newTournament forState:UIControlStateNormal];
-            break;
-        }
-    }
-    NSError *error;
-    NSString *libraryPath = [FileIOMethods applicationLibraryDirectory];
-    NSString *storePath = [libraryPath stringByAppendingPathComponent: @"Preferences/dataMarker.csv"];
-    [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
-    storePath = [libraryPath stringByAppendingPathComponent: @"Preferences/dataMarkerMason.csv"];
-    [[NSFileManager defaultManager] removeItemAtPath: storePath error: &error];
-
+    [tournamentPickerPopover dismissPopoverAnimated:YES];
+    NSUInteger index = [tournamentList indexOfObject:newTournament];
+    if (index == NSNotFound) return;
+    [prefs setObject:newTournament forKey:@"tournament"];
+    [_tournamentButton setTitle:newTournament forState:UIControlStateNormal];
 }
 
 
@@ -266,112 +247,12 @@
 
 }
 
--(void) viewWillDisappear:(BOOL)animated
-{
-    //    NSLog(@"viewWillDisappear");
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
+-(void) viewWillDisappear:(BOOL)animated {
+    [_dataManager saveContext];
 }
 
-/*
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            _mainLogo.frame = CGRectMake(-20, 0, 285, 960);
-            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            _tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
-            _tournamentButton.frame = CGRectMake(530, 73, 208, 44);
-//            matchSetUpButton.frame = CGRectMake(325, 225, 400, 68);
-//            importDataButton.frame = CGRectMake(325, 325, 400, 68);
-//            exportDataButton.frame = CGRectMake(325, 425, 400, 68);
-            _splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            _mainLogo.frame = CGRectMake(0, -60, 1024, 255);
-            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-            _tournamentLabel.frame = CGRectMake(540, 255, 144, 21);
-            _tournamentButton.frame = CGRectMake(730, 243, 208, 44);
-//            matchSetUpButton.frame = CGRectMake(550, 325, 400, 68);
-//            importDataButton.frame = CGRectMake(550, 425, 400, 68);
-//            exportDataButton.frame = CGRectMake(550, 525, 400, 68);
-            _splashPicture.frame = CGRectMake(50, 243, 468, 330);
-            _pictureCaption.frame = CGRectMake(50, 581, 468, 39);
-            break;
-        default:
-            break;
-    }
-    // Return YES for supported orientations 
-	return YES;
-}
-
-*/
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
--(BOOL)shouldAutorotate
-{
-    return YES;
-}
-
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    switch(toInterfaceOrientation){
-        case UIInterfaceOrientationLandscapeRight:
-        case UIInterfaceOrientationLandscapeLeft:
-            _mainLogo.frame = CGRectMake(0, -50, 1024, 255);
-            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-             _splashPicture.frame = CGRectMake(50, 233, 468, 330);
-            _pictureCaption.frame = CGRectMake(50, 571, 468, 39);
-            _tournamentButton.frame = CGRectMake(770, 230, 208, 44);
-            _allianceButton.frame = CGRectMake(770, 305, 208, 44);
-            _adminText.frame = CGRectMake(770, 380, 208, 30);
-            _overrideText.frame = CGRectMake(770, 440, 208, 30);
-            _modeSegment.frame = CGRectMake(770, 500, 208, 30);
-            _tournamentLabel.frame = CGRectMake(580, 240, 144, 21);
-            _allianceLabel.frame = CGRectMake(580, 315, 144, 21);
-            _adminLabel.frame = CGRectMake(580, 385, 144, 21);
-            _overideLabel.frame = CGRectMake(580, 440, 173, 29);
-            _modeLabel.frame = CGRectMake(580, 500, 173, 29);
-            _bluetoothLabel.frame = CGRectMake(580, 560, 173, 29);
-            break;
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            _mainLogo.frame = CGRectMake(0, 0, 285, 960);
-            [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-            _splashPicture.frame = CGRectMake(293, 563, 468, 330);
-            _pictureCaption.frame = CGRectMake(293, 901, 468, 39);
-            _tournamentButton.frame = CGRectMake(530, 73, 208, 44);
-            _allianceButton.frame = CGRectMake(530, 151, 208, 44);
-            _adminText.frame = CGRectMake(530, 235, 208, 30);
-            _overrideText.frame = CGRectMake(530, 305, 208, 30);
-            _modeSegment.frame = CGRectMake(530, 376, 208, 30);
-            _tournamentLabel.frame = CGRectMake(340, 85, 144, 21);
-            _allianceLabel.frame = CGRectMake(340, 158, 144, 21);
-            _adminLabel.frame = CGRectMake(340, 235, 144, 21);
-            _overideLabel.frame = CGRectMake(340, 305, 173, 29);
-            _modeLabel.frame = CGRectMake(340, 379, 173, 29);
-            _bluetoothLabel.frame = CGRectMake(340, 435, 173, 29);
-            break;
-        default:
-            break;
-    }
-    
+-(void)viewWillLayoutSubviews {
+    _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 
 - (void)didReceiveMemoryWarning

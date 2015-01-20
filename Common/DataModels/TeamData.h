@@ -2,8 +2,8 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 10/13/14.
-//  Copyright (c) 2014 FRC. All rights reserved.
+//  Created by FRC on 1/20/15.
+//  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSNumber * autonCapacity;
 @property (nonatomic, retain) NSString * autonMobility;
 @property (nonatomic, retain) NSNumber * ballReleaseHeight;
+@property (nonatomic, retain) NSString * bumpers;
 @property (nonatomic, retain) NSString * catcher;
 @property (nonatomic, retain) NSNumber * cims;
 @property (nonatomic, retain) NSString * classA;
@@ -31,11 +32,12 @@
 @property (nonatomic, retain) NSNumber * fthing4;
 @property (nonatomic, retain) NSNumber * fthing5;
 @property (nonatomic, retain) NSString * goalie;
-@property (nonatomic, retain) NSString * hotTracker;
 @property (nonatomic, retain) NSString * intake;
+@property (nonatomic, retain) NSString * lift;
 @property (nonatomic, retain) NSNumber * maxHeight;
 @property (nonatomic, retain) NSNumber * minHeight;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * noodler;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * nwheels;
@@ -55,7 +57,9 @@
 @property (nonatomic, retain) NSNumber * thing3;
 @property (nonatomic, retain) NSNumber * thing4;
 @property (nonatomic, retain) NSNumber * thing5;
+@property (nonatomic, retain) NSString * toteStack;
 @property (nonatomic, retain) NSString * tunneler;
+@property (nonatomic, retain) NSString * visualTracker;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
 @property (nonatomic, retain) NSSet *regional;

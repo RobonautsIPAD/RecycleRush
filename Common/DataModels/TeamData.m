@@ -2,8 +2,8 @@
 //  TeamData.m
 //  RecycleRush
 //
-//  Created by FRC on 10/13/14.
-//  Copyright (c) 2014 FRC. All rights reserved.
+//  Created by FRC on 1/20/15.
+//  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import "TeamData.h"
@@ -16,6 +16,7 @@
 @dynamic autonCapacity;
 @dynamic autonMobility;
 @dynamic ballReleaseHeight;
+@dynamic bumpers;
 @dynamic catcher;
 @dynamic cims;
 @dynamic classA;
@@ -31,11 +32,12 @@
 @dynamic fthing4;
 @dynamic fthing5;
 @dynamic goalie;
-@dynamic hotTracker;
 @dynamic intake;
+@dynamic lift;
 @dynamic maxHeight;
 @dynamic minHeight;
 @dynamic name;
+@dynamic noodler;
 @dynamic notes;
 @dynamic number;
 @dynamic nwheels;
@@ -55,7 +57,9 @@
 @dynamic thing3;
 @dynamic thing4;
 @dynamic thing5;
+@dynamic toteStack;
 @dynamic tunneler;
+@dynamic visualTracker;
 @dynamic wheelDiameter;
 @dynamic wheelType;
 @dynamic regional;

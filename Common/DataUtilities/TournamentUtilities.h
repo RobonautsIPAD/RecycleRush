@@ -17,4 +17,5 @@
 -(BOOL)createTournamentFromFile:(NSString *)filePath;
 -(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList;
 -(NSMutableArray *)unpackageTournamentsForXFer:(NSData *)xferData;
+-(NSArray *)getTournamentList;
 @end

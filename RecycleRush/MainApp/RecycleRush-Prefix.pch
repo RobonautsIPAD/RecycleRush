@@ -28,5 +28,10 @@ typedef enum {
     kInfoMessage,
 } MessageType;
 
+typedef enum {
+    Scouter,
+    Master
+} BlueToothType;
+
 #endif
 

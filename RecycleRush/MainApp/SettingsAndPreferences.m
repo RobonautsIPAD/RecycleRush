@@ -37,6 +37,7 @@
             [prefs setObject:@"bluefish" forKey:@"adminCode"];
             [prefs setObject:@"118over" forKey:@"overrideCode"];
             [prefs setObject:@"Test" forKey:@"mode"];
+            [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
         }
     }
     else {
