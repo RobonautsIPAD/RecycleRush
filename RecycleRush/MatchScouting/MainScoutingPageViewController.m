@@ -1779,7 +1779,7 @@
     if ([currentScore.results boolValue]) drawMode = DrawLock;
     else drawMode = DrawOff;
     // Check the database to see if this team and match have a drawing already
-    [_backgroundImage setImage:[UIImage imageNamed:@"FIELD_IMAGE_2015_.png"]];
+    [_backgroundImage setImage:[UIImage imageNamed:@"Field_Image_2015.png"]];
     if (currentScore.fieldDrawing.trace) {
         [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
