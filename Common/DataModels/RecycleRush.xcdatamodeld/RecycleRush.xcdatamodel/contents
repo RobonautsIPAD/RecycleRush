@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Competitions" representedClassName="Competitions" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
@@ -51,6 +51,7 @@
         <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES"/>
         <attribute name="autonMobility" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="ballReleaseHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="bumpers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catcher" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="classA" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
@@ -66,11 +67,12 @@
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="goalie" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="hotTracker" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="intake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="lift" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="minHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
+        <attribute name="noodler" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
         <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -90,7 +92,9 @@
         <attribute name="thing3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="toteStack" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tunneler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="visualTracker" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="regional" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
@@ -281,12 +285,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Competitions" positionX="18" positionY="162" width="128" height="73"/>
-        <element name="FieldDrawing" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="MatchData" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="Regional" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="TeamData" positionX="0" positionY="0" width="128" height="748"/>
-        <element name="TeamScore" positionX="0" positionY="0" width="128" height="1290"/>
-        <element name="TournamentData" positionX="0" positionY="0" width="128" height="73"/>
+        <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
+        <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="75"/>
+        <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
+        <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="810"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1290"/>
+        <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

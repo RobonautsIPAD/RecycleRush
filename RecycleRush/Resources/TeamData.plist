@@ -36,15 +36,15 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>tunneler</string>
+		<string>bumpers</string>
 		<key>input</key>
-		<string>Tunnel Bot</string>
+		<string>Bumper Bot</string>
 		<key>output</key>
-		<string>Tunneler</string>
+		<string>Bumpers</string>
 		<key>lucien</key>
-		<string>Tunnel</string>
+		<string>Bumpers</string>
 		<key>dictionary</key>
-		<string>tunnelDictionary</string>
+		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -82,13 +82,13 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>catcher</string>
+		<string>lift</string>
 		<key>input</key>
-		<string>Catch System</string>
+		<string>Lift System</string>
 		<key>output</key>
-		<string>Catcher</string>
+		<string>Lifter</string>
 		<key>lucien</key>
-		<string>Catcher</string>
+		<string>Lifter</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
 	</dict>
@@ -112,21 +112,25 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>goalie</string>
+		<string>noodler</string>
+		<key>input</key>
+		<string>Noodler</string>
 		<key>output</key>
-		<string>Goalie</string>
+		<string>Noodler</string>
+		<key>lucien</key>
+		<string>Noodler</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>hotTracker</string>
+		<string>visualTracker</string>
 		<key>input</key>
-		<string>Tracks Hots, Hot Tracker, Track Hot, Hot Tracking</string>
+		<string>Visual Tracker</string>
 		<key>output</key>
-		<string>Hot Tracking</string>
+		<string>Tracking</string>
 		<key>lucien</key>
-		<string>Track Hot</string>
+		<string>Visual Track</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
 	</dict>
@@ -210,9 +214,13 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>classC</string>
+		<string>toteStack</string>
 		<key>input</key>
-		<string>Class C</string>
+		<string>Tote Stack #</string>
+		<key>output</key>
+		<string>Tote Stack #</string>
+		<key>lucien</key>
+		<string># of Totes Stacked</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
 	</dict>
