@@ -19,10 +19,6 @@
 -(IBAction)allianceSelectionChanged:(id)sender;
 - (void)allianceSelected:(NSString *)newAlliance;
 
-// Mode Selection
-@property (nonatomic, weak) IBOutlet UISegmentedControl *modeSegment;
-- (IBAction)modeSelectionChanged:(id)sender;
-
 // User Access Control
 typedef enum {
     NoOverride,

@@ -15,7 +15,6 @@
 #import "MainLogo.h"
 
 @interface SettingsViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *cleanPrefsButton;
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
 @property (nonatomic, weak) IBOutlet UIImageView *splashPicture;
 @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
@@ -34,6 +33,8 @@
 @property (nonatomic, strong) NSMutableArray *allianceList;
 @property (nonatomic, strong) PopUpPickerViewController *alliancePicker;
 @property (nonatomic, strong) UIPopoverController *alliancePickerPopover;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *modeSegment;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *bluetoothMode;
 @end
 
 @implementation SettingsViewController {
@@ -114,15 +115,23 @@
     _allianceList = [[NSMutableArray alloc] initWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
 
     // Set Mode segment
-    if ([[prefs objectForKey:@"mode"] isEqualToString:@"Test"]) {
+    if ([[prefs objectForKey:@"mode"] isEqualToString:@"Meeting"]) {
         _modeSegment.selectedSegmentIndex = 0;
     }
     else {
         _modeSegment.selectedSegmentIndex = 1;
     }
+    // Set Bluetooth segment
+    NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
+    if ([bluetoothMode intValue] == Scouter) {
+        _bluetoothMode.selectedSegmentIndex = 0;
+    }
+    else {
+        _bluetoothMode.selectedSegmentIndex = 1;
+    }
 }
 
--(IBAction)TournamentSelectionChanged:(id)sender {
+-(IBAction)tournamentSelectionChanged:(id)sender {
     //    NSLog(@"TournamentSelectionChanged");
     if (tournamentPicker == nil) {
         tournamentPicker = [[PopUpPickerViewController alloc]
@@ -228,12 +237,26 @@
     current = segmentedControl.selectedSegmentIndex;
     
     if (current == 0) {
-        [prefs setObject:@"Test" forKey:@"mode"];
+        [prefs setObject:@"Meeting" forKey:@"mode"];
     }
     else {
         [prefs setObject:@"Tournament" forKey:@"mode"];
     }
 }
+
+- (IBAction)bluetoothRoleChanged:(id)sender {
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    int current;
+    current = segmentedControl.selectedSegmentIndex;
+
+    if (current == 0) {
+        [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
+    }
+    else {
+        [prefs setObject:[NSNumber numberWithInt:Master] forKey:@"bluetooth"];
+    }
+}
+
 - (IBAction)cleanPrefsAction:(id)sender {
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];

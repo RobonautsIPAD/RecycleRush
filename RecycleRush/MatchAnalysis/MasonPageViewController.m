@@ -685,11 +685,11 @@
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
-    //[btnLayer setMasksToBounds:YES];
-    //[btnLayer setCornerRadius:10.0f];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
     // Apply a 1 pixel, black border
-    //[btnLayer setBorderWidth:1.0f];
-    //[btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
     // Set the button Background Color
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color

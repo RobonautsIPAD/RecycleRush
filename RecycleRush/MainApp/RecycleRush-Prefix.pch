@@ -12,10 +12,13 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <GameKit/GameKit.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
 
 //#define TEST_MODE
+
+#define SESSION_ID @"Robonauts Scouting"
 
 typedef enum {
     Sending,
@@ -32,6 +35,21 @@ typedef enum {
     Scouter,
     Master
 } BlueToothType;
+
+typedef enum {
+	ServerStateIdle,
+	ServerStateAcceptingConnections,
+	ServerStateIgnoringNewConnections,
+} ServerState;
+
+typedef enum {
+	ClientStateIdle,
+	ClientStateSearchingForServers,
+	ClientStateFoundServer,
+	ClientStateConnecting,
+	ClientStateConnected,
+} ClientState;
+
 
 #endif
 

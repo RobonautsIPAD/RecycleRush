@@ -113,19 +113,24 @@
 
     // Set Font and Text for Export Buttons
     [_emailDataButton setTitle:@"Email Data" forState:UIControlStateNormal];
-    _emailDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [self setBigButtonDefaults:_emailDataButton];
     [_transferPhotosButton setTitle:@"Transfer Photos" forState:UIControlStateNormal];
-    _transferPhotosButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [self setBigButtonDefaults:_transferPhotosButton];
     [_syncButton setTitle:@"Sync Data" forState:UIControlStateNormal];
-    _syncButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [self setBigButtonDefaults:_syncButton];
     [_firstImportButton setTitle:@"Import - US FIRST" forState:UIControlStateNormal];
-    _firstImportButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [self setBigButtonDefaults:_firstImportButton];
     [_scoutingSheetButton setTitle:@"Spreadsheet Data" forState:UIControlStateNormal];
-    _scoutingSheetButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    [self setBigButtonDefaults:_scoutingSheetButton];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
     [super viewDidLoad];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 
 - (IBAction)exportTapped:(id)sender {
@@ -269,7 +274,12 @@
     }
 }
 
-- (void)viewWillLayoutSubviews {
+-(void)setBigButtonDefaults:(UIButton *)currentButton {
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+}
+
+-(void)viewWillLayoutSubviews {
     _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 
