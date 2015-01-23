@@ -134,7 +134,7 @@
 	{
 		if ([error code] == GKSessionCannotEnableError)
 		{
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:ServerUnavailable] forKey:SESSION_ID]]];
 			[self endSession];
 		}
 	}
@@ -165,11 +165,15 @@
 }
 
 -(void)clientDidDisconnect:(NSString *)peerID {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientDisconnect], @"Message", [self displayNameForPeerID:peerID], @"PeerID", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
 -(void)clientDidConnect:(NSString *)peerID {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientConnect], @"Message", [self displayNameForPeerID:peerID], @"PeerID", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
+    //	NSString *peerID = [_matchmakingServer peerIDForConnectedClientAtIndex:indexPath.row];
+
 }
 
 - (void)endSession
@@ -184,7 +188,7 @@
 	_session = nil;
     
 	_connectedClients = nil;
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:ServerUnavailable] forKey:SESSION_ID]]];
 }
 
 @end

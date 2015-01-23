@@ -47,8 +47,7 @@
 
 - (void)connectToServerWithPeerID:(NSString *)peerID
 {
-//	NSAssert(_clientState == ClientStateSearchingForServers, @"Wrong state");
-	NSAssert(_clientState == ClientStateFoundServer, @"Wrong state");
+	NSAssert(_clientState == ClientStateSearchingForServers, @"Wrong state");
     
 	_clientState = ClientStateConnecting;
 	_serverPeerID = peerID;
@@ -187,7 +186,6 @@
 - (void)serverBecameAvailable:(NSString *)peerID
 {
     NSLog(@"serverBecameAvailable");
-    _clientState = ClientStateFoundServer;
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
 }
 
@@ -208,7 +206,6 @@
 
 - (void)didConnectToServer:(NSString *)peerID
 {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
     //	NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     //	if ([name length] == 0)
     //		name = _matchMakingClient.session.displayName;

@@ -209,34 +209,30 @@
     else return nil;
 }
 
--(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSDictionary *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error {
+-(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:(NSArray *)teamList forTournament:(NSString *)tournamentName error:(NSError **)error {
     MatchData *match = [self createNewMatch:matchNumber forType:matchType forTournament:tournamentName error:error];
     if (!match) return nil; // Unable to create match, error retains value from getMatch
-    NSInteger count = [teamList count];
-    id __unsafe_unretained teamNumbers[count];
-    id __unsafe_unretained alliance[count];
     
-    [teamList getObjects:teamNumbers andKeys:alliance];
-    for (int i=0; i<count; i++) {
-        NSLog(@"%@ = %@", alliance[i], teamNumbers[i]);
-        NSLog(@"add match messaging");
-        if (![scoreRecords addTeamScoreToMatch:match forAlliance:alliance[i] forTeam:teamNumbers[i] error:error]) {
-            
-        }
-        if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
-    }
     for (NSDictionary *team in teamList) {
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
             NSString *key = [keys objectAtIndex:0];
             NSLog(@"add match messaging");
-            if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[NSNumber numberWithInt:[[team objectForKey:key] intValue]] error:error]) {
+            if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[team objectForKey:key] error:error]) {
                 
             }
             if (*error) [_dataManager writeErrorMessage:*error forType:[*error code]];
         }
     }
     return match;
+}
+
+-(NSDictionary *)teamDictionary:(NSString *)allianceString forTeam:(NSString *)team {
+    if (!allianceString || [allianceString isEqualToString:@""]) return nil;
+    if (!team || [team isEqualToString:@""]) return nil;
+    NSNumber *teamNumber = [NSNumber numberWithInt:[team intValue]];
+    NSDictionary *teamInfo = [NSDictionary dictionaryWithObject:teamNumber forKey:allianceString];
+    return teamInfo;
 }
 
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData {

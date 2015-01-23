@@ -32,7 +32,6 @@
 @end
 
 @implementation AddMatchViewController {
-    NSMutableArray *newMatch;
     MatchUtilities *matchUtilities;
     PopUpPickerViewController *matchTypePicker;
     UIPopoverController *matchTypePickerPopover;
@@ -65,7 +64,6 @@
     [super viewDidLoad];
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     NSLog(@"Add blue 4 and red 4 for elim matches");
-    newMatch = [[NSMutableArray alloc] initWithObjects:@"", @"", @"", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
     [_red4 setHidden:YES];
     [_blue4 setHidden:YES];
     if (_match) {
@@ -82,14 +80,9 @@
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
--(NSMutableArray *) buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
-    // Return a thing with the alliance station in the first slot
-    // and the team number in the second slot
-    if (!alliance || [alliance isEqualToString:@""]) return teamList;
-    if (!teamTextField.text || [teamTextField.text isEqualToString:@""]) return teamList;
-    NSNumber *teamNumber = [NSNumber numberWithInt:[teamTextField.text intValue]];
-    NSDictionary *teamInfo = [NSDictionary dictionaryWithObject:teamNumber forKey:alliance];
-    [teamList addObject:teamInfo];
+-(NSMutableArray *)buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
+    NSDictionary *teamDictionary = [matchUtilities teamDictionary:alliance forTeam:teamTextField.text];
+    if (teamDictionary) [teamList addObject:teamDictionary];
     return teamList;
 }
 
@@ -110,13 +103,8 @@
         teamList = [self buildTeamList:@"Red 4" forTextBox:_red4 forTeamList:teamList];
         teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
-    MatchData *match = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName error:&error];
-    NSError *err = nil;
-    if (match) {
-        if (![_dataManager.managedObjectContext save:&err]) {
-            NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
-        }
-    }
+    [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName error:&error];
+    [_dataManager saveContext];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
@@ -213,28 +201,6 @@
     NSLog(@"team should end editing");
     if (!textChanges) return YES;
     textChanges = FALSE;
-    if (textField == _matchNumber) {
-        [newMatch replaceObjectAtIndex:0
-                            withObject:_matchNumber.text];
-	}
-	else if (textField == _red1) {
-        [newMatch replaceObjectAtIndex:2
-                            withObject:_red1.text];	}
-	else if (textField == _red2) {
-        [newMatch replaceObjectAtIndex:3
-                            withObject:_red2.text];	}
-	else if (textField == _red3) {
-        [newMatch replaceObjectAtIndex:4
-                            withObject:_red3.text];	}
-	else if (textField == _blue1) {
-        [newMatch replaceObjectAtIndex:5
-                            withObject:_blue1.text];	}
-	else if (textField == _blue2) {
-        [newMatch replaceObjectAtIndex:6
-                            withObject:_blue2.text];	}
-	else if (textField == _blue3) {
-        [newMatch replaceObjectAtIndex:7
-                            withObject:_blue3.text];	}
 	return YES;
 }
 

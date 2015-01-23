@@ -16,22 +16,22 @@
                                           orientation: UIImageOrientationLeft];
     if (UIInterfaceOrientationIsLandscape(orientation)) {
         CGRect rect = image.frame;
-        CGFloat mainViewHeight = parent.bounds.size.height;
-        rect.size.width = mainViewHeight/4;
-        rect.size.height = mainViewHeight;
+        CGFloat mainViewWidth = parent.bounds.size.width;
+        rect.size.width = mainViewWidth;
+        rect.size.height = mainViewWidth/5.2;
         image.frame = rect;
         [image setImage:LandscapeImage];
-        NSLog(@"Landscape %lf, %lf", rect.size.width, rect.size.height);
+        // NSLog(@"Landscape height width %lf, %lf", parent.bounds.size.height, parent.bounds.size.width);
     }
     else {
         CGRect rect = image.frame;
         // rect.origin.x = 0;
-        CGFloat mainViewWidth = parent.bounds.size.width;
-        rect.size.width = mainViewWidth;
-        rect.size.height = mainViewWidth/4.6;
+        CGFloat mainViewHeight = parent.bounds.size.height;
+        rect.size.width = mainViewHeight/4;
+        rect.size.height = mainViewHeight;
         image.frame = rect;
         [image setImage:PortraitImage];
-        NSLog(@"Portrait");
+        // NSLog(@"Portrait height width %lf, %lf", parent.bounds.size.height, parent.bounds.size.width);
     }
     return image;
 }

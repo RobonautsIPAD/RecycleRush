@@ -45,11 +45,16 @@ typedef enum {
 typedef enum {
 	ClientStateIdle,
 	ClientStateSearchingForServers,
-	ClientStateFoundServer,
 	ClientStateConnecting,
 	ClientStateConnected,
 } ClientState;
 
+typedef enum {
+    ClientConnect,
+    ClientDisconnect,
+    ServerAvailable,
+    ServerUnavailable,
+} ConnectionMessages;
 
 #endif
 

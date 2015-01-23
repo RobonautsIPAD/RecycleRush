@@ -143,7 +143,8 @@
     }
     popUp = sender;
     [tournamentPickerPopover presentPopoverFromRect:_tournamentButton.bounds inView:_tournamentButton
-                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];}
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
 
 -(void)pickerSelected:(NSString *)newPick {
     NSLog(@"Picker = %@", newPick);

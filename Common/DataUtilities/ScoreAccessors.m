@@ -38,7 +38,7 @@
     NSString *msg;
     switch ([matchScores count]) {
         case 0:
-            msg = [NSString stringWithFormat:@"Unable to get %@ Match %@ for Alliance %@", matchType, matchNumber, alliance];
+            msg = [NSString stringWithFormat:@"Unable to get %@ Match %@ for Alliance %@", [MatchAccessors getMatchTypeString:matchType fromDictionary:dataManager.matchTypeDictionary], matchNumber, [MatchAccessors getAllianceString:alliance fromDictionary:dataManager.allianceDictionary]];
             error = [NSError errorWithDomain:@"getScoreRecord" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
             [dataManager writeErrorMessage:error forType:[error code]];
             return nil;
@@ -49,7 +49,7 @@
             return scoreRecord;
             break;
         default:
-           msg = [NSString stringWithFormat:@"%@ Match %@ Alliance %@ found multiple times", matchType, matchNumber, alliance];
+           msg = [NSString stringWithFormat:@"%@ Match %@ Alliance %@ found multiple times", [MatchAccessors getMatchTypeString:matchType fromDictionary:dataManager.matchTypeDictionary], matchNumber, [MatchAccessors getAllianceString:alliance fromDictionary:dataManager.allianceDictionary]];
             scoreRecord = [matchScores objectAtIndex:0];
             error = [NSError errorWithDomain:@"getScoreRecord" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
             [dataManager writeErrorMessage:error forType:[error code]];

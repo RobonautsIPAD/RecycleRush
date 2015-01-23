@@ -18,5 +18,6 @@
 -(MatchData *)addMatch:(NSNumber *)matchNumber forMatchType:(NSString *)matchType forTeams:teamList forTournament:(NSString *)tournamentName error:(NSError **)error;
 -(NSNumber *)getTeamFromList:(NSArray *)teamList forAllianceStation:(NSNumber *)allianceStation;
 -(NSDictionary *)unpackageMatchForXFer:(NSData *)xferData;
+-(NSDictionary *)teamDictionary:(NSString *)allianceString forTeam:(NSString *)teamNumber;
 
 @end
