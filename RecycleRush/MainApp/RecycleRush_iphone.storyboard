@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="sFb-VN-Has">
     <dependencies>
-        <deployment version="1280" defaultVersion="1536" identifier="iOS"/>
+        <deployment version="1280" defaultVersion="1552" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
@@ -10,8 +10,8 @@
         <scene sceneID="QeJ-Gp-vnK">
             <objects>
                 <navigationController definesPresentationContext="YES" id="sFb-VN-Has" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="4yg-tz-3Zr">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="4yg-tz-3Zr">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -701,6 +701,56 @@
     <resources>
         <image name="button_robonaut_gold.png" width="518" height="194"/>
     </resources>
+    <classes>
+        <class className="PhoneExportViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhoneExportViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="exportMatchData" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="exportSpreadsheetData" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="exportTeamData" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PhoneSetUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhoneSetUpViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bluetoothSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tournamentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tournamentLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PhoneSplashViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhoneSplashViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="exportButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="syncButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PhoneSyncViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhoneSyncViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="connectButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="disconnectButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="importFromiTunesButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="packageDataButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="peerName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="syncDataTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="syncOptionButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="syncTypeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="xFerOptionButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="USFirstViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/USFirstViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="btnGet" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnSelectTour" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="sgmType" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tblMain" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
