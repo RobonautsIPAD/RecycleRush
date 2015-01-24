@@ -626,12 +626,12 @@
 				2F5D336C1A5FA89700E02523 /* Truss Throw.png */,
 				2F5D336B1A5FA89700E02523 /* Truss Throw Miss.png */,
 				2F5D33321A5FA69E00E02523 /* RadioButton-Selected.png */,
-				2F5D33331A5FA69E00E02523 /* RadioButton-Unselected.png */,
 				2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */,
 				2F5D33071A5FA5F700E02523 /* 2014_field.png */,
 				2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */,
-				2F5D334C1A5FA75C00E02523 /* robonauts app banner original.jpg */,
 				2F5D334D1A5FA75C00E02523 /* robonauts app banner.jpg */,
+				2F5D334C1A5FA75C00E02523 /* robonauts app banner original.jpg */,
+				2F5D33331A5FA69E00E02523 /* RadioButton-Unselected.png */,
 				2F5D33521A5FA75C00E02523 /* Small Blue Button.jpg */,
 				2F5D33531A5FA75C00E02523 /* Small Green Button.jpg */,
 				2F5D33541A5FA75C00E02523 /* Small Grey Button.jpg */,
@@ -1134,6 +1134,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1151,6 +1152,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -52,7 +52,7 @@
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
-	<string>RecycleRush_ipad</string>
+	<string>RecycleRush_iphone</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>RecycleRush_ipad</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -62,10 +62,10 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
