@@ -163,6 +163,8 @@
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
+		2FD8F7111A7334E900F3137E /* recycle rush robonauts.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD8F7101A7334E900F3137E /* recycle rush robonauts.001.png */; };
+		2FD8F7131A7337B100F3137E /* loading screen 2.0.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD8F7121A7337B100F3137E /* loading screen 2.0.001.png */; };
 		2FDECA0D1A6EC6980007412E /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA0C1A6EC6980007412E /* TeamData.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
@@ -412,6 +414,8 @@
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2FCF9FB719944D1600A872CD /* TeamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamUtilities.h; path = Common/DataUtilities/TeamUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2FD8F7101A7334E900F3137E /* recycle rush robonauts.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recycle rush robonauts.001.png"; sourceTree = SOURCE_ROOT; };
+		2FD8F7121A7337B100F3137E /* loading screen 2.0.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading screen 2.0.001.png"; sourceTree = SOURCE_ROOT; };
 		2FDECA0B1A6EC6980007412E /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
 		2FDECA0C1A6EC6980007412E /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FDECA0F1A6F0A7A0007412E /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = RecycleRush/DataTransfer/TabletSyncViewController.h; sourceTree = SOURCE_ROOT; };
@@ -610,6 +614,8 @@
 			children = (
 				2FAC4CF51A73205900D233CB /* App Icons.001.png */,
 				2FAC4CF71A73206000D233CB /* App Icons.002.png */,
+				2FD8F7121A7337B100F3137E /* loading screen 2.0.001.png */,
+				2FD8F7101A7334E900F3137E /* recycle rush robonauts.001.png */,
 				2FAC4CF31A73205200D233CB /* App Icons.003.png */,
 				2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */,
 				2F21DCBF1A6D74E5009B79E0 /* Field_Image_2015.png */,
@@ -929,6 +935,7 @@
 				2F5D33611A5FA75C00E02523 /* Small Red Button.jpg in Resources */,
 				2F5D33621A5FA75C00E02523 /* Small White Button.jpg in Resources */,
 				2F5D33591A5FA75C00E02523 /* robonauts app banner.jpg in Resources */,
+				2FD8F7131A7337B100F3137E /* loading screen 2.0.001.png in Resources */,
 				2F5D333B1A5FA69E00E02523 /* IntakeType.plist in Resources */,
 				2F5D329B1A5FA32F00E02523 /* RecycleRush_iphone.storyboard in Resources */,
 				2F5D33421A5FA69E00E02523 /* MatchType.plist in Resources */,
@@ -939,6 +946,7 @@
 				2F5D333D1A5FA69E00E02523 /* LucienNumberFields.plist in Resources */,
 				2F5D33181A5FA5F700E02523 /* Blocked Shot.png in Resources */,
 				2FAC4D001A73236300D233CB /* banner.png in Resources */,
+				2FD8F7111A7334E900F3137E /* recycle rush robonauts.001.png in Resources */,
 				2F5D33601A5FA75C00E02523 /* Small Grey Button.jpg in Resources */,
 				2F5D334B1A5FA69E00E02523 /* RadioButton-Unselected.png in Resources */,
 				2F5D33771A5FA89700E02523 /* Tunnel.plist in Resources */,
