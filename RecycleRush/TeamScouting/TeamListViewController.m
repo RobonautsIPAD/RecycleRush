@@ -101,32 +101,32 @@
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
-	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(480, 0, 200, 50)];
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(490, 0, 200, 50)];
 	label4.text = @"HP Truss %";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(580, 0, 200, 50)];
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(590, 0, 200, 50)];
 	label5.text = @"Knockouts";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
-    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(725, 0, 200, 50)];
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(765, 0, 200, 50)];
 	label6.text = @"Speed";
     label6.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label6];
     
-    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(675, 0, 200, 50)];
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(690, 0, 200, 50)];
 	label7.text = @"Drive";
     label7.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label7];
 
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(790, 0, 200, 50)];
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(870, 0, 200, 50)];
 	label8.text = @"Bully";
     label8.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label8];
     
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(940, 0, 200, 50)];
 	label9.text = @"Block";
     label9.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label9];

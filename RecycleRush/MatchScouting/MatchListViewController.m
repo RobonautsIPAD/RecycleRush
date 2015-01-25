@@ -120,15 +120,15 @@
     blue3Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue3Label];
 
-    UILabel *redLabel = [[UILabel alloc] initWithFrame:CGRectMake(643, 0, 200, 50)];
-	redLabel.text = @"Red";
-    redLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:redLabel];
+    //UILabel *redLabel = [[UILabel alloc] initWithFrame:CGRectMake(643, 0, 200, 50)];
+	//redLabel.text = @"Red";
+    //redLabel.backgroundColor = [UIColor clearColor];
+    //[headerView addSubview:redLabel];
 
-    UILabel *blueLabel = [[UILabel alloc] initWithFrame:CGRectMake(711, 0, 200, 50)];
-	blueLabel.text = @"Blue";
-    blueLabel.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:blueLabel];
+    //UILabel *blueLabel = [[UILabel alloc] initWithFrame:CGRectMake(711, 0, 200, 50)];
+	//blueLabel.text = @"Blue";
+    //blueLabel.backgroundColor = [UIColor clearColor];
+    //[headerView addSubview:blueLabel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
