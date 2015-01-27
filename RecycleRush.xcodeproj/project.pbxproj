@@ -53,7 +53,7 @@
 		2F5D32971A5FA32F00E02523 /* iPhoneMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32881A5FA32F00E02523 /* iPhoneMainViewController.m */; };
 		2F5D32981A5FA32F00E02523 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32891A5FA32F00E02523 /* main.m */; };
 		2F5D32991A5FA32F00E02523 /* PhoneSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D328B1A5FA32F00E02523 /* PhoneSplashViewController.m */; };
-		2F5D329A1A5FA32F00E02523 /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad.storyboard */; };
+		2F5D329A1A5FA32F00E02523 /* RecycleRush_ipad old.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad old.storyboard */; };
 		2F5D329B1A5FA32F00E02523 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D328D1A5FA32F00E02523 /* RecycleRush_iphone.storyboard */; };
 		2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D328F1A5FA32F00E02523 /* SettingsAndPreferences.m */; };
 		2F5D329D1A5FA32F00E02523 /* SetUpPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32911A5FA32F00E02523 /* SetUpPageViewController.m */; };
@@ -180,8 +180,6 @@
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
-		2FD8F7111A7334E900F3137E /* recycle rush robonauts.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD8F7101A7334E900F3137E /* recycle rush robonauts.001.png */; };
-		2FD8F7131A7337B100F3137E /* loading screen 2.0.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD8F7121A7337B100F3137E /* loading screen 2.0.001.png */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
 		2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA151A6F27AD0007412E /* MatchmakingClient.m */; };
@@ -270,7 +268,7 @@
 		2F5D32891A5FA32F00E02523 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RecycleRush/MainApp/main.m; sourceTree = SOURCE_ROOT; };
 		2F5D328A1A5FA32F00E02523 /* PhoneSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneSplashViewController.h; path = RecycleRush/MainApp/PhoneSplashViewController.h; sourceTree = SOURCE_ROOT; };
 		2F5D328B1A5FA32F00E02523 /* PhoneSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneSplashViewController.m; path = RecycleRush/MainApp/PhoneSplashViewController.m; sourceTree = SOURCE_ROOT; };
-		2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_ipad.storyboard; path = RecycleRush/MainApp/RecycleRush_ipad.storyboard; sourceTree = SOURCE_ROOT; };
+		2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad old.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "RecycleRush_ipad old.storyboard"; path = "RecycleRush/MainApp/RecycleRush_ipad old.storyboard"; sourceTree = SOURCE_ROOT; };
 		2F5D328D1A5FA32F00E02523 /* RecycleRush_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_iphone.storyboard; path = RecycleRush/MainApp/RecycleRush_iphone.storyboard; sourceTree = SOURCE_ROOT; };
 		2F5D328E1A5FA32F00E02523 /* SettingsAndPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsAndPreferences.h; path = RecycleRush/MainApp/SettingsAndPreferences.h; sourceTree = SOURCE_ROOT; };
 		2F5D328F1A5FA32F00E02523 /* SettingsAndPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsAndPreferences.m; path = RecycleRush/MainApp/SettingsAndPreferences.m; sourceTree = SOURCE_ROOT; };
@@ -634,7 +632,7 @@
 				2F5D32881A5FA32F00E02523 /* iPhoneMainViewController.m */,
 				2F5D328A1A5FA32F00E02523 /* PhoneSplashViewController.h */,
 				2F5D328B1A5FA32F00E02523 /* PhoneSplashViewController.m */,
-				2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad.storyboard */,
+				2F5D328C1A5FA32F00E02523 /* RecycleRush_ipad old.storyboard */,
 				2F5D328D1A5FA32F00E02523 /* RecycleRush_iphone.storyboard */,
 				2F5D328E1A5FA32F00E02523 /* SettingsAndPreferences.h */,
 				2F5D328F1A5FA32F00E02523 /* SettingsAndPreferences.m */,
@@ -648,11 +646,8 @@
 			isa = PBXGroup;
 			children = (
 				2F53BBF71A77303B0020B95D /* RecycleRush.sqlite */,
-				2FAC4CF51A73205900D233CB /* App Icons.001.png */,
-				2FAC4CF71A73206000D233CB /* App Icons.002.png */,
 				2FD8F7121A7337B100F3137E /* loading screen 2.0.001.png */,
 				2FD8F7101A7334E900F3137E /* recycle rush robonauts.001.png */,
-				2FAC4CF31A73205200D233CB /* App Icons.003.png */,
 				2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */,
 				2F21DCBF1A6D74E5009B79E0 /* Field_Image_2015.png */,
 				2F5D52001A743803008F1100 /* Blue.png */,
@@ -1021,7 +1016,7 @@
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
 				2F5D33711A5FA89700E02523 /* TournamentList.csv in Resources */,
 				2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */,
-				2F5D329A1A5FA32F00E02523 /* RecycleRush_ipad.storyboard in Resources */,
+				2F5D329A1A5FA32F00E02523 /* RecycleRush_ipad old.storyboard in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
 				2F5D33391A5FA69E00E02523 /* Intake from Robot Miss.png in Resources */,
 				2F5D33761A5FA89700E02523 /* Truss Throw.png in Resources */,
