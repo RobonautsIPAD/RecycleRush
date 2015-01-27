@@ -347,7 +347,7 @@
     [_tunnelButton setTitle:_team.tunneler forState:UIControlStateNormal];
     [_spitBotButton setTitle:_team.spitBot forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
-    [_hotTrackerButton setTitle:_team.visualTracker forState:UIControlStateNormal];
+    [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
 
     [self setRadioButtonState:_classAButton forState:_team.classA];
     [self setRadioButtonState:_classBButton forState:_team.classB];
@@ -592,7 +592,7 @@
     }
     else if (popUp == _hotTrackerButton) {
         [triStatePickerPopover dismissPopoverAnimated:YES];
-        _team.visualTracker = newPick;
+        _team.visionTracker = newPick;
     }
     [popUp setTitle:newPick forState:UIControlStateNormal];
 }

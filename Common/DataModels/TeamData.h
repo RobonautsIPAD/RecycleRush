@@ -2,7 +2,7 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 1/20/15.
+//  Created by FRC on 1/26/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -59,7 +59,7 @@
 @property (nonatomic, retain) NSNumber * thing5;
 @property (nonatomic, retain) NSString * toteStack;
 @property (nonatomic, retain) NSString * tunneler;
-@property (nonatomic, retain) NSString * visualTracker;
+@property (nonatomic, retain) NSString * visionTracker;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
 @property (nonatomic, retain) NSSet *regional;

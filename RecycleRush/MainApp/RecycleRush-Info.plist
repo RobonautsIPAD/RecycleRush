@@ -47,7 +47,7 @@
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIMainStoryboardFile</key>
+	<key>UIMainStoryboardFile~iphone</key>
 	<string>RecycleRush_iphone</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>RecycleRush_ipad</string>

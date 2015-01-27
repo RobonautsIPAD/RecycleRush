@@ -211,7 +211,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Row at index %i selected", indexPath.row);
+    NSLog(@"Row at index %li selected", (long)indexPath.row);
 }
 
 - (void)viewWillLayoutSubviews {

@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddMatchViewController.h"
-#import "MatchDetailViewController.h"
 
 @class DataManager;
-@class MatchData;
 
-@interface MatchListViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate, MatchDetailDelegate>
+@interface MatchListViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 

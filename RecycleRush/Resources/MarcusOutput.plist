@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>key</key>
-		<string>match.number</string>
+		<string>matchNumber</string>
 		<key>header</key>
 		<string>Match #</string>
 		<key>order</key>
@@ -14,17 +14,17 @@
 		<key>key</key>
 		<string>autonHighHot</string>
 		<key>header</key>
-		<string>HighHot</string>
+		<string>Tote Set</string>
 		<key>order</key>
 		<integer>1</integer>
 		<key>percent</key>
-		<string>totalAutonShots</string>
+		<string>Can Set</string>
 	</dict>
 	<dict>
 		<key>key</key>
 		<string>autonHighCold</string>
 		<key>header</key>
-		<string>HighCold</string>
+		<string>Can Set</string>
 		<key>order</key>
 		<integer>2</integer>
 	</dict>
@@ -32,7 +32,7 @@
 		<key>key</key>
 		<string>autonMissed</string>
 		<key>header</key>
-		<string>HighMiss</string>
+		<string>Tote Stack Set</string>
 		<key>order</key>
 		<integer>3</integer>
 	</dict>
@@ -40,7 +40,7 @@
 		<key>key</key>
 		<string>autonLowHot</string>
 		<key>header</key>
-		<string>LowHot</string>
+		<string>Cans From Step</string>
 		<key>order</key>
 		<integer>4</integer>
 	</dict>
@@ -48,7 +48,7 @@
 		<key>key</key>
 		<string>autonLowCold</string>
 		<key>header</key>
-		<string>LowCold</string>
+		<string>Tote HP</string>
 		<key>order</key>
 		<integer>5</integer>
 	</dict>
@@ -56,7 +56,7 @@
 		<key>key</key>
 		<string>autonLowMiss</string>
 		<key>header</key>
-		<string>LowMiss</string>
+		<string>Tote Floor</string>
 		<key>order</key>
 		<integer>6</integer>
 	</dict>
@@ -64,7 +64,7 @@
 		<key>key</key>
 		<string>autonMobility</string>
 		<key>header</key>
-		<string>Mobility</string>
+		<string>Can Floor</string>
 		<key>order</key>
 		<integer>7</integer>
 	</dict>
@@ -72,7 +72,7 @@
 		<key>key</key>
 		<string>autonBlocks</string>
 		<key>header</key>
-		<string>Block</string>
+		<string>Totes Stacked</string>
 		<key>order</key>
 		<integer>8</integer>
 	</dict>
@@ -80,7 +80,7 @@
 		<key>key</key>
 		<string>floorPasses</string>
 		<key>header</key>
-		<string>Pass</string>
+		<string>Number Stacks</string>
 		<key>order</key>
 		<integer>9</integer>
 		<key>percent</key>
@@ -90,7 +90,7 @@
 		<key>key</key>
 		<string>floorPassMiss</string>
 		<key>header</key>
-		<string>PassMiss</string>
+		<string>Cans Scored</string>
 		<key>order</key>
 		<integer>10</integer>
 	</dict>
@@ -98,7 +98,7 @@
 		<key>key</key>
 		<string>trussThrow</string>
 		<key>header</key>
-		<string>TrussThrow</string>
+		<string>Max Tote Level</string>
 		<key>order</key>
 		<integer>11</integer>
 		<key>percent</key>
@@ -108,7 +108,7 @@
 		<key>key</key>
 		<string>trussThrowMiss</string>
 		<key>header</key>
-		<string>TrussThrowMiss</string>
+		<string>Max Can Level</string>
 		<key>order</key>
 		<integer>12</integer>
 	</dict>
@@ -116,7 +116,7 @@
 		<key>key</key>
 		<string>trussCatch</string>
 		<key>header</key>
-		<string>TrussCatch</string>
+		<string>Driver</string>
 		<key>order</key>
 		<integer>13</integer>
 		<key>percent</key>
@@ -126,7 +126,7 @@
 		<key>key</key>
 		<string>trussCatchMiss</string>
 		<key>header</key>
-		<string>TrussCatchMiss</string>
+		<string>Knockdowns</string>
 		<key>order</key>
 		<integer>14</integer>
 	</dict>

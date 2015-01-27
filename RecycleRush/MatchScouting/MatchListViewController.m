@@ -7,7 +7,7 @@
 //
 
 #import "MatchListViewController.h"
-#import "MatchDetailViewController.h"
+#import "AddMatchViewController.h"
 #import "MatchData.h"
 #import "MatchAccessors.h"
 #import "DataManager.h"

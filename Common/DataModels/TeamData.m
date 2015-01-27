@@ -2,7 +2,7 @@
 //  TeamData.m
 //  RecycleRush
 //
-//  Created by FRC on 1/20/15.
+//  Created by FRC on 1/26/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -59,7 +59,7 @@
 @dynamic thing5;
 @dynamic toteStack;
 @dynamic tunneler;
-@dynamic visualTracker;
+@dynamic visionTracker;
 @dynamic wheelDiameter;
 @dynamic wheelType;
 @dynamic regional;

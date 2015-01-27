@@ -179,7 +179,7 @@
     
 	_availableServers = nil;
     
-	[self.delegate matchmakingClient:self didDisconnectFromServer:_serverPeerID];
+	[self didDisconnectFromServer:_serverPeerID];
 	_serverPeerID = nil;
 }
 

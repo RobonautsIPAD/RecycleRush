@@ -211,14 +211,10 @@
 -(void)updateClientStatus:(NSNotification *)notification {
     if ([bluetoothRole intValue] == Scouter) {
         [self setClientStatus];
+        [self setServerStatus];
     }
     else {
         connectedClients = [matchMakingServer connectedClientCount];
-        NSDictionary *dict = [notification userInfo];
-        if ([[dict objectForKey:@"Message"] intValue] == ClientDisconnect) {
-            NSString *msg = [NSString stringWithFormat:@"%@ %@", [dict objectForKey:@"PeerID"], @"Disconnected"];
-            [self alertPrompt:msg];
-        }
         NSLog(@"%@", notification);
         [self buildClientList];
         [self setServerStatus];
@@ -241,7 +237,7 @@
         NSLog(@"%@", notification);
         connectedClients = [matchMakingServer connectedClientCount];
         _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
-        NSLog(@"%u", [matchMakingServer connectedClientCount]);
+        NSLog(@"%lu", (unsigned long)connectedClients);
         [self buildClientList];
         [self setServerStatus];
     }
@@ -267,7 +263,7 @@
         [_messageDestinationButton setHidden:TRUE];
         [_quickRequestButton setHidden:TRUE];
     }
-    _connectedClientsLabel.text = [NSString stringWithFormat:@"%u", connectedClients];
+    _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
 }
 
 - (IBAction)destinationSelected:(id)sender {
@@ -336,15 +332,6 @@
 		NSString *peerID = [matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
 		[matchMakingClient connectToServerWithPeerID:peerID];
 	}
-}
-
--(void)alertPrompt:(NSString *)msg {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Message"
-                                                    message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
 }
 
 -(void)setBigButtonDefaults:(UIButton *)currentButton {

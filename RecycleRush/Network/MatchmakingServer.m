@@ -114,6 +114,8 @@
 	else  // not accepting connections or too many clients
 	{
 		[session denyConnectionFromPeer:peerID];
+        NSString *msg = [NSString stringWithFormat:@"%@ %@", [self displayNameForPeerID:peerID], @"Connection Denied"];
+        [self alertPrompt:msg];
 	}
 }
 
@@ -135,6 +137,8 @@
 		if ([error code] == GKSessionCannotEnableError)
 		{
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:ServerUnavailable] forKey:SESSION_ID]]];
+            NSString *msg = @"Server Session Failed";
+            [self alertPrompt:msg];
 			[self endSession];
 		}
 	}
@@ -165,6 +169,8 @@
 }
 
 -(void)clientDidDisconnect:(NSString *)peerID {
+    NSString *msg = [NSString stringWithFormat:@"%@ %@", [self displayNameForPeerID:peerID], @"Disconnected"];
+    [self alertPrompt:msg];
     NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientDisconnect], @"Message", [self displayNameForPeerID:peerID], @"PeerID", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
@@ -172,8 +178,6 @@
 -(void)clientDidConnect:(NSString *)peerID {
     NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientConnect], @"Message", [self displayNameForPeerID:peerID], @"PeerID", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
-    //	NSString *peerID = [_matchmakingServer peerIDForConnectedClientAtIndex:indexPath.row];
-
 }
 
 - (void)endSession
@@ -189,6 +193,15 @@
     
 	_connectedClients = nil;
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:ServerUnavailable] forKey:SESSION_ID]]];
+}
+
+-(void)alertPrompt:(NSString *)msg {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Message"
+                                                    message:msg
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end
