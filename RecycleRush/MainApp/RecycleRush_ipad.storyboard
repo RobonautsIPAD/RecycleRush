@@ -1958,9 +1958,6 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="NLJ-nX-iYY"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iyb-bN-smh">
                                 <rect key="frame" x="871" y="706" width="61" height="46"/>
@@ -1973,9 +1970,6 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="scoreButtons:" destination="WBb-6A-oWA" eventType="touchUpInside" id="jfI-cF-LSQ"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="hm7-b6-Wr9">
                                 <rect key="frame" x="729" y="544" width="48" height="30"/>
@@ -2169,9 +2163,6 @@
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="XMq-g5-cWk"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auton Mobility" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bcL-Ag-fxV" userLabel="Label - Auton Mobility">
                                 <rect key="frame" x="390" y="489" width="110" height="21"/>
@@ -2186,9 +2177,6 @@
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="ZHi-52-Fci"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Show" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hdq-9H-s0Q" userLabel="Label - Auton Mobility">
                                 <rect key="frame" x="390" y="514" width="110" height="21"/>
@@ -2203,9 +2191,6 @@
                                 <state key="normal" backgroundImage="RadioButton-Unselected.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="radioButtonTapped:" destination="WBb-6A-oWA" eventType="touchUpInside" id="Gf7-yT-OjJ"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non-Moving" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aYS-75-ydE" userLabel="Label - Auton Mobility">
                                 <rect key="frame" x="390" y="539" width="110" height="21"/>
@@ -2362,64 +2347,22 @@
                     <navigationItem key="navigationItem" id="6A4-IL-dNq"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="assistRating" destination="tRO-uc-ll3" id="mk1-JC-c10"/>
-                        <outlet property="autonBlocked" destination="cF4-7S-vsQ" id="Z5W-pG-bu5"/>
-                        <outlet property="autonColdHigh" destination="4ZV-Wi-rLM" id="fDI-Ss-mGZ"/>
-                        <outlet property="autonColdLow" destination="JvT-X3-A5C" id="6fL-hI-wUW"/>
-                        <outlet property="autonHotHigh" destination="PAF-oO-Yvq" id="KGy-A2-GM4"/>
-                        <outlet property="autonHotLow" destination="zAg-q2-sia" id="2d7-46-ibD"/>
-                        <outlet property="autonMissed" destination="RKv-Hl-aRT" id="Wkq-Kh-b10"/>
                         <outlet property="autonMobility" destination="cy3-qd-HXi" id="Xqk-FE-0r0"/>
-                        <outlet property="autonScoreMade" destination="wY4-Na-2Bq" id="sS9-YY-OSg"/>
-                        <outlet property="autonScoreShot" destination="6ja-d4-kRA" id="FQG-VD-CAD"/>
                         <outlet property="backgroundImage" destination="d38-XO-NWy" id="jFk-Ty-7j6"/>
-                        <outlet property="blockRating" destination="nkI-3t-Ebi" id="RFE-Lm-sQY"/>
-                        <outlet property="bullyRating" destination="3gl-6h-2of" id="8kM-wp-iUM"/>
                         <outlet property="deadOnArrival" destination="uPg-Wk-nzK" id="NQW-dm-MgC"/>
-                        <outlet property="defensiveBlock" destination="lRn-3H-JLX" id="A7j-6L-U09"/>
-                        <outlet property="defensiveDisruption" destination="qD8-Sq-LIn" id="tVh-Fx-MgL"/>
-                        <outlet property="disruptedShot" destination="RH7-cG-3It" id="gZ2-s1-Jgo"/>
                         <outlet property="driverRating" destination="5Fi-Yl-OE2" id="8b2-Um-aZw"/>
                         <outlet property="fieldImage" destination="W49-RT-06H" id="Czp-id-rMw"/>
-                        <outlet property="floorPickUp" destination="wdI-ez-Mon" id="dxa-7u-L5l"/>
-                        <outlet property="floorPickUpMiss" destination="sNv-hP-f84" id="h5i-Ac-Hti"/>
-                        <outlet property="fouls" destination="OCi-1u-UzF" id="OH3-mH-4fy"/>
-                        <outlet property="humanIntakeMiss" destination="v3J-zD-UrV" id="qLX-Za-0iG"/>
-                        <outlet property="humanTrussCatch" destination="sgO-8b-Kfv" id="YXh-Nu-TIM"/>
-                        <outlet property="humanTrussCatchMiss" destination="Yon-gW-N23" id="tXW-Ou-1zw"/>
-                        <outlet property="intakeRating" destination="iyk-MR-SDP" id="eiK-Nh-wUa"/>
-                        <outlet property="knockout" destination="dPx-rd-UeH" id="K9I-q7-Fsh"/>
                         <outlet property="matchNumber" destination="AT4-3O-PN8" id="P5y-3A-jal"/>
                         <outlet property="matchOverlayButton" destination="Fdz-SU-n44" id="Kou-K1-CHn"/>
                         <outlet property="matchType" destination="v3q-Fy-hQ5" id="XdQ-oL-gYu"/>
-                        <outlet property="miss1" destination="hyW-sR-DiX" id="yGk-7h-JjK"/>
-                        <outlet property="miss2" destination="Ofg-bK-JPY" id="w8x-Cx-1IO"/>
-                        <outlet property="miss3" destination="yom-Cs-kn3" id="iGJ-81-UQ2"/>
-                        <outlet property="miss4" destination="vba-SS-4AP" id="27C-c5-Lsf"/>
                         <outlet property="nextMatchButton" destination="ltV-bb-9Do" id="Vgu-dp-4Y9"/>
                         <outlet property="noShow" destination="gq7-q9-LXM" id="RHT-dN-NoU"/>
                         <outlet property="notes" destination="0Th-xt-NN2" id="Hdb-6w-suD"/>
-                        <outlet property="passFloor" destination="qk1-CX-QZF" id="AGU-4S-ZcD"/>
-                        <outlet property="passMiss" destination="efA-7B-dob" id="y80-vM-4bH"/>
-                        <outlet property="pickUpHuman" destination="hm7-b6-Wr9" id="0sV-Mb-ETO"/>
                         <outlet property="prevMatchButton" destination="SEp-nC-ZGC" id="RzH-gd-9v5"/>
-                        <outlet property="robotIntake" destination="zKi-a5-rfz" id="nnx-wA-gqc"/>
-                        <outlet property="robotIntakeMiss" destination="obN-dR-O4a" id="zhc-gV-DK7"/>
                         <outlet property="scouter" destination="rsk-8L-4Ox" id="A80-wP-ZYq"/>
                         <outlet property="speedRating" destination="wJq-9P-cXR" id="941-NO-YZY"/>
                         <outlet property="teamName" destination="hZh-Rg-Pd3" id="h9Y-4w-FSv"/>
                         <outlet property="teamNumber" destination="iVu-yC-PjR" id="WA7-my-Qae"/>
-                        <outlet property="teleOpHigh" destination="ikI-dv-a3b" id="197-uN-nLD"/>
-                        <outlet property="teleOpLow" destination="xgy-po-8nX" id="whH-eo-VfP"/>
-                        <outlet property="teleOpMissed" destination="Yva-FQ-Et3" id="3dU-TZ-ruz"/>
-                        <outlet property="teleOpScoreMade" destination="7eP-Fz-FaZ" id="Mzp-gf-dkV"/>
-                        <outlet property="teleOpScoreShot" destination="ODw-le-bzX" id="tI0-6R-zGK"/>
-                        <outlet property="trussThrow" destination="JjT-jQ-xkO" id="eEE-Sf-9mj"/>
-                        <outlet property="trussThrowMiss" destination="pvc-gD-MLW" id="EYB-Gk-bTz"/>
-                        <outlet property="wall1" destination="qWO-OW-eIz" id="fuo-SU-LDZ"/>
-                        <outlet property="wall2" destination="KUj-gr-BEr" id="Wlu-jP-4mr"/>
-                        <outlet property="wall3" destination="nQr-c8-FgF" id="nrP-Rb-WfG"/>
-                        <outlet property="wall4" destination="h1U-Yt-J7S" id="V5Y-Jb-rxc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djI-Iw-32O" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4362,45 +4305,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Image View Game Trace">
-                                        <rect key="frame" x="0.0" y="0.0" width="828" height="370"/>
+                                        <rect key="frame" x="-8.5" y="6" width="693" height="490"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" id="qNz-YY-SLl" userLabel="Image View Field Map">
                                         <rect key="frame" x="-8" y="6" width="693" height="490"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M2b-Ef-piz">
-                                        <rect key="frame" x="11" y="6" width="143" height="45"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Auton/Tele-Op">
-                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n0f-at-8ep">
-                                        <rect key="frame" x="598" y="443" width="60" height="42"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Grid" backgroundImage="blue background.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="002-EG-WgU">
-                                        <rect key="frame" x="524" y="12" width="126" height="60"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Timer Display">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -4770,6 +4681,31 @@
                                 <rect key="frame" x="847" y="509" width="72" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M2b-Ef-piz">
+                                <rect key="frame" x="18" y="572" width="143" height="45"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Auton/Tele-Op">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="drawModeChange:" destination="WBb-6A-oWA" eventType="touchUpInside" id="IyM-F1-KJX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="002-EG-WgU">
+                                <rect key="frame" x="192" y="557" width="126" height="60"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Timer Display">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4796,6 +4732,7 @@
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
                         <outlet property="backgroundImage" destination="qNz-YY-SLl" id="QDP-4d-Knh"/>
+                        <outlet property="drawModeButton" destination="M2b-Ef-piz" id="eLZ-FH-RYE"/>
                         <outlet property="fieldImage" destination="RvX-YB-hOX" id="HP4-XX-Ukd"/>
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>
                         <outlet property="matchNumber" destination="dZc-4T-78p" id="mEw-cB-T3v"/>

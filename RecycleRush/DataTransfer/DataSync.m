@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "MatchData.h"
+#import "TeamScore.h"
 #import "TournamentUtilities.h"
 #import "ExportTeamData.h"
 #import "ExportMatchData.h"

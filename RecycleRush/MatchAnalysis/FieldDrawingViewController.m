@@ -25,67 +25,16 @@
 @property (nonatomic, weak) IBOutlet UIButton *matchType;
 @property (nonatomic, weak) IBOutlet UITextField *teamName;
 @property (nonatomic, weak) IBOutlet UITextField *teamNumber;
-@property (nonatomic, weak) IBOutlet UITextField *autonScoreMade;
-@property (nonatomic, weak) IBOutlet UITextField *autonScoreShot;
-@property (nonatomic, weak) IBOutlet UITextField *autonHotHigh;
-@property (nonatomic, weak) IBOutlet UITextField *autonColdHigh;
-@property (nonatomic, weak) IBOutlet UITextField *autonHotLow;
-@property (nonatomic, weak) IBOutlet UITextField *autonColdLow;
-@property (nonatomic, weak) IBOutlet UITextField *autonMissed;
-@property (nonatomic, weak) IBOutlet UITextField *autonBlocked;
-
-@property (nonatomic, weak) IBOutlet UITextField *teleOpScoreMade;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpScoreShot;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpHigh;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpLow;
-@property (nonatomic, weak) IBOutlet UITextField *wallPickUp;
-@property (nonatomic, weak) IBOutlet UITextField *wall1;
-@property (nonatomic, weak) IBOutlet UITextField *wall2;
-@property (nonatomic, weak) IBOutlet UITextField *wall3;
-@property (nonatomic, weak) IBOutlet UITextField *wall4;
-@property (nonatomic, weak) IBOutlet UITextField *teleOpMissed;
-
-@property (nonatomic, weak) IBOutlet UITextField *trussThrow;
-@property (nonatomic, weak) IBOutlet UITextField *trussCatch;
-
-@property (nonatomic, weak) IBOutlet UITextField *pickUpHuman;
-
-@property (nonatomic, weak) IBOutlet UITextField *passFloor;
-@property (nonatomic, weak) IBOutlet UITextField *passAir;
 
 @property (nonatomic, weak) IBOutlet UITextView  *notes;
 @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
 @property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
-@property (weak, nonatomic) IBOutlet UITextField *disruptedShot;
-@property (weak, nonatomic) IBOutlet UITextField *trussThrowMiss;
-@property (weak, nonatomic) IBOutlet UITextField *humanTrussCatch;
-@property (weak, nonatomic) IBOutlet UITextField *humanTrussCatchMiss;
-@property (weak, nonatomic) IBOutlet UITextField *passMiss;
-@property (weak, nonatomic) IBOutlet UITextField *robotIntake;
-@property (weak, nonatomic) IBOutlet UITextField *robotIntakeMiss;
-@property (nonatomic, weak) IBOutlet UITextField *defensiveBlock;
-@property (weak, nonatomic) IBOutlet UITextField *defensiveDisruption;
-@property (weak, nonatomic) IBOutlet UITextField *humanIntakeMiss;
-@property (weak, nonatomic) IBOutlet UITextField *floorPickUp;
-@property (weak, nonatomic) IBOutlet UITextField *floorPickUpMiss;
-@property (weak, nonatomic) IBOutlet UITextField *knockout;
-
-@property (weak, nonatomic) IBOutlet UITextField *floorCatch;
-@property (weak, nonatomic) IBOutlet UITextField *airCatch;
 @property (weak, nonatomic) IBOutlet UIButton *autonMobility;
 @property (weak, nonatomic) IBOutlet UIButton *noShow;
 @property (weak, nonatomic) IBOutlet UIButton *deadOnArrival;
-@property (weak, nonatomic) IBOutlet UITextField *miss1;
-@property (weak, nonatomic) IBOutlet UITextField *miss2;
-@property (weak, nonatomic) IBOutlet UITextField *miss3;
-@property (weak, nonatomic) IBOutlet UITextField *miss4;
 @property (weak, nonatomic) IBOutlet UITextField *speedRating;
 @property (weak, nonatomic) IBOutlet UITextField *driverRating;
-@property (weak, nonatomic) IBOutlet UITextField *blockRating;
-@property (weak, nonatomic) IBOutlet UITextField *bullyRating;
-@property (weak, nonatomic) IBOutlet UITextField *intakeRating;
-@property (weak, nonatomic) IBOutlet UITextField *assistRating;
 @property (weak, nonatomic) IBOutlet UITextField *fouls;
 @property (weak, nonatomic) IBOutlet UITextField *scouter;
 
@@ -148,70 +97,8 @@
     [self SetTextBoxDefaults:_teamNumber];
     [self SetSmallButtonDefaults:_matchOverlayButton];
 
-    [self SetSmallTextBoxDefaults:_autonScoreMade];
-    [self SetSmallTextBoxDefaults:_autonScoreShot];
- 
-    [self SetSmallTextBoxDefaults:_autonHotHigh];
-    [_autonHotHigh setTextColor:[UIColor redColor]];
-    [self SetSmallTextBoxDefaults:_autonColdHigh];
-    [_autonColdHigh setTextColor:[UIColor blueColor]];
-    [self SetSmallTextBoxDefaults:_autonHotLow];
-    [_autonHotLow setTextColor:[UIColor redColor]];
-    [self SetSmallTextBoxDefaults:_autonColdLow];
-    [_autonColdLow setTextColor:[UIColor blueColor]];
-    [self SetSmallTextBoxDefaults:_autonMissed];
-    [self SetSmallTextBoxDefaults:_autonBlocked];
-
-    [self SetSmallTextBoxDefaults:_teleOpScoreMade];
-    [self SetSmallTextBoxDefaults:_teleOpScoreShot];
-    [self SetSmallTextBoxDefaults:_teleOpHigh];
-    [self SetSmallTextBoxDefaults:_teleOpLow];
-    [self SetSmallTextBoxDefaults:_teleOpMissed];
-    [self SetSmallTextBoxDefaults:_disruptedShot];
-    
-    [self SetSmallTextBoxDefaults:_trussThrow];
-    [self SetSmallTextBoxDefaults:_trussThrowMiss];
-    [self SetSmallTextBoxDefaults:_humanTrussCatch];
-    [self SetSmallTextBoxDefaults:_humanTrussCatchMiss];
-
-    [self SetSmallTextBoxDefaults:_passFloor];
-    [self SetSmallTextBoxDefaults:_passMiss];
-    [self SetSmallTextBoxDefaults:_robotIntake];
-    [self SetSmallTextBoxDefaults:_robotIntakeMiss];
-
-    [self SetSmallTextBoxDefaults:_defensiveBlock];
-    [self SetSmallTextBoxDefaults:_defensiveDisruption];
-
-    [self SetSmallTextBoxDefaults:_pickUpHuman];
-    [self SetSmallTextBoxDefaults:_humanIntakeMiss];
-    [self SetSmallTextBoxDefaults:_floorPickUp];
-    [self SetSmallTextBoxDefaults:_floorPickUpMiss];
-    [self SetSmallTextBoxDefaults:_knockout];
-
-    [self SetSmallTextBoxDefaults:_trussCatch];
-    [self SetSmallTextBoxDefaults:_passAir];
-    [self SetSmallTextBoxDefaults:_floorCatch];
-    [self SetSmallTextBoxDefaults:_airCatch];
-    
-    [self SetSmallTextBoxDefaults:_wall1];
-    [self SetSmallTextBoxDefaults:_wall2];
-    [self SetSmallTextBoxDefaults:_wall3];
-    [self SetSmallTextBoxDefaults:_wall4];
-    [self SetSmallTextBoxDefaults:_miss1];
-    [self SetSmallTextBoxDefaults:_miss2];
-    [self SetSmallTextBoxDefaults:_miss3];
-    [self SetSmallTextBoxDefaults:_miss4];
-    [_miss1 setTextColor:[UIColor redColor]];
-    [_miss2 setTextColor:[UIColor redColor]];
-    [_miss3 setTextColor:[UIColor redColor]];
-    [_miss4 setTextColor:[UIColor redColor]];
-
     [self SetSmallTextBoxDefaults:_speedRating];
     [self SetSmallTextBoxDefaults:_driverRating];
-    [self SetSmallTextBoxDefaults:_bullyRating];
-    [self SetSmallTextBoxDefaults:_blockRating];
-    [self SetSmallTextBoxDefaults:_intakeRating];
-    [self SetSmallTextBoxDefaults:_assistRating];
 
     [self SetSmallTextBoxDefaults:_fouls];
     [self SetSmallTextBoxDefaults:_scouter];
@@ -228,65 +115,11 @@
     _teamName.text = team.name;
     _teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     _notes.text = currentScore.notes;
-    _autonScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.autonShotsMade intValue]];
-    _autonScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalAutonShots intValue]];
-
-    _autonHotHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighHot intValue]];
-    _autonColdHigh.text = [NSString stringWithFormat:@"%d", [currentScore.autonHighCold intValue]];
-    _autonHotLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLowHot intValue]];
-    _autonColdLow.text = [NSString stringWithFormat:@"%d", [currentScore.autonLowCold intValue]];
-    _autonMissed.text = [NSString stringWithFormat:@"%d", [currentScore.autonMissed intValue]];
-    _autonBlocked.text = [NSString stringWithFormat:@"%d", [currentScore.autonBlocks intValue]];
-    
-    
-    _teleOpScoreMade.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpShotsMade intValue]];
-    _teleOpScoreShot.text = [NSString stringWithFormat:@"%d", [currentScore.totalTeleOpShots intValue]];
-    _teleOpHigh.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpHigh intValue]];
-    _teleOpLow.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpLow intValue]];
-    _teleOpMissed.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpMissed intValue]];
-    _disruptedShot.text = [NSString stringWithFormat:@"%d", [currentScore.disruptedShot intValue]];
-    
-    _trussThrow.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrow intValue]];
-    _trussThrowMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussThrowMiss intValue]];
-    _humanTrussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatchHuman intValue]];
-    _humanTrussCatchMiss.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatchHumanMiss intValue]];
-
-    _passFloor.text = [NSString stringWithFormat:@"%d", [currentScore.floorPasses intValue]];
-    _passMiss.text = [NSString stringWithFormat:@"%d", [currentScore.floorPassMiss intValue]];
-    _robotIntake.text = [NSString stringWithFormat:@"%d", [currentScore.robotIntake intValue]];
-    _robotIntakeMiss.text = [NSString stringWithFormat:@"%d", [currentScore.robotIntakeMiss intValue]];
- 
-    _defensiveBlock.text = [NSString stringWithFormat:@"%d", [currentScore.teleOpBlocks intValue]];
-    _defensiveDisruption.text = [NSString stringWithFormat:@"%d", [currentScore.defensiveDisruption intValue]];
-
-    _pickUpHuman.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp intValue]];
-    _humanIntakeMiss.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss intValue]];
-    _floorPickUp.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUp intValue]];
-    _floorPickUpMiss.text = [NSString stringWithFormat:@"%d", [currentScore.floorPickUpMiss intValue]];
-    _knockout.text = [NSString stringWithFormat:@"%d", [currentScore.knockout intValue]];
-
-    _wall1.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp1 intValue]];
-    _wall2.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp2 intValue]];
-    _wall3.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp3 intValue]];
-    _wall4.text = [NSString stringWithFormat:@"%d", [currentScore.humanPickUp4 intValue]];
-    _miss1.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss1 intValue]];
-    _miss2.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss2 intValue]];
-    _miss3.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss3 intValue]];
-    _miss4.text = [NSString stringWithFormat:@"%d", [currentScore.humanMiss4 intValue]];
-    
-    _trussCatch.text = [NSString stringWithFormat:@"%d", [currentScore.trussCatch intValue]];
-    _passAir.text = [NSString stringWithFormat:@"%d", [currentScore.airPasses intValue]];
-    _floorCatch.text = [NSString stringWithFormat:@"%d", [currentScore.floorCatch intValue]];
-    _airCatch.text = [NSString stringWithFormat:@"%d", [currentScore.airCatch intValue]];
     
     //NSLog(@"block = %@", currentScore.defenseBlockRating);
     _speedRating.text = [NSString stringWithFormat:@"%d", [currentScore.robotSpeed intValue]];
     _driverRating.text = [NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]];
-    _bullyRating.text = [NSString stringWithFormat:@"%d", [currentScore.defenseBullyRating intValue]];
-    _blockRating.text = [NSString stringWithFormat:@"%d", [currentScore.defenseBlockRating intValue]];
-    _intakeRating.text = [NSString stringWithFormat:@"%d", [currentScore.intakeRating intValue]];
-    _assistRating.text = [NSString stringWithFormat:@"%d", [currentScore.assistRating intValue]];
-    
+
     [self setRadioButtonState:_autonMobility forState:[currentScore.autonMobility boolValue]];
     [self setRadioButtonState:_noShow forState:[currentScore.noShow boolValue]];
     [self setRadioButtonState:_deadOnArrival forState:[currentScore.deadOnArrival boolValue]];
