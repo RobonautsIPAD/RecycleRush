@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 1/27/15.
+//  Created by FRC on 1/30/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -67,5 +67,6 @@
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) FieldDrawing *fieldDrawing;
 @property (nonatomic, retain) MatchData *match;
+@property (nonatomic, retain) FieldDrawing *autonDrawing;
 
 @end

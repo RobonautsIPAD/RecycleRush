@@ -4301,17 +4301,22 @@
                                 </connections>
                             </button>
                             <view contentMode="left" id="6Qn-p6-4MN" userLabel="View - Field Drawing">
-                                <rect key="frame" x="20" y="59" width="658" height="485"/>
+                                <rect key="frame" x="20" y="52" width="520" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Image View Game Trace">
-                                        <rect key="frame" x="-8.5" y="6" width="693" height="490"/>
+                                    <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Auton Game Trace">
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" id="qNz-YY-SLl" userLabel="Image View Field Map">
-                                        <rect key="frame" x="-8" y="6" width="693" height="490"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" id="vgM-qd-p0c" userLabel="Red Auton Hot Zone">
+                                        <rect key="frame" x="156" y="192" width="260" height="260"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -4587,21 +4592,27 @@
                                 </state>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Can Grabber" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="Mqs-nq-ibc">
-                                <rect key="frame" x="539" y="729.5" width="105" height="21"/>
+                                <rect key="frame" x="539" y="629" width="105" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Can Set" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="uGf-nL-IFt">
-                                <rect key="frame" x="267" y="657" width="66" height="21"/>
+                                <rect key="frame" x="365" y="610" width="66" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tote Stack" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="Gxl-OQ-d5b">
-                                <rect key="frame" x="450" y="659.5" width="85" height="21"/>
+                                <rect key="frame" x="577" y="196" width="85" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tote Intake" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="7w4-ls-ZPl">
+                                <rect key="frame" x="575" y="278" width="89" height="21"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                <color key="textColor" red="0.0039215688589999999" green="0.68627452850000004" blue="0.25098040700000002" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Can Domination" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="0gt-Ee-VS4" userLabel="Label - Auton High">
@@ -4611,13 +4622,13 @@
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Robot Set" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="KO0-2a-hLp">
-                                <rect key="frame" x="172" y="730.5" width="81" height="21"/>
+                                <rect key="frame" x="378" y="580" width="81" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tote Set" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="zAn-9h-9Q5">
-                                <rect key="frame" x="94" y="657" width="67" height="21"/>
+                                <rect key="frame" x="577" y="112" width="67" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4682,7 +4693,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M2b-Ef-piz">
-                                <rect key="frame" x="18" y="572" width="143" height="45"/>
+                                <rect key="frame" x="14" y="610" width="143" height="45"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Auton/Tele-Op">
                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
@@ -4696,10 +4707,46 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="002-EG-WgU">
-                                <rect key="frame" x="192" y="557" width="126" height="60"/>
+                                <rect key="frame" x="193" y="595" width="126" height="60"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Timer Display">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JtB-tw-ayJ">
+                                <rect key="frame" x="577" y="135" width="70" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fyR-jg-2cu">
+                                <rect key="frame" x="577" y="218" width="72" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sj3-Aa-k27">
+                                <rect key="frame" x="577" y="307" width="72" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -4731,16 +4778,20 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
+                        <outlet property="autonToteIntakeButton" destination="Sj3-Aa-k27" id="b7K-GD-2Ev"/>
                         <outlet property="backgroundImage" destination="qNz-YY-SLl" id="QDP-4d-Knh"/>
                         <outlet property="drawModeButton" destination="M2b-Ef-piz" id="eLZ-FH-RYE"/>
-                        <outlet property="fieldImage" destination="RvX-YB-hOX" id="HP4-XX-Ukd"/>
+                        <outlet property="fieldImage" destination="RvX-YB-hOX" id="Stn-c3-LBJ"/>
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>
                         <outlet property="matchNumber" destination="dZc-4T-78p" id="mEw-cB-T3v"/>
                         <outlet property="matchType" destination="jmp-Mx-xGA" id="8af-fE-2Br"/>
                         <outlet property="nextMatch" destination="cNM-Sg-kpV" id="ROc-QP-7ZS"/>
                         <outlet property="prevMatch" destination="Oor-gF-fxZ" id="Ilk-ft-yrn"/>
+                        <outlet property="redAutonHotZone" destination="vgM-qd-p0c" id="Fhu-FG-KLr"/>
                         <outlet property="teamName" destination="xcI-CG-2jD" id="O4q-Wz-egw"/>
                         <outlet property="teamNumber" destination="TmH-ak-QdU" id="zM6-fG-VAO"/>
+                        <outlet property="toteSetButton" destination="JtB-tw-ayJ" id="wvF-EQ-Nhn"/>
+                        <outlet property="toteStackButton" destination="fyR-jg-2cu" id="59y-Wa-ghJ"/>
                     </connections>
                 </viewController>
                 <imageView contentMode="scaleToFill" id="WPM-7H-iNG" userLabel="Image View Game Trace">

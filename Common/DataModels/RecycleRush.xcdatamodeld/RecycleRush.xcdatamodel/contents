@@ -5,7 +5,10 @@
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="FieldDrawing" representedClassName="FieldDrawing" syncable="YES">
+        <attribute name="composite" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="gameObjects" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="trace" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="autonDrawing" inverseEntity="TeamScore" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="fieldDrawing" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
     <entity name="MatchData" representedClassName="MatchData" syncable="YES">
@@ -192,6 +195,7 @@
         <attribute name="toteIntakeFloor" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteIntakeHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tournamentName" attributeType="String" syncable="YES"/>
+        <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FieldDrawing" inverseName="autonDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
     </entity>
@@ -201,11 +205,11 @@
     </entity>
     <elements>
         <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
-        <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="75"/>
+        <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="810"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="855"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="868"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

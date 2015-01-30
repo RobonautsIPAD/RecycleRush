@@ -41,6 +41,9 @@
 // Alliance Info
     @property (nonatomic, weak) IBOutlet UIButton *alliance;
 // Auton Scoring
+    @property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
+    @property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
+    @property (weak, nonatomic) IBOutlet UIButton *autonToteIntakeButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
     @property (nonatomic, weak) IBOutlet UIButton *noShowButton;
     @property (nonatomic, weak) IBOutlet UIButton *doaButton;
@@ -59,7 +62,10 @@
     @property (nonatomic, weak) IBOutlet UIButton *eraserButton;
     @property (nonatomic, weak) IBOutlet UITextField *foulTextField;
     @property (nonatomic, weak) IBOutlet UITextField *scouterTextField;
+// Drawing
     @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
+    @property (weak, nonatomic) IBOutlet UIImageView *autonTrace;
+    @property (weak, nonatomic) IBOutlet UIView *redAutonHotZone;
     @property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
     @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 // Segues
@@ -138,7 +144,7 @@
     DrawingMode drawMode;
 
     // Drawing Symbols
-    UIImage *robotIntakeImage;
+    UIImage *autonSPImage;
     UIImage *robotMissImage;
     UIImage *humanIntakeImage;
     UIImage *humanMissImage;
@@ -293,8 +299,8 @@
 }
 
 -(void)getDrawingSymbols {
-    NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"Intake from Robot" ofType:@"png"];
-    robotIntakeImage = [UIImage imageWithContentsOfFile:imageFilePath];
+    NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"AutonSP" ofType:@"png"];
+    autonSPImage = [UIImage imageWithContentsOfFile:imageFilePath];
     imageFilePath = [[NSBundle mainBundle] pathForResource:@"Intake from Robot Miss" ofType:@"png"];
     robotMissImage = [UIImage imageWithContentsOfFile:imageFilePath];
 
@@ -1555,6 +1561,7 @@
     [_notes setUserInteractionEnabled:NO];
     [_foulTextField setUserInteractionEnabled:NO];
     [_fieldImage setUserInteractionEnabled:FALSE];
+    [_autonTrace setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
 }
 
@@ -1570,6 +1577,7 @@
     [_notes setUserInteractionEnabled:YES];
     [_foulTextField setUserInteractionEnabled:YES];
     [_fieldImage setUserInteractionEnabled:YES];
+    [_autonTrace setUserInteractionEnabled:YES];
     [_eraserButton setUserInteractionEnabled:YES];
 }
 
@@ -1613,12 +1621,14 @@
     }
     // Set the correct background image for the alliance
     if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
-        [_backgroundImage setImage:[UIImage imageNamed:@"Red.png"]];
+        [_backgroundImage setImage:[UIImage imageNamed:@"Red 2015.png"]];
+        [_redAutonHotZone setHidden:FALSE];
     }
     else {
         [_backgroundImage setImage:[UIImage imageNamed:@"Blue.png"]];
+        [_redAutonHotZone setHidden:TRUE];
     }
-    // Check the database to see if this team and match have a drawing already
+    // Check the database to see if this team and match have an auton drawing already
     if (currentScore.fieldDrawing.trace) {
         [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
@@ -1633,87 +1643,49 @@
     NSLog(@"Saved by = %@", currentScore.savedBy);
 }
 
--(void)floorPickUpGesture:(UITapGestureRecognizer *)gestureRecognizer {
+-(void)totePickUp:(UITapGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer view] == _fieldImage) NSLog(@"Yeah!");
     fieldDrawingChange = YES;
     if(drawMode == DrawAuton){
         // NSLog(@"floorPickUp");
+        NSString *marker = @"T";
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+    else {
+        NSString *marker = @"T";
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+}
+
+-(void)scoreStack:(UITapGestureRecognizer *)gestureRecognizer {
+    fieldDrawingChange = YES;
+    if(drawMode == DrawAuton){
+        // NSLog(@"floorPickUp");
+        NSString *marker = @"S";
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+    else {
+        NSString *marker = @"S";
+        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        [self drawText:marker location:currentPoint];
+    }
+}
+
+-(void)canPickUp:(UITapGestureRecognizer *)gestureRecognizer {
+    fieldDrawingChange = YES;
+    if(drawMode == DrawAuton){
+        // NSLog(@"canPickUp");
         NSString *marker = @"O";
         currentPoint = [gestureRecognizer locationInView:_fieldImage];
         [self drawText:marker location:currentPoint];
     }
     else {
-        if (teleOpPickUpPicker == nil) {
-            teleOpPickUpPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
-            teleOpPickUpPicker.delegate = self;
-            teleOpPickUpPicker.pickerChoices = teleOpPickUpList;
-            teleOpPickUpPickerPopover = [[UIPopoverController alloc] initWithContentViewController:teleOpPickUpPicker];
-        }
-        popUp = teleOpPickUpPicker;
+        NSString *marker = @"O";
         currentPoint = [gestureRecognizer locationInView:_fieldImage];
-        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [teleOpPickUpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-    }
-}
-
--(void)scoreDisk:(UITapGestureRecognizer *)gestureRecognizer {
-    fieldDrawingChange = YES;
-    currentPoint = [gestureRecognizer locationInView:_fieldImage];
-    // NSLog(@"scoreDisk point = %f %f", currentPoint.x, currentPoint.y);
-    popCounter = 0;
-    if (drawMode == DrawDefense) {
-        if (defensePicker == nil) {
-            defensePicker = [[PopUpPickerViewController alloc]
-                                  initWithStyle:UITableViewStylePlain];
-            defensePicker.delegate = self;
-            defensePicker.pickerChoices = defenseList;
-            defensePickerPopover = [[UIPopoverController alloc]
-                                         initWithContentViewController:defensePicker];
-            popUp = defensePicker;
-        }
-        CGPoint popPoint = [self defensePopOverLocation:currentPoint];
-        [defensePickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-    }
-    else if(drawMode == DrawAuton) {
-        if (!startPoint) {
-            [self autonScoreSelected:@"*"];
-            startPoint = TRUE;
-        }
-/*        if (autonPicker == nil) {
-            autonPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
-            autonPicker.delegate = self;
-            autonPicker.pickerChoices = autonScoreList;
-            autonPickerPopover = [[UIPopoverController alloc] initWithContentViewController:autonPicker];
-        }
-        popUp = autonPicker;
-        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];*/
-    }
-    else {
-        if (teleOpPicker == nil) {
-            teleOpPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
-            teleOpPicker.delegate = self;
-            teleOpPicker.pickerChoices = teleOpScoreList;
-            teleOpPickerPopover = [[UIPopoverController alloc] initWithContentViewController:teleOpPicker];
-        }
-        popUp = teleOpPicker;
-        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [teleOpPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-    }
-}
-
--(void)partnerCatch:(UITapGestureRecognizer *)gestureRecognizer {
-    fieldDrawingChange = YES;
-    if(drawMode == DrawTeleop || drawMode == DrawDefense) {
-        if (partnerActionsPicker == nil) {
-            partnerActionsPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
-            partnerActionsPicker.pickerChoices = partnerActionsList;
-            partnerActionsPicker.delegate = self;
-            partnerActionsPickerPopover = [[UIPopoverController alloc] initWithContentViewController:partnerActionsPicker];
-        }
-        popUp = partnerActionsPicker;
-        currentPoint = [gestureRecognizer locationInView:_fieldImage];
-        CGPoint popPoint = [self scorePopOverLocation:currentPoint];
-        [partnerActionsPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_fieldImage permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+        [self drawText:marker location:currentPoint];
     }
 }
 
@@ -1888,7 +1860,7 @@
             break;
         }
     }*/
-    [self drawText:marker location:textPoint];
+    [self drawSymbol:autonSPImage location:textPoint];
 }
 
 - (void)teleOpScoreSelected:(NSString *)newScore {
@@ -2422,11 +2394,13 @@
 }
 
 -(void)setGestures {
-    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(partnerCatch:)];
+    // Triple tap for can pick up
+    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(canPickUp:)];
     tripleTapGesture.numberOfTapsRequired=3;
     [_fieldImage addGestureRecognizer:tripleTapGesture];
     
-    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(floorPickUpGesture:)];
+    // Double tap for tote pick up
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(totePickUp:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [doubleTapGestureRecognizer requireGestureRecognizerToFail: tripleTapGesture];
     [_fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
@@ -2434,7 +2408,8 @@
     UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
     [_fieldImage addGestureRecognizer:drawGesture];
     
-    UITapGestureRecognizer *tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreDisk:)];
+    // Single tap to score totes, cans and noodles
+    UITapGestureRecognizer *tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreStack:)];
     tapPressGesture.numberOfTapsRequired = 1;
     [tapPressGesture requireGestureRecognizerToFail: doubleTapGestureRecognizer];
     [tapPressGesture requireGestureRecognizerToFail: tripleTapGesture];
