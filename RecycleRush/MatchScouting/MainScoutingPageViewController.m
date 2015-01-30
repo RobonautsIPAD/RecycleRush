@@ -1863,6 +1863,9 @@
     [self drawSymbol:autonSPImage location:textPoint];
 }
 
+- (IBAction)autonButtonScore:(id)sender {
+}
+
 - (void)teleOpScoreSelected:(NSString *)newScore {
     [teleOpPickerPopover dismissPopoverAnimated:YES];
     NSString *marker;

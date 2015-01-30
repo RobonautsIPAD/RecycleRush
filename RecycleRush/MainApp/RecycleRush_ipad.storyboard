@@ -4728,6 +4728,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="autonButtonScore:" destination="WBb-6A-oWA" eventType="touchUpInside" id="Vty-JC-Z6W"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fyR-jg-2cu">
                                 <rect key="frame" x="577" y="218" width="72" height="44"/>
@@ -4740,6 +4743,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="autonButtonScore:" destination="WBb-6A-oWA" eventType="touchUpInside" id="ODg-pv-pmW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sj3-Aa-k27">
                                 <rect key="frame" x="577" y="307" width="72" height="44"/>
@@ -4752,6 +4758,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="autonButtonScore:" destination="WBb-6A-oWA" eventType="touchUpInside" id="eaM-Kl-u1O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4779,9 +4788,9 @@
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
                         <outlet property="autonToteIntakeButton" destination="Sj3-Aa-k27" id="b7K-GD-2Ev"/>
+                        <outlet property="autonTrace" destination="RvX-YB-hOX" id="8f3-7C-jSe"/>
                         <outlet property="backgroundImage" destination="qNz-YY-SLl" id="QDP-4d-Knh"/>
                         <outlet property="drawModeButton" destination="M2b-Ef-piz" id="eLZ-FH-RYE"/>
-                        <outlet property="fieldImage" destination="RvX-YB-hOX" id="Stn-c3-LBJ"/>
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>
                         <outlet property="matchNumber" destination="dZc-4T-78p" id="mEw-cB-T3v"/>
                         <outlet property="matchType" destination="jmp-Mx-xGA" id="8af-fE-2Br"/>
