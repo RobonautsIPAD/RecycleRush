@@ -57,15 +57,17 @@
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIMainStoryboardFile~iphone</key>
-	<string>RecycleRush_iphone</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>RecycleRush_ipad</string>
+	<key>UIMainStoryboardFile~iphone</key>
+	<string>RecycleRush_iphone</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 		<string>gamekit</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackTranslucent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

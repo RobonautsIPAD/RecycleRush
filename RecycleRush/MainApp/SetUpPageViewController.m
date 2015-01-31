@@ -66,12 +66,9 @@
         _dataManager = [DataManager new];
     }
     
-    // Display the Label for the Picture
-    _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
-    _pictureCaption.text = @"Just Hangin' Out";
  
     // Set Font and Text for Tournament Set-Up Button
-    [_settingsButton setTitle:@"Tournament" forState:UIControlStateNormal];
+    [_settingsButton setTitle:@"App Mode" forState:UIControlStateNormal];
     _settingsButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
 
     // Set Font and Text for Match Set-Up Button
@@ -84,11 +81,11 @@
     self.title = @"Set-Up Page";
     
     //Set Font and Text for Elim Data Button
-    [_elimDataButton setTitle:@"Elim Data" forState:UIControlStateNormal];
+    [_elimDataButton setTitle:@"Create Alliance" forState:UIControlStateNormal];
     _elimDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     
     //Set Font and Text for Match Integrity Data Button
-    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
+    [_matchIntegrityButton setTitle:@"Match Alliance" forState:UIControlStateNormal];
     _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
  
     [super viewDidLoad];

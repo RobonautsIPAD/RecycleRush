@@ -58,12 +58,9 @@
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
 
-    // Display the Robotnauts Banner
-    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner.jpg"]];
-//    [_mainLogo setImage:[UIImage imageNamed:@"robonauts app banner original.jpg"]];
-//    [_mainLogo setFrame:CGRectMake(0, -50, 1024, 285)];
+ 
     // Display the Label for the Picture
-    _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     _pictureCaption.text = @"Just Hangin' Out";
     // Set Font and Text for Team Scouting Button
     [_teamScoutingButton setTitle:@"Team/Pit Scouting" forState:UIControlStateNormal];
@@ -74,9 +71,6 @@
     // Set Font and Text for Match Scouting Up Button
     [_matchScoutingButton setTitle:@"Match Scouting" forState:UIControlStateNormal];
     _matchScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
-    // Set Font and Text for Match Analysis Button
-    [_matchAnalysisButton setTitle:@"brogan Page" forState:UIControlStateNormal];
-    _matchAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     //set Font and Text for Tournament Analysis Button
     [_tournamentAnalysisButton setTitle:@"analysis" forState:UIControlStateNormal];
     _tournamentAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
