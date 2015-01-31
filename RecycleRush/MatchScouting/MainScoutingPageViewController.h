@@ -40,9 +40,12 @@ typedef enum {
 
 // Match Scores
 
+- (IBAction)matchResetTapped:(id)sender;
 
 @property (nonatomic, strong) ValuePromptViewController *valuePrompt;
 @property (nonatomic, strong) UIPopoverController *valuePromptPopover;
+
+
 
 // Match Drawing
 typedef enum {

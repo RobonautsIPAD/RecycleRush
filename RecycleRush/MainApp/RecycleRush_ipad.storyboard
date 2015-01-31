@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wAE-EC-1wz" userLabel="Team Scouting">
-                                <rect key="frame" x="562" y="271" width="400" height="71"/>
+                                <rect key="frame" x="562" y="29" width="400" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -30,7 +30,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gyL-zM-4xJ">
-                                <rect key="frame" x="562" y="566" width="400" height="68"/>
+                                <rect key="frame" x="562" y="324" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YhQ-tx-sI9">
-                                <rect key="frame" x="562" y="371" width="400" height="71"/>
+                                <rect key="frame" x="562" y="129" width="400" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -60,18 +60,18 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="home image.004.png" id="LIX-OB-TXE">
-                                <rect key="frame" x="33" y="281" width="497" height="345"/>
+                                <rect key="frame" x="33" y="39" width="497" height="345"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Caption" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="hcM-O9-dAs" userLabel="Label -Image">
-                                <rect key="frame" x="79" y="597" width="468" height="39"/>
+                                <rect key="frame" x="79" y="355" width="468" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VA4-hl-vIf">
-                                <rect key="frame" x="562" y="470" width="400" height="68"/>
+                                <rect key="frame" x="562" y="228" width="400" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="button_robonaut_gold.png">
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner copy.png" id="AxM-XR-Mww">
-                                <rect key="frame" x="27" y="3" width="978" height="257"/>
+                                <rect key="frame" x="-5" y="402" width="1029" height="247"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -171,7 +171,7 @@
             <objects>
                 <viewController id="mzW-iW-Rm3" customClass="AddTeamViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="HH5-jk-LWc">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="AQ8-kd-9Wl" userLabel="Text Field - Team Number">
@@ -4196,16 +4196,6 @@
                         <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Match Numer" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="dZc-4T-78p">
-                                <rect key="frame" x="334" y="11" width="91" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <action selector="MatchNumberChanged" destination="WBb-6A-oWA" eventType="editingDidEnd" id="TA8-xN-NiX"/>
-                                    <outlet property="delegate" destination="WBb-6A-oWA" id="tCw-6u-Sln"/>
-                                </connections>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Oor-gF-fxZ">
                                 <rect key="frame" x="20" y="15" width="98" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4241,11 +4231,21 @@
                                     <action selector="nextButton" destination="WBb-6A-oWA" eventType="touchUpInside" id="3nk-FF-gF6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmH-ak-QdU" userLabel="Button - Team">
-                                <rect key="frame" x="597" y="11" width="105" height="44"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Match Numer" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="dZc-4T-78p">
+                                <rect key="frame" x="334" y="11" width="91" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="MatchNumberChanged" destination="WBb-6A-oWA" eventType="editingDidEnd" id="TA8-xN-NiX"/>
+                                    <outlet property="delegate" destination="WBb-6A-oWA" id="tCw-6u-Sln"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jmp-Mx-xGA">
+                                <rect key="frame" x="146" y="11" width="160" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Team">
+                                <state key="normal" title="Match Type">
                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -4253,7 +4253,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="teamSelectionChanged:" destination="WBb-6A-oWA" eventType="touchUpInside" id="2Wi-55-p8S"/>
+                                    <action selector="matchTypeSelectionChanged:" destination="WBb-6A-oWA" eventType="touchUpInside" id="Lr7-aM-QZ9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9Nb-zq-gJk" userLabel="Button - Alliance">
@@ -4271,11 +4271,11 @@
                                     <action selector="allianceSelectionChanged:" destination="WBb-6A-oWA" eventType="touchUpInside" id="j7x-Aj-xU4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jmp-Mx-xGA">
-                                <rect key="frame" x="146" y="11" width="160" height="43"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmH-ak-QdU" userLabel="Button - Team">
+                                <rect key="frame" x="597" y="11" width="105" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Match Type">
+                                <state key="normal" title="Team">
                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -4283,9 +4283,17 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="matchTypeSelectionChanged:" destination="WBb-6A-oWA" eventType="touchUpInside" id="Lr7-aM-QZ9"/>
+                                    <action selector="teamSelectionChanged:" destination="WBb-6A-oWA" eventType="touchUpInside" id="2Wi-55-p8S"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xcI-CG-2jD" userLabel="Label - Team Name">
+                                <rect key="frame" x="736" y="19" width="143" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="left" id="6Qn-p6-4MN" userLabel="View - Field Drawing">
                                 <rect key="frame" x="20" y="62" width="520" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4306,27 +4314,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xcI-CG-2jD" userLabel="Label - Team Name">
-                                <rect key="frame" x="736" y="19" width="143" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yDg-2J-DBr">
-                                <rect key="frame" x="822" y="616" width="112" height="37"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="0+">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Max # Totes" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="K0J-oN-ym2">
-                                <rect key="frame" x="696" y="624" width="97" height="21"/>
+                                <rect key="frame" x="696" y="604" width="97" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4386,14 +4375,8 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Litter Scored" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="OCv-iq-j0Q" userLabel="Label - Auton High">
-                                <rect key="frame" x="722" y="831" width="103" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tote Intake from HP" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="8bb-Iq-P5u" userLabel="Label - Auton High">
-                                <rect key="frame" x="712" y="332" width="160" height="21"/>
+                                <rect key="frame" x="711" y="332" width="162" height="22"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4491,7 +4474,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ion-7h-dD1" userLabel="Button - Eraser">
-                                <rect key="frame" x="459" y="616" width="60" height="41"/>
+                                <rect key="frame" x="423" y="599" width="63" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Eraser">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4502,7 +4485,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Draw Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bgk-p3-Mz8">
-                                <rect key="frame" x="384" y="594" width="89" height="21"/>
+                                <rect key="frame" x="352" y="650" width="89" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0039215688593685627" green="0.68627452850341797" blue="0.25098040699958801" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -4550,7 +4533,7 @@
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="09s-Et-h9J">
-                                <rect key="frame" x="177" y="615" width="99" height="44"/>
+                                <rect key="frame" x="177" y="598" width="99" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Start">
@@ -4562,7 +4545,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M2b-Ef-piz">
-                                <rect key="frame" x="334" y="616" width="117" height="45"/>
+                                <rect key="frame" x="298" y="598" width="117" height="45"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Auton/Tele-Op">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4576,7 +4559,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="002-EG-WgU">
-                                <rect key="frame" x="20" y="607" width="126" height="60"/>
+                                <rect key="frame" x="20" y="598" width="133" height="74"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Timer Display">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4676,6 +4659,22 @@
                                     <action selector="autonButtonScore:" destination="WBb-6A-oWA" eventType="touchUpInside" id="cSB-lQ-Hgs"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jEN-Dg-OcR">
+                                <rect key="frame" x="807" y="594" width="72" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="max #">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="autonButtonScore:" destination="WBb-6A-oWA" eventType="touchUpInside" id="OqO-Gi-S24"/>
+                                    <action selector="maxToteNumber:" destination="WBb-6A-oWA" eventType="valueChanged" id="msu-0w-bde"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4699,6 +4698,12 @@
                                 <segue destination="HM9-qN-EzH" kind="push" id="EV7-d2-CYl"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Reset" id="cga-73-6gU">
+                            <color key="tintColor" red="0.0039215688589999999" green="0.68627452850000004" blue="0.25098040700000002" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="matchResetTapped:" destination="WBb-6A-oWA" id="tr1-6w-eWZ"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Match Scouting" id="1gg-vu-SkO">
                         <barButtonItem key="backBarButtonItem" title="Home" id="VQd-on-psK"/>
@@ -4714,7 +4719,6 @@
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>
                         <outlet property="matchNumber" destination="dZc-4T-78p" id="mEw-cB-T3v"/>
                         <outlet property="matchType" destination="jmp-Mx-xGA" id="8af-fE-2Br"/>
-                        <outlet property="maxTotes" destination="yDg-2J-DBr" id="3Wa-xL-c3h"/>
                         <outlet property="nextMatch" destination="cNM-Sg-kpV" id="ROc-QP-7ZS"/>
                         <outlet property="prevMatch" destination="Oor-gF-fxZ" id="Ilk-ft-yrn"/>
                         <outlet property="redAutonHotZone" destination="vgM-qd-p0c" id="Fhu-FG-KLr"/>
@@ -5080,7 +5084,7 @@
             <objects>
                 <viewController id="4ra-8V-FJ1" customClass="DownloadPageViewController" sceneMemberID="viewController">
                     <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="3Zd-08-x84">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="banner copy.png" id="IfN-Ue-JFI">
@@ -7388,7 +7392,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -8106,20 +8110,158 @@
         <image name="ios-7-camera-icon.png" width="256" height="256"/>
         <image name="recycle rush robonauts.001.png" width="583" height="339"/>
     </resources>
+    <classes>
+        <class className="AddMatchViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddMatchViewController.h"/>
+        </class>
+        <class className="AddTeamViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddTeamViewController.h"/>
+        </class>
+        <class className="AlliancesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AlliancesViewController.h"/>
+        </class>
+        <class className="AnalysisTeamPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AnalysisTeamPageViewController.h"/>
+        </class>
+        <class className="DownloadPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DownloadPageViewController.h"/>
+        </class>
+        <class className="ElimDataViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ElimDataViewController.h"/>
+        </class>
+        <class className="FieldDrawingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FieldDrawingViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="nextMatch:"/>
+                <relationship kind="action" name="prevMatch:"/>
+            </relationships>
+        </class>
+        <class className="LucienPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucienPageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="selectAverage:"/>
+                <relationship kind="action" name="selectHeight:"/>
+                <relationship kind="action" name="selectParameter:"/>
+                <relationship kind="outlet" name="calculateButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="labelText" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mainLogo" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="LucienTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucienTableViewController.h"/>
+        </class>
+        <class className="MainScoutingPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainScoutingPageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="matchResetTapped:"/>
+            </relationships>
+        </class>
+        <class className="MasonPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasonPageViewController.h"/>
+        </class>
+        <class className="MatchAnalysisViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchAnalysisViewController.h"/>
+        </class>
+        <class className="MatchDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchDetailViewController.h"/>
+        </class>
+        <class className="MatchIntegrityViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchIntegrityViewController.h"/>
+        </class>
+        <class className="MatchListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchListViewController.h"/>
+        </class>
+        <class className="MatchOverlayViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchOverlayViewController.h"/>
+        </class>
+        <class className="MatchSummaryViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MatchSummaryViewController.h"/>
+        </class>
+        <class className="PadSyncViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PadSyncViewController.h"/>
+        </class>
+        <class className="PhotoCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="thumbnailView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RidleyPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RidleyPageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showTeamPopUp:"/>
+                <relationship kind="outlet" name="first" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="firstListTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="second" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="secondListTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="third" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="thirdListTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="RossPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RossPageViewController.h"/>
+        </class>
+        <class className="SetUpPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SetUpPageViewController.h"/>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="allianceSelectionChanged:"/>
+            </relationships>
+        </class>
+        <class className="SplashPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplashPageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mainLogo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="matchAnalysisButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="matchScoutingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="matchSetUpButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pictureCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="splashPicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="teamScoutingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tournamentAnalysisButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TabletInputErrorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabletInputErrorViewController.h"/>
+        </class>
+        <class className="TabletSyncViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabletSyncViewController.h"/>
+        </class>
+        <class className="TeamDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TeamDetailViewController.h"/>
+        </class>
+        <class className="TeamListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TeamListViewController.h"/>
+        </class>
+        <class className="TournamentAnalysisViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TournamentAnalysisViewController.h"/>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mxb-62-Dxg"/>
-        <segue reference="TTI-dq-ypb"/>
-        <segue reference="nKj-ED-4Wd"/>
-        <segue reference="ksY-yk-Epa"/>
         <segue reference="Xrv-Yb-X6P"/>
-        <segue reference="MVE-1d-KHX"/>
-        <segue reference="ef1-ym-DNU"/>
+        <segue reference="Wa6-fL-1ga"/>
         <segue reference="fxX-ZR-Q19"/>
         <segue reference="vh7-tv-eAt"/>
+        <segue reference="mxb-62-Dxg"/>
+        <segue reference="ksY-yk-Epa"/>
+        <segue reference="MVE-1d-KHX"/>
+        <segue reference="ef1-ym-DNU"/>
+        <segue reference="nKj-ED-4Wd"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -2170,13 +2170,6 @@
     overrideMode = NoOverride;
 }
 
-- (IBAction)matchResetTapped:(id)sender {
-    NSString *title = @"Confirm Match Reset";
-    NSString *button = @"Reset";
-    popUp = sender;
-
-    [self confirmationActionSheet:title withButton:button];
-}
 
 - (void)confirmationActionSheet:title withButton:(NSString *)button {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
@@ -2535,6 +2528,15 @@
     //[self.tableView endUpdates];
     NSLog(@"controllerDidChangeContent");
 
+}
+
+
+- (IBAction)matchResetTapped:(id)sender {
+    NSString *title = @"Confirm Match Reset";
+    NSString *button = @"Reset";
+    popUp = sender;
+    
+    [self confirmationActionSheet:title withButton:button];
 }
 
 @end
