@@ -65,8 +65,11 @@
 @dynamic toteIntakeFloor;
 @dynamic toteIntakeHP;
 @dynamic tournamentName;
+@dynamic autonToteSet;
+@dynamic autonCanSet;
+@dynamic autonToteStack;
+@dynamic autonDrawing;
 @dynamic fieldDrawing;
 @dynamic match;
-@dynamic autonDrawing;
 
 @end

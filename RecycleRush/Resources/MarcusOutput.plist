@@ -7,298 +7,36 @@
 		<string>matchNumber</string>
 		<key>header</key>
 		<string>Match #</string>
-		<key>order</key>
-		<integer>0</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonHighHot</string>
+		<string>autonToteSet</string>
 		<key>header</key>
 		<string>Tote Set</string>
-		<key>order</key>
-		<integer>1</integer>
-		<key>percent</key>
-		<string>Can Set</string>
+		<key>format</key>
+		<string>integer</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonHighCold</string>
+		<string>autonCanSet</string>
 		<key>header</key>
 		<string>Can Set</string>
-		<key>order</key>
-		<integer>2</integer>
+		<key>format</key>
+		<string>integer</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonMissed</string>
+		<string>autonToteStack</string>
 		<key>header</key>
 		<string>Tote Stack Set</string>
-		<key>order</key>
-		<integer>3</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonLowHot</string>
-		<key>header</key>
-		<string>Cans From Step</string>
-		<key>order</key>
-		<integer>4</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonLowCold</string>
-		<key>header</key>
-		<string>Tote HP</string>
-		<key>order</key>
-		<integer>5</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonLowMiss</string>
-		<key>header</key>
-		<string>Tote Floor</string>
-		<key>order</key>
-		<integer>6</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonMobility</string>
-		<key>header</key>
-		<string>Can Floor</string>
-		<key>order</key>
-		<integer>7</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>autonBlocks</string>
-		<key>header</key>
-		<string>Totes Stacked</string>
-		<key>order</key>
-		<integer>8</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>floorPasses</string>
-		<key>header</key>
-		<string>Number Stacks</string>
-		<key>order</key>
-		<integer>9</integer>
-		<key>percent</key>
-		<string>floorPasses, floorPassMiss</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>floorPassMiss</string>
-		<key>header</key>
-		<string>Cans Scored</string>
-		<key>order</key>
-		<integer>10</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussThrow</string>
-		<key>header</key>
-		<string>Max Tote Level</string>
-		<key>order</key>
-		<integer>11</integer>
-		<key>percent</key>
-		<string>trussThrow, trussThrowMiss</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussThrowMiss</string>
-		<key>header</key>
-		<string>Max Can Level</string>
-		<key>order</key>
-		<integer>12</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussCatch</string>
-		<key>header</key>
-		<string>Driver</string>
-		<key>order</key>
-		<integer>13</integer>
-		<key>percent</key>
-		<string>trussCatch, trussCatchMiss</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussCatchMiss</string>
-		<key>header</key>
-		<string>Knockdowns</string>
-		<key>order</key>
-		<integer>14</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>teleOpBlocks</string>
-		<key>header</key>
-		<string>Block</string>
-		<key>order</key>
-		<integer>15</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>teleOpHigh</string>
-		<key>header</key>
-		<string>High</string>
-		<key>order</key>
-		<integer>16</integer>
-		<key>percent</key>
-		<string>totalTeleOpShots</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>teleOpMissed</string>
-		<key>header</key>
-		<string>HighMiss</string>
-		<key>order</key>
-		<integer>17</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>disruptedShot</string>
-		<key>header</key>
-		<string>HighBlocked</string>
-		<key>order</key>
-		<integer>18</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>teleOpLow</string>
-		<key>header</key>
-		<string>Low</string>
-		<key>order</key>
-		<integer>19</integer>
-		<key>percent</key>
-		<string>totalTeleOpShots</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>teleOpLowMiss</string>
-		<key>header</key>
-		<string>LowMiss</string>
-		<key>order</key>
-		<integer>20</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>floorPickUp</string>
-		<key>header</key>
-		<string>Pickup</string>
-		<key>order</key>
-		<integer>21</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>humanPickUp</string>
-		<key>header</key>
-		<string>IntakefromHuman</string>
-		<key>order</key>
-		<integer>22</integer>
-		<key>percent</key>
-		<string>humanPickUp, humanMiss</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>humanMiss</string>
-		<key>header</key>
-		<string>IntakefromHumanMissed</string>
-		<key>order</key>
-		<integer>23</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>robotIntake</string>
-		<key>header</key>
-		<string>IntakefromRobot</string>
-		<key>order</key>
-		<integer>24</integer>
-		<key>percent</key>
-		<string>robotIntake, robotIntakeMiss</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>robotIntakeMiss</string>
-		<key>header</key>
-		<string>IntakeRobotMiss</string>
-		<key>order</key>
-		<integer>25</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>driverRating</string>
-		<key>header</key>
-		<string>DriverSkill</string>
-		<key>order</key>
-		<integer>26</integer>
-		<key>skipZeros</key>
-		<true/>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>robotSpeed</string>
-		<key>header</key>
-		<string>Speed</string>
-		<key>order</key>
-		<integer>27</integer>
-		<key>skipZeros</key>
-		<true/>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>defenseBlockRating</string>
-		<key>header</key>
-		<string>BlockSkill</string>
-		<key>order</key>
-		<integer>28</integer>
-		<key>skipZeros</key>
-		<true/>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>defenseBullyRating</string>
-		<key>header</key>
-		<string>BullySkill</string>
-		<key>order</key>
-		<integer>29</integer>
-		<key>skipZeros</key>
-		<true/>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussCatchHuman</string>
-		<key>header</key>
-		<string>HPTruss</string>
-		<key>order</key>
-		<integer>30</integer>
-		<key>percent</key>
-		<string>trussCatchHuman, trussCatchHuman</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>trussCatchHuman</string>
-		<key>header</key>
-		<string>HPTrussMiss</string>
-		<key>order</key>
-		<integer>31</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>knockout</string>
-		<key>header</key>
-		<string>Knockout</string>
-		<key>order</key>
-		<integer>32</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>fouls</string>
-		<key>header</key>
-		<string>Foul</string>
-		<key>order</key>
-		<integer>33</integer>
+		<key>format</key>
+		<string>integer</string>
+		<key>dictionary</key>
+		<string>triStateDictionary</string>
 	</dict>
 </array>
 </plist>

@@ -107,6 +107,7 @@
         <attribute name="allianceStation" attributeType="Integer 16" minValueString="0" maxValueString="7" syncable="YES"/>
         <attribute name="assistRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="autonBlocks" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonCanSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonHighCold" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonHighHot" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES"/>
         <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
@@ -117,6 +118,8 @@
             </userInfo>
         </attribute>
         <attribute name="autonTotePickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonToteSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="autonToteStack" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="canIntakeFloor" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansFromStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -209,7 +212,7 @@
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="810"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="868"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="915"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

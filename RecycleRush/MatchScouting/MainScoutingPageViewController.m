@@ -95,6 +95,7 @@
     int numberMatchTypes;
     id popUp;
     NSArray *scoreList;
+    BOOL setStartPoint;
  
     // Match Control Pop Ups
     NSArray *matchTypeList;
@@ -135,6 +136,7 @@
     UIPopoverController *ratingPickerPopover;
     PopUpPickerViewController *ratePicker;
     
+    UITapGestureRecognizer *tapPressGesture;
     BOOL eraseMode;
     BOOL dataChange;
     BOOL fieldDrawingChange;
@@ -244,7 +246,7 @@
     matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
     NSLog(@"%@", matchTypeList);
-
+    setStartPoint = TRUE;
 #ifdef NOTUSED
     // NSLog(@"Match Type List Count = %@", matchTypeList);
     
@@ -1505,26 +1507,6 @@
     alliancePickerPopover = Nil;
 }
 
--(void)setPartnerList {
-    NSString *allianceString = [EnumerationDictionary getKeyFromValue:currentScore.allianceStation forDictionary:allianceDictionary];
-    NSString  *whichAlliance = [allianceString substringToIndex:1];
-    NSMutableArray *list = [[NSMutableArray alloc] init];
-    for (TeamScore *score in scoreList) {
-        allianceString = [EnumerationDictionary getKeyFromValue:score.allianceStation forDictionary:allianceDictionary];
-        if ([[allianceString substringToIndex:1] isEqualToString:whichAlliance]) {
-            if ([score.teamNumber intValue] != [currentScore.teamNumber intValue]) {
-                [list addObject:[NSString stringWithFormat:@"%d", [score.teamNumber intValue]]];
-            }
-        }
-    }
-    
-    [list addObject:[NSString stringWithFormat:@"Human Truss"]];
-    [list addObject:[NSString stringWithFormat:@"Human Truss Miss"]];
-    partnerActionsList = list;
-    partnerActionsPickerPopover = nil;
-    partnerActionsPicker = nil;
-}
-
 -(MatchData *)getCurrentMatch {
     if (numberMatchTypes == 0) {
         [_matchType setTitle:@"No Matches" forState:UIControlStateNormal];
@@ -1562,6 +1544,7 @@
     [_foulTextField setUserInteractionEnabled:NO];
     [_fieldImage setUserInteractionEnabled:FALSE];
     [_autonTrace setUserInteractionEnabled:FALSE];
+    [_redAutonHotZone setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:NO];
 }
 
@@ -1578,6 +1561,7 @@
     [_foulTextField setUserInteractionEnabled:YES];
     [_fieldImage setUserInteractionEnabled:YES];
     [_autonTrace setUserInteractionEnabled:YES];
+    [_redAutonHotZone setUserInteractionEnabled:FALSE];
     [_eraserButton setUserInteractionEnabled:YES];
 }
 
@@ -1622,35 +1606,36 @@
     // Set the correct background image for the alliance
     if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
         [_backgroundImage setImage:[UIImage imageNamed:@"Red 2015.png"]];
-        [_redAutonHotZone setHidden:FALSE];
+        [_redAutonHotZone setHidden:TRUE];
     }
     else {
         [_backgroundImage setImage:[UIImage imageNamed:@"Blue.png"]];
         [_redAutonHotZone setHidden:TRUE];
     }
     // Check the database to see if this team and match have an auton drawing already
-    if (currentScore.fieldDrawing.trace) {
-        [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
+    if (currentScore.autonDrawing.trace) {
+        [_autonTrace setImage:[UIImage imageWithData:currentScore.autonDrawing.trace]];
     }
     else {
-        [_fieldImage setImage:[[UIImage alloc] init]];
+        [_autonTrace setImage:[[UIImage alloc] init]];
     }
+    NSLog(@"Add stuff to import teleop drawing");
     [self drawModeSettings:drawMode];
     eraseMode = FALSE;
     [_eraserButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [self setPartnerList];
     
     NSLog(@"Saved by = %@", currentScore.savedBy);
 }
 
 -(void)totePickUp:(UITapGestureRecognizer *)gestureRecognizer {
-    if ([gestureRecognizer view] == _fieldImage) NSLog(@"Yeah!");
+  //  if ([gestureRecognizer view] == _fieldImage) NSLog(@"Yeah!");
     fieldDrawingChange = YES;
     if(drawMode == DrawAuton){
         // NSLog(@"floorPickUp");
         NSString *marker = @"T";
-        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        currentPoint = [gestureRecognizer locationInView:_autonTrace];
         [self drawText:marker location:currentPoint];
+        [self updateButton:_autonToteIntakeButton forKey:@"autonTotePickUp" forAction:@"Increment"];
     }
     else {
         NSString *marker = @"T";
@@ -1663,9 +1648,26 @@
     fieldDrawingChange = YES;
     if(drawMode == DrawAuton){
         // NSLog(@"floorPickUp");
-        NSString *marker = @"S";
-        currentPoint = [gestureRecognizer locationInView:_fieldImage];
-        [self drawText:marker location:currentPoint];
+        currentPoint = [gestureRecognizer locationInView:_autonTrace];
+        if (setStartPoint) {
+            setStartPoint = FALSE;
+            [self drawSymbol:autonSPImage location:currentPoint];
+/*            [_autonTrace removeGestureRecognizer:tapPressGesture];
+            [_redAutonHotZone addGestureRecognizer:tapPressGesture];*/
+        }
+        else {
+            if (autonPicker == nil) {
+                autonPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+                autonPicker.delegate = self;
+                autonPicker.pickerChoices = autonScoreList;
+                autonPickerPopover = [[UIPopoverController alloc] initWithContentViewController:autonPicker];
+            }
+            popUp = autonPicker;
+            CGPoint popPoint = [self scorePopOverLocation:currentPoint];
+            [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_autonTrace permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+//            NSString *marker = @"S";
+//            [self drawText:marker location:currentPoint];
+        }
     }
     else {
         NSString *marker = @"S";
@@ -1679,7 +1681,7 @@
     if(drawMode == DrawAuton){
         // NSLog(@"canPickUp");
         NSString *marker = @"O";
-        currentPoint = [gestureRecognizer locationInView:_fieldImage];
+        currentPoint = [gestureRecognizer locationInView:_autonTrace];
         [self drawText:marker location:currentPoint];
     }
     else {
@@ -1754,13 +1756,15 @@
             }
             else {
                 drawMode = DrawAuton;
+                [_autonTrace setHidden:FALSE];
+                [_fieldImage setHidden:TRUE];
             }
             break;
         case DrawAuton:
             drawMode = DrawTeleop;
             break;
         case DrawTeleop:
-            drawMode = DrawDefense;
+            drawMode = DrawAuton;
             break;
         case DrawDefense:
             drawMode = DrawTeleop;
@@ -1791,6 +1795,7 @@
             [_drawModeButton setTitle:@"Auton" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self enableButtons];
+            _autonTrace.userInteractionEnabled = TRUE;
             break;
         case DrawTeleop:
             red = 0.0/255.0;
@@ -1799,7 +1804,7 @@
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Blue Button.jpg"] forState:UIControlStateNormal];
             [_drawModeButton setTitle:@"TeleOp" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
-            _fieldImage.userInteractionEnabled = TRUE;
+            _fieldImage.userInteractionEnabled = FALSE;
             break;
         case DrawDefense:
             red = 255.0/255.0;
@@ -1828,39 +1833,31 @@
     textPoint.x = currentPoint.x;
     textPoint.y = currentPoint.y + popCounter*16;
     // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
-/*    popCounter++;
+    popCounter++;
     for (int i = 0 ; i < [autonScoreList count] ; i++) {
         if ([newScore isEqualToString:[autonScoreList objectAtIndex:i]]) {
             switch (i) {
                 case 0:
-                    marker = @"HH";
-                    [self autonHighHot:@"Increment"];
+                    marker = @"0";
+                 //   [self autonHighHot:@"Increment"];
                     break;
                 case 1:
-                    marker = @"HC";
-                    [self autonHighCold:@"Increment"];
+                    marker = @"1";
+                   // [self autonHighCold:@"Increment"];
                     break;
                 case 2:
-                    marker = @"X";
-                    [self autonMiss:@"Increment"];
+                    marker = @"2";
+               //     [self autonMiss:@"Increment"];
                     break;
                 case 3:
-                    marker = @"LH";
-                    [self autonLowHot:@"Increment"];
-                    break;
-                case 4:
-                    marker = @"LC";
-                    [self autonLowCold:@"Increment"];
-                    break;
-                case 5:
-                    marker = @"B";
-                    [self autonBlock:@"Increment"];
+                    marker = @"3";
+                //    [self autonLowHot:@"Increment"];
                     break;
             }
             break;
         }
-    }*/
-    [self drawSymbol:autonSPImage location:textPoint];
+    }
+    [self drawText:marker location:textPoint];
 }
 
 - (IBAction)autonButtonScore:(id)sender {
@@ -2034,16 +2031,19 @@
 
 -(void)drawPath:(UIPanGestureRecognizer *)gestureRecognizer {
     fieldDrawingChange = YES;
+    UIView *currentView = [gestureRecognizer view];
+    //  if ([gestureRecognizer view] == _fieldImage) NSLog(@"Yeah!");
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         // NSLog(@"drawPath Began");
-        lastPoint = [gestureRecognizer locationInView:_fieldImage];
+        lastPoint = [gestureRecognizer locationInView:currentView];
     }
     else {
-        currentPoint = [gestureRecognizer locationInView: _fieldImage];
+        currentPoint = [gestureRecognizer locationInView: currentView];
         // NSLog(@"current point = %lf, %lf", currentPoint.x, currentPoint.y);
         //        CGContextRef context = UIGraphicsGetCurrentContext();
-        UIGraphicsBeginImageContext(_fieldImage.frame.size);
-        [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
+        UIGraphicsBeginImageContext(currentView.frame.size);
+        NSLog(@"figure out how to get the correct view");
+        [self.autonTrace.image drawInRect:CGRectMake(0, 0, currentView.frame.size.width, currentView.frame.size.height)];
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
@@ -2058,8 +2058,9 @@
         }
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextStrokePath(UIGraphicsGetCurrentContext());
-        self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        [self.fieldImage setAlpha:opacity];
+        NSLog(@"figure out how to get the correct view");
+        self.autonTrace.image = UIGraphicsGetImageFromCurrentImageContext();
+        [self.autonTrace setAlpha:opacity];
         UIGraphicsEndImageContext();
         lastPoint = currentPoint;
     }
@@ -2067,8 +2068,9 @@
 
 -(void)drawText:(NSString *) marker location:(CGPoint) point {
     fieldDrawingChange = YES;
-    UIGraphicsBeginImageContext(_fieldImage.frame.size);
-    [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
+    NSLog(@"Pass in imageview");
+    UIGraphicsBeginImageContext(_autonTrace.frame.size);
+    [self.autonTrace.image drawInRect:CGRectMake(0, 0, _autonTrace.frame.size.width, _autonTrace.frame.size.height)];
     CGContextRef myContext = UIGraphicsGetCurrentContext();
     CGContextSetLineCap(myContext, kCGLineCapRound);
     CGContextSetLineWidth(myContext, 1);
@@ -2084,21 +2086,22 @@
     CGContextShowTextAtPoint (myContext, point.x, point.y, [marker UTF8String], marker.length);
     CGContextFlush(UIGraphicsGetCurrentContext());
     CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    self.autonTrace.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 }
 
 -(void)drawSymbol:(UIImage *) marker location:(CGPoint) point {
     fieldDrawingChange = YES;
-    UIGraphicsBeginImageContext(_fieldImage.frame.size);
-    [self.fieldImage.image drawInRect:CGRectMake(0, 0, _fieldImage.frame.size.width, _fieldImage.frame.size.height)];
+    NSLog(@"Pass in imageview");
+    UIGraphicsBeginImageContext(_autonTrace.frame.size);
+    [self.autonTrace.image drawInRect:CGRectMake(0, 0, _autonTrace.frame.size.width, _autonTrace.frame.size.height)];
 //    CGContextRef myContext = UIGraphicsGetCurrentContext();
     CGRect imageRect = CGRectMake(point.x, point.y, 18, 18);
 //    CGContextScaleCTM(myContext, 1.0, -1.0);
     [marker drawInRect:imageRect];
 //    CGContextDrawImage(myContext, imageRect, snarf.CGImage);
     CGContextFlush(UIGraphicsGetCurrentContext());
-    self.fieldImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    self.autonTrace.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 }
 
@@ -2397,33 +2400,37 @@
 }
 
 -(void)setGestures {
-    // Triple tap for can pick up
-    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(canPickUp:)];
+    // Triple tap for tote pick up
+    UITapGestureRecognizer *tripleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(totePickUp:)];
     tripleTapGesture.numberOfTapsRequired=3;
     [_fieldImage addGestureRecognizer:tripleTapGesture];
+    [_autonTrace addGestureRecognizer:tripleTapGesture];
     
-    // Double tap for tote pick up
-    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(totePickUp:)];
+    // Double tap for can pick up
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(canPickUp:)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [doubleTapGestureRecognizer requireGestureRecognizerToFail: tripleTapGesture];
     [_fieldImage addGestureRecognizer:doubleTapGestureRecognizer];
-    
+    [_autonTrace addGestureRecognizer:doubleTapGestureRecognizer];
+  
     UIPanGestureRecognizer *drawGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drawPath:)];
     [_fieldImage addGestureRecognizer:drawGesture];
+    [_autonTrace addGestureRecognizer:drawGesture];
     
     // Single tap to score totes, cans and noodles
-    UITapGestureRecognizer *tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreStack:)];
+    tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scoreStack:)];
     tapPressGesture.numberOfTapsRequired = 1;
     [tapPressGesture requireGestureRecognizerToFail: doubleTapGestureRecognizer];
     [tapPressGesture requireGestureRecognizerToFail: tripleTapGesture];
     [_fieldImage addGestureRecognizer:tapPressGesture];
+    [_autonTrace addGestureRecognizer:tapPressGesture];
 }
 
 -(void)drawingSettings {
     scoreButtonChoices = [[NSArray alloc] initWithObjects:@"Reset to 0", @"Decrement", @"Increment", nil];
     
     // Drawing Stuff
-    autonScoreList = [[NSMutableArray alloc] initWithObjects: @"High (Hot)", @"High (Cold)", @"Missed", @"Low (Hot)",@"Low (Cold)", @"Blocked", nil];
+    autonScoreList = [[NSMutableArray alloc] initWithObjects: @"0", @"1", @"2", @"3", nil];
     teleOpScoreList = [[NSMutableArray alloc] initWithObjects: @"Pass", @"Miss Pass", @"Disrupt", @"Miss Shot", @"Low", @"High", @"Truss Throw", @"Truss Miss", nil];
     teleOpPickUpList = [[NSMutableArray alloc] initWithObjects: @"Robot Intake", @"Robot Miss", @"Floor Pick Up", @"Miss Pick Up", @"Knockout", @"Truss Catch", @"Truss Catch Miss", nil];
     defenseList = [[NSMutableArray alloc] initWithObjects:@"Blocked", @"Disrupter", nil];

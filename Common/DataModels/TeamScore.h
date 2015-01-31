@@ -65,8 +65,11 @@
 @property (nonatomic, retain) NSNumber * toteIntakeFloor;
 @property (nonatomic, retain) NSNumber * toteIntakeHP;
 @property (nonatomic, retain) NSString * tournamentName;
+@property (nonatomic, retain) NSNumber * autonToteSet;
+@property (nonatomic, retain) NSNumber * autonCanSet;
+@property (nonatomic, retain) NSNumber * autonToteStack;
+@property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) FieldDrawing *fieldDrawing;
 @property (nonatomic, retain) MatchData *match;
-@property (nonatomic, retain) FieldDrawing *autonDrawing;
 
 @end
