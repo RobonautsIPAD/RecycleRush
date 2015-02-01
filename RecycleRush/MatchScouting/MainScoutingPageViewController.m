@@ -122,7 +122,7 @@
     UIPopoverController *autonPickerPopover;
     PopUpPickerViewController *autonPicker;
     NSMutableArray *autonToteStacks;
-    
+
     // TeleOp Scoring pop up
     NSMutableArray *teleOpScoreList;
     UIPopoverController *teleOpPickerPopover;
@@ -645,7 +645,7 @@
         }
         [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
     }
-    
+ 
     [self setDataChange];
 }
 
@@ -1862,7 +1862,7 @@
         }
         [autonToteStacks addObject:newstack];
     }
-    
+
 }
 
 -(UIButton *)createAutonToteStack:(CGPoint)location withTitle:(NSString *)value {
