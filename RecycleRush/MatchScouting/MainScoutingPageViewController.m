@@ -114,10 +114,8 @@
     PopUpPickerViewController *scoreButtonReset;
     UIPopoverController *scoreButtonPickerPopover;
 
-    NSArray *scouterNameList;
-    PopUpPickerViewController *scouterNamePicker;
-    UIPopoverController *scouterNamePickerPopover;
-    // Auton Scoring pop up
+    UIButton *currentStack;
+    // Auton Scoring Items
     NSMutableArray *autonScoreList;
     UIPopoverController *autonPickerPopover;
     PopUpPickerViewController *autonPicker;
@@ -137,6 +135,10 @@
     NSArray *rateList;
     UIPopoverController *ratingPickerPopover;
     PopUpPickerViewController *ratePicker;
+    // Scouter Pop Up
+    NSArray *scouterNameList;
+    PopUpPickerViewController *scouterNamePicker;
+    UIPopoverController *scouterNamePickerPopover;
     
     UITapGestureRecognizer *tapPressGesture;
     BOOL eraseMode;
