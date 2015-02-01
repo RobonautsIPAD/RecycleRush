@@ -23,7 +23,6 @@
 #import "SyncMethods.h"
 #import "PadSyncViewController.h"
 #import "TeamDetailViewController.h"
-#import "parseCSV.h"
 #import "PopUpPickerViewController.h"
 #import <ImageIO/CGImageSource.h>
 
