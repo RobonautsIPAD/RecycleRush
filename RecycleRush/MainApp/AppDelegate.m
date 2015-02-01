@@ -64,7 +64,7 @@
     [settings initializeSettings];
 
     // Create the managed object and persistant store
-   // _dataManager = [[DataManager alloc] init];
+    _dataManager = [[DataManager alloc] init];
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
     inputError = [loadData loadCSVDataFromBundle];
 
