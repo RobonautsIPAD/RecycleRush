@@ -60,7 +60,7 @@
     @property (nonatomic, weak) IBOutlet UIButton *drawModeButton;
     @property (nonatomic, weak) IBOutlet UIButton *eraserButton;
     @property (nonatomic, weak) IBOutlet UITextField *foulTextField;
-@property (weak, nonatomic) IBOutlet UIButton *scouterButton;
+    @property (weak, nonatomic) IBOutlet UIButton *scouterButton;
     @property (nonatomic, weak) IBOutlet UITextField *scouterTextField;
 // Drawing
     @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
@@ -92,7 +92,7 @@
     TeamScore *currentScore;
     TeamData *currentTeam;
     MatchUtilities *matchUtilities;
-    int numberMatchTypes;
+    NSUInteger numberMatchTypes;
     id popUp;
     NSArray *scoreList;
     BOOL setStartPoint;
@@ -112,6 +112,9 @@
     NSArray *scoreButtonChoices;
     PopUpPickerViewController *scoreButtonReset;
     UIPopoverController *scoreButtonPickerPopover;
+    NSArray *defenseList;
+    PopUpPickerViewController *defensePicker;
+    UIPopoverController *defensePickerPopover;
 
     UIButton *currentStack;
     // Auton Scoring Items
@@ -350,7 +353,7 @@
     return matchTypes;
 }
 
--(int)getNumberOfMatches:(NSUInteger)section {
+-(NSUInteger)getNumberOfMatches:(NSUInteger)section {
     if ([[fetchedResultsController sections] count]) {
         return [[[[fetchedResultsController sections] objectAtIndex:sectionIndex] objects] count];
     }
@@ -412,9 +415,9 @@
         settingsDictionary = [[NSMutableDictionary alloc] init];
     }
     [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
-    [settingsDictionary setObject:[NSNumber numberWithInt:sectionIndex] forKey:@"Section Index"];
-    [settingsDictionary setObject:[NSNumber numberWithInt:rowIndex] forKey:@"Row Index"];
-    [settingsDictionary setObject:[NSNumber numberWithInt:teamIndex] forKey:@"Team Index"];
+    [settingsDictionary setObject:[NSNumber numberWithLong:sectionIndex] forKey:@"Section Index"];
+    [settingsDictionary setObject:[NSNumber numberWithLong:rowIndex] forKey:@"Row Index"];
+    [settingsDictionary setObject:[NSNumber numberWithLong:teamIndex] forKey:@"Team Index"];
     
     NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MainScoutingPageSettings.plist"]];
     NSError *error;
@@ -442,7 +445,7 @@
 
 -(IBAction)nextButton {
     [self checkDataStatus];
-    int nrows;
+    NSUInteger nrows;
     nrows =  [self getNumberOfMatches:sectionIndex];
     if (rowIndex < (nrows-1)) rowIndex++;
     else { 
@@ -577,11 +580,11 @@
     // NSLog(@"MatchNumberChanged");
     [self checkDataStatus];
     
-    int matchField = [_matchNumber.text intValue];
+    NSUInteger matchField = [_matchNumber.text intValue];
     
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[fetchedResultsController sections] objectAtIndex:sectionIndex];
-    int nmatches = [sectionInfo numberOfObjects];
+    NSUInteger nmatches = [sectionInfo numberOfObjects];
     if (matchField > nmatches) {
         /* Ooops, not that many matches */
         // For now, just change the match field to the last match in the section
