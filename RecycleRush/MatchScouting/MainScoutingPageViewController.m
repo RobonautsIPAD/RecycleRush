@@ -23,7 +23,6 @@
 #import "SyncMethods.h"
 #import "PadSyncViewController.h"
 #import "TeamDetailViewController.h"
-#import "parseCSV.h"
 #import "PopUpPickerViewController.h"
 #import <ImageIO/CGImageSource.h>
 
@@ -115,10 +114,14 @@
     NSArray *defenseList;
     PopUpPickerViewController *defensePicker;
     UIPopoverController *defensePickerPopover;
-    // Auton Scoring pop up
+
+    UIButton *currentStack;
+    // Auton Scoring Items
     NSMutableArray *autonScoreList;
     UIPopoverController *autonPickerPopover;
     PopUpPickerViewController *autonPicker;
+    NSMutableArray *autonToteStacks;
+
     // TeleOp Scoring pop up
     NSMutableArray *teleOpScoreList;
     UIPopoverController *teleOpPickerPopover;
@@ -1663,6 +1666,8 @@
                 autonPickerPopover = [[UIPopoverController alloc] initWithContentViewController:autonPicker];
             }
             popUp = autonPicker;
+            // We are creating a brand new stack, so we do not already have a button for it
+            currentStack = nil;
             CGPoint popPoint = [self scorePopOverLocation:currentPoint];
             [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_autonTrace permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
 //            NSString *marker = @"S";
@@ -1828,36 +1833,56 @@
 
 - (void)autonScoreSelected:(NSString *)newScore {
     [autonPickerPopover dismissPopoverAnimated:YES];
-    NSString *marker = newScore;
-    CGPoint textPoint;
-    textPoint.x = currentPoint.x;
-    textPoint.y = currentPoint.y + popCounter*16;
-    // NSLog(@"Text Point = %f %f", textPoint.x, textPoint.y);
-    popCounter++;
-    for (int i = 0 ; i < [autonScoreList count] ; i++) {
-        if ([newScore isEqualToString:[autonScoreList objectAtIndex:i]]) {
-            switch (i) {
-                case 0:
-                    marker = @"0";
-                 //   [self autonHighHot:@"Increment"];
-                    break;
-                case 1:
-                    marker = @"1";
-                   // [self autonHighCold:@"Increment"];
-                    break;
-                case 2:
-                    marker = @"2";
-               //     [self autonMiss:@"Increment"];
-                    break;
-                case 3:
-                    marker = @"3";
-                //    [self autonLowHot:@"Increment"];
-                    break;
-            }
-            break;
+    if (currentStack) {
+        NSLog(@"Old stack");
+        if ([newScore isEqualToString:@"0"]) {
+            [currentStack removeTarget:self action:@selector(autonToteAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self removeStackButton:currentStack inView:_autonTrace fromList:autonToteStacks];
+        }
+        else {
+            NSLog(@"Record stuff somehow");
+            [currentStack setTitle:newScore forState:UIControlStateNormal];
         }
     }
-    [self drawText:marker location:textPoint];
+    else {
+        if ([newScore isEqualToString:@"0"]) {
+            return;
+        }
+        NSLog(@"Record stuff somehow");
+        UIButton *newstack = [self createAutonToteStack:currentPoint withTitle:newScore];
+        if (!autonToteStacks) {
+            autonToteStacks = [[NSMutableArray alloc] init];
+        }
+        [autonToteStacks addObject:newstack];
+    }
+
+}
+
+-(UIButton *)createAutonToteStack:(CGPoint)location withTitle:(NSString *)value {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(location.x,location.y,30,30)];
+    [self setToteStackButtonDefaults:button];
+    [button setTitle:value forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(autonToteAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_autonTrace addSubview:button];
+    return button;
+}
+
+-(void)removeStackButton:(UIButton *)button inView:(UIView *)view fromList:(NSMutableArray *)stackList {
+    [stackList removeObject:button];
+    [button removeFromSuperview];
+}
+
+- (IBAction)autonToteAction:(id)sender {
+    currentStack = (UIButton*)sender;
+    if (autonPicker == nil) {
+        autonPicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+        autonPicker.delegate = self;
+        autonPicker.pickerChoices = autonScoreList;
+        autonPickerPopover = [[UIPopoverController alloc] initWithContentViewController:autonPicker];
+    }
+    popUp = autonPicker;
+    CGPoint popPoint = [self scorePopOverLocation:currentPoint];
+    [autonPickerPopover presentPopoverFromRect:CGRectMake(popPoint.x, popPoint.y, 1.0, 1.0) inView:_autonTrace permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
 }
 
 - (IBAction)autonButtonScore:(id)sender {
@@ -2386,6 +2411,21 @@
 
 -(void)setSmallButtonDefaults:(UIButton *)currentButton {
     currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+    // Round button corners
+    CALayer *btnLayer = [currentButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:10.0f];
+    // Apply a 1 pixel, black border
+    [btnLayer setBorderWidth:1.0f];
+    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+    // Set the button Background Color
+    [currentButton setBackgroundColor:[UIColor whiteColor]];
+    // Set the button Text Color
+    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
+}
+
+-(void)setToteStackButtonDefaults:(UIButton *)currentButton {
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:10.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
     [btnLayer setMasksToBounds:YES];

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2F072E461A6DE66B00356BCD /* button_robonaut_gold.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */; };
 		2F09ABAE1A7C5FFF00359CA9 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09ABAD1A7C5FFF00359CA9 /* TeamScore.m */; };
-		2F09ABB21A7C612000359CA9 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F09ABB11A7C612000359CA9 /* RecycleRush.sqlite */; };
 		2F0C92511A769C0100D47EFA /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C92501A769C0100D47EFA /* Packet.m */; };
 		2F0C92541A770FA300D47EFA /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C92531A770FA300D47EFA /* TeamData.m */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
@@ -38,6 +37,9 @@
 		2F369CA11A7C8F3100CAD6C0 /* pitScoutingImagePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */; };
 		2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */; };
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
+		2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC8E1A7D5541005E6051 /* LICENSE */; };
+		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
+		2F49FC941A7D6D2F005E6051 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC931A7D6D2F005E6051 /* MatchList.csv */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
 		2F5617591A7C230F00C99FCD /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5617581A7C230F00C99FCD /* FieldDrawing.m */; };
@@ -73,7 +75,6 @@
 		2F5D32C51A5FA45300E02523 /* ImportDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32B71A5FA45300E02523 /* ImportDeviceViewController.m */; };
 		2F5D32C61A5FA45300E02523 /* ImportUSFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32B91A5FA45300E02523 /* ImportUSFirstViewController.m */; };
 		2F5D32C71A5FA45300E02523 /* LoadCSVData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32BB1A5FA45300E02523 /* LoadCSVData.m */; };
-		2F5D32C81A5FA45300E02523 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32BD1A5FA45300E02523 /* parseCSV.m */; };
 		2F5D32C91A5FA45300E02523 /* parseUSFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32BF1A5FA45300E02523 /* parseUSFirst.m */; };
 		2F5D32CA1A5FA45300E02523 /* USFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32C11A5FA45300E02523 /* USFirstViewController.m */; };
 		2F5D32CF1A5FA4CB00E02523 /* DownloadPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32CC1A5FA4CB00E02523 /* DownloadPageViewController.m */; };
@@ -114,7 +115,6 @@
 		2F5D333E1A5FA69E00E02523 /* MarcusOutput.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33261A5FA69E00E02523 /* MarcusOutput.plist */; };
 		2F5D333F1A5FA69E00E02523 /* MasonPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33271A5FA69E00E02523 /* MasonPage.plist */; };
 		2F5D33401A5FA69E00E02523 /* MatchData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33281A5FA69E00E02523 /* MatchData.plist */; };
-		2F5D33411A5FA69E00E02523 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33291A5FA69E00E02523 /* MatchList.csv */; };
 		2F5D33421A5FA69E00E02523 /* MatchType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332A1A5FA69E00E02523 /* MatchType.plist */; };
 		2F5D33431A5FA69E00E02523 /* nasalization rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */; };
 		2F5D33441A5FA69E00E02523 /* Pass to Robot Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332C1A5FA69E00E02523 /* Pass to Robot Miss.png */; };
@@ -195,7 +195,6 @@
 		2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_robonaut_gold.png; path = RecycleRush/Resources/button_robonaut_gold.png; sourceTree = SOURCE_ROOT; };
 		2F09ABAC1A7C5FFF00359CA9 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
 		2F09ABAD1A7C5FFF00359CA9 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
-		2F09ABB11A7C612000359CA9 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = RecycleRush/Resources/RecycleRush.sqlite; sourceTree = SOURCE_ROOT; };
 		2F0C924F1A769C0100D47EFA /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
 		2F0C92501A769C0100D47EFA /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = RecycleRush/Network/Packet.m; sourceTree = SOURCE_ROOT; };
 		2F0C92521A770FA300D47EFA /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
@@ -245,6 +244,11 @@
 		2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pitScoutingImagePage.m; path = RecycleRush/TeamScouting/pitScoutingImagePage.m; sourceTree = SOURCE_ROOT; };
 		2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_iphone.storyboard; path = RecycleRush/MainApp/RecycleRush_iphone.storyboard; sourceTree = SOURCE_ROOT; };
 		2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_ipad.storyboard; path = RecycleRush/MainApp/RecycleRush_ipad.storyboard; sourceTree = SOURCE_ROOT; };
+		2F49FC8D1A7D5541005E6051 /* JXArcCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXArcCompatibilityMacros.h; path = RecycleRush/DataImport/JXArcCompatibilityMacros.h; sourceTree = SOURCE_ROOT; };
+		2F49FC8E1A7D5541005E6051 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = RecycleRush/DataImport/LICENSE; sourceTree = SOURCE_ROOT; };
+		2F49FC901A7D5551005E6051 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
+		2F49FC911A7D5551005E6051 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
+		2F49FC931A7D6D2F005E6051 /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = RecycleRush/Resources/MatchList.csv; sourceTree = "<group>"; };
 		2F5247DB1963B2C900468E4F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Common/DataManagement/DataManager.h; sourceTree = SOURCE_ROOT; };
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -311,8 +315,6 @@
 		2F5D32B91A5FA45300E02523 /* ImportUSFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImportUSFirstViewController.m; path = RecycleRush/DataImport/ImportUSFirstViewController.m; sourceTree = SOURCE_ROOT; };
 		2F5D32BA1A5FA45300E02523 /* LoadCSVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadCSVData.h; path = RecycleRush/DataImport/LoadCSVData.h; sourceTree = SOURCE_ROOT; };
 		2F5D32BB1A5FA45300E02523 /* LoadCSVData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadCSVData.m; path = RecycleRush/DataImport/LoadCSVData.m; sourceTree = SOURCE_ROOT; };
-		2F5D32BC1A5FA45300E02523 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
-		2F5D32BD1A5FA45300E02523 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
 		2F5D32BE1A5FA45300E02523 /* parseUSFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseUSFirst.h; path = RecycleRush/DataImport/parseUSFirst.h; sourceTree = SOURCE_ROOT; };
 		2F5D32BF1A5FA45300E02523 /* parseUSFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseUSFirst.m; path = RecycleRush/DataImport/parseUSFirst.m; sourceTree = SOURCE_ROOT; };
 		2F5D32C01A5FA45300E02523 /* USFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USFirstViewController.h; path = RecycleRush/DataImport/USFirstViewController.h; sourceTree = SOURCE_ROOT; };
@@ -374,7 +376,6 @@
 		2F5D33261A5FA69E00E02523 /* MarcusOutput.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MarcusOutput.plist; path = RecycleRush/Resources/MarcusOutput.plist; sourceTree = SOURCE_ROOT; };
 		2F5D33271A5FA69E00E02523 /* MasonPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MasonPage.plist; path = RecycleRush/Resources/MasonPage.plist; sourceTree = SOURCE_ROOT; };
 		2F5D33281A5FA69E00E02523 /* MatchData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MatchData.plist; path = RecycleRush/Resources/MatchData.plist; sourceTree = SOURCE_ROOT; };
-		2F5D33291A5FA69E00E02523 /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = RecycleRush/Resources/MatchList.csv; sourceTree = SOURCE_ROOT; };
 		2F5D332A1A5FA69E00E02523 /* MatchType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MatchType.plist; path = RecycleRush/Resources/MatchType.plist; sourceTree = SOURCE_ROOT; };
 		2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "nasalization rg.ttf"; path = "RecycleRush/Resources/nasalization rg.ttf"; sourceTree = SOURCE_ROOT; };
 		2F5D332C1A5FA69E00E02523 /* Pass to Robot Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pass to Robot Miss.png"; path = "RecycleRush/Resources/Pass to Robot Miss.png"; sourceTree = SOURCE_ROOT; };
@@ -508,6 +509,7 @@
 		2F30EAAC16A0EB4F0026B258 = {
 			isa = PBXGroup;
 			children = (
+				2F49FC931A7D6D2F005E6051 /* MatchList.csv */,
 				2F30EAC316A0EB4F0026B258 /* RecycleRush */,
 				2F30EABA16A0EB4F0026B258 /* Frameworks */,
 				2F30EAB816A0EB4F0026B258 /* Products */,
@@ -594,13 +596,15 @@
 		2F30EADE16A0F40B0026B258 /* Data Import */ = {
 			isa = PBXGroup;
 			children = (
+				2F49FC901A7D5551005E6051 /* parseCSV.h */,
+				2F49FC911A7D5551005E6051 /* parseCSV.m */,
+				2F49FC8D1A7D5541005E6051 /* JXArcCompatibilityMacros.h */,
+				2F49FC8E1A7D5541005E6051 /* LICENSE */,
 				2F5D32B81A5FA45300E02523 /* ImportUSFirstViewController.h */,
 				2F5D32B91A5FA45300E02523 /* ImportUSFirstViewController.m */,
 				2F5D32AF1A5FA45300E02523 /* AddRecordResults.h */,
 				2F5D32BA1A5FA45300E02523 /* LoadCSVData.h */,
 				2F5D32BB1A5FA45300E02523 /* LoadCSVData.m */,
-				2F5D32BC1A5FA45300E02523 /* parseCSV.h */,
-				2F5D32BD1A5FA45300E02523 /* parseCSV.m */,
 				2F5D32B41A5FA45300E02523 /* ImportDataViewController.h */,
 				2F5D32B51A5FA45300E02523 /* ImportDataViewController.m */,
 				2F5D32B61A5FA45300E02523 /* ImportDeviceViewController.h */,
@@ -670,7 +674,6 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F09ABB11A7C612000359CA9 /* RecycleRush.sqlite */,
 				2F28D7731A793E6B00491092 /* FieldImages */,
 				2F072E451A6DE66B00356BCD /* button_robonaut_gold.png */,
 				2FF58B741A7C5DC500BA280A /* Justin_R.ai */,
@@ -723,7 +726,6 @@
 				2F5D33041A5FA5F700E02523 /* 2013_logo.png */,
 				2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */,
 				2F5D33671A5FA89700E02523 /* TournamentList.csv */,
-				2F5D33291A5FA69E00E02523 /* MatchList.csv */,
 				2F5D33641A5FA89700E02523 /* TeamList.csv */,
 			);
 			name = Resources;
@@ -1009,13 +1011,11 @@
 				2F5D33631A5FA75C00E02523 /* TeamData.plist in Resources */,
 				2F5D333C1A5FA69E00E02523 /* ios-7-camera-icon.png in Resources */,
 				2F5D334A1A5FA69E00E02523 /* RadioButton-Selected.png in Resources */,
-				2F09ABB21A7C612000359CA9 /* RecycleRush.sqlite in Resources */,
 				2F5D33751A5FA89700E02523 /* Truss Throw Miss.png in Resources */,
 				2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */,
 				2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */,
 				2F5D337D1A5FA96F00E02523 /* Default@2x.png in Resources */,
 				2F5D33431A5FA69E00E02523 /* nasalization rg.ttf in Resources */,
-				2F5D33411A5FA69E00E02523 /* MatchList.csv in Resources */,
 				2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */,
 				2F5D33191A5FA5F700E02523 /* Blue Fade.gif in Resources */,
 				2F5D33111A5FA5F700E02523 /* 2013_logo~ipad.png in Resources */,
@@ -1023,6 +1023,7 @@
 				2F5D33381A5FA69E00E02523 /* Intake from Human.png in Resources */,
 				2F5D33401A5FA69E00E02523 /* MatchData.plist in Resources */,
 				2F5D335D1A5FA75C00E02523 /* ShooterType.plist in Resources */,
+				2F49FC941A7D6D2F005E6051 /* MatchList.csv in Resources */,
 				2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */,
 				2F5D335B1A5FA75C00E02523 /* Robonauts.RecycleRush.plist in Resources */,
 				2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */,
@@ -1038,6 +1039,7 @@
 				2F5D333F1A5FA69E00E02523 /* MasonPage.plist in Resources */,
 				2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */,
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
+				2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */,
 				2F5D33711A5FA89700E02523 /* TournamentList.csv in Resources */,
 				2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
@@ -1092,7 +1094,6 @@
 				2F6D4F9219DB36F700EF3923 /* MatchUtilities.m in Sources */,
 				2F88169B1A5FB0D4001CCA04 /* Competitions.m in Sources */,
 				2F2ECAB31A5F059900D3386E /* ElimDataViewController.m in Sources */,
-				2F5D32C81A5FA45300E02523 /* parseCSV.m in Sources */,
 				2F5D327F1A5FA24300E02523 /* MatchAnalysisViewController.m in Sources */,
 				2F5D32D71A5FA4F400E02523 /* AddTeamViewController.m in Sources */,
 				2F5D32C41A5FA45300E02523 /* ImportDataViewController.m in Sources */,
@@ -1136,6 +1137,7 @@
 				2F5D32CA1A5FA45300E02523 /* USFirstViewController.m in Sources */,
 				2F5D32FE1A5FA51000E02523 /* PhotoUtilities.m in Sources */,
 				2F5D32FA1A5FA51000E02523 /* MainLogo.m in Sources */,
+				2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */,
 				2F5D32841A5FA24300E02523 /* TournamentAnalysisViewController.m in Sources */,
 				2F2ECA9C1A5F052300D3386E /* ExportTeamData.m in Sources */,
 				2F5D33001A5FA51000E02523 /* SyncMethods.m in Sources */,
