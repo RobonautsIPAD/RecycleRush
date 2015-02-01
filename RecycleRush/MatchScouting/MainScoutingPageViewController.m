@@ -449,7 +449,6 @@
         rowIndex = 0; 
         sectionIndex = [self getNextSection:currentMatch.matchType];
     }
-
     currentMatch = [self getCurrentMatch];
     [self setTeamList];
     [self showTeam:teamIndex];
