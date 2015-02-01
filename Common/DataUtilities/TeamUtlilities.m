@@ -17,7 +17,7 @@
 #import "DataManager.h"
 #import "parseCSV.h"
 
-#define TEST_MODE
+//#define TEST_MODE
 #ifdef TEST_MODE
 #import "ExportTeamData.h"
 #endif
@@ -442,7 +442,7 @@
     prev_int = -99;
     firstTime = TRUE;
     for (int i=0; i<[teamData count]; i++) {
-        int intake = [[[teamData objectAtIndex:i] valueForKey:@"intake"] intValue];
+        int intake = [[[teamData objectAtIndex:i] valueForKey:@"toteIntake"] intValue];
         // NSLog(@"%d\t%d", i+1, intake);
         if (intake == prev_int) {
             counter++;
@@ -532,7 +532,7 @@
             [teamRecord setValue:value forKey:key];
             continue;
         }
-        if ([key isEqualToString:@"intake"]) {
+        if ([key isEqualToString:@"toteIntake"]) {
             id value = [myDictionary objectForKey:key];
             NSString *newValue;
             if ([value intValue] == -1) newValue = @"Unknown";

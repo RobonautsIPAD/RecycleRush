@@ -8,15 +8,15 @@
 	<integer>0</integer>
 	<key>Other</key>
 	<integer>1</integer>
-	<key>Roller</key>
+	<key>Elevator</key>
 	<integer>2</integer>
-	<key>Crane</key>
+	<key>Fourbar</key>
 	<integer>3</integer>
-	<key>Grabber</key>
-	<integer>4</integer>
 	<key>Fork-Lift</key>
+	<integer>4</integer>
+	<key>Linear Lift</key>
 	<integer>5</integer>
-	<key>Claw</key>
+	<key>Reverse Double Fourbar</key>
 	<integer>6</integer>
 	<key>Everybot</key>
 	<integer>7</integer>

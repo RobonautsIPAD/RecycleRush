@@ -7,7 +7,7 @@
 //
 
 #import "MatchAnalysisViewController.h"
-#import "MasonPageViewController.h"
+#import "TeamAnalysisViewController.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
 #import "MatchData.h"

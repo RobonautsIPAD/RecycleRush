@@ -6,19 +6,21 @@
 	<integer>-1</integer>
 	<key>Other</key>
 	<integer>0</integer>
-	<key>Mech</key>
-	<integer>1</integer>
-	<key>Omni</key>
-	<integer>2</integer>
 	<key>Swerve</key>
-	<integer>3</integer>
-	<key>Traction</key>
-	<integer>4</integer>
-	<key>Multi</key>
-	<integer>5</integer>
-	<key>Tread</key>
-	<integer>6</integer>
+	<integer>1</integer>
+	<key>H-Drive</key>
+	<integer>2</integer>
 	<key>Butterfly</key>
+	<integer>4</integer>
+	<key>Omni</key>
+	<integer>5</integer>
+	<key>Mechanum</key>
+	<integer>6</integer>
+	<key>Traction</key>
 	<integer>7</integer>
+	<key>X-Drive</key>
+	<integer>8</integer>
+	<key>Kiwi</key>
+	<integer>9</integer>
 </dict>
 </plist>

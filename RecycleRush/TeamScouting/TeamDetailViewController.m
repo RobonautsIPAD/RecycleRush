@@ -34,8 +34,11 @@
     @property (nonatomic, weak) IBOutlet UITextField *minHeight;
     @property (nonatomic, weak) IBOutlet UITextField *shootingLevel;
     @property (nonatomic, weak) IBOutlet UITextField *maxHeight;
+@property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
     @property (nonatomic, weak) IBOutlet UITextField *wheelType;
+@property (weak, nonatomic) IBOutlet UIButton *canIntakeButton;
     @property (nonatomic, weak) IBOutlet UITextField *nwheels;
+@property (weak, nonatomic) IBOutlet UIButton *stackLevelButton;
     @property (nonatomic, weak) IBOutlet UITextField *wheelDiameter;
     @property (nonatomic, weak) IBOutlet UIButton *driveType;
     @property (nonatomic, weak) IBOutlet UITextField *cims;
@@ -45,7 +48,6 @@
     @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
     @property (nonatomic, strong) UIImagePickerController *imagePickerController;
     @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
-    @property (weak, nonatomic) IBOutlet UIButton *tunnelButton;
 //    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
     @property (nonatomic, weak) IBOutlet UIButton *catcherButton;
@@ -87,9 +89,9 @@
     NSDictionary *allianceDictionary;
     NSDictionary *triStateDictionary;
     
-    PopUpPickerViewController *triStatePicker;
-    UIPopoverController *triStatePickerPopover;
-    NSArray *triStateList;
+    PopUpPickerViewController *liftTypePicker;
+    UIPopoverController *liftTypePickerPopover;
+    NSArray *liftTypeList;
 
     PopUpPickerViewController *quadStatePicker;
     UIPopoverController *quadStatePickerPopover;
@@ -103,14 +105,15 @@
     UIPopoverController *drivePickerPopover;
     NSArray *driveTypeList;
 
-    PopUpPickerViewController *shooterPicker;
-    UIPopoverController *shooterPickerPopover;
-    NSArray *shooterList;
+    PopUpPickerViewController *canIntakePicker;
+    UIPopoverController *canIntakePickerPopover;
+    NSArray *canIntakeList;
     
-    PopUpPickerViewController *tunnelPicker;
-    UIPopoverController *tunnelPickerPopover;
-    NSArray *tunnelList;
 
+    PopUpPickerViewController *maxStackPicker;
+    UIPopoverController *maxStackPickerPopover;
+    NSArray *maxStackList;
+    
     NSArray *photoList;
     NSString *selectedPhoto;
 }
@@ -171,24 +174,8 @@
     photoUtilities = [[PhotoUtilities alloc] init:_dataManager];
  
     // Set defaults for all the text boxes
-    [self setTextBoxDefaults:_numberText];
-    [self setTextBoxDefaults:_nameTextField];
-    [self setTextBoxDefaults:_ballReleaseHeightText];
-    [self setTextBoxDefaults:_minHeight];
-    [self setTextBoxDefaults:_maxHeight];
-    [self setTextBoxDefaults:_wheelType];
-    [self setTextBoxDefaults:_nwheels];
-    [self setTextBoxDefaults:_wheelDiameter];
-    [self setTextBoxDefaults:_cims];
-    [self setTextBoxDefaults:_ballReleaseHeightText];
-    [self setBigButtonDefaults:_tunnelButton];
-    [self setBigButtonDefaults:_autonMobilityButton];
-    [self setBigButtonDefaults:_catcherButton];
-    [self setBigButtonDefaults:_spitBotButton];
-    [self setBigButtonDefaults:_goalieButton];
-    [self setBigButtonDefaults:_hotTrackerButton];
-    [self setBigButtonDefaults:_shooterButton];
-    [self setBigButtonDefaults:_matchOverlayButton];
+ 
+   
 
     //sets text colors for "shoots" buttons relative to UIControllerState
     
@@ -326,13 +313,11 @@
     _nameTextField.text = _team.name;
     _notesViewField.text = _team.notes;
     _shootingLevel.text = @"";
-    _minHeight.text = [NSString stringWithFormat:@"%.1f", [_team.minHeight floatValue]];
-    _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
+       _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
     _wheelType.text = _team.wheelType;
     _nwheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
-    _ballReleaseHeightText.text = [NSString stringWithFormat:@"%.0f  ", [_team.ballReleaseHeight floatValue]];
     
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
@@ -340,22 +325,14 @@
     matchList = [DataConvenienceMethods getMatchListForTeam:_team.number forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
     
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
-    [_intakeType setTitle:_team.intake forState:UIControlStateNormal];
-    [_shooterButton setTitle:_team.shooterType forState:UIControlStateNormal];
-    [_goalieButton setTitle:_team.goalie forState:UIControlStateNormal];
-    [_catcherButton setTitle:_team.catcher forState:UIControlStateNormal];
-    [_tunnelButton setTitle:_team.tunneler forState:UIControlStateNormal];
-    [_spitBotButton setTitle:_team.spitBot forState:UIControlStateNormal];
+    [_intakeType setTitle:_team.toteIntake forState:UIControlStateNormal];
+    [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
+    [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
+    [_stackLevelButton setTitle:_team.toteMaxStack forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
 
-    [self setRadioButtonState:_classAButton forState:_team.classA];
-    [self setRadioButtonState:_classBButton forState:_team.classB];
-    [self setRadioButtonState:_classCButton forState:_team.classC];
-    [self setRadioButtonState:_classDButton forState:_team.classD];
-    [self setRadioButtonState:_classEButton forState:_team.classE];
-    [self setRadioButtonState:_classFButton forState:_team.classF];
-    [self getPhoto];
+    //[self getPhoto];
     photoList = [self getPhotoList:_team.number];
     [_photoCollectionView reloadData];
     dataChange = NO;
@@ -403,34 +380,7 @@
     [_regionalInfo reloadData];
 }
 
-- (IBAction)radioButtonTapped:(id)sender {
-    if (sender == _classAButton) {
-        _team.classA = [self getNextTriState:_team.classA];
-        [self setRadioButtonState:_classAButton forState:_team.classA];
-    }
-    if (sender == _classBButton) {
-        _team.classB = [self getNextTriState:_team.classB];
-        [self setRadioButtonState:_classBButton forState:_team.classB];
-    }
-    if (sender == _classCButton) {
-        _team.classC = [self getNextTriState:_team.classC];
-        [self setRadioButtonState:_classCButton forState:_team.classC];
-    }
-    if (sender == _classDButton) {
-        _team.classD = [self getNextTriState:_team.classD];
 
-        [self setRadioButtonState:_classDButton forState:_team.classD];
-    }
-    if (sender == _classEButton) {
-        _team.classE = [self getNextTriState:_team.classE];
-        [self setRadioButtonState:_classEButton forState:_team.classE];
-    }
-    if (sender == _classFButton) {
-        _team.classF = [self getNextTriState:_team.classF];
-        [self setRadioButtonState:_classFButton forState:_team.classF];
-    }
-    [self setDataChange];
-}
 
 -(NSString *)getNextTriState:(NSString *)currentState {
     if ([triStateDictionary objectForKey:currentState]) {
@@ -491,34 +441,34 @@
         [drivePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _shooterButton) {
-        if (!shooterList) shooterList = [FileIOMethods initializePopUpList:@"ShooterType"];
-        if (shooterPicker == nil) {
-            shooterPicker = [[PopUpPickerViewController alloc]
+    else if (PressedButton == _canIntakeButton) {
+        if (!canIntakeList) canIntakeList = [FileIOMethods initializePopUpList:@"CanIntake"];
+        if (canIntakePicker == nil) {
+            canIntakePicker = [[PopUpPickerViewController alloc]
                                 initWithStyle:UITableViewStylePlain];
-            shooterPicker.delegate = self;
-            shooterPicker.pickerChoices = shooterList;
+            canIntakePicker.delegate = self;
+            canIntakePicker.pickerChoices = canIntakeList;
         }
-        if (!shooterPickerPopover) {
-            shooterPickerPopover = [[UIPopoverController alloc]
-                                    initWithContentViewController:shooterPicker];
+        if (!canIntakePickerPopover) {
+            canIntakePickerPopover = [[UIPopoverController alloc]
+                                    initWithContentViewController:canIntakePicker];
         }
-        [shooterPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [canIntakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _tunnelButton) {
-        if (!tunnelList) tunnelList = [FileIOMethods initializePopUpList:@"Tunnel"];
-        if (tunnelPicker == nil) {
-            tunnelPicker = [[PopUpPickerViewController alloc]
+    else if (PressedButton == _stackLevelButton) {
+        if (!maxStackList) maxStackList = [FileIOMethods initializePopUpList:@"maxToteStack"];
+        if (maxStackPicker == nil) {
+            maxStackPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
-            tunnelPicker.delegate = self;
-            tunnelPicker.pickerChoices = tunnelList;
+            maxStackPicker.delegate = self;
+            maxStackPicker.pickerChoices = maxStackList;
         }
-        if (!tunnelPickerPopover) {
-            tunnelPickerPopover = [[UIPopoverController alloc]
-                                          initWithContentViewController:tunnelPicker];
+        if (!maxStackPickerPopover) {
+            maxStackPickerPopover = [[UIPopoverController alloc]
+                                          initWithContentViewController:maxStackPicker];
         }
-        [tunnelPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [maxStackPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _spitBotButton) {
@@ -536,20 +486,19 @@
         [quadStatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _autonMobilityButton || PressedButton == _hotTrackerButton || PressedButton == _goalieButton ||
-             PressedButton == _catcherButton) {
-        if (!triStateList) triStateList = [FileIOMethods initializePopUpList:@"TriState"];
-        if (triStatePicker == nil) {
-            triStatePicker = [[PopUpPickerViewController alloc]
+    else if (PressedButton == _liftTypeButton) {
+        if (!liftTypeList) liftTypeList = [FileIOMethods initializePopUpList:@"LiftType"];
+        if (liftTypePicker == nil) {
+            liftTypePicker = [[PopUpPickerViewController alloc]
                                    initWithStyle:UITableViewStylePlain];
-            triStatePicker.delegate = self;
-            triStatePicker.pickerChoices = triStateList;
+            liftTypePicker.delegate = self;
+            liftTypePicker.pickerChoices = liftTypeList;
         }
-        if (!triStatePickerPopover) {
-            triStatePickerPopover = [[UIPopoverController alloc]
-                                        initWithContentViewController:triStatePicker];
+        if (!liftTypePickerPopover) {
+            liftTypePickerPopover = [[UIPopoverController alloc]
+                                        initWithContentViewController:liftTypePicker];
         }
-        [triStatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [liftTypePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
@@ -564,47 +513,23 @@
     }
     else if (popUp == _intakeType) {
         [intakePickerPopover dismissPopoverAnimated:YES];
-        _team.intake = newPick;
+        _team.toteIntake = newPick;
     }
-    else if (popUp == _shooterButton) {
-        [shooterPickerPopover dismissPopoverAnimated:YES];
-        _team.shooterType = newPick;
+    else if (popUp == _liftTypeButton) {
+        [liftTypePickerPopover dismissPopoverAnimated:YES];
+        _team.liftType = newPick;
     }
-    else if (popUp == _tunnelButton) {
-        [tunnelPickerPopover dismissPopoverAnimated:YES];
-        _team.tunneler = newPick;
+    else if (popUp == _canIntakeButton) {
+        [canIntakePickerPopover dismissPopoverAnimated:YES];
+        _team.canIntake = newPick;
     }
-    else if (popUp == _spitBotButton) {
-        [quadStatePickerPopover dismissPopoverAnimated:YES];
-        _team.spitBot = newPick;
+    else if (popUp == _stackLevelButton) {
+        [maxStackPickerPopover dismissPopoverAnimated:YES];
+        _team.toteMaxStack = newPick;
     }
-    else if (popUp == _autonMobilityButton) {
-        [triStatePickerPopover dismissPopoverAnimated:YES];
-        _team.autonMobility = newPick;
-    }
-    else if (popUp == _catcherButton) {
-        [triStatePickerPopover dismissPopoverAnimated:YES];
-        _team.catcher = newPick;
-    }
-    else if (popUp == _goalieButton) {
-        [triStatePickerPopover dismissPopoverAnimated:YES];
-        _team.goalie = newPick;
-    }
-    else if (popUp == _hotTrackerButton) {
-        [triStatePickerPopover dismissPopoverAnimated:YES];
-        _team.visionTracker = newPick;
-    }
-    [popUp setTitle:newPick forState:UIControlStateNormal];
-}
+   
 
--(IBAction)teamNumberChanged {
-    // The user has typed a new team number in the field. Access that team and display it.
-    // NSLog(@"teamNumberChanged");
-    [self checkDataStatus];
-    if ([_numberText.text isEqualToString:@""]) {
-        _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
-        return;
-    }
+
     int currentTeam = [_numberText.text intValue];
     BOOL found = FALSE;
     for(int x = 0; x < [self getNumberOfTeams]; x++){
@@ -630,15 +555,11 @@
     if (textField == _nameTextField) {
 		_team.name = _nameTextField.text;
 	}
-	else if (textField == _ballReleaseHeightText) {
-		_team.ballReleaseHeight = [NSNumber numberWithFloat:[_ballReleaseHeightText.text floatValue]];
-	}
+	
 	else if (textField == _shootingLevel) {
 	//	_team.shootsTo = @"";
 	}
-	else if (textField == _minHeight) {
-		_team.minHeight = [NSNumber numberWithFloat:[_minHeight.text floatValue]];
-	}
+	
 	else if (textField == _maxHeight) {
 		_team.maxHeight = [NSNumber numberWithFloat:[_maxHeight.text floatValue]];
 	}
@@ -696,15 +617,15 @@
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView; {
-    return YES;
+
 }
 
--(void)getPhoto {
-    _imageView.image = nil;
-    _imageView.userInteractionEnabled = YES;
-    if (!_team.primePhoto) return;
-    [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:_team.primePhoto]]];
-}
+//-(void)getPhoto {
+    //_imageView.image = nil;
+   // _imageView.userInteractionEnabled = YES;
+   // if (!_team.primePhoto) return;
+  //  [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:_team.primePhoto]]];
+//}
 
 -(NSArray *)getPhotoList:(NSNumber *)teamNumber {
     return [photoUtilities getThumbnailList:teamNumber];

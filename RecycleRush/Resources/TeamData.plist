@@ -36,18 +36,6 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>bumpers</string>
-		<key>input</key>
-		<string>Bumper</string>
-		<key>output</key>
-		<string>Bumpers</string>
-		<key>lucien</key>
-		<string>Bumpers</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
 		<string>autonMobility</string>
 		<key>input</key>
 		<string>Auton Mobility</string>
@@ -72,17 +60,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>ballReleaseHeight</string>
-		<key>input</key>
-		<string>Ball Release Height</string>
-		<key>output</key>
-		<string>Ball Release Height</string>
-		<key>format</key>
-		<string>float</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>lift</string>
+		<string>liftType</string>
 		<key>input</key>
 		<string>Lift System</string>
 		<key>output</key>
@@ -136,7 +114,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>intake</string>
+		<string>toteIntake</string>
 		<key>input</key>
 		<string>intaketype, intake type</string>
 		<key>output</key>
@@ -166,16 +144,6 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>shooterType</string>
-		<key>input</key>
-		<string>Shooter Type</string>
-		<key>output</key>
-		<string>Shooter Type</string>
-		<key>dictionary</key>
-		<string>shooterTypeDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
 		<string>wheelDiameter</string>
 		<key>input</key>
 		<string>Wheel Diameter</string>
@@ -186,35 +154,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>spitBot</string>
-		<key>input</key>
-		<string>Spit Bot, spits, spitter</string>
-		<key>output</key>
-		<string>Spit Bot</string>
-		<key>lucien</key>
-		<string>Spits</string>
-		<key>dictionary</key>
-		<string>quadStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classA</string>
-		<key>input</key>
-		<string>Class A</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classB</string>
-		<key>input</key>
-		<string>Class B</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>toteStack</string>
+		<string>maxToteStack</string>
 		<key>input</key>
 		<string>Tote Stack #</string>
 		<key>output</key>
@@ -223,48 +163,6 @@
 		<string># of Totes Stacked</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classD</string>
-		<key>input</key>
-		<string>Class D</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classD</string>
-		<key>input</key>
-		<string>Class D</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classE</string>
-		<key>input</key>
-		<string>Class E</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>classF</string>
-		<key>input</key>
-		<string>Class F</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>minHeight</string>
-		<key>input</key>
-		<string>min height, minimum height</string>
-		<key>output</key>
-		<string>Minimum Height</string>
-		<key>format</key>
-		<string>float</string>
 	</dict>
 	<dict>
 		<key>key</key>

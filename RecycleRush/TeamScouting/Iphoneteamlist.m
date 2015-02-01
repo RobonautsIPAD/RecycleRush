@@ -138,7 +138,7 @@
     // cell.backgroundView = imageView;
       
 
-	NSString *numberLabel = [NSString stringWithFormat:@"%d\t%@\t%@\t%@", [info.number intValue], info.name, info.driveTrainType, info.intake];
+	NSString *numberLabel = [NSString stringWithFormat:@"%d\t%@\t%@\t%@", [info.number intValue], info.name, info.driveTrainType, info.toteIntake];
     cell.textLabel.text=numberLabel;
     cell.textLabel.font=[UIFont fontWithName: @"Helvetica" size:12];
     

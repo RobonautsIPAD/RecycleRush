@@ -10,17 +10,13 @@
 	<integer>1</integer>
 	<key>Roller</key>
 	<integer>2</integer>
-	<key>Crane</key>
+	<key>Claw</key>
 	<integer>3</integer>
 	<key>Grabber</key>
 	<integer>4</integer>
 	<key>Fork-Lift</key>
 	<integer>5</integer>
-	<key>Claw</key>
-	<integer>6</integer>
-	<key>Everybot</key>
-	<integer>7</integer>
 	<key>118</key>
-	<integer>8</integer>
+	<integer>6</integer>
 </dict>
 </plist>

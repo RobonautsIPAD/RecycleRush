@@ -2,25 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Unknown</key>
+	<key>Enter Name</key>
 	<integer>-1</integer>
-	<key>None</key>
+	<key>Name 1</key>
 	<integer>0</integer>
-	<key>Other</key>
+	<key>Name 2</key>
 	<integer>1</integer>
-	<key>Roller</key>
+	<key>Name 3</key>
 	<integer>2</integer>
-	<key>Crane</key>
+	<key>Name 4</key>
 	<integer>3</integer>
-	<key>Grabber</key>
-	<integer>4</integer>
-	<key>Fork-Lift</key>
-	<integer>5</integer>
-	<key>Claw</key>
-	<integer>6</integer>
-	<key>Everybot</key>
-	<integer>7</integer>
-	<key>118</key>
-	<integer>8</integer>
 </dict>
 </plist>

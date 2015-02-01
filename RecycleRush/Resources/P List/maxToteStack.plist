@@ -4,23 +4,21 @@
 <dict>
 	<key>Unknown</key>
 	<integer>-1</integer>
-	<key>None</key>
+	<key>0</key>
 	<integer>0</integer>
-	<key>Other</key>
+	<key>1</key>
 	<integer>1</integer>
-	<key>Roller</key>
+	<key>2</key>
 	<integer>2</integer>
-	<key>Crane</key>
+	<key>3</key>
 	<integer>3</integer>
-	<key>Grabber</key>
+	<key>4</key>
 	<integer>4</integer>
-	<key>Fork-Lift</key>
+	<key>5</key>
 	<integer>5</integer>
-	<key>Claw</key>
+	<key>6</key>
 	<integer>6</integer>
-	<key>Everybot</key>
+	<key>7+</key>
 	<integer>7</integer>
-	<key>118</key>
-	<integer>8</integer>
 </dict>
 </plist>

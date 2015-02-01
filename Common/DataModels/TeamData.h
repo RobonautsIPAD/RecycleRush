@@ -2,7 +2,7 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 1/26/15.
+//  Created by FRC on 1/31/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -15,27 +15,17 @@
 
 @property (nonatomic, retain) NSNumber * autonCapacity;
 @property (nonatomic, retain) NSString * autonMobility;
-@property (nonatomic, retain) NSNumber * ballReleaseHeight;
 @property (nonatomic, retain) NSString * bumpers;
-@property (nonatomic, retain) NSString * catcher;
 @property (nonatomic, retain) NSNumber * cims;
-@property (nonatomic, retain) NSString * classA;
-@property (nonatomic, retain) NSString * classB;
-@property (nonatomic, retain) NSString * classC;
-@property (nonatomic, retain) NSString * classD;
-@property (nonatomic, retain) NSString * classE;
-@property (nonatomic, retain) NSString * classF;
 @property (nonatomic, retain) NSString * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
 @property (nonatomic, retain) NSNumber * fthing3;
 @property (nonatomic, retain) NSNumber * fthing4;
 @property (nonatomic, retain) NSNumber * fthing5;
-@property (nonatomic, retain) NSString * goalie;
-@property (nonatomic, retain) NSString * intake;
-@property (nonatomic, retain) NSString * lift;
+@property (nonatomic, retain) NSString * toteIntake;
+@property (nonatomic, retain) NSString * liftType;
 @property (nonatomic, retain) NSNumber * maxHeight;
-@property (nonatomic, retain) NSNumber * minHeight;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * noodler;
 @property (nonatomic, retain) NSString * notes;
@@ -45,8 +35,6 @@
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
-@property (nonatomic, retain) NSString * shooterType;
-@property (nonatomic, retain) NSString * spitBot;
 @property (nonatomic, retain) NSString * sthing1;
 @property (nonatomic, retain) NSString * sthing3;
 @property (nonatomic, retain) NSString * sthing4;
@@ -57,8 +45,8 @@
 @property (nonatomic, retain) NSNumber * thing3;
 @property (nonatomic, retain) NSNumber * thing4;
 @property (nonatomic, retain) NSNumber * thing5;
-@property (nonatomic, retain) NSString * toteStack;
-@property (nonatomic, retain) NSString * tunneler;
+@property (nonatomic, retain) NSString * toteMaxStack;
+@property (nonatomic, retain) NSString * canIntake;
 @property (nonatomic, retain) NSString * visionTracker;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
