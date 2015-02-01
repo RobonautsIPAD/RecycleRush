@@ -25,11 +25,12 @@ typedef enum {
 	Receiving,
 } XFerOption;
 
-typedef enum {
+enum MessageType : NSInteger {
     kErrorMessage,
     kWarningMessage,
     kInfoMessage,
-} MessageType;
+};
+typedef enum MessageType MessageType;
 
 typedef enum {
     Scouter,
