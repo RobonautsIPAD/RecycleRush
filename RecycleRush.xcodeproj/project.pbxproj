@@ -31,9 +31,6 @@
 		2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */; };
 		2F30EAC216A0EB4F0026B258 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EAC116A0EB4F0026B258 /* CoreData.framework */; };
 		2F312BB31A7D6C1C002EF938 /* Slide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F312BB21A7D6C1C002EF938 /* Slide1.png */; };
-		2F312BB71A7D6C47002EF938 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F312BB61A7D6C47002EF938 /* Default.png */; };
-		2F312BB91A7D6C4B002EF938 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F312BB81A7D6C4B002EF938 /* Default@2x.png */; };
-		2F312BBB1A7D6C4F002EF938 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F312BBA1A7D6C4F002EF938 /* Default-568h@2x.png */; };
 		2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */; };
 		2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */; };
 		2F312BD91A7DAD60002EF938 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BD81A7DAD60002EF938 /* TeamData.m */; };
@@ -242,9 +239,6 @@
 		2F30EABF16A0EB4F0026B258 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2F30EAC116A0EB4F0026B258 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2F312BB21A7D6C1C002EF938 /* Slide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Slide1.png; sourceTree = SOURCE_ROOT; };
-		2F312BB61A7D6C47002EF938 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		2F312BB81A7D6C4B002EF938 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		2F312BBA1A7D6C4F002EF938 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2F312BCB1A7D8C3E002EF938 /* ScoutingBundleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoutingBundleViewController.h; path = RecycleRush/MatchAnalysis/ScoutingBundleViewController.h; sourceTree = SOURCE_ROOT; };
 		2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoutingBundleViewController.m; path = RecycleRush/MatchAnalysis/ScoutingBundleViewController.m; sourceTree = SOURCE_ROOT; };
 		2F312BCE1A7D9E60002EF938 /* TeamStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamStatsViewController.h; path = RecycleRush/MatchAnalysis/TeamStatsViewController.h; sourceTree = SOURCE_ROOT; };
@@ -525,9 +519,6 @@
 		2F30EAAC16A0EB4F0026B258 = {
 			isa = PBXGroup;
 			children = (
-				2F312BBA1A7D6C4F002EF938 /* Default-568h@2x.png */,
-				2F312BB81A7D6C4B002EF938 /* Default@2x.png */,
-				2F312BB61A7D6C47002EF938 /* Default.png */,
 				2F30EAC316A0EB4F0026B258 /* RecycleRush */,
 				2F30EABA16A0EB4F0026B258 /* Frameworks */,
 				2F30EAB816A0EB4F0026B258 /* Products */,
@@ -1146,9 +1137,6 @@
 				2FF58B731A7C5CC300BA280A /* Match Scouting Button.jpg in Resources */,
 				2FF58B751A7C5DC500BA280A /* Justin_R.ai in Resources */,
 				2F312BB31A7D6C1C002EF938 /* Slide1.png in Resources */,
-				2F312BB71A7D6C47002EF938 /* Default.png in Resources */,
-				2F312BB91A7D6C4B002EF938 /* Default@2x.png in Resources */,
-				2F312BBB1A7D6C4F002EF938 /* Default-568h@2x.png in Resources */,
 				2FDFE52A1A7E891E002FEAD0 /* Small Green Button.jpg in Resources */,
 				2FDFE51C1A7E88B7002FEAD0 /* TournamentData.plist in Resources */,
 			);

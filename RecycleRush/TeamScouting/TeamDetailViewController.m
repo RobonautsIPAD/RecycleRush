@@ -457,7 +457,7 @@
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _stackLevelButton) {
-        if (!maxStackList) maxStackList = [FileIOMethods initializePopUpList:@"maxToteStack"];
+        if (!maxStackList) maxStackList = [FileIOMethods initializePopUpList:@"MaxToteStack"];
         if (maxStackPicker == nil) {
             maxStackPicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];
@@ -617,7 +617,7 @@
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView; {
-
+    return YES;
 }
 
 //-(void)getPhoto {

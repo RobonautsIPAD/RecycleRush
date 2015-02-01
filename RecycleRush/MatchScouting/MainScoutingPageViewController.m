@@ -41,6 +41,12 @@
 // Alliance Info
     @property (nonatomic, weak) IBOutlet UIButton *alliance;
 // Auton Scoring
+@property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
+@property (weak, nonatomic) IBOutlet UIButton *autonToteIntakeButton;
+@property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
+@property (nonatomic, weak) IBOutlet UIButton *noShowButton;
+@property (nonatomic, weak) IBOutlet UIButton *doaButton;
 // TeleOp Scoring
 // Human Player
 // Floor Action
@@ -107,6 +113,7 @@
     NSArray *scoreButtonChoices;
     PopUpPickerViewController *scoreButtonReset;
     UIPopoverController *scoreButtonPickerPopover;
+
     NSArray *scouterNameList;
     PopUpPickerViewController *scouterNamePicker;
     UIPopoverController *scouterNamePickerPopover;
@@ -207,7 +214,7 @@
         self.title = @"Match Scouting";
     }
     [self loadSettings];
-    //if (![[self fetchedResultsController] performFetch:&error]) {
+    if (![[self fetchedResultsController] performFetch:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          abort() causes the application to generate a crash log and terminate. 
@@ -218,21 +225,20 @@
         abort();
     }		
 
-   // [self setDefaults];
-    //allianceDictionary = _dataManager.allianceDictionary;
-    //matchDictionary = _dataManager.matchTypeDictionary;
-   // matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    [self setDefaults];
+    allianceDictionary = _dataManager.allianceDictionary;
+    matchDictionary = _dataManager.matchTypeDictionary;
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
 
-   // teamList = [[NSMutableArray alloc] init];
-   // allianceList = [[NSMutableArray alloc] init];
-//NSLog(@"add check for valid match");
+    teamList = [[NSMutableArray alloc] init];
+    allianceList = [[NSMutableArray alloc] init];
+    NSLog(@"add check for valid match");
     
-   // [self disableButtons];
-    //[self drawingSettings];
-    //[self setGestures];
-   //[_imageContainer sendSubviewToBack:_backgroundImage];
-   // [super viewDidLoad];
-//}
+    [self disableButtons];
+    [self drawingSettings];
+    [self setGestures];
+    [_imageContainer sendSubviewToBack:_backgroundImage];
+}
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -278,14 +284,14 @@
     }
 #endif
     
-   // currentMatch = [self getCurrentMatch];
+    currentMatch = [self getCurrentMatch];
     // NSLog(@"Match = %@, Type = %@, Tournament = %@", currentMatch.number, currentMatch.matchType, currentMatch.tournament);
     // NSLog(@"Settings = %@", settings.tournament.name);
     // NSLog(@"Field Drawing Path = %@", baseDrawingPath);
     dataChange = NO;
     fieldDrawingChange = NO;
-  //  [self setTeamList];
-   // [self showTeam:teamIndex];
+    [self setTeamList];
+    [self showTeam:teamIndex];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -428,9 +434,9 @@
         rowIndex =  [self getNumberOfMatches:sectionIndex]-1;
     }
     
-   // currentMatch = [self getCurrentMatch];
-  //  [self setTeamList];
-//    [self showTeam:teamIndex];
+    currentMatch = [self getCurrentMatch];
+    [self setTeamList];
+    [self showTeam:teamIndex];
 }
 
 -(IBAction)nextButton {
@@ -442,10 +448,10 @@
         rowIndex = 0; 
         sectionIndex = [self getNextSection:currentMatch.matchType];
     }
-    //currentMatch = [self getCurrentMatch];
-   //
-  //  [self setTeamList];
-    //[self showTeam:teamIndex];
+
+    currentMatch = [self getCurrentMatch];
+    [self setTeamList];
+    [self showTeam:teamIndex];
 }
 
 -(NSUInteger)getNextSection:(NSNumber *) currentType {
@@ -500,7 +506,7 @@
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [allianceList indexOfObject:newAlliance];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
-   // [self showTeam:teamIndex];
+    [self showTeam:teamIndex];
 }
 
 -(IBAction)matchTypeSelectionChanged:(id)sender {
@@ -528,9 +534,9 @@
     if (sectionIndex == NSNotFound) sectionIndex = currectSection;
  //   [self setValidMatchNumber:Nil forType:Nil];
     rowIndex = 0;
-   // currentMatch = [self getCurrentMatch];
-   // [self setTeamList];
-    //[self showTeam:teamIndex];
+    currentMatch = [self getCurrentMatch];
+    [self setTeamList];
+    [self showTeam:teamIndex];
 }
 
 -(IBAction)teamSelectionChanged:(id)sender {
@@ -564,7 +570,7 @@
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [teamList indexOfObject:newTeam];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
-   // [self showTeam:teamIndex];
+    [self showTeam:teamIndex];
 }
 
 -(IBAction)MatchNumberChanged {
@@ -582,10 +588,9 @@
         matchField = nmatches;
     }
     rowIndex = matchField-1;
-   // currentMatch = [self getCurrentMatch];
-    
-    //[self setTeamList];
-    //[self showTeam:teamIndex];
+    currentMatch = [self getCurrentMatch];
+    [self setTeamList];
+    [self showTeam:teamIndex];
 }
 
 -(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
@@ -597,6 +602,47 @@
     }
 }
 
+- (IBAction)radioButtonTapped:(id)sender {
+    if (sender == _autonMobilityButton) { // It is on, turn it off
+        if ([currentScore.autonMobility intValue]) {
+            currentScore.autonMobility = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            currentScore.autonMobility = [NSNumber numberWithBool:YES];
+        }
+        [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonMobility intValue]];
+    }
+    if (sender == _noShowButton) { // It is on, turn it off
+        if ([currentScore.noShow intValue]) {
+            currentScore.noShow = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            currentScore.noShow = [NSNumber numberWithBool:YES];
+            // If notes are blank, then go ahead and put no show in the notes
+            if (!currentScore.notes || [currentScore.notes isEqualToString:@""]) {
+                currentScore.notes = @"No Show";
+                _notes.text = currentScore.notes;
+            }
+        }
+        [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
+    }
+    if (sender == _doaButton) { // It is on, turn it off
+        if ([currentScore.deadOnArrival intValue]) {
+            currentScore.deadOnArrival = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            currentScore.deadOnArrival = [NSNumber numberWithBool:YES];
+            // If notes are blank, then go ahead and put DOA in the notes
+            if (!currentScore.notes || [currentScore.notes isEqualToString:@""]) {
+                currentScore.notes = @"Dead";
+                _notes.text = currentScore.notes;
+            }
+        }
+        [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
+    }
+    
+    [self setDataChange];
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
@@ -683,45 +729,45 @@
     }
     if (popUp == autonPicker) {
         [autonPickerPopover dismissPopoverAnimated:YES];
-        //[self autonScoreSelected:newPick];
+        [self autonScoreSelected:newPick];
         return;
     }
     if (popUp == teleOpPicker) {
         [teleOpPickerPopover dismissPopoverAnimated:YES];
-      //  [self teleOpScoreSelected:newPick];
+        [self teleOpScoreSelected:newPick];
         return;
     }
     if (popUp == teleOpPickUpPicker) {
         [teleOpPickUpPickerPopover dismissPopoverAnimated:YES];
-       // [self teleOpPickUpSelected:newPick];
+        [self teleOpPickUpSelected:newPick];
         return;
     }
-   // if (popUp == defensePicker) {
-    //    [defensePickerPopover dismissPopoverAnimated:YES];
-    //    [self defenseSelected:newPick];
+/*    if (popUp == defensePicker) {
+        [defensePickerPopover dismissPopoverAnimated:YES];
+        [self defenseSelected:newPick];
+        return;
+    }*/
+    if (popUp == partnerActionsPicker) {
+        [partnerActionsPickerPopover dismissPopoverAnimated:YES];
+        [self allianceCatchSelected:newPick];
         return;
     }
-   // if (popUp == partnerActionsPicker) {
-  //      [partnerActionsPickerPopover dismissPopoverAnimated:YES];
-   //     [self allianceCatchSelected:newPick];
-    //   return;
-  //  }
-   // if (popUp == _driverRating) {
-    //    [ratingPickerPopover dismissPopoverAnimated:YES];
-      //  [self setDriverRate:newPick];
-    //    return;
-   // }
-  //  if(popUp == _robotSpeed){
-    //    [ratingPickerPopover dismissPopoverAnimated:YES];
-    //    [self setSpeedRate:newPick];
-   //     return;
-  //  }
-  //  if(popUp == _intakeRatingButton){
- //       [ratingPickerPopover dismissPopoverAnimated:YES];
- //       [self setIntakeRate:newPick];
-//        return;
-  //  }
-  //  [scoreButtonPickerPopover dismissPopoverAnimated:YES];
+    if (popUp == _driverRating) {
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setDriverRate:newPick];
+        return;
+    }
+    if(popUp == _robotSpeed){
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setSpeedRate:newPick];
+        return;
+    }
+    if(popUp == _intakeRatingButton){
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setIntakeRate:newPick];
+        return;
+    }
+    [scoreButtonPickerPopover dismissPopoverAnimated:YES];
     /*
     if (popUp == _autonHighHotButton) [self autonHighHot:newPick];
     else if (popUp == _autonHighColdButton) [self autonHighCold:newPick];
@@ -752,8 +798,8 @@
     else if (popUp == _robotMissButton) [self updateButton:_robotMissButton forKey:@"robotIntakeMiss" forAction:newPick];
     else if (popUp == _disruptShotButton) [self updateButton:_disruptShotButton forKey:@"disruptedShot" forAction:newPick];
     else if (popUp == _defensiveDisruptionButton) [self updateButton:_defensiveDisruptionButton forKey:@"defensiveDisruption" forAction:newPick];*/
-//}
-//
+}
+
 - (void)valueEnteredAtPrompt:(NSString *)valueEntered {
     [self.valuePromptPopover dismissPopoverAnimated:YES];
 }
@@ -1494,7 +1540,9 @@
 
 -(void)disableButtons{
     // NSLog(@"disabling buttons");
-
+    [_autonMobilityButton setUserInteractionEnabled:NO];
+    [_noShowButton setUserInteractionEnabled:NO];
+    [_doaButton setUserInteractionEnabled:NO];
   //  [_knockoutButton setUserInteractionEnabled:NO];
     [_robotSpeed setUserInteractionEnabled:NO];
     [_driverRating setUserInteractionEnabled:NO];
@@ -1509,7 +1557,9 @@
 
 -(void)enableButtons{
     NSLog(@"enabling Buttons");
-
+    [_autonMobilityButton setUserInteractionEnabled:YES];
+    [_noShowButton setUserInteractionEnabled:YES];
+    [_doaButton setUserInteractionEnabled:YES];
   //  [_knockoutButton setUserInteractionEnabled:YES];
     [_robotSpeed setUserInteractionEnabled:YES];
     [_driverRating setUserInteractionEnabled:YES];
@@ -1545,7 +1595,10 @@
     [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentScore.robotSpeed intValue]] forState:UIControlStateNormal];
     [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentScore.intakeRating intValue]] forState:UIControlStateNormal];
     
-
+    [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
+    [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
+    [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonMobility intValue]];
+    
     if ([currentScore.results boolValue]) _scouterTextField.text = currentScore.scouter;
     else _scouterTextField.text = scouter;
     
@@ -1588,8 +1641,8 @@
         // NSLog(@"floorPickUp");
         NSString *marker = @"T";
         currentPoint = [gestureRecognizer locationInView:_autonTrace];
-      //  [self drawText:marker location:currentPoint];
-      //  [self updateButton:_autonToteIntakeButton forKey:@"autonTotePickUp" forAction:@"Increment"];
+        [self drawText:marker location:currentPoint];
+        [self updateButton:_autonToteIntakeButton forKey:@"autonTotePickUp" forAction:@"Increment"];
     }
     else {
         NSString *marker = @"T";
@@ -2124,6 +2177,13 @@
     overrideMode = NoOverride;
 }
 
+- (IBAction)matchResetTapped:(id)sender {
+    NSString *title = @"Confirm Match Reset";
+    NSString *button = @"Reset";
+    popUp = sender;
+    
+    [self confirmationActionSheet:title withButton:button];
+}
 
 - (void)confirmationActionSheet:title withButton:(NSString *)button {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
@@ -2482,15 +2542,6 @@
     //[self.tableView endUpdates];
     NSLog(@"controllerDidChangeContent");
 
-}
-
-
-- (IBAction)matchResetTapped:(id)sender {
-    NSString *title = @"Confirm Match Reset";
-    NSString *button = @"Reset";
-    popUp = sender;
-    
-    [self confirmationActionSheet:title withButton:button];
 }
 
 @end
