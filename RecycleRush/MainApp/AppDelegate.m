@@ -70,7 +70,7 @@
 
     navigationController = (UINavigationController *)self.window.rootViewController;
     
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
@@ -96,12 +96,16 @@
         [self.tabletErrorSegue perform];
     }
     return YES;
-
+    /*   UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"AddTitle", @"")
+     style:UIBarButtonItemStyleBordered
+     target:self
+     action:@selector(addAction:)] autorelease];
+     */
 }
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url 
- sourceApplication:(NSString *)sourceApplication 
-        annotation:(id)annotation {    
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation {
     NSLog(@"openURL");
     if (url != nil && [url isFileURL]) {
         NSLog(@"data manager = %@", _dataManager);

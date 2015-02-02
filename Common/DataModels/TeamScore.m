@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 1/30/15.
+//  Created by FRC on 2/2/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -16,26 +16,27 @@
 @dynamic allianceStation;
 @dynamic assistRating;
 @dynamic autonBlocks;
+@dynamic autonCanSet;
 @dynamic autonHighCold;
 @dynamic autonHighHot;
 @dynamic autonMobility;
 @dynamic autonShotsMade;
 @dynamic autonTotePickUp;
+@dynamic autonToteSet;
+@dynamic autonToteStack;
 @dynamic canIntakeFloor;
 @dynamic cansFromStep;
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fouls;
-@dynamic humanMiss;
-@dynamic humanMiss1;
-@dynamic humanMiss2;
-@dynamic humanMiss3;
-@dynamic humanMiss4;
-@dynamic humanPickUp;
-@dynamic humanPickUp1;
-@dynamic humanPickUp2;
-@dynamic humanPickUp3;
-@dynamic humanPickUp4;
+@dynamic toteFloorTop;
+@dynamic toteFloorBottom;
+@dynamic toteStepTop;
+@dynamic toteStepBottom;
+@dynamic toteHPBottom;
+@dynamic toteHPTop;
+@dynamic litterHPTop;
+@dynamic litterHPBottom;
 @dynamic intakeRating;
 @dynamic matchNumber;
 @dynamic matchType;
@@ -65,9 +66,8 @@
 @dynamic toteIntakeFloor;
 @dynamic toteIntakeHP;
 @dynamic tournamentName;
-@dynamic autonToteSet;
-@dynamic autonCanSet;
-@dynamic autonToteStack;
+@dynamic toteIntakeStep;
+@dynamic litterHP;
 @dynamic autonDrawing;
 @dynamic fieldDrawing;
 @dynamic match;
