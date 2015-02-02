@@ -39,6 +39,7 @@
     @property (nonatomic, weak) IBOutlet UITextField *notes;
 // Alliance Info
     @property (nonatomic, weak) IBOutlet UIButton *alliance;
+
 // Auton Scoring
 @property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
@@ -46,8 +47,22 @@
 @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
 @property (nonatomic, weak) IBOutlet UIButton *noShowButton;
 @property (nonatomic, weak) IBOutlet UIButton *doaButton;
+
 // TeleOp Scoring
+@property (weak, nonatomic) IBOutlet UIButton *toteFloorTopButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteFloorBottomButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteFloorButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteStepTopButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteStepBottomButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteStepButton;
+
 // Human Player
+@property (weak, nonatomic) IBOutlet UIButton *toteHPButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteHPTopButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteHPBottomButton;
+@property (weak, nonatomic) IBOutlet UIButton *litterHPTopButton;
+@property (weak, nonatomic) IBOutlet UIButton *litterHPBottomButton;
+
 // Floor Action
 // Defensive Action
     @property (nonatomic, weak) IBOutlet UIButton *knockoutButton;
@@ -62,25 +77,26 @@
     @property (nonatomic, weak) IBOutlet UITextField *foulTextField;
     @property (weak, nonatomic) IBOutlet UIButton *scouterButton;
     @property (nonatomic, weak) IBOutlet UITextField *scouterTextField;
+
 // Drawing Layers
-//    @property (nonatomic, weak) IBOutlet UIImageView *fieldImage;
-    // A container that holds all the auton drawing pieces
-    @property (weak, nonatomic) IBOutlet UIView *autonLayer;
-    // The trace of the robot in auton
-    @property (weak, nonatomic) IBOutlet UIImageView *autonTrace;
-    // A container for the scored items on the red side in auton
-        @property (weak, nonatomic) IBOutlet UIView *redAutonHotZone;
-    // A container that holds all the tele op drawing pieces
-    @property (weak, nonatomic) IBOutlet UIView *teleOpLayer;
-    // The trace of the robot in tele op
-    @property (weak, nonatomic) IBOutlet UIImageView *teleOpTrace;
+// A container that holds all the auton drawing pieces
+@property (weak, nonatomic) IBOutlet UIView *autonLayer;
+// The trace of the robot in auton
+@property (weak, nonatomic) IBOutlet UIImageView *autonTrace;
+// A container for the scored items on the red side in auton
+@property (weak, nonatomic) IBOutlet UIView *redAutonHotZone;
+// A container that holds all the tele op drawing pieces
+@property (weak, nonatomic) IBOutlet UIView *teleOpLayer;
+// The trace of the robot in tele op
+@property (weak, nonatomic) IBOutlet UIImageView *teleOpTrace;
 
 // A composite (auton and teleOp) for a completed and saved match
-    @property (weak, nonatomic) IBOutlet UIImageView *compositeDrawing;
-    // The field backgroud image layer
-    @property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
+@property (weak, nonatomic) IBOutlet UIImageView *compositeDrawing;
+// The field backgroud image layer
+@property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
 // This is the "main view" that holds all the drawing pieces
-    @property (nonatomic, weak) IBOutlet UIView *imageContainer;
+@property (nonatomic, weak) IBOutlet UIView *imageContainer;
+
 // Segues
     @property (nonatomic, weak) IBOutlet UIButton *matchListButton;
     @property (nonatomic, weak) IBOutlet UIButton *teamEdit;
@@ -1432,69 +1448,6 @@
 }
 
 - (IBAction)humanPickUpsMiss:(id)sender {
-/*    UIButton * PressedButton = (UIButton*)sender;
-    NSLog(@"Miss Human");
-    if (drawMode == DrawDefense || drawMode == DrawTeleop) {
-        [self setDataChange];
-        int score = [_humanMissButton.titleLabel.text intValue];
-        score++;
-        currentScore.humanMiss = [NSNumber numberWithInt:score];
-        [_humanMissButton setTitle:[NSString stringWithFormat:@"%d", [currentScore.humanMiss intValue]] forState:UIControlStateNormal];
-        [self setDataChange];
-        if (PressedButton == _humanMiss1Button) {
-            score = [_humanMiss1Button.titleLabel.text intValue];
-            CGPoint textPoint;
-            CGPoint basePoint;
-            CGFloat interval = 20;
-            basePoint.x = 210;
-            basePoint.y = 45;
-            textPoint.x = basePoint.x + (score%4)*interval;
-            textPoint.y = basePoint.y + (score/4)*interval;
-            [self drawSymbol:humanMissImage location:textPoint];
-            score++;
-            currentScore.humanMiss1 = [NSNumber numberWithInt:score];
-            [_humanMiss1Button setTitle:[NSString stringWithFormat:@"%d", [currentScore.humanMiss1 intValue]] forState:UIControlStateNormal];
-        } else if (PressedButton == _humanMiss2Button) {
-            score = [_humanMiss2Button.titleLabel.text intValue];
-            CGPoint textPoint;
-            CGPoint basePoint;
-            CGFloat interval = 20;
-            basePoint.x = 635;
-            basePoint.y = 45;
-            textPoint.x = basePoint.x - (score%4)*interval;
-            textPoint.y = basePoint.y + (score/4)*interval;
-            [self drawSymbol:humanMissImage location:textPoint];
-            score++;
-            currentScore.humanMiss2 = [NSNumber numberWithInt:score];
-            [_humanMiss2Button setTitle:[NSString stringWithFormat:@"%d", [currentScore.humanMiss2 intValue]] forState:UIControlStateNormal];
-        } else if (PressedButton == _humanMiss3Button) {
-            score = [_humanMiss3Button.titleLabel.text intValue];
-            CGPoint textPoint;
-            CGPoint basePoint;
-            CGFloat interval = 20;
-            basePoint.x = 630;
-            basePoint.y = 365;
-            textPoint.x = basePoint.x - (score%4)*interval;
-            textPoint.y = basePoint.y - (score/4)*interval;
-            [self drawSymbol:humanMissImage location:textPoint];
-            score++;
-            currentScore.humanMiss3 = [NSNumber numberWithInt:score];
-            [_humanMiss3Button setTitle:[NSString stringWithFormat:@"%d", [currentScore.humanMiss3 intValue]] forState:UIControlStateNormal];
-        } else if (PressedButton == _humanMiss4Button) {
-            score = [_humanMiss4Button.titleLabel.text intValue];
-            CGPoint textPoint;
-            CGPoint basePoint;
-            CGFloat interval = 20;
-            basePoint.x = 215;
-            basePoint.y = 365;
-            textPoint.x = basePoint.x + (score%4)*interval;
-            textPoint.y = basePoint.y - (score/4)*interval;
-            [self drawSymbol:humanMissImage location:textPoint];
-            score++;
-            currentScore.humanMiss4 = [NSNumber numberWithInt:score];
-            [_humanMiss4Button setTitle:[NSString stringWithFormat:@"%d", [currentScore.humanMiss4 intValue]] forState:UIControlStateNormal];
-        }
-    }*/
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -1658,6 +1611,32 @@
     [self drawModeSettings:drawMode];
 
 }
+
+- (IBAction)buttonIntakeAction:(id)sender {
+    UIButton * PressedButton = (UIButton*)sender;
+    NSLog(@"Tote Intake");
+    [self setDataChange];
+    if (PressedButton == _toteHPTopButton) {
+        [self updateButton:_toteHPTopButton forKey:@"toteHPTop" forAction:@"Increment"];
+        [self updateButton:_toteHPButton forKey:@"toteIntakeHP" forAction:@"Increment"];
+     } else if (PressedButton == _toteHPBottomButton) {
+         [self updateButton:_toteHPBottomButton forKey:@"toteHPBottom" forAction:@"Increment"];
+         [self updateButton:_toteHPButton forKey:@"toteIntakeHP" forAction:@"Increment"];
+     } else if (PressedButton == _toteStepTopButton) {
+         [self updateButton:_toteStepTopButton forKey:@"toteHPTop" forAction:@"Increment"];
+         [self updateButton:_toteStepButton forKey:@"toteIntakeStep" forAction:@"Increment"];
+     }
+    /*     CGPoint textPoint;
+     CGPoint basePoint;
+     CGFloat interval = 20;
+     basePoint.x = 210;
+     basePoint.y = 45;
+     textPoint.x = basePoint.x + (score%4)*interval;
+     textPoint.y = basePoint.y + (score/4)*interval;
+     [self drawSymbol:humanMissImage location:textPoint];*/
+
+}
+
 
 -(void)totePickUp:(UITapGestureRecognizer *)gestureRecognizer {
   //  if ([gestureRecognizer view] == _fieldImage) NSLog(@"Yeah!");
@@ -2088,7 +2067,6 @@
         }
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextStrokePath(UIGraphicsGetCurrentContext());
-        NSLog(@"figure out how to get the correct view");
         currentView.image = UIGraphicsGetImageFromCurrentImageContext();
         [currentView setAlpha:opacity];
         UIGraphicsEndImageContext();
@@ -2249,18 +2227,23 @@
     currentScore.deadOnArrival = [NSNumber numberWithBool:NO];
     currentScore.driverRating = [NSNumber numberWithInt:0];
     currentScore.fouls = [NSNumber numberWithInt:0];
-    currentScore.humanMiss = [NSNumber numberWithInt:0];
-    currentScore.humanMiss1 = [NSNumber numberWithInt:0];
-    currentScore.humanMiss2 = [NSNumber numberWithInt:0];
-    currentScore.humanMiss3 = [NSNumber numberWithInt:0];
-    currentScore.humanMiss4 = [NSNumber numberWithInt:0];
-    currentScore.humanPickUp = [NSNumber numberWithInt:0];
-    currentScore.humanPickUp1 = [NSNumber numberWithInt:0];
-    currentScore.humanPickUp2 = [NSNumber numberWithInt:0];
-    currentScore.humanPickUp3 = [NSNumber numberWithInt:0];
-    currentScore.humanPickUp4 = [NSNumber numberWithInt:0];
-    currentScore.intakeRating = [NSNumber numberWithInt:0];
-//    currentScore.knockout = [NSNumber numberWithInt:0];
+    
+    currentScore.toteIntakeHP = [NSNumber numberWithInt:0];
+    currentScore.toteHPTop = [NSNumber numberWithInt:0];
+    currentScore.toteHPBottom = [NSNumber numberWithInt:0];
+
+    currentScore.litterHP = [NSNumber numberWithInt:0];
+    currentScore.litterHPTop = [NSNumber numberWithInt:0];
+    currentScore.litterHPBottom = [NSNumber numberWithInt:0];
+
+    currentScore.toteIntakeFloor = [NSNumber numberWithInt:0];
+    currentScore.toteFloorTop = [NSNumber numberWithInt:0];
+    currentScore.toteFloorBottom = [NSNumber numberWithInt:0];
+
+    currentScore.toteIntakeStep = [NSNumber numberWithInt:0];
+    currentScore.toteStepTop = [NSNumber numberWithInt:0];
+    currentScore.toteStepBottom = [NSNumber numberWithInt:0];
+
     currentScore.noShow = [NSNumber numberWithBool:NO];
     currentScore.notes = @"";
     currentScore.otherRating = [NSNumber numberWithInt:0];
@@ -2369,14 +2352,29 @@
     overrideMode = NoOverride;
     _teamName.font = [UIFont fontWithName:@"Helvetica" size:24.0];
 
+    // Match Control
     [self setTextBoxDefaults:_matchNumber forSize:24.0];
     [self setBigButtonDefaults:_prevMatch];
     [self setBigButtonDefaults:_nextMatch];
     [self setTextBoxDefaults:_matchNumber forSize:24.0];
     [self setBigButtonDefaults:_matchType];
+    [self setBigButtonDefaults:_alliance];
     [self setBigButtonDefaults:_teamNumber];
     
-//    [self setBigButtonDefaults:_knockoutButton];
+    // Buttons on the drawing
+    [self setSmallButtonDefaults:_toteHPTopButton];
+    [self setSmallButtonDefaults:_toteHPBottomButton];
+
+    [self setSmallButtonDefaults:_litterHPTopButton];
+    [self setSmallButtonDefaults:_litterHPBottomButton];
+
+    [self setSmallButtonDefaults:_toteFloorTopButton];
+    [self setSmallButtonDefaults:_toteFloorBottomButton];
+
+    [self setSmallButtonDefaults:_toteStepTopButton];
+    [self setSmallButtonDefaults:_toteStepBottomButton];
+
+    //    [self setBigButtonDefaults:_knockoutButton];
     [self setSmallButtonDefaults:_eraserButton];
     [self setTextBoxDefaults:_foulTextField forSize:18.0];
     [self setTextBoxDefaults:_scouterTextField forSize:18.0];
@@ -2394,7 +2392,7 @@
     [self setSmallButtonDefaults:_driverRating];
     [self setSmallButtonDefaults:_intakeRatingButton];
     [self setTextBoxDefaults:_notes forSize:24.0];
-    [self setBigButtonDefaults:_alliance];
+
 }
 
 -(void)setTextBoxDefaults:(UITextField *)currentTextField forSize:(float)fontSize {
