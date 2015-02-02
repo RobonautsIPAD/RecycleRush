@@ -39,9 +39,7 @@
 		2F369CA11A7C8F3100CAD6C0 /* pitScoutingImagePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */; };
 		2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */; };
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
-		2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC8E1A7D5541005E6051 /* LICENSE */; };
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
-		2F49FC941A7D6D2F005E6051 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC931A7D6D2F005E6051 /* MatchList.csv */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
 		2F5617591A7C230F00C99FCD /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5617581A7C230F00C99FCD /* FieldDrawing.m */; };
@@ -195,6 +193,7 @@
 		2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF00D6D1A7AA384003B63DF /* Red 2015.png */; };
 		2FF58B731A7C5CC300BA280A /* Match Scouting Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */; };
 		2FF58B751A7C5DC500BA280A /* Justin_R.ai in Resources */ = {isa = PBXBuildFile; fileRef = 2FF58B741A7C5DC500BA280A /* Justin_R.ai */; };
+		2FF623161A7EEAB600145547 /* Blue 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF623151A7EEAB600145547 /* Blue 2015.png */; };
 		2FF6800817261BA30003F86A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF6800717261BA30003F86A /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
@@ -259,7 +258,6 @@
 		2F49FC8E1A7D5541005E6051 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = RecycleRush/DataImport/LICENSE; sourceTree = SOURCE_ROOT; };
 		2F49FC901A7D5551005E6051 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
 		2F49FC911A7D5551005E6051 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
-		2F49FC931A7D6D2F005E6051 /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = RecycleRush/Resources/MatchList.csv; sourceTree = "<group>"; };
 		2F5247DB1963B2C900468E4F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Common/DataManagement/DataManager.h; sourceTree = SOURCE_ROOT; };
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -485,6 +483,7 @@
 		2FF00D6D1A7AA384003B63DF /* Red 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Red 2015.png"; path = "RecycleRush/Resources/FieldImages/Red 2015.png"; sourceTree = SOURCE_ROOT; };
 		2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Match Scouting Button.jpg"; sourceTree = SOURCE_ROOT; };
 		2FF58B741A7C5DC500BA280A /* Justin_R.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Justin_R.ai; sourceTree = SOURCE_ROOT; };
+		2FF623151A7EEAB600145547 /* Blue 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blue 2015.png"; path = "RecycleRush/Resources/FieldImages/Blue 2015.png"; sourceTree = SOURCE_ROOT; };
 		2FF6800717261BA30003F86A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -515,6 +514,7 @@
 		2F28D7731A793E6B00491092 /* FieldImages */ = {
 			isa = PBXGroup;
 			children = (
+				2FF623151A7EEAB600145547 /* Blue 2015.png */,
 				2FF00D6D1A7AA384003B63DF /* Red 2015.png */,
 				2F22D6FD1A79C7EE006C109E /* AutonSP.png */,
 			);
@@ -524,7 +524,6 @@
 		2F30EAAC16A0EB4F0026B258 = {
 			isa = PBXGroup;
 			children = (
-				2F49FC931A7D6D2F005E6051 /* MatchList.csv */,
 				2F30EAC316A0EB4F0026B258 /* RecycleRush */,
 				2F30EABA16A0EB4F0026B258 /* Frameworks */,
 				2F30EAB816A0EB4F0026B258 /* Products */,
@@ -1136,6 +1135,7 @@
 				2F5D52051A743E84008F1100 /* blue background.png in Resources */,
 				2F5D520D1A74563F008F1100 /* 89c45ee1b54de7ab5429de77212f4643_bigger.png in Resources */,
 				2F5D520F1A746095008F1100 /* images.jpeg in Resources */,
+				2FF623161A7EEAB600145547 /* Blue 2015.png in Resources */,
 				2F5D52141A748296008F1100 /* images.png in Resources */,
 				2F5D52151A748296008F1100 /* images-2.jpeg in Resources */,
 				2F5D52161A748296008F1100 /* images-1.jpeg in Resources */,

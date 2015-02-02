@@ -3818,19 +3818,41 @@
                                 <rect key="frame" x="20" y="62" width="520" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Auton Game Trace">
+                                    <imageView contentMode="scaleToFill" id="qNz-YY-SLl" userLabel="Image View Field Map">
                                         <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView contentMode="scaleToFill" image="Red 2015.png" id="qNz-YY-SLl" userLabel="Image View Field Map">
-                                        <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
+                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="5IG-nf-CXu" userLabel="Auton Layer">
+                                        <rect key="frame" x="172" y="-55" width="260" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" id="vgM-qd-p0c" userLabel="Red Auton Hot Zone">
-                                        <rect key="frame" x="156" y="192" width="260" height="260"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <subviews>
+                                            <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Auton Game Trace">
+                                                <rect key="frame" x="10" y="45" width="150" height="150"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <view hidden="YES" contentMode="scaleToFill" id="vgM-qd-p0c" userLabel="Red Auton Hot Zone">
+                                                <rect key="frame" x="102" y="97" width="150" height="150"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
+                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Hxm-iz-acD" userLabel="TeleOp Layer">
+                                        <rect key="frame" x="10" y="240" width="260" height="260"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView contentMode="scaleToFill" id="Oku-X9-Z2T" userLabel="TeleOp Game Trace">
+                                                <rect key="frame" x="10" y="45" width="150" height="150"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Small Green Button.jpg" id="exX-JL-H7Q" userLabel="Composite Drawing">
+                                        <rect key="frame" x="332" y="130" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -3994,7 +4016,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ion-7h-dD1" userLabel="Button - Eraser">
-                                <rect key="frame" x="466" y="661.5" width="63" height="44"/>
+                                <rect key="frame" x="467" y="602" width="63" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Eraser">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4059,7 +4081,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M2b-Ef-piz">
-                                <rect key="frame" x="339" y="660.5" width="117" height="45"/>
+                                <rect key="frame" x="342" y="602" width="117" height="45"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Auton/Tele-Op">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4073,7 +4095,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="002-EG-WgU">
-                                <rect key="frame" x="20" y="646" width="124" height="66"/>
+                                <rect key="frame" x="20" y="604" width="124" height="66"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Timer Display">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4254,8 +4276,10 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="alliance" destination="9Nb-zq-gJk" id="4mI-UA-DrI"/>
+                        <outlet property="autonLayer" destination="5IG-nf-CXu" id="e39-Pt-Zbv"/>
                         <outlet property="autonTrace" destination="RvX-YB-hOX" id="8f3-7C-jSe"/>
                         <outlet property="backgroundImage" destination="qNz-YY-SLl" id="QDP-4d-Knh"/>
+                        <outlet property="compositeDrawing" destination="exX-JL-H7Q" id="ImJ-K4-pmY"/>
                         <outlet property="drawModeButton" destination="M2b-Ef-piz" id="eLZ-FH-RYE"/>
                         <outlet property="imageContainer" destination="6Qn-p6-4MN" id="dpe-Lz-yBU"/>
                         <outlet property="matchNumber" destination="dZc-4T-78p" id="mEw-cB-T3v"/>
@@ -4266,6 +4290,8 @@
                         <outlet property="scouterButton" destination="rnV-Ns-SKZ" id="wJl-6F-ZAY"/>
                         <outlet property="teamName" destination="xcI-CG-2jD" id="O4q-Wz-egw"/>
                         <outlet property="teamNumber" destination="TmH-ak-QdU" id="zM6-fG-VAO"/>
+                        <outlet property="teleOpLayer" destination="Hxm-iz-acD" id="SE9-GH-oOD"/>
+                        <outlet property="teleOpTrace" destination="Oku-X9-Z2T" id="iuy-Jp-RYa"/>
                     </connections>
                 </viewController>
                 <imageView contentMode="scaleToFill" id="WPM-7H-iNG" userLabel="Image View Game Trace">
@@ -7660,7 +7686,7 @@
         <image name="89c45ee1b54de7ab5429de77212f4643_bigger.png" width="73" height="73"/>
         <image name="Blue.png" width="626" height="622"/>
         <image name="RadioButton-Unselected.png" width="20" height="21"/>
-        <image name="Red 2015.png" width="576" height="575"/>
+        <image name="Small Green Button.jpg" width="322" height="135"/>
         <image name="banner copy.png" width="1280" height="300"/>
         <image name="button_robonaut_gold.png" width="518" height="194"/>
         <image name="home image.004.png" width="484" height="370"/>
