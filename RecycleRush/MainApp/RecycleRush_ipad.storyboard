@@ -3823,11 +3823,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="5IG-nf-CXu" userLabel="Auton Layer">
-                                        <rect key="frame" x="172" y="-55" width="260" height="260"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView contentMode="scaleToFill" id="RvX-YB-hOX" userLabel="Auton Game Trace">
-                                                <rect key="frame" x="10" y="45" width="150" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <view hidden="YES" contentMode="scaleToFill" id="vgM-qd-p0c" userLabel="Red Auton Hot Zone">
@@ -3836,7 +3836,6 @@
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Hxm-iz-acD" userLabel="TeleOp Layer">
                                         <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>

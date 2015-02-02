@@ -173,6 +173,9 @@
     PopUpPickerViewController *scouterNamePicker;
     UIPopoverController *scouterNamePickerPopover;
     
+    // Tote stack slider
+    UISlider *toteStackSlider;
+    
     UITapGestureRecognizer *tapPressGesture;
     UITapGestureRecognizer *doubleTapGestureRecognizer;
     UITapGestureRecognizer *tripleTapGesture;
@@ -269,6 +272,20 @@
     matchDictionary = _dataManager.matchTypeDictionary;
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
 
+/*    toteStackSlider = [[UISlider alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [toteStackSlider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+    [toteStackSlider setBackgroundColor:[UIColor clearColor]];
+    toteStackSlider.minimumValue = 0.0;
+    toteStackSlider.maximumValue = 6.0;
+    toteStackSlider.continuous = YES;
+    toteStackSlider.value = 25.0;
+ //   CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 0.5);
+ //   toteStackSlider.transform = trans;
+    UIImage *sliderTrackImage = [[UIImage imageNamed: @"ios-7-camera-icon.png"] stretchableImageWithLeftCapWidth: 7 topCapHeight: 0];
+    
+    [toteStackSlider setMinimumTrackImage: sliderTrackImage forState: UIControlStateNormal];
+    [toteStackSlider setMaximumTrackImage: sliderTrackImage forState: UIControlStateNormal];
+    */
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     NSLog(@"add check for valid match");
@@ -1623,9 +1640,20 @@
          [self updateButton:_toteHPBottomButton forKey:@"toteHPBottom" forAction:@"Increment"];
          [self updateButton:_toteHPButton forKey:@"toteIntakeHP" forAction:@"Increment"];
      } else if (PressedButton == _toteStepTopButton) {
-         [self updateButton:_toteStepTopButton forKey:@"toteHPTop" forAction:@"Increment"];
+         [self updateButton:_toteStepTopButton forKey:@"toteStepTop" forAction:@"Increment"];
          [self updateButton:_toteStepButton forKey:@"toteIntakeStep" forAction:@"Increment"];
+     } else if (PressedButton == _toteStepBottomButton) {
+         [self updateButton:_toteStepBottomButton forKey:@"toteStepBottom" forAction:@"Increment"];
+         [self updateButton:_toteStepButton forKey:@"toteIntakeStep" forAction:@"Increment"];
+     } else if (PressedButton == _toteFloorTopButton) {
+         [self updateButton:_toteFloorTopButton forKey:@"toteFloorTop" forAction:@"Increment"];
+         [self updateButton:_toteFloorButton forKey:@"toteIntakeFloor" forAction:@"Increment"];
+     } else if (PressedButton == _toteFloorBottomButton) {
+         [self updateButton:_toteFloorBottomButton forKey:@"toteFloorBottom" forAction:@"Increment"];
+         [self updateButton:_toteFloorButton forKey:@"toteIntakeFloor" forAction:@"Increment"];
      }
+
+
     /*     CGPoint textPoint;
      CGPoint basePoint;
      CGFloat interval = 20;
@@ -1681,6 +1709,7 @@
         }
     }
     else {
+        [self.teleOpLayer addSubview:toteStackSlider];
         NSString *marker = @"Not yet";
         currentPoint = [gestureRecognizer locationInView:_teleOpTrace];
         [self drawText:marker location:currentPoint inView:_teleOpTrace];
