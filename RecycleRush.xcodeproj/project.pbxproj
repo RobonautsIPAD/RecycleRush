@@ -41,7 +41,6 @@
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
 		2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC8E1A7D5541005E6051 /* LICENSE */; };
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
-		2F49FC941A7D6D2F005E6051 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F49FC931A7D6D2F005E6051 /* MatchList.csv */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
 		2F5617591A7C230F00C99FCD /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5617581A7C230F00C99FCD /* FieldDrawing.m */; };
@@ -259,7 +258,6 @@
 		2F49FC8E1A7D5541005E6051 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = RecycleRush/DataImport/LICENSE; sourceTree = SOURCE_ROOT; };
 		2F49FC901A7D5551005E6051 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
 		2F49FC911A7D5551005E6051 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
-		2F49FC931A7D6D2F005E6051 /* MatchList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MatchList.csv; path = RecycleRush/Resources/MatchList.csv; sourceTree = "<group>"; };
 		2F5247DB1963B2C900468E4F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Common/DataManagement/DataManager.h; sourceTree = SOURCE_ROOT; };
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -524,7 +522,6 @@
 		2F30EAAC16A0EB4F0026B258 = {
 			isa = PBXGroup;
 			children = (
-				2F49FC931A7D6D2F005E6051 /* MatchList.csv */,
 				2F30EAC316A0EB4F0026B258 /* RecycleRush */,
 				2F30EABA16A0EB4F0026B258 /* Frameworks */,
 				2F30EAB816A0EB4F0026B258 /* Products */,
@@ -794,6 +791,9 @@
 			isa = PBXGroup;
 			children = (
 				2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */,
+				2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */,
+				2F5D33041A5FA5F700E02523 /* 2013_logo.png */,
+				2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1120,6 +1120,7 @@
 				2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */,
 				2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */,
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
+				2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */,
 				2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
 				2F5D33391A5FA69E00E02523 /* Intake from Robot Miss.png in Resources */,
