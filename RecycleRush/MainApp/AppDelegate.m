@@ -86,7 +86,7 @@
         LoadCSVData *loadData = [LoadCSVData new];
         inputError |= [loadData handleOpenURL:url];
     }
-    if (inputError) {
+    if (inputError && [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
         [errorViewController setDataManager:_dataManager];
         self.tabletErrorSegue = [[TabletErrorSegue alloc] initWithIdentifier:@"TableInputErrorViewController"
