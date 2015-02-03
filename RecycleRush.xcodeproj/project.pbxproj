@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2F0C92511A769C0100D47EFA /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0C92501A769C0100D47EFA /* Packet.m */; };
+		2F19669E1A805FFE00A7FF34 /* NSData+RoboAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F19669D1A805FFE00A7FF34 /* NSData+RoboAdditions.m */; };
+		2F1966A11A80670600A7FF34 /* PacketQuickRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1966A01A80670600A7FF34 /* PacketQuickRequest.m */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -200,6 +202,10 @@
 /* Begin PBXFileReference section */
 		2F0C924F1A769C0100D47EFA /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
 		2F0C92501A769C0100D47EFA /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = RecycleRush/Network/Packet.m; sourceTree = SOURCE_ROOT; };
+		2F19669C1A805FFE00A7FF34 /* NSData+RoboAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+RoboAdditions.h"; path = "RecycleRush/Network/NSData+RoboAdditions.h"; sourceTree = SOURCE_ROOT; };
+		2F19669D1A805FFE00A7FF34 /* NSData+RoboAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+RoboAdditions.m"; path = "RecycleRush/Network/NSData+RoboAdditions.m"; sourceTree = SOURCE_ROOT; };
+		2F19669F1A80670600A7FF34 /* PacketQuickRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PacketQuickRequest.h; path = RecycleRush/Network/PacketQuickRequest.h; sourceTree = SOURCE_ROOT; };
+		2F1966A01A80670600A7FF34 /* PacketQuickRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PacketQuickRequest.m; path = RecycleRush/Network/PacketQuickRequest.m; sourceTree = SOURCE_ROOT; };
 		2F22D6FD1A79C7EE006C109E /* AutonSP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutonSP.png; path = RecycleRush/Resources/FieldImages/AutonSP.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -955,6 +961,10 @@
 			children = (
 				2F0C924F1A769C0100D47EFA /* Packet.h */,
 				2F0C92501A769C0100D47EFA /* Packet.m */,
+				2F19669F1A80670600A7FF34 /* PacketQuickRequest.h */,
+				2F1966A01A80670600A7FF34 /* PacketQuickRequest.m */,
+				2F19669C1A805FFE00A7FF34 /* NSData+RoboAdditions.h */,
+				2F19669D1A805FFE00A7FF34 /* NSData+RoboAdditions.m */,
 				2FDECA121A6F27AD0007412E /* ConnectionUtility.h */,
 				2FDECA131A6F27AD0007412E /* ConnectionUtility.m */,
 				2FDECA141A6F27AD0007412E /* MatchmakingClient.h */,
@@ -1170,6 +1180,7 @@
 				2F5D329D1A5FA32F00E02523 /* SetUpPageViewController.m in Sources */,
 				2F2ECAA01A5F052300D3386E /* PhoneSyncViewController.m in Sources */,
 				2F5D32AE1A5FA3D000E02523 /* MatchListViewController.m in Sources */,
+				2F1966A11A80670600A7FF34 /* PacketQuickRequest.m in Sources */,
 				2F5D32FB1A5FA51000E02523 /* MatchFlow.m in Sources */,
 				2F8816A41A5FB0D4001CCA04 /* TeamScoreInterfaces.m in Sources */,
 				2F0C92511A769C0100D47EFA /* Packet.m in Sources */,
@@ -1224,6 +1235,7 @@
 				2F2ECA9C1A5F052300D3386E /* ExportTeamData.m in Sources */,
 				2F5D33001A5FA51000E02523 /* SyncMethods.m in Sources */,
 				2F5D327E1A5FA24300E02523 /* TeamAnalysisViewController.m in Sources */,
+				2F19669E1A805FFE00A7FF34 /* NSData+RoboAdditions.m in Sources */,
 				2F2ECA991A5F052300D3386E /* DataSync.m in Sources */,
 				2F5D32C51A5FA45300E02523 /* ImportDeviceViewController.m in Sources */,
 				2F5D32971A5FA32F00E02523 /* iPhoneMainViewController.m in Sources */,

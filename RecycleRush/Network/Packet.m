@@ -7,6 +7,7 @@
 //
 
 #import "Packet.h"
+#import "NSData+RoboAdditions.h"
 /*#import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
 #import "PacketOtherClientQuit.h"
@@ -34,8 +35,8 @@ const size_t PACKET_HEADER_SIZE = 10;
 		NSLog(@"Error: Packet too small");
 		return nil;
 	}
-/*
-	if ([data rw_int32AtOffset:0] != 'SNAP')
+
+	if ([data rw_int32AtOffset:0] != 'Robo')
 	{
 		NSLog(@"Error: Packet has invalid header");
 		return nil;
@@ -45,7 +46,7 @@ const size_t PACKET_HEADER_SIZE = 10;
 	PacketType packetType = [data rw_int16AtOffset:8];
     
 	Packet *packet;
-    
+ /*
 	switch (packetType)
 	{
 		case PacketTypeSignInRequest:
@@ -105,7 +106,7 @@ const size_t PACKET_HEADER_SIZE = 10;
 {
 	NSMutableData *data = [[NSMutableData alloc] initWithCapacity:100];
 /*
-	[data rw_appendInt32:'SNAP'];   // 0x534E4150
+	[data rw_appendInt32:'Robo'];   // 0x534E4150
 	[data rw_appendInt32:self.packetNumber];
 	[data rw_appendInt16:self.packetType];
     
