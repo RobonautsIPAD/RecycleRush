@@ -44,6 +44,7 @@
     @property (nonatomic, weak) IBOutlet UITextField *cims;
     @property (nonatomic, weak) IBOutlet UIButton *cameraBtn;
     @property (nonatomic, strong) UIPopoverController *pictureController;
+@property (weak, nonatomic) IBOutlet UIButton *teamInfoButton;
     @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
     @property (nonatomic, weak) IBOutlet UITableView *regionalInfo;
     @property (nonatomic, strong) UIImagePickerController *imagePickerController;
@@ -175,8 +176,15 @@
  
     // Set defaults for all the text boxes
  
-   
-
+   // Set defaults for all the buttons
+    [self setBigButtonDefaults:_intakeType];
+    [self setBigButtonDefaults:_canIntakeButton];
+    [self setBigButtonDefaults:_liftTypeButton];
+    [self setBigButtonDefaults:_stackLevelButton];
+    [self setBigButtonDefaults:_driveType];
+    [self setBigButtonDefaults:_matchOverlayButton];
+    [self setBigButtonDefaults:_teamInfoButton];
+    
     //sets text colors for "shoots" buttons relative to UIControllerState
     
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
