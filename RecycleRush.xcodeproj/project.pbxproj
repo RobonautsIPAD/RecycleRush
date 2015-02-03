@@ -799,6 +799,9 @@
 			isa = PBXGroup;
 			children = (
 				2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */,
+				2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */,
+				2F5D33041A5FA5F700E02523 /* 2013_logo.png */,
+				2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 				2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */,
 				2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */,
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
+				2F49FC8F1A7D5541005E6051 /* LICENSE in Resources */,
 				2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
 				2F5D33391A5FA69E00E02523 /* Intake from Robot Miss.png in Resources */,
