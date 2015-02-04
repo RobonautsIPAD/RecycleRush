@@ -68,9 +68,13 @@
             [valueList addObject:[score valueForKey:item]];
         }
     }
-    if (score.fieldDrawing && score.fieldDrawing.trace) {
-        [keyList addObject:@"fieldDrawing"];
-        [valueList addObject:score.fieldDrawing.trace];
+    if (score.autonDrawing && score.autonDrawing.trace) {
+        [keyList addObject:@"autonDrawing"];
+        [valueList addObject:score.autonDrawing.trace];
+    }
+    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
+        [keyList addObject:@"teleOpDrawing"];
+        [valueList addObject:score.teleOpDrawing.trace];
     }
  /*   if (score.team) {
         [keyList addObject:@"teamNumber"];
@@ -93,7 +97,7 @@
 }
 
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData {
-    if (!_dataManager) return Nil;
+/*    if (!_dataManager) return Nil;
     NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
     NSString *matchType = [myDictionary objectForKey:@"matchType"];
@@ -215,7 +219,7 @@
         // Add the score record for this team
         TeamScore *newScore = [self addScore:team forAlliance:alliance forTournament:match.tournamentName];
         if (newScore) [match addScoreObject:newScore];
-    }
+    }*/
 }
 
 -(TeamScore *)addScore:(TeamData *)team

@@ -79,21 +79,13 @@
     @property (nonatomic, weak) IBOutlet UITextField *scouterTextField;
 
 // Drawing Layers
-// A container that holds all the auton drawing pieces
-@property (weak, nonatomic) IBOutlet UIView *autonLayer;
 // The trace of the robot in auton
 @property (weak, nonatomic) IBOutlet UIImageView *autonTrace;
-// A container for the scored items on the red side in auton
-@property (weak, nonatomic) IBOutlet UIView *redAutonHotZone;
-// A container that holds all the tele op drawing pieces
-@property (weak, nonatomic) IBOutlet UIView *teleOpLayer;
 // The trace of the robot in tele op
 @property (weak, nonatomic) IBOutlet UIImageView *teleOpTrace;
-
-// A composite (auton and teleOp) for a completed and saved match
-@property (weak, nonatomic) IBOutlet UIImageView *compositeDrawing;
 // The field backgroud image layer
 @property (nonatomic, weak) IBOutlet UIImageView *backgroundImage;
+
 // This is the "main view" that holds all the drawing pieces
 @property (nonatomic, weak) IBOutlet UIView *imageContainer;
 
@@ -428,7 +420,7 @@
     //    NSLog(@"Check to Save");
     NSLog (@"Data changed: %@", dataChange ? @"YES" : @"NO");
     if (fieldDrawingChange) {
-        // Save the picture
+/*        // Save the picture
         if (!currentScore.fieldDrawing) {
             FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
                                                         inManagedObjectContext:_dataManager.managedObjectContext];
@@ -444,7 +436,7 @@
         NSError *error;
         if (![_dataManager.managedObjectContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
+        }*/
         dataChange = NO;
     }
 }
@@ -1603,17 +1595,29 @@
     }
     if ([currentScore.results boolValue]) {
         drawMode = DrawLock;
-        [_compositeDrawing setHidden:FALSE];
-        [_autonLayer setHidden:TRUE];
+        if (currentScore.autonDrawing.trace) {
+            [_autonTrace setImage:[UIImage imageWithData:currentScore.autonDrawing.trace]];
+        }
+        else {
+            [_autonTrace setImage:[[UIImage alloc] init]];
+        }
+        if (currentScore.teleOpDrawing.trace) {
+            [_teleOpTrace setImage:[UIImage imageWithData:currentScore.teleOpDrawing.trace]];
+        }
+        else {
+            [_teleOpTrace setImage:[[UIImage alloc] init]];
+        }
+        [_autonTrace setHidden:FALSE];
+        [_teleOpTrace setHidden:FALSE];
         NSLog(@"Load composite image");
         startPoint = TRUE;
     }
     else {
         drawMode = DrawOff;
-        [_compositeDrawing setHidden:TRUE];
-        [_autonLayer setHidden:FALSE];
         [_autonTrace setImage:[[UIImage alloc] init]];
-        [_teleOpLayer setHidden:TRUE];
+        [_autonTrace setHidden:FALSE];
+        [_teleOpTrace setImage:[[UIImage alloc] init]];
+        [_teleOpTrace setHidden:TRUE];
         startPoint = FALSE;
     }
 /*
@@ -1709,10 +1713,10 @@
         }
     }
     else {
-        [self.teleOpLayer addSubview:toteStackSlider];
+/*        [self.teleOpLayer addSubview:toteStackSlider];
         NSString *marker = @"Not yet";
         currentPoint = [gestureRecognizer locationInView:_teleOpTrace];
-        [self drawText:marker location:currentPoint inView:_teleOpTrace];
+        [self drawText:marker location:currentPoint inView:_teleOpTrace];*/
     }
 }
 
@@ -1867,8 +1871,8 @@
 }
 
 -(void)activateAuton {
-    _autonLayer.userInteractionEnabled = TRUE;
-    [_autonLayer setHidden:FALSE];
+    _autonTrace.userInteractionEnabled = TRUE;
+    [_autonTrace setHidden:FALSE];
     [_autonTrace addGestureRecognizer:tripleTapGesture];
     [_autonTrace addGestureRecognizer:doubleTapGestureRecognizer];
     [_autonTrace addGestureRecognizer:drawGesture];
@@ -1876,8 +1880,8 @@
 }
 
 -(void)deactivateAuton {
-    _autonLayer.userInteractionEnabled = FALSE;
-    [_autonLayer setHidden:TRUE];
+    _autonTrace.userInteractionEnabled = FALSE;
+    [_autonTrace setHidden:TRUE];
     [_autonTrace removeGestureRecognizer:tripleTapGesture];
     [_autonTrace removeGestureRecognizer:doubleTapGestureRecognizer];
     [_autonTrace removeGestureRecognizer:drawGesture];
@@ -1885,8 +1889,8 @@
 }
 
 -(void)activateTeleOp {
-    _teleOpLayer.userInteractionEnabled = TRUE;
-    [_teleOpLayer setHidden:FALSE];
+    _teleOpTrace.userInteractionEnabled = TRUE;
+    [_teleOpTrace setHidden:FALSE];
     [_teleOpTrace setHidden:FALSE];
     [_teleOpTrace addGestureRecognizer:tripleTapGesture];
     [_teleOpTrace addGestureRecognizer:doubleTapGestureRecognizer];
@@ -1895,8 +1899,8 @@
 }
 
 -(void)deactivateTeleOp {
-    _teleOpLayer.userInteractionEnabled = FALSE;
-    [_teleOpLayer setHidden:TRUE];
+    _teleOpTrace.userInteractionEnabled = FALSE;
+    [_teleOpTrace setHidden:TRUE];
     [_teleOpTrace removeGestureRecognizer:tripleTapGesture];
     [_teleOpTrace removeGestureRecognizer:doubleTapGestureRecognizer];
     [_teleOpTrace removeGestureRecognizer:drawGesture];
@@ -2230,7 +2234,6 @@
             drawMode = DrawOff;
             [self drawModeSettings:drawMode];
             NSLog(@"Load real saved drawing");
-            [_compositeDrawing setHidden:TRUE];
             [self activateAuton];
         }
     }
@@ -2290,7 +2293,8 @@
     currentScore.totalAutonShots = [NSNumber numberWithInt:0];
     currentScore.totalPasses = [NSNumber numberWithInt:0];
     currentScore.totalTeleOpShots = [NSNumber numberWithInt:0];
-    currentScore.fieldDrawing.trace = nil;
+    currentScore.autonDrawing.trace = nil;
+    currentScore.teleOpDrawing.trace = nil;
 
     NSError *error;
     if (![_dataManager.managedObjectContext save:&error]) {

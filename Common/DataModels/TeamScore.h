@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/2/15.
+//  Created by FRC on 2/3/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -29,15 +29,10 @@
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * fouls;
-@property (nonatomic, retain) NSNumber * toteFloorTop;
-@property (nonatomic, retain) NSNumber * toteFloorBottom;
-@property (nonatomic, retain) NSNumber * toteStepTop;
-@property (nonatomic, retain) NSNumber * toteStepBottom;
-@property (nonatomic, retain) NSNumber * toteHPBottom;
-@property (nonatomic, retain) NSNumber * toteHPTop;
-@property (nonatomic, retain) NSNumber * litterHPTop;
-@property (nonatomic, retain) NSNumber * litterHPBottom;
 @property (nonatomic, retain) NSNumber * intakeRating;
+@property (nonatomic, retain) NSNumber * litterHP;
+@property (nonatomic, retain) NSNumber * litterHPBottom;
+@property (nonatomic, retain) NSNumber * litterHPTop;
 @property (nonatomic, retain) NSNumber * matchNumber;
 @property (nonatomic, retain) NSNumber * matchType;
 @property (nonatomic, retain) NSNumber * noShow;
@@ -63,13 +58,18 @@
 @property (nonatomic, retain) NSNumber * totalAutonShots;
 @property (nonatomic, retain) NSNumber * totalPasses;
 @property (nonatomic, retain) NSNumber * totalTeleOpShots;
+@property (nonatomic, retain) NSNumber * toteFloorBottom;
+@property (nonatomic, retain) NSNumber * toteFloorTop;
+@property (nonatomic, retain) NSNumber * toteHPBottom;
+@property (nonatomic, retain) NSNumber * toteHPTop;
 @property (nonatomic, retain) NSNumber * toteIntakeFloor;
 @property (nonatomic, retain) NSNumber * toteIntakeHP;
-@property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * toteIntakeStep;
-@property (nonatomic, retain) NSNumber * litterHP;
+@property (nonatomic, retain) NSNumber * toteStepBottom;
+@property (nonatomic, retain) NSNumber * toteStepTop;
+@property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
-@property (nonatomic, retain) FieldDrawing *fieldDrawing;
+@property (nonatomic, retain) FieldDrawing *teleOpDrawing;
 @property (nonatomic, retain) MatchData *match;
 
 @end

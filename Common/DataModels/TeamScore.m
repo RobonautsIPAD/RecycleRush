@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/2/15.
+//  Created by FRC on 2/3/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -29,15 +29,10 @@
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fouls;
-@dynamic toteFloorTop;
-@dynamic toteFloorBottom;
-@dynamic toteStepTop;
-@dynamic toteStepBottom;
-@dynamic toteHPBottom;
-@dynamic toteHPTop;
-@dynamic litterHPTop;
-@dynamic litterHPBottom;
 @dynamic intakeRating;
+@dynamic litterHP;
+@dynamic litterHPBottom;
+@dynamic litterHPTop;
 @dynamic matchNumber;
 @dynamic matchType;
 @dynamic noShow;
@@ -63,13 +58,18 @@
 @dynamic totalAutonShots;
 @dynamic totalPasses;
 @dynamic totalTeleOpShots;
+@dynamic toteFloorBottom;
+@dynamic toteFloorTop;
+@dynamic toteHPBottom;
+@dynamic toteHPTop;
 @dynamic toteIntakeFloor;
 @dynamic toteIntakeHP;
-@dynamic tournamentName;
 @dynamic toteIntakeStep;
-@dynamic litterHP;
+@dynamic toteStepBottom;
+@dynamic toteStepTop;
+@dynamic tournamentName;
 @dynamic autonDrawing;
-@dynamic fieldDrawing;
+@dynamic teleOpDrawing;
 @dynamic match;
 
 @end

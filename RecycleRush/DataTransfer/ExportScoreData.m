@@ -340,9 +340,13 @@
             // }
         }
     }
-    if (score.fieldDrawing && score.fieldDrawing.trace) {
-        [keyList addObject:@"fieldDrawing"];
-        [valueList addObject:score.fieldDrawing.trace];
+    if (score.autonDrawing && score.autonDrawing.trace) {
+        [keyList addObject:@"autonDrawing"];
+        [valueList addObject:score.autonDrawing.trace];
+    }
+    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
+        [keyList addObject:@"teleOpDrawing"];
+        [valueList addObject:score.teleOpDrawing.trace];
     }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
