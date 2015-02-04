@@ -137,12 +137,12 @@
 }
 
 -(void)loadFieldDrawing {
-    if (currentScore.fieldDrawing.trace) {
+/*    if (currentScore.fieldDrawing.trace) {
         [_fieldImage setImage:[UIImage imageWithData:currentScore.fieldDrawing.trace]];
     }
     else {
         [_fieldImage setImage:nil];
-    }
+    }*/
 }
 
 - (IBAction)nextMatch:(id)sender {

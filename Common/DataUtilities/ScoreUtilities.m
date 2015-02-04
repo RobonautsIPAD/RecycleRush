@@ -204,17 +204,25 @@
         if ([key isEqualToString:@"matchType"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"tournamentName"]) continue; // Already resolved
         if ([key isEqualToString:@"teamNumber"]) continue; // Comes with the relationship
-        if ([key isEqualToString:@"fieldDrawing"]) continue; // Needs
+        if ([key isEqualToString:@"autonDrawing"]) continue; // Needs
+        if ([key isEqualToString:@"teleOpDrawing"]) continue; // Needs
         if ([teamScoreAttributes valueForKey:key]) {
             [score setValue:[myDictionary objectForKey:key] forKey:key];
         }
     }
-    if (!score.fieldDrawing) {
+    if (!score.autonDrawing) {
         FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
                                                           inManagedObjectContext:_dataManager.managedObjectContext];
-        score.fieldDrawing = drawing;
+        score.autonDrawing = drawing;
     }
-    score.fieldDrawing.trace = [myDictionary objectForKey:@"fieldDrawing"];
+    score.autonDrawing.trace = [myDictionary objectForKey:@"autonDrawing"];
+
+    if (!score.teleOpDrawing) {
+        FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        score.teleOpDrawing = drawing;
+    }
+    score.teleOpDrawing.trace = [myDictionary objectForKey:@"teleOpDrawing"];
 
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     if (![_dataManager.managedObjectContext save:&error]) {

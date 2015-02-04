@@ -9,7 +9,7 @@
         <attribute name="gameObjects" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="trace" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="autonDrawing" inverseEntity="TeamScore" syncable="YES"/>
-        <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="fieldDrawing" inverseEntity="TeamScore" syncable="YES"/>
+        <relationship name="teleOpDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="teleOpDrawing" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
     <entity name="MatchData" representedClassName="MatchData" syncable="YES">
         <attribute name="blueScore" optional="YES" attributeType="Integer 16" maxValueString="250" defaultValueString="-1" syncable="YES"/>
@@ -182,8 +182,8 @@
         <attribute name="toteStepTop" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="tournamentName" attributeType="String" syncable="YES"/>
         <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FieldDrawing" inverseName="autonDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
-        <relationship name="fieldDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="fieldDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
+        <relationship name="teleOpDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="teleOpDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
     </entity>
     <entity name="TournamentData" representedClassName="TournamentData" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
@@ -191,7 +191,7 @@
     </entity>
     <elements>
         <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
-        <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
+        <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="120"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="630"/>

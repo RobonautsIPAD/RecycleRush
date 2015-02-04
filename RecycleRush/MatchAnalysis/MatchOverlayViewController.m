@@ -64,7 +64,7 @@
     CGFloat yPos = 50;
     NSUInteger count = 0;
     for (TeamScore *score in _matchList) {
-        if ([score.results boolValue] && score.fieldDrawing.trace) {
+/*        if ([score.results boolValue] && score.fieldDrawing.trace) {
             UIImageView *trace =[[UIImageView alloc] initWithFrame:CGRectMake(0,0,848,424)];
             trace.image = [UIImage imageWithData:score.fieldDrawing.trace];
             if ([score.allianceStation intValue] > 2) {
@@ -89,7 +89,7 @@
             [self.view addSubview:button];
             yPos += 25;
             count++;
-        }
+        }*/
     }
     
     teamStats = [[CalculateTeamStats alloc] init:_dataManager];
