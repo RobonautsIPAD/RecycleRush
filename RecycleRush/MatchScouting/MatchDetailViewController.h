@@ -35,12 +35,8 @@ typedef enum {
 @property (nonatomic, strong) AlertPromptViewController *alertPrompt;
 @property (nonatomic, strong) UIPopoverController *alertPromptPopover;
 
--(void)matchNumberChanged:(NSNumber *)number forMatchType:(NSString *)matchType;
-
 -(void)checkOverrideCode;
 
--(BOOL)editTeam:(int)teamNumber forScore:(TeamScore *)score;
--(BOOL)editMatch:(NSNumber *)number forMatchType:(NSString *)matchType;
--(void)setScoreData:(TeamScore *)score;
+//-(void)setScoreData:(TeamScore *)score;
 
 @end

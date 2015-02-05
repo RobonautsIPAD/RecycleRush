@@ -23,6 +23,7 @@
     CGFloat opacity;
     BOOL mouseSwiped;
 }
+
 @property (nonatomic, strong) DataManager *dataManager;
 
 // User Access Control

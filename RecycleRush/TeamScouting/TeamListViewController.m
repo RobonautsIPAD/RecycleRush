@@ -77,7 +77,7 @@
     }
                                      
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
-    headerView.backgroundColor = [UIColor lightGrayColor];
+    headerView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(199/255.0) blue:(000/255.0) alpha:(100.0/100.0)];
     headerView.opaque = YES;
 
 	UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 50)];
@@ -86,28 +86,28 @@
     [headerView addSubview:teamLabel];
 
 	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
-	label1.text = @"Inbound %";
+	label1.text = @"Auton High %";
     label1.backgroundColor = [UIColor clearColor];
     label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
     
- 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(250, 0, 200, 50)];
-	label2.text = @"Auton High %";
+ 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
+	label2.text = @"Cans %";
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
-	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(370, 0, 200, 50)];
-	label3.text = @"High Goal %";
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(375, 0, 200, 50)];
+	label3.text = @"Totes %";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
 	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(490, 0, 200, 50)];
-	label4.text = @"HP Truss %";
+	label4.text = @"HP Totes %";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(590, 0, 200, 50)];
-	label5.text = @"Knockouts";
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(610, 0, 200, 50)];
+	label5.text = @"Litter";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
@@ -117,17 +117,17 @@
     [headerView addSubview:label6];
     
     UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(690, 0, 200, 50)];
-	label7.text = @"Drive";
+	label7.text = @"Driver";
     label7.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label7];
 
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(870, 0, 200, 50)];
-	label8.text = @"Bully";
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(830, 0, 200, 50)];
+	label8.text = @"Blacklisted";
     label8.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label8];
     
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(940, 0, 200, 50)];
-	label9.text = @"Block";
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(920, 0, 200, 50)];
+	label9.text = @"Wow Listed";
     label9.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label9];
 
@@ -297,7 +297,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *lightBlueColor = [UIColor colorWithRed:(154/255.0) green:(212/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
+    UIColor *lightBlueColor = [UIColor colorWithRed:(120/255.0) green:(175/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = lightBlueColor;
     // Xcode 4.6.3 compatibility issue
     //cell.accessoryView.tintColor = [UIColor blackColor];
