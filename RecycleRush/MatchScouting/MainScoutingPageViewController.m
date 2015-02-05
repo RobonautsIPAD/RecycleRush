@@ -1802,6 +1802,7 @@
             }
             else {
                 drawMode = DrawAuton;
+                [self enlargeDrawing];
             }
             break;
         case DrawAuton:
@@ -1870,6 +1871,21 @@
         default:
             break;
     }
+}
+
+-(void)enlargeDrawing {
+/*    float x, y;
+    x = _imageContainer.frame.origin.x;
+    y = _imageContainer.frame.origin.y;
+    NSLog(@"frame = %f, %f, %f, %f", x, y, _imageContainer.frame.size.height, _imageContainer.frame.size.width);
+    NSLog(@"frame = %f, %f, %f, %f", _backgroundImage.frame.origin.x, _backgroundImage.frame.origin.y, _backgroundImage.frame.size.height, _backgroundImage.frame.size.width);
+    NSLog(@"frame = %f, %f, %f, %f", _autonTrace.frame.origin.x, _autonTrace.frame.origin.y, _autonTrace.frame.size.height, _autonTrace.frame.size.width);
+    NSLog(@"frame = %f, %f, %f, %f",  _teleOpTrace.frame.origin.x,  _teleOpTrace.frame.origin.y,  _teleOpTrace.frame.size.height,  _teleOpTrace.frame.size.width);
+    _imageContainer.frame = CGRectMake(x, y-75, 620, 620);
+//    _autonTrace.frame = CGRectMake(x, y-75, 620, 620);
+//    _teleOpTrace.frame = CGRectMake(x, y-75, 620, 620);
+    _backgroundImage.frame = CGRectMake(x, y-75, 620, 620);*/
+
 }
 
 -(void)activateAuton {
