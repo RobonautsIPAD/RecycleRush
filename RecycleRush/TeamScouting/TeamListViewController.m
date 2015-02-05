@@ -207,6 +207,7 @@
     if ([segue.identifier isEqualToString:@"Add"]) {
         // NSLog(@"add");
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        nv.navigationBar.translucent = NO;
         AddTeamViewController *addvc = (AddTeamViewController *)nv.topViewController;
         addvc.delegate = self;
     }
