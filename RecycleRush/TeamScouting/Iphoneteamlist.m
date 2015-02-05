@@ -9,6 +9,7 @@
 #import "Iphoneteamlist.h"
 #import "DataManager.h" 
 #import "TeamData.h"
+#import "pitScoutingImagePage.h"
 @interface Iphoneteamlist ()
 
 @end
@@ -201,6 +202,7 @@
 /*
 #pragma mark - Navigation
 
+ 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -209,6 +211,24 @@
 }
 
  */
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+        NSIndexPath *indexPath = [ self.tableView indexPathForCell:sender];
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setFetchedResultsController:_fetchedResultsController];
+        [segue.destinationViewController setTeamIndex:indexPath];
+    }
+   /* if ([segue.identifier isEqualToString:@"Add"]) {
+        // NSLog(@"add");
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddTeamViewController *addvc = (AddTeamViewController *)nv.topViewController;
+        addvc.delegate = self;
+    } */
+}
+
+
 - (NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
     if (_fetchedResultsController == nil) {
