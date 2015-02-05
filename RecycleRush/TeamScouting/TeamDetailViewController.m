@@ -628,12 +628,12 @@
     return YES;
 }
 
-//-(void)getPhoto {
-    //_imageView.image = nil;
-   // _imageView.userInteractionEnabled = YES;
-   // if (!_team.primePhoto) return;
-  //  [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:_team.primePhoto]]];
-//}
+-(void)getPhoto {
+    _imageView.image = nil;
+    _imageView.userInteractionEnabled = YES;
+    if (!_team.primePhoto) return;
+    [_imageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:_team.primePhoto]]];
+}
 
 -(NSArray *)getPhotoList:(NSNumber *)teamNumber {
     return [photoUtilities getThumbnailList:teamNumber];

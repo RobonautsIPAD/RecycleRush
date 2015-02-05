@@ -85,6 +85,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeTextColor : [UIColor whiteColor]} ;
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

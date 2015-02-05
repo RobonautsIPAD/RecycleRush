@@ -67,40 +67,63 @@
     _dataManager = [[DataManager alloc] init];
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
     inputError = [loadData loadCSVDataFromBundle];
+    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (url != nil && [url isFileURL]) {
+        LoadCSVData *loadData = [LoadCSVData new];
+        inputError |= [loadData handleOpenURL:url];
+    }
 
+    // Customization for different devices and iOS versions
+    UIDevice *thisDevice = [UIDevice currentDevice];
+    UIUserInterfaceIdiom *hardware = [thisDevice userInterfaceIdiom];
+    float sysVersion = [[thisDevice systemVersion] floatValue];
+    NSLog(@"system = %f", sysVersion);
+    // Common to all devices and iOS versions
     navigationController = (UINavigationController *)self.window.rootViewController;
-    
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0], UITextAttributeTextColor,
+                                                           [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],UITextAttributeTextShadowColor,
+                                                           [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],
+                                                           UITextAttributeTextShadowOffset,
+                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], UITextAttributeFont, nil]];
+    if (sysVersion < 7) {
+        // iOS 6
+        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    }
+    else {
+        // iOS 7 and higher
+        // Color of the navigation bar button text
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0], UITextAttributeTextColor,
+                                                              [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],UITextAttributeTextShadowColor,
+                                                              [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],
+                                                              UITextAttributeTextShadowOffset,
+                                                              [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0], UITextAttributeFont, nil] forState:UIControlStateNormal];
+        // The color of the entire navigation bar
+        [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+        // The color of the arrow thingy for the back button
+        [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    }
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if (hardware == UIUserInterfaceIdiomPhone) {
         _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
         _phoneSplashViewController.dataManager = self.dataManager;
     }
     else {
         splashPageViewController = (SplashPageViewController *)navigationController.topViewController;
         splashPageViewController.dataManager = self.dataManager;
+        if (inputError) {
+            TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
+            [errorViewController setDataManager:_dataManager];
+            self.tabletErrorSegue = [[TabletErrorSegue alloc] initWithIdentifier:@"TableInputErrorViewController"
+                                                                          source:self.navigationController
+                                                                     destination:errorViewController];
+            [self.tabletErrorSegue perform];
+        }
     }
     
-    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    if (url != nil && [url isFileURL]) {
-        LoadCSVData *loadData = [LoadCSVData new];
-        inputError |= [loadData handleOpenURL:url];
-    }
-    if (inputError && [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
-        [errorViewController setDataManager:_dataManager];
-        self.tabletErrorSegue = [[TabletErrorSegue alloc] initWithIdentifier:@"TableInputErrorViewController"
-                                                                      source:self.navigationController
-                                                                 destination:errorViewController];
-        
-        [self.tabletErrorSegue perform];
-    }
     return YES;
-    /*   UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"AddTitle", @"")
-     style:UIBarButtonItemStyleBordered
-     target:self
-     action:@selector(addAction:)] autorelease];
-     */
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url

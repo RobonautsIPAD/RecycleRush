@@ -77,6 +77,8 @@
     @property (nonatomic, weak) IBOutlet UITextField *foulTextField;
     @property (weak, nonatomic) IBOutlet UIButton *scouterButton;
     @property (nonatomic, weak) IBOutlet UITextField *scouterTextField;
+@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
+
 
 // Drawing Layers
 // The trace of the robot in auton
