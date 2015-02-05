@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class DataManager;
-@interface pitScoutingImagePage : UIViewController
+@class TeamData;
+@interface pitScoutingImagePage : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSIndexPath *teamIndex;
+@property (nonatomic, strong) TeamData *team;
 
 @end
