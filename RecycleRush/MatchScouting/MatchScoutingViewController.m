@@ -140,7 +140,7 @@
     dataChange = NO;
     fieldDrawingChange = NO;
     [self setTeamList];
- //   [self showTeam:teamIndex];
+    [self showTeam:teamIndex];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -189,6 +189,8 @@
 
 -(void)showTeam:(NSUInteger)currentScoreIndex {
     if (!currentMatch) return;
+    matchTypeString = [MatchAccessors getMatchTypeString:currentMatch.matchType fromDictionary:_dataManager.matchTypeDictionary];
+    NSLog(@"%@", currentMatch);
 }
 
 -(IBAction)allianceSelectionChanged:(id)sender {
@@ -325,78 +327,7 @@
         [alliancePickerPopover dismissPopoverAnimated:YES];
         [self allianceSelected:newPick];
         return;
-    }/*
-    if (popUp == autonPicker) {
-        [autonPickerPopover dismissPopoverAnimated:YES];
-        [self autonScoreSelected:newPick];
-        return;
     }
-    if (popUp == teleOpPicker) {
-        [teleOpPickerPopover dismissPopoverAnimated:YES];
-        [self teleOpScoreSelected:newPick];
-        return;
-    }
-    if (popUp == teleOpPickUpPicker) {
-        [teleOpPickUpPickerPopover dismissPopoverAnimated:YES];
-        [self teleOpPickUpSelected:newPick];
-        return;
-    }
-    if (popUp == defensePicker) {
-        [defensePickerPopover dismissPopoverAnimated:YES];
-        [self defenseSelected:newPick];
-        return;
-    }
-    if (popUp == partnerActionsPicker) {
-        [partnerActionsPickerPopover dismissPopoverAnimated:YES];
-        [self allianceCatchSelected:newPick];
-        return;
-    }
-    if (popUp == _driverRating) {
-        [ratingPickerPopover dismissPopoverAnimated:YES];
-        [self setDriverRate:newPick];
-        return;
-    }
-    if(popUp == _robotSpeed){
-        [ratingPickerPopover dismissPopoverAnimated:YES];
-        [self setSpeedRate:newPick];
-        return;
-    }
-    if(popUp == _intakeRatingButton){
-        [ratingPickerPopover dismissPopoverAnimated:YES];
-        [self setIntakeRate:newPick];
-        return;
-    }
-    [scoreButtonPickerPopover dismissPopoverAnimated:YES];*/
-    /*
-     if (popUp == _autonHighHotButton) [self autonHighHot:newPick];
-     else if (popUp == _autonHighColdButton) [self autonHighCold:newPick];
-     else if (popUp == _autonLowColdButton) [self autonLowCold:newPick];
-     else if (popUp == _autonLowHotButton) [self autonLowHot:newPick];
-     else if (popUp == _autonMissButton) [self autonMiss:newPick];
-     else if (popUp == _autonBlockButton) [self autonBlock:newPick];
-     else if (popUp == _teleOpHighButton) [self teleOpHigh:newPick];
-     else if (popUp == _teleOpLowButton) [self teleOpLow:newPick];
-     else if (popUp == _teleOpMissButton) [self teleOpMiss:newPick];
-     else if (popUp == _teleOpBlockButton) [self teleOpBlock:newPick];
-     else if (popUp == _trussThrowButton) [self trussThrow:newPick];
-     else if (popUp == _trussThrowMissButton) [self updateButton:_trussThrowMissButton forKey:@"trussThrowMiss" forAction:newPick];
-     else if (popUp == _humanTrussButton) [self updateButton:_humanTrussButton forKey:@"trussCatchHuman" forAction:newPick];
-     else if (popUp == _humanTrussMissButton) [self updateButton:_humanTrussMissButton forKey:@"trussCatchHumanMiss" forAction:newPick];
-     else if (popUp == _trussCatchButton) [self trussCatch:newPick];
-     else if (popUp == _humanPickUpsButton) [self humanPickUp:newPick];
-     else if (popUp == _humanMissButton) [self updateButton:_humanMissButton forKey:@"humanMiss" forAction:newPick];
-     
-     else if (popUp == _floorPickUpsButton) [self floorPickUpSelected:newPick];
-     else if (popUp == _floorPickUpMissButton) [self updateButton:_floorPickUpMissButton forKey:@"floorPickUpMiss" forAction:newPick];
-     else if (popUp == _passesFloorButton) [self floorPass:newPick];
-     else if (popUp == _passesFloorMissButton) [self updateButton:_passesFloorMissButton forKey:@"floorPassMiss" forAction:newPick];
-     else if (popUp == _passesAirButton) [self airPass:newPick];
-     else if (popUp == _knockoutButton) [self updateButton:_knockoutButton forKey:@"knockout" forAction:newPick];
-     else if (popUp == _floorCatchButton) [self floorCatch:newPick];
-     else if (popUp == _robotIntakeButton) [self updateButton:_robotIntakeButton forKey:@"RobotIntake" forAction:newPick];
-     else if (popUp == _robotMissButton) [self updateButton:_robotMissButton forKey:@"robotIntakeMiss" forAction:newPick];
-     else if (popUp == _disruptShotButton) [self updateButton:_disruptShotButton forKey:@"disruptedShot" forAction:newPick];
-     else if (popUp == _defensiveDisruptionButton) [self updateButton:_defensiveDisruptionButton forKey:@"defensiveDisruption" forAction:newPick];*/
 }
 
 -(MatchData *)getCurrentMatch {
@@ -483,6 +414,20 @@
     // Check if stored match exists
         // If not, go to first match, first section, and correct alliance if in tourney mode
     // Add checks for mode and if correct alliance exists
+//    sectionIndex = [matchTypeList indexOfObject:newMatchType];
+    MatchData *match = [MatchAccessors getMatch:storedMatchNumber forType:[MatchAccessors getMatchTypeFromString:storedMatchType fromDictionary:_dataManager.matchTypeDictionary] forTournament:tournamentName fromDataManager:_dataManager];
+    if (match) {
+        //            sectionIndex = [self getMatchSectionInfo:currentSectionType];
+        //    teamIndex = [allianceList indexOfObject:newAlliance];
+        NSIndexPath *indexPath = [fetchedResultsController indexPathForObject:match];
+        NSLog(@"Add stuff for tournament mode");
+        sectionIndex = indexPath.section;
+        rowIndex = indexPath.row;
+    }
+    else {
+        sectionIndex = 0;
+        rowIndex = 0;
+    }
 }
 
 -(void)saveSettings {

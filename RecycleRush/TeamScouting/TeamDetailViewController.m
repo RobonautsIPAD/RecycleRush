@@ -535,8 +535,18 @@
         [maxStackPickerPopover dismissPopoverAnimated:YES];
         _team.toteMaxStack = newPick;
     }
-   
+    dataChange = YES;
+    [popUp setTitle:newPick forState:UIControlStateNormal];
+}
 
+-(IBAction)teamNumberChanged {
+    // The user has typed a new team number in the field. Access that team and display it.
+    // NSLog(@"teamNumberChanged");
+    [self checkDataStatus];
+    if ([_numberText.text isEqualToString:@""]) {
+        _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
+        return;
+    }
 
     int currentTeam = [_numberText.text intValue];
     BOOL found = FALSE;
@@ -555,7 +565,9 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self setDataChange];
+    if (textField != _numberText) {
+        [self setDataChange];
+    }
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
