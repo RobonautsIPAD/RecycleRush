@@ -13,7 +13,7 @@
 
 @class DataManager;
 
-@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, PopUpPickerDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate, PopUpPickerDelegate> {
+@interface MainScoutingPageViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, AlertPromptDelegate, ValuePromptDelegate, UIActionSheetDelegate, PopUpPickerDelegate> {
     
     CGPoint lastPoint;
     CGFloat red;
