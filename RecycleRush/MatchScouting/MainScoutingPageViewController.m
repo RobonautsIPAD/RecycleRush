@@ -199,6 +199,7 @@
     UIImage *disruptedShotImage;
     
     BOOL startPoint;
+    CGRect orgFrame;
 }
 
 // User Access Control
@@ -287,7 +288,9 @@
     [self disableButtons];
     [self drawingSettings];
     [self createGestures];
+    [self.view bringSubviewToFront:_imageContainer];
     [_imageContainer sendSubviewToBack:_backgroundImage];
+    orgFrame = _imageContainer.frame;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -408,7 +411,7 @@
 
 -(void)setDataChange {
     //  A change to one of the database fields has been detected. Set the time tag for the
-    //  saved filed and set the device name into the field to indicated who made the change.
+    //  saved field and set the device name into the field to indicated who made the change.
     // Also indicate that the match has results.
     currentScore.results = [NSNumber numberWithBool:YES];
     currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
@@ -1590,10 +1593,10 @@
 -(void)loadDrawing:(NSString *)allianceString {
     // Set the correct background image for the alliance
     if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
-        [_backgroundImage setImage:[UIImage imageNamed:@"Red 2015.png"]];
+        [_backgroundImage setImage:[UIImage imageNamed:@"Red 2015 New.png"]];
     }
     else {
-        [_backgroundImage setImage:[UIImage imageNamed:@"Blue 2015.png"]];
+        [_backgroundImage setImage:[UIImage imageNamed:@"Blue 2015 New.png"]];
     }
     if ([currentScore.results boolValue]) {
         drawMode = DrawLock;
@@ -1874,17 +1877,20 @@
 }
 
 -(void)enlargeDrawing {
-/*    float x, y;
+    float x, y;
     x = _imageContainer.frame.origin.x;
     y = _imageContainer.frame.origin.y;
+    float maxHeight = 665;
+    float ratio = _imageContainer.frame.size.height/_imageContainer.frame.size.width;
     NSLog(@"frame = %f, %f, %f, %f", x, y, _imageContainer.frame.size.height, _imageContainer.frame.size.width);
     NSLog(@"frame = %f, %f, %f, %f", _backgroundImage.frame.origin.x, _backgroundImage.frame.origin.y, _backgroundImage.frame.size.height, _backgroundImage.frame.size.width);
     NSLog(@"frame = %f, %f, %f, %f", _autonTrace.frame.origin.x, _autonTrace.frame.origin.y, _autonTrace.frame.size.height, _autonTrace.frame.size.width);
     NSLog(@"frame = %f, %f, %f, %f",  _teleOpTrace.frame.origin.x,  _teleOpTrace.frame.origin.y,  _teleOpTrace.frame.size.height,  _teleOpTrace.frame.size.width);
-    _imageContainer.frame = CGRectMake(x, y-75, 620, 620);
-//    _autonTrace.frame = CGRectMake(x, y-75, 620, 620);
-//    _teleOpTrace.frame = CGRectMake(x, y-75, 620, 620);
-    _backgroundImage.frame = CGRectMake(x, y-75, 620, 620);*/
+    _imageContainer.frame = CGRectMake(0, 0, ratio*maxHeight, maxHeight);
+    _autonTrace.frame = CGRectMake(0, 0, maxHeight, maxHeight);
+    _teleOpTrace.frame = CGRectMake(0, 0, maxHeight, maxHeight);
+    _backgroundImage.frame = CGRectMake(0, 0, maxHeight, maxHeight);
+ //   [_backgroundImage setHidden:TRUE];
 
 }
 
@@ -1908,7 +1914,6 @@
 
 -(void)activateTeleOp {
     _teleOpTrace.userInteractionEnabled = TRUE;
-    [_teleOpTrace setHidden:FALSE];
     [_teleOpTrace setHidden:FALSE];
     [_teleOpTrace addGestureRecognizer:tripleTapGesture];
     [_teleOpTrace addGestureRecognizer:doubleTapGestureRecognizer];
