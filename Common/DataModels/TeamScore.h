@@ -2,14 +2,14 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/3/15.
+//  Created by FRC on 2/7/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class FieldDrawing, MatchData;
+@class FieldDrawing, FieldPhoto, MatchData;
 
 @interface TeamScore : NSManagedObject
 
@@ -69,7 +69,8 @@
 @property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
-@property (nonatomic, retain) FieldDrawing *teleOpDrawing;
 @property (nonatomic, retain) MatchData *match;
+@property (nonatomic, retain) FieldDrawing *teleOpDrawing;
+@property (nonatomic, retain) FieldPhoto *field;
 
 @end

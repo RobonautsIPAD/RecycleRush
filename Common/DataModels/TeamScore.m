@@ -2,12 +2,13 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/3/15.
+//  Created by FRC on 2/7/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import "TeamScore.h"
 #import "FieldDrawing.h"
+#import "FieldPhoto.h"
 #import "MatchData.h"
 
 
@@ -69,7 +70,8 @@
 @dynamic toteStepTop;
 @dynamic tournamentName;
 @dynamic autonDrawing;
-@dynamic teleOpDrawing;
 @dynamic match;
+@dynamic teleOpDrawing;
+@dynamic field;
 
 @end

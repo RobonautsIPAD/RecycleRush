@@ -11,7 +11,7 @@
 
 @class DataManager;
 
-@interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, PopUpPickerDelegate>
+@interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
 @end
