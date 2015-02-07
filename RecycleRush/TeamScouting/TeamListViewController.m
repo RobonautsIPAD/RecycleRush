@@ -86,28 +86,28 @@
     [headerView addSubview:teamLabel];
 
 	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
-	label1.text = @"Auton High %";
+	label1.text = @"Drive Train";
     label1.backgroundColor = [UIColor clearColor];
     label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
     
  	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
-	label2.text = @"Cans %";
+	label2.text = @"Can Intake";
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
 	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(375, 0, 200, 50)];
-	label3.text = @"Totes %";
+	label3.text = @"Tote Intake";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
 	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(490, 0, 200, 50)];
-	label4.text = @"HP Totes %";
+	label4.text = @"Lift Type";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(610, 0, 200, 50)];
-	label5.text = @"Litter";
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(570, 0, 200, 50)];
+	label5.text = @"Max Tote Stack";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
@@ -254,19 +254,16 @@
     
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:20];
-    label1.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"IntakefromHuman"] objectForKey:@"percent"] floatValue]*100];
-
+    label1.text = info.driveTrainType;
 	UILabel *label2 = (UILabel *)[cell viewWithTag:30];
-	label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HighHot"] objectForKey:@"percent"] floatValue]*100];
-
+	label2.text = info.canIntake;
 	UILabel *label3 = (UILabel *)[cell viewWithTag:40];
-	label3.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"High"] objectForKey:@"percent"] floatValue]*100];
-
-	UILabel *label4 = (UILabel *)[cell viewWithTag:50];
-	label4.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"HPTruss"] objectForKey:@"percent"] floatValue]*100];
-
-    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-    label5.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"knockout"] objectForKey:@"average"] floatValue]];
+	label3.text = info.toteIntake;
+    UILabel *label4 = (UILabel *)[cell viewWithTag:50];
+	label4.text = info.liftType;
+    UILabel *label5 = (UILabel *)[cell viewWithTag:60];
+    label5.text = info.toteMaxStack;
+  
     
     UILabel *label6 = (UILabel *)[cell viewWithTag:80];
 	label6.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Speed"] objectForKey:@"average"] floatValue]];
