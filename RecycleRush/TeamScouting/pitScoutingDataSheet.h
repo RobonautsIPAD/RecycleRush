@@ -1,5 +1,5 @@
 //
-//  pitScoutingDataSheet.h
+//  PitScoutingDataSheet.h
 //  RecycleRush
 //
 //  Created by FRC on 1/24/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class DataManager;
-@interface pitScoutingDataSheet : UIViewController <UITextFieldDelegate>
+@interface PitScoutingDataSheet : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 @end
