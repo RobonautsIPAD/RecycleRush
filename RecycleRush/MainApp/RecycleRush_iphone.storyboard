@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="sFb-VN-Has">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="sFb-VN-Has">
     <dependencies>
         <deployment version="1552" defaultVersion="1552" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -1236,8 +1236,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="detailChanged:" destination="uwB-pY-BpC" eventType="touchUpInside" id="VZn-Yv-5qz"/>
-                                    <action selector="intakeSelection:" destination="uwB-pY-BpC" eventType="touchUpInside" id="auV-Ci-uND"/>
+                                    <action selector="intakeSelection:" destination="uwB-pY-BpC" eventType="touchUpInside" id="aP6-Pc-nGO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RDd-og-eOQ">
@@ -1274,9 +1273,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="canIntakeButton" destination="d7T-Dl-n4f" id="cH6-CO-hn0"/>
-                        <outlet property="intakeButton" destination="60F-br-ONs" id="qsf-yL-uIA"/>
                         <outlet property="liftButton" destination="rO2-cp-7pS" id="zDV-R0-VuC"/>
-                        <outlet property="toteIntakeButton" destination="aQR-Bu-Pwh" id="KKM-jD-uDy"/>
+                        <outlet property="toteIntakeButton" destination="60F-br-ONs" id="Yqs-b6-Y4g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K8n-7q-KqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1348,7 +1346,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="uwB-pY-BpC" kind="push" id="eX6-0z-ZvO"/>
+                                    <segue destination="uwB-pY-BpC" kind="push" identifier="TeamDetail" id="eX6-0z-ZvO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wb8-ot-wfh">

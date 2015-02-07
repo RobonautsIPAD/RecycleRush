@@ -198,6 +198,14 @@ _imageView.image = nil;
     }
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setTeam:_team];
+    }
+
+    }
 
 
 

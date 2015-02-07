@@ -86,7 +86,7 @@
     [headerView addSubview:teamLabel];
 
 	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 0, 200, 50)];
-	label1.text = @"Drive Train";
+	label1.text = @"Drive Type";
     label1.backgroundColor = [UIColor clearColor];
     label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
@@ -96,18 +96,18 @@
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
-	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(375, 0, 200, 50)];
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(380, 0, 200, 50)];
 	label3.text = @"Tote Intake";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
-	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(490, 0, 200, 50)];
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(515, 0, 200, 50)];
 	label4.text = @"Lift Type";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(570, 0, 200, 50)];
-	label5.text = @"Max Tote Stack";
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(600, 0, 200, 50)];
+	label5.text = @"Max Stack";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
@@ -116,17 +116,17 @@
     label6.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label6];
     
-    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(690, 0, 200, 50)];
+    UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(695, 0, 200, 50)];
 	label7.text = @"Driver";
     label7.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label7];
 
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(830, 0, 200, 50)];
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
 	label8.text = @"Blacklisted";
     label8.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label8];
     
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(920, 0, 200, 50)];
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(930, 0, 200, 50)];
 	label9.text = @"Wow Listed";
     label9.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label9];
