@@ -12,8 +12,18 @@
 #import "TeamData.h"
 @interface PitScoutingDataSheet ()
 @property (weak, nonatomic) IBOutlet UIButton *toteIntakeButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *liftButton;
 @property (weak, nonatomic) IBOutlet UIButton *canIntakeButton;
+@property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
+@property (weak, nonatomic) IBOutlet UIButton *noodlerOptionButton;
+
+
+
+
+
+
+
 
 
 @end
@@ -77,7 +87,7 @@
 */
 
 
-- (IBAction)intakeSelection:(id)sender {
+- (IBAction)toteIntakeSelection:(id)sender {
     NSLog(@"toteIntakeButton");
     popUp= sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tote Intake" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -90,6 +100,36 @@
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
 }
+- (IBAction)canIntakeSelection:(id)sender {
+    NSLog(@"canIntakeButton");
+    popUp= sender;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Can Intake" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"IntakeType"];
+    for (NSString *intake in intakeList) {
+        [actionSheet addButtonWithTitle:intake];
+    }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[intakeList count]];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+}
+
+- (IBAction)liftTyoeSelection:(id)sender {
+    NSLog(@"liftTypeButton");
+    popUp= sender;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Lift Type" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"Lift Type"];
+    for (NSString *intake in intakeList) {
+        [actionSheet addButtonWithTitle:intake];
+    }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[intakeList count]];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+}
+
+
+
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) return;
@@ -98,9 +138,39 @@
         [_toteIntakeButton setTitle:newIntake forState:UIControlStateNormal];
     }
 }
+/*
+- (IBAction)toteIntakeSelection:(id)sender {
+        NSLog(@"noodlerOptionButton");
+        popUp= sender;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Noodler Option" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"NoodlerOption"];
+        for (NSString *intake in intakeList) {
+            [actionSheet addButtonWithTitle:intake];
+        }
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        [actionSheet setCancelButtonIndex:[noodlerList count]];
+        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+        [actionSheet showInView:self.view];
+}
 
+*/
 
+    
+    - (IBAction)trackerOptionSelection:(id)sender {
+        NSLog(@"toteIntakeButton");
+        popUp= sender;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tote Intake" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"IntakeType"];
+        for (NSString *intake in intakeList) {
+            [actionSheet addButtonWithTitle:intake];
+        }
+        [actionSheet addButtonWithTitle:@"Cancel"];
+        [actionSheet setCancelButtonIndex:[intakeList count]];
+        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+        [actionSheet showInView:self.view];
+    }
 
+    
 
 
 
