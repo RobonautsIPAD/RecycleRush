@@ -85,7 +85,7 @@
     _elimDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     
     //Set Font and Text for Match Integrity Data Button
-    [_matchIntegrityButton setTitle:@"Match Alliance" forState:UIControlStateNormal];
+    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
     _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
  
     [super viewDidLoad];

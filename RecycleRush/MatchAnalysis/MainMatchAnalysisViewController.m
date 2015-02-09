@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 FRC. All rights reserved.
 //
 
-#import "TeamAnalysisViewController.h"
+#import "MainMatchAnalysisViewController.h"
 #import "TournamentData.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
@@ -23,7 +23,7 @@
 #import "FileIOMethods.h"
 #import <QuartzCore/CALayer.h>
 
-@interface MasonPageViewController ()
+@interface MainMatchAnalysisViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
 @property (nonatomic, weak) IBOutlet UIButton *nextMatch;
 @property (nonatomic, weak) IBOutlet UIButton *ourPrevMatchButton;
@@ -50,7 +50,7 @@
 
 @end
 
-@implementation MasonPageViewController {
+@implementation MainMatchAnalysisViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *previousTournament;
@@ -403,8 +403,8 @@
 }
 
 -(NSArray *)getMatchList:(NSNumber *)team {
-    NSArray *scores = [DataConvenienceMethods getMatchListForTeam:team forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
-    return scores;
+ //   NSArray *scores = [DataConvenienceMethods getMatchListForTeam:team forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    return nil;//scores;
 }
 
 -(void)setTeamMatches {
@@ -477,7 +477,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDataManager:_dataManager];
-    if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+    if ([segue.identifier isEqualToString:@"TeamSummary"]) {
         NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
         TeamDetailViewController *detailViewController = [segue destinationViewController];
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);

@@ -97,23 +97,22 @@
     </entity>
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="allianceStation" attributeType="Integer 16" minValueString="0" maxValueString="7" syncable="YES"/>
-        <attribute name="assistRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
-        <attribute name="autonBlocks" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonCanSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="autonHighCold" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="autonHighHot" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2000" defaultValueString="0" syncable="YES"/>
-        <attribute name="autonMobility" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
-        <attribute name="autonShotsMade" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="lucien" value="Auton Shots Made"/>
-                <entry key="output" value="Auton Shots Made"/>
-            </userInfo>
-        </attribute>
+        <attribute name="autonRobotSet" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="autonTotePickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonToteSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="autonToteStack" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="autonToteStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="canDomination" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="canDominationTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="canIntakeFloor" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansFromStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn0" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cansOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
@@ -122,12 +121,13 @@
             </userInfo>
         </attribute>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="intakeRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHPBottom" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHPTop" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="matchNumber" attributeType="Integer 16" minValueString="0" maxValueString="250" syncable="YES"/>
         <attribute name="matchType" attributeType="Integer 16" minValueString="0" maxValueString="4" syncable="YES"/>
+        <attribute name="maxCanHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxToteHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="noShow" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" minValueString="0" maxValueString="500" syncable="YES">
             <userInfo>
@@ -156,25 +156,11 @@
         <attribute name="sc9" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="scouter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stackKnockdowns" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="stackNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="teamNumber" attributeType="Integer 16" minValueString="1" syncable="YES"/>
-        <attribute name="totalAutonShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="lucien" value="Total Auton Shots"/>
-                <entry key="output" value="Auton Shots"/>
-            </userInfo>
-        </attribute>
-        <attribute name="totalPasses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="lucien" value="Total Passes"/>
-                <entry key="output" value="Total Passes"/>
-            </userInfo>
-        </attribute>
-        <attribute name="totalTeleOpShots" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="lucien" value="TeleOp Shot"/>
-                <entry key="output" value="Total TeleOp Shot"/>
-            </userInfo>
-        </attribute>
+        <attribute name="totalCansScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalLitterScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalTotesScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteFloorBottom" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="toteFloorTop" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="toteHPBottom" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -182,6 +168,13 @@
         <attribute name="toteIntakeFloor" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteIntakeHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteIntakeStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn0" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn3" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totesOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteStepBottom" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="toteStepTop" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="tournamentName" attributeType="String" syncable="YES"/>
@@ -197,11 +190,11 @@
     <elements>
         <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
         <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
+        <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="73"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="630"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="928"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1125"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
-        <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="73"/>
     </elements>
 </model>

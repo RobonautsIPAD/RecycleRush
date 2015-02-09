@@ -32,6 +32,33 @@
 // Alliance Info
 @property (nonatomic, weak) IBOutlet UIButton *alliance;
 
+// Score Stuff
+@property (weak, nonatomic) IBOutlet UITextField *totalTotesScored;
+@property (weak, nonatomic) IBOutlet UITextField *totalCansScored;
+@property (weak, nonatomic) IBOutlet UITextField *totalLitterScored;
+@property (weak, nonatomic) IBOutlet UITextField *cansDominatedText;
+@property (weak, nonatomic) IBOutlet UITextField *stackKnockdownText;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn0Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn1Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn2Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn3Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn4Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn5Text;
+@property (weak, nonatomic) IBOutlet UITextField *totesOn6Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn0Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn1Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn2Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn3Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn4Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn5Text;
+@property (weak, nonatomic) IBOutlet UITextField *cansOn6Text;
+@property (weak, nonatomic) IBOutlet UITextField *toteIntakeHPText;
+@property (weak, nonatomic) IBOutlet UIButton *robotSetButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
+@property (weak, nonatomic) IBOutlet UIButton *canSetButton;
+@property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
+@property (weak, nonatomic) IBOutlet UIButton *canDomTimeButton;
+
 // Drawing Stuff
 @property (weak, nonatomic) IBOutlet UIButton *drawingChoiceButton;
 @property (weak, nonatomic) IBOutlet UIView *fieldDrawingContainer;
@@ -70,7 +97,9 @@
     NSUInteger teamIndex;
     
     NSUInteger numberMatchTypes;
-   
+    UIImagePickerController *imagePickerController;
+    UIPopoverController *pictureController;
+    
     id popUp;
     // Match Control Pop Ups
     NSArray *matchTypeList;
@@ -128,6 +157,7 @@
 
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
+    [self setDefaults];
     NSLog(@"Disable stuff");
 }
 
@@ -182,16 +212,20 @@
          }
          //    currentScore.fieldDrawing.trace = [NSData dataWithData:UIImagePNGRepresentation(_fieldImage.image)];
          fieldDrawingChange = NO;
-         [self setDataChange];
-         }
-         if (dataChange) {
-         currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-         currentScore.savedBy = deviceName;
-         NSError *error;
-         if (![_dataManager.managedObjectContext save:&error]) {
-         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-         }*/
-        dataChange = NO;
+         [self setDataChange];*/
+    }
+    if (dataChange) {
+        currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        currentScore.savedBy = deviceName;
+        if (![_dataManager saveContext]) {
+            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
+                                                              message:@"Unable to save data"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Ok"
+                                                    otherButtonTitles:nil];
+            [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+            [prompt show];
+        }
     }
 }
 
@@ -219,7 +253,27 @@
     _notes.text = currentScore.notes;
     allianceString = [MatchAccessors getAllianceString:currentScore.allianceStation fromDictionary:allianceDictionary];
     [_alliance setTitle:allianceString forState:UIControlStateNormal];
-    [self loadDrawing:allianceString];
+    _totalTotesScored.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesScored];
+    _totalCansScored.text = [NSString stringWithFormat:@"%@", currentScore.totalCansScored];
+    _totalLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLitterScored];
+    _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.canDomination];
+    _stackKnockdownText.text = [NSString stringWithFormat:@"%@", currentScore.stackKnockdowns];
+    _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
+    _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
+    _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
+    _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
+    _totesOn3Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn3];
+    _totesOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn4];
+    _totesOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn5];
+    _totesOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn6];
+    _cansOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn0];
+    _cansOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn1];
+    _cansOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn2];
+    _cansOn3Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn3];
+    _cansOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn4];
+    _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
+    _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
+   [self loadDrawing:allianceString];
 }
 
 -(void)loadDrawing:(NSString *)allianceString {
@@ -512,14 +566,26 @@
 
 - (IBAction)drawingChoice:(id)sender {
     popUp = _drawingChoiceButton;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Draw Mode 1",  nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", @"Draw Mode 1",  nil];
     
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showFromRect:_drawingChoiceButton.frame inView:self.view animated:YES];
+    popUp = _drawingChoiceButton;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
+    switch (buttonIndex) {
+        case 0:
+            if (popUp == _drawingChoiceButton) [self fieldPhoto:@"Take"];
+            break;
+        case 1:
+            if (popUp == _drawingChoiceButton) [self fieldPhoto:@"Choose"];
+            break;
+            
+        default:
+            break;
+    }
+
 /*        if (popUp == _matchResetButton) {
             [self matchReset];
         }
@@ -530,9 +596,42 @@
             [self activateAuton];
         }
     }*/
+    
+}
+
+-(void)fieldPhoto:(NSString *)choice {
+    if (!imagePickerController) {
+        imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = YES;
+    }
+    if ([choice isEqualToString:@"Take"] && [UIImagePickerController isSourceTypeAvailable:
+                                             UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePickerController animated:YES completion:Nil];
+    }
+    else {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if (!pictureController) {
+            pictureController = [[UIPopoverController alloc]
+                                 initWithContentViewController:imagePickerController];
+            pictureController.delegate = self;
+        }
+        [pictureController presentPopoverFromRect:_drawingChoiceButton.bounds inView:_drawingChoiceButton
+                         permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"photo popover");
+    _paperPhoto.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [_paperPhoto setHidden:FALSE];
+    currentScore.field.paper = [NSData dataWithData:UIImageJPEGRepresentation(_paperPhoto.image, 1.0)];
+    [self setDataChange];
+    // NSLog(@"image picker finish");*/
+    [picker dismissViewControllerAnimated:YES completion:Nil];
+    [pictureController dismissPopoverAnimated:true];
+}
 
 -(void)setDisplayInactive {
     NSLog(@"Deactivate display");
@@ -618,7 +717,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (textField == _notes) {
+    if (textField != _matchNumber) {
         [self setDataChange];
     }
 }
@@ -628,6 +727,73 @@
     if (textField == _notes) {
 		currentScore.notes = _notes.text;
 	}
+    else if (textField == _totalTotesScored) {
+        currentScore.totalTotesScored = [NSNumber numberWithInt:[_totalTotesScored.text intValue]];
+    }
+    else if (textField == _totalCansScored) {
+        currentScore.totalCansScored = [NSNumber numberWithInt:[_totalCansScored.text intValue]];
+    }
+    else if (textField == _totalLitterScored) {
+        currentScore.totalLitterScored = [NSNumber numberWithInt:[_totalLitterScored.text intValue]];
+    }
+    else if (textField == _cansDominatedText) {
+        currentScore.canDomination = [NSNumber numberWithInt:[_cansDominatedText.text intValue]];
+    }
+    else if (textField == _stackKnockdownText) {
+        currentScore.stackKnockdowns = [NSNumber numberWithInt:[_stackKnockdownText.text intValue]];
+    }
+    else if (textField == _totesOn0Text) {
+        currentScore.totesOn0 = [NSNumber numberWithInt:[_totesOn0Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn1Text) {
+        currentScore.totesOn1 = [NSNumber numberWithInt:[_totesOn1Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn2Text) {
+        currentScore.totesOn2 = [NSNumber numberWithInt:[_totesOn2Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn3Text) {
+        currentScore.totesOn3 = [NSNumber numberWithInt:[_totesOn3Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn4Text) {
+        currentScore.totesOn4 = [NSNumber numberWithInt:[_totesOn4Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn5Text) {
+        currentScore.totesOn5 = [NSNumber numberWithInt:[_totesOn5Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _totesOn6Text) {
+        currentScore.totesOn6 = [NSNumber numberWithInt:[_totesOn6Text.text intValue]];
+        [self updateTotal:@"Totes"];
+    }
+    else if (textField == _cansOn0Text) {
+        currentScore.cansOn0 = [NSNumber numberWithInt:[_cansOn0Text.text intValue]];
+    }
+    else if (textField == _cansOn1Text) {
+        currentScore.cansOn1 = [NSNumber numberWithInt:[_cansOn1Text.text intValue]];
+    }
+    else if (textField == _cansOn2Text) {
+        currentScore.cansOn2 = [NSNumber numberWithInt:[_cansOn2Text.text intValue]];
+    }
+    else if (textField == _cansOn3Text) {
+        currentScore.cansOn3 = [NSNumber numberWithInt:[_cansOn3Text.text intValue]];
+    }
+    else if (textField == _cansOn4Text) {
+        currentScore.cansOn4 = [NSNumber numberWithInt:[_cansOn4Text.text intValue]];
+    }
+    else if (textField == _cansOn5Text) {
+        currentScore.cansOn5 = [NSNumber numberWithInt:[_cansOn5Text.text intValue]];
+    }
+    else if (textField == _cansOn6Text) {
+        currentScore.cansOn6 = [NSNumber numberWithInt:[_cansOn6Text.text intValue]];
+    }
+    else if (textField == _toteIntakeHPText) {
+        currentScore.toteIntakeHP = [NSNumber numberWithInt:[_toteIntakeHPText.text intValue]];
+    }
 /*    else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
     }
@@ -637,6 +803,14 @@
         [prefs setObject:scouter forKey:@"scouter"];
 	}*/
 	return YES;
+}
+
+-(void)updateTotal:(NSString *)scoreObject {
+    if ([scoreObject isEqualToString:@"Totes"]) {
+        int score = [currentScore.totesOn0 intValue] + [currentScore.totesOn1 intValue] + [currentScore.totesOn2 intValue] + [currentScore.totesOn3 intValue] + [currentScore.totesOn4 intValue] + [currentScore.totesOn5 intValue] + [currentScore.totesOn6 intValue];
+        currentScore.totalTotesScored = [NSNumber numberWithInt:score];
+        _totalTotesScored.text = [NSString stringWithFormat:@"%d", score];
+    }
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -667,7 +841,11 @@
     [self setBigButtonDefaults:_alliance];
     [self setBigButtonDefaults:_teamNumber];
     
-    // Buttons on the drawing
+    _robotSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _toteStackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _canSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+   // Buttons on the drawing
 /*    [self setSmallButtonDefaults:_toteHPTopButton];
     [self setSmallButtonDefaults:_toteHPBottomButton];
     
