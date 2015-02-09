@@ -8,17 +8,17 @@
 
 #import <QuartzCore/CALayer.h>
 #import "TeamDetailViewController.h"
-#import "TeamData.h"
-#import "TeamScore.h"
-#import "DataConvenienceMethods.h"
-#import "MatchData.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
+#import "TeamData.h"
+#import "MatchData.h"
+#import "TeamScore.h"
 #import "Regional.h"
+#import "ScoreAccessors.h"
 #import "PhotoCell.h"
 #import "PhotoAttributes.h"
 #import "PhotoUtilities.h"
 #import "EnumerationDictionary.h"
-#import "FileIOMethods.h"
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
@@ -168,8 +168,8 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
 
-    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
-    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+    matchTypeDictionary = _dataManager.matchTypeDictionary;
+    allianceDictionary = _dataManager.allianceDictionary;
     triStateDictionary = [EnumerationDictionary initializeBundledDictionary:@"TriState"];
 
     photoUtilities = [[PhotoUtilities alloc] init:_dataManager];
@@ -330,7 +330,7 @@
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
-    matchList = [DataConvenienceMethods getMatchListForTeam:_team.number forTournament:tournamentName fromContext:_dataManager.managedObjectContext];
+    matchList = [ScoreAccessors getMatchListForTeam:_team.number forTournament:tournamentName fromDataManager:_dataManager];
     
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
     [_intakeType setTitle:_team.toteIntake forState:UIControlStateNormal];

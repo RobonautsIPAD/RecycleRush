@@ -69,4 +69,33 @@
     else return nil;
 }
 
++(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager {
+    
+    NSError *error;
+    if (!dataManager.managedObjectContext) {
+        error = [NSError errorWithDomain:@"getMatchListForTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
+        [dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    // NSLog(@"Searching for team %@ matches in tournament %@", teamNumber, tournament);
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND teamNumber = %@", tournament, teamNumber];
+    [fetchRequest setPredicate:pred];
+    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchNumber" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    NSArray *matchList = [dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if(!matchList) {
+        error = [NSError errorWithDomain:@"getMatchListForTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Not able to fetch match record" forKey:NSLocalizedDescriptionKey]];
+        [dataManager writeErrorMessage:error forType:[error code]];
+        return Nil;
+    }
+    return matchList;
+}
+
+
 @end

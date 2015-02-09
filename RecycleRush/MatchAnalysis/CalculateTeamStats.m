@@ -8,11 +8,11 @@
 
 #import "CalculateTeamStats.h"
 #import "DataManager.h"
-#import "DataConvenienceMethods.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "MatchData.h"
 #import "TournamentData.h"
+#import "ScoreAccessors.h"
 #import "EnumerationDictionary.h"
 
 @implementation CalculateTeamStats {
@@ -39,7 +39,7 @@
     NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
 // fetch all score records for this tournament
-    NSArray *allMatches = [DataConvenienceMethods getMatchListForTeam:team.number forTournament:tournament fromContext:_dataManager.managedObjectContext];
+    NSArray *allMatches = [ScoreAccessors getMatchListForTeam:team.number forTournament:tournament fromDataManager:_dataManager];
     if (![allMatches count]) return stats;
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (matchType = %@ || matchType = %@)", tournament, [NSNumber numberWithBool:YES], [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary], [EnumerationDictionary getValueFromKey:@"Elimination" forDictionary:matchTypeDictionary]];

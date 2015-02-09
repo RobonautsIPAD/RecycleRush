@@ -61,33 +61,6 @@
     }
 }
 
-+(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {
-    
-    if (!managedObjectContext) return Nil;
-    NSError *error;
-    // NSLog(@"Searching for team %@ matches in tournament %@", teamNumber, tournament);
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"TeamScore" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND teamNumber = %@", tournament, teamNumber];
-    [fetchRequest setPredicate:pred];
-    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchType" ascending:YES];
-    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchNumber" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    NSArray *matchList = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!matchList) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error Encountered"
-                                                        message:@"Not able to fetch match record"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return Nil;
-    }
-    return matchList;
-}
 
 
 +(NSArray *)getMatchScores:(NSNumber *)matchNumber forType:(NSNumber *)matchType forTournament:(NSString *)tournament fromContext:(NSManagedObjectContext *)managedObjectContext {

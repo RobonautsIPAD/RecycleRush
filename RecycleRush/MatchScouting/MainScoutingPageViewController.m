@@ -656,13 +656,13 @@
 
 - (IBAction)radioButtonTapped:(id)sender {
     if (sender == _autonMobilityButton) { // It is on, turn it off
-        if ([currentScore.autonMobility intValue]) {
-            currentScore.autonMobility = [NSNumber numberWithBool:NO];
+        if ([currentScore.autonRobotSet intValue]) {
+            currentScore.autonRobotSet = [NSNumber numberWithBool:NO];
         }
         else { // It is off, turn it on
-            currentScore.autonMobility = [NSNumber numberWithBool:YES];
+            currentScore.autonRobotSet = [NSNumber numberWithBool:YES];
         }
-        [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonMobility intValue]];
+        [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonRobotSet intValue]];
     }
     if (sender == _noShowButton) { // It is on, turn it off
         if ([currentScore.noShow intValue]) {
@@ -812,11 +812,6 @@
     if(popUp == _robotSpeed){
         [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setSpeedRate:newPick];
-        return;
-    }
-    if(popUp == _intakeRatingButton){
-        [ratingPickerPopover dismissPopoverAnimated:YES];
-        [self setIntakeRate:newPick];
         return;
     }
     [scoreButtonPickerPopover dismissPopoverAnimated:YES];
@@ -1574,11 +1569,9 @@
 
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [_robotSpeed setTitle:[NSString stringWithFormat:@"%d", [currentScore.robotSpeed intValue]] forState:UIControlStateNormal];
-    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentScore.intakeRating intValue]] forState:UIControlStateNormal];
-    
     [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
-    [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonMobility intValue]];
+    [self setRadioButtonState:_autonMobilityButton forState:[currentScore.autonRobotSet intValue]];
 
     if ([currentScore.results boolValue]) _scouterTextField.text = currentScore.scouter;
     else _scouterTextField.text = scouter;
@@ -2273,12 +2266,7 @@
     currentScore.received = [NSNumber numberWithFloat:0.0];
     currentScore.results = [NSNumber numberWithBool:NO];
 
-    currentScore.assistRating = [NSNumber numberWithInt:0];
-    currentScore.autonBlocks = [NSNumber numberWithInt:0];
-    currentScore.autonHighCold = [NSNumber numberWithInt:0];
-    currentScore.autonHighHot = [NSNumber numberWithInt:0];
-    currentScore.autonMobility = [NSNumber numberWithBool:YES];
-    currentScore.autonShotsMade = [NSNumber numberWithInt:0];
+    currentScore.autonRobotSet = [NSNumber numberWithBool:NO];
     currentScore.deadOnArrival = [NSNumber numberWithBool:NO];
     currentScore.driverRating = [NSNumber numberWithInt:0];
     currentScore.fouls = [NSNumber numberWithInt:0];
@@ -2313,9 +2301,6 @@
     currentScore.sc8 = @"";
     currentScore.sc9 = @"";
     currentScore.scouter = @"";
-    currentScore.totalAutonShots = [NSNumber numberWithInt:0];
-    currentScore.totalPasses = [NSNumber numberWithInt:0];
-    currentScore.totalTeleOpShots = [NSNumber numberWithInt:0];
     currentScore.autonDrawing.trace = nil;
     currentScore.teleOpDrawing.trace = nil;
 
@@ -2373,19 +2358,6 @@
 -(void)setDriverRate:(NSString *)newPick {
     currentScore.driverRating = [NSNumber numberWithInt:[newPick intValue]];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setIntakeRate:(NSString *)newPick {
-    currentScore.intakeRating = [NSNumber numberWithInt:[newPick intValue]];
-    [_intakeRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentScore.intakeRating intValue]] forState:UIControlStateNormal];
-    [self setDataChange];
-}
-
--(void)setAssistRate:(NSString *)newPick {
-    NSLog(@"Hook up asssit rating");
-    currentScore.assistRating = [NSNumber numberWithInt:[newPick intValue]];
-  //  [_assistRatingButton setTitle:[NSString stringWithFormat:@"%d", [currentScore.assistRating intValue]] forState:UIControlStateNormal];
     [self setDataChange];
 }
 

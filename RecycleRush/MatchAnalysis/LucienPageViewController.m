@@ -9,10 +9,10 @@
 #import <QuartzCore/CALayer.h>
 #import "LucienPageViewController.h"
 #import "DataManager.h"
-#import "DataConvenienceMethods.h"
 #import "FileIOMethods.h"
 #import "TeamAccessors.h"
-#import "EnumerationDictionary.h"
+#import "MatchAccessors.h"
+#import "ScoreAccessors.h"
 #import "TournamentData.h"
 #import "TeamData.h"
 #import "TeamScore.h"
@@ -137,7 +137,7 @@
 
     [self initializePreferences];
     exportPath = [FileIOMethods applicationDocumentsDirectory];
-    matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    matchTypeDictionary = _dataManager.matchTypeDictionary;
 
     dataChange = NO;
     parameterSelected = FALSE;
@@ -530,13 +530,14 @@
     lucienList = [[NSMutableArray alloc] init];
     // get team list
     NSArray *teamData = [TeamAccessors getTeamsInTournament:tournamentName fromDataManager:_dataManager];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@ AND matchType == %@", [NSNumber numberWithBool:YES], [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary]];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@ AND matchType == %@", [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchTypeDictionary]];
     // each team will have a dictionary with team number and a lucien number for each row
     // so a dictionary where key is the team number and there is an dictionary of lucien numbers with the same key as the row
     for (NSNumber *teamNumber in teamData) {
         NSLog(@"Team %@", teamNumber);
         // Get the matches for this team, this tournament and that have recorded results
-        NSArray *allMatches = [DataConvenienceMethods getMatchListForTeam:teamNumber forTournament:tournamentName fromContext:_dataManager.managedObjectContext];// = [[team.match allObjects] filteredArrayUsingPredicate:pred];
+        NSArray *allMatches = [ScoreAccessors getMatchListForTeam:teamNumber forTournament:tournamentName fromDataManager:_dataManager];
+        // = [[team.match allObjects] filteredArrayUsingPredicate:pred];
         NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];
         // For each requested parameter (ie row on this display), calculate its lucien number. Store in a dictionary
         //  using the same key as the parameterDictionary

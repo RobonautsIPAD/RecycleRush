@@ -120,7 +120,7 @@
     _speedRating.text = [NSString stringWithFormat:@"%d", [currentScore.robotSpeed intValue]];
     _driverRating.text = [NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]];
 
-    [self setRadioButtonState:_autonMobility forState:[currentScore.autonMobility boolValue]];
+ //   [self setRadioButtonState:_autonMobility forState:[currentScore.autonMobility boolValue]];
     [self setRadioButtonState:_noShow forState:[currentScore.noShow boolValue]];
     [self setRadioButtonState:_deadOnArrival forState:[currentScore.deadOnArrival boolValue]];
     

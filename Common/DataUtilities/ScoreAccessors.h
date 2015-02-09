@@ -13,5 +13,6 @@
 @interface ScoreAccessors : NSObject
 +(TeamScore *)getScoreRecord:(NSNumber *)matchNumber forType:(NSNumber *)matchType forAlliance:(NSNumber *)alliance forTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager;
 +(TeamScore *)getTeamScore:(NSArray *)scoreList forAllianceString:(NSString *)allianceString forAllianceDictionary:allianceDictionary ;
++(NSArray *)getMatchListForTeam:(NSNumber *)teamNumber forTournament:(NSString *)tournament fromDataManager:(DataManager *)dataManager;
 
 @end

@@ -15,8 +15,6 @@
 		<string>Tote Set</string>
 		<key>format</key>
 		<string>integer</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -25,8 +23,6 @@
 		<string>Can Set</string>
 		<key>format</key>
 		<string>integer</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -35,8 +31,86 @@
 		<string>Tote Stack Set</string>
 		<key>format</key>
 		<string>integer</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>toteIntakeHP</string>
+		<key>header</key>
+		<string>Tote HP</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>toteIntakeFloor</string>
+		<key>header</key>
+		<string>Tote Floor</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>canIntakeFloor</string>
+		<key>header</key>
+		<string>Can Floor</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totalTotesScored</string>
+		<key>header</key>
+		<string>Totes Stacked</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>stackNumber</string>
+		<key>header</key>
+		<string>Number Stacks</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totalCansScored</string>
+		<key>header</key>
+		<string>Cans Scored</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxToteHeight</string>
+		<key>header</key>
+		<string>Max Tote Level</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxCanHeight</string>
+		<key>header</key>
+		<string>Max Can Level</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driverRating</string>
+		<key>header</key>
+		<string>Driver</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>stackKnockdowns</string>
+		<key>header</key>
+		<string>Knockdowns</string>
+		<key>format</key>
+		<string>integer</string>
 	</dict>
 </array>
 </plist>

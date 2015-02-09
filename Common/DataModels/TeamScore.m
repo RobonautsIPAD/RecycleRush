@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/7/15.
+//  Created by FRC on 2/9/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -15,22 +15,25 @@
 @implementation TeamScore
 
 @dynamic allianceStation;
-@dynamic assistRating;
-@dynamic autonBlocks;
 @dynamic autonCanSet;
-@dynamic autonHighCold;
-@dynamic autonHighHot;
-@dynamic autonMobility;
-@dynamic autonShotsMade;
+@dynamic autonRobotSet;
 @dynamic autonTotePickUp;
 @dynamic autonToteSet;
 @dynamic autonToteStack;
+@dynamic canDomination;
+@dynamic canDominationTime;
 @dynamic canIntakeFloor;
 @dynamic cansFromStep;
+@dynamic cansOn0;
+@dynamic cansOn1;
+@dynamic cansOn2;
+@dynamic cansOn3;
+@dynamic cansOn4;
+@dynamic cansOn5;
+@dynamic cansOn6;
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fouls;
-@dynamic intakeRating;
 @dynamic litterHP;
 @dynamic litterHPBottom;
 @dynamic litterHPTop;
@@ -56,9 +59,9 @@
 @dynamic scouter;
 @dynamic stackKnockdowns;
 @dynamic teamNumber;
-@dynamic totalAutonShots;
-@dynamic totalPasses;
-@dynamic totalTeleOpShots;
+@dynamic totalCansScored;
+@dynamic totalLitterScored;
+@dynamic totalTotesScored;
 @dynamic toteFloorBottom;
 @dynamic toteFloorTop;
 @dynamic toteHPBottom;
@@ -66,12 +69,22 @@
 @dynamic toteIntakeFloor;
 @dynamic toteIntakeHP;
 @dynamic toteIntakeStep;
+@dynamic totesOn0;
+@dynamic totesOn1;
+@dynamic totesOn2;
+@dynamic totesOn3;
+@dynamic totesOn4;
+@dynamic totesOn5;
+@dynamic totesOn6;
 @dynamic toteStepBottom;
 @dynamic toteStepTop;
 @dynamic tournamentName;
+@dynamic maxToteHeight;
+@dynamic maxCanHeight;
+@dynamic stackNumber;
 @dynamic autonDrawing;
+@dynamic field;
 @dynamic match;
 @dynamic teleOpDrawing;
-@dynamic field;
 
 @end

@@ -153,6 +153,20 @@
     [optionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
+- (IBAction)spreadsheetSelected:(id)sender {
+    [self createScoutingSpreadsheet];
+}
+
+-(NSString *)createScoutingSpreadsheet {
+    NSString *csvString;
+    csvString = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName];
+    NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
+    [csvString writeToFile:filePath
+                atomically:YES
+                  encoding:NSUTF8StringEncoding
+                     error:nil];
+    return filePath;
+}
 
 -(void)emailTeamData {
     NSString *csvString;
@@ -229,6 +243,7 @@
     }
 }
 
+
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:array {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
@@ -276,7 +291,7 @@
 
 -(void)setBigButtonDefaults:(UIButton *)currentButton {
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:18.0];
 }
 
 -(void)viewWillLayoutSubviews {
