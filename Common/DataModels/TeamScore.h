@@ -38,6 +38,8 @@
 @property (nonatomic, retain) NSNumber * litterHPTop;
 @property (nonatomic, retain) NSNumber * matchNumber;
 @property (nonatomic, retain) NSNumber * matchType;
+@property (nonatomic, retain) NSNumber * maxCanHeight;
+@property (nonatomic, retain) NSNumber * maxToteHeight;
 @property (nonatomic, retain) NSNumber * noShow;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * otherRating;
@@ -57,6 +59,7 @@
 @property (nonatomic, retain) NSString * sc9;
 @property (nonatomic, retain) NSString * scouter;
 @property (nonatomic, retain) NSNumber * stackKnockdowns;
+@property (nonatomic, retain) NSNumber * stackNumber;
 @property (nonatomic, retain) NSNumber * teamNumber;
 @property (nonatomic, retain) NSNumber * totalCansScored;
 @property (nonatomic, retain) NSNumber * totalLitterScored;
@@ -78,9 +81,6 @@
 @property (nonatomic, retain) NSNumber * toteStepBottom;
 @property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
-@property (nonatomic, retain) NSNumber * maxToteHeight;
-@property (nonatomic, retain) NSNumber * maxCanHeight;
-@property (nonatomic, retain) NSNumber * stackNumber;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) FieldPhoto *field;
 @property (nonatomic, retain) MatchData *match;
