@@ -153,6 +153,7 @@
     [optionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
+
 - (IBAction)spreadsheetSelected:(id)sender {
     [self createScoutingSpreadsheet];
 }

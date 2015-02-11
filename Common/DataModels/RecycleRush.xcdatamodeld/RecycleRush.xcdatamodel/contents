@@ -98,7 +98,7 @@
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="allianceStation" attributeType="Integer 16" minValueString="0" maxValueString="7" syncable="YES"/>
         <attribute name="autonCanSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="autonRobotSet" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="autonRobotSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonTotePickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonToteSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonToteStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
