@@ -892,6 +892,7 @@
     // Apply a 1 pixel, black border
     [btnLayer setBorderWidth:1.0f];
     [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+  
     // Set the button Background Color
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color
