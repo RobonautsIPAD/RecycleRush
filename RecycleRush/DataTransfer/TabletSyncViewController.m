@@ -210,6 +210,17 @@
 
 -(void)updateClientStatus:(NSNotification *)notification {
     if ([bluetoothRole intValue] == Scouter) {
+        NSString *msg = [[notification userInfo]
+                               objectForKey:@"Receive"];
+        if (msg) {
+            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Receive"
+                                                          message:msg
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+            [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+            [prompt show];
+        }
         [self setClientStatus];
         [self setServerStatus];
     }
@@ -298,6 +309,18 @@
 }
 
 - (IBAction)quickRequest:(id)sender {
+/*    if (packet.packetNumber != -1)
+		packet.packetNumber = _sendPacketNumber++;
+    
+//	NSData *data = [packet data];
+ 
+    [_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop)
+     {
+         obj.receivedResponse = [_session.peerID isEqualToString:obj.peerID];
+     }];
+ */
+    [matchMakingServer sendDataFromServer:@"Some message or another"];
+
 }
 
 #pragma mark - Table view data source

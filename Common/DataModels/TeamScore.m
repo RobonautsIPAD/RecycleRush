@@ -39,6 +39,8 @@
 @dynamic litterHPTop;
 @dynamic matchNumber;
 @dynamic matchType;
+@dynamic maxCanHeight;
+@dynamic maxToteHeight;
 @dynamic noShow;
 @dynamic notes;
 @dynamic otherRating;
@@ -58,6 +60,7 @@
 @dynamic sc9;
 @dynamic scouter;
 @dynamic stackKnockdowns;
+@dynamic stackNumber;
 @dynamic teamNumber;
 @dynamic totalCansScored;
 @dynamic totalLitterScored;
@@ -79,9 +82,6 @@
 @dynamic toteStepBottom;
 @dynamic toteStepTop;
 @dynamic tournamentName;
-@dynamic maxToteHeight;
-@dynamic maxCanHeight;
-@dynamic stackNumber;
 @dynamic autonDrawing;
 @dynamic field;
 @dynamic match;

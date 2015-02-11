@@ -74,8 +74,10 @@
     NSString *tournamentName;
     NSString *previousTournament;
     NSString *deviceName;
+    NSString *defaultAlliance;
     NSMutableDictionary *settingsDictionary;
     NSFetchedResultsController *fetchedResultsController;
+    
     // Markers saved so that the user comes back to the same match if they leave this
     // display and then return
     NSNumber *storedMatchNumber;
@@ -84,6 +86,7 @@
     MatchUtilities *matchUtilities;
     NSDictionary *matchDictionary;
     NSDictionary *allianceDictionary;
+    
     // The currently displayed match, and team
     MatchData *currentMatch;
     TeamScore *currentScore;
@@ -91,6 +94,7 @@
     NSString *allianceString;
     NSString *matchTypeString;
     NSArray *scoreList;
+    
     // The fetchedResultsController indices of the current match and team
     NSUInteger sectionIndex;
     NSUInteger rowIndex;
@@ -100,8 +104,11 @@
     UIImagePickerController *imagePickerController;
     UIPopoverController *pictureController;
     
-    id popUp;
+    NSTimer *canDomTimer;
+    int timerCount;
+
     // Match Control Pop Ups
+    id popUp;
     NSArray *matchTypeList;
     PopUpPickerViewController *matchTypePicker;
     UIPopoverController *matchTypePickerPopover;
@@ -134,6 +141,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     deviceName = [prefs objectForKey:@"deviceName"];
     tournamentName = [prefs objectForKey:@"tournament"];
+    defaultAlliance = [prefs objectForKey:@"alliance"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Match Scouting", tournamentName];
     }
@@ -273,7 +281,15 @@
     _cansOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn4];
     _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
-   [self loadDrawing:allianceString];
+    [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
+    [self setAutonButton:_toteSetButton forValue:currentScore.autonToteSet];
+    [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
+    [self setAutonButton:_canSetButton forValue:currentScore.autonCanSet];
+    double seconds = fmod([currentScore.canDominationTime floatValue], 60.0);
+    double minutes = fmod(trunc([currentScore.canDominationTime floatValue] / 60.0), 60.0);
+    [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
+    
+    [self loadDrawing:allianceString];
 }
 
 -(void)loadDrawing:(NSString *)allianceString {
@@ -467,6 +483,70 @@
     }
 }
 
+- (IBAction)autonSelection:(id)sender {
+    [self setDataChange];
+    if (sender == _robotSetButton) {
+        if ([currentScore.autonRobotSet boolValue]) currentScore.autonRobotSet = [NSNumber numberWithBool:FALSE];
+        else currentScore.autonRobotSet = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
+    }
+    else if (sender == _canSetButton) {
+        if ([currentScore.autonCanSet boolValue]) currentScore.autonCanSet = [NSNumber numberWithBool:FALSE];
+        else currentScore.autonCanSet = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_canSetButton forValue:currentScore.autonCanSet];
+    }
+    else if (sender == _toteSetButton) {
+        if ([currentScore.autonToteSet boolValue]) currentScore.autonToteSet = [NSNumber numberWithBool:FALSE];
+        else currentScore.autonToteSet = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_toteSetButton forValue:currentScore.autonToteSet];
+    }
+    else if (sender == _toteStackButton) {
+        if ([currentScore.autonToteStack boolValue]) currentScore.autonToteStack = [NSNumber numberWithBool:FALSE];
+        else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
+    }
+}
+
+-(void)setAutonButton:(UIButton *)button forValue:(NSNumber *)value {
+    // check value, set button to right color
+    if ([value boolValue]) {
+        [button setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    else {
+        [button setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
+    }
+}
+- (IBAction)canDomStart:(id)sender {
+
+//    if (drawMode == DrawAuton || drawMode == DrawDefense || drawMode == DrawTeleop) {
+        dataChange = YES;
+        NSLog(@"Start Timer");
+        if (canDomTimer == nil) {
+            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                          target:self
+                                                        selector:@selector(timerFired)
+                                                        userInfo:nil
+                                                         repeats:YES];
+        }
+        timerCount = 0;
+  //  }
+}
+
+-(IBAction)canDomStop:(id)sender {
+ //   if (drawMode == DrawAuton || drawMode == DrawDefense || drawMode == DrawTeleop) {
+        NSLog(@"Stop Timer %d", timerCount);
+        int newTimer = [currentScore.canDominationTime intValue] + timerCount;
+        currentScore.canDominationTime = [NSNumber numberWithInt:newTimer];
+        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
+ //   }
+}
+
+- (void)timerFired {
+    timerCount++;
+}
+
 -(MatchData *)getCurrentMatch {
     if (numberMatchTypes == 0) {
         [_matchType setTitle:@"No Matches" forState:UIControlStateNormal];
@@ -492,6 +572,7 @@
         NSString *alliance = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
         [allianceList addObject:alliance];
     }
+//    teamIndex = [allianceList indexOfObject:newAlliance];
     teamPicker = Nil;
     teamPickerPopover = Nil;
     alliancePicker = Nil;
@@ -677,15 +758,15 @@
         sectionIndex = indexPath.section;
         rowIndex = indexPath.row;
         currentMatch = [self getCurrentMatch];
-        [self setTeamList];
-        NSLog(@"%@", teamList);
-        teamIndex = [allianceList indexOfObject:storedAlliance];
     }
     else {
         sectionIndex = 0;
         rowIndex = 0;
-        teamIndex = NSNotFound;
+        currentMatch = [self getCurrentMatch];
     }
+    [self setTeamList];
+    NSLog(@"%@", teamList);
+    teamIndex = [allianceList indexOfObject:storedAlliance];
 }
 
 -(void)saveSettings {
@@ -772,27 +853,35 @@
     }
     else if (textField == _cansOn0Text) {
         currentScore.cansOn0 = [NSNumber numberWithInt:[_cansOn0Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn1Text) {
         currentScore.cansOn1 = [NSNumber numberWithInt:[_cansOn1Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn2Text) {
         currentScore.cansOn2 = [NSNumber numberWithInt:[_cansOn2Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn3Text) {
         currentScore.cansOn3 = [NSNumber numberWithInt:[_cansOn3Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn4Text) {
         currentScore.cansOn4 = [NSNumber numberWithInt:[_cansOn4Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn5Text) {
         currentScore.cansOn5 = [NSNumber numberWithInt:[_cansOn5Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _cansOn6Text) {
         currentScore.cansOn6 = [NSNumber numberWithInt:[_cansOn6Text.text intValue]];
+        [self updateTotal:@"Cans"];
     }
     else if (textField == _toteIntakeHPText) {
         currentScore.toteIntakeHP = [NSNumber numberWithInt:[_toteIntakeHPText.text intValue]];
+        [self updateTotal:@"Cans"];
     }
 /*    else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
@@ -810,6 +899,11 @@
         int score = [currentScore.totesOn0 intValue] + [currentScore.totesOn1 intValue] + [currentScore.totesOn2 intValue] + [currentScore.totesOn3 intValue] + [currentScore.totesOn4 intValue] + [currentScore.totesOn5 intValue] + [currentScore.totesOn6 intValue];
         currentScore.totalTotesScored = [NSNumber numberWithInt:score];
         _totalTotesScored.text = [NSString stringWithFormat:@"%d", score];
+    }
+    else if ([scoreObject isEqualToString:@"Cans"]) {
+        int score = [currentScore.cansOn0 intValue] + [currentScore.cansOn1 intValue] + [currentScore.cansOn2 intValue] + [currentScore.cansOn3 intValue] + [currentScore.cansOn4 intValue] + [currentScore.cansOn5 intValue] + [currentScore.cansOn6 intValue];
+        currentScore.totalCansScored = [NSNumber numberWithInt:score];
+        _totalCansScored.text = [NSString stringWithFormat:@"%d", score];
     }
 }
 
@@ -892,6 +986,7 @@
     // Apply a 1 pixel, black border
     [btnLayer setBorderWidth:1.0f];
     [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
+  
     // Set the button Background Color
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color

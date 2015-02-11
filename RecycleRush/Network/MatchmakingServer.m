@@ -180,6 +180,16 @@
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
+-(void)sendDataFromServer:(NSString *)stuff {
+	GKSendDataMode dataMode = GKSendDataReliable;
+	NSError *error;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stuff];
+	if (![_session sendDataToAllPeers:data withDataMode:dataMode error:&error])
+	{
+		NSLog(@"Error sending data to clients: %@", error);
+	}
+}
+
 - (void)endSession
 {
 	NSAssert(_serverState != ServerStateIdle, @"Wrong state");

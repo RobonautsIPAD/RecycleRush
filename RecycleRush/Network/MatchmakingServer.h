@@ -21,5 +21,6 @@
 - (NSString *)displayNameForPeerID:(NSString *)peerID;
 - (void)stopAcceptingConnections;
 -(ServerState)getServerState;
+-(void)sendDataFromServer:(NSString *)stuff;
 
 @end
