@@ -221,42 +221,6 @@
 //	_quitReason = QuitReasonNoNetwork;
 }
 
-- (void)receiveData:(NSData *)data fromPeer:(NSString *)peerID inSession:(GKSession *)session context:(void *)context
-{
-#ifdef DEBUG
-	NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
-#endif
-    NSLog(@"Receiving");
-    NSString *myType = (NSString*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:[NSDictionary dictionaryWithObject:myType forKey:@"Receive"]]];
-    
-    NSLog(@"%@", myType);
-    /*	Packet *packet = [Packet packetWithData:data];
-     if (packet == nil)
-     {
-     NSLog(@"Invalid packet: %@", data);
-     return;
-     }
-     
-     Player *player = [self playerWithPeerID:peerID];
-     if (player != nil)
-     {
-     if (packet.packetNumber != -1 && packet.packetNumber <= player.lastPacketNumberReceived)
-     {
-     NSLog(@"Out-of-order packet!");
-     return;
-     }
-     
-     player.lastPacketNumberReceived = packet.packetNumber;
-     player.receivedResponse = YES;
-     }
-     
-     if (self.isServer)
-     [self serverReceivedPacket:packet fromPlayer:player];
-     else
-     [self clientReceivedPacket:packet];*/
-}
-
 
 - (void)dealloc
 {
