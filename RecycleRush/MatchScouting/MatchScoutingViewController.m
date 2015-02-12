@@ -7,6 +7,7 @@
 //
 
 #import "MatchScoutingViewController.h"
+#import <QuartzCore/CALayer.h>
 #import "DataManager.h"
 #import "FileIOMethods.h"
 #import "MatchFlow.h"
@@ -38,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *totalLitterScored;
 @property (weak, nonatomic) IBOutlet UITextField *cansDominatedText;
 @property (weak, nonatomic) IBOutlet UITextField *stackKnockdownText;
+@property (weak, nonatomic) IBOutlet UITextField *totalTotesIntake;
+@property (weak, nonatomic) IBOutlet UITextField *totalScore;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn0Text;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn1Text;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn2Text;
@@ -53,6 +56,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *cansOn5Text;
 @property (weak, nonatomic) IBOutlet UITextField *cansOn6Text;
 @property (weak, nonatomic) IBOutlet UITextField *toteIntakeHPText;
+@property (weak, nonatomic) IBOutlet UITextField *toteStepIntake;
+@property (weak, nonatomic) IBOutlet UITextField *toteFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *canFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *canStepIntake;
+@property (weak, nonatomic) IBOutlet UITextField *litterInCan;
 @property (weak, nonatomic) IBOutlet UIButton *robotSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *canSetButton;
@@ -266,7 +274,14 @@
     _totalLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLitterScored];
     _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.canDomination];
     _stackKnockdownText.text = [NSString stringWithFormat:@"%@", currentScore.stackKnockdowns];
+     _totalTotesIntake.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesIntake];
+    _canFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.canIntakeFloor];
+   _canStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.cansFromStep];
+    _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
+    _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
+    _toteFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeFloor];
+     _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterinCan];
     _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
     _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
@@ -524,7 +539,7 @@
         dataChange = YES;
         NSLog(@"Start Timer");
         if (canDomTimer == nil) {
-            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.6
                                                           target:self
                                                         selector:@selector(timerFired)
                                                         userInfo:nil
@@ -881,7 +896,24 @@
     }
     else if (textField == _toteIntakeHPText) {
         currentScore.toteIntakeHP = [NSNumber numberWithInt:[_toteIntakeHPText.text intValue]];
-        [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _toteStepIntake) {
+        currentScore.toteIntakeStep = [NSNumber numberWithInt:[_toteStepIntake.text intValue]];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _toteFloorIntake) {
+        currentScore.toteIntakeFloor = [NSNumber numberWithInt:[_toteFloorIntake.text intValue]];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _canFloorIntake) {
+        currentScore.canIntakeFloor = [NSNumber numberWithInt:[_canFloorIntake.text intValue]];
+    }
+    else if (textField == _canStepIntake) {
+        currentScore.cansFromStep = [NSNumber numberWithInt:[_canStepIntake.text intValue]];
+    }
+    else if (textField == _litterInCan) {
+        currentScore.litterinCan = [NSNumber numberWithInt:[_litterInCan.text intValue]];
     }
 /*    else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
@@ -904,6 +936,11 @@
         int score = [currentScore.cansOn0 intValue] + [currentScore.cansOn1 intValue] + [currentScore.cansOn2 intValue] + [currentScore.cansOn3 intValue] + [currentScore.cansOn4 intValue] + [currentScore.cansOn5 intValue] + [currentScore.cansOn6 intValue];
         currentScore.totalCansScored = [NSNumber numberWithInt:score];
         _totalCansScored.text = [NSString stringWithFormat:@"%d", score];
+    }
+    else if ([scoreObject isEqualToString:@"TotesIntake"]) {
+        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeFloor intValue];
+         currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
+        _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
 }
 

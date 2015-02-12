@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/9/15.
+//  Created by FRC on 2/12/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * allianceStation;
 @property (nonatomic, retain) NSNumber * autonCanSet;
+@property (nonatomic, retain) NSNumber * autonCansStep;
 @property (nonatomic, retain) NSNumber * autonRobotSet;
 @property (nonatomic, retain) NSNumber * autonTotePickUp;
 @property (nonatomic, retain) NSNumber * autonToteSet;
@@ -34,8 +35,8 @@
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * fouls;
 @property (nonatomic, retain) NSNumber * litterHP;
-@property (nonatomic, retain) NSNumber * litterHPBottom;
 @property (nonatomic, retain) NSNumber * litterHPTop;
+@property (nonatomic, retain) NSNumber * litterinCan;
 @property (nonatomic, retain) NSNumber * matchNumber;
 @property (nonatomic, retain) NSNumber * matchType;
 @property (nonatomic, retain) NSNumber * maxCanHeight;
@@ -63,6 +64,8 @@
 @property (nonatomic, retain) NSNumber * teamNumber;
 @property (nonatomic, retain) NSNumber * totalCansScored;
 @property (nonatomic, retain) NSNumber * totalLitterScored;
+@property (nonatomic, retain) NSNumber * totalScore;
+@property (nonatomic, retain) NSNumber * totalTotesIntake;
 @property (nonatomic, retain) NSNumber * totalTotesScored;
 @property (nonatomic, retain) NSNumber * toteFloorBottom;
 @property (nonatomic, retain) NSNumber * toteFloorTop;

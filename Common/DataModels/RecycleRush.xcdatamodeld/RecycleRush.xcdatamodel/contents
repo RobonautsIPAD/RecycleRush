@@ -98,6 +98,7 @@
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="allianceStation" attributeType="Integer 16" minValueString="0" maxValueString="7" syncable="YES"/>
         <attribute name="autonCanSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="autonCansStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonRobotSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonTotePickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonToteSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -122,8 +123,8 @@
         </attribute>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="litterHPBottom" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHPTop" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="litterinCan" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="matchNumber" attributeType="Integer 16" minValueString="0" maxValueString="250" syncable="YES"/>
         <attribute name="matchType" attributeType="Integer 16" minValueString="0" maxValueString="4" syncable="YES"/>
         <attribute name="maxCanHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -160,6 +161,8 @@
         <attribute name="teamNumber" attributeType="Integer 16" minValueString="1" syncable="YES"/>
         <attribute name="totalCansScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="totalLitterScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="totalTotesIntake" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTotesScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteFloorBottom" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="toteFloorTop" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
@@ -194,7 +197,7 @@
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="630"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1125"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1170"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>
