@@ -12,8 +12,8 @@
 
 @interface PacketQuickRequest : Packet
 
-@property (nonatomic, strong) NSDictionary *quickRequest;
+@property (nonatomic, copy) NSString *requesterID;
 
-+ (id)packetWithQuickRequest:(NSDictionary *)quickRequest;
++ (id)packetWithQuickRequest:(NSString *)requesterID;
 
 @end

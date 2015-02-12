@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class DataManager;
-@interface PitScoutingDataSheet : UIViewController <UITextFieldDelegate>
+@interface PitScoutingDataSheet : UIViewController <UIActionSheetDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) DataManager *dataManager;
 @end

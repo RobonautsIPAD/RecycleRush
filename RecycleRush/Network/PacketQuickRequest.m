@@ -11,21 +11,18 @@
 
 @implementation PacketQuickRequest
 
-+ (id)packetWithQuickRequest:(NSDictionary *)quickRequest {
-//	return [[[self class] alloc] initWithCards:cards startingWithPlayerPeerID:startingPeerID];
-}
-/*
-- (id)initWithCards:(NSDictionary *)cards startingWithPlayerPeerID:(NSString *)startingPeerID
-{
-	if ((self = [super initWithType:PacketTypeDealCards]))
-	{
-		self.cards = cards;
-		self.startingPeerID = startingPeerID;
-	}
-	return self;
++ (id)packetWithQuickRequest:(NSString *)requesterID {
+	return [[[self class] alloc] initWithRequesterID:requesterID];
 }
 
-+ (id)packetWithData:(NSData *)data
+-(id)initWithRequesterID:(NSString *)requesterID {
+    if ((self = [super initWithType:PacketTypeQuickRequest]))  {
+        self.requesterID = requesterID;
+    }
+    return self;
+}
+
+/*+ (id)packetWithData:(NSData *)data
 {
 	size_t offset = PACKET_HEADER_SIZE;
 	size_t count;
@@ -36,12 +33,11 @@
 	NSDictionary *cards = [[self class] cardsFromData:data atOffset:offset];
     
 	return [[self class] packetWithCards:cards startingWithPlayerPeerID:startingPeerID];
-}
+}*/
 
 - (void)addPayloadToData:(NSMutableData *)data
 {
-	[data rw_appendString:self.startingPeerID];
-	[self addCards:self.cards toPayload:data];
+	[data rw_appendString:self.requesterID];
 }
-*/
+
 @end

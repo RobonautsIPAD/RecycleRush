@@ -34,6 +34,14 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>autonCansStep</string>
+		<key>header</key>
+		<string>Cans From Step</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>toteIntakeHP</string>
 		<key>header</key>
 		<string>Tote HP</string>

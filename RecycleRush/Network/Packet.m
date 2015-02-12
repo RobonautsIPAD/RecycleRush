@@ -105,13 +105,13 @@ const size_t PACKET_HEADER_SIZE = 10;
 - (NSData *)data
 {
 	NSMutableData *data = [[NSMutableData alloc] initWithCapacity:100];
-/*
+
 	[data rw_appendInt32:'Robo'];   // 0x534E4150
 	[data rw_appendInt32:self.packetNumber];
 	[data rw_appendInt16:self.packetType];
     
     [self addPayloadToData:data];
-*/
+
 	return data;
 }
 
