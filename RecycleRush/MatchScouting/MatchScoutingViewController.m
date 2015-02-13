@@ -32,6 +32,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 // Alliance Info
 @property (nonatomic, weak) IBOutlet UIButton *alliance;
+// View Control items
+@property (weak, nonatomic) IBOutlet UIView *controlsView;
+@property (weak, nonatomic) IBOutlet UIView *stackView;
 
 // Score Stuff
 @property (weak, nonatomic) IBOutlet UITextField *totalTotesScored;
@@ -83,6 +86,7 @@
     NSString *previousTournament;
     NSString *deviceName;
     NSString *defaultAlliance;
+    NSString *mode;
     NSMutableDictionary *settingsDictionary;
     NSFetchedResultsController *fetchedResultsController;
     
@@ -94,6 +98,7 @@
     MatchUtilities *matchUtilities;
     NSDictionary *matchDictionary;
     NSDictionary *allianceDictionary;
+    NSString *desiredAlliance;
     
     // The currently displayed match, and team
     MatchData *currentMatch;
@@ -150,6 +155,7 @@
     deviceName = [prefs objectForKey:@"deviceName"];
     tournamentName = [prefs objectForKey:@"tournament"];
     defaultAlliance = [prefs objectForKey:@"alliance"];
+    mode = [prefs objectForKey:@"mode"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Match Scouting", tournamentName];
     }
@@ -250,15 +256,24 @@
     matchTypeString = [MatchAccessors getMatchTypeString:currentMatch.matchType fromDictionary:_dataManager.matchTypeDictionary];
     [_matchType setTitle:matchTypeString forState:UIControlStateNormal];
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
-    if (teamIndex == NSNotFound) {
-        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Check Alert"
-                                                          message:@"No team in this alliance slot"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-        [prompt show];
+    if (teamIndex == -1) {
+        NSString *msg = @"No default alliance set";
+        [self alertPrompt:@"Show Team" withMessage:msg];
         NSLog(@"do something else");
+        [self hideViews];
+        [_teamNumber setTitle:@"" forState:UIControlStateNormal];
+        _teamName.text = @"";
+        [_alliance setTitle:@"" forState:UIControlStateNormal];
+        return;
+    }
+    if (teamIndex == NSNotFound) {
+        NSString *msg = @"No team in this alliance slot";
+        [self alertPrompt:@"Show Team" withMessage:msg];
+        NSLog(@"do something else");
+        [self hideViews];
+        [_teamNumber setTitle:@"" forState:UIControlStateNormal];
+        _teamName.text = @"";
+        [_alliance setTitle:desiredAlliance forState:UIControlStateNormal];
         return;
     }
     currentScore = [scoreList objectAtIndex:teamIndex];
@@ -303,7 +318,7 @@
     double seconds = fmod([currentScore.canDominationTime floatValue], 60.0);
     double minutes = fmod(trunc([currentScore.canDominationTime floatValue] / 60.0), 60.0);
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
-    
+    [self showViews];
     [self loadDrawing:allianceString];
 }
 
@@ -388,11 +403,13 @@
 }
 
 - (void)allianceSelected:(NSString *)newAlliance {
+    NSLog(@"add check for mode");
     [self checkDataStatus];
     [alliancePickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [allianceList indexOfObject:newAlliance];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
+    else desiredAlliance = newAlliance;
     [self showTeam:teamIndex];
 }
 
@@ -452,11 +469,13 @@
 }
 
 - (void)teamSelected:(NSString *)newTeam {
+    NSLog(@"check for mode");
     [self checkDataStatus];
     [teamPickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [teamList indexOfObject:newTeam];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
+    else desiredAlliance = [allianceList objectAtIndex:teamIndex];
     [self showTeam:teamIndex];
 }
 
@@ -587,7 +606,9 @@
         NSString *alliance = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
         [allianceList addObject:alliance];
     }
-//    teamIndex = [allianceList indexOfObject:newAlliance];
+    if ([desiredAlliance isEqualToString:@""]) teamIndex = -1;
+    else teamIndex = [allianceList indexOfObject:desiredAlliance];
+
     teamPicker = Nil;
     teamPickerPopover = Nil;
     alliancePicker = Nil;
@@ -735,6 +756,7 @@
     [_matchNumber setUserInteractionEnabled:FALSE];
     [_matchType setUserInteractionEnabled:FALSE];
     [_alliance setUserInteractionEnabled:FALSE];
+    [self hideViews];
 }
 
 -(void)setDisplayActive {
@@ -743,6 +765,31 @@
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
     [_alliance setUserInteractionEnabled:TRUE];
+    [self showViews];
+}
+
+-(void)hideViews {
+    [_fieldDrawingContainer setHidden:TRUE];
+    [_controlsView setHidden:TRUE];
+    [_stackView setHidden:TRUE];
+}
+
+-(void)showViews {
+    [_fieldDrawingContainer setHidden:FALSE];
+    [_controlsView setHidden:FALSE];
+    [_stackView setHidden:FALSE];
+}
+
+-(void)disableInputs {
+    [_fieldDrawingContainer setUserInteractionEnabled:FALSE];
+    [_controlsView setUserInteractionEnabled:FALSE];
+    [_stackView setUserInteractionEnabled:FALSE];
+}
+
+-(void)enableInputs {
+    [_fieldDrawingContainer setUserInteractionEnabled:TRUE];
+    [_controlsView setUserInteractionEnabled:TRUE];
+    [_stackView setUserInteractionEnabled:TRUE];
 }
 
 -(void)loadSettings {
@@ -753,9 +800,38 @@
     storedMatchType = @"";
     storedAlliance = @"";
     if ([tournamentName isEqualToString:previousTournament]) {
+        // It is the same tournament since the last time we were here. The match placement
+        // data should still be good.
+        desiredAlliance = @"";
         storedMatchNumber = [settingsDictionary valueForKey:@"Match"];
         storedMatchType = [settingsDictionary valueForKey:@"Match Type"];
         storedAlliance = [settingsDictionary valueForKey:@"Alliance"];
+        if ([mode isEqualToString:@"Tournament"]) {
+            NSString *msg;
+            if (defaultAlliance == nil || [defaultAlliance isEqualToString:@""]) {
+                desiredAlliance = @"";
+                msg = @"No Default Alliance Set";
+                [self alertPrompt:@"Tournament Mode" withMessage:msg];
+            }
+            else if ([defaultAlliance isEqualToString:storedAlliance] == NO) {
+                desiredAlliance = defaultAlliance;
+                msg = [NSString stringWithFormat:@"Switching from stored %@ to default %@", storedAlliance, defaultAlliance];
+                [self alertPrompt:@"Tournament Mode" withMessage:@""];
+            }
+            else desiredAlliance = defaultAlliance;
+        }
+        else {
+            if (storedAlliance && [storedAlliance isEqualToString:@""] == NO) desiredAlliance = storedAlliance;
+            else if (defaultAlliance && [defaultAlliance isEqualToString:@""] == NO) desiredAlliance = defaultAlliance;
+            else desiredAlliance = @"Red 1";
+        }
+    }
+    else {
+        // We are on a different tournament. Use the default alliance set in the prefs for this device
+        // unless it is blank. If it is blank move onto the stored alliance. If that is blank, use Red 1.
+        if (![defaultAlliance isEqualToString:@""]) desiredAlliance = defaultAlliance;
+        else if (![storedAlliance isEqualToString:@""]) desiredAlliance = storedAlliance;
+        else desiredAlliance = @"Red 1";
     }
 }
 
@@ -781,7 +857,6 @@
     }
     [self setTeamList];
     NSLog(@"%@", teamList);
-    teamIndex = [allianceList indexOfObject:storedAlliance];
 }
 
 -(void)saveSettings {
@@ -1079,6 +1154,16 @@
         fetchedResultsController = aFetchedResultsController;
     }
 	return fetchedResultsController;
+}
+
+-(void)alertPrompt:(NSString *)title withMessage:(NSString *)message {
+    UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+    [prompt show];
 }
 
 - (void)didReceiveMemoryWarning

@@ -252,17 +252,20 @@
 	UILabel *numberLabel = (UILabel *)[cell viewWithTag:10];
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
     
-    
 	UILabel *label1 = (UILabel *)[cell viewWithTag:20];
     label1.text = info.driveTrainType;
+
 	UILabel *label2 = (UILabel *)[cell viewWithTag:30];
 	label2.text = info.canIntake;
+
 	UILabel *label3 = (UILabel *)[cell viewWithTag:40];
 	label3.text = info.toteIntake;
+   
     UILabel *label4 = (UILabel *)[cell viewWithTag:50];
 	label4.text = info.liftType;
-    UILabel *label5 = (UILabel *)[cell viewWithTag:60];
-    label5.text = info.toteMaxStack;
+   
+    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
+    label5.text = [NSString stringWithFormat:@"%d", [info.maxToteStack intValue]];
   
     
     UILabel *label6 = (UILabel *)[cell viewWithTag:80];

@@ -275,10 +275,6 @@
 }
 
 - (IBAction)exportFullMatchData:(id)sender {
-    // Export Scores
-/*    NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
-    ExportScoreData *fullData = [[ExportScoreData alloc] init:_dataManager];
-    [fullData exportFullMatchData:teamData];*/
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

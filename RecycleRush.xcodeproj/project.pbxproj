@@ -34,7 +34,6 @@
 		2F312BB31A7D6C1C002EF938 /* Slide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F312BB21A7D6C1C002EF938 /* Slide1.png */; };
 		2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */; };
 		2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */; };
-		2F312BD91A7DAD60002EF938 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BD81A7DAD60002EF938 /* TeamData.m */; };
 		2F33DCE91A86A9CC00331B12 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */; };
 		2F33DCEC1A86A9DE00331B12 /* FieldPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCEB1A86A9DE00331B12 /* FieldPhoto.m */; };
 		2F33DCF21A86EA1700331B12 /* TeamMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */; };
@@ -105,25 +104,14 @@
 		2F5D33111A5FA5F700E02523 /* 2013_logo~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */; };
 		2F5D33121A5FA5F700E02523 /* 2014_field_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */; };
 		2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33071A5FA5F700E02523 /* 2014_field.png */; };
-		2F5D33181A5FA5F700E02523 /* Blocked Shot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D330C1A5FA5F700E02523 /* Blocked Shot.png */; };
 		2F5D33191A5FA5F700E02523 /* Blue Fade.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D330D1A5FA5F700E02523 /* Blue Fade.gif */; };
 		2F5D33351A5FA69E00E02523 /* Gold Fade.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */; };
-		2F5D33371A5FA69E00E02523 /* Intake from Human Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D331F1A5FA69E00E02523 /* Intake from Human Miss.png */; };
-		2F5D33381A5FA69E00E02523 /* Intake from Human.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33201A5FA69E00E02523 /* Intake from Human.png */; };
-		2F5D33391A5FA69E00E02523 /* Intake from Robot Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33211A5FA69E00E02523 /* Intake from Robot Miss.png */; };
-		2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33221A5FA69E00E02523 /* Intake from Robot.png */; };
 		2F5D333C1A5FA69E00E02523 /* ios-7-camera-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */; };
 		2F5D33431A5FA69E00E02523 /* nasalization rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */; };
-		2F5D33441A5FA69E00E02523 /* Pass to Robot Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332C1A5FA69E00E02523 /* Pass to Robot Miss.png */; };
-		2F5D33451A5FA69E00E02523 /* Pass to Robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332D1A5FA69E00E02523 /* Pass to Robot.png */; };
 		2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */; };
 		2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33301A5FA69E00E02523 /* Pick Up.png */; };
 		2F5D33581A5FA75C00E02523 /* robonauts app banner original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D334C1A5FA75C00E02523 /* robonauts app banner original.jpg */; };
 		2F5D33591A5FA75C00E02523 /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D334D1A5FA75C00E02523 /* robonauts app banner.jpg */; };
-		2F5D33731A5FA89700E02523 /* Truss Catch Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33691A5FA89700E02523 /* Truss Catch Miss.png */; };
-		2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D336A1A5FA89700E02523 /* Truss Catch.png */; };
-		2F5D33751A5FA89700E02523 /* Truss Throw Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D336B1A5FA89700E02523 /* Truss Throw Miss.png */; };
-		2F5D33761A5FA89700E02523 /* Truss Throw.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D336C1A5FA89700E02523 /* Truss Throw.png */; };
 		2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33781A5FA96F00E02523 /* Default-568h@2x.png */; };
 		2F5D337C1A5FA96F00E02523 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33791A5FA96F00E02523 /* Default.png */; };
 		2F5D337D1A5FA96F00E02523 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D337A1A5FA96F00E02523 /* Default@2x.png */; };
@@ -168,17 +156,17 @@
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
 		2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA151A6F27AD0007412E /* MatchmakingClient.m */; };
 		2FDECA1A1A6F27AD0007412E /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA171A6F27AD0007412E /* MatchmakingServer.m */; };
+		2FDFCA181A8D535600717B86 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDFCA171A8D535600717B86 /* TeamData.m */; };
 		2FDFE5081A7E888B002FEAD0 /* AllianceList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE4FC1A7E888B002FEAD0 /* AllianceList.plist */; };
 		2FDFE5091A7E888B002FEAD0 /* CanIntake.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE4FD1A7E888B002FEAD0 /* CanIntake.plist */; };
 		2FDFE50A1A7E888B002FEAD0 /* DriveType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE4FE1A7E888B002FEAD0 /* DriveType.plist */; };
-		2FDFE50B1A7E888B002FEAD0 /* IntakeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE4FF1A7E888B002FEAD0 /* IntakeType.plist */; };
+		2FDFE50B1A7E888B002FEAD0 /* ToteIntakeType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */; };
 		2FDFE50C1A7E888B002FEAD0 /* LiftType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5001A7E888B002FEAD0 /* LiftType.plist */; };
 		2FDFE50D1A7E888B002FEAD0 /* LucienNumberFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5011A7E888B002FEAD0 /* LucienNumberFields.plist */; };
 		2FDFE50E1A7E888B002FEAD0 /* MarcusOutput.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5021A7E888B002FEAD0 /* MarcusOutput.plist */; };
 		2FDFE50F1A7E888B002FEAD0 /* MasonPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5031A7E888B002FEAD0 /* MasonPage.plist */; };
 		2FDFE5101A7E888B002FEAD0 /* MatchData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5041A7E888B002FEAD0 /* MatchData.plist */; };
 		2FDFE5111A7E888B002FEAD0 /* MatchType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5051A7E888B002FEAD0 /* MatchType.plist */; };
-		2FDFE5121A7E888B002FEAD0 /* MaxToteStack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5061A7E888B002FEAD0 /* MaxToteStack.plist */; };
 		2FDFE5131A7E888B002FEAD0 /* QuadState.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5071A7E888B002FEAD0 /* QuadState.plist */; };
 		2FDFE5161A7E88A5002FEAD0 /* ScouterName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5141A7E88A5002FEAD0 /* ScouterName.plist */; };
 		2FDFE5171A7E88A5002FEAD0 /* ShooterType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5151A7E88A5002FEAD0 /* ShooterType.plist */; };
@@ -252,8 +240,6 @@
 		2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoutingBundleViewController.m; path = RecycleRush/MatchAnalysis/ScoutingBundleViewController.m; sourceTree = SOURCE_ROOT; };
 		2F312BCE1A7D9E60002EF938 /* TeamStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamStatsViewController.h; path = RecycleRush/MatchAnalysis/TeamStatsViewController.h; sourceTree = SOURCE_ROOT; };
 		2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamStatsViewController.m; path = RecycleRush/MatchAnalysis/TeamStatsViewController.m; sourceTree = SOURCE_ROOT; };
-		2F312BD71A7DAD60002EF938 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
-		2F312BD81A7DAD60002EF938 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDrawing.h; sourceTree = "<group>"; };
 		2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDrawing.m; sourceTree = "<group>"; };
 		2F33DCEA1A86A9DE00331B12 /* FieldPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldPhoto.h; sourceTree = "<group>"; };
@@ -384,25 +370,14 @@
 		2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2013_logo~ipad.png"; path = "RecycleRush/Resources/2013_logo~ipad.png"; sourceTree = SOURCE_ROOT; };
 		2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = RecycleRush/Resources/2014_field_grid.png; sourceTree = SOURCE_ROOT; };
 		2F5D33071A5FA5F700E02523 /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = RecycleRush/Resources/2014_field.png; sourceTree = SOURCE_ROOT; };
-		2F5D330C1A5FA5F700E02523 /* Blocked Shot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blocked Shot.png"; path = "RecycleRush/Resources/Blocked Shot.png"; sourceTree = SOURCE_ROOT; };
 		2F5D330D1A5FA5F700E02523 /* Blue Fade.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "Blue Fade.gif"; path = "RecycleRush/Resources/Blue Fade.gif"; sourceTree = SOURCE_ROOT; };
 		2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "Gold Fade.gif"; path = "RecycleRush/Resources/Gold Fade.gif"; sourceTree = SOURCE_ROOT; };
-		2F5D331F1A5FA69E00E02523 /* Intake from Human Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human Miss.png"; path = "RecycleRush/Resources/Intake from Human Miss.png"; sourceTree = SOURCE_ROOT; };
-		2F5D33201A5FA69E00E02523 /* Intake from Human.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Human.png"; path = "RecycleRush/Resources/Intake from Human.png"; sourceTree = SOURCE_ROOT; };
-		2F5D33211A5FA69E00E02523 /* Intake from Robot Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot Miss.png"; path = "RecycleRush/Resources/Intake from Robot Miss.png"; sourceTree = SOURCE_ROOT; };
-		2F5D33221A5FA69E00E02523 /* Intake from Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Intake from Robot.png"; path = "RecycleRush/Resources/Intake from Robot.png"; sourceTree = SOURCE_ROOT; };
 		2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ios-7-camera-icon.png"; path = "RecycleRush/Resources/ios-7-camera-icon.png"; sourceTree = SOURCE_ROOT; };
 		2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "nasalization rg.ttf"; path = "RecycleRush/Resources/nasalization rg.ttf"; sourceTree = SOURCE_ROOT; };
-		2F5D332C1A5FA69E00E02523 /* Pass to Robot Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pass to Robot Miss.png"; path = "RecycleRush/Resources/Pass to Robot Miss.png"; sourceTree = SOURCE_ROOT; };
-		2F5D332D1A5FA69E00E02523 /* Pass to Robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pass to Robot.png"; path = "RecycleRush/Resources/Pass to Robot.png"; sourceTree = SOURCE_ROOT; };
 		2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pick Up Miss.png"; path = "RecycleRush/Resources/Pick Up Miss.png"; sourceTree = SOURCE_ROOT; };
 		2F5D33301A5FA69E00E02523 /* Pick Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pick Up.png"; path = "RecycleRush/Resources/Pick Up.png"; sourceTree = SOURCE_ROOT; };
 		2F5D334C1A5FA75C00E02523 /* robonauts app banner original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner original.jpg"; path = "RecycleRush/Resources/robonauts app banner original.jpg"; sourceTree = SOURCE_ROOT; };
 		2F5D334D1A5FA75C00E02523 /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "RecycleRush/Resources/robonauts app banner.jpg"; sourceTree = SOURCE_ROOT; };
-		2F5D33691A5FA89700E02523 /* Truss Catch Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch Miss.png"; path = "RecycleRush/Resources/Truss Catch Miss.png"; sourceTree = SOURCE_ROOT; };
-		2F5D336A1A5FA89700E02523 /* Truss Catch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Catch.png"; path = "RecycleRush/Resources/Truss Catch.png"; sourceTree = SOURCE_ROOT; };
-		2F5D336B1A5FA89700E02523 /* Truss Throw Miss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Throw Miss.png"; path = "RecycleRush/Resources/Truss Throw Miss.png"; sourceTree = SOURCE_ROOT; };
-		2F5D336C1A5FA89700E02523 /* Truss Throw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Truss Throw.png"; path = "RecycleRush/Resources/Truss Throw.png"; sourceTree = SOURCE_ROOT; };
 		2F5D33781A5FA96F00E02523 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "RecycleRush/Resources/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		2F5D33791A5FA96F00E02523 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = RecycleRush/Resources/Default.png; sourceTree = SOURCE_ROOT; };
 		2F5D337A1A5FA96F00E02523 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "RecycleRush/Resources/Default@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -469,17 +444,18 @@
 		2FDECA151A6F27AD0007412E /* MatchmakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchmakingClient.m; path = RecycleRush/Network/MatchmakingClient.m; sourceTree = SOURCE_ROOT; };
 		2FDECA161A6F27AD0007412E /* MatchmakingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchmakingServer.h; path = RecycleRush/Network/MatchmakingServer.h; sourceTree = SOURCE_ROOT; };
 		2FDECA171A6F27AD0007412E /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchmakingServer.m; path = RecycleRush/Network/MatchmakingServer.m; sourceTree = SOURCE_ROOT; };
+		2FDFCA161A8D535600717B86 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
+		2FDFCA171A8D535600717B86 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FDFE4FC1A7E888B002FEAD0 /* AllianceList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AllianceList.plist; path = "RecycleRush/Resources/Property Lists/AllianceList.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE4FD1A7E888B002FEAD0 /* CanIntake.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CanIntake.plist; path = "RecycleRush/Resources/Property Lists/CanIntake.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE4FE1A7E888B002FEAD0 /* DriveType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DriveType.plist; path = "RecycleRush/Resources/Property Lists/DriveType.plist"; sourceTree = SOURCE_ROOT; };
-		2FDFE4FF1A7E888B002FEAD0 /* IntakeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = IntakeType.plist; path = "RecycleRush/Resources/Property Lists/IntakeType.plist"; sourceTree = SOURCE_ROOT; };
+		2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ToteIntakeType.plist; path = "RecycleRush/Resources/Property Lists/ToteIntakeType.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5001A7E888B002FEAD0 /* LiftType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LiftType.plist; path = "RecycleRush/Resources/Property Lists/LiftType.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5011A7E888B002FEAD0 /* LucienNumberFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LucienNumberFields.plist; path = "RecycleRush/Resources/Property Lists/LucienNumberFields.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5021A7E888B002FEAD0 /* MarcusOutput.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MarcusOutput.plist; path = "RecycleRush/Resources/Property Lists/MarcusOutput.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5031A7E888B002FEAD0 /* MasonPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MasonPage.plist; path = "RecycleRush/Resources/Property Lists/MasonPage.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5041A7E888B002FEAD0 /* MatchData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MatchData.plist; path = "RecycleRush/Resources/Property Lists/MatchData.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5051A7E888B002FEAD0 /* MatchType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MatchType.plist; path = "RecycleRush/Resources/Property Lists/MatchType.plist"; sourceTree = SOURCE_ROOT; };
-		2FDFE5061A7E888B002FEAD0 /* MaxToteStack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MaxToteStack.plist; path = "RecycleRush/Resources/Property Lists/MaxToteStack.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5071A7E888B002FEAD0 /* QuadState.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = QuadState.plist; path = "RecycleRush/Resources/Property Lists/QuadState.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5141A7E88A5002FEAD0 /* ScouterName.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ScouterName.plist; path = "RecycleRush/Resources/Property Lists/ScouterName.plist"; sourceTree = SOURCE_ROOT; };
 		2FDFE5151A7E88A5002FEAD0 /* ShooterType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ShooterType.plist; path = "RecycleRush/Resources/Property Lists/ShooterType.plist"; sourceTree = SOURCE_ROOT; };
@@ -758,14 +734,13 @@
 				2FDFE4FC1A7E888B002FEAD0 /* AllianceList.plist */,
 				2FDFE4FD1A7E888B002FEAD0 /* CanIntake.plist */,
 				2FDFE4FE1A7E888B002FEAD0 /* DriveType.plist */,
-				2FDFE4FF1A7E888B002FEAD0 /* IntakeType.plist */,
+				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
 				2FDFE5001A7E888B002FEAD0 /* LiftType.plist */,
 				2FDFE5011A7E888B002FEAD0 /* LucienNumberFields.plist */,
 				2FDFE5021A7E888B002FEAD0 /* MarcusOutput.plist */,
 				2FDFE5031A7E888B002FEAD0 /* MasonPage.plist */,
 				2FDFE5041A7E888B002FEAD0 /* MatchData.plist */,
 				2FDFE5051A7E888B002FEAD0 /* MatchType.plist */,
-				2FDFE5061A7E888B002FEAD0 /* MaxToteStack.plist */,
 				2FDFE5071A7E888B002FEAD0 /* QuadState.plist */,
 			);
 			name = "Property Lists";
@@ -781,17 +756,6 @@
 				2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */,
 				2F5D33071A5FA5F700E02523 /* 2014_field.png */,
 				2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */,
-				2F5D336A1A5FA89700E02523 /* Truss Catch.png */,
-				2F5D33691A5FA89700E02523 /* Truss Catch Miss.png */,
-				2F5D336C1A5FA89700E02523 /* Truss Throw.png */,
-				2F5D336B1A5FA89700E02523 /* Truss Throw Miss.png */,
-				2F5D33201A5FA69E00E02523 /* Intake from Human.png */,
-				2F5D331F1A5FA69E00E02523 /* Intake from Human Miss.png */,
-				2F5D330C1A5FA5F700E02523 /* Blocked Shot.png */,
-				2F5D33221A5FA69E00E02523 /* Intake from Robot.png */,
-				2F5D33211A5FA69E00E02523 /* Intake from Robot Miss.png */,
-				2F5D332D1A5FA69E00E02523 /* Pass to Robot.png */,
-				2F5D332C1A5FA69E00E02523 /* Pass to Robot Miss.png */,
 				2F5D33301A5FA69E00E02523 /* Pick Up.png */,
 				2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */,
 			);
@@ -880,6 +844,8 @@
 			isa = PBXGroup;
 			children = (
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
+				2FDFCA161A8D535600717B86 /* TeamData.h */,
+				2FDFCA171A8D535600717B86 /* TeamData.m */,
 				2F4B21E21A8CECCA00F794FA /* TeamScore.h */,
 				2F4B21E31A8CECCA00F794FA /* TeamScore.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
@@ -892,8 +858,6 @@
 				2F88168A1A5FB0D4001CCA04 /* MatchData.m */,
 				2F88168F1A5FB0D4001CCA04 /* Regional.h */,
 				2F8816901A5FB0D4001CCA04 /* Regional.m */,
-				2F312BD71A7DAD60002EF938 /* TeamData.h */,
-				2F312BD81A7DAD60002EF938 /* TeamData.m */,
 				2F8816991A5FB0D4001CCA04 /* TournamentData.h */,
 				2F88169A1A5FB0D4001CCA04 /* TournamentData.m */,
 				2F88168B1A5FB0D4001CCA04 /* MatchDataInterfaces.h */,
@@ -1101,15 +1065,11 @@
 				2F5D33351A5FA69E00E02523 /* Gold Fade.gif in Resources */,
 				2FDFE5111A7E888B002FEAD0 /* MatchType.plist in Resources */,
 				2FDFE51D1A7E88B7002FEAD0 /* TriState.plist in Resources */,
-				2F5D33371A5FA69E00E02523 /* Intake from Human Miss.png in Resources */,
 				2FDFE5091A7E888B002FEAD0 /* CanIntake.plist in Resources */,
 				2F5D33581A5FA75C00E02523 /* robonauts app banner original.jpg in Resources */,
 				2FDFE52D1A7E891E002FEAD0 /* Small White Button.jpg in Resources */,
 				2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */,
 				2F5D33591A5FA75C00E02523 /* robonauts app banner.jpg in Resources */,
-				2FDFE5121A7E888B002FEAD0 /* MaxToteStack.plist in Resources */,
-				2F5D33451A5FA69E00E02523 /* Pass to Robot.png in Resources */,
-				2F5D33181A5FA5F700E02523 /* Blocked Shot.png in Resources */,
 				2FDFE5291A7E891E002FEAD0 /* Small Blue Button.jpg in Resources */,
 				2FDFE5081A7E888B002FEAD0 /* AllianceList.plist in Resources */,
 				2F5D333C1A5FA69E00E02523 /* ios-7-camera-icon.png in Resources */,
@@ -1117,12 +1077,11 @@
 				2FDFE5171A7E88A5002FEAD0 /* ShooterType.plist in Resources */,
 				2FDFE5131A7E888B002FEAD0 /* QuadState.plist in Resources */,
 				2FDFE52B1A7E891E002FEAD0 /* Small Grey Button.jpg in Resources */,
-				2FDFE50B1A7E888B002FEAD0 /* IntakeType.plist in Resources */,
+				2FDFE50B1A7E888B002FEAD0 /* ToteIntakeType.plist in Resources */,
 				2FDFE5281A7E891E002FEAD0 /* RadioButton-Unselected.png in Resources */,
 				2FDFE5101A7E888B002FEAD0 /* MatchData.plist in Resources */,
 				2FDFE50D1A7E888B002FEAD0 /* LucienNumberFields.plist in Resources */,
 				2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */,
-				2F5D33751A5FA89700E02523 /* Truss Throw Miss.png in Resources */,
 				2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */,
 				2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */,
 				2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */,
@@ -1135,24 +1094,17 @@
 				2FDFE51B1A7E88B7002FEAD0 /* TeamData.plist in Resources */,
 				2F5D33111A5FA5F700E02523 /* 2013_logo~ipad.png in Resources */,
 				2F5D33121A5FA5F700E02523 /* 2014_field_grid.png in Resources */,
-				2F5D33381A5FA69E00E02523 /* Intake from Human.png in Resources */,
 				2FDFE52C1A7E891E002FEAD0 /* Small Red Button.jpg in Resources */,
 				2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */,
 				2FDFE5161A7E88A5002FEAD0 /* ScouterName.plist in Resources */,
 				2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */,
 				2F5D33101A5FA5F700E02523 /* 2013_logo.png in Resources */,
 				2F5D337C1A5FA96F00E02523 /* Default.png in Resources */,
-				2F5D33731A5FA89700E02523 /* Truss Catch Miss.png in Resources */,
 				2FDFE50F1A7E888B002FEAD0 /* MasonPage.plist in Resources */,
-				2F5D33441A5FA69E00E02523 /* Pass to Robot Miss.png in Resources */,
 				2FDFE5361A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist in Resources */,
 				2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */,
-				2F5D333A1A5FA69E00E02523 /* Intake from Robot.png in Resources */,
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
-				2F5D33741A5FA89700E02523 /* Truss Catch.png in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
-				2F5D33391A5FA69E00E02523 /* Intake from Robot Miss.png in Resources */,
-				2F5D33761A5FA89700E02523 /* Truss Throw.png in Resources */,
 				2F5D51F01A743390008F1100 /* App Icons.001.png in Resources */,
 				2F5D51F11A743390008F1100 /* App Icons.002.png in Resources */,
 				2F5D51F21A743390008F1100 /* App Icons.003.png in Resources */,
@@ -1197,6 +1149,7 @@
 				2F5D32791A5FA24300E02523 /* CalculateTeamStats.m in Sources */,
 				2F5D32D01A5FA4CB00E02523 /* PhoneExportViewController.m in Sources */,
 				2F2ECA9B1A5F052300D3386E /* ExportScoreData.m in Sources */,
+				2FDFCA181A8D535600717B86 /* TeamData.m in Sources */,
 				2F5D32FF1A5FA51000E02523 /* PopUpPickerViewController.m in Sources */,
 				2F5D32F91A5FA51000E02523 /* FullSizeViewer.m in Sources */,
 				2F5D33011A5FA51000E02523 /* SyncOptionDictionary.m in Sources */,
@@ -1287,7 +1240,6 @@
 				2F5D520B1A745522008F1100 /* MatchSummaryViewController.m in Sources */,
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
-				2F312BD91A7DAD60002EF938 /* TeamData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import "Packet.h"
 #import "NSData+RoboAdditions.h"
+#import "PacketQuickRequest.h"
 /*#import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
 #import "PacketOtherClientQuit.h"
