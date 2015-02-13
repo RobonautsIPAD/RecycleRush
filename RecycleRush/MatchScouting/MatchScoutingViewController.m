@@ -11,13 +11,15 @@
 #import "DataManager.h"
 #import "FileIOMethods.h"
 #import "MatchFlow.h"
+#import "TeamData.h"
+#import "TeamAccessors.h"
 #import "MatchData.h"
 #import "MatchAccessors.h"
 #import "MatchUtilities.h"
 #import "TeamScore.h"
-#import "TeamData.h"
-#import "TeamAccessors.h"
 #import "FieldPhoto.h"
+#import "TeamDetailViewController.h"
+#import "AddMatchViewController.h"
 
 @interface MatchScoutingViewController ()
 // Match Control
@@ -1120,6 +1122,43 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
+#pragma mark - Navigation
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self checkDataStatus];
+    
+    if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+        TeamDetailViewController *detailViewController = [segue destinationViewController];
+        [segue.destinationViewController setDataManager:_dataManager];
+        detailViewController.team = currentTeam;
+    }
+    
+/*    else if ([segue.identifier isEqualToString:@"Sync"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setSyncOption:SyncAllSavedSince];
+        [segue.destinationViewController setSyncType:SyncMatchResults];
+    }*/
+/*    if ([segue.identifier isEqualToString:@"Edit"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        pushedIndexPath = [self.tableView indexPathForCell:sender];
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+        [addvc setMatch:[fetchedResultsController objectAtIndexPath:indexPath]];
+    }
+    if ([segue.identifier isEqualToString:@"Add"]) {
+        NSLog(@"add");
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+    }  */
+    else {
+        [segue.destinationViewController setDataManager:_dataManager];
+    }
+    
+}
+
 -(NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
     if (fetchedResultsController == nil) {
@@ -1171,16 +1210,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

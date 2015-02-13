@@ -136,7 +136,7 @@
             <objects>
                 <viewController id="mzW-iW-Rm3" customClass="AddTeamViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="HH5-jk-LWc">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="AQ8-kd-9Wl" userLabel="Text Field - Team Number">
@@ -355,11 +355,11 @@
             <objects>
                 <viewController id="H4b-d7-tJx" customClass="TeamSummaryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bmz-9f-n40">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4dr-Wt-WYO">
-                                <rect key="frame" x="20" y="386" width="984" height="298"/>
+                                <rect key="frame" x="20" y="386" width="984" height="254"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -698,7 +698,7 @@
             <objects>
                 <tableViewController id="sfH-IK-sHV" customClass="TeamListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="lGi-HL-JLd">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1544,7 +1544,7 @@
             <objects>
                 <viewController id="1Bn-R0-uqK" customClass="MatchScoutingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eCB-02-q6B">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="quu-cJ-EyX">
@@ -2241,6 +2241,15 @@
                     <toolbarItems>
                         <barButtonItem title="Pit Scouting" id="oiY-9C-w52">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="kha-eL-sUY" kind="push" identifier="TeamDetail" id="wEf-g4-j4R"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Edit Match List" id="Tuo-QI-PvP">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="Rrs-46-XsF" kind="push" identifier="EditMatch" id="mcM-ra-2yW"/>
+                            </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="sbS-kL-SYz"/>
@@ -2305,7 +2314,7 @@
             <objects>
                 <viewController id="jO0-sC-Asm" customClass="SetUpPageViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="MHi-oB-dXD">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Yh-MH-RnZ">
@@ -2422,11 +2431,11 @@
             <objects>
                 <viewController id="qzw-3b-Tvg" customClass="TabletSyncViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JMN-XR-Woi">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="EX6-Ni-MGi" userLabel="Client View">
-                                <rect key="frame" x="291" y="272" width="384" height="280"/>
+                                <rect key="frame" x="291" y="272" width="384" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9Gp-bz-FeY">
@@ -2459,7 +2468,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="73" sectionHeaderHeight="22" sectionFooterHeight="22" id="9yz-gr-2rW">
-                                        <rect key="frame" x="126" y="120" width="238" height="135"/>
+                                        <rect key="frame" x="126" y="120" width="238" height="47"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -2482,7 +2491,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="Ae7-ZZ-zvC" userLabel="Server View">
-                                <rect key="frame" x="0.0" y="-50" width="389" height="308"/>
+                                <rect key="frame" x="0.0" y="-50" width="389" height="220"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lec-Sm-Xr3">
@@ -2568,7 +2577,7 @@
             <objects>
                 <viewController id="8l6-W8-TRA" customClass="AlliancesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JTC-Xb-0oB">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1 Alliance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b47-vq-hwQ">
@@ -4654,16 +4663,16 @@
             <objects>
                 <tableViewController id="Sxe-AK-EaI" customClass="MatchIntegrityViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="KDT-2I-Ofy">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MatchList" id="UEE-A6-AwH">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aDc-Hw-7zF">
@@ -4744,7 +4753,7 @@
             <objects>
                 <viewController id="IC0-8Z-knh" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="r9u-JY-TLj">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="b7l-7H-eZu" userLabel="Label - Caption">
@@ -4898,7 +4907,7 @@
             <objects>
                 <tableViewController id="WfL-ic-UhD" customClass="MatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="CYL-zv-bu0">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -4997,7 +5006,7 @@
             <objects>
                 <viewController id="4ra-8V-FJ1" customClass="DownloadPageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Zd-08-x84">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="banner copy.png" id="IfN-Ue-JFI">
@@ -5128,11 +5137,11 @@
             <objects>
                 <viewController id="smL-wy-wEE" customClass="MainMatchAnalysisViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="35J-YI-CJY">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="USD-kx-EdI">
-                                <rect key="frame" x="25" y="62" width="979" height="335"/>
+                                <rect key="frame" x="25" y="62" width="979" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -5438,7 +5447,7 @@
             <objects>
                 <viewController id="Svo-Ej-nRw" customClass="TeamMatchListViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="lJg-R7-d7N">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="home image.004.png" id="U5j-xW-bfs">
@@ -7007,7 +7016,7 @@
             <objects>
                 <viewController id="Rrs-46-XsF" customClass="AddMatchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="NKB-hd-f2k">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="match number" minimumFontSize="17" id="tHa-09-JEe">
@@ -7744,7 +7753,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Wa6-fL-1ga"/>
-        <segue reference="2PU-1e-EUe"/>
+        <segue reference="wEf-g4-j4R"/>
+        <segue reference="mcM-ra-2yW"/>
         <segue reference="MVE-1d-KHX"/>
         <segue reference="BNM-SK-rrB"/>
     </inferredMetricsTieBreakers>

@@ -312,7 +312,6 @@
         // send to just one client
     }
     [_dataManager.connectionUtility sendPacketToAllClients:packet];
-    [matchMakingServer sendDataFromServer:@"Some message or another"];
 
 }
 
