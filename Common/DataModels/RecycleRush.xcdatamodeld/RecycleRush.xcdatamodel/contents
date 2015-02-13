@@ -55,9 +55,8 @@
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="regional" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
-        <attribute name="autonCapacity" optional="YES" attributeType="Integer 16" minValueString="-1" maxValueString="3" defaultValueString="-1" syncable="YES"/>
         <attribute name="autonMobility" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="bumpers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bumpers" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="canIntake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
@@ -68,8 +67,9 @@
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="liftType" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxToteStack" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
-        <attribute name="noodler" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noodler" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
         <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -88,7 +88,6 @@
         <attribute name="thing4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="thing5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="toteIntake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="toteMaxStack" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="visionTracker" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
@@ -196,7 +195,7 @@
         <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="73"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
-        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="630"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="615"/>
         <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1170"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
