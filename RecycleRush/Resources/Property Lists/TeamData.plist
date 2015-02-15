@@ -36,27 +36,23 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonMobility</string>
+		<string>toteIntake</string>
 		<key>input</key>
-		<string>Auton Mobility</string>
+		<string>Tote Intake, Tote Intake Type</string>
 		<key>output</key>
-		<string>Auton Mobility</string>
-		<key>lucien</key>
-		<string>Auton Mobility</string>
+		<string>Tote Intake</string>
 		<key>dictionary</key>
-		<string>triStateDictionary</string>
+		<string>toteIntakeTypeDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonCapacity</string>
+		<string>canIntake</string>
 		<key>input</key>
-		<string>Auton Capacity, Auton Cap, Auton Balls</string>
+		<string>Can Intake, Can Intake Type</string>
 		<key>output</key>
-		<string>Auton Balls</string>
-		<key>lucien</key>
-		<string>Auton Capacity</string>
-		<key>format</key>
-		<string>integer</string>
+		<string>Can Intake</string>
+		<key>dictionary</key>
+		<string>canIntakeTypeDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -68,7 +64,69 @@
 		<key>lucien</key>
 		<string>Lifter</string>
 		<key>dictionary</key>
+		<string>liftTypeDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxHeight</string>
+		<key>input</key>
+		<string>max height, maximum height</string>
+		<key>output</key>
+		<string>Maximum Height</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxToteStack</string>
+		<key>input</key>
+		<string>Tote Stack #</string>
+		<key>output</key>
+		<string>Tote Stack #</string>
+		<key>lucien</key>
+		<string># of Totes Stacked</string>
+		<key>dictionary</key>
 		<string>triStateDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>nwheels</string>
+		<key>input</key>
+		<string>number of wheels, numberwheels, number wheels</string>
+		<key>output</key>
+		<string>Number of Wheels</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>wheelType</string>
+		<key>input</key>
+		<string>Wheel Type</string>
+		<key>output</key>
+		<string>Wheel Type</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>wheelDiameter</string>
+		<key>input</key>
+		<string>Wheel Diameter</string>
+		<key>output</key>
+		<string>Wheel Diameter</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driveTrainType</string>
+		<key>input</key>
+		<string>drive train type, drive train, drive, drivetrain type, drive traintype, drive type</string>
+		<key>output</key>
+		<string>Drive Type</string>
+		<key>dictionary</key>
+		<string>driveTypeDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -77,16 +135,6 @@
 		<string>CIMS</string>
 		<key>format</key>
 		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>driveTrainType</string>
-		<key>input</key>
-		<string>drive train type, drive train, drive, drivetrain type, drive traintype</string>
-		<key>output</key>
-		<string>Drive Train Type</string>
-		<key>dictionary</key>
-		<string>driveTypeDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -102,65 +150,13 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>visualTracker</string>
+		<string>autonMobility</string>
 		<key>input</key>
-		<string>Visual Tracker</string>
+		<string>Auton Mobility</string>
 		<key>output</key>
-		<string>Tracking</string>
+		<string>Auton Mobility</string>
 		<key>lucien</key>
-		<string>Visual Track</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>toteIntake</string>
-		<key>input</key>
-		<string>intaketype, intake type</string>
-		<key>output</key>
-		<string>Intake</string>
-		<key>dictionary</key>
-		<string>intakeTypeDictionary</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>maxHeight</string>
-		<key>input</key>
-		<string>max height, maximum height</string>
-		<key>output</key>
-		<string>Maximum Height</string>
-		<key>format</key>
-		<string>float</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>nwheels</string>
-		<key>input</key>
-		<string>number of wheels, numberwheels, number wheels</string>
-		<key>output</key>
-		<string>Number of Wheels</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>wheelDiameter</string>
-		<key>input</key>
-		<string>Wheel Diameter</string>
-		<key>output</key>
-		<string>Wheel Diameter</string>
-		<key>format</key>
-		<string>float</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>maxToteStack</string>
-		<key>input</key>
-		<string>Tote Stack #</string>
-		<key>output</key>
-		<string>Tote Stack #</string>
-		<key>lucien</key>
-		<string># of Totes Stacked</string>
+		<string>Auton Mobility</string>
 		<key>dictionary</key>
 		<string>triStateDictionary</string>
 	</dict>

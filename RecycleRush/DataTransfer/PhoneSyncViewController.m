@@ -15,7 +15,6 @@
 #import "TeamData.h"
 #import "MatchData.h"
 #import "TeamScore.h"
-#import "TeamScoreInterfaces.h"
 #import "SharedSyncController.h"
 
 @interface PhoneSyncViewController ()

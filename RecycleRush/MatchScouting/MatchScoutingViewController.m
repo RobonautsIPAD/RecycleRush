@@ -7,16 +7,19 @@
 //
 
 #import "MatchScoutingViewController.h"
+#import <QuartzCore/CALayer.h>
 #import "DataManager.h"
 #import "FileIOMethods.h"
 #import "MatchFlow.h"
+#import "TeamData.h"
+#import "TeamAccessors.h"
 #import "MatchData.h"
 #import "MatchAccessors.h"
 #import "MatchUtilities.h"
 #import "TeamScore.h"
-#import "TeamData.h"
-#import "TeamAccessors.h"
 #import "FieldPhoto.h"
+#import "TeamDetailViewController.h"
+#import "AddMatchViewController.h"
 
 @interface MatchScoutingViewController ()
 // Match Control
@@ -31,6 +34,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *notes;
 // Alliance Info
 @property (nonatomic, weak) IBOutlet UIButton *alliance;
+// View Control items
+@property (weak, nonatomic) IBOutlet UIView *controlsView;
+@property (weak, nonatomic) IBOutlet UIView *stackView;
 
 // Score Stuff
 @property (weak, nonatomic) IBOutlet UITextField *totalTotesScored;
@@ -38,6 +44,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *totalLitterScored;
 @property (weak, nonatomic) IBOutlet UITextField *cansDominatedText;
 @property (weak, nonatomic) IBOutlet UITextField *stackKnockdownText;
+@property (weak, nonatomic) IBOutlet UITextField *totalTotesIntake;
+@property (weak, nonatomic) IBOutlet UITextField *totalScore;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn0Text;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn1Text;
 @property (weak, nonatomic) IBOutlet UITextField *totesOn2Text;
@@ -53,6 +61,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *cansOn5Text;
 @property (weak, nonatomic) IBOutlet UITextField *cansOn6Text;
 @property (weak, nonatomic) IBOutlet UITextField *toteIntakeHPText;
+@property (weak, nonatomic) IBOutlet UITextField *toteStepIntake;
+@property (weak, nonatomic) IBOutlet UITextField *toteFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *canFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *canStepIntake;
+@property (weak, nonatomic) IBOutlet UITextField *litterInCan;
 @property (weak, nonatomic) IBOutlet UIButton *robotSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *toteSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *canSetButton;
@@ -75,6 +88,7 @@
     NSString *previousTournament;
     NSString *deviceName;
     NSString *defaultAlliance;
+    NSString *mode;
     NSMutableDictionary *settingsDictionary;
     NSFetchedResultsController *fetchedResultsController;
     
@@ -86,6 +100,7 @@
     MatchUtilities *matchUtilities;
     NSDictionary *matchDictionary;
     NSDictionary *allianceDictionary;
+    NSString *desiredAlliance;
     
     // The currently displayed match, and team
     MatchData *currentMatch;
@@ -142,6 +157,7 @@
     deviceName = [prefs objectForKey:@"deviceName"];
     tournamentName = [prefs objectForKey:@"tournament"];
     defaultAlliance = [prefs objectForKey:@"alliance"];
+    mode = [prefs objectForKey:@"mode"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Match Scouting", tournamentName];
     }
@@ -242,15 +258,24 @@
     matchTypeString = [MatchAccessors getMatchTypeString:currentMatch.matchType fromDictionary:_dataManager.matchTypeDictionary];
     [_matchType setTitle:matchTypeString forState:UIControlStateNormal];
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
-    if (teamIndex == NSNotFound) {
-        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Check Alert"
-                                                          message:@"No team in this alliance slot"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-        [prompt show];
+    if (teamIndex == -1) {
+        NSString *msg = @"No default alliance set";
+        [self alertPrompt:@"Show Team" withMessage:msg];
         NSLog(@"do something else");
+        [self hideViews];
+        [_teamNumber setTitle:@"" forState:UIControlStateNormal];
+        _teamName.text = @"";
+        [_alliance setTitle:@"" forState:UIControlStateNormal];
+        return;
+    }
+    if (teamIndex == NSNotFound) {
+        NSString *msg = @"No team in this alliance slot";
+        [self alertPrompt:@"Show Team" withMessage:msg];
+        NSLog(@"do something else");
+        [self hideViews];
+        [_teamNumber setTitle:@"" forState:UIControlStateNormal];
+        _teamName.text = @"";
+        [_alliance setTitle:desiredAlliance forState:UIControlStateNormal];
         return;
     }
     currentScore = [scoreList objectAtIndex:teamIndex];
@@ -266,7 +291,14 @@
     _totalLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLitterScored];
     _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.canDomination];
     _stackKnockdownText.text = [NSString stringWithFormat:@"%@", currentScore.stackKnockdowns];
+     _totalTotesIntake.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesIntake];
+    _canFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.canIntakeFloor];
+   _canStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.cansFromStep];
+    _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
+    _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
+    _toteFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeFloor];
+     _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterinCan];
     _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
     _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
@@ -288,7 +320,7 @@
     double seconds = fmod([currentScore.canDominationTime floatValue], 60.0);
     double minutes = fmod(trunc([currentScore.canDominationTime floatValue] / 60.0), 60.0);
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
-    
+    [self showViews];
     [self loadDrawing:allianceString];
 }
 
@@ -373,11 +405,13 @@
 }
 
 - (void)allianceSelected:(NSString *)newAlliance {
+    NSLog(@"add check for mode");
     [self checkDataStatus];
     [alliancePickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [allianceList indexOfObject:newAlliance];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
+    else desiredAlliance = newAlliance;
     [self showTeam:teamIndex];
 }
 
@@ -437,11 +471,13 @@
 }
 
 - (void)teamSelected:(NSString *)newTeam {
+    NSLog(@"check for mode");
     [self checkDataStatus];
     [teamPickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
     teamIndex = [teamList indexOfObject:newTeam];
     if (teamIndex == NSNotFound) teamIndex = currentTeamIndex;
+    else desiredAlliance = [allianceList objectAtIndex:teamIndex];
     [self showTeam:teamIndex];
 }
 
@@ -524,7 +560,7 @@
         dataChange = YES;
         NSLog(@"Start Timer");
         if (canDomTimer == nil) {
-            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.6
                                                           target:self
                                                         selector:@selector(timerFired)
                                                         userInfo:nil
@@ -572,7 +608,9 @@
         NSString *alliance = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
         [allianceList addObject:alliance];
     }
-//    teamIndex = [allianceList indexOfObject:newAlliance];
+    if ([desiredAlliance isEqualToString:@""]) teamIndex = -1;
+    else teamIndex = [allianceList indexOfObject:desiredAlliance];
+
     teamPicker = Nil;
     teamPickerPopover = Nil;
     alliancePicker = Nil;
@@ -720,6 +758,7 @@
     [_matchNumber setUserInteractionEnabled:FALSE];
     [_matchType setUserInteractionEnabled:FALSE];
     [_alliance setUserInteractionEnabled:FALSE];
+    [self hideViews];
 }
 
 -(void)setDisplayActive {
@@ -728,6 +767,31 @@
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
     [_alliance setUserInteractionEnabled:TRUE];
+    [self showViews];
+}
+
+-(void)hideViews {
+    [_fieldDrawingContainer setHidden:TRUE];
+    [_controlsView setHidden:TRUE];
+    [_stackView setHidden:TRUE];
+}
+
+-(void)showViews {
+    [_fieldDrawingContainer setHidden:FALSE];
+    [_controlsView setHidden:FALSE];
+    [_stackView setHidden:FALSE];
+}
+
+-(void)disableInputs {
+    [_fieldDrawingContainer setUserInteractionEnabled:FALSE];
+    [_controlsView setUserInteractionEnabled:FALSE];
+    [_stackView setUserInteractionEnabled:FALSE];
+}
+
+-(void)enableInputs {
+    [_fieldDrawingContainer setUserInteractionEnabled:TRUE];
+    [_controlsView setUserInteractionEnabled:TRUE];
+    [_stackView setUserInteractionEnabled:TRUE];
 }
 
 -(void)loadSettings {
@@ -738,9 +802,38 @@
     storedMatchType = @"";
     storedAlliance = @"";
     if ([tournamentName isEqualToString:previousTournament]) {
+        // It is the same tournament since the last time we were here. The match placement
+        // data should still be good.
+        desiredAlliance = @"";
         storedMatchNumber = [settingsDictionary valueForKey:@"Match"];
         storedMatchType = [settingsDictionary valueForKey:@"Match Type"];
         storedAlliance = [settingsDictionary valueForKey:@"Alliance"];
+        if ([mode isEqualToString:@"Tournament"]) {
+            NSString *msg;
+            if (defaultAlliance == nil || [defaultAlliance isEqualToString:@""]) {
+                desiredAlliance = @"";
+                msg = @"No Default Alliance Set";
+                [self alertPrompt:@"Tournament Mode" withMessage:msg];
+            }
+            else if ([defaultAlliance isEqualToString:storedAlliance] == NO) {
+                desiredAlliance = defaultAlliance;
+                msg = [NSString stringWithFormat:@"Switching from stored %@ to default %@", storedAlliance, defaultAlliance];
+                [self alertPrompt:@"Tournament Mode" withMessage:@""];
+            }
+            else desiredAlliance = defaultAlliance;
+        }
+        else {
+            if (storedAlliance && [storedAlliance isEqualToString:@""] == NO) desiredAlliance = storedAlliance;
+            else if (defaultAlliance && [defaultAlliance isEqualToString:@""] == NO) desiredAlliance = defaultAlliance;
+            else desiredAlliance = @"Red 1";
+        }
+    }
+    else {
+        // We are on a different tournament. Use the default alliance set in the prefs for this device
+        // unless it is blank. If it is blank move onto the stored alliance. If that is blank, use Red 1.
+        if (![defaultAlliance isEqualToString:@""]) desiredAlliance = defaultAlliance;
+        else if (![storedAlliance isEqualToString:@""]) desiredAlliance = storedAlliance;
+        else desiredAlliance = @"Red 1";
     }
 }
 
@@ -766,7 +859,6 @@
     }
     [self setTeamList];
     NSLog(@"%@", teamList);
-    teamIndex = [allianceList indexOfObject:storedAlliance];
 }
 
 -(void)saveSettings {
@@ -881,7 +973,24 @@
     }
     else if (textField == _toteIntakeHPText) {
         currentScore.toteIntakeHP = [NSNumber numberWithInt:[_toteIntakeHPText.text intValue]];
-        [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _toteStepIntake) {
+        currentScore.toteIntakeStep = [NSNumber numberWithInt:[_toteStepIntake.text intValue]];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _toteFloorIntake) {
+        currentScore.toteIntakeFloor = [NSNumber numberWithInt:[_toteFloorIntake.text intValue]];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _canFloorIntake) {
+        currentScore.canIntakeFloor = [NSNumber numberWithInt:[_canFloorIntake.text intValue]];
+    }
+    else if (textField == _canStepIntake) {
+        currentScore.cansFromStep = [NSNumber numberWithInt:[_canStepIntake.text intValue]];
+    }
+    else if (textField == _litterInCan) {
+        currentScore.litterinCan = [NSNumber numberWithInt:[_litterInCan.text intValue]];
     }
 /*    else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
@@ -904,6 +1013,11 @@
         int score = [currentScore.cansOn0 intValue] + [currentScore.cansOn1 intValue] + [currentScore.cansOn2 intValue] + [currentScore.cansOn3 intValue] + [currentScore.cansOn4 intValue] + [currentScore.cansOn5 intValue] + [currentScore.cansOn6 intValue];
         currentScore.totalCansScored = [NSNumber numberWithInt:score];
         _totalCansScored.text = [NSString stringWithFormat:@"%d", score];
+    }
+    else if ([scoreObject isEqualToString:@"TotesIntake"]) {
+        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeFloor intValue];
+         currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
+        _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
 }
 
@@ -1008,6 +1122,43 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
+#pragma mark - Navigation
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self checkDataStatus];
+    
+    if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+        TeamDetailViewController *detailViewController = [segue destinationViewController];
+        [segue.destinationViewController setDataManager:_dataManager];
+        detailViewController.team = currentTeam;
+    }
+    
+/*    else if ([segue.identifier isEqualToString:@"Sync"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setSyncOption:SyncAllSavedSince];
+        [segue.destinationViewController setSyncType:SyncMatchResults];
+    }*/
+/*    if ([segue.identifier isEqualToString:@"Edit"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        pushedIndexPath = [self.tableView indexPathForCell:sender];
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+        [addvc setMatch:[fetchedResultsController objectAtIndexPath:indexPath]];
+    }
+    if ([segue.identifier isEqualToString:@"Add"]) {
+        NSLog(@"add");
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+    }  */
+    else {
+        [segue.destinationViewController setDataManager:_dataManager];
+    }
+    
+}
+
 -(NSFetchedResultsController *)fetchedResultsController {
     // Set up the fetched results controller if needed.
     if (fetchedResultsController == nil) {
@@ -1044,21 +1195,20 @@
 	return fetchedResultsController;
 }
 
+-(void)alertPrompt:(NSString *)title withMessage:(NSString *)message {
+    UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+    [prompt show];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

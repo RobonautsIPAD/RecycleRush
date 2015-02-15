@@ -2,7 +2,7 @@
 //  TeamData.m
 //  RecycleRush
 //
-//  Created by FRC on 1/31/15.
+//  Created by FRC on 2/12/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @implementation TeamData
 
-@dynamic autonCapacity;
 @dynamic autonMobility;
 @dynamic bumpers;
+@dynamic canIntake;
 @dynamic cims;
 @dynamic driveTrainType;
 @dynamic fthing1;
@@ -23,7 +23,6 @@
 @dynamic fthing3;
 @dynamic fthing4;
 @dynamic fthing5;
-@dynamic toteIntake;
 @dynamic liftType;
 @dynamic maxHeight;
 @dynamic name;
@@ -45,8 +44,8 @@
 @dynamic thing3;
 @dynamic thing4;
 @dynamic thing5;
-@dynamic toteMaxStack;
-@dynamic canIntake;
+@dynamic toteIntake;
+@dynamic maxToteStack;
 @dynamic visionTracker;
 @dynamic wheelDiameter;
 @dynamic wheelType;

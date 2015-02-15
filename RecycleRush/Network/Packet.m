@@ -8,6 +8,7 @@
 
 #import "Packet.h"
 #import "NSData+RoboAdditions.h"
+#import "PacketQuickRequest.h"
 /*#import "PacketSignInResponse.h"
 #import "PacketServerReady.h"
 #import "PacketOtherClientQuit.h"
@@ -46,10 +47,10 @@ const size_t PACKET_HEADER_SIZE = 10;
 	PacketType packetType = [data rw_int16AtOffset:8];
     
 	Packet *packet;
- /*
+ 
 	switch (packetType)
 	{
-		case PacketTypeSignInRequest:
+/*		case PacketTypeSignInRequest:
         case PacketTypeClientReady:
         case PacketTypeClientDealtCards:
         case PacketTypeClientTurnedCard:
@@ -57,11 +58,11 @@ const size_t PACKET_HEADER_SIZE = 10;
 		case PacketTypeClientQuit:            
 			packet = [Packet packetWithType:packetType];
 			break;
-            
-		case PacketTypeSignInResponse:
-			packet = [PacketSignInResponse packetWithData:data];
+*/
+		case PacketTypeQuickRequest:
+			packet = [PacketQuickRequest packetWithData:data];
 			break;
-            
+ /*
         case PacketTypeServerReady:
 			packet = [PacketServerReady packetWithData:data];
 			break;
@@ -81,14 +82,14 @@ const size_t PACKET_HEADER_SIZE = 10;
         case PacketTypePlayerShouldSnap:
 			packet = [PacketPlayerShouldSnap packetWithData:data];
 			break;            
-            
+   */
 		default:
 			NSLog(@"Error: Packet has invalid type");
 			return nil;
 	}
     
     packet.packetNumber = packetNumber;
-	return packet;*/
+	return packet;
     return nil;
 }
 
@@ -105,13 +106,13 @@ const size_t PACKET_HEADER_SIZE = 10;
 - (NSData *)data
 {
 	NSMutableData *data = [[NSMutableData alloc] initWithCapacity:100];
-/*
+
 	[data rw_appendInt32:'Robo'];   // 0x534E4150
 	[data rw_appendInt32:self.packetNumber];
 	[data rw_appendInt16:self.packetType];
     
     [self addPayloadToData:data];
-*/
+
 	return data;
 }
 

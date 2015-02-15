@@ -2,7 +2,7 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 1/31/15.
+//  Created by FRC on 2/12/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @interface TeamData : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * autonCapacity;
 @property (nonatomic, retain) NSString * autonMobility;
 @property (nonatomic, retain) NSString * bumpers;
+@property (nonatomic, retain) NSString * canIntake;
 @property (nonatomic, retain) NSNumber * cims;
 @property (nonatomic, retain) NSString * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
@@ -23,7 +23,6 @@
 @property (nonatomic, retain) NSNumber * fthing3;
 @property (nonatomic, retain) NSNumber * fthing4;
 @property (nonatomic, retain) NSNumber * fthing5;
-@property (nonatomic, retain) NSString * toteIntake;
 @property (nonatomic, retain) NSString * liftType;
 @property (nonatomic, retain) NSNumber * maxHeight;
 @property (nonatomic, retain) NSString * name;
@@ -45,8 +44,8 @@
 @property (nonatomic, retain) NSNumber * thing3;
 @property (nonatomic, retain) NSNumber * thing4;
 @property (nonatomic, retain) NSNumber * thing5;
-@property (nonatomic, retain) NSString * toteMaxStack;
-@property (nonatomic, retain) NSString * canIntake;
+@property (nonatomic, retain) NSString * toteIntake;
+@property (nonatomic, retain) NSNumber * maxToteStack;
 @property (nonatomic, retain) NSString * visionTracker;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;

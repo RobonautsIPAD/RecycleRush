@@ -7,11 +7,13 @@
 //
 
 #import "TabletSyncViewController.h"
+#import <QuartzCore/CALayer.h>
 #import "DataManager.h"
 #import "ConnectionUtility.h"
+#import "Packet.h"
+#import "PacketQuickRequest.h"
 #import "DataSync.h"
 #import "PopUpPickerViewController.h"
-#import <QuartzCore/CALayer.h>
 
 @interface TabletSyncViewController ()
 @property (weak, nonatomic) IBOutlet UIView *serverView;
@@ -103,6 +105,7 @@
         }
         matchMakingServer = [_dataManager.connectionUtility setMatchMakingServer];
         [matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
+        [matchMakingServer.session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
     }
     else {
         NSLog(@"End Session");
@@ -125,6 +128,7 @@
             }
             matchMakingClient = [_dataManager.connectionUtility setMatchMakingClient];
             [matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
+            [matchMakingClient.session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
             break;
             
         case ClientStateSearchingForServers:
@@ -210,17 +214,6 @@
 
 -(void)updateClientStatus:(NSNotification *)notification {
     if ([bluetoothRole intValue] == Scouter) {
-        NSString *msg = [[notification userInfo]
-                               objectForKey:@"Receive"];
-        if (msg) {
-            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Receive"
-                                                          message:msg
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-            [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-            [prompt show];
-        }
         [self setClientStatus];
         [self setServerStatus];
     }
@@ -272,7 +265,7 @@
     else {
         clientList = [[NSMutableArray alloc] initWithObjects:@"No Clients", nil];
         [_messageDestinationButton setHidden:TRUE];
-        [_quickRequestButton setHidden:TRUE];
+//        [_quickRequestButton setHidden:TRUE];
     }
     _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
 }
@@ -309,17 +302,16 @@
 }
 
 - (IBAction)quickRequest:(id)sender {
-/*    if (packet.packetNumber != -1)
-		packet.packetNumber = _sendPacketNumber++;
-    
-//	NSData *data = [packet data];
- 
-    [_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop)
-     {
-         obj.receivedResponse = [_session.peerID isEqualToString:obj.peerID];
-     }];
- */
-    [matchMakingServer sendDataFromServer:@"Some message or another"];
+    // Create quick request packet
+    Packet *packet = [Packet packetWithType:PacketTypeQuickRequest];
+    // Determine if destination is one or all
+    if ([_messageDestinationButton.titleLabel.text isEqualToString:@"Send All"]) {
+       // [self sendPacketToAllClients:packet];
+    }
+    else {
+        // send to just one client
+    }
+    [_dataManager.connectionUtility sendPacketToAllClients:packet];
 
 }
 

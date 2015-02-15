@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/9/15.
+//  Created by FRC on 2/12/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 
 @dynamic allianceStation;
 @dynamic autonCanSet;
+@dynamic autonCansStep;
 @dynamic autonRobotSet;
 @dynamic autonTotePickUp;
 @dynamic autonToteSet;
@@ -35,8 +36,8 @@
 @dynamic driverRating;
 @dynamic fouls;
 @dynamic litterHP;
-@dynamic litterHPBottom;
 @dynamic litterHPTop;
+@dynamic litterinCan;
 @dynamic matchNumber;
 @dynamic matchType;
 @dynamic maxCanHeight;
@@ -64,6 +65,8 @@
 @dynamic teamNumber;
 @dynamic totalCansScored;
 @dynamic totalLitterScored;
+@dynamic totalScore;
+@dynamic totalTotesIntake;
 @dynamic totalTotesScored;
 @dynamic toteFloorBottom;
 @dynamic toteFloorTop;

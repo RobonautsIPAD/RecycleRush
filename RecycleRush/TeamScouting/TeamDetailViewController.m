@@ -31,14 +31,12 @@
     @property (nonatomic, weak) IBOutlet UITextView *notesViewField;
     @property (nonatomic, weak) IBOutlet UIImageView *imageView;
     @property (nonatomic, weak) IBOutlet UIButton *intakeType;
-    @property (nonatomic, weak) IBOutlet UITextField *minHeight;
-    @property (nonatomic, weak) IBOutlet UITextField *shootingLevel;
     @property (nonatomic, weak) IBOutlet UITextField *maxHeight;
 @property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
     @property (nonatomic, weak) IBOutlet UITextField *wheelType;
 @property (weak, nonatomic) IBOutlet UIButton *canIntakeButton;
     @property (nonatomic, weak) IBOutlet UITextField *nwheels;
-@property (weak, nonatomic) IBOutlet UIButton *stackLevelButton;
+@property (weak, nonatomic) IBOutlet UITextField *stackLevelText;
     @property (nonatomic, weak) IBOutlet UITextField *wheelDiameter;
     @property (nonatomic, weak) IBOutlet UIButton *driveType;
     @property (nonatomic, weak) IBOutlet UITextField *cims;
@@ -175,12 +173,20 @@
     photoUtilities = [[PhotoUtilities alloc] init:_dataManager];
  
     // Set defaults for all the text boxes
- 
+    [self setTextBoxDefaults:_numberText];
+    [self setTextBoxDefaults:_nameTextField];
+    [self setTextBoxDefaults:_ballReleaseHeightText];
+    [self setTextBoxDefaults:_maxHeight];
+    [self setTextBoxDefaults:_wheelType];
+    [self setTextBoxDefaults:_nwheels];
+    [self setTextBoxDefaults:_wheelDiameter];
+    [self setTextBoxDefaults:_cims];
+    [self setTextBoxDefaults:_stackLevelText];
+    
    // Set defaults for all the buttons
     [self setBigButtonDefaults:_intakeType];
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
-    [self setBigButtonDefaults:_stackLevelButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
     [self setBigButtonDefaults:_teamInfoButton];
@@ -320,13 +326,13 @@
     _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
     _nameTextField.text = _team.name;
     _notesViewField.text = _team.notes;
-    _shootingLevel.text = @"";
-       _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
+    _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
     _wheelType.text = _team.wheelType;
     _nwheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
-    
+    _stackLevelText.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
+
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
@@ -336,7 +342,6 @@
     [_intakeType setTitle:_team.toteIntake forState:UIControlStateNormal];
     [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
     [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
-    [_stackLevelButton setTitle:_team.toteMaxStack forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
 
@@ -464,21 +469,6 @@
         [canIntakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _stackLevelButton) {
-        if (!maxStackList) maxStackList = [FileIOMethods initializePopUpList:@"MaxToteStack"];
-        if (maxStackPicker == nil) {
-            maxStackPicker = [[PopUpPickerViewController alloc]
-                             initWithStyle:UITableViewStylePlain];
-            maxStackPicker.delegate = self;
-            maxStackPicker.pickerChoices = maxStackList;
-        }
-        if (!maxStackPickerPopover) {
-            maxStackPickerPopover = [[UIPopoverController alloc]
-                                          initWithContentViewController:maxStackPicker];
-        }
-        [maxStackPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
     else if (PressedButton == _spitBotButton) {
         if (!quadStateList) quadStateList = [FileIOMethods initializePopUpList:@"QuadState"];
         if (quadStatePicker == nil) {
@@ -531,10 +521,6 @@
         [canIntakePickerPopover dismissPopoverAnimated:YES];
         _team.canIntake = newPick;
     }
-    else if (popUp == _stackLevelButton) {
-        [maxStackPickerPopover dismissPopoverAnimated:YES];
-        _team.toteMaxStack = newPick;
-    }
     dataChange = YES;
     [popUp setTitle:newPick forState:UIControlStateNormal];
 }
@@ -575,11 +561,6 @@
     if (textField == _nameTextField) {
 		_team.name = _nameTextField.text;
 	}
-	
-	else if (textField == _shootingLevel) {
-	//	_team.shootsTo = @"";
-	}
-	
 	else if (textField == _maxHeight) {
 		_team.maxHeight = [NSNumber numberWithFloat:[_maxHeight.text floatValue]];
 	}
@@ -595,7 +576,9 @@
 	else if (textField == _cims) {
 		_team.cims = [NSNumber numberWithInt:[_cims.text intValue]];
 	}
-
+    else if (textField == _stackLevelText) {
+		_team.maxToteStack = [NSNumber numberWithInt:[_stackLevelText.text intValue]];
+    }
 	return YES;
 }
 
@@ -606,7 +589,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     // Limit these text fields to numbers only.
-    if (textField == _nameTextField || textField == _wheelType || textField == _shootingLevel)  return YES;
+    if (textField == _nameTextField || textField == _wheelType)  return YES;
     
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     

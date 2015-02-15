@@ -10,11 +10,13 @@
 #import "MatchmakingServer.h"
 #import "MatchmakingClient.h"
 
+@class Packet;
 @interface ConnectionUtility : NSObject
 @property (readonly, strong, nonatomic) MatchmakingServer *matchMakingServer;
 @property (readonly, strong, nonatomic) MatchmakingClient *matchMakingClient;
 //@property (assign, nonatomic) QuitReason quitReason;
 -(MatchmakingServer *)setMatchMakingServer;
 -(MatchmakingClient *)setMatchMakingClient;
+-(void)sendPacketToAllClients:(Packet *)packet;
 
 @end
