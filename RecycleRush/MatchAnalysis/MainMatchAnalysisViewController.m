@@ -606,12 +606,39 @@
 	teamNumber.text = [NSString stringWithFormat:@"%d", [team.number intValue]];
     NSMutableDictionary *stats = [teamStats objectAtIndex:indexPath.row];
 
-    NSInteger tag = 20;
-    for (NSDictionary *column in outputDictionary) {
-        UILabel *label = (UILabel *)[cell viewWithTag:tag];
-        label.text = [DataConvenienceMethods getTableFormat:stats forField:column];
-        tag += 10;
-    }
+    UILabel *label0 = (UILabel *)[cell viewWithTag:20];
+    label0.text = [NSString stringWithFormat:@"%d", [[stats objectForKey:@"matches"] intValue]];
+
+    
+    UILabel *label1 = (UILabel *)[cell viewWithTag:30];
+    label1.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"ToteFloor"] objectForKey:@"total"] intValue]];
+
+    UILabel *label2 = (UILabel *)[cell viewWithTag:40];
+    label2.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote HP"] objectForKey:@"total"] intValue]];
+
+    UILabel *label3 = (UILabel *)[cell viewWithTag:50];
+    label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Cans Scored"] objectForKey:@"total"] intValue]];
+
+    UILabel *label4 = (UILabel *)[cell viewWithTag:60];
+    label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxTote#"] objectForKey:@"total"] intValue]];
+
+    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
+    label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxCan#"] objectForKey:@"total"] intValue]];
+
+    UILabel *label6 = (UILabel *)[cell viewWithTag:80];
+    label6.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Knockdowns"] objectForKey:@"total"] intValue]];
+
+    UILabel *label7 = (UILabel *)[cell viewWithTag:90];
+    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Set"] objectForKey:@"total"] intValue]];
+
+    UILabel *label8 = (UILabel *)[cell viewWithTag:100];
+    label8.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Stack Set"] objectForKey:@"total"] intValue]];
+
+    UILabel *label9 = (UILabel *)[cell viewWithTag:110];
+    label9.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Can Set"] objectForKey:@"total"] intValue]];
+    
+    NSLog(@"%@", stats);
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -11,8 +11,9 @@
 #import "DataManager.h"
 #import "ConnectionUtility.h"
 #import "Packet.h"
-#import "PacketQuickRequest.h"
+//#import "PacketQuickRequest.h"
 #import "DataSync.h"
+#import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
 
 @interface TabletSyncViewController ()
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *serverTable;
 @property (weak, nonatomic) IBOutlet UIButton *messageDestinationButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
+@property (weak, nonatomic) IBOutlet UIButton *matchIntegrityButton;
 
 @end
 
@@ -42,8 +44,11 @@
     NSUInteger connectedClients;
     id popUp;
     NSMutableArray *clientList;
+    NSMutableDictionary *peerList;
     PopUpPickerViewController *clientPicker;
     UIPopoverController *clientPickerPopover;
+    NSString *displayID;
+	GKSession *session;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -96,6 +101,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
     // Set the notification to receive information after the server changes status
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
+    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
+    _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
 }
 
 -(IBAction)serverAction:(id)sender {
@@ -105,11 +112,14 @@
         }
         matchMakingServer = [_dataManager.connectionUtility setMatchMakingServer];
         [matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
-        [matchMakingServer.session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
+        NSLog(@"%@", [matchMakingServer displayNameForPeerID:matchMakingServer.session.peerID]);
+        session = matchMakingServer.session;
+        [session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
     }
     else {
         NSLog(@"End Session");
         [matchMakingServer endSession];
+        session = nil;
         matchMakingServer = nil;
     }
     [self setServerStatus];
@@ -128,7 +138,8 @@
             }
             matchMakingClient = [_dataManager.connectionUtility setMatchMakingClient];
             [matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
-            [matchMakingClient.session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
+            session = matchMakingClient.session;
+            [session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
             break;
             
         case ClientStateSearchingForServers:
@@ -137,6 +148,7 @@
             NSLog(@"End Session");
             clientState = FALSE;
             [matchMakingClient disconnectFromServer];
+            session = nil;
             matchMakingClient = nil;
             break;
             
@@ -249,12 +261,12 @@
 
 -(void)buildClientList {
     if (connectedClients) {
-        NSString *peerID = [matchMakingServer peerIDForConnectedClientAtIndex:0];
-        clientList = [[NSMutableArray alloc] initWithObjects:[matchMakingServer displayNameForPeerID:peerID], nil];
-        for (int i=1; i<connectedClients; i++) {
-            peerID = [matchMakingServer peerIDForConnectedClientAtIndex:i];
-            [clientList addObject:[matchMakingServer displayNameForPeerID:peerID]];
+        peerList = [[NSMutableDictionary alloc] init];
+        for (int i=0; i<connectedClients; i++) {
+            NSString *peerID = [matchMakingServer peerIDForConnectedClientAtIndex:i];
+            [peerList setObject:peerID forKey:[matchMakingServer displayNameForPeerID:peerID]];
         }
+        clientList = [[peerList allKeys] mutableCopy];
         if (connectedClients > 1) {
             [clientList sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             [clientList addObject:@"Send All"];
@@ -265,7 +277,7 @@
     else {
         clientList = [[NSMutableArray alloc] initWithObjects:@"No Clients", nil];
         [_messageDestinationButton setHidden:TRUE];
-//        [_quickRequestButton setHidden:TRUE];
+        [_quickRequestButton setHidden:TRUE];
     }
     _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
 }
@@ -306,13 +318,12 @@
     Packet *packet = [Packet packetWithType:PacketTypeQuickRequest];
     // Determine if destination is one or all
     if ([_messageDestinationButton.titleLabel.text isEqualToString:@"Send All"]) {
-       // [self sendPacketToAllClients:packet];
+        [_dataManager.connectionUtility sendPacketToAllClients:packet inSession:session];
     }
     else {
-        // send to just one client
+        NSString *receiver = _messageDestinationButton.titleLabel.text;
+        [_dataManager.connectionUtility sendPacketToClient:packet forClient:[peerList objectForKey:receiver] inSession:session];
     }
-    [_dataManager.connectionUtility sendPacketToAllClients:packet];
-
 }
 
 #pragma mark - Table view data source
@@ -374,15 +385,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [segue.destinationViewController setDataManager:_dataManager];
 }
-*/
 
 @end

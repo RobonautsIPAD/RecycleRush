@@ -10,6 +10,7 @@
 #import "LoadCSVData.h"
 #import "SettingsAndPreferences.h"
 #import "DataManager.h"
+#import "ConnectionUtility.h"
 #import "FileIOMethods.h"
 #import "SplashPageViewController.h"
 #import "PhoneSplashViewController.h"
@@ -65,6 +66,9 @@
 
     // Create the managed object and persistant store
     _dataManager = [[DataManager alloc] init];
+    if (_connectionUtility == nil) {
+        _connectionUtility = [[ConnectionUtility alloc] init:_dataManager];
+    }
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
     inputError = [loadData loadCSVDataFromBundle];
     NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
@@ -109,10 +113,12 @@
     if (hardware == UIUserInterfaceIdiomPhone) {
         _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
         _phoneSplashViewController.dataManager = self.dataManager;
+ //       _phoneSplashViewController.dataManager = self.dataManager;
     }
     else {
         splashPageViewController = (SplashPageViewController *)navigationController.topViewController;
         splashPageViewController.dataManager = self.dataManager;
+        splashPageViewController.connectionUtility = self.connectionUtility;
         if (inputError) {
             TabletInputErrorViewController *errorViewController = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TableInputErrorViewController"];
             [errorViewController setDataManager:_dataManager];
@@ -134,6 +140,9 @@
         NSLog(@"data manager = %@", _dataManager);
         if (!_dataManager) {
             _dataManager = [[DataManager alloc] init];
+        }
+        if (_connectionUtility == nil) {
+            _connectionUtility = [[ConnectionUtility alloc] init:_dataManager];
         }
         LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
         BOOL inputError = [loadData handleOpenURL:url];

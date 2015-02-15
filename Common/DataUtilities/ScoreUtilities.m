@@ -15,6 +15,7 @@
 #import "MatchAccessors.h"
 #import "ScoreAccessors.h"
 #import "FieldDrawing.h"
+#import "FieldPhoto.h"
 #import "DataConvenienceMethods.h"
 //#import "EnumerationDictionary.h"
 
@@ -229,6 +230,94 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 
+    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber,  @"Y", nil];
+    NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return teamTransfer;
+}
+
+-(NSDictionary *)unpackageScoreForBluetooth:(NSDictionary *)xferData {
+    NSError *error = nil;
+    if (!_dataManager.managedObjectContext) {
+        error = [NSError errorWithDomain:@"unpackageScoreForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    NSDictionary *myDictionary = xferData;
+    NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
+    NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
+    NSString *matchTypeString = [MatchAccessors getMatchTypeString:matchType fromDictionary:matchTypeDictionary];
+    NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
+    NSNumber *teamNumber = [myDictionary objectForKey:@"teamNumber"];
+    NSNumber *allianceStation = [myDictionary objectForKey:@"allianceStation"];
+    NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
+    NSLog(@"%@", myDictionary);
+    MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    if (!match) {
+        // Match does not already exist (someone probably forgot to transfer the match schedule)
+        if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+        NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:allianceStation], nil];
+        match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName  error:&error];
+        if (!match) return Nil;
+    }
+    
+    // Fetch score record
+    // Copy the data into the right places
+    // Put the match drawing in the correct directory
+    TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:allianceStation forTournament:tournamentName fromDataManager:_dataManager];
+    if (!score) return Nil;
+    
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
+    NSNumber *saved = [myDictionary objectForKey:@"saved"];
+    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    
+    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
+        NSLog(@"Match has already transferred, match = %@", score.matchNumber);
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber, @"N", nil];
+        NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        return teamTransfer;
+    }
+    
+    for (NSString *key in myDictionary) {
+        if ([key isEqualToString:@"matchNumber"]) continue; // Comes with the relationship
+        if ([key isEqualToString:@"matchType"]) continue; // Comes with the relationship
+        if ([key isEqualToString:@"tournamentName"]) continue; // Already resolved
+        if ([key isEqualToString:@"teamNumber"]) continue; // Comes with the relationship
+        if ([key isEqualToString:@"autonDrawing"]) continue; // Needs
+        if ([key isEqualToString:@"teleOpDrawing"]) continue; // Needs
+        if ([key isEqualToString:@"field"]) continue; // Needs
+        if ([teamScoreAttributes valueForKey:key]) {
+            [score setValue:[myDictionary objectForKey:key] forKey:key];
+        }
+    }
+    if (!score.autonDrawing) {
+        FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        score.autonDrawing = drawing;
+    }
+    score.autonDrawing.trace = [myDictionary objectForKey:@"autonDrawing"];
+    
+    if (!score.teleOpDrawing) {
+        FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        score.teleOpDrawing = drawing;
+    }
+    score.teleOpDrawing.trace = [myDictionary objectForKey:@"teleOpDrawing"];
+    
+    if (!score.field) {
+        FieldPhoto *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        score.field = drawing;
+    }
+    score.field.paper = [myDictionary objectForKey:@"field"];
+ 
+    score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    if (![_dataManager.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
     NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber,  @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];

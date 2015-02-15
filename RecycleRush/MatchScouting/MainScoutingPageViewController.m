@@ -2278,7 +2278,8 @@
     currentScore.litterHP = [NSNumber numberWithInt:0];
     currentScore.litterHPTop = [NSNumber numberWithInt:0];
 
-    currentScore.toteIntakeFloor = [NSNumber numberWithInt:0];
+    currentScore.toteIntakeTopFloor = [NSNumber numberWithInt:0];
+      currentScore.toteIntakeBottomFloor = [NSNumber numberWithInt:0];
     currentScore.toteFloorTop = [NSNumber numberWithInt:0];
     currentScore.toteFloorBottom = [NSNumber numberWithInt:0];
 

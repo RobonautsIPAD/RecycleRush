@@ -7,6 +7,7 @@
 //
 
 #import "SplashPageViewController.h"
+#import "SetUpPageViewController.h"
 
 @implementation SplashPageViewController {
     NSUserDefaults *prefs;
@@ -91,6 +92,9 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if ([segue.identifier isEqualToString:@"SetUp"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
     [segue.destinationViewController setDataManager:_dataManager];
 }
 

@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/12/15.
+//  Created by FRC on 2/14/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -32,6 +32,8 @@
 @dynamic cansOn4;
 @dynamic cansOn5;
 @dynamic cansOn6;
+@dynamic coopSet;
+@dynamic coopStack;
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fouls;
@@ -44,6 +46,7 @@
 @dynamic maxToteHeight;
 @dynamic noShow;
 @dynamic notes;
+@dynamic oppositeZoneLitter;
 @dynamic otherRating;
 @dynamic received;
 @dynamic results;
@@ -64,7 +67,7 @@
 @dynamic stackNumber;
 @dynamic teamNumber;
 @dynamic totalCansScored;
-@dynamic totalLitterScored;
+@dynamic totalLandfillLitterScored;
 @dynamic totalScore;
 @dynamic totalTotesIntake;
 @dynamic totalTotesScored;
@@ -72,9 +75,10 @@
 @dynamic toteFloorTop;
 @dynamic toteHPBottom;
 @dynamic toteHPTop;
-@dynamic toteIntakeFloor;
+@dynamic toteIntakeBottomFloor;
 @dynamic toteIntakeHP;
 @dynamic toteIntakeStep;
+@dynamic toteIntakeTopFloor;
 @dynamic totesOn0;
 @dynamic totesOn1;
 @dynamic totesOn2;
@@ -85,6 +89,9 @@
 @dynamic toteStepBottom;
 @dynamic toteStepTop;
 @dynamic tournamentName;
+@dynamic photo;
+@dynamic blacklist;
+@dynamic wowList;
 @dynamic autonDrawing;
 @dynamic field;
 @dynamic match;

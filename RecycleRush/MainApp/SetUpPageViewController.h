@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @class DataManager;
+@class ConnectionUtility;
 
 @interface SetUpPageViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 
 @end

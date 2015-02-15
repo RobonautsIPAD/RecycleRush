@@ -11,8 +11,10 @@
 #import "PopUpPickerViewController.h"
 
 @class DataManager;
+@class ConnectionUtility;
 
 @interface DownloadPageViewController : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIPopoverControllerDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 
 @end

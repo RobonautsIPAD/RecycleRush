@@ -50,9 +50,17 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>toteIntakeFloor</string>
+		<string>toteIntakeTopFloor</string>
 		<key>header</key>
-		<string>Tote Floor</string>
+		<string>Tote TopFloor</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>toteIntakeBottomFloor</string>
+		<key>header</key>
+		<string>Tote Bottom Floor</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>
@@ -117,6 +125,14 @@
 		<string>stackKnockdowns</string>
 		<key>header</key>
 		<string>Knockdowns</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totalScore</string>
+		<key>header</key>
+		<string>MatchScore</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>

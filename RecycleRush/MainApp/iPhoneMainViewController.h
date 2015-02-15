@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class DataManager;
+@class ConnectionUtility;
 
 @interface iPhoneMainViewController : UIViewController <UITextFieldDelegate>
 @property (nonatomic, retain) DataManager *dataManager;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 - (id)initWithDataManager:(DataManager *)initManager;
 
 /*
