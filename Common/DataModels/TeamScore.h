@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/12/15.
+//  Created by FRC on 2/14/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -31,6 +31,8 @@
 @property (nonatomic, retain) NSNumber * cansOn4;
 @property (nonatomic, retain) NSNumber * cansOn5;
 @property (nonatomic, retain) NSNumber * cansOn6;
+@property (nonatomic, retain) NSNumber * coopSet;
+@property (nonatomic, retain) NSNumber * coopStack;
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * fouls;
@@ -43,6 +45,7 @@
 @property (nonatomic, retain) NSNumber * maxToteHeight;
 @property (nonatomic, retain) NSNumber * noShow;
 @property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSNumber * oppositeZoneLitter;
 @property (nonatomic, retain) NSNumber * otherRating;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * results;
@@ -63,7 +66,7 @@
 @property (nonatomic, retain) NSNumber * stackNumber;
 @property (nonatomic, retain) NSNumber * teamNumber;
 @property (nonatomic, retain) NSNumber * totalCansScored;
-@property (nonatomic, retain) NSNumber * totalLitterScored;
+@property (nonatomic, retain) NSNumber * totalLandfillLitterScored;
 @property (nonatomic, retain) NSNumber * totalScore;
 @property (nonatomic, retain) NSNumber * totalTotesIntake;
 @property (nonatomic, retain) NSNumber * totalTotesScored;
@@ -71,9 +74,10 @@
 @property (nonatomic, retain) NSNumber * toteFloorTop;
 @property (nonatomic, retain) NSNumber * toteHPBottom;
 @property (nonatomic, retain) NSNumber * toteHPTop;
-@property (nonatomic, retain) NSNumber * toteIntakeFloor;
+@property (nonatomic, retain) NSNumber * toteIntakeBottomFloor;
 @property (nonatomic, retain) NSNumber * toteIntakeHP;
 @property (nonatomic, retain) NSNumber * toteIntakeStep;
+@property (nonatomic, retain) NSNumber * toteIntakeTopFloor;
 @property (nonatomic, retain) NSNumber * totesOn0;
 @property (nonatomic, retain) NSNumber * totesOn1;
 @property (nonatomic, retain) NSNumber * totesOn2;
@@ -84,6 +88,9 @@
 @property (nonatomic, retain) NSNumber * toteStepBottom;
 @property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
+@property (nonatomic, retain) NSString * photo;
+@property (nonatomic, retain) NSNumber * blacklist;
+@property (nonatomic, retain) NSNumber * wowList;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) FieldPhoto *field;
 @property (nonatomic, retain) MatchData *match;

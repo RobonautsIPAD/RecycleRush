@@ -13,6 +13,7 @@
 #import "Packet.h"
 #import "PacketQuickRequest.h"
 #import "DataSync.h"
+#import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
 
 @interface TabletSyncViewController ()
@@ -26,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *serverTable;
 @property (weak, nonatomic) IBOutlet UIButton *messageDestinationButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
+@property (weak, nonatomic) IBOutlet UIButton *matchIntegrityButton;
 
 @end
 
@@ -96,6 +98,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
     // Set the notification to receive information after the server changes status
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
+    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
+    _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
 }
 
 -(IBAction)serverAction:(id)sender {
@@ -374,15 +378,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [segue.destinationViewController setDataManager:_dataManager];
 }
-*/
 
 @end

@@ -18,9 +18,9 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>IntakefromHuman</string>
+		<string>totesFromFloor</string>
 		<key>header</key>
-		<string>Inbound %</string>
+		<string>Totes Floor</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
@@ -32,113 +32,113 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>HighHot</string>
+		<string>totesFromHP</string>
 		<key>header</key>
-		<string>Auton High %</string>
+		<string>Totes HP</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>250</integer>
+		<integer>255</integer>
 		<key>factor</key>
 		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>High</string>
+		<string>cansScored</string>
 		<key>header</key>
-		<string>High Goal %</string>
+		<string>Cans Scored</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>370</integer>
+		<integer>340</integer>
 		<key>factor</key>
 		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>HPTruss</string>
+		<string>maxToteLevel</string>
 		<key>header</key>
-		<string>HP Truss %</string>
+		<string>Max Tote #</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>480</integer>
+		<integer>455</integer>
 		<key>factor</key>
 		<integer>100</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>knockout</string>
+		<string>maxCanLevel</string>
 		<key>header</key>
-		<string>Knockouts</string>
+		<string>Max Can #</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>580</integer>
+		<integer>555</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>DriverSkill</string>
+		<string>knockDowns</string>
 		<key>header</key>
-		<string>Drive</string>
+		<string>Knockdowns</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>675</integer>
+		<integer>650</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>Speed</string>
+		<string>toteSet</string>
 		<key>header</key>
-		<string>Speed</string>
+		<string>Tote Set</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>725</integer>
+		<integer>760</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>BullySkill</string>
+		<string>toteStack</string>
 		<key>header</key>
-		<string>Bully</string>
-		<key>format</key>
-		<string>%.1f</string>
-		<key>type</key>
-		<string>float</string>
-		<key>location</key>
-		<integer>790</integer>
-		<key>factor</key>
-		<integer>1</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>BlockSkill</string>
-		<key>header</key>
-		<string>Block</string>
+		<string>Stack</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
 		<integer>840</integer>
+		<key>factor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>canSet</string>
+		<key>header</key>
+		<string>Can Set</string>
+		<key>format</key>
+		<string>%.1f</string>
+		<key>type</key>
+		<string>float</string>
+		<key>location</key>
+		<integer>895</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>

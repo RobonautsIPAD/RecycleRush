@@ -45,7 +45,6 @@
 		2F484D661A84648B00690185 /* Blue 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D651A84648B00690185 /* Blue 2015 New.png */; };
 		2F484D681A84649D00690185 /* Red 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D671A84649D00690185 /* Red 2015 New.png */; };
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
-		2F4B21E41A8CECCA00F794FA /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4B21E31A8CECCA00F794FA /* TeamScore.m */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
 		2F56B56A17052B900093A976 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56917052B900093A976 /* CoreLocation.framework */; };
@@ -151,6 +150,7 @@
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FC123271A830B240029F086 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC123261A830B240029F086 /* PitScoutingDataSheet.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
+		2FC6EF9C1A902B040036F178 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC6EF9B1A902B040036F178 /* TeamScore.m */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
@@ -260,8 +260,6 @@
 		2F49FC8E1A7D5541005E6051 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = RecycleRush/DataImport/LICENSE; sourceTree = SOURCE_ROOT; };
 		2F49FC901A7D5551005E6051 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
 		2F49FC911A7D5551005E6051 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
-		2F4B21E21A8CECCA00F794FA /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
-		2F4B21E31A8CECCA00F794FA /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
 		2F5247DB1963B2C900468E4F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Common/DataManagement/DataManager.h; sourceTree = SOURCE_ROOT; };
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -434,6 +432,8 @@
 		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC123261A830B240029F086 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		2FC6EF9A1A902B040036F178 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
+		2FC6EF9B1A902B040036F178 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
 		2FCF9FB719944D1600A872CD /* TeamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamUtilities.h; path = Common/DataUtilities/TeamUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FDECA0F1A6F0A7A0007412E /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = RecycleRush/DataTransfer/TabletSyncViewController.h; sourceTree = SOURCE_ROOT; };
@@ -844,10 +844,10 @@
 			isa = PBXGroup;
 			children = (
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
+				2FC6EF9A1A902B040036F178 /* TeamScore.h */,
+				2FC6EF9B1A902B040036F178 /* TeamScore.m */,
 				2FDFCA161A8D535600717B86 /* TeamData.h */,
 				2FDFCA171A8D535600717B86 /* TeamData.m */,
-				2F4B21E21A8CECCA00F794FA /* TeamScore.h */,
-				2F4B21E31A8CECCA00F794FA /* TeamScore.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
 				2F8816861A5FB0D4001CCA04 /* Competitions.m */,
 				2F33DCEA1A86A9DE00331B12 /* FieldPhoto.h */,
@@ -1158,7 +1158,6 @@
 				2F5D32AE1A5FA3D000E02523 /* MatchListViewController.m in Sources */,
 				2F1966A11A80670600A7FF34 /* PacketQuickRequest.m in Sources */,
 				2F5D32FB1A5FA51000E02523 /* MatchFlow.m in Sources */,
-				2F4B21E41A8CECCA00F794FA /* TeamScore.m in Sources */,
 				2F8816A41A5FB0D4001CCA04 /* TeamScoreInterfaces.m in Sources */,
 				2F0C92511A769C0100D47EFA /* Packet.m in Sources */,
 				2F5D32C61A5FA45300E02523 /* ImportUSFirstViewController.m in Sources */,
@@ -1240,6 +1239,7 @@
 				2F5D520B1A745522008F1100 /* MatchSummaryViewController.m in Sources */,
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
+				2FC6EF9C1A902B040036F178 /* TeamScore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
 @property (nonatomic, weak) IBOutlet UIButton *nextMatch;
 @property (nonatomic, weak) IBOutlet UIButton *teamNumber;
-@property (nonatomic, weak) IBOutlet UIButton *matchResetButton;
 // Team Info
 @property (nonatomic, weak) IBOutlet UILabel *teamName;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
@@ -41,7 +40,8 @@
 // Score Stuff
 @property (weak, nonatomic) IBOutlet UITextField *totalTotesScored;
 @property (weak, nonatomic) IBOutlet UITextField *totalCansScored;
-@property (weak, nonatomic) IBOutlet UITextField *totalLitterScored;
+@property (weak, nonatomic) IBOutlet UITextField *landfillOppositeZone;
+@property (weak, nonatomic) IBOutlet UITextField *totalLandfillLitterScored;
 @property (weak, nonatomic) IBOutlet UITextField *cansDominatedText;
 @property (weak, nonatomic) IBOutlet UITextField *stackKnockdownText;
 @property (weak, nonatomic) IBOutlet UITextField *totalTotesIntake;
@@ -62,7 +62,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *cansOn6Text;
 @property (weak, nonatomic) IBOutlet UITextField *toteIntakeHPText;
 @property (weak, nonatomic) IBOutlet UITextField *toteStepIntake;
-@property (weak, nonatomic) IBOutlet UITextField *toteFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *toteBottomFloorIntake;
+@property (weak, nonatomic) IBOutlet UITextField *toteTopFloorIntake;
 @property (weak, nonatomic) IBOutlet UITextField *canFloorIntake;
 @property (weak, nonatomic) IBOutlet UITextField *canStepIntake;
 @property (weak, nonatomic) IBOutlet UITextField *litterInCan;
@@ -71,6 +72,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *canSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
 @property (weak, nonatomic) IBOutlet UIButton *canDomTimeButton;
+@property (weak, nonatomic) IBOutlet UIButton *coopSet;
+@property (weak, nonatomic) IBOutlet UIButton *coopStack;
+@property (weak, nonatomic) IBOutlet UIButton *wowlist;
+@property (weak, nonatomic) IBOutlet UIButton *blacklist;
 
 // Drawing Stuff
 @property (weak, nonatomic) IBOutlet UIButton *drawingChoiceButton;
@@ -288,7 +293,8 @@
     [_alliance setTitle:allianceString forState:UIControlStateNormal];
     _totalTotesScored.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesScored];
     _totalCansScored.text = [NSString stringWithFormat:@"%@", currentScore.totalCansScored];
-    _totalLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLitterScored];
+    _totalLandfillLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLandfillLitterScored];
+    _landfillOppositeZone.text = [NSString stringWithFormat:@"%@", currentScore.oppositeZoneLitter];    
     _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.canDomination];
     _stackKnockdownText.text = [NSString stringWithFormat:@"%@", currentScore.stackKnockdowns];
      _totalTotesIntake.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesIntake];
@@ -297,7 +303,8 @@
     _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
-    _toteFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeFloor];
+    _toteTopFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeTopFloor];
+    _toteBottomFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeBottomFloor];
      _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterinCan];
     _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
@@ -317,6 +324,10 @@
     [self setAutonButton:_toteSetButton forValue:currentScore.autonToteSet];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
     [self setAutonButton:_canSetButton forValue:currentScore.autonCanSet];
+    [self setAutonButton:_coopSet forValue:currentScore.coopSet];
+    [self setAutonButton:_coopStack forValue:currentScore.coopStack];
+    [self setAutonButton:_blacklist forValue:currentScore.blacklist];
+    [self setAutonButton:_wowlist forValue:currentScore.wowList];
     double seconds = fmod([currentScore.canDominationTime floatValue], 60.0);
     double minutes = fmod(trunc([currentScore.canDominationTime floatValue] / 60.0), 60.0);
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
@@ -541,6 +552,27 @@
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
     }
+    else if (sender == _coopSet) {
+        if ([currentScore.coopSet boolValue]) currentScore.coopSet = [NSNumber numberWithBool:FALSE];
+        else currentScore.coopSet = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_coopSet forValue:currentScore.coopSet];
+    }
+    else if (sender == _coopStack) {
+        if ([currentScore.coopStack boolValue]) currentScore.coopStack = [NSNumber numberWithBool:FALSE];
+        else currentScore.coopStack = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_coopStack forValue:currentScore.coopStack];
+    }
+    else if (sender == _blacklist) {
+        if ([currentScore.blacklist boolValue]) currentScore.blacklist = [NSNumber numberWithBool:FALSE];
+        else currentScore.blacklist = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_blacklist forValue:currentScore.coopSet];
+    }
+    else if (sender == _wowlist) {
+        if ([currentScore.wowList boolValue]) currentScore.wowList = [NSNumber numberWithBool:FALSE];
+        else currentScore.wowList = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_wowlist forValue:currentScore.coopSet];
+    }
+    [self updateTotal:@"TotalScore"];
 }
 
 -(void)setAutonButton:(UIButton *)button forValue:(NSNumber *)value {
@@ -575,7 +607,8 @@
         NSLog(@"Stop Timer %d", timerCount);
         int newTimer = [currentScore.canDominationTime intValue] + timerCount;
         currentScore.canDominationTime = [NSNumber numberWithInt:newTimer];
-        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
+    NSLog(@"fix timer string");
+        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d:%2d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
  //   }
 }
 
@@ -906,8 +939,13 @@
     else if (textField == _totalCansScored) {
         currentScore.totalCansScored = [NSNumber numberWithInt:[_totalCansScored.text intValue]];
     }
-    else if (textField == _totalLitterScored) {
-        currentScore.totalLitterScored = [NSNumber numberWithInt:[_totalLitterScored.text intValue]];
+    else if (textField == _totalLandfillLitterScored) {
+        currentScore.totalLandfillLitterScored = [NSNumber numberWithInt:[_totalLandfillLitterScored.text intValue]];
+         [self updateTotal:@"TotalScore"];
+    }
+    else if (textField == _landfillOppositeZone) {
+        currentScore.oppositeZoneLitter = [NSNumber numberWithInt:[_landfillOppositeZone.text intValue]];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansDominatedText) {
         currentScore.canDomination = [NSNumber numberWithInt:[_cansDominatedText.text intValue]];
@@ -918,58 +956,72 @@
     else if (textField == _totesOn0Text) {
         currentScore.totesOn0 = [NSNumber numberWithInt:[_totesOn0Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn1Text) {
         currentScore.totesOn1 = [NSNumber numberWithInt:[_totesOn1Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn2Text) {
         currentScore.totesOn2 = [NSNumber numberWithInt:[_totesOn2Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn3Text) {
         currentScore.totesOn3 = [NSNumber numberWithInt:[_totesOn3Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn4Text) {
         currentScore.totesOn4 = [NSNumber numberWithInt:[_totesOn4Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn5Text) {
         currentScore.totesOn5 = [NSNumber numberWithInt:[_totesOn5Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _totesOn6Text) {
         currentScore.totesOn6 = [NSNumber numberWithInt:[_totesOn6Text.text intValue]];
         [self updateTotal:@"Totes"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn0Text) {
         currentScore.cansOn0 = [NSNumber numberWithInt:[_cansOn0Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn1Text) {
         currentScore.cansOn1 = [NSNumber numberWithInt:[_cansOn1Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn2Text) {
         currentScore.cansOn2 = [NSNumber numberWithInt:[_cansOn2Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn3Text) {
         currentScore.cansOn3 = [NSNumber numberWithInt:[_cansOn3Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn4Text) {
         currentScore.cansOn4 = [NSNumber numberWithInt:[_cansOn4Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn5Text) {
         currentScore.cansOn5 = [NSNumber numberWithInt:[_cansOn5Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansOn6Text) {
         currentScore.cansOn6 = [NSNumber numberWithInt:[_cansOn6Text.text intValue]];
         [self updateTotal:@"Cans"];
+        [self updateTotal:@"TotalScore"];
     }
     else if (textField == _toteIntakeHPText) {
         currentScore.toteIntakeHP = [NSNumber numberWithInt:[_toteIntakeHPText.text intValue]];
@@ -979,8 +1031,12 @@
         currentScore.toteIntakeStep = [NSNumber numberWithInt:[_toteStepIntake.text intValue]];
         [self updateTotal:@"TotesIntake"];
     }
-    else if (textField == _toteFloorIntake) {
-        currentScore.toteIntakeFloor = [NSNumber numberWithInt:[_toteFloorIntake.text intValue]];
+    else if (textField == _toteTopFloorIntake) {
+        currentScore.toteIntakeTopFloor = [NSNumber numberWithInt:[_toteTopFloorIntake.text intValue]];
+        [self updateTotal:@"TotesIntake"];
+    }
+    else if (textField == _toteBottomFloorIntake) {
+        currentScore.toteIntakeBottomFloor = [NSNumber numberWithInt:[_toteBottomFloorIntake.text intValue]];
         [self updateTotal:@"TotesIntake"];
     }
     else if (textField == _canFloorIntake) {
@@ -991,6 +1047,7 @@
     }
     else if (textField == _litterInCan) {
         currentScore.litterinCan = [NSNumber numberWithInt:[_litterInCan.text intValue]];
+        [self updateTotal:@"TotalScore"];
     }
 /*    else if (textField == _foulTextField) {
         currentScore.fouls = [NSNumber numberWithInt:[_foulTextField.text intValue]];
@@ -1015,9 +1072,14 @@
         _totalCansScored.text = [NSString stringWithFormat:@"%d", score];
     }
     else if ([scoreObject isEqualToString:@"TotesIntake"]) {
-        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeFloor intValue];
+        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeTopFloor intValue] + [currentScore.toteIntakeBottomFloor intValue];
          currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
+    }
+    else if ([scoreObject isEqualToString:@"TotalScore"]) {
+        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterinCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCanSet intValue]*8 + [currentScore.autonToteStack intValue]*20 + [currentScore.coopSet intValue]*20 + [currentScore.coopStack intValue]*40;
+        currentScore.totalScore = [NSNumber numberWithInt:score];
+        _totalScore.text = [NSString stringWithFormat:@"%d", score];
     }
 }
 
@@ -1038,7 +1100,7 @@
 -(void)setDefaults {
 //    eraseMode = FALSE;
 //    overrideMode = NoOverride;
-    _teamName.font = [UIFont fontWithName:@"Helvetica" size:24.0];
+    _teamName.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     
     // Match Control
     [self setTextBoxDefaults:_matchNumber forSize:24.0];
@@ -1048,11 +1110,19 @@
     [self setBigButtonDefaults:_matchType];
     [self setBigButtonDefaults:_alliance];
     [self setBigButtonDefaults:_teamNumber];
+    [self setBigButtonDefaults:_canDomTimeButton];
+    [self setBigButtonDefaults:_drawingChoiceButton];
+    [self setBigButtonDefaults:_blacklist];
+    [self setBigButtonDefaults:_wowlist];
     
     _robotSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteStackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _canSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+      _coopSet.titleLabel.textAlignment = NSTextAlignmentCenter;
+      _coopStack.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _blacklist.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _wowlist.titleLabel.textAlignment = NSTextAlignmentCenter;
    // Buttons on the drawing
 /*    [self setSmallButtonDefaults:_toteHPTopButton];
     [self setSmallButtonDefaults:_toteHPBottomButton];
