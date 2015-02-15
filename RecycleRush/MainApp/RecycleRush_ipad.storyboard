@@ -32,7 +32,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jO0-sC-Asm" kind="push" id="sKt-FA-aZH"/>
+                                    <segue destination="jO0-sC-Asm" kind="push" identifier="SetUp" id="sKt-FA-aZH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YhQ-tx-sI9">
@@ -2357,7 +2357,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="4ra-8V-FJ1" kind="push" id="6aE-eg-KHh"/>
+                                    <segue destination="4ra-8V-FJ1" kind="push" identifier="DataTransfer" id="6aE-eg-KHh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="fgT-xg-I8Z">
@@ -4786,7 +4786,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="qzw-3b-Tvg" kind="push" id="lOv-Ju-tuz"/>
+                                    <segue destination="qzw-3b-Tvg" kind="push" identifier="DataTransfer" id="lOv-Ju-tuz"/>
                                 </connections>
                             </button>
                         </subviews>

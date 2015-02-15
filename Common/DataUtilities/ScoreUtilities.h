@@ -16,5 +16,6 @@
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
 -(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData;
+-(NSDictionary *)unpackageScoreForBluetooth:(NSDictionary *)xferData;
 -(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)allianceString forTeam:(NSNumber *)teamNumber error:(NSError **)error;
 @end

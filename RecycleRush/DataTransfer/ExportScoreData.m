@@ -355,6 +355,40 @@
     return myData;
 }
 
+-(NSDictionary *)packageScoreForBluetooth:(TeamScore *)score {
+    if (!_dataManager) {
+        NSError *error = [NSError errorWithDomain:@"packageScoreForBluetooth" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    for (NSString *item in teamScoreAttributes) {
+        if ([score valueForKey:item]) {
+            // if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
+            [keyList addObject:item];
+            [valueList addObject:[score valueForKey:item]];
+            // }
+        }
+    }
+    if (score.autonDrawing && score.autonDrawing.trace) {
+        [keyList addObject:@"autonDrawing"];
+        [valueList addObject:score.autonDrawing.trace];
+    }
+    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
+        [keyList addObject:@"teleOpDrawing"];
+        [valueList addObject:score.teleOpDrawing.trace];
+    }
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    if ([score.match.number intValue] == 1) {
+        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
+        NSLog(@"Data = %@", dictionary);
+    }
+    return dictionary;
+}
+
 - (void)dealloc
 {
     NSLog(@"Export Score dealloc");

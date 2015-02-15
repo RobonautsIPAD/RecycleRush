@@ -96,6 +96,9 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if ([segue.identifier isEqualToString:@"DataTransfer"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
     [segue.destinationViewController setDataManager:_dataManager];
 }
 

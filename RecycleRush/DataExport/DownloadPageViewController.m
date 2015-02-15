@@ -46,7 +46,6 @@
     NSMutableArray *exportOptionList;
     NSMutableArray *photoOptionList;
 }
-@synthesize dataManager = _dataManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,16 +65,6 @@
 }
 
 #pragma mark - View lifecycle
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    _dataManager = nil;
-    prefs = nil;
-    tournamentName = nil;
-    exportPath = nil;
-    syncList = nil;
-}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -285,6 +274,9 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDataManager:_dataManager];
+    if ([segue.identifier isEqualToString:@"DataTransfer"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
     if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
         [segue.destinationViewController setSyncType:SyncTeams];
