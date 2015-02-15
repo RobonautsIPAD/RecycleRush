@@ -1,47 +1,43 @@
 //
 //  Packet.h
-//  Snap
+//  RecycleRush
 //
-//  Created by Ray Wenderlich on 5/25/12.
-//  Copyright (c) 2012 Hollance. All rights reserved.
+//  Created by FRC on 2/14/15.
+//  Copyright (c) 2015 FRC. All rights reserved.
 //
 
-const size_t PACKET_HEADER_SIZE;
+#import <Foundation/Foundation.h>
 
-typedef enum
-{
+enum PacketType : NSInteger {
 	PacketTypeSignInRequest = 0x64,    // server to client
 	PacketTypeSignInResponse,          // client to server
     
 	PacketTypeServerReady,             // server to client
 	PacketTypeClientReady,             // client to server
     
-	PacketTypeQuickRequest,            // server to client
-	PacketTypeClientQuickData,         // client to server
+	PacketTypeQuickRequest,            // requester to client
+	PacketTypeQuickResponse,           // client to requester
     
-	PacketTypeRequest,                 // server to client
-	PacketTypeClientSyncData,          // client to server
+	PacketTypeTeamRequest,
+	PacketTypeTeamData,
     
-	PacketTypePlayerShouldSnap,        // client to server
-	PacketTypePlayerCalledSnap,        // server to client
+	PacketTypeScoreRequest,
+	PacketTypeScoreData,
     
-	PacketTypeOtherClientQuit,         // server to client
-	PacketTypeServerQuit,              // server to client
-	PacketTypeClientQuit,              // client to server
-}
-PacketType;
+	PacketTypeMatchRequest,
+	PacketTypeMatchData,
+	PacketTypeClientQuit,              
+};
+typedef enum PacketType PacketType;
 
 @interface Packet : NSObject
-
+@property (nonatomic, strong) NSString *header;
 @property (nonatomic, assign) PacketType packetType;
-@property (nonatomic, assign) int packetNumber;
+@property (nonatomic, assign) NSInteger packetNumber;
+@property (nonatomic, strong) NSString *senderId;
+@property (nonatomic, strong) NSString *receiverId;
+@property (nonatomic, strong) NSDictionary *dataDictionary;
 
 + (id)packetWithType:(PacketType)packetType;
-- (id)initWithType:(PacketType)packetType;
-+ (id)packetWithData:(NSData *)data;
-+ (NSDictionary *)cardsFromData:(NSData *)data atOffset:(size_t) offset;
-- (void)addCards:(NSDictionary *)cards toPayload:(NSMutableData *)data;
-
-- (NSData *)data;
 
 @end

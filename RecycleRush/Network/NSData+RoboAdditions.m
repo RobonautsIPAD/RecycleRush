@@ -36,6 +36,14 @@
 	return string;
 }
 
+- (NSData *)rw_dataAtOffset:(size_t)offset bytesRead:(size_t *)amount {
+	//const char *dataBytes = (const char *)[self bytes];
+  //  NSData *data = (NSData *)dataBytes[offset];
+//    NSUInteger thisChunkSize = length - offset > chunkSize ? chunkSize : length - offset;
+//    NSData* chunk = [NSData dataWithBytesNoCopy:(char *)[myBlob bytes] + offset length:thisChunkSize freeWhenDone:NO];
+    return nil;
+}
+
 @end
 
 @implementation NSMutableData (RoboAdditions)
@@ -61,6 +69,18 @@
 {
 	const char *cString = [string UTF8String];
 	[self appendBytes:cString length:strlen(cString) + 1];
+}
+
+- (void)rw_appendData:(NSData *)data
+{
+    CFDataRef cfdata = CFDataCreate(NULL, [data bytes], [data length]);
+	[self appendBytes:cfdata length:CFDataGetLength(cfdata)];
+}
+
+- (void)rw_appendDictionary:(NSDictionary *)dictionary {
+    NSUInteger dictionarySize = sizeof(dictionary);
+    NSLog(@"sizeof size = %lu", dictionarySize);
+    
 }
 
 @end

@@ -10,6 +10,7 @@
 @class SplashPageViewController;
 @class PhoneSplashViewController;
 @class DataManager;
+@class ConnectionUtility;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -20,5 +21,6 @@
 @property (strong, nonatomic) PhoneSplashViewController *phoneSplashViewController;
 @property (nonatomic, assign) BOOL loadDataFromBundle;
 @property (strong, nonatomic) DataManager *dataManager;
+@property (strong, nonatomic) ConnectionUtility *connectionUtility;
 
 @end

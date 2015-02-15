@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class DataManager;
+@class ConnectionUtility;
 
 @interface SplashPageViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
 @property (nonatomic, weak) IBOutlet UILabel *pictureCaption;
 @property (nonatomic, weak) IBOutlet UIButton *teamScoutingButton;

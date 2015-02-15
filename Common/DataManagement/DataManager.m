@@ -129,7 +129,7 @@
 
 -(ConnectionUtility *)setConnectionUtility {
     if (_connectionUtility == nil) {
-        _connectionUtility = [[ConnectionUtility alloc] init];
+        _connectionUtility = [[ConnectionUtility alloc] init:self];
     }
     return _connectionUtility;
 }
