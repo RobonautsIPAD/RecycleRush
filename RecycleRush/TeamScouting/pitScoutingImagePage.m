@@ -13,7 +13,7 @@
 #import "FullSizeViewer.h"
 #import "PhotoUtilities.h"
 #import "TeamData.h"
-
+#import "pitScoutingDataSheet.h"
 
 
 @interface pitScoutingImagePage ()
