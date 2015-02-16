@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ConnectionUtility;
 
 @interface DataManager : NSObject
 
@@ -19,13 +18,11 @@
 @property (nonatomic, assign) BOOL loadDataFromBundle;
 @property (readonly, nonatomic, strong) NSDictionary *matchTypeDictionary;
 @property (readonly, nonatomic, strong) NSDictionary *allianceDictionary;
-@property (readonly, strong, nonatomic) ConnectionUtility *connectionUtility;
 
 -(BOOL)saveContext;
 -(BOOL)databaseExists;
 -(void)writeErrorMessage:(NSError *)error forType:(MessageType)messageType;
 -(void)resetWarningFile;
 -(void)resetErrorFile;
--(ConnectionUtility *)setConnectionUtility;
 
 @end

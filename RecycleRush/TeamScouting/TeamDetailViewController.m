@@ -788,6 +788,11 @@
     }
 }
 
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:NO];
+}
+
 #pragma mark - Table view data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -11,7 +11,6 @@
 #import "DataManager.h"
 #import "ConnectionUtility.h"
 #import "Packet.h"
-//#import "PacketQuickRequest.h"
 #import "DataSync.h"
 #import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
@@ -28,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *messageDestinationButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchIntegrityButton;
+@property (weak, nonatomic) IBOutlet UIButton *syncOptions;
+@property (weak, nonatomic) IBOutlet UIButton *syncType;
+@property (weak, nonatomic) IBOutlet UIButton *importExportOptions;
 
 @end
 
@@ -35,11 +37,7 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
-    NSNumber *bluetoothRole;
-    MatchmakingServer *matchMakingServer;
-    MatchmakingClient *matchMakingClient;
-    ServerState serverState;
-    BOOL clientState;
+    BlueToothType bluetoothRole;
     DataSync *dataSyncPackage;
     NSUInteger connectedClients;
     id popUp;
@@ -48,6 +46,7 @@
     PopUpPickerViewController *clientPicker;
     UIPopoverController *clientPickerPopover;
     NSString *displayID;
+    NSString *peerId;
 	GKSession *session;
 }
 
@@ -66,7 +65,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
-    bluetoothRole = [prefs objectForKey:@"bluetooth"];
+    bluetoothRole = [[prefs objectForKey:@"bluetooth"] intValue];
     
     if (tournamentName) {
         self.title = [NSString stringWithFormat:@"%@ Sync", tournamentName];
@@ -76,26 +75,63 @@
     }
     //    _allianceList = [[NSMutableArray alloc] initWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
 
+    // Check if either server or client already exists. If both exist, bad things.
+    // Check if role matches the matchmaking that is active
+    // If only one is on, then set up for that role.
+    // If neither are on, then set up in off mode
+    // Add view did disappear to set state
+    if (_connectionUtility.matchMakingServer && _connectionUtility.matchMakingClient) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"All connections will be terminated"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [_connectionUtility.matchMakingServer endSession];
+        _connectionUtility.matchMakingServer = nil;
+        [_connectionUtility.matchMakingClient disconnectFromServer];
+        _connectionUtility.matchMakingClient = nil;
+    }
+    
     [self setBigButtonDefaults:_serverStatusButton];
-    if ([bluetoothRole intValue] == Master) {
+    if (_connectionUtility.matchMakingServer) {
+        // We are already set up as the server
+        bluetoothRole = Master;
+        session = _connectionUtility.matchMakingServer.session;
+        peerId = _connectionUtility.matchMakingServer.session.peerID;
+        displayID = [_connectionUtility.matchMakingServer displayNameForPeerID:peerId];
         [_serverView setHidden:FALSE];
         [_clientView setHidden:TRUE];
-        matchMakingServer = _dataManager.connectionUtility.matchMakingServer;
-        serverState = [matchMakingServer getServerState];
-        connectedClients = [matchMakingServer connectedClientCount];
-        [self buildClientList];
         [self setServerStatus];
-     //		NSLog(@"%@", matchMakingServer.session);
-     }
-    else {
-        [_clientView setHidden:FALSE];
+        connectedClients = [_connectionUtility.matchMakingServer connectedClientCount];
+        [self buildClientList];
+    }
+    else if (_connectionUtility.matchMakingClient) {
+        // We are already set up as a client
+        bluetoothRole = Scouter;
+        session = _connectionUtility.matchMakingClient.session;
+        peerId = _connectionUtility.matchMakingClient.session.peerID;
+        displayID = [_connectionUtility.matchMakingClient displayNameForPeerID:peerId];
         [_serverView setHidden:TRUE];
-        matchMakingClient = _dataManager.connectionUtility.matchMakingClient;
+        [_clientView setHidden:FALSE];
         [self setClientStatus];
-        // if no server avail, look for server on
-        // if server avail, then display server in label
+    }
+    else {
+        // We are in an idle, unconnected state
+        if (bluetoothRole == Master) {
+            [_serverView setHidden:FALSE];
+            [_clientView setHidden:TRUE];
+           [self setServerStatus];
+        }
+        else {
+            [_clientView setHidden:FALSE];
+            [_serverView setHidden:TRUE];
+            [self setClientStatus];
+            // if no server avail, look for server on
+            // if server avail, then display server in label
             // if already connected, display connected status
             // if not connected, show connect button
+        }
     }
     // Set the notification to receive information after a client had connected or disconnected
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
@@ -106,82 +142,66 @@
 }
 
 -(IBAction)serverAction:(id)sender {
-    if (serverState == ServerStateIdle) {
-        if (!_dataManager.connectionUtility) {
-            [_dataManager setConnectionUtility];
-        }
-        matchMakingServer = [_dataManager.connectionUtility setMatchMakingServer];
-        [matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
-        NSLog(@"%@", [matchMakingServer displayNameForPeerID:matchMakingServer.session.peerID]);
-        session = matchMakingServer.session;
-        [session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
+    if ([_connectionUtility.matchMakingServer getServerState] == ServerStateIdle) {
+        _connectionUtility.matchMakingServer = [_connectionUtility setMatchMakingServer];
+        [_connectionUtility.matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
+        peerId = _connectionUtility.matchMakingServer.session.peerID;
+        displayID = [_connectionUtility.matchMakingServer displayNameForPeerID:peerId];
+        NSLog(@"%@", displayID);
+        session = _connectionUtility.matchMakingServer.session;
+        [session setDataReceiveHandler:_connectionUtility withContext:nil];
     }
     else {
         NSLog(@"End Session");
-        [matchMakingServer endSession];
+        [_connectionUtility.matchMakingServer endSession];
+        _connectionUtility.matchMakingServer = nil;
         session = nil;
-        matchMakingServer = nil;
     }
     [self setServerStatus];
 }
 
 - (IBAction)clientAction:(id)sender {
-    // idle - create client
-    // looking - popup to cancel looking
-    // found - connect
-    // connecting - popup to cancel connecting
-    // connected - popup to cancel disconnect
-    switch ([matchMakingClient getClientState]) {
+    switch ([_connectionUtility.matchMakingClient getClientState]) {
         case ClientStateIdle:
-            if (!_dataManager.connectionUtility) {
-                [_dataManager setConnectionUtility];
-            }
-            matchMakingClient = [_dataManager.connectionUtility setMatchMakingClient];
-            [matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
-            session = matchMakingClient.session;
-            [session setDataReceiveHandler:_dataManager.connectionUtility withContext:nil];
+            _connectionUtility.matchMakingClient = [_connectionUtility setMatchMakingClient];
+            [_connectionUtility.matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
+            session = _connectionUtility.matchMakingClient.session;
+            [session setDataReceiveHandler:_connectionUtility withContext:nil];
             break;
             
         case ClientStateSearchingForServers:
         case ClientStateConnecting:
         case ClientStateConnected:
             NSLog(@"End Session");
-            clientState = FALSE;
-            [matchMakingClient disconnectFromServer];
+            [_connectionUtility.matchMakingClient disconnectFromServer];
             session = nil;
-            matchMakingClient = nil;
+            _connectionUtility.matchMakingClient = nil;
             break;
             
-/*        case ClientStateFoundServer:
-            [matchMakingClient connectToServerWithPeerID:[matchMakingClient peerIDForAvailableServerAtIndex:0]];
-            break;*/
-
         default:
             break;
     }
-    [self setClientStatus];
 }
 
 -(void)setServerStatus {
-    serverState = [matchMakingServer getServerState];
-    if (serverState) {
+    if ([_connectionUtility.matchMakingServer getServerState]) {
         [_serverStatusButton setTitle:@"Server Running" forState:UIControlStateNormal];
         [_serverStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
         [_serverStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_connectedClientsLabel setHidden:FALSE];
     }
     else {
         [_serverStatusButton setTitle:@"Start Server" forState:UIControlStateNormal];
         [_serverStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
         [_serverStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_quickRequestButton setHidden:TRUE];
+        [_messageDestinationButton setHidden:TRUE];
         [_connectedClientsLabel setHidden:TRUE];
     }
 }
 
 -(void)setClientStatus {
-    switch ([matchMakingClient getClientState]) {
+    switch ([_connectionUtility.matchMakingClient getClientState]) {
         case ClientStateIdle:
-            clientState = FALSE;
             [_clientStatusButton setTitle:@"Look for Server" forState:UIControlStateNormal];
             [_clientStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
             [_clientStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
@@ -192,18 +212,15 @@
             
         case ClientStateSearchingForServers:
             [_scoutMaster setHidden:TRUE];
-            clientState = FALSE;
             [_clientStatusButton setTitle:@"Search in Process" forState:UIControlStateNormal];
-            // [_clientStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
+            [_serverTable setUserInteractionEnabled:NO];
             [_clientStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             break;
 
         case ClientStateConnecting:
             [_scoutMaster setHidden:FALSE];
-            clientState = FALSE;
             [_clientStatusButton setTitle:@"Connecting in Process" forState:UIControlStateNormal];
-            _scoutMaster.text = [matchMakingClient displayNameForPeerID:[matchMakingClient peerIDForAvailableServerAtIndex:0]];
-            // [_clientStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
+            _scoutMaster.text = [_connectionUtility.matchMakingClient displayNameForPeerID:[_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:0]];
             [_clientStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             break;
 
@@ -212,11 +229,12 @@
             [_serverTable setHidden:TRUE];
             _instructionLabel.text = @"Tap \"Connected\" to disconnect";
             [_instructionLabel setHidden:FALSE];
-            clientState = TRUE;
             [_clientStatusButton setTitle:@"Connected" forState:UIControlStateNormal];
-            _scoutMaster.text = [matchMakingClient displayNameForPeerID:[matchMakingClient peerIDForAvailableServerAtIndex:0]];
+            _scoutMaster.text = [_connectionUtility.matchMakingClient displayNameForPeerID:[_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:0]];
             [_clientStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
             [_clientStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+            peerId = _connectionUtility.matchMakingClient.session.peerID;
+            displayID = [_connectionUtility.matchMakingClient displayNameForPeerID:peerId];
             break;
 
         default:
@@ -225,12 +243,12 @@
 }
 
 -(void)updateClientStatus:(NSNotification *)notification {
-    if ([bluetoothRole intValue] == Scouter) {
+    if (bluetoothRole == Scouter) {
         [self setClientStatus];
         [self setServerStatus];
     }
     else {
-        connectedClients = [matchMakingServer connectedClientCount];
+        connectedClients = [_connectionUtility.matchMakingServer connectedClientCount];
         NSLog(@"%@", notification);
         [self buildClientList];
         [self setServerStatus];
@@ -238,11 +256,12 @@
 }
 
 -(void)updateServerStatus:(NSNotification *)notification {
-    if ([bluetoothRole intValue] == Scouter) {
-        if ([matchMakingClient availableServerCount]) {
+    if (bluetoothRole == Scouter) {
+        if ([_connectionUtility.matchMakingClient availableServerCount]) {
             _instructionLabel.text = @"Tap server name to connect";
             [_instructionLabel setHidden:FALSE];
             [_serverTable setHidden:FALSE];
+            [_serverTable setUserInteractionEnabled:TRUE];
         }
         else {
             [_serverTable setHidden:TRUE];
@@ -251,7 +270,7 @@
     }
     else {
         NSLog(@"%@", notification);
-        connectedClients = [matchMakingServer connectedClientCount];
+        connectedClients = [_connectionUtility.matchMakingServer connectedClientCount];
         _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
         NSLog(@"%lu", (unsigned long)connectedClients);
         [self buildClientList];
@@ -263,8 +282,8 @@
     if (connectedClients) {
         peerList = [[NSMutableDictionary alloc] init];
         for (int i=0; i<connectedClients; i++) {
-            NSString *peerID = [matchMakingServer peerIDForConnectedClientAtIndex:i];
-            [peerList setObject:peerID forKey:[matchMakingServer displayNameForPeerID:peerID]];
+            NSString *peerID = [_connectionUtility.matchMakingServer peerIDForConnectedClientAtIndex:i];
+            [peerList setObject:peerID forKey:[_connectionUtility.matchMakingServer displayNameForPeerID:peerID]];
         }
         clientList = [[peerList allKeys] mutableCopy];
         if (connectedClients > 1) {
@@ -280,6 +299,9 @@
         [_quickRequestButton setHidden:TRUE];
     }
     _connectedClientsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)connectedClients];
+}
+
+- (IBAction)selectAction:(id)sender {
 }
 
 - (IBAction)destinationSelected:(id)sender {
@@ -318,11 +340,11 @@
     Packet *packet = [Packet packetWithType:PacketTypeQuickRequest];
     // Determine if destination is one or all
     if ([_messageDestinationButton.titleLabel.text isEqualToString:@"Send All"]) {
-        [_dataManager.connectionUtility sendPacketToAllClients:packet inSession:session];
+        [_connectionUtility sendPacketToAllClients:packet inSession:session];
     }
     else {
         NSString *receiver = _messageDestinationButton.titleLabel.text;
-        [_dataManager.connectionUtility sendPacketToClient:packet forClient:[peerList objectForKey:receiver] inSession:session];
+        [_connectionUtility sendPacketToClient:packet forClient:[peerList objectForKey:receiver] inSession:session];
     }
 }
 
@@ -330,7 +352,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == _serverTable) {
-        if (matchMakingClient != nil) return [matchMakingClient availableServerCount];
+        if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
         else return 0;
     }
     return 0;
@@ -342,8 +364,8 @@
     if (tableView == _serverTable) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
         UILabel *label1 = (UILabel *)[cell viewWithTag:0];
-        NSString *peerID = [matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
-        label1.text = [matchMakingClient displayNameForPeerID:peerID];
+        NSString *serverID = [_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
+        label1.text = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
     }
     return cell;
 }
@@ -352,11 +374,11 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-	if (matchMakingClient != nil) {
+	if (_connectionUtility.matchMakingClient != nil) {
 	//	[self.view addSubview:self.waitView];
         
-		NSString *peerID = [matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
-		[matchMakingClient connectToServerWithPeerID:peerID];
+		NSString *serverID = [_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
+		[_connectionUtility.matchMakingClient connectToServerWithPeerID:serverID];
 	}
 }
 

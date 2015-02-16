@@ -10,9 +10,11 @@
 #import "PopUpPickerViewController.h"
 
 @class DataManager;
+@class ConnectionUtility;
 
 @interface TabletSyncViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 -(void)updateClientStatus:(NSNotification *)notification;
 -(void)updateServerStatus:(NSNotification *)notification;
 

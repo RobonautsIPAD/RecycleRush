@@ -20,6 +20,7 @@
 #import "FieldPhoto.h"
 #import "TeamDetailViewController.h"
 #import "AddMatchViewController.h"
+#import "LNNumberpad.h"
 
 @interface MatchScoutingViewController ()
 // Match Control
@@ -138,10 +139,14 @@
     NSMutableArray *allianceList;
     PopUpPickerViewController *alliancePicker;
     UIPopoverController *alliancePickerPopover;
+    NSString *newSelection;
 
     BOOL dataChange;
     BOOL fieldDrawingChange;
     NSString *scouter;
+    AlertPromptViewController *alertPrompt;
+    UIPopoverController *alertPromptPopover;
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -519,16 +524,29 @@
         return;
     }
     if (popUp == teamPicker) {
+        if ([mode isEqualToString:@"Tournament"]) {
+            newSelection = newPick;
+            [self checkAdminCode:_teamNumber];
+        }
+        else {
+            [self teamSelected:newPick];
+        }
         [teamPickerPopover dismissPopoverAnimated:YES];
-        [self teamSelected:newPick];
         return;
     }
     if (popUp == alliancePicker) {
+        if ([mode isEqualToString:@"Tournament"]) {
+            newSelection = newPick;
+            [self checkAdminCode:_alliance];
+        }
+        else {
+            [self allianceSelected:newPick];
+        }
         [alliancePickerPopover dismissPopoverAnimated:YES];
-        [self allianceSelected:newPick];
         return;
     }
 }
+
 
 - (IBAction)autonSelection:(id)sender {
     [self setDataChange];
@@ -721,7 +739,7 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", @"Draw Mode 1",  nil];
     
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    [actionSheet showFromRect:_drawingChoiceButton.frame inView:self.view animated:YES];
+    [actionSheet showFromRect:_drawingChoiceButton.frame inView:_stackView animated:YES];
     popUp = _drawingChoiceButton;
 }
 
@@ -1154,7 +1172,8 @@
     [self setSmallButtonDefaults:_driverRating];
     [self setSmallButtonDefaults:_intakeRatingButton];
     [self setTextBoxDefaults:_notes forSize:24.0];*/
-    
+    _canFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+
 }
 
 -(void)setTextBoxDefaults:(UITextField *)currentTextField forSize:(float)fontSize {
@@ -1263,6 +1282,29 @@
         fetchedResultsController = aFetchedResultsController;
     }
 	return fetchedResultsController;
+}
+
+-(void)checkAdminCode:(UIButton *)button {
+    // NSLog(@"Check override");
+    if (alertPrompt == nil) {
+        alertPrompt = [[AlertPromptViewController alloc] initWithNibName:nil bundle:nil];
+        alertPrompt.delegate = self;
+        alertPrompt.titleText = @"Enter Admin Code";
+        alertPrompt.msgText = @"Do NOT change unless you are sure";
+        alertPromptPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:alertPrompt];
+    }
+    [alertPromptPopover presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+    
+    return;
+}
+
+-(void)passCodeResult:(NSString *)passCodeAttempt {
+    [alertPromptPopover dismissPopoverAnimated:YES];
+    if ([passCodeAttempt isEqualToString:[prefs objectForKey:@"adminCode"]]) {
+        if (popUp == alliancePicker) [self allianceSelected:newSelection];
+        else if (popUp == teamPicker) [self teamSelected:newSelection];
+    }
 }
 
 -(void)alertPrompt:(NSString *)title withMessage:(NSString *)message {

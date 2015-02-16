@@ -14,8 +14,8 @@
 @class DataManager;
 @interface ConnectionUtility : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
-@property (readonly, strong, nonatomic) MatchmakingServer *matchMakingServer;
-@property (readonly, strong, nonatomic) MatchmakingClient *matchMakingClient;
+@property (strong, nonatomic) MatchmakingServer *matchMakingServer;
+@property (strong, nonatomic) MatchmakingClient *matchMakingClient;
 //@property (assign, nonatomic) QuitReason quitReason;
 -(id)init:(DataManager *)initManager;
 -(MatchmakingServer *)setMatchMakingServer;

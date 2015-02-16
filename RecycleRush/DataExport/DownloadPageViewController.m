@@ -13,7 +13,7 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "SyncMethods.h"
-#import "PadSyncViewController.h"
+#import "TabletSyncViewController.h"
 #import "TournamentData.h"
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
@@ -103,19 +103,19 @@
     // Set Font and Text for Export Buttons
     [_emailDataButton setTitle:@"Email Data" forState:UIControlStateNormal];
     [self setBigButtonDefaults:_emailDataButton];
-    _emailDataButton.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _emailDataButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_transferPhotosButton setTitle:@"Transfer Photos" forState:UIControlStateNormal];
     [self setBigButtonDefaults:_transferPhotosButton];
-    _transferPhotosButton.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _transferPhotosButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_syncButton setTitle:@"Bluetooth Transfer" forState:UIControlStateNormal];
     [self setBigButtonDefaults:_syncButton];
-    _syncButton.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _syncButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_firstImportButton setTitle:@"Import - US FIRST" forState:UIControlStateNormal];
     [self setBigButtonDefaults:_firstImportButton];
-    _firstImportButton.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _firstImportButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     [_scoutingSheetButton setTitle:@"Spreadsheet Data" forState:UIControlStateNormal];
     [self setBigButtonDefaults:_scoutingSheetButton];
-    _scoutingSheetButton.font = [UIFont fontWithName:@"Nasalization" size:24.0];
+    _scoutingSheetButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
@@ -276,10 +276,6 @@
     [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"DataTransfer"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
-    }
-    if ([segue.identifier isEqualToString:@"Sync"]) {
-        [segue.destinationViewController setSyncOption:SyncAllSavedSince];
-        [segue.destinationViewController setSyncType:SyncTeams];
     }
 }
 

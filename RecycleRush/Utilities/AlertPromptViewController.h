@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol AlertPromptDelegate
-- (void)passCodeResult:(NSString *)passCodeAttempt;
+-(void)passCodeResult:(NSString *)passCodeAttempt;
 @end
 
 @interface AlertPromptViewController : UIViewController <UIAlertViewDelegate>

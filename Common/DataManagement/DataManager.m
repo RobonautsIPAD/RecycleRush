@@ -8,7 +8,6 @@
 
 #import "DataManager.h"
 #import "AppDelegate.h"
-#import "ConnectionUtility.h"
 #import "FileIOMethods.h"
 #import "EnumerationDictionary.h"
 
@@ -125,13 +124,6 @@
 -(void)initializeDictionaries {
     _matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
     _allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
-}
-
--(ConnectionUtility *)setConnectionUtility {
-    if (_connectionUtility == nil) {
-        _connectionUtility = [[ConnectionUtility alloc] init:self];
-    }
-    return _connectionUtility;
 }
 
 -(BOOL)saveContext {

@@ -168,7 +168,7 @@
 -(IBAction)allianceSelectionChanged:(id)sender {
     //    NSLog(@"AllianceSelectionChanged");
     popUp = sender;
-    if ([[prefs objectForKey:@"mode"] isEqualToString:@"Test"]) {
+    if ([[prefs objectForKey:@"mode"] isEqualToString:@"Meeting"]) {
         [self allianceSelectionPopUp];
     }
     else {
@@ -193,13 +193,11 @@
 
 -(void)allianceSelected:(NSString *)newAlliance {
     [self.alliancePickerPopover dismissPopoverAnimated:YES];
-    for (int i = 0 ; i < [_allianceList count] ; i++) {
-        if ([newAlliance isEqualToString:[_allianceList objectAtIndex:i]]) {
-            [prefs setObject:newAlliance forKey:@"alliance"];
-            [_allianceButton setTitle:newAlliance forState:UIControlStateNormal];
-            break;
-        }
-    }
+    NSString *currentAlliance = _allianceButton.titleLabel.text;
+    NSUInteger allianceIndex = [_allianceList indexOfObject:newAlliance];
+    if (allianceIndex == NSNotFound) newAlliance = currentAlliance;
+    [prefs setObject:newAlliance forKey:@"alliance"];
+    [_allianceButton setTitle:newAlliance forState:UIControlStateNormal];
 }
 
 -(void)checkAdminCode:(UIButton *)button {
@@ -208,7 +206,7 @@
         self.alertPrompt = [[AlertPromptViewController alloc] initWithNibName:nil bundle:nil];
         _alertPrompt.delegate = self;
         _alertPrompt.titleText = @"Enter Admin Code";
-        _alertPrompt.msgText = @"Danielle will kill you.";
+        _alertPrompt.msgText = @"Do NOT change unless you are sure";
         self.alertPromptPopover = [[UIPopoverController alloc]
                                    initWithContentViewController:_alertPrompt];
     }
@@ -241,7 +239,19 @@
         [prefs setObject:@"Meeting" forKey:@"mode"];
     }
     else {
-        [prefs setObject:@"Tournament" forKey:@"mode"];
+        NSString *currentAlliance = _allianceButton.titleLabel.text;
+        NSUInteger allianceIndex = [_allianceList indexOfObject:currentAlliance];
+        if (allianceIndex == NSNotFound) {
+            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Alliance Required"
+                                                              message:@"A valid default alliance must be set"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Ok"
+                                                    otherButtonTitles:nil];
+            [prompt show];
+        }
+        else {
+            [prefs setObject:@"Tournament" forKey:@"mode"];
+        }
     }
 }
 

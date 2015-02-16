@@ -37,6 +37,8 @@
         _session = [[GKSession alloc] initWithSessionID:sessionID displayName:nil sessionMode:GKSessionModeClient];
         _session.delegate = self;
         _session.available = YES;
+        NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientStateSearchingForServers], @"Message", nil];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 	}
 }
 
@@ -186,39 +188,33 @@
 - (void)serverBecameAvailable:(NSString *)peerID
 {
     NSLog(@"serverBecameAvailable");
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became available", @"Message", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)serverBecameUnavailable:(NSString *)peerID
 {
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became unavailable", @"Message", nil];
     NSLog(@"serverBecameUnavailable");
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)didDisconnectFromServer:(NSString *)peerID
 {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
-/*	_matchMakingClient.delegate = nil;
-	_matchMakingClient = nil;
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:nil]];
-    //	[self.delegate joinViewController:self didDisconnectWithReason:_quitReason];*/
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Disconnected from Server", @"Message", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)didConnectToServer:(NSString *)peerID
 {
-    //	NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    //	if ([name length] == 0)
-    //		name = _matchMakingClient.session.displayName;
-    
-    //	[self.delegate joinViewController:self startGameWithSession:_matchmakingClient.session playerName:name server:peerID];
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Connected to server", @"Message", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)matchmakingClientNoNetwork:(MatchmakingClient *)client
 {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
-//    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:nil]];
-//	_quitReason = QuitReasonNoNetwork;
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"No network", @"Message", nil];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
 

@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PopUpPickerViewController.h"
+#import "AlertPromptViewController.h"
 
 @class DataManager;
 
-@interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PopUpPickerDelegate>
+@interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PopUpPickerDelegate, AlertPromptDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
 @end

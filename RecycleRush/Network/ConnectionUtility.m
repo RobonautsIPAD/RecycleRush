@@ -68,24 +68,6 @@
         default:
             break;
     }
-/*
-     Player *player = [self playerWithPeerID:peerID];
-     if (player != nil)
-     {
-     if (packet.packetNumber != -1 && packet.packetNumber <= player.lastPacketNumberReceived)
-     {
-     NSLog(@"Out-of-order packet!");
-     return;
-     }
-     
-     player.lastPacketNumberReceived = packet.packetNumber;
-     player.receivedResponse = YES;
-     }
-     
-     if (self.isServer)
-     [self serverReceivedPacket:packet fromPlayer:player];
-     else
-     [self clientReceivedPacket:packet];*/
 }
 
 - (void)sendQuickResponse:(NSString *)requesterID inSession:(GKSession *)session {
@@ -137,20 +119,16 @@
 -(void)sendPacketToAllClients:(Packet *)packet inSession:(GKSession *)session {
     if (packet.packetNumber != -1)
 		packet.packetNumber = sendPacketNumber++;
- /*
+ 
 	GKSendDataMode dataMode = GKSendDataReliable;
- 	NSData *data = [packet data];
-	NSError *error;*/
-/*
-    [_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop)
-     {
-         obj.receivedResponse = [_session.peerID isEqualToString:obj.peerID];
-     }];
-    */
-/*	if (![session sendDataToAllPeers:data withDataMode:dataMode error:&error])
+    [packet setSenderId:session.peerID];
+	NSData *data = [self archiveData:packet];
+	NSError *error;
+
+	if (![session sendDataToAllPeers:data withDataMode:dataMode error:&error])
 	{
 		NSLog(@"Error sending data to clients: %@", error);
-	}*/
+	}
 }
 
 -(void)decodeQuickResponse:(Packet *)packet {
