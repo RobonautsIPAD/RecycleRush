@@ -31,9 +31,7 @@
 #pragma mark - Private methods
 
 @interface LNNumberpad ()
-
 @property (nonatomic, weak) UIResponder <UITextInput> *targetTextInput;
-
 @end
 
 #pragma mark - LNNumberpad Implementation
