@@ -264,7 +264,7 @@
         }
     }
     else if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType) {
-        NSLog(@"Integer");
+        // NSLog(@"Integer");
         if (enumDictionary) {
             // There is a dictionary of strings to output
             csvString = [EnumerationDictionary getKeyFromValue:data forDictionary:enumDictionary];

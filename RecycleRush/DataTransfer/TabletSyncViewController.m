@@ -12,6 +12,9 @@
 #import "ConnectionUtility.h"
 #import "Packet.h"
 #import "DataSync.h"
+#import "SyncTableCells.h"
+#import "SyncTypeDictionary.h"
+#import "SyncOptionDictionary.h"
 #import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
 
@@ -27,8 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *messageDestinationButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchIntegrityButton;
-@property (weak, nonatomic) IBOutlet UIButton *syncOptions;
-@property (weak, nonatomic) IBOutlet UIButton *syncType;
+@property (weak, nonatomic) IBOutlet UIButton *syncOptionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *syncTypeButton;
 @property (weak, nonatomic) IBOutlet UIButton *importExportOptions;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
@@ -40,8 +43,10 @@
     NSString *deviceName;
     BlueToothType bluetoothRole;
     DataSync *dataSyncPackage;
-    NSUInteger connectedClients;
+    SyncTableCells *syncTableCells;
     id popUp;
+    // Connection Handling
+    NSUInteger connectedClients;
     NSMutableArray *clientList;
     NSMutableDictionary *peerList;
     PopUpPickerViewController *clientPicker;
@@ -49,6 +54,19 @@
     NSString *displayID;
     NSString *peerId;
 	GKSession *session;
+    //
+    NSArray *syncTypeList;
+    PopUpPickerViewController *syncTypePicker;
+    UIPopoverController *syncTypePopover;
+    
+    NSArray *syncOptionList;
+    PopUpPickerViewController *syncOptionPicker;
+    UIPopoverController *syncOptionPopover;
+ 
+    SyncType syncType;
+    SyncOptions syncOption;
+    NSArray *filteredSendList;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -74,7 +92,16 @@
     else {
         self.title = @"Sync";
     }
-    //    _allianceList = [[NSMutableArray alloc] initWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
+    dataSyncPackage = [[DataSync alloc] init:_dataManager];
+    syncTableCells = [[SyncTableCells alloc] init:_dataManager];
+    syncTypeList = [SyncMethods getSyncTypeList];
+    syncOptionList = [SyncMethods getSyncOptionList];
+    [_syncTypeButton setTitle:@"SyncMatchResults" forState:UIControlStateNormal];
+    [_syncOptionsButton setTitle:@"SyncAllSavedSince" forState:UIControlStateNormal];
+    syncType = SyncMatchResults;
+    syncOption = SyncAllSavedSince;
+    [self setSendList];
+    NSLog(@"%@", filteredSendList);
 
     // Check if either server or client already exists. If both exist, bad things.
     // Check if role matches the matchmaking that is active
@@ -307,6 +334,29 @@
 }
 
 - (IBAction)selectAction:(id)sender {
+    popUp = sender;
+    if (popUp == _syncTypeButton) {
+        if (syncTypePicker == nil) {
+            syncTypePicker = [[PopUpPickerViewController alloc] initWithStyle:UITableViewStylePlain];
+            syncTypePicker.delegate = self;
+            syncTypePicker.pickerChoices = syncTypeList;
+        }
+        if (!syncTypePopover) {
+            syncTypePopover = [[UIPopoverController alloc] initWithContentViewController:syncTypePicker];
+        }
+        [syncTypePopover presentPopoverFromRect:((UIButton*)popUp).bounds inView:((UIButton*)popUp) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else if (popUp == _syncOptionsButton) {
+        if (syncOptionPicker == nil) {
+            syncOptionPicker = [[PopUpPickerViewController alloc]
+                                initWithStyle:UITableViewStylePlain];
+            syncOptionPicker.delegate = self;
+            syncOptionPicker.pickerChoices = syncOptionList;
+        }
+        if (!syncOptionPopover) {
+            syncOptionPopover = [[UIPopoverController alloc] initWithContentViewController:syncOptionPicker];
+        }
+        [syncOptionPopover presentPopoverFromRect:((UIButton*)popUp).bounds inView:((UIButton*)popUp) permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)destinationSelected:(id)sender {
@@ -328,6 +378,12 @@
     NSLog(@"Picker = %@", newPick);
     if (popUp == _messageDestinationButton) {
         [self newDestination:newPick];
+    } else if (popUp == _syncTypeButton) {
+        [syncTypePopover dismissPopoverAnimated:YES];
+        [self selectSyncType:newPick];
+    } else if (popUp == _syncOptionsButton) {
+        [syncOptionPopover dismissPopoverAnimated:YES];
+        [self selectSyncOption:newPick];
     }
 }
 
@@ -338,6 +394,23 @@
     [_messageDestinationButton setTitle:destination forState:UIControlStateNormal];
     clientPicker = nil;
     clientPickerPopover = nil;
+}
+
+-(void)selectSyncType:(NSString *)typeChoice {
+    [_syncTypeButton setTitle:typeChoice forState:UIControlStateNormal];
+    syncType = [SyncMethods getSyncType:typeChoice];
+ //   xFerOption = Sending;
+    [self setSendList];
+    NSLog(@"%@", filteredSendList);
+    [_syncDataTable reloadData];
+}
+
+-(void)selectSyncOption:(NSString *)optionChoice {
+    [_syncOptionsButton setTitle:optionChoice forState:UIControlStateNormal];
+    syncOption = [SyncMethods getSyncOption:optionChoice];
+    [self setSendList];
+    NSLog(@"%@", filteredSendList);
+    [_syncDataTable reloadData];
 }
 
 - (IBAction)quickRequest:(id)sender {
@@ -353,6 +426,21 @@
     }
 }
 
+-(void)setSendList {
+    if (syncType == SyncTeams) {
+        filteredSendList = [dataSyncPackage getFilteredTeamList:syncOption];
+    }
+    else if (syncType == SyncMatchList) {
+        filteredSendList = [dataSyncPackage getFilteredMatchList:syncOption];
+    }
+    else if (syncType == SyncMatchResults) {
+        filteredSendList = [dataSyncPackage getFilteredResultsList:syncOption];
+    }
+    else if (syncType == SyncTournaments) {
+        filteredSendList = [dataSyncPackage getFilteredTournamentList:syncOption];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -360,7 +448,7 @@
         if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
         else return 0;
     }
-    return 0;
+    else return [filteredSendList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -371,8 +459,12 @@
         UILabel *label1 = (UILabel *)[cell viewWithTag:0];
         NSString *serverID = [_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
         label1.text = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
+        return cell;
     }
-    return cell;
+    else {
+        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

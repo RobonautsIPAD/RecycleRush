@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+@class DataManager;
 @class TournamentData;
 @class TeamData;
 @class MatchData;
 
 @interface SyncTableCells : NSObject
-+(UITableViewCell *)configureTournamentCell:(UITableViewCell *)cell forXfer:(XFerOption)xFerOption forTournament:(TournamentData *)tournament;
-+(UITableViewCell *)configureTeamCell:(UITableViewCell *)cell forTeam:(TeamData *)team;
+@property (nonatomic, strong) DataManager *dataManager;
+-(id)init:(DataManager *)initManager;
+-(UITableViewCell *)configureCell:(UITableView *)tableView forTableData:tableData atIndexPath:(NSIndexPath *)indexPath;
+
 +(UITableViewCell *)configureReceivedTeamCell:(UITableViewCell *)cell forTeam:(NSDictionary *)team;
-+(UITableViewCell *)configureMatchListCell:(UITableViewCell *)cell  forXfer:(XFerOption)xFerOption forMatch:match forMatchDictionary:matchDictionary forAlliances:(NSDictionary *)allianceDictionary;
 +(UITableViewCell *)configureResultsCell:(UITableViewCell *)cell forXfer:(XFerOption)xFerOption forScore:score forMatchDictionary:(NSDictionary *)matchTypeDictionary forAlliances:(NSDictionary *)allianceDictionary;
 +(UITableViewCell *)configurePhotoCell:(UITableViewCell *)cell forPhotoList:(NSString *)receivedList;
 

@@ -438,7 +438,7 @@
     UIButton * PressedButton = (UIButton*)sender;
     popUp = PressedButton;
     if (PressedButton == _intakeType) {
-        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"IntakeType"];
+        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"ToteIntakeType"];
         if (intakePicker == nil) {
             intakePicker = [[PopUpPickerViewController alloc]
                              initWithStyle:UITableViewStylePlain];

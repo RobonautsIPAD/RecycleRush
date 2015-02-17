@@ -63,8 +63,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
-    [self setImportMatchList:nil];
-    [super viewDidUnload];
-}
 @end

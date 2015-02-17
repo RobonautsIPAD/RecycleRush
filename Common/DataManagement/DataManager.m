@@ -14,6 +14,7 @@
 @implementation DataManager {
     NSUserDefaults *prefs;
     NSString *appName;
+    NSFileManager *fileManager;
     NSDateFormatter *dateFormatter;
     NSFileHandle *errorFileHandle;
     NSFileHandle *warningFileHandle;
@@ -36,6 +37,7 @@
         [self initializeLogFiles];
         [self managedObjectContext];
         [self initializeDictionaries];
+        fileManager = [NSFileManager defaultManager];
     }
 	return self;
 }
@@ -70,7 +72,6 @@
 }
 
 -(void)resetWarningFile {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     [warningFileHandle closeFile];
     float time = CFAbsoluteTimeGetCurrent();
@@ -87,7 +88,6 @@
 }
 
 -(void)resetErrorFile {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     [errorFileHandle closeFile];
     float time = CFAbsoluteTimeGetCurrent();
@@ -214,7 +214,6 @@
     NSURL *storeURL = [NSURL fileURLWithPath:storePath];
 	
     _loadDataFromBundle = NO;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:storePath]) {
         // Database doesn't already exist, so check for one in the main bundle
         NSLog(@"Data base does not exist");

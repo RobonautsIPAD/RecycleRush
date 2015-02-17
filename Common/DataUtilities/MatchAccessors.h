@@ -19,5 +19,5 @@
 +(NSString *)getAllianceString:(NSNumber *)allianceStation fromDictionary:(NSDictionary *)allianceDictionary;
 +(NSNumber *)getAllianceStation:(NSString *)allianceString fromDictionary:(NSDictionary *)allianceDictionary;
 +(NSDictionary *)buildTeamList:(MatchData *)match forAllianceDictionary:allianceDistionary;
-+(NSString *)getTeamNumber:(NSArray *)scoreList forAllianceString:(NSString *)allianceString forAllianceDictionary:allianceDictionary ;
++(NSString *)getTeamNumber:(NSArray *)scoreList forAllianceString:(NSString *)allianceString forAllianceDictionary:allianceDictionary;
 @end

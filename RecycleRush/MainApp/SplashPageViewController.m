@@ -78,18 +78,6 @@
     [super viewDidLoad];
 }
 
-
-- (void)viewDidUnload
-{
-    _dataManager = nil;
-    prefs = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
-//    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeTextColor : [UIColor whiteColor]} ;
-}
-
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"SetUp"]) {

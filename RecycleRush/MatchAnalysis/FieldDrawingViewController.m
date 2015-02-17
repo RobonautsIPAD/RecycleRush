@@ -56,13 +56,6 @@
     return self;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    _teamScores = nil;
-    currentScore = nil;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

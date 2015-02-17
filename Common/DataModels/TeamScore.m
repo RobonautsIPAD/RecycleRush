@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/14/15.
+//  Created by FRC on 2/16/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -21,6 +21,7 @@
 @dynamic autonTotePickUp;
 @dynamic autonToteSet;
 @dynamic autonToteStack;
+@dynamic blacklist;
 @dynamic canDomination;
 @dynamic canDominationTime;
 @dynamic canIntakeFloor;
@@ -48,6 +49,7 @@
 @dynamic notes;
 @dynamic oppositeZoneLitter;
 @dynamic otherRating;
+@dynamic photo;
 @dynamic received;
 @dynamic results;
 @dynamic robotSpeed;
@@ -89,8 +91,6 @@
 @dynamic toteStepBottom;
 @dynamic toteStepTop;
 @dynamic tournamentName;
-@dynamic photo;
-@dynamic blacklist;
 @dynamic wowList;
 @dynamic autonDrawing;
 @dynamic field;
