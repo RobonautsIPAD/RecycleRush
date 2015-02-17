@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/14/15.
+//  Created by FRC on 2/16/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * autonTotePickUp;
 @property (nonatomic, retain) NSNumber * autonToteSet;
 @property (nonatomic, retain) NSNumber * autonToteStack;
+@property (nonatomic, retain) NSNumber * blacklist;
 @property (nonatomic, retain) NSNumber * canDomination;
 @property (nonatomic, retain) NSNumber * canDominationTime;
 @property (nonatomic, retain) NSNumber * canIntakeFloor;
@@ -47,6 +48,7 @@
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * oppositeZoneLitter;
 @property (nonatomic, retain) NSNumber * otherRating;
+@property (nonatomic, retain) NSString * photo;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * results;
 @property (nonatomic, retain) NSNumber * robotSpeed;
@@ -88,8 +90,6 @@
 @property (nonatomic, retain) NSNumber * toteStepBottom;
 @property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
-@property (nonatomic, retain) NSString * photo;
-@property (nonatomic, retain) NSNumber * blacklist;
 @property (nonatomic, retain) NSNumber * wowList;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) FieldPhoto *field;

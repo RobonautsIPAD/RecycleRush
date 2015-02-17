@@ -33,6 +33,8 @@
         matchDictionary = _dataManager.matchTypeDictionary;
         prefs = [NSUserDefaults standardUserDefaults];
         tournamentName = [prefs objectForKey:@"tournament"];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+        teamScoreAttributes = [entity attributesByName];
 	}
 	return self;
 }
@@ -149,7 +151,7 @@
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         [fetchRequest setSortDescriptors:sortDescriptors];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournamentName, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         int nmatches = [teamScores count];
@@ -187,6 +189,60 @@
     csvString = [csvString stringByAppendingString:@"\n"];
     
     return csvString;
+}
+
+-(NSString *)scoreBundleCSVExport:(NSString *)tournament {
+    // Check if init function has run properly
+    NSError *error = nil;
+    if (!_dataManager) {
+        error = [NSError errorWithDomain:@"teamScoreCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    NSString *csvString;
+    NSArray *teamList = [TeamAccessors getTeamsInTournament:tournament fromDataManager:_dataManager];
+    if (!teamList || ![teamList count]) {
+        NSError *error;
+        error = [NSError errorWithDomain:@"teamBundleCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"No Team data to export" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+
+    bool isData = FALSE;
+    NSArray *allKeys = [teamScoreAttributes allKeys];
+    csvString = @"teamNumber, matchNumber, matchType";
+    for (NSString *key in allKeys) {
+        if ([key isEqualToString:@"teamNumber"] || [key isEqualToString:@"matchNumber"] || [key isEqualToString:@"matchType"]) continue;
+        csvString = [csvString stringByAppendingFormat:@", %@", key];
+    }
+    NSLog(@"%@", csvString);
+    
+    for (NSNumber *teamNumber in teamList) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchType" ascending:YES];
+        NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+        [fetchRequest setSortDescriptors:sortDescriptors];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
+        [fetchRequest setPredicate:pred];
+        NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        for (TeamScore *score in teamScores) {
+            isData = TRUE;
+            csvString = [csvString stringByAppendingFormat:@"\n%@, %@, %@", score.teamNumber, score.matchNumber, score.matchType];
+            for (NSString *key in allKeys) {
+                if ([key isEqualToString:@"teamNumber"] || [key isEqualToString:@"matchNumber"] || [key isEqualToString:@"matchType"]) continue;
+                csvString = [csvString stringByAppendingFormat:@", "];
+                NSDictionary *description = [teamScoreAttributes valueForKey:key];
+                csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[score valueForKey:key] forAttribute:description forEnumDictionary:nil]];
+            }
+            csvString = [csvString stringByAppendingString:@"\n"];
+        }
+    }
+    if (isData) return csvString;
+    else return nil;
 }
 
 -(void)exportFullMatchData:(NSArray *)teamList {

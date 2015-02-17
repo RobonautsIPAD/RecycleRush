@@ -78,13 +78,6 @@
     return self;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    _dataManager = nil;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

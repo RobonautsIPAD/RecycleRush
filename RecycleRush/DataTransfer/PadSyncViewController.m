@@ -303,13 +303,13 @@
         TournamentData *tournament;
         if (xFerOption == Sending) tournament = [filteredSendList objectAtIndex:indexPath.row];
         else tournament = [receivedList objectAtIndex:indexPath.row];
-        cell = [SyncTableCells configureTournamentCell:cell forXfer:xFerOption forTournament:tournament];
+   //     cell = [SyncTableCells configureTournamentCell:cell forXfer:xFerOption forTournament:tournament];
     }
     else if (_syncType == SyncTeams) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier2 forIndexPath:indexPath];
         if (xFerOption == Sending) {
             TeamData *team = [filteredSendList objectAtIndex:indexPath.row];
-            cell = [SyncTableCells configureTeamCell:cell forTeam:team];
+     //       cell = [SyncTableCells configureTeamCell:cell forTeam:team];
         }
         else {
             NSDictionary *team = [receivedList objectAtIndex:indexPath.row];
@@ -321,7 +321,7 @@
         id match;
         if (xFerOption == Sending) match = [filteredSendList objectAtIndex:indexPath.row];
         else match = [receivedList objectAtIndex:indexPath.row];
-        cell = [SyncTableCells configureMatchListCell:cell forXfer:(XFerOption)xFerOption forMatch:match forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
+      //  cell = [SyncTableCells configureMatchListCell:cell forXfer:(XFerOption)xFerOption forMatch:match forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
 
     }
     else if (_syncType == SyncMatchResults) {

@@ -50,13 +50,6 @@
     return self;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

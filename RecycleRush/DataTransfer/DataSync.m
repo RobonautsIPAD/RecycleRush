@@ -174,13 +174,13 @@
             //          filteredResultsList = matchResultsList;
             break;
         case SyncAllSavedHere:
-            pred = [NSPredicate predicateWithFormat:@"savedBy = %@", deviceName];
+            pred = [NSPredicate predicateWithFormat:@"results = %@ AND savedBy = %@", [NSNumber numberWithBool:YES], deviceName];
             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
             break;
         case SyncAllSavedSince:
             // For the phone, we are interested in passing along anything
             //  saved or received
-            pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", matchResultsSync, matchResultsSync];
+            pred = [NSPredicate predicateWithFormat:@"results = %@ AND saved > %@ OR received > %@", [NSNumber numberWithBool:YES], matchResultsSync, matchResultsSync];
             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
             break;
         default:

@@ -99,6 +99,36 @@
   return csvString;
 }
 
+-(NSString *)teamBundleCSVExport:(NSString *)tournamentName {
+    // Check if init function has run properly
+    if (!_dataManager) return nil;
+    NSArray *teamData = [TeamAccessors getTeamDataForTournament:tournamentName fromDataManager:_dataManager];
+    if(![teamData count]) {
+        NSError *error;
+        error = [NSError errorWithDomain:@"teamBundleCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"No Team data to export" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+    }
+    
+    NSString *csvString;
+    NSArray *allKeys = [teamDataAttributes allKeys];
+    csvString = @"number, name";
+    for (NSString *key in allKeys) {
+        if ([key isEqualToString:@"name"] || [key isEqualToString:@"number"]) continue;
+        csvString = [csvString stringByAppendingFormat:@", %@", key];
+    }
+ 
+    for (TeamData *team in teamData) {
+        csvString = [csvString stringByAppendingFormat:@"\n%@, %@", team.number, team.name];
+        for (NSString *key in allKeys) {
+            if ([key isEqualToString:@"name"] || [key isEqualToString:@"number"]) continue;
+            csvString = [csvString stringByAppendingFormat:@", "];
+            NSDictionary *description = [teamDataAttributes valueForKey:key];
+            csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[team valueForKey:key] forAttribute:description forEnumDictionary:Nil]];
+        }
+    }
+    return csvString;
+}
+
 -(NSData *)packageTeamForXFer:(TeamData *)team {
     NSMutableArray *keyList = [NSMutableArray array];
     NSMutableArray *valueList = [NSMutableArray array];

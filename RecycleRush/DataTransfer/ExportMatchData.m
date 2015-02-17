@@ -12,7 +12,6 @@
 #import "MatchAccessors.h"
 #import "TeamScore.h"
 #import "TeamData.h"
-//#import "EnumerationDictionary.h"
 #import "DataConvenienceMethods.h"
 
 @implementation ExportMatchData {
@@ -100,7 +99,6 @@
     for (MatchData *match in matchList) {
         csvString = [csvString stringByAppendingString:[self createMatch:match]];
     }
-    NSLog(@"%@", csvString);
     return csvString;
 }
 
