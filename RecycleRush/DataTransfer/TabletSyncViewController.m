@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *syncOptionsButton;
 @property (weak, nonatomic) IBOutlet UIButton *syncTypeButton;
 @property (weak, nonatomic) IBOutlet UIButton *importExportOptions;
+@property (weak, nonatomic) IBOutlet UITableView *syncDataTable;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @end
