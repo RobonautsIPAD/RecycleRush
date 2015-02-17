@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *syncOptions;
 @property (weak, nonatomic) IBOutlet UIButton *syncType;
 @property (weak, nonatomic) IBOutlet UIButton *importExportOptions;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @end
 
@@ -139,6 +140,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
     [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
     _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(IBAction)serverAction:(id)sender {

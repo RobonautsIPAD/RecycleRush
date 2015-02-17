@@ -8,6 +8,7 @@
 
 #import "AddTeamViewController.h"
 #import "MainLogo.h"
+#import "LNNumberpad.h"
 
 @interface AddTeamViewController ()
 
@@ -46,6 +47,7 @@
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:24.0];
     _pictureCaption.text = @"Just Hangin' Out";
     [_teamNameTextField setHidden:TRUE];
+     _teamNumberTextField.inputView  = [LNNumberpad defaultLNNumberpad];
 }
 
 - (IBAction)cancelVC:(id)sender {

@@ -16,6 +16,7 @@
 #import "MatchAccessors.h"
 #import "MatchUtilities.h"
 #import "ScoreAccessors.h"
+#import "LNNumberpad.h"
 
 @interface AddMatchViewController ()
     @property (weak, nonatomic) IBOutlet UIImageView *mainLogo;
@@ -66,9 +67,19 @@
     NSLog(@"Add blue 4 and red 4 for elim matches");
     [_red4 setHidden:YES];
     [_blue4 setHidden:YES];
+    
+    _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
+    _red1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _red2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _red3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _blue1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _blue2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _blue3.inputView  = [LNNumberpad defaultLNNumberpad];
+    
     if (_match) {
         self.title =  [NSString stringWithFormat:@"%@ Edit Match", _match.tournamentName];
         [self displayMatch];
+      
     }
     else {
         self.title =  [NSString stringWithFormat:@"%@ Add Match", _tournamentName];

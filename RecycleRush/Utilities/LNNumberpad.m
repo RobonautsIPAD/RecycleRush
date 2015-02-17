@@ -45,6 +45,7 @@
 + (LNNumberpad *)defaultLNNumberpad {
     static LNNumberpad *defaultLNNumberpad = nil;
     static dispatch_once_t onceToken;
+
     
     dispatch_once(&onceToken, ^{
         defaultLNNumberpad = [[[NSBundle mainBundle] loadNibNamed:@"LNNumberpad" owner:self options:nil] objectAtIndex:0];

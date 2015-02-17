@@ -15,6 +15,7 @@
 #import "MatchData.h"
 #import "MatchUtilities.h"
 #import "TournamentData.h"
+#import "LNNumberpad.h"
 
 @interface ElimDataViewController (){
     NSString *tournamentName;
@@ -133,6 +134,7 @@
 
 //Generate Matches Button
 @property (nonatomic, weak) IBOutlet UIButton *generateButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *goHome;
 
 @end
 
@@ -184,6 +186,66 @@
     [self setRadioButtonDefaults:_sfAlliance6Button];
     [self setRadioButtonDefaults:_sfAlliance7Button];
     [self setRadioButtonDefaults:_sfAlliance8Button];
+    
+    _alliance1Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance1Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance1Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance1Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance2Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance2Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance2Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance2Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance3Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance3Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance3Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance3Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance4Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance4Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance4Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance4Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance5Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance5Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance5Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance5Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance6Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance6Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance6Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance6Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance7Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance7Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance7Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance7Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance8Captain.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance8Partner1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance8Partner2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _alliance8Partner3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Blue1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Blue2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Blue3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Blue4.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Blue1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Blue2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Blue3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Blue4.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Red1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Red2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Red3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal1Red4.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Red1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Red2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Red3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _semiFinal2Red4.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalBlue1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalBlue2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalBlue3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalBlue4.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalRed1.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalRed2.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalRed3.inputView  = [LNNumberpad defaultLNNumberpad];
+    _finalRed4.inputView  = [LNNumberpad defaultLNNumberpad];
+    
+ 
+    
     
     //FI Buttons
     [self setRadioButtonDefaults:_finalist1Button];
@@ -336,6 +398,10 @@
 
 -(void)setRadioButtonDefaults:(UIButton *)button {
     [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(IBAction)toggleRadioButtonState:(id)sender {
@@ -566,14 +632,14 @@
     if ([_sfAlliance1Button isSelected] || [_sfAlliance8Button isSelected] || [_sfAlliance4Button isSelected] || [_sfAlliance5Button isSelected]) {
         [self makeMatches:([_sfAlliance1Button isSelected] || [_sfAlliance8Button isSelected])
                      blueStatus:([_sfAlliance4Button isSelected] || [_sfAlliance5Button isSelected])
-         forStartingMatch:13 forIncrement:2
+         forStartingMatch:10 forIncrement:3
                     forRed1:_semiFinal1Red1.text forRed2:_semiFinal1Red2.text forRed3:_semiFinal1Red3.text forRed4:_semiFinal1Red4.text forBlue1:_semiFinal1Blue1.text forforBlue2:_semiFinal1Blue2.text forBlue3:_semiFinal1Blue3.text forBlue4:_semiFinal1Blue4.text];
     }
     // Semi Final 2
     if ([_sfAlliance2Button isSelected] || [_sfAlliance7Button isSelected] || [_sfAlliance3Button isSelected] || [_sfAlliance6Button isSelected]) {
         [self makeMatches:([_sfAlliance2Button isSelected] || [_sfAlliance7Button isSelected])
                blueStatus:([_sfAlliance3Button isSelected] || [_sfAlliance6Button isSelected])
-         forStartingMatch:14 forIncrement:2
+         forStartingMatch:13 forIncrement:3
                   forRed1:_semiFinal2Red1.text forRed2:_semiFinal2Red2.text forRed3:_semiFinal2Red3.text forRed4:_semiFinal2Red4.text
                  forBlue1:_semiFinal2Blue1.text forforBlue2:_semiFinal2Blue2.text forBlue3:_semiFinal2Blue3.text forBlue4:_semiFinal2Blue4.text];
     }
@@ -581,7 +647,7 @@
     if ([_finalist1Button isSelected] || [_finalist2Button isSelected] || [_finalist3Button isSelected] || [_finalist4Button isSelected]) {
         [self makeMatches:([_finalist1Button isSelected] || [_finalist2Button isSelected])
                blueStatus:([_finalist3Button isSelected] || [_finalist4Button isSelected])
-         forStartingMatch:19 forIncrement:1
+         forStartingMatch:16 forIncrement:1
                   forRed1:_finalRed1.text forRed2:_finalRed2.text forRed3:_finalRed3.text forRed4:_finalRed4.text                  forBlue1:_finalBlue1.text forforBlue2:_finalBlue2.text forBlue3:_finalBlue3.text forBlue4:_finalBlue4.text];
     }
 }

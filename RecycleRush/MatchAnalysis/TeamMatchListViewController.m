@@ -13,6 +13,7 @@
 #import "MatchAccessors.h"
 #import "ScoreAccessors.h"
 #import "MainMatchAnalysisViewController.h"
+#import "LNNumberpad.h"
 
 @interface TeamMatchListViewController ()
 @property (nonatomic, weak) IBOutlet UITextField *teamNumberText;
@@ -52,6 +53,7 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Team Analysis", tournamentName];
+        _teamNumberText.inputView  = [LNNumberpad defaultLNNumberpad];
     }
     else {
         self.title = @"Team Analysis";
@@ -61,14 +63,15 @@
     
     // Default to our team. Someday create saveable preferences
     _teamNumberText.text = @"118";
-    [self createMatchList:_teamNumberText.text];
+    
     competitionState = TRUE;
     practiceState = FALSE;
     testState = FALSE;
-/*
+    [self createMatchList:_teamNumberText.text];
+
     [self setRadioButtonState:_competitionButton forState:competitionState];
     [self setRadioButtonState:_practiceButton forState:practiceState];
-    [self setRadioButtonState:_testButton forState:testState];*/
+    [self setRadioButtonState:_testButton forState:testState];
 }
 
 -(void)createMatchList:(NSString *)teamNumberString {

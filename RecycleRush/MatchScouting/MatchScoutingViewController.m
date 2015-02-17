@@ -29,6 +29,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
 @property (nonatomic, weak) IBOutlet UIButton *nextMatch;
 @property (nonatomic, weak) IBOutlet UIButton *teamNumber;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *matchResetButton;
 // Team Info
 @property (nonatomic, weak) IBOutlet UILabel *teamName;
 @property (nonatomic, weak) IBOutlet UITextField *notes;
@@ -610,7 +611,7 @@
         dataChange = YES;
         NSLog(@"Start Timer");
         if (canDomTimer == nil) {
-            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.6
+            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                           target:self
                                                         selector:@selector(timerFired)
                                                         userInfo:nil
@@ -626,7 +627,7 @@
         int newTimer = [currentScore.canDominationTime intValue] + timerCount;
         currentScore.canDominationTime = [NSNumber numberWithInt:newTimer];
     NSLog(@"fix timer string");
-        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d:%2d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
+        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d:%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
  //   }
 }
 
@@ -680,6 +681,21 @@
     [self setTeamList];
     [self showTeam:teamIndex];
 }
+- (IBAction)matchResetTapped:(id)sender {
+        NSString *title = @"Confirm Match Reset";
+        NSString *button = @"Reset";
+        popUp = sender;
+        
+        [self confirmationActionSheet:title withButton:button];
+    }
+    
+    - (void)confirmationActionSheet:title withButton:(NSString *)button {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
+        
+        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+        [actionSheet showInView:self.view];
+    }
+    
 
 -(IBAction)nextButton {
     [self checkDataStatus];
@@ -1173,7 +1189,31 @@
     [self setSmallButtonDefaults:_intakeRatingButton];
     [self setTextBoxDefaults:_notes forSize:24.0];*/
     _canFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
-
+    _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
+    _landfillOppositeZone.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totalLandfillLitterScored.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansDominatedText.inputView  = [LNNumberpad defaultLNNumberpad];
+    _stackKnockdownText.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn0Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn1Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn2Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn3Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn4Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn5Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _totesOn6Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn0Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn1Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn2Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn3Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn4Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn5Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cansOn6Text.inputView  = [LNNumberpad defaultLNNumberpad];
+    _toteIntakeHPText.inputView  = [LNNumberpad defaultLNNumberpad];
+    _toteStepIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+    _toteBottomFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+    _toteTopFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+    _canStepIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+    _litterInCan.inputView  = [LNNumberpad defaultLNNumberpad];
 }
 
 -(void)setTextBoxDefaults:(UITextField *)currentTextField forSize:(float)fontSize {

@@ -22,6 +22,7 @@
 #import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
 #import <QuartzCore/CALayer.h>
+#import "LNNumberpad.h"
 
 @interface MainMatchAnalysisViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
@@ -31,6 +32,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *matchNumber;
 @property (nonatomic, weak) IBOutlet UIButton *matchType;
 @property (nonatomic, strong) NSMutableArray *teamData;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
 @property (nonatomic, strong) UIView *teamHeader;
@@ -135,6 +137,7 @@
     [self setBigButtonDefaults:_nextMatch];
     [self setBigButtonDefaults:_ourPrevMatchButton];
     [self setBigButtonDefaults:_ourNextMatchButton];
+     _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
@@ -337,6 +340,10 @@
         if (found) break;
         else start = nMatches-1;
     }
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)ourNextMatch:(id)sender {

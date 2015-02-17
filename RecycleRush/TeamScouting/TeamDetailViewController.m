@@ -22,6 +22,7 @@
 #import "FieldDrawingViewController.h"
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
+#import "LNNumberpad.h"
 
 @interface TeamDetailViewController ()
     @property (nonatomic, weak) IBOutlet UIButton *prevTeamButton;
@@ -103,6 +104,10 @@
     PopUpPickerViewController *driveTypePicker;
     UIPopoverController *drivePickerPopover;
     NSArray *driveTypeList;
+    
+    PopUpPickerViewController *toteIntakePicker;
+    UIPopoverController *toteIntakePickerPopover;
+    NSArray *toteIntakeList;
 
     PopUpPickerViewController *canIntakePicker;
     UIPopoverController *canIntakePickerPopover;
@@ -182,6 +187,14 @@
     [self setTextBoxDefaults:_wheelDiameter];
     [self setTextBoxDefaults:_cims];
     [self setTextBoxDefaults:_stackLevelText];
+    
+    _stackLevelText.inputView  = [LNNumberpad defaultLNNumberpad];
+    _cims.inputView  = [LNNumberpad defaultLNNumberpad];
+    _maxHeight.inputView  = [LNNumberpad defaultLNNumberpad];
+    _wheelDiameter.inputView  = [LNNumberpad defaultLNNumberpad];
+    _nwheels.inputView  = [LNNumberpad defaultLNNumberpad];
+    _numberText.inputView  = [LNNumberpad defaultLNNumberpad];
+    
     
    // Set defaults for all the buttons
     [self setBigButtonDefaults:_intakeType];
@@ -510,7 +523,7 @@
         _team.driveTrainType = newPick;
     }
     else if (popUp == _intakeType) {
-        [intakePickerPopover dismissPopoverAnimated:YES];
+        [toteIntakePickerPopover dismissPopoverAnimated:YES];
         _team.toteIntake = newPick;
     }
     else if (popUp == _liftTypeButton) {
@@ -790,7 +803,7 @@
 
 - (IBAction)goHome:(id)sender {
     UINavigationController * navigationController = self.navigationController;
-    [navigationController popToRootViewControllerAnimated:NO];
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
