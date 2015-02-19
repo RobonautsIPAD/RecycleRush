@@ -207,7 +207,12 @@
     [self configureCell:cell atIndexPath:indexPath];
    
     return cell;
-}
+    
+        UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
+        cell.backgroundColor = goldColor;
+        
+        
+    }
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

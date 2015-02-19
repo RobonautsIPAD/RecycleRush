@@ -285,7 +285,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *lightBlueColor = [UIColor colorWithRed:(50/255.0) green:(100/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
+    UIColor *lightBlueColor = [UIColor colorWithRed:(000/255.0) green:(000/255.0) blue:(255/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = lightBlueColor;
     // Xcode 4.6.3 compatibility issue
     //cell.accessoryView.tintColor = [UIColor blackColor];

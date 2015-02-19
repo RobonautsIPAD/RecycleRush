@@ -167,6 +167,7 @@
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
 		2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */; };
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
+		2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */; };
 		2FC123271A830B240029F086 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC123261A830B240029F086 /* PitScoutingDataSheet.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
@@ -464,6 +465,7 @@
 		2FA1CDFC1964B24900E5B040 /* DataConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DataConvenienceMethods.h; path = Common/DataUtilities/DataConvenienceMethods.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DataConvenienceMethods.m; path = Common/DataUtilities/DataConvenienceMethods.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB358291A731C74005625AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RecycleRush/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RobonautsLogo.jpg; path = "RecycleRush/Resources/Logos and Banners/RobonautsLogo.jpg"; sourceTree = SOURCE_ROOT; };
 		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC123261A830B240029F086 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -798,6 +800,7 @@
 		2F312BC21A7D6D4F002EF938 /* New Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */,
 				2F33163E1A93BC32005B7798 /* Default-Landscape@2x~ipad.png */,
 				2F33163F1A93BC32005B7798 /* Default-Landscape~ipad.png */,
 				2F5D51F61A7433AE008F1100 /* banner copy.png */,
@@ -1135,7 +1138,6 @@
 				2F5D333C1A5FA69E00E02523 /* ios-7-camera-icon.png in Resources */,
 				2FDFE50C1A7E888B002FEAD0 /* LiftType.plist in Resources */,
 				2F33162D1A93BB6D005B7798 /* Slide1.JPG in Resources */,
-				2FDFE5171A7E88A5002FEAD0 /* ShooterType.plist in Resources */,
 				2FDFE5131A7E888B002FEAD0 /* QuadState.plist in Resources */,
 				2FDFE52B1A7E891E002FEAD0 /* Small Grey Button.jpg in Resources */,
 				2FDFE50B1A7E888B002FEAD0 /* ToteIntakeType.plist in Resources */,
@@ -1161,6 +1163,7 @@
 				2FDFE52C1A7E891E002FEAD0 /* Small Red Button.jpg in Resources */,
 				2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */,
 				2FDFE5161A7E88A5002FEAD0 /* ScouterName.plist in Resources */,
+				2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */,
 				2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */,
 				2F5D33101A5FA5F700E02523 /* 2013_logo.png in Resources */,
 				2F5D337C1A5FA96F00E02523 /* Default.png in Resources */,

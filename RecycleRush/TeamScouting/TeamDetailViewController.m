@@ -23,6 +23,9 @@
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
 #import "LNNumberpad.h"
+#import "MainMatchAnalysisViewController.h"
+#import "MatchAccessors.h"
+
 
 @interface TeamDetailViewController ()
     @property (nonatomic, weak) IBOutlet UIButton *prevTeamButton;
@@ -321,16 +324,20 @@
     label1.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label1];
     
-	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(105, 0, 200, 35)];
+	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 200, 35)];
 	label2.text = @"Type";
     label2.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label2];
     
- 	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(235, 0, 200, 35)];
-	label3.text = @"Results";
+ 	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 200, 35)];
+	label3.text = @"Score";
     label3.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label3];
     
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(255, 0, 200, 35)];
+	label4.text = @"Alliance Members";
+    label4.backgroundColor = [UIColor clearColor];
+    [matchHeader addSubview:label4];
 }
 
 -(void)showTeam {
@@ -437,22 +444,23 @@
     //  and push the correct pop-up VC
     UIButton * PressedButton = (UIButton*)sender;
     popUp = PressedButton;
+    
     if (PressedButton == _intakeType) {
-        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"ToteIntakeType"];
+        if (!toteIntakeList) toteIntakeList = [FileIOMethods initializePopUpList:@"ToteIntakeType"];
         if (intakePicker == nil) {
             intakePicker = [[PopUpPickerViewController alloc]
-                             initWithStyle:UITableViewStylePlain];
+                               initWithStyle:UITableViewStylePlain];
             intakePicker.delegate = self;
-            intakePicker.pickerChoices = intakeList;
+            intakePicker.pickerChoices = toteIntakeList;
         }
         if (!intakePickerPopover) {
+
             intakePickerPopover = [[UIPopoverController alloc]
-                                            initWithContentViewController:intakePicker];
+                                      initWithContentViewController:intakePicker];
         }
         [intakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-    else if (PressedButton == _driveType) {
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }    else if (PressedButton == _driveType) {
         if (!driveTypeList) driveTypeList = [FileIOMethods initializePopUpList:@"DriveType"];
         if (driveTypePicker == nil) {
             driveTypePicker = [[PopUpPickerViewController alloc]
@@ -845,6 +853,7 @@
 
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
 	label3.text = [NSString stringWithFormat:@"%d", [regional.rank intValue]];
+   
 
 	UILabel *label4 = (UILabel *)[cell viewWithTag:40];
     label4.text = regional.seedingRecord;
@@ -872,11 +881,45 @@
     UILabel *label2 = (UILabel *)[cell viewWithTag:20];
     label2.text  = [[EnumerationDictionary getKeyFromValue:score.matchType forDictionary:matchTypeDictionary] substringToIndex:4];
 
-    UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = @"";
     
-    if ([score.saved intValue] || [score.results boolValue]) label3.text = @"Y";
-    else label3.text = @"N";
+    UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    label3.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
+    
+    //UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+	//label4.text = [NSString stringWithFormat:@"%d", [matchList.  intValue]];
+    NSDictionary *allianceMembersDictionary = [MatchAccessors buildTeamList:score.match forAllianceDictionary:allianceDictionary];
+    NSString *allianceString = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
+    NSArray *allKeys = [allianceMembersDictionary allKeys];
+    if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
+        NSLog(@"Red Alliance");
+        int tag = 40;
+        for (NSString *key in allKeys) {
+            if ([[key substringToIndex:1] isEqualToString:@"R"]) {
+                int otherMembers = [[allianceMembersDictionary objectForKey:key] intValue];
+                if ([_team.number intValue]== otherMembers) continue;
+                UILabel *label = (UILabel *)[cell viewWithTag:tag];
+                label.text = [NSString stringWithFormat:@"%d", otherMembers];
+                tag = 50;
+
+            NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
+            }
+        }
+         }
+    else if ([[allianceString substringToIndex:1] isEqualToString:@"B"]) {
+        NSLog(@"Blue Alliance");
+        int tag = 40;
+        for (NSString *key in allKeys) {
+            if ([[key substringToIndex:1] isEqualToString:@"B"]) {
+                int otherMembers = [[allianceMembersDictionary objectForKey:key] intValue];
+                if ([_team.number intValue]== otherMembers) continue;
+                UILabel *label = (UILabel *)[cell viewWithTag:tag];
+                label.text = [NSString stringWithFormat:@"%d", otherMembers];
+                tag = 50;
+                
+                NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
+            }
+        }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
