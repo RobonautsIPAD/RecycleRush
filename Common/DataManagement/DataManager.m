@@ -34,10 +34,10 @@
 	{
         prefs = [NSUserDefaults standardUserDefaults];
         appName = [prefs objectForKey:@"appName"];
+        fileManager = [NSFileManager defaultManager];
         [self initializeLogFiles];
         [self managedObjectContext];
         [self initializeDictionaries];
-        fileManager = [NSFileManager defaultManager];
     }
 	return self;
 }
