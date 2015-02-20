@@ -190,13 +190,12 @@
         NSArray *list = [allTournaments filteredArrayUsingPredicate:pred];
         if (![list count]) {
             // NSLog(@"Adding Tournament");
-            Competitions *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"Competitions"
-                                                                     inManagedObjectContext:_dataManager.managedObjectContext];
+            Competitions *tournament = [NSEntityDescription insertNewObjectForEntityForName:@"Competitions" inManagedObjectContext:_dataManager.managedObjectContext];
             tournament.name = tournamentName;
             [team addTournamentsObject:tournament];
         }
         else {
-            NSLog(@"Tournament Exists, count = %ul", [list count]);
+            NSLog(@"Tournament Exists, count = %lu", (unsigned long)[list count]);
         }
         return TRUE;
     }

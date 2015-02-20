@@ -308,7 +308,7 @@
     else if (_syncType == SyncTeams) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier2 forIndexPath:indexPath];
         if (xFerOption == Sending) {
-            TeamData *team = [filteredSendList objectAtIndex:indexPath.row];
+       //     TeamData *team = [filteredSendList objectAtIndex:indexPath.row];
      //       cell = [SyncTableCells configureTeamCell:cell forTeam:team];
         }
         else {
