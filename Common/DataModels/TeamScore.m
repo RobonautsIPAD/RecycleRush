@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/16/15.
+//  Created by FRC on 2/19/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -40,7 +40,7 @@
 @dynamic fouls;
 @dynamic litterHP;
 @dynamic litterHPTop;
-@dynamic litterinCan;
+@dynamic litterInCan;
 @dynamic matchNumber;
 @dynamic matchType;
 @dynamic maxCanHeight;
@@ -49,7 +49,6 @@
 @dynamic notes;
 @dynamic oppositeZoneLitter;
 @dynamic otherRating;
-@dynamic photo;
 @dynamic received;
 @dynamic results;
 @dynamic robotSpeed;

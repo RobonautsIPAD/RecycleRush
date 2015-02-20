@@ -156,22 +156,77 @@
     }
 }
 
--(NSDictionary *)unpackageScoreForXFer:(NSData *)xferData {
+-(TeamScore *)scoreReset:(TeamScore *)score {
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    for (NSString *key in teamScoreAttributes) {
+        if ([key isEqualToString:@"matchNumber"]) continue;
+        if ([key isEqualToString:@"matchType"]) continue;
+        if ([key isEqualToString:@"tournamentName"]) continue;
+        if ([key isEqualToString:@"teamNumber"]) continue;
+        if ([key isEqualToString:@"allianceStation"]) continue;
+        id defaultValue = [[teamScoreAttributes valueForKey:key] valueForKey:@"defaultValue"];
+        [score setValue:defaultValue forKeyPath:key];
+    }
+    score.field = nil;
+    score.autonDrawing = nil;
+    score.teleOpDrawing = nil;
+    [_dataManager saveContext];
+    return score;
+}
+
+-(NSDictionary *)packageScoreForXFer:(TeamScore *)score {
+    if (!_dataManager) {
+        NSError *error = [NSError errorWithDomain:@"packageScoreForBluetooth" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return nil;
+    }
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
+    for (NSString *item in teamScoreAttributes) {
+        if ([score valueForKey:item]) {
+            // if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
+            [keyList addObject:item];
+            [valueList addObject:[score valueForKey:item]];
+            // }
+        }
+    }
+    if (score.field && score.field.paper) {
+        [keyList addObject:@"fieldPhoto"];
+        [valueList addObject:score.field.paper];
+    }
+    if (score.autonDrawing && score.autonDrawing.trace) {
+        [keyList addObject:@"autonDrawing"];
+        [valueList addObject:score.autonDrawing.trace];
+    }
+    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
+        [keyList addObject:@"teleOpDrawing"];
+        [valueList addObject:score.teleOpDrawing.trace];
+    }
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+/*    if ([score.match.number intValue] == 1) {
+        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
+        NSLog(@"Data = %@", dictionary);
+    }*/
+    return dictionary;
+}
+
+-(NSDictionary *)unpackageScoreForXFer:(NSDictionary *)xferDictionary {
     NSError *error = nil;
     if (!_dataManager.managedObjectContext) {
         error = [NSError errorWithDomain:@"unpackageScoreForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing managedObjectContext" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return nil;
     }
-    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
-    NSNumber *matchNumber = [myDictionary objectForKey:@"matchNumber"];
-    NSNumber *matchType = [myDictionary objectForKey:@"matchType"];
+    NSNumber *matchNumber = [xferDictionary objectForKey:@"matchNumber"];
+    NSNumber *matchType = [xferDictionary objectForKey:@"matchType"];
     NSString *matchTypeString = [MatchAccessors getMatchTypeString:matchType fromDictionary:matchTypeDictionary];
-    NSString *tournamentName = [myDictionary objectForKey:@"tournamentName"];
-    NSNumber *teamNumber = [myDictionary objectForKey:@"teamNumber"];
-    NSNumber *allianceStation = [myDictionary objectForKey:@"allianceStation"];
+    NSString *tournamentName = [xferDictionary objectForKey:@"tournamentName"];
+    NSNumber *teamNumber = [xferDictionary objectForKey:@"teamNumber"];
+    NSNumber *allianceStation = [xferDictionary objectForKey:@"allianceStation"];
     NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
-    NSLog(@"%@", myDictionary);
+    NSLog(@"%@", xferDictionary);
     MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
@@ -189,10 +244,9 @@
     
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
     // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
-    NSNumber *saved = [myDictionary objectForKey:@"saved"];
-    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    NSNumber *saved = [xferDictionary objectForKey:@"saved"];
 
-    if ([saved floatValue] == [score.saved floatValue] && [savedBy isEqualToString:score.savedBy]) {
+    if ([score.saved floatValue] > [saved floatValue]) {
         NSLog(@"Match has already transferred, match = %@", score.matchNumber);
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
         NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber, @"N", nil];
@@ -200,7 +254,7 @@
         return teamTransfer;
     }
 
-    for (NSString *key in myDictionary) {
+    for (NSString *key in xferDictionary) {
         if ([key isEqualToString:@"matchNumber"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"matchType"]) continue; // Comes with the relationship
         if ([key isEqualToString:@"tournamentName"]) continue; // Already resolved
@@ -208,7 +262,7 @@
         if ([key isEqualToString:@"autonDrawing"]) continue; // Needs
         if ([key isEqualToString:@"teleOpDrawing"]) continue; // Needs
         if ([teamScoreAttributes valueForKey:key]) {
-            [score setValue:[myDictionary objectForKey:key] forKey:key];
+            [score setValue:[xferDictionary objectForKey:key] forKey:key];
         }
     }
     if (!score.autonDrawing) {
@@ -216,18 +270,31 @@
                                                           inManagedObjectContext:_dataManager.managedObjectContext];
         score.autonDrawing = drawing;
     }
-    score.autonDrawing.trace = [myDictionary objectForKey:@"autonDrawing"];
+    score.autonDrawing.trace = [xferDictionary objectForKey:@"autonDrawing"];
 
     if (!score.teleOpDrawing) {
         FieldDrawing *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldDrawing"
                                                               inManagedObjectContext:_dataManager.managedObjectContext];
         score.teleOpDrawing = drawing;
     }
-    score.teleOpDrawing.trace = [myDictionary objectForKey:@"teleOpDrawing"];
+    score.teleOpDrawing.trace = [xferDictionary objectForKey:@"teleOpDrawing"];
 
+    if (!score.field) {
+        FieldPhoto *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
+                                                            inManagedObjectContext:_dataManager.managedObjectContext];
+        score.field = drawing;
+    }
+    score.field.paper = [xferDictionary objectForKey:@"field"];
+    
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    if (![_dataManager saveContext]) {
+        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, @"N", nil];
+        NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        NSString *msg = [NSString stringWithFormat:@"Database Save Error %@ %@", matchTypeString, matchNumber];
+        error = [NSError errorWithDomain:@"unpackageScoreForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+        [_dataManager writeErrorMessage:error forType:[error code]];
+        return matchTransfer;
     }
 
     NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];

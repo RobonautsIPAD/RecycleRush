@@ -20,6 +20,4 @@
 -(NSString *)scoreBundleCSVExport:(NSString *)tournamentName;
 -(void)exportFullMatchData:(NSArray *)teamList;
 -(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath;
--(NSData *)packageScoreForXFer:(TeamScore *)score;
--(NSDictionary *)packageScoreForBluetooth:(TeamScore *)score;
 @end

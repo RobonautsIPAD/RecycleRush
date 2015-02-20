@@ -158,6 +158,10 @@
     return _clientState;
 }
 
+-(NSString *)getServerID {
+    return _serverPeerID;
+}
+
 - (NSString *)peerIDForAvailableServerAtIndex:(NSUInteger)index
 {
 	return [_availableServers objectAtIndex:index];

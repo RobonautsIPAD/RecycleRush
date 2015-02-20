@@ -31,5 +31,5 @@
 - (void)connectToServerWithPeerID:(NSString *)peerID;
 - (void)disconnectFromServer;
 -(ClientState)getClientState;
-
+-(NSString *)getServerID;
 @end

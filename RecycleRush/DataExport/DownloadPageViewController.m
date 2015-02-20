@@ -148,20 +148,16 @@
     else if (sender == _scoutingSheetButton) {
         optionPicker.pickerChoices = spreadsheetOptionList;
     }
-
-    if (sender == _emailDataButton) {
+    else if (sender == _emailDataButton) {
         optionPicker.pickerChoices = emailOptionList;
+    }
+    else if (sender == _scoutingSheetButton) {
+        optionPicker.pickerChoices = spreadsheetOptionList;
     }
     optionPopover = [[UIPopoverController alloc]
                                initWithContentViewController:optionPicker];
     [optionPopover presentPopoverFromRect:pressedButton.bounds inView:pressedButton
                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (IBAction)spreadsheetSelected:(id)sender {
-    NSLog(@"change action to exportTapped");
-    [self createScoutingSpreadsheet];
-    [self createMitchData];
 }
 
 -(NSString *)createScoutingSpreadsheet {
@@ -312,7 +308,12 @@
         }
     }
     else if (popUp == _scoutingSheetButton) {
-        [self createScoutingSpreadsheet];
+        if ([newPick isEqualToString:@"Scouting Spreadsheet"]) {
+            [self createScoutingSpreadsheet];
+        }
+        else {
+            [self createMitchData];
+        }
     }
     else if (popUp == _transferPhotosButton) {
         

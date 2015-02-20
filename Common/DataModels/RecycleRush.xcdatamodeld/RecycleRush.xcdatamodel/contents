@@ -56,7 +56,7 @@
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonMobility" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="bumpers" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="bumpers" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="canIntake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
@@ -65,11 +65,11 @@
         <attribute name="fthing3" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="liftType" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="liftType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="maxToteStack" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
-        <attribute name="noodler" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="noodler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
         <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -77,6 +77,7 @@
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
+        <attribute name="stackMechanism" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="sthing1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sthing4" optional="YES" attributeType="String" syncable="YES"/>
@@ -114,19 +115,14 @@
         <attribute name="cansOn4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansOn5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="coopSet" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="coopStack" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="coopSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="coopStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="lucien" value="Driver Rating"/>
-                <entry key="output" value="Driver Rating"/>
-            </userInfo>
-        </attribute>
+        <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHPTop" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="litterinCan" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="litterInCan" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="matchNumber" attributeType="Integer 16" minValueString="0" maxValueString="250" syncable="YES"/>
         <attribute name="matchType" attributeType="Integer 16" minValueString="0" maxValueString="4" syncable="YES"/>
         <attribute name="maxCanHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -139,7 +135,6 @@
         </attribute>
         <attribute name="oppositeZoneLitter" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="otherRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
-        <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="results" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="robotSpeed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
@@ -187,8 +182,8 @@
         <attribute name="toteStepTop" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="tournamentName" attributeType="String" syncable="YES"/>
         <attribute name="wowList" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FieldDrawing" inverseName="autonDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
-        <relationship name="field" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FieldPhoto" inverseName="teamScore" inverseEntity="FieldPhoto" syncable="YES"/>
+        <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="autonDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
+        <relationship name="field" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldPhoto" inverseName="teamScore" inverseEntity="FieldPhoto" syncable="YES"/>
         <relationship name="match" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
         <relationship name="teleOpDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="teleOpDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
     </entity>
@@ -202,8 +197,8 @@
         <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="73"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
-        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="615"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1275"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="628"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1258"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

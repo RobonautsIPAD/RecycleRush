@@ -643,24 +643,24 @@ GKPeerPickerController *picker;
         case SyncTeams:
             for (int i = 0; i < [filteredTeamList count]; i++) {
                 TeamData *team = [filteredTeamList objectAtIndex:i];
-                NSData *myData = [teamExportPackage packageTeamForXFer:team];
-                [self sendData:myData];
+      //          NSData *myData = [teamExportPackage packageTeamForXFer:team];
+          //      [self sendData:myData];
                 //       NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
             break;
         case SyncMatchList:
             for (int i = 0; i < [filteredMatchList count]; i++) {
                 MatchData *match = [filteredMatchList objectAtIndex:i];
-                NSData *myData = [matchDataPackage packageMatchForXFer:match];
-                [self sendData:myData];
+      //          NSData *myData = [matchDataPackage packageMatchForXFer:match];
+      //          [self sendData:myData];
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
             }
             break;
         case SyncMatchResults:
             for (int i = 0; i < [filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
-                NSData *myData = [matchResultsPackage packageScoreForXFer:score];
-                [self sendData:myData];
+     //           NSData *myData = [matchResultsPackage packageScoreForXFer:score];
+       //         [self sendData:myData];
                 NSLog(@"Match = %@, Type = %@, Team = %@", score.matchNumber, score.matchType, score.teamNumber);
             }
             break;

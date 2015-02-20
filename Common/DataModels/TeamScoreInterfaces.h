@@ -19,7 +19,6 @@
 -(id)initWithDataManager:(DataManager *)initManager;
 -(void)addScoreToMatch:(MatchData *)match forTeam:(NSNumber *)teamNumber forAlliance:(NSString *)alliance;
 -(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath;
--(NSData *)packageScoreForXFer:(TeamScore *)score;
 -(TeamScore *)addScore:(TeamData *)team forAlliance:(NSString *)alliance forTournament:(NSString *)tournament;
 
 @end

@@ -243,11 +243,11 @@
         default:
             break;
     }
-//    NSError *fileError = nil;
-//    for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:transferFilePath error:&fileError]) {
-//        NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
-//        [[NSFileManager defaultManager] removeItemAtPath:name error:&fileError];
-//    }
+    NSError *fileError = nil;
+    for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:transferFilePath error:&fileError]) {
+        NSString *name = [transferFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", file]];
+        [[NSFileManager defaultManager] removeItemAtPath:name error:&fileError];
+    }
     return transferSuccess;
 }
 

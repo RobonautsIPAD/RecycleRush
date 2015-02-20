@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/16/15.
+//  Created by FRC on 2/19/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -39,7 +39,7 @@
 @property (nonatomic, retain) NSNumber * fouls;
 @property (nonatomic, retain) NSNumber * litterHP;
 @property (nonatomic, retain) NSNumber * litterHPTop;
-@property (nonatomic, retain) NSNumber * litterinCan;
+@property (nonatomic, retain) NSNumber * litterInCan;
 @property (nonatomic, retain) NSNumber * matchNumber;
 @property (nonatomic, retain) NSNumber * matchType;
 @property (nonatomic, retain) NSNumber * maxCanHeight;
@@ -48,7 +48,6 @@
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSNumber * oppositeZoneLitter;
 @property (nonatomic, retain) NSNumber * otherRating;
-@property (nonatomic, retain) NSString * photo;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * results;
 @property (nonatomic, retain) NSNumber * robotSpeed;

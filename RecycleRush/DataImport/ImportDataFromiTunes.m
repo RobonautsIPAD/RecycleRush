@@ -33,7 +33,7 @@
         fileManager = [NSFileManager defaultManager];
         documentImportPath = [FileIOMethods applicationDocumentsDirectory];
         alreadyImportedPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Imported Data/%@", tournamentName]];
-        NSLog(@"Already imported path = %@", alreadyImportedPath);
+        // NSLog(@"Already imported path = %@", alreadyImportedPath);
 	}
 
 	return self;
@@ -107,7 +107,8 @@
     else if ([importFile.pathExtension compare:@"tnd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         TournamentUtilities *tournamentUtilitiesPackage = [[TournamentUtilities alloc] init:_dataManager];
         NSData *importData = [NSData dataWithContentsOfFile:importFile];
-        receivedData = [tournamentUtilitiesPackage unpackageTournamentsForXFer:importData];
+        NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
+        receivedData = [tournamentUtilitiesPackage unpackageTournamentsForXFer:tournamentList];
         [fileManager removeItemAtPath:transferPath error:error];        
         return receivedData;
     }
@@ -134,13 +135,14 @@
     }
 
     if ([importFile.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        ScoreUtilities *matchResultsPackage = [[ScoreUtilities alloc] init:_dataManager];
+        ScoreUtilities *scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                // NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
-                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
-                NSDictionary *scoreReceived = [matchResultsPackage unpackageScoreForXFer:myData];
+                NSData *importData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *importDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
+                NSDictionary *scoreReceived = [scoreUtilities unpackageScoreForXFer:importDictionary];
                 if (scoreReceived) [receivedData addObject:scoreReceived];
             }
         }
@@ -151,8 +153,9 @@
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
-                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
-                NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:myData];
+                NSData *importData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *importDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
+                NSDictionary *teamReceived = [teamDataPackage unpackageTeamForXFer:importDictionary];
                 if (teamReceived) [receivedData addObject:teamReceived];
             }
         }
@@ -163,8 +166,9 @@
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
                 NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
-                NSData *myData = [NSData dataWithContentsOfFile:fullPath];
-                NSDictionary *matchReceived = [matchUtilitiesPackage unpackageMatchForXFer:myData];
+                NSData *importData = [NSData dataWithContentsOfFile:fullPath];
+                NSDictionary *importDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
+                NSDictionary *matchReceived = [matchUtilitiesPackage unpackageMatchForXFer:importDictionary];
                 if (matchReceived) [receivedData addObject:matchReceived];
             }
         }

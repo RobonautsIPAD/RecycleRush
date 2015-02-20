@@ -12,6 +12,7 @@
 #import "TeamScore.h"
 #import "FieldDrawing.h"
 #import "MatchAccessors.h"
+#import "ScoreUtilities.h"
 #import "TeamData.h"
 #import "TeamAccessors.h"
 #import "MatchData.h"
@@ -24,6 +25,7 @@
     NSDictionary *attributes;
     NSDictionary *matchDictionary;
     NSArray *scoutingSpreadsheetList;
+    ScoreUtilities *scoreUtilites;
 }
 
 -(id)init:(DataManager *)initManager {
@@ -35,6 +37,7 @@
         tournamentName = [prefs objectForKey:@"tournament"];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
         teamScoreAttributes = [entity attributesByName];
+        scoreUtilites = [[ScoreUtilities alloc] init:_dataManager];
 	}
 	return self;
 }
@@ -373,76 +376,9 @@
      team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [score.teamNumber intValue]]];
      }
      NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@_%@.pck", match, team]];
-     NSData *myData = [self packageScoreForXFer:score];
+     NSDictionary *packagedScore = [scoreUtilites packageScoreForXFer:score];
+     NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:packagedScore];
      [myData writeToFile:exportFile atomically:YES];
-    
-}
-
--(NSData *)packageScoreForXFer:(TeamScore *)score {
-    if (!_dataManager) {
-        _dataManager = [DataManager new];
-    }
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
-    for (NSString *item in teamScoreAttributes) {
-        if ([score valueForKey:item]) {
-            // if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
-            [keyList addObject:item];
-            [valueList addObject:[score valueForKey:item]];
-            // }
-        }
-    }
-    if (score.autonDrawing && score.autonDrawing.trace) {
-        [keyList addObject:@"autonDrawing"];
-        [valueList addObject:score.autonDrawing.trace];
-    }
-    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
-        [keyList addObject:@"teleOpDrawing"];
-        [valueList addObject:score.teleOpDrawing.trace];
-    }
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    if ([score.match.number intValue] == 1) {
-        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
-        NSLog(@"Data = %@", dictionary);
-    }
-    return myData;
-}
-
--(NSDictionary *)packageScoreForBluetooth:(TeamScore *)score {
-    if (!_dataManager) {
-        NSError *error = [NSError errorWithDomain:@"packageScoreForBluetooth" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
-        [_dataManager writeErrorMessage:error forType:[error code]];
-        return nil;
-    }
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
-    for (NSString *item in teamScoreAttributes) {
-        if ([score valueForKey:item]) {
-            // if (![DataConvenienceMethods compareAttributeToDefault:[score valueForKey:item] forAttribute:[teamScoreAttributes valueForKey:item]]) {
-            [keyList addObject:item];
-            [valueList addObject:[score valueForKey:item]];
-            // }
-        }
-    }
-    if (score.autonDrawing && score.autonDrawing.trace) {
-        [keyList addObject:@"autonDrawing"];
-        [valueList addObject:score.autonDrawing.trace];
-    }
-    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
-        [keyList addObject:@"teleOpDrawing"];
-        [valueList addObject:score.teleOpDrawing.trace];
-    }
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    if ([score.match.number intValue] == 1) {
-        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
-        NSLog(@"Data = %@", dictionary);
-    }
-    return dictionary;
 }
 
 - (void)dealloc

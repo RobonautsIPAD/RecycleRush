@@ -16,7 +16,6 @@
 -(id)init:(DataManager *)initManager;
 
 -(NSString *)matchDataCSVExport:(NSString *)tournamentName;
--(NSData *)packageMatchForXFer:(MatchData *)match;
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath;
 
 

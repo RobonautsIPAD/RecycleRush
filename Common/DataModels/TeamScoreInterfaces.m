@@ -56,44 +56,7 @@
 }
 
 -(NSData *)packageScoreForXFer:(TeamScore *)score {
-    if (!_dataManager) {
-        _dataManager = [DataManager new];
-    }
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
-    for (NSString *item in teamScoreAttributes) {
-        if ([score valueForKey:item] && [score valueForKey:item] != [[teamScoreAttributes valueForKey:item] valueForKey:@"defaultValue"]) {
-            [keyList addObject:item];
-            [valueList addObject:[score valueForKey:item]];
-        }
-    }
-    if (score.autonDrawing && score.autonDrawing.trace) {
-        [keyList addObject:@"autonDrawing"];
-        [valueList addObject:score.autonDrawing.trace];
-    }
-    if (score.teleOpDrawing && score.teleOpDrawing.trace) {
-        [keyList addObject:@"teleOpDrawing"];
-        [valueList addObject:score.teleOpDrawing.trace];
-    }
- /*   if (score.team) {
-        [keyList addObject:@"teamNumber"];
-        [valueList addObject:score.team.number];
-    }
-    if (score.match) {
-        [keyList addObject:@"matchNumber"];
-        [valueList addObject:score.match.number];
-        [keyList addObject:@"matchType"];
-        [valueList addObject:score.match.matchType];
-    }*/
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    if ([score.match.number intValue] == 1) {
-        NSLog(@"Match = %@, Type = %@, Team = %@, Results = %@", score.matchNumber, score.matchType, score.teamNumber, score.saved);
-        NSLog(@"Data = %@", dictionary);
-    }
-    return myData;
+    return nil;
 }
 
 -(TeamScore *)addScore:(TeamData *)team

@@ -20,11 +20,13 @@
     int sendPacketNumber;
     DataSync *dataSyncPackage;
     ExportScoreData *exportScore;
+    ScoreUtilities *scoreUtilities;
 }
 
 - (id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
         _dataManager = initManager;
+        scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
     }
 	return self;
 }
@@ -78,7 +80,7 @@
         NSLog(@"count = %ul", [filteredSendList count]);
     // Package each one
     for (TeamScore *score in filteredSendList) {
-        NSDictionary *scoreDictionary = [exportScore packageScoreForBluetooth:score];
+        NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:score];
         Packet *packet = [Packet packetWithType:PacketTypeQuickResponse];
         [packet setDataDictionary:scoreDictionary];
         [self sendPacketToClient:packet forClient:requesterID inSession:session];
@@ -136,7 +138,6 @@
     NSLog(@"decode from %@", packet.receiverId);
     NSDictionary *myType = packet.dataDictionary;
     NSLog(@"%@", myType);
-    ScoreUtilities *scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
     NSDictionary *scoreDictionary = [scoreUtilities unpackageScoreForBluetooth:myType];
 }
 

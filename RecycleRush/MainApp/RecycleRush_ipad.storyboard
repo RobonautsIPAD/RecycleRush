@@ -1633,6 +1633,62 @@
             </objects>
             <point key="canvasLocation" x="-9504" y="4288"/>
         </scene>
+        <!--Stack View Controller-->
+        <scene sceneID="He4-UI-NcL">
+            <objects>
+                <viewController id="zpx-qo-0XI" customClass="StackViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pCo-FR-iEM">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wl0-0Y-Cn5">
+                                <rect key="frame" x="837" y="680" width="138" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Finished">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="finished:" destination="zpx-qo-0XI" eventType="touchUpInside" id="8vu-OM-rvf"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="CIU-dU-Bhk">
+                                <rect key="frame" x="20" y="20" width="850" height="655"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yam-pB-dlc">
+                                <rect key="frame" x="20" y="685" width="121" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="New Stack">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="popUpNewStack:" destination="zpx-qo-0XI" eventType="touchUpInside" id="aGM-kR-DJL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <connections>
+                        <outlet property="fieldView" destination="CIU-dU-Bhk" id="s3H-53-4kU"/>
+                        <outlet property="finishedButton" destination="wl0-0Y-Cn5" id="YJB-nW-AfJ"/>
+                        <outlet property="stackButton" destination="Yam-pB-dlc" id="Nuk-zK-hBI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AvL-Mt-9tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="513" y="-1032"/>
+        </scene>
         <!--Match Scouting View Controller-->
         <scene sceneID="UnG-sh-LRn">
             <objects>
@@ -1749,7 +1805,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="oyY-ln-eVl" userLabel="Controls View">
                                 <rect key="frame" x="600" y="53" width="418" height="600"/>
@@ -2248,7 +2304,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="sfs-vA-zUb" userLabel="Stack View">
                                 <rect key="frame" x="20" y="525" width="572" height="128"/>
@@ -2269,56 +2325,6 @@
                                             <action selector="drawingChoice:" destination="1Bn-R0-uqK" eventType="touchUpInside" id="B7h-3h-3RK"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" id="bfJ-us-mVB" userLabel="Stack 1">
-                                        <rect key="frame" x="4" y="24" width="86" height="79"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="O2I-as-JSq" userLabel="S1 C1 Top Text Field">
-                                                <rect key="frame" x="5" y="9" width="34" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="1Bn-R0-uqK" id="90H-j9-ZV6"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="G72-sd-DYA" userLabel="S1 C2 Top Text Field">
-                                                <rect key="frame" x="47" y="9" width="34" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="1Bn-R0-uqK" id="Kwx-Ns-nhl"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0Rv-7h-DLP" userLabel="S1 C1 Bottom Text Field">
-                                                <rect key="frame" x="5" y="44" width="34" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="1Bn-R0-uqK" id="4cm-rH-9c3"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Diz-MC-jgj" userLabel="S1 C2 Bottom Text Field">
-                                                <rect key="frame" x="47" y="44" width="34" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="1Bn-R0-uqK" id="hP1-xn-8Hh"/>
-                                                </connections>
-                                            </textField>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Secret Stuff Over Here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HsU-cQ-FXN">
-                                                <rect key="frame" x="3" y="17" width="78" height="46"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="bvp-8M-knd">
                                         <rect key="frame" x="246" y="31" width="100" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2380,7 +2386,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dead on Field" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2KE-kg-WaF">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dead on Arrival" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2KE-kg-WaF">
                                         <rect key="frame" x="128" y="69" width="69" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -2409,8 +2415,24 @@
                                             <action selector="matchTypeSelected:" destination="Svo-Ej-nRw" eventType="touchUpInside" id="WMb-RT-0ku"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Z62-Yr-wcS" userLabel="Button - Mode">
+                                        <rect key="frame" x="0.0" y="98" width="132" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Create Stacks">
+                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="drawModeChange:" destination="1Bn-R0-uqK" eventType="touchUpInside" id="Cm6-OX-3cr"/>
+                                            <segue destination="zpx-qo-0XI" kind="modal" identifier="StackView" id="7NR-QO-QDX"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GxX-Tt-0xm" userLabel="Label - Team Name">
                                 <rect key="frame" x="642" y="16" width="246" height="30"/>
@@ -2420,8 +2442,23 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jeh-1l-Ntn" userLabel="Button - Mode">
+                                <rect key="frame" x="20" y="520" width="70" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Mode">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="drawModeChange:" destination="1Bn-R0-uqK" eventType="touchUpInside" id="yEi-7G-cSf"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems>
@@ -2472,6 +2509,8 @@
                         <outlet property="controlsView" destination="oyY-ln-eVl" id="7Kd-h9-GcU"/>
                         <outlet property="coopSet" destination="bvp-8M-knd" id="JlW-Kx-bXl"/>
                         <outlet property="coopStack" destination="K2l-b3-jcr" id="0YA-pV-Mc0"/>
+                        <outlet property="createStacksButton" destination="Z62-Yr-wcS" id="LKl-vm-SvQ"/>
+                        <outlet property="drawModeButton" destination="jeh-1l-Ntn" id="5XN-NL-yfs"/>
                         <outlet property="drawingChoiceButton" destination="qSY-77-Ytl" id="shY-BB-XFS"/>
                         <outlet property="fieldDrawingContainer" destination="N23-oh-Fev" id="dpZ-Ne-1kQ"/>
                         <outlet property="landfillOppositeZone" destination="HNk-6W-i2Q" id="bw7-IQ-Hu6"/>
@@ -2637,60 +2676,11 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="EX6-Ni-MGi" userLabel="Client View">
-                                <rect key="frame" x="411" y="0.0" width="241" height="182"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ServerList" rowHeight="182" id="NsG-L0-5aG">
-                                        <rect key="frame" x="5" y="0.0" width="210" height="182"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="210" height="181"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="73" sectionHeaderHeight="22" sectionFooterHeight="22" id="9yz-gr-2rW">
-                                                    <rect key="frame" x="25" y="76" width="101" height="93"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="qzw-3b-Tvg" id="dhu-ae-moV"/>
-                                                        <outlet property="delegate" destination="qzw-3b-Tvg" id="2mE-IW-2Mx"/>
-                                                    </connections>
-                                                </tableView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Master" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5MF-KQ-JFk" userLabel="Label - Scout Master">
-                                                    <rect key="frame" x="143" y="148" width="128" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9Gp-bz-FeY">
-                                                    <rect key="frame" x="20" y="20" width="170" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal" title="Connection Status">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="clientAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="fDE-7f-Qv1"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="Ae7-ZZ-zvC" userLabel="Server View">
+                            <view contentMode="scaleToFill" id="Ae7-ZZ-zvC" userLabel="Bluetooth View">
                                 <rect key="frame" x="25" y="8" width="389" height="185"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lec-Sm-Xr3">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lec-Sm-Xr3" userLabel="Button - Connection Status">
                                         <rect key="frame" x="20" y="47" width="134" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -2702,16 +2692,9 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="serverAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="1dn-DP-B2g"/>
+                                            <action selector="connectionAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="aid-eo-NKc"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I5v-V4-MsT">
-                                        <rect key="frame" x="298" y="58" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6bK-zV-MQm">
                                         <rect key="frame" x="226" y="109" width="134" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2727,7 +2710,19 @@
                                             <action selector="quickRequest:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="R9G-WL-A7r"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vJ4-Jw-puw">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cPU-62-qND" userLabel="Button - Send">
+                                        <rect key="frame" x="226" y="56" width="134" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Send" backgroundImage="button_robonaut_gold.png">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vJ4-Jw-puw" userLabel="Button - Devices">
                                         <rect key="frame" x="20" y="109" width="182" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -2742,6 +2737,28 @@
                                             <action selector="destinationSelected:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="MiO-tI-jkx"/>
                                         </connections>
                                     </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="73" sectionHeaderHeight="22" sectionFooterHeight="22" id="9yz-gr-2rW">
+                                        <rect key="frame" x="108" y="56" width="233" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="sectionIndexColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="sectionIndexBackgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ServerList" rowHeight="182" id="NsG-L0-5aG">
+                                                <rect key="frame" x="0.0" y="22" width="233" height="182"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="233" height="181"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="qzw-3b-Tvg" id="dhu-ae-moV"/>
+                                            <outlet property="delegate" destination="qzw-3b-Tvg" id="2mE-IW-2Mx"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -2962,11 +2979,11 @@
                                     <outlet property="delegate" destination="qzw-3b-Tvg" id="AwT-WF-lZz"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6Ru-xm-FLy">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6Ru-xm-FLy" userLabel="Button - Sync Type">
                                 <rect key="frame" x="770" y="20" width="200" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Sync Type" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2977,26 +2994,11 @@
                                     <action selector="selectAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="Fkv-6Q-nSp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ur1-nf-AGM">
-                                <rect key="frame" x="770" y="142" width="200" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" backgroundImage="button_robonaut_gold.png">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="wqj-gc-oVD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tO5-CW-nur">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tO5-CW-nur" userLabel="Button - Sync Options">
                                 <rect key="frame" x="770" y="83" width="200" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" backgroundImage="button_robonaut_gold.png">
+                                <state key="normal" title="Sync Options" backgroundImage="button_robonaut_gold.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -3007,38 +3009,76 @@
                                     <action selector="selectAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="uC2-nK-qzM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instruction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Kp-5K-XAf" userLabel="Label - Action">
-                                <rect key="frame" x="670" y="23" width="87" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ur1-nf-AGM" userLabel="Button - Import Data">
+                                <rect key="frame" x="770" y="142" width="200" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Import Data From iTunes" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectAction:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="Wq8-DL-vYx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wZg-CH-SdV" userLabel="Button - Package Data">
+                                <rect key="frame" x="562" y="142" width="200" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Package Data For iTunes" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectPackageData:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="plx-53-cs7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NRw-8E-haz" userLabel="Button - Mitch">
+                                <rect key="frame" x="562" y="83" width="200" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Create Data For Mitch" backgroundImage="button_robonaut_gold.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createScoutingBundle:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="5eo-Wh-yWV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Home" id="alj-sD-ohn">
-                            <color key="tintColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="goHome:" destination="qzw-3b-Tvg" id="z5T-Bf-e6z"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="Match Integrity" id="Vg0-zt-sAd">
-                            <color key="tintColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="Sxe-AK-EaI" kind="push" id="ILs-8g-vkf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Create Emil" id="uZj-oi-ajy">
-                            <color key="tintColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem title="Create Elim" id="uZj-oi-ajy">
+                            <color key="tintColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="7Lj-vb-YQb" kind="push" id="bSz-YR-wcx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="View Errors" id="Dfw-OX-nHd">
-                            <color key="tintColor" red="0.95300542089999996" green="0.79950658779999995" blue="0.046159189429999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="jd0-tT-BzE" kind="push" id="VhA-KP-rwj"/>
                             </connections>
@@ -3048,18 +3088,17 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="clientStatusButton" destination="9Gp-bz-FeY" id="iaH-lY-SIv"/>
-                        <outlet property="clientView" destination="EX6-Ni-MGi" id="17u-eU-Cwd"/>
-                        <outlet property="connectedClientsLabel" destination="I5v-V4-MsT" id="GPj-Qs-xi0"/>
+                        <outlet property="bluetoothView" destination="Ae7-ZZ-zvC" id="sSm-i2-qx0"/>
+                        <outlet property="connectedDeviceButton" destination="vJ4-Jw-puw" id="Rn8-DT-Uww"/>
+                        <outlet property="connectionStatusButton" destination="lec-Sm-Xr3" id="6J4-in-3pv"/>
+                        <outlet property="createMitchButton" destination="NRw-8E-haz" id="euc-ak-aGo"/>
                         <outlet property="homeButton" destination="alj-sD-ohn" id="PUL-mf-0fV"/>
-                        <outlet property="importExportOptions" destination="ur1-nf-AGM" id="xLk-u0-OUz"/>
-                        <outlet property="instructionLabel" destination="8Kp-5K-XAf" id="4nn-ci-cJ0"/>
-                        <outlet property="messageDestinationButton" destination="vJ4-Jw-puw" id="wt2-oC-6J1"/>
+                        <outlet property="importDataButton" destination="ur1-nf-AGM" id="knn-ds-or7"/>
+                        <outlet property="matchIntegrityButton" destination="Vg0-zt-sAd" id="UTd-rM-weY"/>
+                        <outlet property="packageDataButton" destination="wZg-CH-SdV" id="ggi-La-o2P"/>
                         <outlet property="quickRequestButton" destination="6bK-zV-MQm" id="ZsC-H7-aAz"/>
-                        <outlet property="scoutMaster" destination="5MF-KQ-JFk" id="toS-yb-Ab6"/>
-                        <outlet property="serverStatusButton" destination="lec-Sm-Xr3" id="jn3-i9-UNd"/>
+                        <outlet property="sendButton" destination="cPU-62-qND" id="Z4E-9X-kbU"/>
                         <outlet property="serverTable" destination="9yz-gr-2rW" id="Qkl-uJ-L6U"/>
-                        <outlet property="serverView" destination="Ae7-ZZ-zvC" id="ahj-6Y-0LZ"/>
                         <outlet property="syncDataTable" destination="Zqh-RW-NpK" id="ooo-CX-T4Z"/>
                         <outlet property="syncOptionsButton" destination="tO5-CW-nur" id="cyT-LR-CAO"/>
                         <outlet property="syncTypeButton" destination="6Ru-xm-FLy" id="tiq-OL-xQd"/>
@@ -5600,7 +5639,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="spreadsheetSelected:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="XC6-50-wS6"/>
+                                    <action selector="exportTapped:" destination="4ra-8V-FJ1" eventType="touchUpInside" id="rcB-B5-1JC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D85-Fl-rfr">
@@ -8342,12 +8381,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uGO-wv-g49"/>
-        <segue reference="2hQ-n8-lLr"/>
-        <segue reference="B1M-Ta-Kuh"/>
-        <segue reference="kLv-tp-Kih"/>
         <segue reference="MVE-1d-KHX"/>
+        <segue reference="dB5-hO-37s"/>
         <segue reference="mcM-ra-2yW"/>
         <segue reference="wEf-g4-j4R"/>
+        <segue reference="bSz-YR-wcx"/>
         <segue reference="ILs-8g-vkf"/>
+        <segue reference="VhA-KP-rwj"/>
     </inferredMetricsTieBreakers>
 </document>

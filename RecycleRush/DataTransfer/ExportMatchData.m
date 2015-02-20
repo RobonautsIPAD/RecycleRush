@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "MatchData.h"
 #import "MatchAccessors.h"
+#import "MatchUtilities.h"
 #import "TeamScore.h"
 #import "TeamData.h"
 #import "DataConvenienceMethods.h"
@@ -19,6 +20,7 @@
     NSArray *matchDataList;
     NSDictionary *matchTypeDictionary;
     NSDictionary *allianceDictionary;
+    MatchUtilities *matchUtilities;
 }
 
 -(id)init:(DataManager *)initManager {
@@ -29,36 +31,9 @@
         matchDataAttributes = [entity attributesByName];
         matchTypeDictionary = _dataManager.matchTypeDictionary;
         allianceDictionary = _dataManager.allianceDictionary;
+        matchUtilities = [[MatchUtilities alloc] init:_dataManager];
  	}
 	return self;
-}
-
--(NSData *)packageMatchForXFer:(MatchData *)match {
-    if (!_dataManager) return Nil;
-    
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!matchDataAttributes) matchDataAttributes = [[match entity] attributesByName];
-    for (NSString *item in matchDataAttributes) {
-        if ([match valueForKey:item]) {
-            if (![DataConvenienceMethods compareAttributeToDefault:[match valueForKey:item] forAttribute:[matchDataAttributes valueForKey:item]]) {
-                [keyList addObject:item];
-                [valueList addObject:[match valueForKey:item]];
-            }
-        }
-    }
-    
-    NSDictionary *teamList = [MatchAccessors buildTeamList:match forAllianceDictionary:allianceDictionary];
-    if (teamList) {
-        [keyList addObject:@"teams"];
-        [valueList addObject:teamList];
-    }
-
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"%@", dictionary);
-    NSLog(@"packaging %@", dictionary);
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    return myData;
 }
 
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
@@ -74,7 +49,8 @@
     baseName = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"%d", [match.number intValue]]];
     }
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", baseName]];
-    NSData *myData = [self packageMatchForXFer:match];
+    NSDictionary *packagedMatch = [matchUtilities packageMatchForXFer:match];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:packagedMatch];
     [myData writeToFile:exportFile atomically:YES];
 }
 

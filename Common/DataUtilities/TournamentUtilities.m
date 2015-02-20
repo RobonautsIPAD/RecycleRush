@@ -148,9 +148,8 @@
     return myData;
 }
 
--(NSMutableArray *)unpackageTournamentsForXFer:(NSData *)xferData {
+-(NSMutableArray *)unpackageTournamentsForXFer:(NSArray *)tournamentList {
     NSMutableArray *receivedList = [[NSMutableArray alloc] init];
-    NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     for (NSDictionary *tournamentDictionary in tournamentList) {
         NSString *tournamentName = [tournamentDictionary objectForKey:@"name"];
         TournamentData *tournament = [self createNewTournament:tournamentName];

@@ -10,11 +10,13 @@
 #import "DataManager.h"
 #import "TeamData.h"
 #import "TeamAccessors.h"
+#import "TeamUtilities.h"
 #import "DataConvenienceMethods.h"
 
 @implementation ExportTeamData {
     NSDictionary *teamDataAttributes;
     NSArray *teamDataList;
+    TeamUtilities *teamUtilities;
 }
 
 -(id)init:(DataManager *)initManager {
@@ -22,6 +24,7 @@
         _dataManager = initManager;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
         teamDataAttributes = [entity attributesByName];
+        teamUtilities = [[TeamUtilities alloc]init:_dataManager];
  	}
 	return self;
 }
@@ -129,79 +132,6 @@
     return csvString;
 }
 
--(NSData *)packageTeamForXFer:(TeamData *)team {
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!teamDataAttributes) teamDataAttributes = [[team entity] attributesByName];
-    for (NSString *item in teamDataAttributes) {
-        if ([team valueForKey:item]) {
-            if (![DataConvenienceMethods compareAttributeToDefault:[team valueForKey:item] forAttribute:[teamDataAttributes valueForKey:item]]) {
-                [keyList addObject:item];
-                [valueList addObject:[team valueForKey:item]];
-            }
-        }
-    }
-
-    NSArray *allTournaments = [team.tournaments allObjects];
-    NSMutableArray *tournamentNames = [NSMutableArray array];
-    for (NSString *competition in allTournaments) {
-        [tournamentNames addObject:[competition valueForKey:@"name"]];
-    }
-    if ([tournamentNames count]) {
-        [keyList addObject:@"tournament"];
-        [valueList addObject:tournamentNames];
-    }
-    
-    NSArray *allRegionals = [team.regional allObjects];
-    NSMutableArray *regionalData = [NSMutableArray array];
-    for (NSString *regional in allRegionals) {
-        [regionalData addObject:[regional valueForKey:@"week"]];
-    }
-    if ([regionalData count]) {
-        [keyList addObject:allRegionals];
-        [valueList addObject:regionalData];
-    }
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    return myData;
-}
-
--(NSDictionary *)XMLpackageTeamForXFer:(TeamData *)team {
-    NSMutableArray *keyList = [NSMutableArray array];
-    NSMutableArray *valueList = [NSMutableArray array];
-    if (!teamDataAttributes) teamDataAttributes = [[team entity] attributesByName];
-    for (NSString *item in teamDataAttributes) {
-        if ([team valueForKey:item]) {
-            if (![DataConvenienceMethods compareAttributeToDefault:[team valueForKey:item] forAttribute:[teamDataAttributes valueForKey:item]]) {
-                [keyList addObject:item];
-                [valueList addObject:[team valueForKey:item]];
-            }
-        }
-    }
-    
-    NSArray *allTournaments = [team.tournaments allObjects];
-    NSMutableArray *tournamentNames = [NSMutableArray array];
-    for (NSString *competition in allTournaments) {
-        [tournamentNames addObject:[competition valueForKey:@"name"]];
-    }
-    if ([tournamentNames count]) {
-        [keyList addObject:@"tournament"];
-        [valueList addObject:tournamentNames];
-    }
-    
-    NSArray *allRegionals = [team.regional allObjects];
-    NSMutableArray *regionalData = [NSMutableArray array];
-    for (NSString *regional in allRegionals) {
-        [regionalData addObject:[regional valueForKey:@"week"]];
-    }
-    if ([regionalData count]) {
-        [keyList addObject:allRegionals];
-        [valueList addObject:regionalData];
-    }
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    return dictionary;
-}
-
 -(void)exportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
     // File name format T#.pck
     NSString *fileNameBase;
@@ -212,38 +142,9 @@
     } else {
         fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
     }
-    NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.xml", fileNameBase]];
-    NSDictionary *myData = [self XMLpackageTeamForXFer:team];
-    NSError *error = nil;
-    NSData *data = [NSPropertyListSerialization dataWithPropertyList:myData format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
-    [data writeToFile:exportFile atomically:YES];
-
-//    [myData writeToFile:exportFile atomically:YES];
-//    NSString *msg = [NSString stringWithFormat:@"Exported %@.pck", fileNameBase];
-//    NSError *error = [NSError errorWithDomain:@"exportTeamForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
-//    [_dataManager writeErrorMessage:error forType:kWarningMessage];
-    /*    NSData *data = [NSPropertyListSerialization dataWithPropertyList:parameterDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
-     if(data) {
-     [data writeToFile:settingsFile atomically:YES];
-     }
-     else {
-     NSLog(@"An error has occured %@", error);
-     }
-     }*/
-}
-
--(void)origexportTeamForXFer:(TeamData *)team toFile:(NSString *)exportFilePath {
-    // File name format T#.pck
-    NSString *fileNameBase;
-    if ([team.number intValue] < 100) {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [team.number intValue]]];
-    } else if ( [team.number intValue] < 1000) {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [team.number intValue]]];
-    } else {
-        fileNameBase = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [team.number intValue]]];
-    }
     NSString *exportFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pck", fileNameBase]];
-    NSData *myData = [self packageTeamForXFer:team];
+    NSDictionary *packagedTeam = [teamUtilities packageTeamForXFer:team];
+    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:packagedTeam];
     [myData writeToFile:exportFile atomically:YES];
     NSString *msg = [NSString stringWithFormat:@"Exported %@.pck", fileNameBase];
     NSError *error = [NSError errorWithDomain:@"exportTeamForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];

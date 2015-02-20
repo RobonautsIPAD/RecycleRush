@@ -15,4 +15,11 @@
 @interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PopUpPickerDelegate, AlertPromptDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
+// Match Drawing
+typedef enum {
+	DrawOff,
+	DrawInput,
+    DrawLock,
+} DrawingMode;
+
 @end

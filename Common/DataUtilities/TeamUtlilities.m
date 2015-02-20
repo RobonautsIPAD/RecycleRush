@@ -203,19 +203,56 @@
     else return FALSE;
 }
 
--(NSDictionary *)unpackageTeamForXFer:(NSData *)xferData {
+-(NSDictionary *)packageTeamForXFer:(TeamData *)team {
+    NSMutableArray *keyList = [NSMutableArray array];
+    NSMutableArray *valueList = [NSMutableArray array];
+    if (!teamDataAttributes) teamDataAttributes = [[team entity] attributesByName];
+    for (NSString *item in teamDataAttributes) {
+        NSDictionary *description = [teamDataAttributes valueForKey:item];
+        if (![description isKindOfClass:[NSAttributeDescription class]]) continue;
+        if ([team valueForKey:item]) {
+            if (![DataConvenienceMethods compareAttributeToDefault:[team valueForKey:item] forAttribute:[teamDataAttributes valueForKey:item]]) {
+                [keyList addObject:item];
+                [valueList addObject:[team valueForKey:item]];
+            }
+        }
+    }
+    
+    NSArray *allTournaments = [team.tournaments allObjects];
+    NSMutableArray *tournamentNames = [NSMutableArray array];
+    for (NSString *competition in allTournaments) {
+        [tournamentNames addObject:[competition valueForKey:@"name"]];
+    }
+    if ([tournamentNames count]) {
+        [keyList addObject:@"tournament"];
+        [valueList addObject:tournamentNames];
+    }
+    
+    NSArray *allRegionals = [team.regional allObjects];
+    NSMutableArray *regionalData = [NSMutableArray array];
+    for (NSString *regional in allRegionals) {
+        [regionalData addObject:[regional valueForKey:@"week"]];
+    }
+    if ([regionalData count]) {
+        [keyList addObject:allRegionals];
+        [valueList addObject:regionalData];
+    }
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+    return dictionary;
+}
+
+-(NSDictionary *)unpackageTeamForXFer:(NSDictionary *)xferDictionary {
     NSError *error = nil;
     if (!_dataManager) {
         error = [NSError errorWithDomain:@"addTeam" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"unpackageTeamForXFer" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return nil;
     }
-    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:xferData];
     NSLog(@"unpackage team needs work");
     
     //     Assign unpacked data to the team record
     //     Return team record
-    NSNumber *teamNumber = [myDictionary objectForKey:@"number"];
+    NSNumber *teamNumber = [xferDictionary objectForKey:@"number"];
     if (!teamNumber || ([teamNumber intValue] < 1)) {
         NSString *msg = [NSString stringWithFormat:@"Invalid team %@", teamNumber];
         error = [NSError errorWithDomain:@"unpackageTeamForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -239,10 +276,9 @@
     // Create the property dictionary if it hasn't been created yet
     if (!teamDataAttributes) teamDataAttributes = [[teamRecord entity] attributesByName];
     // check retrieved team, if the saved and saveby match the imcoming data then just do nothing
-    NSNumber *saved = [myDictionary objectForKey:@"saved"];
-    NSString *savedBy = [myDictionary objectForKey:@"savedBy"];
+    NSNumber *saved = [xferDictionary objectForKey:@"saved"];
     
-    if ([saved floatValue] == [teamRecord.saved floatValue] && [savedBy isEqualToString:teamRecord.savedBy]) {
+    if ([teamRecord.saved floatValue] > [saved floatValue]) {
         NSLog(@"Team has already transferred, team = %@", teamNumber);
         NSLog(@"Add a validation check or something");
         NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
@@ -253,20 +289,20 @@
         [_dataManager writeErrorMessage:error forType:[error code]];
         return teamTransfer;
     }
-    
+
     // Cycle through each object in the transfer data dictionary
-    for (NSString *key in myDictionary) {
+    for (NSString *key in xferDictionary) {
         if ([key isEqualToString:@"number"]) continue; // We have already processed team number
         if ([key isEqualToString:@"tournament"]) continue; // Deal with tournament list later
         if ([key isEqualToString:@"regional"]) continue; // Deal with regional list later
         if ([key isEqualToString:@"primePhoto"]) {
             // Only do something with the prime photo if there is not photo already
             if (!teamRecord.primePhoto) {
-                [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+                [teamRecord setValue:[xferDictionary objectForKey:key] forKey:key];
             }
             continue;
         }
-        [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
+        [teamRecord setValue:[xferDictionary objectForKey:key] forKey:key];
     }
     
     /*        id value = [_teamDataProperties valueForKey:key];

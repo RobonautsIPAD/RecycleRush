@@ -16,10 +16,12 @@
 #import "MatchData.h"
 #import "MatchAccessors.h"
 #import "MatchUtilities.h"
+#import "ScoreUtilities.h"
 #import "TeamScore.h"
 #import "FieldPhoto.h"
 #import "TeamDetailViewController.h"
 #import "AddMatchViewController.h"
+#import "StackViewController.h"
 #import "LNNumberpad.h"
 
 @interface MatchScoutingViewController ()
@@ -86,6 +88,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *autonTrace;
 @property (weak, nonatomic) IBOutlet UIImageView *teleOpTrace;
 @property (weak, nonatomic) IBOutlet UIImageView *paperPhoto;
+@property (weak, nonatomic) IBOutlet UIButton *drawModeButton;
+@property (weak, nonatomic) IBOutlet UIButton *createStacksButton;
 
 @end
 
@@ -95,7 +99,7 @@
     NSString *previousTournament;
     NSString *deviceName;
     NSString *defaultAlliance;
-    NSString *mode;
+    NSString *scoutMode;
     NSMutableDictionary *settingsDictionary;
     NSFetchedResultsController *fetchedResultsController;
     
@@ -104,7 +108,9 @@
     NSNumber *storedMatchNumber;
     NSString *storedMatchType;
     NSString *storedAlliance;
+    
     MatchUtilities *matchUtilities;
+    ScoreUtilities *scoreUtilities;
     NSDictionary *matchDictionary;
     NSDictionary *allianceDictionary;
     NSString *desiredAlliance;
@@ -121,6 +127,7 @@
     NSUInteger sectionIndex;
     NSUInteger rowIndex;
     NSUInteger teamIndex;
+    int currentMatchNumber;
     
     NSUInteger numberMatchTypes;
     UIImagePickerController *imagePickerController;
@@ -147,7 +154,8 @@
     NSString *scouter;
     AlertPromptViewController *alertPrompt;
     UIPopoverController *alertPromptPopover;
-    
+    DrawingMode drawMode;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -168,7 +176,7 @@
     deviceName = [prefs objectForKey:@"deviceName"];
     tournamentName = [prefs objectForKey:@"tournament"];
     defaultAlliance = [prefs objectForKey:@"alliance"];
-    mode = [prefs objectForKey:@"mode"];
+    scoutMode = [prefs objectForKey:@"mode"];
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Match Scouting", tournamentName];
     }
@@ -189,6 +197,7 @@
     allianceDictionary = _dataManager.allianceDictionary;
     matchDictionary = _dataManager.matchTypeDictionary;
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
 
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
@@ -311,7 +320,7 @@
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
     _toteTopFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeTopFloor];
     _toteBottomFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeBottomFloor];
-     _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterinCan];
+     _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterInCan];
     _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
     _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
@@ -334,19 +343,29 @@
     [self setAutonButton:_coopStack forValue:currentScore.coopStack];
     [self setAutonButton:_blacklist forValue:currentScore.blacklist];
     [self setAutonButton:_wowlist forValue:currentScore.wowList];
-    double seconds = fmod([currentScore.canDominationTime floatValue], 60.0);
-    double minutes = fmod(trunc([currentScore.canDominationTime floatValue] / 60.0), 60.0);
-    [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02.0f:%02.0f", minutes, seconds] forState:UIControlStateNormal];
+    [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", [currentScore.canDominationTime floatValue]] forState:UIControlStateNormal];
     [self showViews];
+    if ([currentScore.results boolValue]) {
+        drawMode = DrawLock;
+    }
+    else {
+        drawMode = DrawOff;
+    }
     [self loadDrawing:allianceString];
+    [self drawModeSettings:drawMode];
 }
 
 -(void)loadDrawing:(NSString *)allianceString {
     // Decide what to load
+    NSLog(@"field = %@, paper = %@", currentScore.field, currentScore.field.paper);
     if (currentScore.field.paper) {
-        _fieldDrawingContainer.backgroundColor = [UIColor whiteColor];
+    //    _fieldDrawingContainer.backgroundColor = [UIColor whiteColor];
         [_paperPhoto setImage:[UIImage imageWithData:currentScore.field.paper]];
         [_paperPhoto setHidden:FALSE];
+    }
+    else {
+        [_paperPhoto setImage:nil];
+        [_paperPhoto setHidden:TRUE];
     }
     // Set the correct background image for the alliance
 /*    if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
@@ -396,7 +415,6 @@
 }
 
 -(IBAction)allianceSelectionChanged:(id)sender {
-    [self checkDataStatus];
     if (alliancePicker == nil) {
         alliancePicker = [[PopUpPickerViewController alloc]
                           initWithStyle:UITableViewStylePlain];
@@ -434,7 +452,6 @@
 
 -(IBAction)matchTypeSelectionChanged:(id)sender {
     // NSLog(@"matchTypeSelectionChanged");
-    [self checkDataStatus];
     if (matchTypePicker == nil) {
         matchTypePicker = [[PopUpPickerViewController alloc]
                            initWithStyle:UITableViewStylePlain];
@@ -463,7 +480,6 @@
 }
 
 -(IBAction)teamSelectionChanged:(id)sender {
-    [self checkDataStatus];
     if (teamPicker == nil) {
         teamPicker = [[PopUpPickerViewController alloc]
                       initWithStyle:UITableViewStylePlain];
@@ -502,6 +518,10 @@
     // NSLog(@"matchNumberChanged");
     [self checkDataStatus];
     
+    if ([_matchNumber.text isEqualToString:@""]) {
+        _matchNumber.text = [NSString stringWithFormat:@"%d", currentMatchNumber];
+        return;
+    }
     NSUInteger matchField = [_matchNumber.text intValue];
     
     id <NSFetchedResultsSectionInfo> sectionInfo =
@@ -525,7 +545,7 @@
         return;
     }
     if (popUp == teamPicker) {
-        if ([mode isEqualToString:@"Tournament"]) {
+        if ([scoutMode isEqualToString:@"Tournament"]) {
             newSelection = newPick;
             [self checkAdminCode:_teamNumber];
         }
@@ -536,7 +556,7 @@
         return;
     }
     if (popUp == alliancePicker) {
-        if ([mode isEqualToString:@"Tournament"]) {
+        if ([scoutMode isEqualToString:@"Tournament"]) {
             newSelection = newPick;
             [self checkAdminCode:_alliance];
         }
@@ -606,12 +626,13 @@
     }
 }
 - (IBAction)canDomStart:(id)sender {
+    [self setDataChange];
 
 //    if (drawMode == DrawAuton || drawMode == DrawDefense || drawMode == DrawTeleop) {
         dataChange = YES;
         NSLog(@"Start Timer");
         if (canDomTimer == nil) {
-            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+            canDomTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                           target:self
                                                         selector:@selector(timerFired)
                                                         userInfo:nil
@@ -622,12 +643,12 @@
 }
 
 -(IBAction)canDomStop:(id)sender {
+    [self setDataChange];
  //   if (drawMode == DrawAuton || drawMode == DrawDefense || drawMode == DrawTeleop) {
-        NSLog(@"Stop Timer %d", timerCount);
-        int newTimer = [currentScore.canDominationTime intValue] + timerCount;
-        currentScore.canDominationTime = [NSNumber numberWithInt:newTimer];
-    NSLog(@"fix timer string");
-        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%02d:%02d:%02d:%02d", newTimer/60, newTimer%60] forState:UIControlStateNormal];
+        float timeInSeconds = (float) timerCount/100;
+        float newTimer = [currentScore.canDominationTime floatValue] + timeInSeconds;
+        currentScore.canDominationTime = [NSNumber numberWithFloat:newTimer];
+        [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", newTimer] forState:UIControlStateNormal];
  //   }
 }
 
@@ -687,14 +708,14 @@
         popUp = sender;
         
         [self confirmationActionSheet:title withButton:button];
-    }
+}
     
-    - (void)confirmationActionSheet:title withButton:(NSString *)button {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
+-(void)confirmationActionSheet:title withButton:(NSString *)button {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
         
-        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-        [actionSheet showInView:self.view];
-    }
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+}
     
 
 -(IBAction)nextButton {
@@ -763,6 +784,11 @@
     switch (buttonIndex) {
         case 0:
             if (popUp == _drawingChoiceButton) [self fieldPhoto:@"Take"];
+            else if (popUp == _matchResetButton) [self matchReset];
+            else if (popUp == _drawModeButton) {
+                drawMode = DrawOff;
+                [self drawModeSettings:drawMode];
+            }
             break;
         case 1:
             if (popUp == _drawingChoiceButton) [self fieldPhoto:@"Choose"];
@@ -770,19 +796,14 @@
             
         default:
             break;
-    }
+    }    
+}
 
-/*        if (popUp == _matchResetButton) {
-            [self matchReset];
-        }
-        else if (popUp == _drawModeButton) {
-            drawMode = DrawOff;
-            [self drawModeSettings:drawMode];
-            NSLog(@"Load real saved drawing");
-            [self activateAuton];
-        }
-    }*/
-    
+-(void)matchReset {
+    NSLog(@"reset");
+    dataChange = FALSE;
+    currentScore = [scoreUtilities scoreReset:currentScore];
+    [self showTeam:teamIndex];
 }
 
 -(void)fieldPhoto:(NSString *)choice {
@@ -812,16 +833,78 @@
     NSLog(@"photo popover");
     _paperPhoto.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_paperPhoto setHidden:FALSE];
+    NSLog(@"%@", currentScore.field);
+    if (!currentScore.field) {
+        FieldPhoto *photo = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
+                                                              inManagedObjectContext:_dataManager.managedObjectContext];
+        currentScore.field = photo;
+    }
     currentScore.field.paper = [NSData dataWithData:UIImageJPEGRepresentation(_paperPhoto.image, 1.0)];
+    NSLog(@"%@", currentScore.field);
     [self setDataChange];
     // NSLog(@"image picker finish");*/
     [picker dismissViewControllerAnimated:YES completion:Nil];
     [pictureController dismissPopoverAnimated:true];
 }
 
+-(void) drawModeSettings:(DrawingMode) mode {
+    switch (mode) {
+        case DrawOff:
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small White Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"Off" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self disableInputs];
+            break;
+        case DrawInput:
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"Input" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self enableInputs];
+            break;
+/*        case DrawAuton:
+            red = 255.0/255.0;
+            green = 190.0/255.0;
+            blue = 0.0/255.0;
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"Auton" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self enableButtons];
+            [self activateAuton];
+            [self deactivateTeleOp];
+            break;
+        case DrawTeleop:
+            red = 0.0/255.0;
+            green = 0.0/255.0;
+            blue = 0.0/255.0;
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Blue Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"TeleOp" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
+            [self activateTeleOp];
+            [self deactivateAuton];
+            break;
+        case DrawDefense:
+            // Not in use for Recycle Rush
+            red = 255.0/255.0;
+            green = 0.0/255.0;
+            blue = 0.0/255.0;
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Grey Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"Defense" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
+            break;*/
+        case DrawLock:
+            [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
+            [_drawModeButton setTitle:@"Locked" forState:UIControlStateNormal];
+            [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
+            [self disableInputs];
+            break;
+        default:
+            break;
+    }
+}
+
 -(void)setDisplayInactive {
     NSLog(@"Deactivate display");
-  //  [_drawModeButton setUserInteractionEnabled:NO];
+    [_drawModeButton setUserInteractionEnabled:NO];
     [_matchNumber setUserInteractionEnabled:FALSE];
     [_matchType setUserInteractionEnabled:FALSE];
     [_alliance setUserInteractionEnabled:FALSE];
@@ -830,7 +913,7 @@
 
 -(void)setDisplayActive {
     NSLog(@"Reactivate display");
-  //  [_drawModeButton setUserInteractionEnabled:TRUE];
+    [_drawModeButton setUserInteractionEnabled:TRUE];
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
     [_alliance setUserInteractionEnabled:TRUE];
@@ -875,7 +958,7 @@
         storedMatchNumber = [settingsDictionary valueForKey:@"Match"];
         storedMatchType = [settingsDictionary valueForKey:@"Match Type"];
         storedAlliance = [settingsDictionary valueForKey:@"Alliance"];
-        if ([mode isEqualToString:@"Tournament"]) {
+        if ([scoutMode isEqualToString:@"Tournament"]) {
             NSString *msg;
             if (defaultAlliance == nil || [defaultAlliance isEqualToString:@""]) {
                 desiredAlliance = @"";
@@ -957,9 +1040,8 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (textField != _matchNumber) {
-        [self setDataChange];
-    }
+    if (textField == _matchNumber) currentMatchNumber = [_matchNumber.text intValue];
+    else [self setDataChange];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -1080,7 +1162,7 @@
         currentScore.cansFromStep = [NSNumber numberWithInt:[_canStepIntake.text intValue]];
     }
     else if (textField == _litterInCan) {
-        currentScore.litterinCan = [NSNumber numberWithInt:[_litterInCan.text intValue]];
+        currentScore.litterInCan = [NSNumber numberWithInt:[_litterInCan.text intValue]];
         [self updateTotal:@"TotalScore"];
     }
 /*    else if (textField == _foulTextField) {
@@ -1111,10 +1193,49 @@
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
     else if ([scoreObject isEqualToString:@"TotalScore"]) {
-        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterinCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCanSet intValue]*8 + [currentScore.autonToteStack intValue]*20 + [currentScore.coopSet intValue]*20 + [currentScore.coopStack intValue]*40;
+        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCanSet intValue]*8 + [currentScore.autonToteStack intValue]*20 + [currentScore.coopSet intValue]*20 + [currentScore.coopStack intValue]*40;
         currentScore.totalScore = [NSNumber numberWithInt:score];
         _totalScore.text = [NSString stringWithFormat:@"%d", score];
     }
+}
+
+-(IBAction)drawModeChange: (id)sender {
+    switch (drawMode) {
+        case DrawOff:
+            if (!currentScore.teamNumber || [currentScore.teamNumber intValue] == 0) {
+                UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Check Alert"
+                                                                  message:@"No team in this slot"
+                                                                 delegate:nil
+                                                        cancelButtonTitle:@"Ok"
+                                                        otherButtonTitles:nil];
+                [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+                [prompt show];
+            }
+            else {
+                drawMode = DrawInput;
+               // [self enlargeDrawing];
+            }
+            break;
+        case DrawInput:
+            drawMode = DrawOff;
+            break;
+/*        case DrawAuton:
+            drawMode = DrawTeleop;
+            break;
+        case DrawTeleop:
+            drawMode = DrawAuton;
+            break;
+        case DrawDefense:
+            drawMode = DrawTeleop;
+            break;*/
+        case DrawLock:
+            popUp = sender;
+            [self confirmationActionSheet:@"Confirm Match Unlock" withButton:@"Unlock"];
+            break;
+        default:
+            NSLog(@"Bad things have happened in drawModeChange");
+    }
+    [self drawModeSettings:drawMode];
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -1148,6 +1269,8 @@
     [self setBigButtonDefaults:_drawingChoiceButton];
     [self setBigButtonDefaults:_blacklist];
     [self setBigButtonDefaults:_wowlist];
+    [self setBigButtonDefaults:_drawModeButton];
+    [self setBigButtonDefaults:_createStacksButton];
     
     _robotSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -1254,11 +1377,13 @@
 #pragma mark - Navigation
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self checkDataStatus];
-    
+    [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamDetail"]) {
         TeamDetailViewController *detailViewController = [segue destinationViewController];
-        [segue.destinationViewController setDataManager:_dataManager];
         detailViewController.team = currentTeam;
+    }
+    else if ([segue.identifier isEqualToString:@"StackView"]) {
+        [segue.destinationViewController setAllianceString:allianceString];
     }
     
 /*    else if ([segue.identifier isEqualToString:@"Sync"]) {
@@ -1282,10 +1407,6 @@
         [addvc setDataManager:_dataManager];
         [addvc setTournamentName:tournamentName];
     }  */
-    else {
-        [segue.destinationViewController setDataManager:_dataManager];
-    }
-    
 }
 
 -(NSFetchedResultsController *)fetchedResultsController {
