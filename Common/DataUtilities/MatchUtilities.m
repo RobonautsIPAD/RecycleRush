@@ -378,7 +378,7 @@
     [fetchRequest setSortDescriptors:sortDescriptors];
     NSArray *matchData = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    NSLog(@"Total Matches = %lu", [matchData count]);
+    NSLog(@"Total Matches = %lu", (unsigned long)[matchData count]);
     
 /*    ExportMatchData *matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
     for (MatchData *match in matchData) {

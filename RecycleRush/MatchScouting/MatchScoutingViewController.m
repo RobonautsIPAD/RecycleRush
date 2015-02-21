@@ -1374,39 +1374,73 @@
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
+-(void)checkAdminCode:(UIButton *)button {
+    // NSLog(@"Check override");
+    if (alertPrompt == nil) {
+        alertPrompt = [[AlertPromptViewController alloc] initWithNibName:nil bundle:nil];
+        alertPrompt.delegate = self;
+        alertPrompt.titleText = @"Enter Admin Code";
+        alertPrompt.msgText = @"Do NOT change unless you are sure";
+        alertPromptPopover = [[UIPopoverController alloc]
+                              initWithContentViewController:alertPrompt];
+    }
+    [alertPromptPopover presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+    
+    return;
+}
+
+-(void)passCodeResult:(NSString *)passCodeAttempt {
+    [alertPromptPopover dismissPopoverAnimated:YES];
+    if ([passCodeAttempt isEqualToString:[prefs objectForKey:@"adminCode"]]) {
+        if (popUp == alliancePicker) [self allianceSelected:newSelection];
+        else if (popUp == teamPicker) [self teamSelected:newSelection];
+    }
+}
+
+-(void)alertPrompt:(NSString *)title withMessage:(NSString *)message {
+    UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+    [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+    [prompt show];
+}
+
 #pragma mark - Navigation
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self checkDataStatus];
-    [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamDetail"]) {
         TeamDetailViewController *detailViewController = [segue destinationViewController];
+        [segue.destinationViewController setDataManager:_dataManager];
         detailViewController.team = currentTeam;
     }
     else if ([segue.identifier isEqualToString:@"StackView"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setAllianceString:allianceString];
     }
+    else if ([segue.identifier isEqualToString:@"Add"]) {
+        NSLog(@"add");
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+    }
+    else if ([segue.identifier isEqualToString:@"Edit"]) {
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
+        [addvc setDataManager:_dataManager];
+        [addvc setTournamentName:tournamentName];
+        [addvc setMatch:currentMatch];
+    }
+
     
 /*    else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
         [segue.destinationViewController setSyncType:SyncMatchResults];
     }*/
-/*    if ([segue.identifier isEqualToString:@"Edit"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        pushedIndexPath = [self.tableView indexPathForCell:sender];
-        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
-        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
-        [addvc setDataManager:_dataManager];
-        [addvc setTournamentName:tournamentName];
-        [addvc setMatch:[fetchedResultsController objectAtIndexPath:indexPath]];
-    }
-    if ([segue.identifier isEqualToString:@"Add"]) {
-        NSLog(@"add");
-        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
-        AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
-        [addvc setDataManager:_dataManager];
-        [addvc setTournamentName:tournamentName];
-    }  */
+
 }
 
 -(NSFetchedResultsController *)fetchedResultsController {
@@ -1445,37 +1479,62 @@
 	return fetchedResultsController;
 }
 
--(void)checkAdminCode:(UIButton *)button {
-    // NSLog(@"Check override");
-    if (alertPrompt == nil) {
-        alertPrompt = [[AlertPromptViewController alloc] initWithNibName:nil bundle:nil];
-        alertPrompt.delegate = self;
-        alertPrompt.titleText = @"Enter Admin Code";
-        alertPrompt.msgText = @"Do NOT change unless you are sure";
-        alertPromptPopover = [[UIPopoverController alloc]
-                                   initWithContentViewController:alertPrompt];
-    }
-    [alertPromptPopover presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    // [self.tableView beginUpdates];
+    NSLog(@"controllerWillChangeContent");
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
-    return;
-}
-
--(void)passCodeResult:(NSString *)passCodeAttempt {
-    [alertPromptPopover dismissPopoverAnimated:YES];
-    if ([passCodeAttempt isEqualToString:[prefs objectForKey:@"adminCode"]]) {
-        if (popUp == alliancePicker) [self allianceSelected:newSelection];
-        else if (popUp == teamPicker) [self teamSelected:newSelection];
+    //   UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            NSLog(@"didChangeObject 1");
+            // [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            NSLog(@"didChangeObject 2");
+            //[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            NSLog(@"didChangeObject 3");
+            //  [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            NSLog(@"didChangeObject 4");
+            // [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
     }
 }
 
--(void)alertPrompt:(NSString *)title withMessage:(NSString *)message {
-    UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:@"Ok"
-                                            otherButtonTitles:nil];
-    [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-    [prompt show];
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            NSLog(@"didChangeSection 1");
+            //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            NSLog(@"didChangeSection 2");
+            //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    //[self.tableView endUpdates];
+    NSLog(@"controllerDidChangeContent");
+    
 }
 
 - (void)didReceiveMemoryWarning
