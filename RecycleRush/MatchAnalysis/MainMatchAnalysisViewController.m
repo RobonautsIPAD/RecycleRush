@@ -12,14 +12,15 @@
 #import "DataConvenienceMethods.h"
 #import "TeamAccessors.h"
 #import "MatchData.h"
+#import "MatchAccessors.h"
 #import "MatchUtilities.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "MatchFlow.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
+#import "SketchSpaceViewController.h"
 #import "FieldDrawingViewController.h"
-#import "EnumerationDictionary.h"
 #import "FileIOMethods.h"
 #import <QuartzCore/CALayer.h>
 #import "LNNumberpad.h"
@@ -32,6 +33,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *matchNumber;
 @property (nonatomic, weak) IBOutlet UIButton *matchType;
 @property (nonatomic, strong) NSMutableArray *teamData;
+@property (weak, nonatomic) IBOutlet UIButton *redSketchButton;
+@property (weak, nonatomic) IBOutlet UIButton *blueSketchButton;
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
@@ -140,8 +144,8 @@
      _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
-    allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
-    matchDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+    allianceDictionary = _dataManager.allianceDictionary;
+    matchDictionary = _dataManager.matchTypeDictionary;
     matchTypeList = [self getMatchTypeList];
     teamStatsPackage = [[CalculateTeamStats alloc] init:_dataManager];
     [self setValidMatchNumber:_initialMatchNumber forType:_initialMatchType];
@@ -159,7 +163,7 @@
     for (int i=0; i < [[_fetchedResultsController sections] count]; i++) {
         sectionName = [[[_fetchedResultsController sections] objectAtIndex:i] name];
         // NSLog(@"Section = %@", sectionName);
-        [matchTypes addObject:[EnumerationDictionary getKeyFromValue:[NSNumber numberWithInt:[sectionName intValue]] forDictionary:matchDictionary]];
+        [matchTypes addObject:[MatchAccessors getMatchTypeString:[NSNumber numberWithInt:[sectionName intValue]] fromDictionary:matchDictionary]];
     }
     // NSLog(@"match types = %@", matchTypes);
     return matchTypes;
@@ -175,7 +179,7 @@
 -(void)setValidMatchNumber:(NSNumber *)matchNumber forType:(NSNumber *)matchType {
     if (matchNumber && matchType) {
         // Find the sectionIndex of the match type first
-        NSString *typeString = [EnumerationDictionary getKeyFromValue:matchType forDictionary:matchDictionary];
+        NSString *typeString = [MatchAccessors getMatchTypeString:matchType fromDictionary:matchDictionary];
         sectionIndex = [matchTypeList indexOfObject:typeString];
         if (sectionIndex == NSNotFound) {
             // If that section does not exist, go to the first section and match
@@ -302,7 +306,7 @@
 -(NSUInteger)getNextSection:(NSNumber *) currentType {
     NSUInteger newSection;
     // NSLog(@"getNextSection");
-    NSString *typeString = [EnumerationDictionary getKeyFromValue:currentType forDictionary:matchDictionary];
+    NSString *typeString = [MatchAccessors getMatchTypeString:currentType fromDictionary:matchDictionary];
     
     newSection = [MatchFlow getNextMatchType:matchTypeList forCurrent:typeString];
     if (newSection == NSNotFound) return sectionIndex;
@@ -312,7 +316,7 @@
 -(NSUInteger)getPreviousSection:(NSNumber *) currentType {
     NSUInteger newSection;
     //    NSLog(@"getPreviousSection");
-    NSString *typeString = [EnumerationDictionary getKeyFromValue:currentType forDictionary:matchDictionary];
+    NSString *typeString = [MatchAccessors getMatchTypeString:currentType fromDictionary:matchDictionary];
 
     newSection = [MatchFlow getPreviousMatchType:matchTypeList forCurrent:typeString];
     if (newSection == NSNotFound) return sectionIndex;
@@ -381,7 +385,7 @@
 
 -(void)showMatch {
     [self setTeamList];
-    [_matchType setTitle:[EnumerationDictionary getKeyFromValue:currentMatch.matchType forDictionary:matchDictionary] forState:UIControlStateNormal];
+    [_matchType setTitle:[MatchAccessors getMatchTypeString:currentMatch.matchType fromDictionary:matchDictionary] forState:UIControlStateNormal];
     _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
 }
 
@@ -400,12 +404,12 @@
     [self setTeamMatches];
 }
 
--(NSNumber *)getTeamNumber:(NSString *)allianceStation {
+-(NSNumber *)getTeamNumber:(NSString *)allianceString {
     // current match
     // make pred for alliance
     // get the team number from alliance
     if (!teamList || ![teamList count]) return Nil;
-    NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[EnumerationDictionary getValueFromKey:allianceStation forDictionary:allianceDictionary]];
+    NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:allianceString fromDictionary:allianceDictionary]];
     return teamNumber;
 }
 
@@ -482,7 +486,7 @@
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+{//BlueSketch
     [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamSummary"]) {
         NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
@@ -490,6 +494,21 @@
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
         detailViewController.team = [teamList objectAtIndex:indexPath.row];
         [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    else if ([segue.identifier isEqualToString:@"RedSketch"]) {
+        [segue.destinationViewController setAllianceString:@"Red"];
+        NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 1" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+        NSLog(@"%@", teamNumber);
+        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 2" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+        NSLog(@"%@", teamNumber);
+        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 3" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+        NSLog(@"%@", teamNumber);
+   }
+    else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
+        [segue.destinationViewController setAllianceString:@"Blue"];
     }
     else {
         NSIndexPath *indexPath;
@@ -684,7 +703,7 @@
         number.text = [NSString stringWithFormat:@"%d", [score.match.number intValue]];
  
         UILabel *type = (UILabel *)[cell viewWithTag:20];
-        type.text = [EnumerationDictionary getKeyFromValue:score.match.matchType forDictionary:matchDictionary];
+        type.text = [MatchAccessors getMatchTypeString:score.match.matchType fromDictionary:matchDictionary];
         return cell;
     }
 }

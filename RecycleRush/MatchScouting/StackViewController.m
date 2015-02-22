@@ -7,6 +7,7 @@
 //
 
 #import "StackViewController.h"
+#import "StackPad.h"
 #import "LNNumberpad.h"
 
 @interface StackViewController ()
@@ -64,33 +65,41 @@
 }
 
 -(void)newStack {
-    UIView *stack =[[UIView alloc] initWithFrame:CGRectMake(0,0,200,200)];
+    UIView *stack =[[UIView alloc] initWithFrame:CGRectMake(0,0,300,100)];
     stack.backgroundColor = [UIColor whiteColor];
-
     [self.view addSubview:stack];
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 25, 20)];
-    [self something:textField withTag:10];
-    [stack addSubview:textField];
-    textField = [[UITextField alloc] initWithFrame:CGRectMake(40, 10, 25, 20)];
-    [self something:textField withTag:20];
-    [stack addSubview:textField];
-    textField = [[UITextField alloc] initWithFrame:CGRectMake(70, 10, 25, 20)];
-    [self something:textField withTag:30];
-    [stack addSubview:textField];
+    UITextField *textField;
+    CGFloat height = 20;
+    CGFloat width = 45;
+    CGPoint basePoint;
+    basePoint.x = 10;
+    basePoint.y = 10;
+    CGFloat heightSpace = 25;
+    CGFloat widthSpace = 65;
+    for (int i=0; i<8; i++) {
+        CGPoint location;
+        location.x = basePoint.x + (i/2)*widthSpace;
+        location.y = basePoint.y + (i%2)*heightSpace;
+        textField = [[UITextField alloc] initWithFrame:CGRectMake(location.x, location.y, width, height)];
+        textField.text = [NSString stringWithFormat:@"%d", i];
+        [self something:textField withTag:i*10 onBottom:i%2];
+        [stack addSubview:textField];
+    }
 
 }
 
--(void)something:(UITextField *)field withTag:(NSUInteger)newTag {
+-(void)something:(UITextField *)field withTag:(NSUInteger)newTag onBottom:(BOOL)bottom {
     field.borderStyle = UITextBorderStyleRoundedRect;
     field.font = [UIFont systemFontOfSize:15];
-    field.placeholder = @"";
+   // field.placeholder = @"";
     field.autocorrectionType = UITextAutocorrectionTypeNo;
     field.keyboardType = UIKeyboardTypeDefault;
     field.returnKeyType = UIReturnKeyDone;
     field.clearButtonMode = UITextFieldViewModeNever;
     field.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     field.delegate = self;
-    field.inputView  = [LNNumberpad defaultLNNumberpad];
+    if (bottom) field.inputView  = [LNNumberpad defaultLNNumberpad];
+    else field.inputView  = [StackPad defaultStackPad];
     field.tag = newTag;
 }
 
@@ -130,4 +139,16 @@
 }
 */
 
+/* by row
+ CGFloat height = 20;
+ CGFloat width = 25;
+ CGPoint basePoint;
+ basePoint.x = 10;
+ basePoint.y = 10;
+ CGFloat interval = 25;
+ for (int i=0; i<8; i++) {
+ CGPoint location;
+ location.x = basePoint.x + (i/2)*interval;
+ location.y = basePoint.y + (i%2)*interval;
+*/
 @end

@@ -21,6 +21,7 @@
 #import "FieldPhoto.h"
 #import "TeamDetailViewController.h"
 #import "AddMatchViewController.h"
+#import "MainMatchAnalysisViewController.h"
 #import "StackViewController.h"
 #import "LNNumberpad.h"
 
@@ -202,7 +203,6 @@
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     [self setDefaults];
-    NSLog(@"Disable stuff");
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -281,7 +281,6 @@
     if (teamIndex == -1) {
         NSString *msg = @"No default alliance set";
         [self alertPrompt:@"Show Team" withMessage:msg];
-        NSLog(@"do something else");
         [self hideViews];
         [_teamNumber setTitle:@"" forState:UIControlStateNormal];
         _teamName.text = @"";
@@ -291,7 +290,6 @@
     if (teamIndex == NSNotFound) {
         NSString *msg = @"No team in this alliance slot";
         [self alertPrompt:@"Show Team" withMessage:msg];
-        NSLog(@"do something else");
         [self hideViews];
         [_teamNumber setTitle:@"" forState:UIControlStateNormal];
         _teamName.text = @"";
@@ -357,7 +355,7 @@
 
 -(void)loadDrawing:(NSString *)allianceString {
     // Decide what to load
-    NSLog(@"field = %@, paper = %@", currentScore.field, currentScore.field.paper);
+    // NSLog(@"field = %@, paper = %@", currentScore.field, currentScore.field.paper);
     if (currentScore.field.paper) {
     //    _fieldDrawingContainer.backgroundColor = [UIColor whiteColor];
         [_paperPhoto setImage:[UIImage imageWithData:currentScore.field.paper]];
@@ -1419,8 +1417,15 @@
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setAllianceString:allianceString];
     }
+    else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setDataManager:_dataManager];
+        // NSLog(@"Match list = %@", matchList);
+        [segue.destinationViewController setTeamNumber:[NSNumber numberWithInt:[_teamNumber.titleLabel.text intValue]]];
+        [segue.destinationViewController setInitialMatchNumber:currentScore.matchNumber];
+        [segue.destinationViewController setInitialMatchType:currentScore.matchType];
+    }
     else if ([segue.identifier isEqualToString:@"Add"]) {
-        NSLog(@"add");
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
         AddMatchViewController *addvc = (AddMatchViewController *)nv.topViewController;
         [addvc setDataManager:_dataManager];

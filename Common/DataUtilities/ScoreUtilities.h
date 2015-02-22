@@ -17,7 +17,6 @@
 -(id)init:(DataManager *)initManager;
 -(NSDictionary *)packageScoreForXFer:(TeamScore *)score;
 -(NSDictionary *)unpackageScoreForXFer:(NSDictionary *)xferDictionary;
--(NSDictionary *)unpackageScoreForBluetooth:(NSDictionary *)xferData;
 -(TeamScore *)addTeamScoreToMatch:(MatchData *)match forAlliance:(NSString *)allianceString forTeam:(NSNumber *)teamNumber error:(NSError **)error;
 -(TeamScore *)scoreReset:(TeamScore *)score;
 @end

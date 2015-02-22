@@ -10,7 +10,7 @@
 @class DataManager;
 @class TeamData;
 
-@interface TeamSummaryViewController : UIViewController
+@interface TeamSummaryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) TeamData *team;
 @end

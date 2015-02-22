@@ -138,7 +138,7 @@
     NSLog(@"decode from %@", packet.receiverId);
     NSDictionary *myType = packet.dataDictionary;
     NSLog(@"%@", myType);
-    NSDictionary *scoreDictionary = [scoreUtilities unpackageScoreForBluetooth:myType];
+    NSDictionary *scoreDictionary = [scoreUtilities unpackageScoreForXFer:myType];
 }
 
 -(MatchmakingServer *)setMatchMakingServer {
