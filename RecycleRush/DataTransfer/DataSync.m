@@ -8,9 +8,14 @@
 
 #import "DataSync.h"
 #import "DataManager.h"
+#import "ConnectionUtility.h"
+#import "Packet.h"
 #import "TeamData.h"
+#import "TeamUtilities.h"
 #import "MatchData.h"
+#import "MatchUtilities.h"
 #import "TeamScore.h"
+#import "ScoreUtilities.h"
 #import "TournamentUtilities.h"
 #import "ExportTeamData.h"
 #import "ExportMatchData.h"
@@ -32,10 +37,13 @@
     NSArray *matchScheduleList;
     NSArray *matchResultsList;
 
-    TournamentUtilities *tournamentDataPackage;
+    TournamentUtilities *tournamentUtilities;
     ExportTeamData *teamDataPackage;
     ExportMatchData *matchDataPackage;
     ExportScoreData *matchResultsPackage;
+    TeamUtilities *teamUtilities;
+    MatchUtilities *matchUtilities;
+    ScoreUtilities *scoreUtilities;
     NSString *exportFilePath;
     NSString *transferFilePath;
 
@@ -205,9 +213,9 @@
     }
     switch (syncType) {
         case SyncTournaments:
-            if (!tournamentDataPackage) tournamentDataPackage = [[TournamentUtilities alloc] init:_dataManager];
+            if (!tournamentUtilities) tournamentUtilities = [[TournamentUtilities alloc] init:_dataManager];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ Tournament List %0.f.tnd", deviceName, CFAbsoluteTimeGetCurrent()]];
-            [[tournamentDataPackage packageTournamentsForXFer:transferList] writeToFile:transferDataFile atomically:YES];
+            [[tournamentUtilities packageTournamentsForXFer:transferList] writeToFile:transferDataFile atomically:YES];
             break;
         case SyncTeams:
             if (!teamDataPackage) teamDataPackage = [[ExportTeamData alloc] init:_dataManager];
@@ -216,6 +224,7 @@
                 // NSLog(@"Team = %@, saved = %@", team.number, team.saved);
             }
             teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+            [prefs setObject:teamDataSync forKey:@"teamDataSync"];
             transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Team Data %0.f.tmd", deviceName, tournamentName, [teamDataSync floatValue]]];
             transferSuccess = [self serializeDataForTransfer:transferDataFile error:error];
             break;
@@ -225,6 +234,7 @@
                 [matchDataPackage exportMatchForXFer:match toFile:transferFilePath];
                 NSLog(@"Match = %@, saved = %@", match.number, match.saved);
                 matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+                [prefs setObject:matchScheduleSync forKey:@"matchScheduleSync"];
                 transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Schedule %0.f.msd", deviceName, tournamentName, [matchScheduleSync floatValue]]];
                 transferSuccess = [self serializeDataForTransfer:transferDataFile  error:error];
             }
@@ -258,6 +268,51 @@
     NSData *transferData = [dirWrapper serializedRepresentation];
     [transferData writeToFile:fileName atomically:YES];
     return TRUE;
+}
+
+-(void)bluetoothDataTranfer:(NSArray *)records toPeers:(NSString *)destination forConnection:(ConnectionUtility *)connectionUtility inSession:(GKSession *)session {
+    if (!records || ![records count]) return;
+    // count how many packets there will be - PacketTypeSendData
+    // package data
+    Packet *packet = [Packet packetWithType:PacketTypeSendData];
+    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[records count]], @"Records", nil]];
+    if (destination) [connectionUtility sendPacketToClient:packet forClient:destination inSession:session];
+    else [connectionUtility sendPacketToAllClients:packet inSession:session];
+    for (id data in records) {
+        NSString *dataType = NSStringFromClass([data class]);
+        NSLog(@"%@", dataType);
+        Packet *packet = nil;
+        if ([dataType isEqualToString:@"TeamScore"]) {
+            if (!scoreUtilities) scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
+            NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:data];
+            packet = [Packet packetWithType:PacketTypeScoreData];
+            [packet setDataDictionary:scoreDictionary];
+        }
+        else if ([dataType isEqualToString:@"TournamentData"]) {
+/*            if (!tournamentUtilities) tournamentUtilities = [[TournamentUtilities alloc] init:_dataManager];
+            NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:data];
+            Packet *packet = [Packet packetWithType:PacketTypeScoreData];
+            [packet setDataDictionary:scoreDictionary];*/
+        }
+        else if ([dataType isEqualToString:@"TeamData"]) {
+            if (!teamUtilities) teamUtilities = [[TeamUtilities alloc] init:_dataManager];
+            NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:data];
+            packet = [Packet packetWithType:PacketTypeTeamData];
+            [packet setDataDictionary:teamDictionary];
+        }
+        else if ([dataType isEqualToString:@"MatchData"]) {
+            if (!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+            NSDictionary *matchDictionary = [matchUtilities packageMatchForXFer:data];
+            packet = [Packet packetWithType:PacketTypeMatchData];
+            [packet setDataDictionary:matchDictionary];
+        }
+        NSLog(@"Send packet %@", packet);
+        if (destination) [connectionUtility sendPacketToClient:packet forClient:destination inSession:session];
+        else [connectionUtility sendPacketToAllClients:packet inSession:session];
+    }
+    //            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+
+    NSLog(@"update synctimes");
 }
 
 - (BOOL)createExportPaths {

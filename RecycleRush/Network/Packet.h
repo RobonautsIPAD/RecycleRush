@@ -18,6 +18,7 @@ enum PacketType : NSInteger {
 	PacketTypeQuickRequest,            // requester to client
 	PacketTypeQuickResponse,           // client to requester
     
+    PacketTypeSendData,
 	PacketTypeTeamRequest,
 	PacketTypeTeamData,
     
@@ -26,7 +27,9 @@ enum PacketType : NSInteger {
     
 	PacketTypeMatchRequest,
 	PacketTypeMatchData,
-	PacketTypeClientQuit,              
+
+    PacketTypeTournamentRequest,
+	PacketTypeTournamentData,
 };
 typedef enum PacketType PacketType;
 

@@ -10,6 +10,7 @@
 #import "SyncMethods.h"
 
 @class DataManager;
+@class ConnectionUtility;
 
 @interface DataSync : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
@@ -21,5 +22,5 @@
 -(NSArray *)getImportFileList;
 -(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error;
 -(NSArray *)importiTunesSelected:(NSString *)importFile error:(NSError **)error;
-
+-(void)bluetoothDataTranfer:(NSArray *)records toPeers:(NSString *)destination forConnection:(ConnectionUtility *)connectionUtility inSession:(GKSession *)session;
 @end

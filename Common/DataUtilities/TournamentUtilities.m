@@ -125,6 +125,8 @@
 
 -(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList {
     NSMutableArray *allTournaments = [[NSMutableArray alloc] init];
+
+//    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
     // Loop through each tournament and create a dictionary with the name and code
     for (TournamentData *tournament in tournamentList) {
         NSMutableArray *keyList = [NSMutableArray array];

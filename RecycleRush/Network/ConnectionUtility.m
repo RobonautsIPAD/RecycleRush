@@ -8,9 +8,9 @@
 
 #import "ConnectionUtility.h"
 #import "Packet.h"
-//#import "PacketQuickResponse.h"
 #import "DataSync.h"
-#import "ExportScoreData.h"
+#import "TeamUtilities.h"
+#import "MatchUtilities.h"
 #import "ScoreUtilities.h"
 #import "SyncMethods.h"
 #import "SyncTypeDictionary.h"
@@ -19,13 +19,16 @@
 @implementation ConnectionUtility {
     int sendPacketNumber;
     DataSync *dataSyncPackage;
-    ExportScoreData *exportScore;
+    TeamUtilities *teamUtilities;
+    MatchUtilities *matchUtilities;
     ScoreUtilities *scoreUtilities;
 }
 
 - (id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
         _dataManager = initManager;
+        teamUtilities = [[TeamUtilities alloc] init:_dataManager];
+        matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
     }
 	return self;
@@ -65,8 +68,14 @@
 		case PacketTypeQuickRequest:
             [self sendQuickResponse:peerID inSession:session];
 			break;
-        case PacketTypeQuickResponse:
-            [self decodeQuickResponse:packet];
+        case PacketTypeSendData:
+            [self decodeSendData:packet];
+            break;
+        case PacketTypeTeamData:
+        case PacketTypeMatchData:
+        case PacketTypeScoreData:
+            [self decodeReceivedData:packet];
+            break;
         default:
             break;
     }
@@ -74,20 +83,31 @@
 
 - (void)sendQuickResponse:(NSString *)requesterID inSession:(GKSession *)session {
     if (!dataSyncPackage) dataSyncPackage = [[DataSync alloc] init:_dataManager];
-    if (!exportScore) exportScore = [[ExportScoreData alloc] init:_dataManager];
+    NSArray *filteredTeamList = [dataSyncPackage getFilteredTeamList:SyncAllSavedHere];
+    NSArray *filteredScoreList = [dataSyncPackage getFilteredResultsList:SyncAllSavedHere];
+    NSUInteger nRecords = 0;
+    if (filteredTeamList) nRecords = [filteredTeamList count];
+    if (filteredScoreList) nRecords += [filteredScoreList count];
+    Packet *packet = [Packet packetWithType:PacketTypeSendData];
+    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:nRecords], @"Records", nil]];
+    [self sendPacketToClient:packet forClient:requesterID inSession:session];
+
 //    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSArray *filteredSendList = [dataSyncPackage getFilteredResultsList:SyncAllSavedHere];
-        NSLog(@"count = %ul", [filteredSendList count]);
-    // Package each one
-    for (TeamScore *score in filteredSendList) {
+    for (TeamData *team in filteredTeamList) {
+        NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:team];
+        Packet *teamPacket = [Packet packetWithType:PacketTypeTeamData];
+        NSLog(@"send quick %@", teamDictionary);
+        [teamPacket setDataDictionary:teamDictionary];
+        [self sendPacketToClient:teamPacket forClient:requesterID inSession:session];
+    }
+    for (TeamScore *score in filteredScoreList) {
         NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:score];
-        Packet *packet = [Packet packetWithType:PacketTypeQuickResponse];
-        [packet setDataDictionary:scoreDictionary];
-        [self sendPacketToClient:packet forClient:requesterID inSession:session];
+        Packet *scorePacket = [Packet packetWithType:PacketTypeScoreData];
+        [scorePacket setDataDictionary:scoreDictionary];
+        [self sendPacketToClient:scorePacket forClient:requesterID inSession:session];
     }
 //    });
     // Send async
-//    Packet *packet = [PacketSignInResponse packetWithPlayerName:_localPlayerName];
  
 }
 
@@ -133,12 +153,37 @@
 	}
 }
 
--(void)decodeQuickResponse:(Packet *)packet {
+-(void)decodeSendData:(Packet *)packet {
     NSLog(@"wheeee received data");
     NSLog(@"decode from %@", packet.receiverId);
-    NSDictionary *myType = packet.dataDictionary;
-    NSLog(@"%@", myType);
-    NSDictionary *scoreDictionary = [scoreUtilities unpackageScoreForXFer:myType];
+    NSDictionary *dataDictionary = packet.dataDictionary;
+    NSLog(@"%@", dataDictionary);
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"StartReceivingData" object:nil userInfo:dataDictionary]];
+}
+
+-(void)decodeReceivedData:(Packet *)packet {
+    NSLog(@"wheeee received data");
+    NSLog(@"decode type %d", packet.packetType);
+    NSDictionary *dataDictionary = packet.dataDictionary;
+    NSLog(@"%@", dataDictionary);
+    if (!dataDictionary) {
+        NSDictionary *errorDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Empty Packet Received", @"Error", nil];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:errorDictionary]];
+        return;
+    }
+    if (packet.packetType == PacketTypeTeamData) {
+        NSDictionary *teamDictionary = [teamUtilities unpackageTeamForXFer:dataDictionary];
+        NSLog(@"decode received = %@", teamDictionary);
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:teamDictionary]];
+    }
+    else if (packet.packetType == PacketTypeMatchData) {
+        NSDictionary *matchDictionary = [matchUtilities unpackageMatchForXFer:dataDictionary];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:matchDictionary]];
+    }
+    else if (packet.packetType == PacketTypeScoreData) {
+        NSDictionary *scoreDictionary = [scoreUtilities unpackageScoreForXFer:dataDictionary];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:scoreDictionary]];
+    }
 }
 
 -(MatchmakingServer *)setMatchMakingServer {

@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PopUpPickerViewController.h"
 
 @class DataManager;
 
-@interface StackViewController : UIViewController <UITextFieldDelegate, PopUpPickerDelegate>
+@interface StackViewController : UIViewController <UITextFieldDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSString *allianceString;
 

@@ -333,6 +333,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="teamSelectionChanged:" destination="6nG-Nv-Dxg" eventType="touchUpInside" id="Myw-19-9L1"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="jcp-pB-NXW">
                                 <rect key="frame" x="40" y="165" width="512" height="330"/>
@@ -484,34 +487,28 @@
                                     <segue destination="6nG-Nv-Dxg" kind="push" identifier="MatchPhoto" id="Ev0-qh-BQ2"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Team Name" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="Vs3-c8-Qju">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Team Name" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="Vs3-c8-Qju">
                                 <rect key="frame" x="125" y="23" width="245" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Number" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="YRd-PF-QCw">
-                                <rect key="frame" x="25" y="23" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Match #" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="yMh-7J-v70">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Match #" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="yMh-7J-v70">
                                 <rect key="frame" x="384" y="23" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="MIL-hd-ESw">
-                                <rect key="frame" x="603" y="20" width="401" height="297"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="34" sectionHeaderHeight="22" sectionFooterHeight="22" id="MIL-hd-ESw">
+                                <rect key="frame" x="603" y="20" width="401" height="248"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="MatchSchedule" id="fmx-wk-qCC">
-                                        <rect key="frame" x="0.0" y="22" width="401" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="401" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="401" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="401" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Match Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b0t-2C-Ha7">
@@ -559,6 +556,21 @@
                                     <outlet property="delegate" destination="H4b-d7-tJx" id="rZY-RI-ltf"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="r0e-Je-56q">
+                                <rect key="frame" x="25" y="23" width="92" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="teamSelectionChanged:" destination="H4b-d7-tJx" eventType="touchUpInside" id="zNE-rl-AGA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -585,9 +597,10 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="matchInfo" destination="MIL-hd-ESw" id="lsK-Eq-q7E"/>
+                        <outlet property="matchNumberField" destination="yMh-7J-v70" id="3Li-g3-5aK"/>
                         <outlet property="matchPhotoButton" destination="Gnp-7A-Zit" id="lzc-Vv-lmL"/>
                         <outlet property="teamNameField" destination="Vs3-c8-Qju" id="PuQ-z4-gve"/>
-                        <outlet property="teamNumberField" destination="YRd-PF-QCw" id="c93-6O-CGb"/>
+                        <outlet property="teamNumberButton" destination="r0e-Je-56q" id="zYv-RK-n5g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiK-gy-fRz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1694,21 +1707,66 @@
                                 <rect key="frame" x="20" y="20" width="850" height="655"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yam-pB-dlc">
-                                <rect key="frame" x="20" y="685" width="121" height="44"/>
+                            <view contentMode="scaleToFill" id="4vi-49-qFm" userLabel="Stack 1 View">
+                                <rect key="frame" x="120" y="25" width="265" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="New Stack">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="popUpNewStack:" destination="zpx-qo-0XI" eventType="touchUpInside" id="aGM-kR-DJL"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="hK9-eC-laq" userLabel="Stack 2 View">
+                                <rect key="frame" x="120" y="100" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="eFf-Ea-STV" userLabel="Stack 3 View">
+                                <rect key="frame" x="120" y="175" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="u9F-sa-bEA" userLabel="Stack 4 View">
+                                <rect key="frame" x="120" y="250" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="UTh-zP-lb8" userLabel="Stack 5 View">
+                                <rect key="frame" x="120" y="325" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="rWZ-xW-Exu" userLabel="Stack 6 View">
+                                <rect key="frame" x="120" y="400" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="FV0-RD-EuN" userLabel="Stack 7 View">
+                                <rect key="frame" x="500" y="25" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="nWd-N9-1ZZ" userLabel="Stack 8 View">
+                                <rect key="frame" x="500" y="100" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="sVD-Ce-XcJ" userLabel="Stack 9 View">
+                                <rect key="frame" x="500" y="175" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="O2j-X2-ceb" userLabel="Stack 10 View">
+                                <rect key="frame" x="500" y="250" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="K2O-QQ-w0R" userLabel="Stack 11 View">
+                                <rect key="frame" x="500" y="325" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="F5r-U4-JCH" userLabel="Stack 12 View">
+                                <rect key="frame" x="500" y="400" width="265" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1716,7 +1774,18 @@
                     <connections>
                         <outlet property="fieldView" destination="CIU-dU-Bhk" id="s3H-53-4kU"/>
                         <outlet property="finishedButton" destination="wl0-0Y-Cn5" id="YJB-nW-AfJ"/>
-                        <outlet property="stackButton" destination="Yam-pB-dlc" id="Nuk-zK-hBI"/>
+                        <outlet property="stack10View" destination="O2j-X2-ceb" id="FLq-7n-an3"/>
+                        <outlet property="stack11View" destination="K2O-QQ-w0R" id="4wX-FZ-auL"/>
+                        <outlet property="stack12View" destination="F5r-U4-JCH" id="zMf-Wi-CYs"/>
+                        <outlet property="stack1View" destination="4vi-49-qFm" id="P7k-gv-Cr2"/>
+                        <outlet property="stack2View" destination="hK9-eC-laq" id="8O4-dx-645"/>
+                        <outlet property="stack3View" destination="eFf-Ea-STV" id="a8F-2a-ISt"/>
+                        <outlet property="stack4View" destination="u9F-sa-bEA" id="nBS-E1-wLh"/>
+                        <outlet property="stack5View" destination="UTh-zP-lb8" id="20T-Ts-9wX"/>
+                        <outlet property="stack6View" destination="rWZ-xW-Exu" id="aLG-Mw-rTe"/>
+                        <outlet property="stack7View" destination="FV0-RD-EuN" id="siu-ra-D3B"/>
+                        <outlet property="stack8View" destination="nWd-N9-1ZZ" id="g98-SN-J05"/>
+                        <outlet property="stack9View" destination="sVD-Ce-XcJ" id="y2S-MH-RYQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AvL-Mt-9tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2589,7 +2658,77 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g4U-NJ-opo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="-1868"/>
+            <point key="canvasLocation" x="1566" y="-1894"/>
+        </scene>
+        <!--Match Drawing View Controller-->
+        <scene sceneID="rWq-y5-HAt">
+            <objects>
+                <viewController storyboardIdentifier="MatchDrawingViewController" id="9jM-x2-O43" customClass="MatchDrawingViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lfn-rh-ioN">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="reP-wd-fIG" userLabel="Button - Start Point">
+                                <rect key="frame" x="914" y="605" width="70" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPointSelected:" destination="9jM-x2-O43" eventType="touchUpInside" id="1lQ-fo-b0L"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sbC-5H-Zdk" userLabel="Button - Finish">
+                                <rect key="frame" x="914" y="543" width="70" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Finish">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="finishedDrawing:" destination="9jM-x2-O43" eventType="touchUpInside" id="ZXe-vT-w3c"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="frA-z0-ZPZ">
+                                <rect key="frame" x="10" y="10" width="850" height="655"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="RUJ-Yg-K97" userLabel="Field Map">
+                                        <rect key="frame" x="0.0" y="0.0" width="850" height="655"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Wx2-U6-SFB" userLabel="Auton Trace">
+                                        <rect key="frame" x="0.0" y="0.0" width="850" height="655"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="autonTrace" destination="Wx2-U6-SFB" id="IKE-Mg-X7f"/>
+                        <outlet property="fieldMap" destination="RUJ-Yg-K97" id="aV6-zk-Qs4"/>
+                        <outlet property="finishButton" destination="sbC-5H-Zdk" id="4cE-yg-BAa"/>
+                        <outlet property="startPointButton" destination="reP-wd-fIG" id="14C-TR-IFp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="44P-ia-SHK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="-890"/>
         </scene>
         <!--Set Up Page View Controller-->
         <scene sceneID="pDI-Wp-1eW">
@@ -2761,6 +2900,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="sendThroughBluetooth:" destination="qzw-3b-Tvg" eventType="touchUpInside" id="c6k-ei-ji0"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vJ4-Jw-puw" userLabel="Button - Devices">
                                         <rect key="frame" x="20" y="109" width="182" height="45"/>
@@ -5822,8 +5964,8 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="USD-kx-EdI">
-                                <rect key="frame" x="25" y="91" width="979" height="459"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="USD-kx-EdI">
+                                <rect key="frame" x="25" y="91" width="979" height="265"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -7494,11 +7636,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="MatchSchedule" id="QVR-UJ-jnx">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchSchedule" id="QVR-UJ-jnx">
                                         <rect key="frame" x="0.0" y="22" width="443" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="410" height="33"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="423" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Match #" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YUe-o2-adz">
@@ -8640,13 +8782,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6aE-eg-KHh"/>
-        <segue reference="nKj-ED-4Wd"/>
-        <segue reference="2PU-1e-EUe"/>
+        <segue reference="wEf-g4-j4R"/>
         <segue reference="GB9-r5-xh5"/>
-        <segue reference="dB5-hO-37s"/>
+        <segue reference="2of-I0-vVw"/>
         <segue reference="Pzs-hx-ptZ"/>
-        <segue reference="beS-aj-zfP"/>
-        <segue reference="FlU-rD-qMb"/>
+        <segue reference="6aE-eg-KHh"/>
+        <segue reference="VhA-KP-rwj"/>
+        <segue reference="ILs-8g-vkf"/>
+        <segue reference="bSz-YR-wcx"/>
     </inferredMetricsTieBreakers>
 </document>

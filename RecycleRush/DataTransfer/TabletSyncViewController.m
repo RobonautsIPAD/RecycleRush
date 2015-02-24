@@ -166,6 +166,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
     // Set the notification to receive information after the server changes status
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
+    // Set the notification to receive information after data is received via bluetooth
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataReceived:) name:@"ReceivedData" object:nil];
 //    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
 //    _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
 }
@@ -440,12 +442,25 @@
     }
 }
 
+- (IBAction)sendThroughBluetooth:(id)sender {
+    NSString *receiver = nil;
+    if (![_connectedDeviceButton.titleLabel.text isEqualToString:@"Send All"]) {
+        NSString *destination = _connectedDeviceButton.titleLabel.text;
+        receiver = [peerList objectForKey:destination];
+    }
+    [dataSyncPackage bluetoothDataTranfer:filteredSendList toPeers:receiver forConnection:_connectionUtility inSession:session];
+}
+
 - (IBAction)selectPackageData:(id)sender {
     NSError *error = nil;
     BOOL transferSuccess = [dataSyncPackage packageDataForiTunes:syncType forData:filteredSendList error:&error];
     if (!transferSuccess || error) {
         [_dataManager writeErrorMessage:error forType:[error code]];
     }
+}
+
+-(void)dataReceived:(NSNotification *)notification {
+    NSLog(@"%@", notification);
 }
 
 -(void)iTunesImportSelected:(NSString *)importFile {

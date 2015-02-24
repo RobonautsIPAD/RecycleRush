@@ -7,6 +7,7 @@
 //
 
 #import "TeamSummaryViewController.h"
+#import "UIDefaults.h"
 #import "DataManager.h"
 #import "TeamData.h"
 #import "MatchAccessors.h"
@@ -15,8 +16,9 @@
 #import "MatchPhotoCollectionViewController.h"
 
 @interface TeamSummaryViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *teamNumberField;
+@property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
 @property (weak, nonatomic) IBOutlet UITextField *teamNameField;
+@property (weak, nonatomic) IBOutlet UITextField *matchNumberField;
 @property (weak, nonatomic) IBOutlet UIButton *matchPhotoButton;
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 
@@ -29,6 +31,11 @@
     NSDictionary *allianceDictionary;
     UIView *matchHeader;
     NSArray *matchList;
+    TeamData *currentTeam;
+
+    NSMutableArray *teamPopUpList;
+    PopUpPickerViewController *teamPicker;
+    UIPopoverController *teamPickerPopover;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,13 +59,19 @@
     else {
         self.title = @"Team Summary";
     }
+    [UIDefaults setBigButtonDefaults:_teamNumberButton];
+    [UIDefaults setBigButtonDefaults:_matchPhotoButton];
+
     matchTypeDictionary = _dataManager.matchTypeDictionary;
     allianceDictionary = _dataManager.allianceDictionary;
 
-    _teamNumberField.text = [NSString stringWithFormat:@"%@", _team.number];
-    _teamNameField.text = _team.name;
-    matchList = [ScoreAccessors getMatchListForTeam:_team.number forTournament:tournamentName fromDataManager:_dataManager];
+    teamPopUpList = [[NSMutableArray alloc] init];
+    for (TeamData *team in _teamList) {
+        [teamPopUpList addObject:[NSString stringWithFormat:@"%@", team.number]];
+    }
+    currentTeam = _initialTeam;
     [self createMatchHeader];
+    [self showTeam];
 }
 
 -(void)createMatchHeader {
@@ -88,15 +101,46 @@
     [matchHeader addSubview:label4];
 }
 
+-(void)showTeam {
+    [_teamNumberButton setTitle:[NSString stringWithFormat:@"%@", currentTeam.number] forState:UIControlStateNormal];
+    _teamNameField.text = currentTeam.name;
+    _matchNumberField.text = [NSString stringWithFormat:@"%@", _matchNumber];
+    matchList = [ScoreAccessors getMatchListForTeam:currentTeam.number forTournament:tournamentName fromDataManager:_dataManager];
+}
+
+-(IBAction)teamSelectionChanged:(id)sender {
+    if (teamPicker == nil) {
+        teamPicker = [[PopUpPickerViewController alloc]
+                           initWithStyle:UITableViewStylePlain];
+        teamPicker.delegate = self;
+        teamPicker.pickerChoices = teamPopUpList;
+    }
+    if (!teamPickerPopover) {
+        teamPickerPopover = [[UIPopoverController alloc]
+                                  initWithContentViewController:teamPicker];
+    }
+    [teamPickerPopover presentPopoverFromRect:_teamNumberButton.bounds inView:_teamNumberButton
+                          permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)pickerSelected:(NSString *)newPick {
+    [teamPickerPopover dismissPopoverAnimated:YES];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:[newPick intValue]]];
+    NSArray *teams = [_teamList filteredArrayUsingPredicate:pred];
+    if (!teams || ![teams count]) return;
+    currentTeam  = [teams objectAtIndex:0];
+    [self showTeam];
+}
 
  #pragma mark - Navigation
  
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"MatchPhoto"]) {
-        [segue.destinationViewController setTeamNumber:_team.number];
+        [segue.destinationViewController setTeamNumber:currentTeam.number];
         [segue.destinationViewController setMatchList:matchList];
-    }
+        [segue.destinationViewController setTeamList:teamPopUpList];
+   }
 }
 
 #pragma mark - Table view data source
@@ -142,32 +186,26 @@
     NSString *allianceString = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
     NSArray *allKeys = [allianceMembersDictionary allKeys];
     if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
-        NSLog(@"Red Alliance");
         int tag = 40;
         for (NSString *key in allKeys) {
             if ([[key substringToIndex:1] isEqualToString:@"R"]) {
                 int otherMembers = [[allianceMembersDictionary objectForKey:key] intValue];
-                if ([_team.number intValue]== otherMembers) continue;
+                if ([currentTeam.number intValue]== otherMembers) continue;
                 UILabel *label = (UILabel *)[cell viewWithTag:tag];
                 label.text = [NSString stringWithFormat:@"%d", otherMembers];
                 tag = 50;
-                
-                NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
             }
         }
     }
     else if ([[allianceString substringToIndex:1] isEqualToString:@"B"]) {
-        NSLog(@"Blue Alliance");
         int tag = 40;
         for (NSString *key in allKeys) {
             if ([[key substringToIndex:1] isEqualToString:@"B"]) {
                 int otherMembers = [[allianceMembersDictionary objectForKey:key] intValue];
-                if ([_team.number intValue]== otherMembers) continue;
+                if ([currentTeam.number intValue]== otherMembers) continue;
                 UILabel *label = (UILabel *)[cell viewWithTag:tag];
                 label.text = [NSString stringWithFormat:@"%d", otherMembers];
                 tag = 50;
-                
-                NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
             }
         }
     }

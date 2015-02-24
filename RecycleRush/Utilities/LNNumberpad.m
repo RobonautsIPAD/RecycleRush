@@ -31,6 +31,8 @@
 #pragma mark - Private methods
 
 @interface LNNumberpad ()
+@property (weak, nonatomic) IBOutlet UIButton *canButton;
+@property (weak, nonatomic) IBOutlet UIButton *litterButton;
 @property (nonatomic, weak) UIResponder <UITextInput> *targetTextInput;
 @end
 
@@ -116,6 +118,15 @@
     {
         if ([notification.object conformsToProtocol:@protocol(UITextInput)]) {
             self.targetTextInput = notification.object;
+            UITextField *test = (UITextField *)self.targetTextInput;
+            if (test.tag%10) {
+                [_canButton setHidden:FALSE];
+                [_litterButton setHidden:FALSE];
+            }
+            else {
+                [_canButton setHidden:TRUE];
+                [_litterButton setHidden:TRUE];
+            }
             return;
         }
     }
@@ -180,7 +191,22 @@
 // The done button was just pressed on the number pad
 - (IBAction)numberpadDonePressed:(UIButton *)sender {
         if (self.targetTextInput) {
-            [self.targetTextInput resignFirstResponder];
+            UITextField *test = (UITextField *)self.targetTextInput;
+            if (test.tag) {
+                NSInteger nextTag = test.tag + 5;
+                // Try to find next responder
+                UIResponder* nextResponder = [test.superview viewWithTag:nextTag];
+                if (nextResponder) {
+                    // Found next responder, so set it.
+                    [nextResponder becomeFirstResponder];
+                } else {
+                    // Not found, so remove keyboard.
+                    [self.targetTextInput resignFirstResponder];
+                }
+            }
+            else {
+                [self.targetTextInput resignFirstResponder];
+            }
         }
 }
 

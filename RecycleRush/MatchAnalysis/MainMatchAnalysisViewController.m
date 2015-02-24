@@ -7,6 +7,7 @@
 //
 
 #import "MainMatchAnalysisViewController.h"
+#import "UIDefaults.h"
 #import "TournamentData.h"
 #import "DataManager.h"
 #import "DataConvenienceMethods.h"
@@ -20,9 +21,9 @@
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 #import "SketchSpaceViewController.h"
+#import "TeamSummaryViewController.h"
 #import "FieldDrawingViewController.h"
 #import "FileIOMethods.h"
-#import <QuartzCore/CALayer.h>
 #import "LNNumberpad.h"
 
 @interface MainMatchAnalysisViewController ()
@@ -135,12 +136,14 @@
 
     [self setTableDefaults];
     [self createStatsTableHeader];
-    [self setTextBoxDefaults:_matchNumber];
-    [self setBigButtonDefaults:_matchType];
-    [self setBigButtonDefaults:_prevMatch];
-    [self setBigButtonDefaults:_nextMatch];
-    [self setBigButtonDefaults:_ourPrevMatchButton];
-    [self setBigButtonDefaults:_ourNextMatchButton];
+    [UIDefaults setTextBoxDefaults:_matchNumber];
+    [UIDefaults setBigButtonDefaults:_matchType];
+    [UIDefaults setBigButtonDefaults:_prevMatch];
+    [UIDefaults setBigButtonDefaults:_nextMatch];
+    [UIDefaults setBigButtonDefaults:_ourPrevMatchButton];
+    [UIDefaults setBigButtonDefaults:_ourNextMatchButton];
+    [UIDefaults setBigButtonDefaults:_redSketchButton];
+    [UIDefaults setBigButtonDefaults:_blueSketchButton];
      _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
@@ -386,7 +389,7 @@
 -(void)showMatch {
     [self setTeamList];
     [_matchType setTitle:[MatchAccessors getMatchTypeString:currentMatch.matchType fromDictionary:matchDictionary] forState:UIControlStateNormal];
-    _matchNumber.text = [NSString stringWithFormat:@"%d", [currentMatch.number intValue]];
+    _matchNumber.text = [NSString stringWithFormat:@"%@", currentMatch.number];
 }
 
 -(void)setTeamList {
@@ -484,15 +487,18 @@
         [_teamHeader addSubview:label];
     }
 }
+//        detailViewController.team = [teamList objectAtIndex:indexPath.row];
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{//BlueSketch
+{
     [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamSummary"]) {
         NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
-        TeamDetailViewController *detailViewController = [segue destinationViewController];
+        TeamSummaryViewController *detailViewController = [segue destinationViewController];
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
-        detailViewController.team = [teamList objectAtIndex:indexPath.row];
+        detailViewController.initialTeam = [teamList objectAtIndex:indexPath.row];
+        detailViewController.teamList = teamList;
+        detailViewController.matchNumber = currentMatch.number;
         [_teamInfo deselectRowAtIndexPath:indexPath animated:YES];
     }
     else if ([segue.identifier isEqualToString:@"RedSketch"]) {
@@ -510,6 +516,8 @@
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
     }
+/*    else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
+    }*/
     else {
         NSIndexPath *indexPath;
         if ([segue.identifier isEqualToString:@"Red1"]) {
@@ -714,40 +722,6 @@
 //        cell.frame.size.width = 125.0;
     }
 }*/
-
--(void)setTextBoxDefaults:(UITextField *)currentTextField {
-    currentTextField.font = [UIFont fontWithName:@"Helvetica" size:24.0];
-}
-
--(void)setBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:24.0];
-    // Round button corners
-    CALayer *btnLayer = [currentButton layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:10.0f];
-    // Apply a 1 pixel, black border
-    [btnLayer setBorderWidth:1.0f];
-    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
-    // Set the button Background Color
-    [currentButton setBackgroundColor:[UIColor whiteColor]];
-    // Set the button Text Color
-    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-}
-
--(void)setSmallButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
-    // Round button corners
-    CALayer *btnLayer = [currentButton layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:10.0f];
-    // Apply a 1 pixel, black border
-    [btnLayer setBorderWidth:1.0f];
-    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
-    // Set the button Background Color
-    [currentButton setBackgroundColor:[UIColor whiteColor]];
-    // Set the button Text Color
-    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-}
 
 -(void)setTableDefaults {
     //_red1Table.layer.borderWidth = 2.0;

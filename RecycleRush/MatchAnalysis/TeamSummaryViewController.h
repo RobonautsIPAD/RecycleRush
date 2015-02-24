@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopUpPickerViewController.h"
 @class DataManager;
 @class TeamData;
 
-@interface TeamSummaryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TeamSummaryViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, strong) TeamData *team;
+@property (nonatomic, strong) NSArray *teamList;
+@property (nonatomic, strong) TeamData *initialTeam;
+@property (nonatomic, strong) NSNumber *matchNumber;
 @end

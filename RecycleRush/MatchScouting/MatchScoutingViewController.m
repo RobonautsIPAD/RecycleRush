@@ -23,7 +23,24 @@
 #import "AddMatchViewController.h"
 #import "MainMatchAnalysisViewController.h"
 #import "StackViewController.h"
+#import "MatchDrawingViewController.h"
 #import "LNNumberpad.h"
+
+@interface MatchDrawingSegue : UIStoryboardSegue
+@end
+
+@implementation MatchDrawingSegue
+
+-(void)perform {
+    // our custom segue is being fired, push the tablet error view controller
+    UINavigationController *sourceViewController = self.sourceViewController;
+    MatchDrawingViewController *destinationViewController = self.destinationViewController;
+    destinationViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    [sourceViewController presentViewController:destinationViewController animated:YES completion:nil];
+ //   [sourceViewController pushViewController:destinationViewController animated:YES];
+}
+
+@end
 
 @interface MatchScoutingViewController ()
 // Match Control
@@ -771,7 +788,7 @@
 
 - (IBAction)drawingChoice:(id)sender {
     popUp = _drawingChoiceButton;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", @"Draw Mode 1",  nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", @"Draw Mode",  nil];
     
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showFromRect:_drawingChoiceButton.frame inView:_stackView animated:YES];
@@ -791,7 +808,10 @@
         case 1:
             if (popUp == _drawingChoiceButton) [self fieldPhoto:@"Choose"];
             break;
-            
+        case 2:
+            if (popUp == _drawingChoiceButton) [self pushDrawingView];
+            break;
+
         default:
             break;
     }    
@@ -1439,13 +1459,22 @@
         [addvc setMatch:currentMatch];
     }
 
-    
 /*    else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setSyncOption:SyncAllSavedSince];
         [segue.destinationViewController setSyncType:SyncMatchResults];
     }*/
 
+}
+
+-(void)pushDrawingView {
+    MatchDrawingViewController *drawingViewController = [[self.navigationController storyboard]instantiateViewControllerWithIdentifier:@"MatchDrawingViewController"];
+    [drawingViewController setDataManager:_dataManager];
+    [drawingViewController setScore:currentScore];
+    MatchDrawingSegue *matchDrawingSegue = [[MatchDrawingSegue alloc] initWithIdentifier:@"MatchDrawingViewController"
+                                                                                  source:self.navigationController
+                                                                             destination:drawingViewController];
+    [matchDrawingSegue perform];    
 }
 
 -(NSFetchedResultsController *)fetchedResultsController {

@@ -542,7 +542,7 @@
         [canIntakePickerPopover dismissPopoverAnimated:YES];
         _team.canIntake = newPick;
     }
-    dataChange = YES;
+    [self setDataChange];
     [popUp setTitle:newPick forState:UIControlStateNormal];
 }
 

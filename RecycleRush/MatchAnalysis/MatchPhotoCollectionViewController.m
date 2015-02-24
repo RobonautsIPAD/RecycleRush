@@ -7,6 +7,7 @@
 //
 
 #import "MatchPhotoCollectionViewController.h"
+#import "UIDefaults.h"
 
 @interface MatchPhotoCollectionViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -14,7 +15,11 @@
 
 @end
 
-@implementation MatchPhotoCollectionViewController
+@implementation MatchPhotoCollectionViewController {
+    NSNumber *currectTeamNumber;
+    PopUpPickerViewController *teamPicker;
+    UIPopoverController *teamPickerPopover;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +33,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_teamNumberButton setTitle:[NSString stringWithFormat:@"%@", _teamNumber] forState:UIControlStateNormal];
+    [UIDefaults setBigButtonDefaults:_teamNumberButton];
+    currectTeamNumber = _teamNumber;
+    [self showTeam];
+}
+
+-(void)showTeam {
+    [_teamNumberButton setTitle:[NSString stringWithFormat:@"%@", currectTeamNumber] forState:UIControlStateNormal];
+}
+
+-(IBAction)teamSelectionChanged:(id)sender {
+    if (teamPicker == nil) {
+        teamPicker = [[PopUpPickerViewController alloc]
+                      initWithStyle:UITableViewStylePlain];
+        teamPicker.delegate = self;
+        teamPicker.pickerChoices = _teamList;
+    }
+    if (!teamPickerPopover) {
+        teamPickerPopover = [[UIPopoverController alloc]
+                             initWithContentViewController:teamPicker];
+    }
+    [teamPickerPopover presentPopoverFromRect:_teamNumberButton.bounds inView:_teamNumberButton
+                     permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)pickerSelected:(NSString *)newPick {
+    [teamPickerPopover dismissPopoverAnimated:YES];
+    NSUInteger index = [_teamList indexOfObject:newPick];
+    if (index != NSNotFound) currectTeamNumber = [_teamList objectAtIndex:index];
+    [self showTeam];
+
 }
 
 - (void)didReceiveMemoryWarning
