@@ -173,7 +173,8 @@
     AlertPromptViewController *alertPrompt;
     UIPopoverController *alertPromptPopover;
     DrawingMode drawMode;
-
+    BOOL returnFromScore;
+    NSData *savedData;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -202,6 +203,7 @@
         self.title = @"Match Scouting";
     }
     [self loadSettings];
+    returnFromScore = FALSE;
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
@@ -360,7 +362,11 @@
     [self setAutonButton:_wowlist forValue:currentScore.wowList];
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", [currentScore.canDominationTime floatValue]] forState:UIControlStateNormal];
     [self showViews];
-    if ([currentScore.results boolValue]) {
+    if (returnFromScore) {
+        drawMode = DrawInput;
+        returnFromScore = FALSE;
+    }
+    else if ([currentScore.results boolValue]) {
         drawMode = DrawLock;
     }
     else {
@@ -455,7 +461,6 @@
 }
 
 - (void)allianceSelected:(NSString *)newAlliance {
-    NSLog(@"add check for mode");
     [self checkDataStatus];
     [alliancePickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
@@ -519,7 +524,6 @@
 }
 
 - (void)teamSelected:(NSString *)newTeam {
-    NSLog(@"check for mode");
     [self checkDataStatus];
     [teamPickerPopover dismissPopoverAnimated:YES];
     NSUInteger currentTeamIndex = teamIndex;
@@ -775,7 +779,6 @@
         // NSLog(@"Section = %@", sectionName);
         [matchTypes addObject:[MatchAccessors getMatchTypeString:[NSNumber numberWithInt:[sectionName intValue]] fromDictionary:matchDictionary]];
     }
-    NSLog(@"match types = %@", matchTypes);
     return matchTypes;
 }
 
@@ -818,7 +821,6 @@
 }
 
 -(void)matchReset {
-    NSLog(@"reset");
     dataChange = FALSE;
     currentScore = [scoreUtilities scoreReset:currentScore];
     [self showTeam:teamIndex];
@@ -848,17 +850,17 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"photo popover");
+    //NSLog(@"photo popover");
     _paperPhoto.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_paperPhoto setHidden:FALSE];
-    NSLog(@"%@", currentScore.field);
+    //NSLog(@"%@", currentScore.field);
     if (!currentScore.field) {
         FieldPhoto *photo = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
                                                               inManagedObjectContext:_dataManager.managedObjectContext];
         currentScore.field = photo;
     }
     currentScore.field.paper = [NSData dataWithData:UIImageJPEGRepresentation(_paperPhoto.image, 1.0)];
-    NSLog(@"%@", currentScore.field);
+    //NSLog(@"%@", currentScore.field);
     [self setDataChange];
     // NSLog(@"image picker finish");*/
     [picker dismissViewControllerAnimated:YES completion:Nil];
@@ -1012,10 +1014,7 @@
 //    sectionIndex = [matchTypeList indexOfObject:newMatchType];
     MatchData *match = [MatchAccessors getMatch:storedMatchNumber forType:[MatchAccessors getMatchTypeFromString:storedMatchType fromDictionary:_dataManager.matchTypeDictionary] forTournament:tournamentName fromDataManager:_dataManager];
     if (match) {
-        //            sectionIndex = [self getMatchSectionInfo:currentSectionType];
-        //    teamIndex = [allianceList indexOfObject:newAlliance];
         NSIndexPath *indexPath = [fetchedResultsController indexPathForObject:match];
-        NSLog(@"Add stuff for tournament mode");
         sectionIndex = indexPath.section;
         rowIndex = indexPath.row;
         currentMatch = [self getCurrentMatch];
@@ -1026,7 +1025,6 @@
         currentMatch = [self getCurrentMatch];
     }
     [self setTeamList];
-    NSLog(@"%@", teamList);
 }
 
 -(void)saveSettings {
@@ -1436,9 +1434,12 @@
     else if ([segue.identifier isEqualToString:@"StackView"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setAllianceString:allianceString];
+        [segue.destinationViewController setCurrentScore:currentScore];
+        [segue.destinationViewController setSavedData:savedData];
+        NSLog(@"Data = %@", savedData);
+        [segue.destinationViewController setDelegate:self];
     }
     else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
-        [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setDataManager:_dataManager];
         // NSLog(@"Match list = %@", matchList);
         [segue.destinationViewController setTeamNumber:[NSNumber numberWithInt:[_teamNumber.titleLabel.text intValue]]];
@@ -1465,6 +1466,13 @@
         [segue.destinationViewController setSyncType:SyncMatchResults];
     }*/
 
+}
+
+- (void)scoringViewFinished:(NSData *)data {
+    UIView *stack1View = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSLog(@"Data = %@", stack1View);
+    savedData = data;
+    returnFromScore = TRUE;
 }
 
 -(void)pushDrawingView {

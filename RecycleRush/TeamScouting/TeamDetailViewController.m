@@ -257,10 +257,15 @@
     // Check to see if a data change has been made. If so, save the database.
     // At some point, we really need to decide on real error handling.
     if (dataChange) {
-        NSError *error;
         _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        if (![_dataManager saveContext]) {
+            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
+                                                              message:@"Unable to save data"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Ok"
+                                                    otherButtonTitles:nil];
+            [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+            [prompt show];
         }
         dataChange = NO;
     }

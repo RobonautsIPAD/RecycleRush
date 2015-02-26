@@ -8,6 +8,7 @@
 
 #import "StackViewController.h"
 #import <QuartzCore/CALayer.h>
+#import "TeamScore.h"
 #import "LNNumberpad.h"
 
 @interface StackViewController ()
@@ -28,7 +29,9 @@
 
 @end
 
-@implementation StackViewController
+@implementation StackViewController {
+    UIView *savedView;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,9 +53,14 @@
         CGFloat yBottom = 230;
         CGFloat yInterval = 75;
         CGRect rect = CGRectMake(xLeft,yBottom,265,65);
-        _stack1View.frame = rect;
-        [self initializeStack:_stack1View forNumber:0];
-
+        if (_savedData) {
+            savedView = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:_savedData];
+            [self.view addSubview:savedView];
+        }
+        else {
+            _stack1View.frame = rect;
+            [self initializeStack:_stack1View forNumber:0];
+        }
         rect = CGRectMake(xLeft,yBottom+yInterval,265,65);
         _stack2View.frame = rect;
         [self initializeStack:_stack2View forNumber:1];
@@ -182,8 +190,8 @@
     field.borderStyle = UITextBorderStyleRoundedRect;
     field.font = [UIFont systemFontOfSize:15];
    
-//    field.placeholder = @"";
-    field.placeholder = [NSString stringWithFormat:@"%d", newTag];
+    field.placeholder = @"";
+//    field.placeholder = [NSString stringWithFormat:@"%d", newTag];
     field.autocorrectionType = UITextAutocorrectionTypeNo;
     field.keyboardType = UIKeyboardTypeDefault;
     field.returnKeyType = UIReturnKeyDone;
@@ -194,25 +202,56 @@
     field.tag = newTag;
 }
 
--(BOOL)textFieldShouldReturn:(UITextField*)textField
-{
-    NSInteger nextTag = textField.tag + 5;
-    // Try to find next responder
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
+-(NSDictionary *)calculateStackTotals:(UIView *)stack forNumber:(int)stackNumber {
+    NSArray *fields = [stack subviews];
+    int numeratorTotal = 0;
+    int canTotal = 0;
+    int litterTotal = 0;
+    for (UITextField *current in fields) {
+        if (current.tag%10) {
+            for(int i =0 ;i<[current.text length]; i++) {
+                char character = [current.text characterAtIndex:i];
+                if (isdigit(character)) {
+                    numeratorTotal += (int)(character - '0');
+                }
+                else if (character == 'C') canTotal++;
+                else if (character == 'L') litterTotal++;
+            }
+        }
     }
-    return NO; // We do not want UITextField to insert line-breaks.
+    NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInt:numeratorTotal], @"totes",
+                             [NSNumber numberWithInt:canTotal], @"cans",
+                             [NSNumber numberWithInt:litterTotal], @"litter",
+                             nil];
+    return results;
+
 }
 
+-(NSString *)returnSet:(NSString *)inputString forSet:(NSCharacterSet *)correctSet {
+    NSString *outputString;
+    NSScanner *scanner = [NSScanner scannerWithString:inputString];
+     //This goes through the input string and puts all the
+    //characters that are digits into the new string
+    [scanner scanCharactersFromSet:correctSet intoString:&outputString];
+    return outputString;
+ }
+
 - (IBAction)finished:(id)sender {
+    NSDictionary *stack1Results = [self calculateStackTotals:_stack1View forNumber:0];
+    NSLog(@"%@", stack1Results);
+    _currentScore.litterInCan = [stack1Results objectForKey:@"litter"];
+    _currentScore.totalCansScored = [stack1Results objectForKey:@"cans"];
+    _currentScore.totalTotesScored = [stack1Results objectForKey:@"totes"];
+    NSData *dataFields = [NSKeyedArchiver archivedDataWithRootObject:_stack1View];
+
+    [_delegate scoringViewFinished:dataFields];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

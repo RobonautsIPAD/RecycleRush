@@ -61,7 +61,6 @@
 		2F484D661A84648B00690185 /* Blue 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D651A84648B00690185 /* Blue 2015 New.png */; };
 		2F484D681A84649D00690185 /* Red 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D671A84649D00690185 /* Red 2015 New.png */; };
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
-		2F4ECAFD1A97B6150086F462 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F4ECAFC1A97B6150086F462 /* RecycleRush.sqlite */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
 		2F56B56A17052B900093A976 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56917052B900093A976 /* CoreLocation.framework */; };
@@ -162,6 +161,7 @@
 		2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */; };
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */; };
+		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC123271A830B240029F086 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC123261A830B240029F086 /* PitScoutingDataSheet.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
@@ -290,7 +290,6 @@
 		2F49FC8E1A7D5541005E6051 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = RecycleRush/DataImport/LICENSE; sourceTree = SOURCE_ROOT; };
 		2F49FC901A7D5551005E6051 /* parseCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parseCSV.h; path = RecycleRush/DataImport/parseCSV.h; sourceTree = SOURCE_ROOT; };
 		2F49FC911A7D5551005E6051 /* parseCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = parseCSV.m; path = RecycleRush/DataImport/parseCSV.m; sourceTree = SOURCE_ROOT; };
-		2F4ECAFC1A97B6150086F462 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2F5247DB1963B2C900468E4F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Common/DataManagement/DataManager.h; sourceTree = SOURCE_ROOT; };
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -462,6 +461,8 @@
 		2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DataConvenienceMethods.m; path = Common/DataUtilities/DataConvenienceMethods.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB358291A731C74005625AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RecycleRush/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RobonautsLogo.jpg; path = "RecycleRush/Resources/Logos and Banners/RobonautsLogo.jpg"; sourceTree = SOURCE_ROOT; };
+		2FC087891A9EA67A00050864 /* PhoneMatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneMatchListViewController.h; path = RecycleRush/MatchScouting/PhoneMatchListViewController.h; sourceTree = SOURCE_ROOT; };
+		2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneMatchListViewController.m; path = RecycleRush/MatchScouting/PhoneMatchListViewController.m; sourceTree = SOURCE_ROOT; };
 		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC123261A830B240029F086 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -946,6 +947,8 @@
 				2F5D32A91A5FA3D000E02523 /* MatchListViewController.m */,
 				2F2E19BF1A9A5EB8004EEB8F /* MatchDrawingViewController.h */,
 				2F2E19C01A9A5EB8004EEB8F /* MatchDrawingViewController.m */,
+				2FC087891A9EA67A00050864 /* PhoneMatchListViewController.h */,
+				2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */,
 				2FE405551A96D33A007404CE /* StackViewController.h */,
 				2FE405561A96D33A007404CE /* StackViewController.m */,
 				2F9094701A85130400678B81 /* MatchScoutingViewController.h */,
@@ -1041,7 +1044,6 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
-				2F4ECAFC1A97B6150086F462 /* RecycleRush.sqlite */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
 			);
@@ -1222,7 +1224,6 @@
 				2F3316321A93BB6D005B7798 /* Slide6.JPG in Resources */,
 				2F3316361A93BB6D005B7798 /* Slide10.JPG in Resources */,
 				2F3316341A93BB6D005B7798 /* Slide8.JPG in Resources */,
-				2F4ECAFD1A97B6150086F462 /* RecycleRush.sqlite in Resources */,
 				2F8F205A1A995F0100679ED6 /* 2013_logo~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1304,6 +1305,7 @@
 				2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */,
 				2F5D32841A5FA24300E02523 /* TournamentAnalysisViewController.m in Sources */,
 				2F2ECA9C1A5F052300D3386E /* ExportTeamData.m in Sources */,
+				2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */,
 				2F5D33001A5FA51000E02523 /* SyncMethods.m in Sources */,
 				2F33DCE91A86A9CC00331B12 /* FieldDrawing.m in Sources */,
 				2F6ADE981A981B1900962D1C /* SketchSpaceViewController.m in Sources */,
@@ -1378,7 +1380,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos7.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1400,7 +1402,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos7.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1416,7 +1418,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RecycleRush/MainApp/RecycleRush-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RecycleRush/MainApp/RecycleRush-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;
@@ -1436,7 +1438,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RecycleRush/MainApp/RecycleRush-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/RecycleRush/MainApp/RecycleRush-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;

@@ -89,7 +89,7 @@
     if (filteredTeamList) nRecords = [filteredTeamList count];
     if (filteredScoreList) nRecords += [filteredScoreList count];
     Packet *packet = [Packet packetWithType:PacketTypeSendData];
-    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:nRecords], @"Records", nil]];
+    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:nRecords], @"Records", nil]];
     [self sendPacketToClient:packet forClient:requesterID inSession:session];
 
 //    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

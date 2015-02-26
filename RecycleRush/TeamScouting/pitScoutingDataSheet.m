@@ -10,18 +10,19 @@
 #import "DataManager.h"
 #import "FileIOMethods.h" 
 #import "TeamData.h"
+
 @interface PitScoutingDataSheet ()
 @property (weak, nonatomic) IBOutlet UIButton *toteIntakeButton;
 @property (weak, nonatomic) IBOutlet UIButton *canIntakeButton;
 @property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
-@property (weak, nonatomic) IBOutlet UIButton *noodlerOptionButton;
-@property (weak, nonatomic) IBOutlet UILabel *trackerOptionButton;
-@property (weak, nonatomic) IBOutlet UILabel *cimsSideButton;
-@property (weak, nonatomic) IBOutlet UILabel *driveTypeButton;
-@property (weak, nonatomic) IBOutlet UILabel *wheelTypeButton;
-@property (weak, nonatomic) IBOutlet UILabel *numberOfWheelsButton;
-@property (weak, nonatomic) IBOutlet UIButton *noodlerOption;
-
+@property (weak, nonatomic) IBOutlet UIButton *stackingMech;
+@property (weak, nonatomic) IBOutlet UIButton *driveTypeButton;
+@property (weak, nonatomic) IBOutlet UITextField *cimsSide;
+@property (weak, nonatomic) IBOutlet UITextField *wheelType;
+@property (weak, nonatomic) IBOutlet UITextField *numberOfWheels;
+@property (weak, nonatomic) IBOutlet UITextField *maxHeight;
+@property (weak, nonatomic) IBOutlet UITextField *wheelDiameter;
+@property (weak, nonatomic) IBOutlet UITextField *maxToteStack;
 
 
 
@@ -34,12 +35,13 @@
 
 @implementation PitScoutingDataSheet {
     id popUp;
+    NSUserDefaults *prefs;
+    NSString *deviceName;
+    BOOL dataChange;
     
     
     
-    
-    
-    NSArray *intakeTypeList;
+    NSArray *toteIntakeList;
     NSArray *canIntakeList;
     NSArray *liftTypeList;
     NSArray *driveTypeList;
@@ -59,18 +61,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-
-
-
-
-
-
-
-
+    prefs = [NSUserDefaults standardUserDefaults];
+    deviceName = [prefs objectForKey:@"deviceName"];
 }
 
-/*
+
 -(void)setDataChange {
     //  A change to one of the database fields has been detected. Set the time tag for the
     //  saved filed and set the device name into the field to indicated who made the change.
@@ -84,31 +79,35 @@
     // Check to see if a data change has been made. If so, save the database.
     // At some point, we really need to decide on real error handling.
     if (dataChange) {
-        NSError *error;
         _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        if (![_dataManager saveContext]) {
+            UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
+                                                              message:@"Unable to save data"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Ok"
+                                                    otherButtonTitles:nil];
+            [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+            [prompt show];
         }
         dataChange = NO;
     }
 }
-
-*/
 
 
 - (IBAction)toteIntakeSelection:(id)sender {
     NSLog(@"toteIntakeButton");
     popUp= sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tote Intake" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    if (!intakeTypeList) intakeTypeList = [FileIOMethods initializePopUpList:@"IntakeType"];
-    for (NSString *intakeType in intakeTypeList) {
+    if (!toteIntakeList) toteIntakeList = [FileIOMethods initializePopUpList:@"ToteIntakeType"];
+    for (NSString *intakeType in toteIntakeList) {
         [actionSheet addButtonWithTitle:intakeType];
     }
     [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet setCancelButtonIndex:[intakeTypeList count]];
+    [actionSheet setCancelButtonIndex:[toteIntakeList count]];
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
 }
+
 - (IBAction)canIntakeSelection:(id)sender {
     NSLog(@"canIntakeButton");
     popUp= sender;
@@ -152,8 +151,9 @@
     [actionSheet showInView:self.view];
 }
 
-
-
+- (IBAction)stackingOptionSelected:(id)sender {
+    popUp= sender;
+}
 
 - (IBAction)TrackerOption:(id)sender {
     NSLog(@"TrackerOptionButton");
@@ -169,14 +169,11 @@
     [actionSheet showInView:self.view];
 }
 
-
-
-
 - (IBAction)DriveTypeSelection:(id)sender {
     NSLog(@"DriveTypeButton");
     popUp= sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Drive Type " delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    if (!driveTypeList) driveTypeList = [FileIOMethods initializePopUpList:@"Drive Type Selection"];
+    if (!driveTypeList) driveTypeList = [FileIOMethods initializePopUpList:@"DriveType"];
     for (NSString *driveType in driveTypeList) {
         [actionSheet addButtonWithTitle:driveType];
     }
@@ -186,15 +183,14 @@
     [actionSheet showInView:self.view];
 }
 
-
-
-
-
-
-
-
-
-
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self setDataChange];
+    if (popUp == _toteIntakeButton) {
+        NSString *selection = [toteIntakeList objectAtIndex:buttonIndex];
+        _team.toteIntake = selection;
+        [_toteIntakeButton setTitle:selection forState:UIControlStateNormal];
+    }
+}
 
 
 
