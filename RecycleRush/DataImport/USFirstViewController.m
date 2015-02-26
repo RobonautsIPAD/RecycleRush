@@ -11,7 +11,7 @@
 #import "TournamentData.h"
 #import "DataManager.h"
 #import "MatchData.h"
-#import "MatchDataInterfaces.h"
+#import "MatchUtilities.h"
 
 @interface USFirstViewController ()
 
@@ -29,6 +29,7 @@
     NSArray *tourData; // data of the selected tournament (code, name)
     int matchType; // selected match type
     NSMutableArray *displayData; // data to be displayed in the TableView
+    MatchUtilities *matchUtilities;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -129,23 +130,28 @@
     [_tblMain reloadData];
 }
 
+-(NSMutableArray *)buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
+    NSDictionary *teamDictionary = [matchUtilities teamDictionary:alliance forTeam:teamTextField.text];
+    if (teamDictionary) [teamList addObject:teamDictionary];
+    return teamList;
+}
+
 // Saves the retrieved data to the database
 - (IBAction)btnSave:(id)sender {
     if (displayData == nil) return;
-    NSArray *teamKeys = [NSArray arrayWithObjects:@"Red 1", @"Red 2", @"Red 3", @"Blue 1", @"Blue 2", @"Blue 3", nil];
-    NSArray *matchKeys = [NSArray arrayWithObjects:@"number", @"tournamentName", @"matchType", @"teams", nil];
     for (NSArray *row in displayData) {
         if ([row[matchType + 2] intValue] == 0 && [row[matchType + 3] intValue] == 0 && [row[matchType + 4] intValue] == 0 &&
             [row[matchType + 5] intValue] == 0 && [row[matchType + 6] intValue] == 0 && [row[matchType + 7] intValue] == 0) continue;
-        NSArray *teamVals = [NSArray arrayWithObjects:row[matchType + 2], row[matchType + 3], row[matchType + 4],
-                             row[matchType + 5], row[matchType + 6], row[matchType + 7], nil];
-        NSDictionary *teams = [NSDictionary dictionaryWithObjects:teamVals forKeys:teamKeys];
-        NSArray *matchVals = [NSArray arrayWithObjects:row[matchType + 1], tourData[1], matchType == 0 ? @"Seeding" : @"Elimination", teams, nil];
-        
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:matchVals forKeys:matchKeys];
-        MatchDataInterfaces *matchDataPackage = [[MatchDataInterfaces alloc] initWithDataManager:_dataManager];
-        MatchData *match = [matchDataPackage updateMatch:dictionary];
-        NSLog(@"%@", match);
+        NSMutableArray *teamList = [[NSMutableArray alloc] init];
+        teamList = [self buildTeamList:@"Red 1" forTextBox:row[matchType + 2] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Red 2" forTextBox:row[matchType + 3] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Red 3" forTextBox:row[matchType + 4] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 1" forTextBox:row[matchType + 5] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 2" forTextBox:row[matchType + 6] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 3" forTextBox:row[matchType + 7] forTeamList:teamList];
+        NSError *error = nil;
+        [matchUtilities addMatch:[NSNumber numberWithInt:[row[matchType+1] intValue]] forMatchType:matchType == 0 ? @"Qualification" : @"Elimination" forTeams:teamList forTournament:tourData[1] error:&error];
+        [_dataManager saveContext];
     }
 }
 

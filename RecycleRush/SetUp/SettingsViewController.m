@@ -100,7 +100,7 @@
     TournamentUtilities *tournamentUtilities = [[TournamentUtilities alloc] init:_dataManager];
     tournamentList = [tournamentUtilities getTournamentList];
     
-    NSLog(@"Tournament List = %@", tournamentList);
+    //NSLog(@"Tournament List = %@", tournamentList);
     
     // Alliance Selection
     [_allianceButton setTitle:[prefs objectForKey:@"alliance"] forState:UIControlStateNormal];
@@ -140,7 +140,6 @@
 }
 
 -(void)pickerSelected:(NSString *)newPick {
-    NSLog(@"Picker = %@", newPick);
     if (popUp == _tournamentButton) {
         [self tournamentSelected:newPick];
     }
@@ -225,8 +224,7 @@
 
 -(IBAction)modeSelectionChanged:(id)sender {
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    int current;
-    current = segmentedControl.selectedSegmentIndex;
+    NSInteger current = segmentedControl.selectedSegmentIndex;
     
     if (current == 0) {
         [prefs setObject:@"Meeting" forKey:@"mode"];
@@ -250,8 +248,7 @@
 
 - (IBAction)bluetoothRoleChanged:(id)sender {
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    int current;
-    current = segmentedControl.selectedSegmentIndex;
+    NSInteger current = segmentedControl.selectedSegmentIndex;
 
     if (current == 0) {
         [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];

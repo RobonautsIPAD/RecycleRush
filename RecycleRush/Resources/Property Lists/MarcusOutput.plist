@@ -144,5 +144,21 @@
 		<key>format</key>
 		<string>integer</string>
 	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn0</string>
+		<key>header</key>
+		<string>Totes on 0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn0</string>
+		<key>header</key>
+		<string>Cans on 0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
 </array>
 </plist>

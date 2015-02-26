@@ -275,7 +275,7 @@
     // count how many packets there will be - PacketTypeSendData
     // package data
     Packet *packet = [Packet packetWithType:PacketTypeSendData];
-    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[records count]], @"Records", nil]];
+    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:[records count]], @"Records", nil]];
     if (destination) [connectionUtility sendPacketToClient:packet forClient:destination inSession:session];
     else [connectionUtility sendPacketToAllClients:packet inSession:session];
     for (id data in records) {
