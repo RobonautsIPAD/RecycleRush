@@ -25,8 +25,10 @@
 #import "FieldDrawingViewController.h"
 #import "FileIOMethods.h"
 #import "LNNumberpad.h"
+#import "MatchAccessors.h"
 
 @interface MainMatchAnalysisViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 @property (nonatomic, weak) IBOutlet UIButton *prevMatch;
 @property (nonatomic, weak) IBOutlet UIButton *nextMatch;
 @property (nonatomic, weak) IBOutlet UIButton *ourPrevMatchButton;
@@ -36,8 +38,6 @@
 @property (nonatomic, strong) NSMutableArray *teamData;
 @property (weak, nonatomic) IBOutlet UIButton *redSketchButton;
 @property (weak, nonatomic) IBOutlet UIButton *blueSketchButton;
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
 @property (nonatomic, strong) UIView *teamHeader;
@@ -219,6 +219,10 @@
     }
     return NSNotFound;
 }
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
+}
 
 -(IBAction)matchNumberChanged {
     // NSLog(@"MatchNumberChanged");
@@ -348,10 +352,7 @@
         else start = nMatches-1;
     }
 }
-- (IBAction)goHome:(id)sender {
-    UINavigationController * navigationController = self.navigationController;
-    [navigationController popToRootViewControllerAnimated:YES];
-}
+
 
 - (IBAction)ourNextMatch:(id)sender {
     NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];

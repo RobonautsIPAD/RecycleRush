@@ -207,6 +207,18 @@
         [textField resignFirstResponder];
     }
     return NO; // We do not want UITextField to insert line-breaks.
+
+    NSInteger previousTag = textField.tag - 5;
+    // Try to find next responder
+    UIResponder* previousResponder = [textField.superview viewWithTag:previousTag];
+    if (previousResponder) {
+        // Found next responder, so set it.
+        [previousResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 - (IBAction)finished:(id)sender {

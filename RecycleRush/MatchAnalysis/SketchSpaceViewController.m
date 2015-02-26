@@ -7,9 +7,11 @@
 //
 
 #import "SketchSpaceViewController.h"
+#import "MatchAccessors.h"
 
 @interface SketchSpaceViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *fieldView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @end
 
@@ -22,6 +24,10 @@
         // Custom initialization
     }
     return self;
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad

@@ -35,6 +35,7 @@
     @property (nonatomic, weak) IBOutlet UITextView *notesViewField;
     @property (nonatomic, weak) IBOutlet UIImageView *imageView;
     @property (nonatomic, weak) IBOutlet UIButton *intakeType;
+@property (weak, nonatomic) IBOutlet UIButton *stackingMechButton;
     @property (nonatomic, weak) IBOutlet UITextField *maxHeight;
 @property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
     @property (nonatomic, weak) IBOutlet UITextField *wheelType;
@@ -95,6 +96,10 @@
     PopUpPickerViewController *liftTypePicker;
     UIPopoverController *liftTypePickerPopover;
     NSArray *liftTypeList;
+    
+    PopUpPickerViewController *stackingMechPicker;
+    UIPopoverController *stackingMechPickerPopover;
+    NSArray *stackingMechList;
 
     PopUpPickerViewController *quadStatePicker;
     UIPopoverController *quadStatePickerPopover;
@@ -203,6 +208,7 @@
     [self setBigButtonDefaults:_intakeType];
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
+    [self setBigButtonDefaults:_stackingMechButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
     [self setBigButtonDefaults:_teamInfoButton];
@@ -362,6 +368,7 @@
     [_intakeType setTitle:_team.toteIntake forState:UIControlStateNormal];
     [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
     [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
+    [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
 
@@ -520,6 +527,21 @@
         [liftTypePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if (PressedButton == _stackingMechButton) {
+        if (!stackingMechList) stackingMechList = [FileIOMethods initializePopUpList:@"StackingMech"];
+        if (stackingMechPicker == nil) {
+            stackingMechPicker = [[PopUpPickerViewController alloc]
+                              initWithStyle:UITableViewStylePlain];
+            stackingMechPicker.delegate = self;
+            stackingMechPicker.pickerChoices = stackingMechList;
+        }
+        if (!stackingMechPickerPopover) {
+            stackingMechPickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:stackingMechPicker];
+        }
+        [stackingMechPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 -(void)pickerSelected:(NSString *)newPick {
@@ -537,6 +559,10 @@
     else if (popUp == _liftTypeButton) {
         [liftTypePickerPopover dismissPopoverAnimated:YES];
         _team.liftType = newPick;
+    }
+    else if (popUp == _stackingMechButton) {
+        [stackingMechPickerPopover dismissPopoverAnimated:YES];
+        _team.stackMechanism = newPick;
     }
     else if (popUp == _canIntakeButton) {
         [canIntakePickerPopover dismissPopoverAnimated:YES];

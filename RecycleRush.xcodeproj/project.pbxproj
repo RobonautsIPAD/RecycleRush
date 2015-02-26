@@ -161,6 +161,11 @@
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
 		2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */; };
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
+		2FB6B0E71A9D49C700ADDBCE /* L.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0E31A9D49C700ADDBCE /* L.png */; };
+		2FB6B0E81A9D49C700ADDBCE /* C.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0E41A9D49C700ADDBCE /* C.png */; };
+		2FB6B0E91A9D49C700ADDBCE /* Next.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0E51A9D49C700ADDBCE /* Next.png */; };
+		2FB6B0EA1A9D49C700ADDBCE /* Prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0E61A9D49C700ADDBCE /* Prev.png */; };
+		2FB6B0EC1A9D67E600ADDBCE /* StackingMech.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */; };
 		2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */; };
 		2FC123271A830B240029F086 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC123261A830B240029F086 /* PitScoutingDataSheet.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
@@ -461,6 +466,11 @@
 		2FA1CDFC1964B24900E5B040 /* DataConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DataConvenienceMethods.h; path = Common/DataUtilities/DataConvenienceMethods.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DataConvenienceMethods.m; path = Common/DataUtilities/DataConvenienceMethods.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB358291A731C74005625AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RecycleRush/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		2FB6B0E31A9D49C700ADDBCE /* L.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = L.png; sourceTree = SOURCE_ROOT; };
+		2FB6B0E41A9D49C700ADDBCE /* C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = C.png; sourceTree = SOURCE_ROOT; };
+		2FB6B0E51A9D49C700ADDBCE /* Next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Next.png; sourceTree = SOURCE_ROOT; };
+		2FB6B0E61A9D49C700ADDBCE /* Prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Prev.png; sourceTree = SOURCE_ROOT; };
+		2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = StackingMech.plist; path = "RecycleRush/Resources/Property Lists/StackingMech.plist"; sourceTree = SOURCE_ROOT; };
 		2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RobonautsLogo.jpg; path = "RecycleRush/Resources/Logos and Banners/RobonautsLogo.jpg"; sourceTree = SOURCE_ROOT; };
 		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC123261A830B240029F086 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
@@ -768,6 +778,7 @@
 		2F312BC01A7D6D13002EF938 /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
+				2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */,
 				2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */,
 				2FDFE5181A7E88B7002FEAD0 /* TeamData.plist */,
 				2FDFE5191A7E88B7002FEAD0 /* TournamentData.plist */,
@@ -878,6 +889,10 @@
 		2F5270DC1A92B48900C325CE /* Number Pad */ = {
 			isa = PBXGroup;
 			children = (
+				2FB6B0E31A9D49C700ADDBCE /* L.png */,
+				2FB6B0E41A9D49C700ADDBCE /* C.png */,
+				2FB6B0E51A9D49C700ADDBCE /* Next.png */,
+				2FB6B0E61A9D49C700ADDBCE /* Prev.png */,
 				2F33161E1A93BB6D005B7798 /* Slide1.JPG */,
 				2F33161F1A93BB6D005B7798 /* Slide2.JPG */,
 				2F3316201A93BB6D005B7798 /* Slide3.JPG */,
@@ -1224,6 +1239,11 @@
 				2F3316341A93BB6D005B7798 /* Slide8.JPG in Resources */,
 				2F4ECAFD1A97B6150086F462 /* RecycleRush.sqlite in Resources */,
 				2F8F205A1A995F0100679ED6 /* 2013_logo~ipad.png in Resources */,
+				2FB6B0E71A9D49C700ADDBCE /* L.png in Resources */,
+				2FB6B0E81A9D49C700ADDBCE /* C.png in Resources */,
+				2FB6B0E91A9D49C700ADDBCE /* Next.png in Resources */,
+				2FB6B0EA1A9D49C700ADDBCE /* Prev.png in Resources */,
+				2FB6B0EC1A9D67E600ADDBCE /* StackingMech.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

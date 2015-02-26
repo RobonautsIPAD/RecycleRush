@@ -33,6 +33,8 @@
 @interface LNNumberpad ()
 @property (weak, nonatomic) IBOutlet UIButton *canButton;
 @property (weak, nonatomic) IBOutlet UIButton *litterButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIButton *previousButton;
 @property (nonatomic, weak) UIResponder <UITextInput> *targetTextInput;
 @end
 
@@ -92,6 +94,14 @@
                                              selector:@selector(editingDidEnd:)
                                                  name:UITextViewTextDidEndEditingNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editingDidEnd:)
+                                                 name:UITextFieldTextDidEndEditingNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editingDidEnd:)
+                                                 name:UITextViewTextDidEndEditingNotification
+                                               object:nil];
 }
 
 - (void)dealloc {
@@ -100,6 +110,12 @@
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UITextViewTextDidBeginEditingNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidEndEditingNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextViewTextDidEndEditingNotification
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UITextFieldTextDidEndEditingNotification
@@ -128,6 +144,20 @@
                 [_litterButton setHidden:TRUE];
             }
             return;
+            
+            if ([notification.object conformsToProtocol:@protocol(UITextInput)]) {
+                self.targetTextInput = notification.object;
+                UITextField *test = (UITextField *)self.targetTextInput;
+                if (test.tag%0) {
+                    [_nextButton setHidden:FALSE];
+                    [_previousButton setHidden:FALSE];
+                }
+                else {
+                    [_nextButton setHidden:TRUE];
+                    [_previousButton setHidden:TRUE];
+                }
+                return;
+            }
         }
     }
     
@@ -189,7 +219,7 @@
 }
 
 // The done button was just pressed on the number pad
-- (IBAction)numberpadDonePressed:(UIButton *)sender {
+- (IBAction)numberpadNextPressed:(UIButton *)sender {
         if (self.targetTextInput) {
             UITextField *test = (UITextField *)self.targetTextInput;
             if (test.tag) {
@@ -209,6 +239,30 @@
             }
         }
 }
+- (IBAction)numberpadPrevPressed:(id)sender {
+    if (self.targetTextInput) {
+        UITextField *test = (UITextField *)self.targetTextInput;
+        if (test.tag) {
+            NSInteger previousTag = test.tag - 5;
+            // Try to find next responder
+            UIResponder* previousResponder = [test.superview viewWithTag:previousTag];
+            if (previousResponder) {
+                // Found next responder, so set it.
+                [previousResponder becomeFirstResponder];
+            } else {
+                // Not found, so remove keyboard.
+                [self.targetTextInput resignFirstResponder];
+            }
+        }
+        else {
+            [self.targetTextInput resignFirstResponder];
+        }
+    }
+}
+- (IBAction)numberpadDonePressed:(id)sender {
+    [self.targetTextInput resignFirstResponder];
+}
+
 
 #pragma mark - text replacement routines
 
@@ -262,5 +316,4 @@
         }
     }
 }
-
-@end
+    @end

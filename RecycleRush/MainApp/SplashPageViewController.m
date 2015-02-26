@@ -76,6 +76,10 @@
     [_tournamentAnalysisButton setTitle:@"analysis" forState:UIControlStateNormal];
     _tournamentAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     [super viewDidLoad];
+    
+    NSLog(@"To-Do Reminders");
+    NSLog(@"Add Stacking Mech to Pit List View, Replace Blacklist/WowList");
+    NSLog(@"Finish Graphs for Anaylsis Page, If Possiable");
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

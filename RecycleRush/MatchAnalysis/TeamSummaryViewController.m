@@ -14,6 +14,7 @@
 #import "TeamScore.h"
 #import "ScoreAccessors.h"
 #import "MatchPhotoCollectionViewController.h"
+#import "MatchAccessors.h"
 
 @interface TeamSummaryViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *matchNumberField;
 @property (weak, nonatomic) IBOutlet UIButton *matchPhotoButton;
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @end
 
@@ -106,6 +108,10 @@
     _teamNameField.text = currentTeam.name;
     _matchNumberField.text = [NSString stringWithFormat:@"%@", _matchNumber];
     matchList = [ScoreAccessors getMatchListForTeam:currentTeam.number forTournament:tournamentName fromDataManager:_dataManager];
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(IBAction)teamSelectionChanged:(id)sender {
