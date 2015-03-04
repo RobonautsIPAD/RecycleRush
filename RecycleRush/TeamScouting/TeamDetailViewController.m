@@ -105,10 +105,6 @@
     UIPopoverController *quadStatePickerPopover;
     NSArray *quadStateList;
 
-    PopUpPickerViewController *intakePicker;
-    UIPopoverController *intakePickerPopover;
-    NSArray *intakeList;
-
     PopUpPickerViewController *driveTypePicker;
     UIPopoverController *drivePickerPopover;
     NSArray *driveTypeList;
@@ -377,7 +373,7 @@
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
 
-    //[self getPhoto];
+    [self getPhoto];
     photoList = [self getPhotoList:_team.number];
     [_photoCollectionView reloadData];
     dataChange = NO;
@@ -459,18 +455,18 @@
     
     if (PressedButton == _intakeType) {
         if (!toteIntakeList) toteIntakeList = [FileIOMethods initializePopUpList:@"ToteIntakeType"];
-        if (intakePicker == nil) {
-            intakePicker = [[PopUpPickerViewController alloc]
+        if (toteIntakePicker == nil) {
+            toteIntakePicker = [[PopUpPickerViewController alloc]
                                initWithStyle:UITableViewStylePlain];
-            intakePicker.delegate = self;
-            intakePicker.pickerChoices = toteIntakeList;
+            toteIntakePicker.delegate = self;
+            toteIntakePicker.pickerChoices = toteIntakeList;
         }
-        if (!intakePickerPopover) {
+        if (!toteIntakePickerPopover) {
 
-            intakePickerPopover = [[UIPopoverController alloc]
-                                      initWithContentViewController:intakePicker];
+            toteIntakePickerPopover = [[UIPopoverController alloc]
+                                      initWithContentViewController:toteIntakePicker];
         }
-        [intakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+        [toteIntakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }    else if (PressedButton == _driveType) {
         if (!driveTypeList) driveTypeList = [FileIOMethods initializePopUpList:@"DriveType"];

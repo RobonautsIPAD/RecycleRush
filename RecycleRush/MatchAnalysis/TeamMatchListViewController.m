@@ -175,7 +175,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     NSLog(@"End edit");
-  //  [self createMatchList:textField.text];
+    [self createMatchList:textField.text];
     [_matchesTable reloadData];
     return YES;
 }

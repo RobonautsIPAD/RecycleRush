@@ -143,21 +143,15 @@
                 [_canButton setHidden:TRUE];
                 [_litterButton setHidden:TRUE];
             }
-            return;
-            
-            if ([notification.object conformsToProtocol:@protocol(UITextInput)]) {
-                self.targetTextInput = notification.object;
-                UITextField *test = (UITextField *)self.targetTextInput;
-                if (test.tag%0) {
-                    [_nextButton setHidden:FALSE];
-                    [_previousButton setHidden:FALSE];
-                }
-                else {
-                    [_nextButton setHidden:TRUE];
-                    [_previousButton setHidden:TRUE];
-                }
-                return;
+            if (test.tag) {
+                [_nextButton setHidden:FALSE];
+                [_previousButton setHidden:FALSE];
             }
+            else {
+                [_nextButton setHidden:TRUE];
+                [_previousButton setHidden:TRUE];
+            }
+            return;
         }
     }
     

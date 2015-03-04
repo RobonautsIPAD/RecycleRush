@@ -271,6 +271,7 @@
             [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             peerID = _connectionUtility.matchMakingClient.session.peerID;
             displayID = [_connectionUtility.matchMakingClient displayNameForPeerID:peerID];
+            [self buildClientList];
             break;
 
         default:
@@ -311,28 +312,32 @@
 }
 
 -(void)buildClientList {
-    if (connectedClients) {
-        peerList = [[NSMutableDictionary alloc] init];
-        for (int i=0; i<connectedClients; i++) {
-            NSString *peer = [_connectionUtility.matchMakingServer peerIDForConnectedClientAtIndex:i];
-            [peerList setObject:peer forKey:[_connectionUtility.matchMakingServer displayNameForPeerID:peer]];
+    if (bluetoothRole == Master) {
+        if (connectedClients) {
+            peerList = [[NSMutableDictionary alloc] init];
+            for (int i=0; i<connectedClients; i++) {
+                NSString *peer = [_connectionUtility.matchMakingServer peerIDForConnectedClientAtIndex:i];
+                [peerList setObject:peer forKey:[_connectionUtility.matchMakingServer displayNameForPeerID:peer]];
+            }
+            clientList = [[peerList allKeys] mutableCopy];
+            if (connectedClients > 1) {
+                [clientList sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                [clientList addObject:@"Send All"];
+            }
+            [_sendButton setHidden:FALSE];
+            [_quickRequestButton setHidden:FALSE];
+            [_connectedDeviceButton setHidden:FALSE];
+            [_connectedDeviceButton setTitle:@"Send All" forState:UIControlStateNormal];
         }
-        clientList = [[peerList allKeys] mutableCopy];
-        if (connectedClients > 1) {
-            [clientList sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-            [clientList addObject:@"Send All"];
+        else {
+            clientList = [[NSMutableArray alloc] initWithObjects:@"No Clients", nil];
+            [_sendButton setHidden:TRUE];
+            [_quickRequestButton setHidden:TRUE];
+            [_connectedDeviceButton setHidden:TRUE];
         }
-        [_sendButton setHidden:FALSE];
-        [_quickRequestButton setHidden:FALSE];
-        [_connectedDeviceButton setHidden:FALSE];
-        [_connectedDeviceButton setTitle:@"Send All" forState:UIControlStateNormal];
-
     }
     else {
-        clientList = [[NSMutableArray alloc] initWithObjects:@"No Clients", nil];
-        [_sendButton setHidden:TRUE];
-        [_quickRequestButton setHidden:TRUE];
-        [_connectedDeviceButton setHidden:TRUE];
+        [_sendButton setHidden:FALSE];
     }
 }
 
@@ -444,9 +449,14 @@
 
 - (IBAction)sendThroughBluetooth:(id)sender {
     NSString *receiver = nil;
-    if (![_connectedDeviceButton.titleLabel.text isEqualToString:@"Send All"]) {
-        NSString *destination = _connectedDeviceButton.titleLabel.text;
-        receiver = [peerList objectForKey:destination];
+    if (bluetoothRole == Master) {
+        if (![_connectedDeviceButton.titleLabel.text isEqualToString:@"Send All"]) {
+            NSString *destination = _connectedDeviceButton.titleLabel.text;
+            receiver = [peerList objectForKey:destination];
+        }
+    }
+    else {
+        receiver = serverID;
     }
     [dataSyncPackage bluetoothDataTranfer:filteredSendList toPeers:receiver forConnection:_connectionUtility inSession:session];
 }

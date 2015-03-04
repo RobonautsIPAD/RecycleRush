@@ -217,7 +217,7 @@
         NSArray *keys = [team allKeys];
         if (keys && [keys count]) {
             NSString *key = [keys objectAtIndex:0];
-            NSLog(@"add match messaging");
+            //NSLog(@"add match messaging");
             if (![scoreRecords addTeamScoreToMatch:match forAlliance:key forTeam:[team objectForKey:key] error:error]) {
                 
             }
@@ -252,16 +252,19 @@
             }
         }
     }
-    
     NSDictionary *teamList = [MatchAccessors buildTeamList:match forAllianceDictionary:allianceDictionary];
+    //NSLog(@"teams %@", teamList);
     if (teamList) {
+        NSArray *allKeys = [teamList allKeys];
+        NSMutableArray *list = [[NSMutableArray alloc] init];
+        for (NSString *key in allKeys) {
+            NSDictionary *teamDictionary = [self teamDictionary:key forTeam:[NSString stringWithFormat:@"%@", [teamList objectForKey:key]]];
+            if (teamDictionary) [list addObject:teamDictionary];
+        }
         [keyList addObject:@"teams"];
-        [valueList addObject:teamList];
+        [valueList addObject:list];
     }
-    
     NSDictionary *packagedMatch = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
-    NSLog(@"%@", packagedMatch);
-    NSLog(@"packaging %@", packagedMatch);
     return packagedMatch;
 }
 
@@ -301,7 +304,7 @@
         }
     }
     NSDictionary *teams = [xferDictionary objectForKey:@"teams"];
-    NSLog(@"%@", teams);
+    //NSLog(@"%@", teams);
     MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName error:&error];
     if (!match) {
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];

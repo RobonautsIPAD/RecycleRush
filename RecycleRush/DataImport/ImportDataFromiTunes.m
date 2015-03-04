@@ -90,7 +90,7 @@
 }
 
 -(NSMutableArray *)unserializeAndLoad:(NSString *)importFile error:(NSError **)error {
-    NSLog(@"unserialize");
+    //NSLog(@"unserialize");
     NSMutableArray *receivedData = [[NSMutableArray alloc] init];
     NSString *transferPath = [alreadyImportedPath stringByAppendingPathComponent:@"Unpack"];
     if (![fileManager createDirectoryAtPath:transferPath withIntermediateDirectories:YES attributes:nil error:error]) {
@@ -151,7 +151,7 @@
         TeamUtilities *teamDataPackage = [[TeamUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-                NSLog(@"file = %@", file);
+                //NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
                 NSData *importData = [NSData dataWithContentsOfFile:fullPath];
                 NSDictionary *importDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
@@ -164,7 +164,7 @@
         MatchUtilities *matchUtilitiesPackage = [[MatchUtilities alloc] init:_dataManager];
         for (NSString *file in files) {
             if ([file.pathExtension compare:@"pck" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-                NSLog(@"file = %@", file);
+                //NSLog(@"file = %@", file);
                 NSString *fullPath = [transferPath stringByAppendingPathComponent:file];
                 NSData *importData = [NSData dataWithContentsOfFile:fullPath];
                 NSDictionary *importDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:importData];

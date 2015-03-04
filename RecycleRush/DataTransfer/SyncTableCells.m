@@ -35,8 +35,6 @@
 
 -(UITableViewCell *)configureCell:(UITableView *)tableView forTableData:tableData atIndexPath:(NSIndexPath *)indexPath {
    // cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
-    NSLog(@"%@", tableData);
-    NSLog(@"%@", [tableData class]);
     NSString *dataType = NSStringFromClass([tableData class]);
     UITableViewCell *cell;
     if ([dataType isEqualToString:@"TeamScore"]) {

@@ -138,15 +138,15 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>noodler</string>
+		<string>stackMechanism</string>
 		<key>input</key>
-		<string>Noodler</string>
+		<string>Stacking, Stacker</string>
 		<key>output</key>
-		<string>Noodler</string>
+		<string>Stacking Mechanism</string>
 		<key>lucien</key>
-		<string>Noodler</string>
+		<string>Stacking Mech</string>
 		<key>dictionary</key>
-		<string>triStateDictionary</string>
+		<string>stackingMechDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>

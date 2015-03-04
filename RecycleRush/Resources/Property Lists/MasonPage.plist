@@ -48,7 +48,7 @@
 		<key>key</key>
 		<string>cansScored</string>
 		<key>header</key>
-		<string>Cans Scored</string>
+		<string>Totes Stacked</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>

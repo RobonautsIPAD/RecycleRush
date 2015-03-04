@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/19/15.
+//  Created by FRC on 2/26/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -91,6 +91,13 @@
 @dynamic toteStepTop;
 @dynamic tournamentName;
 @dynamic wowList;
+@dynamic coopSetNumerator;
+@dynamic coopStackNumerator;
+@dynamic coopSetDenominator;
+@dynamic coopStackDenominator;
+@dynamic autonCansScored;
+@dynamic autonTotesStacked;
+@dynamic autonTotesSet;
 @dynamic autonDrawing;
 @dynamic field;
 @dynamic match;

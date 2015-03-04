@@ -8,29 +8,20 @@
 
 #import "StackViewController.h"
 #import <QuartzCore/CALayer.h>
+#import "DataManager.h"
 #import "TeamScore.h"
+#import "FieldPhoto.h"
 #import "LNNumberpad.h"
 
 @interface StackViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *finishedButton;
 @property (weak, nonatomic) IBOutlet UIImageView *fieldView;
-@property (weak, nonatomic) IBOutlet UIView *stack1View;
-@property (weak, nonatomic) IBOutlet UIView *stack2View;
-@property (weak, nonatomic) IBOutlet UIView *stack3View;
-@property (weak, nonatomic) IBOutlet UIView *stack4View;
-@property (weak, nonatomic) IBOutlet UIView *stack5View;
-@property (weak, nonatomic) IBOutlet UIView *stack6View;
-@property (weak, nonatomic) IBOutlet UIView *stack7View;
-@property (weak, nonatomic) IBOutlet UIView *stack8View;
-@property (weak, nonatomic) IBOutlet UIView *stack9View;
-@property (weak, nonatomic) IBOutlet UIView *stack10View;
-@property (weak, nonatomic) IBOutlet UIView *stack11View;
-@property (weak, nonatomic) IBOutlet UIView *stack12View;
-
 @end
 
 @implementation StackViewController {
     UIView *savedView;
+    NSMutableArray *stackList;
+    NSMutableDictionary *stackDictionary;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,120 +36,75 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    stackList = [[NSMutableArray alloc] init];
+    if (_currentScore.field.stacks) {
+        stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:_currentScore.field.stacks];
+        NSLog(@"%@", stackDictionary);
+    }
+    else {
+        stackDictionary = [[NSMutableDictionary alloc] init];
+    }
+    
+    UIView *newStack;
     if ([[_allianceString substringToIndex:1] isEqualToString:@"R"]) {
         [_fieldView setImage:[UIImage imageNamed:@"Red 2015 New.png"]];
         CGFloat xLeft = 150;
         CGFloat xRight = 500;
-        CGFloat yTop = 50;
-        CGFloat yBottom = 230;
+        CGFloat yTop = 30;
+        CGFloat yBottom = 210;
         CGFloat yInterval = 75;
-        CGRect rect = CGRectMake(xLeft,yBottom,265,65);
-        if (_savedData) {
+        CGRect rect;
+        //       [self initializeStack:newStack forNumber:0];
+ //       [stackList addObject:newStack];
+/*        if (_savedData) {
             savedView = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:_savedData];
             [self.view addSubview:savedView];
         }
         else {
             _stack1View.frame = rect;
             [self initializeStack:_stack1View forNumber:0];
+        }*/
+        // Left Column
+        for (int i=0; i<6; i++) {
+            rect = CGRectMake(xLeft,yBottom+yInterval*i,265,65);
+            newStack = [[UIView alloc] initWithFrame:rect];
+            newStack.frame = rect;
+            [self initializeStack:newStack forNumber:i];
+            [stackList addObject:newStack];
         }
-        rect = CGRectMake(xLeft,yBottom+yInterval,265,65);
-        _stack2View.frame = rect;
-        [self initializeStack:_stack2View forNumber:1];
-
-        rect = CGRectMake(xLeft,yBottom+yInterval*2,265,65);
-        _stack3View.frame = rect;
-        [self initializeStack:_stack3View forNumber:2];
-
-        rect = CGRectMake(xLeft,yBottom+yInterval*3,265,65);
-        _stack4View.frame = rect;
-        [self initializeStack:_stack4View forNumber:3];
-
-        rect = CGRectMake(xLeft,yBottom+yInterval*4,265,65);
-        _stack5View.frame = rect;
-        [self initializeStack:_stack5View forNumber:4];
-
-        rect = CGRectMake(xLeft,yBottom+yInterval*5,265,65);
-        _stack6View.frame = rect;
-        [self initializeStack:_stack6View forNumber:5];
-
-        rect = CGRectMake(xRight,yTop,265,65);
-        _stack7View.frame = rect;
-        [self initializeStack:_stack7View forNumber:6];
-
-        rect = CGRectMake(xRight,yTop+yInterval,265,65);
-        _stack8View.frame = rect;
-        [self initializeStack:_stack8View forNumber:7];
-
-        rect = CGRectMake(xRight,yTop+yInterval*2,265,65);
-        _stack9View.frame = rect;
-        [self initializeStack:_stack9View forNumber:8];
-
-        rect = CGRectMake(xRight,yTop+yInterval*3,265,65);
-        _stack10View.frame = rect;
-        [self initializeStack:_stack10View forNumber:9];
-
-        rect = CGRectMake(xRight,yTop+yInterval*4,265,65);
-        _stack11View.frame = rect;
-        [self initializeStack:_stack11View forNumber:10];
-
-        rect = CGRectMake(xRight,yTop+yInterval*5,265,65);
-        _stack12View.frame = rect;
-        [self initializeStack:_stack12View forNumber:11];
+        // Right Column
+        for (int i=0; i<6; i++) {
+            rect = CGRectMake(xRight,yTop+yInterval*i,265,65);
+            newStack = [[UIView alloc] initWithFrame:rect];
+            newStack.frame = rect;
+            [self initializeStack:newStack forNumber:i];
+            [stackList addObject:newStack];
+        }
     }
     else {
         [_fieldView setImage:[UIImage imageNamed:@"Blue 2015 New.png"]];
-        CGFloat xLeft = 185;
-        CGFloat xRight = 500;
-        CGFloat yTop = 40;
-        CGFloat yBottom = 230;
+        CGFloat xLeft = 155;
+        CGFloat xRight = 445;
+        CGFloat yTop = 210;
+        CGFloat yBottom = 30;
         CGFloat yInterval = 75;
-        CGRect rect = CGRectMake(xLeft,yTop,265,65);
-        _stack1View.frame = rect;
-        [self initializeStack:_stack1View forNumber:0];
-
-        rect = CGRectMake(xLeft,yTop+yInterval,265,65);
-        _stack2View.frame = rect;
-        [self initializeStack:_stack2View forNumber:1];
-        
-        rect = CGRectMake(xLeft,yTop+yInterval*2,265,65);
-        _stack3View.frame = rect;
-        [self initializeStack:_stack3View forNumber:2];
-        
-        rect = CGRectMake(xLeft,yTop+yInterval*3,265,65);
-        _stack4View.frame = rect;
-        [self initializeStack:_stack4View forNumber:3];
-        
-        rect = CGRectMake(xLeft,yTop+yInterval*4,265,65);
-        _stack5View.frame = rect;
-        [self initializeStack:_stack5View forNumber:4];
-        
-        rect = CGRectMake(xLeft,yTop+yInterval*5,265,65);
-        _stack6View.frame = rect;
-        [self initializeStack:_stack6View forNumber:5];
-        
-        rect = CGRectMake(xRight,yBottom,265,65);
-        _stack7View.frame = rect;
-        [self initializeStack:_stack7View forNumber:6];
-        
-        rect = CGRectMake(xRight,yBottom+yInterval,265,65);
-        _stack8View.frame = rect;
-        [self initializeStack:_stack8View forNumber:7];
-        
-        rect = CGRectMake(xRight,yBottom+yInterval*2,265,65);
-        _stack9View.frame = rect;
-        [self initializeStack:_stack9View forNumber:8];
-        
-        rect = CGRectMake(xRight,yBottom+yInterval*3,265,65);
-        _stack10View.frame = rect;
-        [self initializeStack:_stack10View forNumber:9];
-        
-        rect = CGRectMake(xRight,yBottom+yInterval*4,265,65);
-        _stack11View.frame = rect;
-        [self initializeStack:_stack11View forNumber:10];
-        
-        rect = CGRectMake(xRight,yBottom+yInterval*5,265,65);
-        _stack12View.frame = rect;
-        [self initializeStack:_stack12View forNumber:11];
+        CGRect rect;
+        // Left Column
+        for (int i=0; i<6; i++) {
+            rect = CGRectMake(xLeft,yTop+yInterval*i,265,65);
+            newStack = [[UIView alloc] initWithFrame:rect];
+            newStack.frame = rect;
+            [self initializeStack:newStack forNumber:i];
+            [stackList addObject:newStack];
+        }
+        // Right Column
+        for (int i=0; i<6; i++) {
+            rect = CGRectMake(xRight,yBottom+yInterval*i,265,65);
+            newStack = [[UIView alloc] initWithFrame:rect];
+            newStack.frame = rect;
+            [self initializeStack:newStack forNumber:i];
+            [stackList addObject:newStack];
+        }
     }
 }
 
@@ -167,6 +113,7 @@
 
     stack.layer.borderColor = [UIColor colorWithRed:(34.0/255) green:(139.0/255) blue:(34.0/255) alpha:1.0].CGColor;
     stack.layer.borderWidth = 3.0f;
+    stack.tag = stackNumber;
     UITextField *textField;
     CGFloat height = 20;
     CGFloat width = 45;
@@ -180,13 +127,13 @@
         location.x = basePoint.x + (i/2)*widthSpace;
         location.y = basePoint.y + (i%2)*heightSpace;
         textField = [[UITextField alloc] initWithFrame:CGRectMake(location.x, location.y, width, height)];
-        [self something:textField withTag:(tag+stackNumber*40)];
+        [self textAttributes:textField withTag:(tag+stackNumber*40)];
         [stack addSubview:textField];
     }
-
+    [self.view addSubview:stack];
 }
 
--(void)something:(UITextField *)field withTag:(NSUInteger)newTag {
+-(void)textAttributes:(UITextField *)field withTag:(NSUInteger)newTag {
     field.borderStyle = UITextBorderStyleRoundedRect;
     field.font = [UIFont systemFontOfSize:15];
    
@@ -219,19 +166,12 @@
             }
         }
     }
-    return NO; // We do not want UITextField to insert line-breaks.
-
-    NSInteger previousTag = textField.tag - 5;
-    // Try to find next responder
-    UIResponder* previousResponder = [textField.superview viewWithTag:previousTag];
-    if (previousResponder) {
-        // Found next responder, so set it.
-        [previousResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-    }
-    return NO; // We do not want UITextField to insert line-breaks.
+    NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInt:numeratorTotal], @"totes",
+                             [NSNumber numberWithInt:canTotal], @"cans",
+                             [NSNumber numberWithInt:litterTotal], @"litter",
+                             nil];
+    return results;
 }
 
 -(NSString *)returnSet:(NSString *)inputString forSet:(NSCharacterSet *)correctSet {
@@ -243,15 +183,83 @@
     return outputString;
  }
 
+-(NSMutableDictionary *)saveStacks:(UIView *)currentStack {
+    NSMutableDictionary *currentDictionary = [[NSMutableDictionary alloc]init];
+    for (UITextField *field in [currentStack subviews]) {
+        if (field.text) {
+            [currentDictionary setObject:field.text forKey:[NSNumber numberWithInt:field.tag]];
+        }
+    }
+    return currentDictionary;
+}
+
 - (IBAction)finished:(id)sender {
-    NSDictionary *stack1Results = [self calculateStackTotals:_stack1View forNumber:0];
+    NSMutableDictionary *stack = [self saveStacks:[stackList objectAtIndex:0]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:0]];
+    stack = [self saveStacks:[stackList objectAtIndex:1]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:1]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:2]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:2]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:3]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:3]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:4]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:4]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:5]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:5]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:6]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:6]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:7]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:7]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:8]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:8]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:9]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:9]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:10]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:10]];
+
+    stack = [self saveStacks:[stackList objectAtIndex:11]];
+    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:11]];
+    
+    NSLog(@"%@", stackDictionary);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stackDictionary];
+    if (!_currentScore.field) {
+        FieldPhoto *photo = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
+                                                          inManagedObjectContext:_dataManager.managedObjectContext];    _currentScore.field.stacks = data;
+        _currentScore.field = photo;
+    }
+    _currentScore.field.stacks = data;
+    if (![_dataManager saveContext]) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
+                                                          message:@"Unable to save data"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
+/*    NSDictionary *stack1Results = [self calculateStackTotals:_stack1View forNumber:0];
     NSLog(@"%@", stack1Results);
     _currentScore.litterInCan = [stack1Results objectForKey:@"litter"];
     _currentScore.totalCansScored = [stack1Results objectForKey:@"cans"];
     _currentScore.totalTotesScored = [stack1Results objectForKey:@"totes"];
-    NSData *dataFields = [NSKeyedArchiver archivedDataWithRootObject:_stack1View];
+    NSData *dataFields = [NSKeyedArchiver archivedDataWithRootObject:_stack1View];*/
 
-    [_delegate scoringViewFinished:dataFields];
+ //   [_delegate scoringViewFinished:dataFields];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 

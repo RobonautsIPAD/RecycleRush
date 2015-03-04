@@ -40,7 +40,7 @@
 }
 
 + (NSArray *)parseMatchResultList:(NSString *) year eventCode:(NSString *) event matchType:(NSString *) type {
-    return [self parsePageTable:[NSString stringWithFormat:@"http://www2.usfirst.org/%@comp/events/%@/schedule%@.html", year, event, type] tableIndex: 2 initialRow: 2];
+    return [self parsePageTable:[NSString stringWithFormat:@"http://frc-events.usfirst.org/%@/%@/%@", year, event, type] tableIndex: 2 initialRow: 2];
 }
 
 + (NSArray *)parsePageTable:(NSString *) url tableIndex:(int)table initialRow:(int)begin {

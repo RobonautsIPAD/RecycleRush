@@ -49,7 +49,6 @@
 		2F33163A1A93BB6D005B7798 /* Slide14.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 2F33162B1A93BB6D005B7798 /* Slide14.JPG */; };
 		2F33163B1A93BB6D005B7798 /* Slide15.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 2F33162C1A93BB6D005B7798 /* Slide15.JPG */; };
 		2F33DCE91A86A9CC00331B12 /* FieldDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */; };
-		2F33DCEC1A86A9DE00331B12 /* FieldPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCEB1A86A9DE00331B12 /* FieldPhoto.m */; };
 		2F33DCF21A86EA1700331B12 /* TeamMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */; };
 		2F33DCF51A86F64B00331B12 /* TeamSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F33DCF41A86F64B00331B12 /* TeamSummaryViewController.m */; };
 		2F369C9F1A7C8F3100CAD6C0 /* Iphoneteamlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F369C9A1A7C8F3100CAD6C0 /* Iphoneteamlist.m */; };
@@ -63,6 +62,8 @@
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
 		2F5247DD1963B2C900468E4F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247DC1963B2C900468E4F /* DataManager.m */; };
 		2F5247EA1963BC4700468E4F /* TournamentUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5247E91963BC4700468E4F /* TournamentUtilities.m */; };
+		2F533E001A9F6F5F00CD5F09 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F533DFF1A9F6F5F00CD5F09 /* TeamScore.m */; };
+		2F533E031A9F6F7600CD5F09 /* FieldPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */; };
 		2F56B56A17052B900093A976 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56917052B900093A976 /* CoreLocation.framework */; };
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
@@ -201,9 +202,9 @@
 		2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */; };
 		2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */; };
 		2FDFE5361A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */; };
-		2FE4054F1A96C3DA007404CE /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE4054E1A96C3DA007404CE /* TeamScore.m */; };
 		2FE405521A96C3ED007404CE /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405511A96C3ED007404CE /* TeamData.m */; };
 		2FE405571A96D33A007404CE /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405561A96D33A007404CE /* StackViewController.m */; };
+		2FED07B41A9F81E400FF26D3 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */; };
 		2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF00D6D1A7AA384003B63DF /* Red 2015.png */; };
 		2FF58B731A7C5CC300BA280A /* Match Scouting Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */; };
 		2FF623161A7EEAB600145547 /* Blue 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF623151A7EEAB600145547 /* Blue 2015.png */; };
@@ -274,8 +275,6 @@
 		2F33162C1A93BB6D005B7798 /* Slide15.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Slide15.JPG; path = RecycleRush/Resources/NumberPad/Slide15.JPG; sourceTree = SOURCE_ROOT; };
 		2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldDrawing.h; sourceTree = "<group>"; };
 		2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldDrawing.m; sourceTree = "<group>"; };
-		2F33DCEA1A86A9DE00331B12 /* FieldPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldPhoto.h; sourceTree = "<group>"; };
-		2F33DCEB1A86A9DE00331B12 /* FieldPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldPhoto.m; sourceTree = "<group>"; };
 		2F33DCF01A86EA1700331B12 /* TeamMatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamMatchListViewController.h; path = RecycleRush/MatchAnalysis/TeamMatchListViewController.h; sourceTree = SOURCE_ROOT; };
 		2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamMatchListViewController.m; path = RecycleRush/MatchAnalysis/TeamMatchListViewController.m; sourceTree = SOURCE_ROOT; };
 		2F33DCF31A86F64B00331B12 /* TeamSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamSummaryViewController.h; path = RecycleRush/MatchAnalysis/TeamSummaryViewController.h; sourceTree = SOURCE_ROOT; };
@@ -299,6 +298,10 @@
 		2F5247DC1963B2C900468E4F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Common/DataManagement/DataManager.m; sourceTree = SOURCE_ROOT; };
 		2F5247E81963BC4700468E4F /* TournamentUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TournamentUtilities.h; path = Common/DataUtilities/TournamentUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F5247E91963BC4700468E4F /* TournamentUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TournamentUtilities.m; path = Common/DataUtilities/TournamentUtilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2F533DFE1A9F6F5F00CD5F09 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
+		2F533DFF1A9F6F5F00CD5F09 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
+		2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldPhoto.h; sourceTree = "<group>"; };
+		2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldPhoto.m; sourceTree = "<group>"; };
 		2F56B56917052B900093A976 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2F56B56B17052BB30093A976 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F56B56D17052BC80093A976 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -514,12 +517,11 @@
 		2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = "RecycleRush/Resources/Init Data/TeamList.csv"; sourceTree = SOURCE_ROOT; };
 		2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TournamentList.csv; path = "RecycleRush/Resources/Init Data/TournamentList.csv"; sourceTree = SOURCE_ROOT; };
 		2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Robonauts.RecycleRush.plist; path = "RecycleRush/Resources/Property Lists/Robonauts.RecycleRush.plist"; sourceTree = SOURCE_ROOT; };
-		2FE4054D1A96C3DA007404CE /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
-		2FE4054E1A96C3DA007404CE /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
 		2FE405501A96C3ED007404CE /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
 		2FE405511A96C3ED007404CE /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FE405551A96D33A007404CE /* StackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackViewController.h; path = RecycleRush/MatchScouting/StackViewController.h; sourceTree = SOURCE_ROOT; };
 		2FE405561A96D33A007404CE /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackViewController.m; path = RecycleRush/MatchScouting/StackViewController.m; sourceTree = SOURCE_ROOT; };
+		2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2FF00D6D1A7AA384003B63DF /* Red 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Red 2015.png"; path = "RecycleRush/Resources/FieldImages/Red 2015.png"; sourceTree = SOURCE_ROOT; };
 		2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Match Scouting Button.jpg"; sourceTree = SOURCE_ROOT; };
 		2FF623151A7EEAB600145547 /* Blue 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blue 2015.png"; path = "RecycleRush/Resources/FieldImages/Blue 2015.png"; sourceTree = SOURCE_ROOT; };
@@ -803,7 +805,6 @@
 		2F312BC11A7D6D24002EF938 /* Old Images */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */,
 				2F5D330D1A5FA5F700E02523 /* Blue Fade.gif */,
 				2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */,
 				2F8F204A1A995E9900679ED6 /* robonauts app banner.jpg */,
@@ -926,14 +927,14 @@
 			isa = PBXGroup;
 			children = (
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
-				2FE4054D1A96C3DA007404CE /* TeamScore.h */,
-				2FE4054E1A96C3DA007404CE /* TeamScore.m */,
+				2F533DFE1A9F6F5F00CD5F09 /* TeamScore.h */,
+				2F533DFF1A9F6F5F00CD5F09 /* TeamScore.m */,
+				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
+				2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */,
 				2FE405501A96C3ED007404CE /* TeamData.h */,
 				2FE405511A96C3ED007404CE /* TeamData.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
 				2F8816861A5FB0D4001CCA04 /* Competitions.m */,
-				2F33DCEA1A86A9DE00331B12 /* FieldPhoto.h */,
-				2F33DCEB1A86A9DE00331B12 /* FieldPhoto.m */,
 				2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */,
 				2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */,
 				2F8816891A5FB0D4001CCA04 /* MatchData.h */,
@@ -1059,6 +1060,7 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
+				2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
 			);
@@ -1187,6 +1189,7 @@
 				2FDFE50D1A7E888B002FEAD0 /* LucienNumberFields.plist in Resources */,
 				2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */,
 				2F33163A1A93BB6D005B7798 /* Slide14.JPG in Resources */,
+				2FED07B41A9F81E400FF26D3 /* RecycleRush.sqlite in Resources */,
 				2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */,
 				2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */,
 				2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */,
@@ -1284,6 +1287,7 @@
 				2F2ECAA11A5F052300D3386E /* SharedSyncController.m in Sources */,
 				2F5D32AD1A5FA3D000E02523 /* MatchDetailViewController.m in Sources */,
 				2F2E19C11A9A5EB8004EEB8F /* MatchDrawingViewController.m in Sources */,
+				2F533E031A9F6F7600CD5F09 /* FieldPhoto.m in Sources */,
 				2F5D327A1A5FA24300E02523 /* FieldDrawingViewController.m in Sources */,
 				2F2CE08E1A21277800646BB5 /* ScoreAccessors.m in Sources */,
 				2F5D32CF1A5FA4CB00E02523 /* DownloadPageViewController.m in Sources */,
@@ -1296,12 +1300,12 @@
 				2F5D32FD1A5FA51000E02523 /* PhotoCell.m in Sources */,
 				2F5D32821A5FA24300E02523 /* RidleyPageViewController.m in Sources */,
 				2F6A4CCC19EC5C8E002A0A56 /* ScoreUtilities.m in Sources */,
+				2F533E001A9F6F5F00CD5F09 /* TeamScore.m in Sources */,
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
 				2F2ECA9A1A5F052300D3386E /* ExportMatchData.m in Sources */,
 				2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */,
 				2F5D32F71A5FA51000E02523 /* EnumerationDictionary.m in Sources */,
-				2FE4054F1A96C3DA007404CE /* TeamScore.m in Sources */,
 				2F5D32AA1A5FA3D000E02523 /* AddMatchViewController.m in Sources */,
 				2F5D32F61A5FA51000E02523 /* AlertPromptViewController.m in Sources */,
 				2F5D329F1A5FA32F00E02523 /* TabletInputErrorViewController.m in Sources */,
@@ -1312,7 +1316,6 @@
 				2F369C9F1A7C8F3100CAD6C0 /* Iphoneteamlist.m in Sources */,
 				2FE405521A96C3ED007404CE /* TeamData.m in Sources */,
 				2F2ECAB21A5F059900D3386E /* AlliancesViewController.m in Sources */,
-				2F33DCEC1A86A9DE00331B12 /* FieldPhoto.m in Sources */,
 				2F5D32C91A5FA45300E02523 /* parseUSFirst.m in Sources */,
 				2F2ECAA21A5F052300D3386E /* SyncTableCells.m in Sources */,
 				2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */,

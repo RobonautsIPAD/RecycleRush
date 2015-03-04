@@ -26,6 +26,7 @@
     NSUserDefaults *prefs;
     int thisYear; // current year
     NSMutableArray *tournamentList; // list of all tournaments
+    NSString *deviceName;
     NSArray *tourData; // data of the selected tournament (code, name)
     int matchType; // selected match type
     NSMutableArray *displayData; // data to be displayed in the TableView
@@ -45,6 +46,7 @@
 	// Do any additional setup after loading the view.
     prefs = [NSUserDefaults standardUserDefaults];
     thisYear = [[prefs objectForKey:@"year"] intValue];
+    deviceName = [prefs objectForKey:@"deviceName"];
     self.tblMain.delegate = self;
     self.tblMain.dataSource = self;
     
@@ -108,7 +110,7 @@
 
 // Gets the match data and display it in the TableView
 - (IBAction)btnGet:(id)sender {
-    NSArray *data = [parseUSFirst parseMatchResultList:[NSString stringWithFormat:@"%i", thisYear] eventCode:tourData[0] matchType:(matchType == 0 ? @"qual" : @"elim")];
+    NSArray *data = [parseUSFirst parseMatchResultList:[NSString stringWithFormat:@"%i", thisYear] eventCode:tourData[0] matchType:(matchType == 0 ? @"qualifications" : @"playoffs")];
     if (data == nil) {
         displayData = nil;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -150,7 +152,9 @@
         teamList = [self buildTeamList:@"Blue 2" forTextBox:row[matchType + 6] forTeamList:teamList];
         teamList = [self buildTeamList:@"Blue 3" forTextBox:row[matchType + 7] forTeamList:teamList];
         NSError *error = nil;
-        [matchUtilities addMatch:[NSNumber numberWithInt:[row[matchType+1] intValue]] forMatchType:matchType == 0 ? @"Qualification" : @"Elimination" forTeams:teamList forTournament:tourData[1] error:&error];
+        MatchData *newMatch = [matchUtilities addMatch:[NSNumber numberWithInt:[row[matchType+1] intValue]] forMatchType:matchType == 0 ? @"Qualification" : @"Elimination" forTeams:teamList forTournament:tourData[1] error:&error];
+        newMatch.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        newMatch.savedBy = deviceName;
         [_dataManager saveContext];
     }
 }

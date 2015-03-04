@@ -279,7 +279,7 @@
     
     if ([teamRecord.saved floatValue] > [saved floatValue]) {
         NSLog(@"Team has already transferred, team = %@", teamNumber);
-        NSLog(@"Add a validation check or something");
+        //NSLog(@"Add a validation check or something");
         NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
         NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];

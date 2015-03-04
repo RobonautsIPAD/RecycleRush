@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/19/15.
+//  Created by FRC on 2/26/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -90,6 +90,13 @@
 @property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * wowList;
+@property (nonatomic, retain) NSNumber * coopSetNumerator;
+@property (nonatomic, retain) NSNumber * coopStackNumerator;
+@property (nonatomic, retain) NSNumber * coopSetDenominator;
+@property (nonatomic, retain) NSNumber * coopStackDenominator;
+@property (nonatomic, retain) NSNumber * autonCansScored;
+@property (nonatomic, retain) NSNumber * autonTotesStacked;
+@property (nonatomic, retain) NSNumber * autonTotesSet;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) FieldPhoto *field;
 @property (nonatomic, retain) MatchData *match;

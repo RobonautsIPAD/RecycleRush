@@ -63,6 +63,11 @@
         [prefs setObject:[NSNumber numberWithInt:0] forKey:@"matchResultsSync"];
     }
 
+    NSString *scoutingBundleSync = [prefs objectForKey:@"scoutingBundleSync"];
+    if (scoutingBundleSync == nil) {
+        [prefs setObject:[NSNumber numberWithInt:0] forKey:@"scoutingBundleSync"];
+    }
+
     // It is easier to just set these than check to see if they are set right and
     // set them if they are not.
     [prefs setObject:appName forKey:@"appName"];

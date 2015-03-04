@@ -13,6 +13,7 @@
     </entity>
     <entity name="FieldPhoto" representedClassName="FieldPhoto" syncable="YES">
         <attribute name="paper" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="stacks" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="teamScore" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamScore" inverseName="field" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
     <entity name="MatchData" representedClassName="MatchData" syncable="YES">
@@ -98,10 +99,13 @@
     <entity name="TeamScore" representedClassName="TeamScore" syncable="YES">
         <attribute name="allianceStation" attributeType="Integer 16" minValueString="0" maxValueString="7" syncable="YES"/>
         <attribute name="autonCanSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="autonCansScored" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonCansStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonRobotSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonTotePickUp" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonToteSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="autonTotesSet" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="autonTotesStacked" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="autonToteStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="blacklist" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="canDomination" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -116,7 +120,11 @@
         <attribute name="cansOn5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopSet" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="coopSetDenominator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coopSetNumerator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="coopStackDenominator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coopStackNumerator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -194,11 +202,11 @@
     <elements>
         <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
         <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
-        <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="73"/>
+        <element name="FieldPhoto" positionX="-639" positionY="36" width="128" height="88"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="628"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1258"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1363"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

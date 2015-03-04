@@ -23,6 +23,7 @@ typedef enum {
     SyncAll,
     SyncAllSavedHere,
     SyncAllSavedSince,
+    SyncQuickRequest,
 } SyncOptions;
 
 +(NSString *)getSyncTypeString:(SyncType)syncType;

@@ -149,7 +149,7 @@
         }
         else {
             if (enumDictionary) {
-                NSLog(@"Do something with enum %@", enumDictionary);
+               // NSLog(@"Do something with enum %@", enumDictionary);
       //          NSNumber *numericValue = [enumDictionary valueForKey:data];
       //          NSLog(@"data = %@, value = %@", data, numericValue);
                 error = TRUE;

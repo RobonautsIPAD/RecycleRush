@@ -18,9 +18,10 @@
         NSArray *keys = [NSArray arrayWithObjects:[NSNumber numberWithInt:SyncAll],
                          [NSNumber numberWithInt:SyncAllSavedHere],
                          [NSNumber numberWithInt:SyncAllSavedSince],
-                         nil];
+                         [NSNumber numberWithInt:SyncQuickRequest],
+                        nil];
         
-        objects = [NSArray arrayWithObjects:@"Sync All", @"Sync All Saved on this Device", @"Sync All Since Last Sync", nil];
+        objects = [NSArray arrayWithObjects:@"Sync All", @"Sync All Saved on this Device", @"Sync All Since Last Sync", @"Show Quick Request", nil];
         
         dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	}

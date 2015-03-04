@@ -1,4 +1,4 @@
-//
+  //
 //  DataManager.m
 // Robonauts Scouting
 //
@@ -133,7 +133,7 @@
 
     if (managedObjectContext) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            //NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             [self writeErrorMessage:error forType:kErrorMessage];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database save error"
                                                             message:@"Unable to save record"

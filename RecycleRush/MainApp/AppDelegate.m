@@ -81,7 +81,7 @@
     UIDevice *thisDevice = [UIDevice currentDevice];
     UIUserInterfaceIdiom *hardware = [thisDevice userInterfaceIdiom];
     float sysVersion = [[thisDevice systemVersion] floatValue];
-    NSLog(@"system = %f", sysVersion);
+    //NSLog(@"system = %f", sysVersion);
     // Common to all devices and iOS versions
     navigationController = (UINavigationController *)self.window.rootViewController;
     self.navigationController.navigationBar.translucent = NO;
@@ -137,7 +137,6 @@
         annotation:(id)annotation {
     NSLog(@"openURL");
     if (url != nil && [url isFileURL]) {
-        NSLog(@"data manager = %@", _dataManager);
         if (!_dataManager) {
             _dataManager = [[DataManager alloc] init];
         }

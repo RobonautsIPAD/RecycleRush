@@ -506,13 +506,13 @@
         [segue.destinationViewController setAllianceString:@"Red"];
         NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 1" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        NSLog(@"%@", teamNumber);
+        //NSLog(@"%@", teamNumber);
         teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 2" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        NSLog(@"%@", teamNumber);
+        //NSLog(@"%@", teamNumber);
         teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 3" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        NSLog(@"%@", teamNumber);
+        //NSLog(@"%@", teamNumber);
    }
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
@@ -646,13 +646,16 @@
 
     
     UILabel *label1 = (UILabel *)[cell viewWithTag:30];
-    label1.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"ToteFloor"] objectForKey:@"total"] intValue]];
+    int top = [[[stats objectForKey:@"Tote Floor Top"] objectForKey:@"average"] intValue];
+    int bottom = [[[stats objectForKey:@"Tote Floor Bottom"] objectForKey:@"average"] intValue];
+
+    label1.text = [NSString stringWithFormat:@"%d", top+bottom];
 
     UILabel *label2 = (UILabel *)[cell viewWithTag:40];
-    label2.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote HP"] objectForKey:@"total"] intValue]];
+    label2.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"HP Intake"] objectForKey:@"average"] intValue]];
 
     UILabel *label3 = (UILabel *)[cell viewWithTag:50];
-    label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Cans Scored"] objectForKey:@"total"] intValue]];
+    label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Totes Stacked"] objectForKey:@"total"] intValue]];
 
     UILabel *label4 = (UILabel *)[cell viewWithTag:60];
     label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxTote#"] objectForKey:@"total"] intValue]];
@@ -672,7 +675,7 @@
     UILabel *label9 = (UILabel *)[cell viewWithTag:110];
     label9.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Can Set"] objectForKey:@"total"] intValue]];
     
-    NSLog(@"%@", stats);
+    //NSLog(@"%@", stats);
 
 }
 

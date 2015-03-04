@@ -25,7 +25,7 @@
 
 -(id)init:(DataManager *)initManager {
 	if ((self = [super init])) {
-        NSLog(@"init export match data");
+        //NSLog(@"init export match data");
         _dataManager = initManager;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MatchData" inManagedObjectContext:_dataManager.managedObjectContext];
         matchDataAttributes = [entity attributesByName];

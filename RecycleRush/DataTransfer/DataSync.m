@@ -31,6 +31,7 @@
     NSNumber *teamDataSync;
     NSNumber *matchScheduleSync;
     NSNumber *matchResultsSync;
+    NSNumber *scoutingBundleSync;
 
     NSArray *tournamentList;
     NSArray *teamList;
@@ -61,6 +62,7 @@
         teamDataSync = [prefs objectForKey:@"teamDataSync"];
         matchScheduleSync = [prefs objectForKey:@"matchScheduleSync"];
         matchResultsSync = [prefs objectForKey:@"matchResultsSync"];
+        scoutingBundleSync = [prefs objectForKey:@"scoutingBundleSync"];
         importPackage = [[ImportDataFromiTunes alloc] init:_dataManager];
         photoPackage = [[PhotoUtilities alloc] init:_dataManager];
 	}
@@ -106,6 +108,10 @@
             // For the phone, we are interested in passing along anything
             //  saved or received
             pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", teamDataSync, teamDataSync];
+            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
+            break;
+        case SyncQuickRequest:
+            pred = [NSPredicate predicateWithFormat:@"saved > %@", scoutingBundleSync, scoutingBundleSync];
             filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
             break;
         default:
@@ -189,6 +195,10 @@
             // For the phone, we are interested in passing along anything
             //  saved or received
             pred = [NSPredicate predicateWithFormat:@"results = %@ AND saved > %@ OR received > %@", [NSNumber numberWithBool:YES], matchResultsSync, matchResultsSync];
+            filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
+            break;
+        case SyncQuickRequest:
+            pred = [NSPredicate predicateWithFormat:@"saved > %@", scoutingBundleSync, scoutingBundleSync];
             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
             break;
         default:
@@ -280,7 +290,7 @@
     else [connectionUtility sendPacketToAllClients:packet inSession:session];
     for (id data in records) {
         NSString *dataType = NSStringFromClass([data class]);
-        NSLog(@"%@", dataType);
+        //NSLog(@"%@", dataType);
         Packet *packet = nil;
         if ([dataType isEqualToString:@"TeamScore"]) {
             if (!scoreUtilities) scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
@@ -306,13 +316,10 @@
             packet = [Packet packetWithType:PacketTypeMatchData];
             [packet setDataDictionary:matchDictionary];
         }
-        NSLog(@"Send packet %@", packet);
+        //NSLog(@"Send packet %@", packet);
         if (destination) [connectionUtility sendPacketToClient:packet forClient:destination inSession:session];
         else [connectionUtility sendPacketToAllClients:packet inSession:session];
     }
-    //            teamDataSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-
-    NSLog(@"update synctimes");
 }
 
 - (BOOL)createExportPaths {
@@ -338,10 +345,10 @@
 }
 
 -(NSArray *)importiTunesSelected:(NSString *)importFile error:(NSError **)error {
-    NSLog(@"file selected = %@", importFile);
+    //NSLog(@"file selected = %@", importFile);
     NSArray *receivedList;
     if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        NSLog(@"Photo package");
+        //NSLog(@"Photo package");
         receivedList = [photoPackage importDataPhoto:importFile error:error];
     } else {
         receivedList = [importPackage importData:importFile error:error];

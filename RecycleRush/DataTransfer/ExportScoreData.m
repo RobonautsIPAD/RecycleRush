@@ -154,24 +154,24 @@
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         [fetchRequest setSortDescriptors:sortDescriptors];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
+//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         int nmatches = [teamScores count];
+        if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %d", teamNumber, nmatches];
+        else csvString = [csvString stringByAppendingFormat:@"%@, %d", teamNumber, nmatches];
         if (nmatches) {
             isData = TRUE;
             if (nmatches > maxMatches) maxMatches = nmatches;
-            if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %d", teamNumber, nmatches];
-            else csvString = [csvString stringByAppendingFormat:@"%@, %d", teamNumber, nmatches];
-
             for (TeamScore *score in teamScores) {
                 for (NSDictionary *spreadsheetParameters in scoutingSpreadsheetList) {
                     NSString *key = [spreadsheetParameters objectForKey:@"key"];
                     csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
                 }
             }
-            csvString = [csvString stringByAppendingString:@"\n"];
         }
+        csvString = [csvString stringByAppendingString:@"\n"];
     }
     if (isData) {
         fullData = [self createSpreadsheetHeader:maxMatches];
@@ -218,7 +218,7 @@
         if ([key isEqualToString:@"teamNumber"] || [key isEqualToString:@"matchNumber"] || [key isEqualToString:@"matchType"]) continue;
         csvString = [csvString stringByAppendingFormat:@", %@", key];
     }
-    NSLog(@"%@", csvString);
+    //NSLog(@"%@", csvString);
     
     for (NSNumber *teamNumber in teamList) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -241,7 +241,6 @@
                 NSDictionary *description = [teamScoreAttributes valueForKey:key];
                 csvString = [csvString stringByAppendingString:[DataConvenienceMethods outputCSVValue:[score valueForKey:key] forAttribute:description forEnumDictionary:nil]];
             }
-            csvString = [csvString stringByAppendingString:@"\n"];
         }
     }
     if (isData) return csvString;
@@ -383,7 +382,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"Export Score dealloc");
+    //NSLog(@"Export Score dealloc");
     _dataManager = nil;
     prefs = nil;
     tournamentName = nil;

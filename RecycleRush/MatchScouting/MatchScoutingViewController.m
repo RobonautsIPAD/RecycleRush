@@ -98,6 +98,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *coopStack;
 @property (weak, nonatomic) IBOutlet UIButton *wowlist;
 @property (weak, nonatomic) IBOutlet UIButton *blacklist;
+@property (weak, nonatomic) IBOutlet UITextField *coopSetNumer;
+@property (weak, nonatomic) IBOutlet UITextField *coopSetDenom;
+@property (weak, nonatomic) IBOutlet UITextField *coopStackNumer;
+@property (weak, nonatomic) IBOutlet UITextField *coopStackDenom;
+@property (nonatomic, weak) IBOutlet UIButton *noShowButton;
+@property (nonatomic, weak) IBOutlet UIButton *doaButton;
+@property (weak, nonatomic) IBOutlet UIButton *autonToteIntake;
+@property (nonatomic, weak) IBOutlet UIButton *driverRating;
 
 // Drawing Stuff
 @property (weak, nonatomic) IBOutlet UIButton *drawingChoiceButton;
@@ -167,6 +175,21 @@
     UIPopoverController *alliancePickerPopover;
     NSString *newSelection;
 
+    NSArray *autonTotePopUpList;
+    PopUpPickerViewController *autonTotePicker;
+    UIPopoverController *autonTotePickerPopover;
+    PopUpPickerViewController *autonToteIntakePicker;
+    UIPopoverController *autonToteIntakePickerPopover;
+
+    NSArray *autonCanPopUpList;
+    PopUpPickerViewController *autonCanPicker;
+    UIPopoverController *autonCanPickerPopover;
+
+    // Rating Pop Up
+    NSArray *rateList;
+    UIPopoverController *ratingPickerPopover;
+    PopUpPickerViewController *ratePicker;
+ 
     BOOL dataChange;
     BOOL fieldDrawingChange;
     NSString *scouter;
@@ -214,6 +237,9 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+    autonTotePopUpList = [[NSArray alloc] initWithObjects:@"0", @"1", @"2", @"3", nil];
+    autonCanPopUpList = [[NSArray alloc] initWithObjects:@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", nil];
+    rateList = [[NSMutableArray alloc] initWithObjects:@"0", @"1",@"2",@"3",@"4",@"5", nil];
     allianceDictionary = _dataManager.allianceDictionary;
     matchDictionary = _dataManager.matchTypeDictionary;
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
@@ -228,6 +254,7 @@
 {
     NSLog(@"viewWillAppear");
     // Set the list of match types
+    [self loadSettings];
     matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
     [self setInitialMatch];
@@ -337,7 +364,11 @@
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
     _toteTopFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeTopFloor];
     _toteBottomFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeBottomFloor];
-     _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterInCan];
+    _coopSetNumer.text = [NSString stringWithFormat:@"%@", currentScore.coopSetNumerator];
+    _coopSetDenom.text = [NSString stringWithFormat:@"%@", currentScore.coopSetDenominator];
+    _coopStackNumer.text = [NSString stringWithFormat:@"%@", currentScore.coopStackNumerator];
+    _coopStackDenom.text = [NSString stringWithFormat:@"%@", currentScore.coopStackDenominator];
+    _litterInCan.text = [NSString stringWithFormat:@"%@", currentScore.litterInCan];
     _totesOn0Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn0];
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
     _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
@@ -352,15 +383,17 @@
     _cansOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn4];
     _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
+    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
-    [self setAutonButton:_toteSetButton forValue:currentScore.autonToteSet];
+    [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
+    [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotesSet] forState:UIControlStateNormal];    
+    [_autonToteIntake setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotePickUp] forState:UIControlStateNormal];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
-    [self setAutonButton:_canSetButton forValue:currentScore.autonCanSet];
     [self setAutonButton:_coopSet forValue:currentScore.coopSet];
     [self setAutonButton:_coopStack forValue:currentScore.coopStack];
-    [self setAutonButton:_blacklist forValue:currentScore.blacklist];
-    [self setAutonButton:_wowlist forValue:currentScore.wowList];
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", [currentScore.canDominationTime floatValue]] forState:UIControlStateNormal];
+    [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
+    [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
     [self showViews];
     if (returnFromScore) {
         drawMode = DrawInput;
@@ -585,8 +618,36 @@
         [alliancePickerPopover dismissPopoverAnimated:YES];
         return;
     }
+    if (popUp == autonCanPicker) {
+        currentScore.autonCansScored = [NSNumber numberWithInt:[newPick intValue]];
+        [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
+        [autonCanPickerPopover dismissPopoverAnimated:YES];
+        return;
+    }
+    if (popUp == autonTotePicker) {
+        currentScore.autonTotesSet = [NSNumber numberWithInt:[newPick intValue]];
+        [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotesSet] forState:UIControlStateNormal];
+        [autonTotePickerPopover dismissPopoverAnimated:YES];
+        return;
+    }
+    if (popUp == autonToteIntakePicker) {
+        currentScore.autonTotePickUp = [NSNumber numberWithInt:[newPick intValue]];
+        [_autonToteIntake setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotePickUp] forState:UIControlStateNormal];
+        [autonToteIntakePickerPopover dismissPopoverAnimated:YES];
+        return;
+    }
+    if (popUp == _driverRating) {
+        [ratingPickerPopover dismissPopoverAnimated:YES];
+        [self setDriverRate:newPick];
+        return;
+    }
 }
 
+-(void)setDriverRate:(NSString *)newPick {
+    currentScore.driverRating = [NSNumber numberWithInt:[newPick intValue]];
+    [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
+    [self setDataChange];
+}
 
 - (IBAction)autonSelection:(id)sender {
     [self setDataChange];
@@ -596,14 +657,50 @@
         [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
     }
     else if (sender == _canSetButton) {
-        if ([currentScore.autonCanSet boolValue]) currentScore.autonCanSet = [NSNumber numberWithBool:FALSE];
-        else currentScore.autonCanSet = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_canSetButton forValue:currentScore.autonCanSet];
+        popUp = _canSetButton;
+        if (autonCanPicker == nil) {
+            autonCanPicker = [[PopUpPickerViewController alloc]
+                          initWithStyle:UITableViewStylePlain];
+            autonCanPicker.delegate = self;
+        }
+        autonCanPicker.pickerChoices = autonCanPopUpList;
+        if (!autonCanPickerPopover) {
+            autonCanPickerPopover = [[UIPopoverController alloc]
+                                 initWithContentViewController:autonCanPicker];
+        }
+        popUp = autonCanPicker;
+        [autonCanPickerPopover presentPopoverFromRect:_canSetButton.bounds inView:_canSetButton
+                         permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (sender == _autonToteIntake) {
+        if (autonToteIntakePicker == nil) {
+            autonToteIntakePicker = [[PopUpPickerViewController alloc]
+                               initWithStyle:UITableViewStylePlain];
+            autonToteIntakePicker.delegate = self;
+        }
+        autonToteIntakePicker.pickerChoices = autonTotePopUpList;
+        if (!autonToteIntakePickerPopover) {
+            autonToteIntakePickerPopover = [[UIPopoverController alloc]
+                                      initWithContentViewController:autonToteIntakePicker];
+        }
+        popUp = autonToteIntakePicker;
+        [autonToteIntakePickerPopover presentPopoverFromRect:_autonToteIntake.bounds inView:_autonToteIntake
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (sender == _toteSetButton) {
-        if ([currentScore.autonToteSet boolValue]) currentScore.autonToteSet = [NSNumber numberWithBool:FALSE];
-        else currentScore.autonToteSet = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_toteSetButton forValue:currentScore.autonToteSet];
+        if (autonTotePicker == nil) {
+            autonTotePicker = [[PopUpPickerViewController alloc]
+                              initWithStyle:UITableViewStylePlain];
+            autonTotePicker.delegate = self;
+        }
+        autonTotePicker.pickerChoices = autonTotePopUpList;
+        if (!autonTotePickerPopover) {
+            autonTotePickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:autonTotePicker];
+        }
+        popUp = autonTotePicker;
+        [autonTotePickerPopover presentPopoverFromRect:_toteSetButton.bounds inView:_toteSetButton
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (sender == _toteStackButton) {
         if ([currentScore.autonToteStack boolValue]) currentScore.autonToteStack = [NSNumber numberWithBool:FALSE];
@@ -789,6 +886,64 @@
     else return 0;
 }
 
+- (IBAction)radioButtonTapped:(id)sender {
+    if (sender == _noShowButton) { // It is on, turn it off
+        if ([currentScore.noShow intValue]) {
+            currentScore.noShow = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            currentScore.noShow = [NSNumber numberWithBool:YES];
+            // If notes are blank, then go ahead and put no show in the notes
+            if (!currentScore.notes || [currentScore.notes isEqualToString:@""]) {
+                currentScore.notes = @"No Show";
+                _notes.text = currentScore.notes;
+            }
+        }
+        [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
+    }
+    if (sender == _doaButton) { // It is on, turn it off
+        if ([currentScore.deadOnArrival intValue]) {
+            currentScore.deadOnArrival = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            currentScore.deadOnArrival = [NSNumber numberWithBool:YES];
+            // If notes are blank, then go ahead and put DOA in the notes
+            if (!currentScore.notes || [currentScore.notes isEqualToString:@""]) {
+                currentScore.notes = @"Dead";
+                _notes.text = currentScore.notes;
+            }
+        }
+        [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
+    }
+    
+    [self setDataChange];
+}
+
+-(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
+    if (selection == -1 || selection == 0) {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+    }
+    else {
+        [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)ratingPopUp:(id)sender {
+    UIButton *PressedButton = (UIButton*)sender;
+    popUp = PressedButton;
+    
+    if (ratePicker == nil) {
+        ratePicker = [[PopUpPickerViewController alloc]
+                      initWithStyle:UITableViewStylePlain];
+        ratePicker.delegate = self;
+        ratePicker.pickerChoices = rateList;
+        ratingPickerPopover = [[UIPopoverController alloc]initWithContentViewController:ratePicker];
+    }
+    [ratingPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                       permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
 - (IBAction)drawingChoice:(id)sender {
     popUp = _drawingChoiceButton;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", @"Draw Mode",  nil];
@@ -923,7 +1078,7 @@
 }
 
 -(void)setDisplayInactive {
-    NSLog(@"Deactivate display");
+    //NSLog(@"Deactivate display");
     [_drawModeButton setUserInteractionEnabled:NO];
     [_matchNumber setUserInteractionEnabled:FALSE];
     [_matchType setUserInteractionEnabled:FALSE];
@@ -932,7 +1087,7 @@
 }
 
 -(void)setDisplayActive {
-    NSLog(@"Reactivate display");
+    //NSLog(@"Reactivate display");
     [_drawModeButton setUserInteractionEnabled:TRUE];
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
@@ -1065,6 +1220,18 @@
     if (textField == _notes) {
 		currentScore.notes = _notes.text;
 	}
+    else if (textField == _coopSetNumer) {
+        currentScore.coopSetNumerator = [NSNumber numberWithInt:[_coopSetNumer.text intValue]];
+    }
+    else if (textField == _coopSetDenom) {
+        currentScore.coopSetDenominator = [NSNumber numberWithInt:[_coopSetDenom.text intValue]];
+    }
+    else if (textField == _coopStackNumer) {
+        currentScore.coopStackNumerator = [NSNumber numberWithInt:[_coopStackNumer.text intValue]];
+    }
+    else if (textField == _coopStackDenom) {
+        currentScore.coopStackDenominator = [NSNumber numberWithInt:[_coopStackDenom.text intValue]];
+    }
     else if (textField == _totalTotesScored) {
         currentScore.totalTotesScored = [NSNumber numberWithInt:[_totalTotesScored.text intValue]];
     }
@@ -1287,7 +1454,8 @@
     [self setBigButtonDefaults:_wowlist];
     [self setBigButtonDefaults:_drawModeButton];
     [self setBigButtonDefaults:_createStacksButton];
-    
+    [self setSmallButtonDefaults:_driverRating];
+
     _robotSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteStackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -1327,6 +1495,8 @@
     [self setSmallButtonDefaults:_driverRating];
     [self setSmallButtonDefaults:_intakeRatingButton];
     [self setTextBoxDefaults:_notes forSize:24.0];*/
+    _totalTotesScored.inputView = [LNNumberpad defaultLNNumberpad];
+    _totalCansScored.inputView = [LNNumberpad defaultLNNumberpad];
     _canFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
     _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
     _landfillOppositeZone.inputView  = [LNNumberpad defaultLNNumberpad];
@@ -1353,6 +1523,11 @@
     _toteTopFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
     _canStepIntake.inputView  = [LNNumberpad defaultLNNumberpad];
     _litterInCan.inputView  = [LNNumberpad defaultLNNumberpad];
+    _coopSetNumer.inputView = [LNNumberpad defaultLNNumberpad];
+    _coopSetDenom.inputView = [LNNumberpad defaultLNNumberpad];
+    _coopStackNumer.inputView = [LNNumberpad defaultLNNumberpad];
+    _coopStackDenom.inputView = [LNNumberpad defaultLNNumberpad];
+
 }
 
 -(void)setTextBoxDefaults:(UITextField *)currentTextField forSize:(float)fontSize {
@@ -1436,7 +1611,6 @@
         [segue.destinationViewController setAllianceString:allianceString];
         [segue.destinationViewController setCurrentScore:currentScore];
         [segue.destinationViewController setSavedData:savedData];
-        NSLog(@"Data = %@", savedData);
         [segue.destinationViewController setDelegate:self];
     }
     else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
@@ -1459,18 +1633,14 @@
         [addvc setTournamentName:tournamentName];
         [addvc setMatch:currentMatch];
     }
-
-/*    else if ([segue.identifier isEqualToString:@"Sync"]) {
+    else if ([segue.identifier isEqualToString:@"Sync"])  {
         [segue.destinationViewController setDataManager:_dataManager];
-        [segue.destinationViewController setSyncOption:SyncAllSavedSince];
-        [segue.destinationViewController setSyncType:SyncMatchResults];
-    }*/
-
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
 }
 
 - (void)scoringViewFinished:(NSData *)data {
     UIView *stack1View = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSLog(@"Data = %@", stack1View);
     savedData = data;
     returnFromScore = TRUE;
 }

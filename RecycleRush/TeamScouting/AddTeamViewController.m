@@ -56,7 +56,7 @@
 
 - (IBAction)addAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:Nil];
-    NSLog(@"Adding team %@", teamNumber);
+    //NSLog(@"Adding team %@", teamNumber);
     if (_delegate == nil) NSLog(@"no delegate");
     [_delegate teamAdded:teamNumber forName:teamName];
 }

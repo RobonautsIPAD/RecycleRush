@@ -272,7 +272,7 @@
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
-    [_dataManager saveContext];
+    [prefs synchronize];
 }
 
 -(void)viewWillLayoutSubviews {

@@ -58,6 +58,8 @@
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
+//    NSNumber *scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+//    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
 
  
     // Display the Label for the Picture
@@ -84,7 +86,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"SetUp"]) {
+    if ([segue.identifier isEqualToString:@"SetUp"] || [segue.identifier isEqualToString:@"Scouting"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
     [segue.destinationViewController setDataManager:_dataManager];

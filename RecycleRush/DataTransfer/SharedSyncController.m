@@ -186,12 +186,10 @@ GKPeerPickerController *picker;
         if (syncType == SyncMatchList) return [filteredMatchList count];
         if (syncType == SyncMatchResults) return [filteredResultsList count];
     } else if (xFerOption == Receiving) {
-        NSLog(@"number of rows");
         if (syncType == SyncTournaments) return [receivedTournamentList count];
         if (syncType == SyncTeams) return [receivedTeamList count];
         if (syncType == SyncMatchList) return [receivedMatchList count];
         if (syncType == SyncMatchResults) return [receivedResultsList count];
-        NSLog(@"number of rows end");
     }
     return 0;
 }

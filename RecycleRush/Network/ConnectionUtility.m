@@ -17,6 +17,8 @@
 #import "SyncOptionDictionary.h"
 
 @implementation ConnectionUtility {
+    NSUserDefaults *prefs;
+    NSNumber *scoutingBundleSync;
     int sendPacketNumber;
     DataSync *dataSyncPackage;
     TeamUtilities *teamUtilities;
@@ -30,6 +32,7 @@
         teamUtilities = [[TeamUtilities alloc] init:_dataManager];
         matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
+        prefs = [NSUserDefaults standardUserDefaults];
     }
 	return self;
 }
@@ -54,7 +57,7 @@
 #endif
     NSLog(@"Receiving");
     Packet *packet = [self unarchiveData:data];
-    NSLog(@"dataDictionary = %@", packet.dataDictionary);
+    //NSLog(@"dataDictionary = %@", packet.dataDictionary);
 //    NSString *myType = (NSString*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
     NSLog(@"%@, %@", peerID, [session displayNameForPeer:peerID]);
@@ -83,20 +86,20 @@
 
 - (void)sendQuickResponse:(NSString *)requesterID inSession:(GKSession *)session {
     if (!dataSyncPackage) dataSyncPackage = [[DataSync alloc] init:_dataManager];
-    NSArray *filteredTeamList = [dataSyncPackage getFilteredTeamList:SyncAllSavedHere];
-    NSArray *filteredScoreList = [dataSyncPackage getFilteredResultsList:SyncAllSavedHere];
+    NSArray *filteredTeamList = [dataSyncPackage getFilteredTeamList:-1];
+    NSArray *filteredScoreList = [dataSyncPackage getFilteredResultsList:-1];
     NSUInteger nRecords = 0;
     if (filteredTeamList) nRecords = [filteredTeamList count];
     if (filteredScoreList) nRecords += [filteredScoreList count];
     Packet *packet = [Packet packetWithType:PacketTypeSendData];
     [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:nRecords], @"Records", nil]];
     [self sendPacketToClient:packet forClient:requesterID inSession:session];
-
+    NSLog(@"Quick Records = %lu", nRecords);
 //    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     for (TeamData *team in filteredTeamList) {
         NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:team];
         Packet *teamPacket = [Packet packetWithType:PacketTypeTeamData];
-        NSLog(@"send quick %@", teamDictionary);
+        //NSLog(@"send quick %@", teamDictionary);
         [teamPacket setDataDictionary:teamDictionary];
         [self sendPacketToClient:teamPacket forClient:requesterID inSession:session];
     }
@@ -107,8 +110,10 @@
         [self sendPacketToClient:scorePacket forClient:requesterID inSession:session];
     }
 //    });
+    scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
+
     // Send async
- 
 }
 
 -(NSData *)archiveData:(Packet *)packet {
@@ -154,18 +159,16 @@
 }
 
 -(void)decodeSendData:(Packet *)packet {
-    NSLog(@"wheeee received data");
-    NSLog(@"decode from %@", packet.receiverId);
+    //NSLog(@"wheeee received data");
+    //NSLog(@"decode from %@", packet.receiverId);
     NSDictionary *dataDictionary = packet.dataDictionary;
-    NSLog(@"%@", dataDictionary);
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"StartReceivingData" object:nil userInfo:dataDictionary]];
 }
 
 -(void)decodeReceivedData:(Packet *)packet {
-    NSLog(@"wheeee received data");
-    NSLog(@"decode type %d", packet.packetType);
+    //NSLog(@"wheeee received data");
+    //NSLog(@"decode type %d", packet.packetType);
     NSDictionary *dataDictionary = packet.dataDictionary;
-    NSLog(@"%@", dataDictionary);
     if (!dataDictionary) {
         NSDictionary *errorDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Empty Packet Received", @"Error", nil];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:errorDictionary]];
@@ -173,7 +176,6 @@
     }
     if (packet.packetType == PacketTypeTeamData) {
         NSDictionary *teamDictionary = [teamUtilities unpackageTeamForXFer:dataDictionary];
-        NSLog(@"decode received = %@", teamDictionary);
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:teamDictionary]];
     }
     else if (packet.packetType == PacketTypeMatchData) {

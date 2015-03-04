@@ -105,7 +105,7 @@
     
     if (newScore) {
         [match addScoreObject:newScore];
-        NSLog(@"%@ Match %@ for Alliance %@ and Team %@ added", matchTypeString, match.number, allianceString, teamNumber);
+        //NSLog(@"%@ Match %@ for Alliance %@ and Team %@ added", matchTypeString, match.number, allianceString, teamNumber);
         return newScore;
     }
 /*    msg = [NSString stringWithFormat:@"Unable to add %@ Match %@ Team %@ in alliance station %@", matchTypeString, match.number, teamNumber, allianceString];

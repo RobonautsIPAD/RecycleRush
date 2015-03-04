@@ -34,6 +34,8 @@
 
 @implementation AddMatchViewController {
     MatchUtilities *matchUtilities;
+    NSUserDefaults *prefs;
+    NSString *deviceName;
     PopUpPickerViewController *matchTypePicker;
     UIPopoverController *matchTypePickerPopover;
     NSArray *matchTypeList;
@@ -63,6 +65,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    prefs = [NSUserDefaults standardUserDefaults];
+    deviceName = [prefs objectForKey:@"deviceName"];
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     NSLog(@"Add blue 4 and red 4 for elim matches");
     [_red4 setHidden:YES];
@@ -100,8 +104,8 @@
 - (IBAction)addAction:(id)sender {
     NSNumber *matchNumber = [NSNumber numberWithInt:[_matchNumber.text intValue]];
     NSError *error = nil;
-    NSLog(@"add check to make sure there is a match number and type");
-    NSLog(@"do something about create new match that returns an exising one if it exists");
+    //NSLog(@"add check to make sure there is a match number and type");
+    //NSLog(@"do something about create new match that returns an exising one if it exists");
     NSMutableArray *teamList = [[NSMutableArray alloc] init];
     teamList = [self buildTeamList:@"Red 1" forTextBox:_red1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 2" forTextBox:_red2 forTeamList:teamList];
@@ -114,7 +118,9 @@
         teamList = [self buildTeamList:@"Red 4" forTextBox:_red4 forTeamList:teamList];
         teamList = [self buildTeamList:@"Blue 4" forTextBox:_blue4 forTeamList:teamList];
     }
-    [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName error:&error];
+    MatchData *newMatch = [matchUtilities addMatch:matchNumber forMatchType:_matchTypeButton.titleLabel.text forTeams:teamList forTournament:_tournamentName error:&error];
+    newMatch.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    newMatch.savedBy = deviceName;
     [_dataManager saveContext];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
@@ -140,7 +146,6 @@
 -(void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
-    NSLog(@"new pick = %@", newPick);
     if (popUp == _matchTypeButton) {
         [matchTypePickerPopover dismissPopoverAnimated:YES];
     }
@@ -209,7 +214,7 @@
 #pragma mark Text
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    NSLog(@"team should end editing");
+    //NSLog(@"team should end editing");
     if (!textChanges) return YES;
     textChanges = FALSE;
 	return YES;
@@ -222,7 +227,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Row at index %li selected", (long)indexPath.row);
+    //NSLog(@"Row at index %li selected", (long)indexPath.row);
 }
 
 - (void)viewWillLayoutSubviews {
