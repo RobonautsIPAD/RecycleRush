@@ -108,7 +108,7 @@
 }
 
 -(void)createScoutingSpreadsheet:(NSString *)choice {
-    NSString *csvString;
+/*    NSString *csvString;
     csvString = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName];
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
     [csvString writeToFile:filePath
@@ -119,7 +119,7 @@
     NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
     NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingData.csv", nil];
     NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];*/
 }
 
 

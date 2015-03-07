@@ -226,15 +226,16 @@
     NSNumber *teamNumber = [xferDictionary objectForKey:@"teamNumber"];
     NSNumber *allianceStation = [xferDictionary objectForKey:@"allianceStation"];
     NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
-    // NSLog(@"%@", xferDictionary);
+    NSLog(@"Unpackage Scores %@ %@", matchTypeString, matchNumber);
     MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
         if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
-        NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:allianceStation], nil];
+        NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:allianceString], nil];
         match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName  error:&error];
         if (!match) return Nil;
     }
+    NSLog(@"move addmatch outside of !match condition");
 
     // Fetch score record
     // Copy the data into the right places

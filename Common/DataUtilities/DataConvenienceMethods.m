@@ -102,7 +102,7 @@
     
     for (NSDictionary *item in dataDictionary) {
         if ([name caseInsensitiveCompare:[item objectForKey:@"key"]] == NSOrderedSame ) {
-            key = [item objectForKey:@"key"];
+            // key = [item objectForKey:@"key"];
             itemDictionary = item;
             found = TRUE;
             break;
@@ -111,7 +111,7 @@
             NSArray *inputList = [[item objectForKey:@"input"] componentsSeparatedByString:@", "];
             NSArray *match = [inputList filteredArrayUsingPredicate:pred];
             if (match && [match count] == 1) {
-                key = [item objectForKey:@"key"];
+                // key = [item objectForKey:@"key"];
                 itemDictionary = item;
                 found = TRUE;
                 break;

@@ -39,7 +39,7 @@
 -(void)exportMatchForXFer:(MatchData *)match toFile:(NSString *)exportFilePath {
     NSString *baseName;
     NSString *matchTypeString = [MatchAccessors getMatchTypeString:match.matchType fromDictionary:matchTypeDictionary];
-    char matchCode;
+    char matchCode = 'O';
     if (matchTypeString) matchCode = [matchTypeString characterAtIndex:0];
     if ([match.number intValue] < 10) {
     baseName = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"00%d", [match.number intValue]]];

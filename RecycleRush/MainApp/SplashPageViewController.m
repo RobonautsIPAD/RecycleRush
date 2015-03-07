@@ -8,9 +8,11 @@
 
 #import "SplashPageViewController.h"
 #import "SetUpPageViewController.h"
+#import "DallasMigration.h"
 
 @implementation SplashPageViewController {
     NSUserDefaults *prefs;
+    DallasMigration *dallasMigration;
 }
 
 @synthesize dataManager = _dataManager;
@@ -61,7 +63,10 @@
 //    NSNumber *scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
 //    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
 
- 
+/*    NSLog(@"Do not leave Dallas migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    dallasMigration = [[DallasMigration alloc] init:_dataManager];
+    [dallasMigration dallasMigration1];
+*/ 
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     _pictureCaption.text = @"Just Hangin' Out";

@@ -70,6 +70,7 @@
             }
         }
     }
+    matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     NSLog(@"tournamentList = %@", tournamentList);
 }
 
@@ -79,7 +80,7 @@
 }
 
 // Handles change of tournament
-- (void)changeTour:(int)index {
+- (void)changeTour:(NSInteger)index {
     tourData = [[tournamentList objectAtIndex:index] componentsSeparatedByString: @":"];
     NSLog(@"tourData = %@", tourData);
     [_btnSelectTour setTitle:tourData[1] forState:UIControlStateNormal];
@@ -121,10 +122,15 @@
         [alert show];
     } else {
         displayData = [NSMutableArray array];
-        for (NSArray *row in data) {
-            NSMutableArray *newrow = [NSMutableArray arrayWithArray:row];
-            for (int i = 1; i <= 7; i++) {
-                newrow[matchType + i] = [NSNumber numberWithInt:[row[matchType + i] intValue]];
+        for (int line=0; line<[data count]; line+=14) {
+            NSMutableArray *newrow = [NSMutableArray array];
+            for (int i = 0; i < 14; i++) {
+                if (i==1) continue;
+                NSString *row = [data objectAtIndex:line+i];
+                NSString *newString = [[row componentsSeparatedByCharactersInSet:
+                                        [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                                       componentsJoinedByString:@""];
+                [newrow addObject:newString];
             }
             [displayData addObject:newrow];
         }
@@ -132,8 +138,9 @@
     [_tblMain reloadData];
 }
 
--(NSMutableArray *)buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
-    NSDictionary *teamDictionary = [matchUtilities teamDictionary:alliance forTeam:teamTextField.text];
+
+-(NSMutableArray *)buildTeamList:(NSString *)alliance forTeam:(NSString *)teamNumber forTeamList:(NSMutableArray *)teamList {
+    NSDictionary *teamDictionary = [matchUtilities teamDictionary:alliance forTeam:teamNumber];
     if (teamDictionary) [teamList addObject:teamDictionary];
     return teamList;
 }
@@ -142,17 +149,17 @@
 - (IBAction)btnSave:(id)sender {
     if (displayData == nil) return;
     for (NSArray *row in displayData) {
-        if ([row[matchType + 2] intValue] == 0 && [row[matchType + 3] intValue] == 0 && [row[matchType + 4] intValue] == 0 &&
-            [row[matchType + 5] intValue] == 0 && [row[matchType + 6] intValue] == 0 && [row[matchType + 7] intValue] == 0) continue;
+        if ([[row objectAtIndex:1] intValue] == 0 && [[row objectAtIndex:2] intValue] == 0 && [[row objectAtIndex:3] intValue] == 0 &&
+            [[row objectAtIndex:4] intValue] == 0 && [[row objectAtIndex:5] intValue] == 0 && [[row objectAtIndex:6] intValue] == 0) continue;
         NSMutableArray *teamList = [[NSMutableArray alloc] init];
-        teamList = [self buildTeamList:@"Red 1" forTextBox:row[matchType + 2] forTeamList:teamList];
-        teamList = [self buildTeamList:@"Red 2" forTextBox:row[matchType + 3] forTeamList:teamList];
-        teamList = [self buildTeamList:@"Red 3" forTextBox:row[matchType + 4] forTeamList:teamList];
-        teamList = [self buildTeamList:@"Blue 1" forTextBox:row[matchType + 5] forTeamList:teamList];
-        teamList = [self buildTeamList:@"Blue 2" forTextBox:row[matchType + 6] forTeamList:teamList];
-        teamList = [self buildTeamList:@"Blue 3" forTextBox:row[matchType + 7] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Red 1" forTeam:[row objectAtIndex:1] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Red 2" forTeam:[row objectAtIndex:2] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Red 3" forTeam:[row objectAtIndex:3] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 1" forTeam:[row objectAtIndex:4] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 2" forTeam:[row objectAtIndex:5] forTeamList:teamList];
+        teamList = [self buildTeamList:@"Blue 3" forTeam:[row objectAtIndex:6] forTeamList:teamList];
         NSError *error = nil;
-        MatchData *newMatch = [matchUtilities addMatch:[NSNumber numberWithInt:[row[matchType+1] intValue]] forMatchType:matchType == 0 ? @"Qualification" : @"Elimination" forTeams:teamList forTournament:tourData[1] error:&error];
+        MatchData *newMatch = [matchUtilities addMatch:[NSNumber numberWithInt:[[row objectAtIndex:0] intValue]] forMatchType:matchType == 0 ? @"Qualification" : @"Elimination" forTeams:teamList forTournament:tourData[1] error:&error];
         newMatch.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
         newMatch.savedBy = deviceName;
         [_dataManager saveContext];
@@ -166,9 +173,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    for (int i = 1; i <= 7; i++) {
-        UILabel *label = (UILabel *)[cell viewWithTag:i * 10];
-        label.text = [NSString stringWithFormat:@"%@", [displayData objectAtIndex:indexPath.row][matchType + i]];
+    NSArray *row = [displayData objectAtIndex:indexPath.row];
+    for (int i = 0; i < 7; i++) {
+        UILabel *label = (UILabel *)[cell viewWithTag:(i+1) * 10];
+        label.text = [NSString stringWithFormat:@"%@", [row objectAtIndex:i]];
     }
     return cell;
 }

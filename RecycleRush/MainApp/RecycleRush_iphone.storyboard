@@ -86,7 +86,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fmw-NV-Ohw" kind="push" identifier="XFerData" id="Yeu-WK-lcl"/>
+                                    <segue destination="fmw-NV-Ohw" kind="push" id="uPs-we-hzp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="O3M-93-cbf">
@@ -472,7 +472,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="hWR-wO-WyL"/>
+                                    <action selector="tempAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="g1w-o7-oDh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oNv-Zl-zV7">
@@ -486,7 +486,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="mBt-Vn-0tG"/>
+                                    <action selector="selectAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="8w4-0l-oYD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Bf-Vr-fLu" userLabel="Button - Sync Option">
@@ -500,7 +500,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="1IP-mI-gXW"/>
+                                    <action selector="selectAction:" destination="fmw-NV-Ohw" eventType="touchUpInside" id="1Sf-4a-3Nt"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nbh-42-ozV">
@@ -694,15 +694,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Sync" id="0jr-dH-KpU"/>
                     <connections>
-                        <outlet property="connectButton" destination="diZ-i3-hcC" id="QRs-a9-In8"/>
-                        <outlet property="disconnectButton" destination="l6J-2i-fJI" id="k5C-yO-uNq"/>
-                        <outlet property="importFromiTunesButton" destination="s5G-bN-evT" id="FOA-D2-26o"/>
-                        <outlet property="packageDataButton" destination="K1U-nA-Oqq" id="nUS-Ny-maO"/>
-                        <outlet property="sendButton" destination="w8S-Yk-o76" id="s4Z-0P-iqY"/>
-                        <outlet property="syncDataTable" destination="nbh-42-ozV" id="ClC-Vc-Kib"/>
-                        <outlet property="syncOptionButton" destination="5Bf-Vr-fLu" id="P6n-sY-L0s"/>
-                        <outlet property="syncTypeButton" destination="oNv-Zl-zV7" id="Jgj-cQ-hF6"/>
-                        <outlet property="xFerOptionButton" destination="RQm-Tj-gh0" id="oig-6U-oQG"/>
+                        <outlet property="syncDataTable" destination="nbh-42-ozV" id="goF-ET-xU0"/>
+                        <outlet property="syncOptionButton" destination="5Bf-Vr-fLu" id="zKd-f3-t2S"/>
+                        <outlet property="syncTypeButton" destination="oNv-Zl-zV7" id="pwS-6b-I65"/>
+                        <outlet property="xFerOptionButton" destination="RQm-Tj-gh0" id="UbB-0b-cPY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztT-zU-hft" userLabel="First Responder" sceneMemberID="firstResponder"/>

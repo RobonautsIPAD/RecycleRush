@@ -167,6 +167,7 @@
     NSString *fullPath = [robotPhotoDirectory stringByAppendingPathComponent:fullName];
     if ([fileManager fileExistsAtPath:fullPath]) {
         currentTime /= 2;
+        fullName = [photoNameBase stringByAppendingString:[NSString stringWithFormat:@"_%.0f.jpg", currentTime]];
         fullPath = [robotPhotoDirectory stringByAppendingPathComponent:fullName];
     }
     
@@ -190,6 +191,7 @@
     CGImageRef myThumbnailImage = CGImageSourceCreateThumbnailAtIndex(myImageSource, 0, options);
     UIImage *thumbnail = [UIImage imageWithCGImage:myThumbnailImage];
     [UIImageJPEGRepresentation(thumbnail, 1.0) writeToFile:fullPath atomically:YES];
+    CFRelease(myImageSource);
     CGImageRelease(myThumbnailImage);
 
     return photoName;

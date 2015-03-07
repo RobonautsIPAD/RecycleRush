@@ -127,14 +127,15 @@
     else return [NSString stringWithFormat:@"%@", data];
 }
 
--(NSString *)spreadsheetCSVExport:(NSString *)tournament {
+-(BOOL)spreadsheetCSVExport:(NSString *)tournament toFile:(NSString *)fullPath {
     NSError *error = nil;
+    NSFileHandle *fullPathHandle;
     BOOL isData = FALSE;
     int maxMatches = 0;
     if (!_dataManager) {
         error = [NSError errorWithDomain:@"teamScoreCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
-        return nil;
+        return FALSE;
     }
     NSString *fullData = nil;
     if (!scoutingSpreadsheetList) {
@@ -143,7 +144,10 @@
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
         scoutingSpreadsheetList = [[[NSArray alloc] initWithContentsOfFile:plistPath] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     }
-    NSString *csvString = nil;
+    fullData = [self createSpreadsheetHeader:12];
+    [fullData writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    fullPathHandle = [NSFileHandle fileHandleForWritingAtPath:fullPath];
+
     NSArray *teamList = [TeamAccessors getTeamsInTournament:tournamentName fromDataManager:_dataManager];
     for (NSNumber *teamNumber in teamList) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -154,10 +158,11 @@
         NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
         [fetchRequest setSortDescriptors:sortDescriptors];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
-//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
+//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        NSString *csvString = nil;
         int nmatches = [teamScores count];
         if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %d", teamNumber, nmatches];
         else csvString = [csvString stringByAppendingFormat:@"%@, %d", teamNumber, nmatches];
@@ -172,12 +177,10 @@
             }
         }
         csvString = [csvString stringByAppendingString:@"\n"];
+        [fullPathHandle seekToEndOfFile];
+        [fullPathHandle writeData:[csvString dataUsingEncoding:NSUTF8StringEncoding]];
     }
-    if (isData) {
-        fullData = [self createSpreadsheetHeader:maxMatches];
-        fullData = [fullData stringByAppendingString:csvString];
-    }
-    return fullData;
+    return isData;
 }
 
 -(NSString *)createSpreadsheetHeader:(int)maxMatches {
@@ -357,7 +360,7 @@
     // File name format M(Type)#T#
     NSString *match;
     NSString *matchTypeString = [MatchAccessors getMatchTypeString:score.matchType fromDictionary:matchDictionary];
-    char matchCode;
+    char matchCode = 'O';
     if (matchTypeString) matchCode = [matchTypeString characterAtIndex:0];
     if ([score.matchNumber intValue] < 10) {
         match = [NSString stringWithFormat:@"M%c%@", matchCode, [NSString stringWithFormat:@"00%d", [score.matchNumber intValue]]];
