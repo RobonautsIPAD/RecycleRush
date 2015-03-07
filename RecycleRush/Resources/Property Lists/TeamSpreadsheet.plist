@@ -150,15 +150,15 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>totalScore</string>
+		<string>autonMobility</string>
 		<key>input</key>
-		<string>Total Score</string>
+		<string>Auton Mobility</string>
 		<key>output</key>
-		<string>Total Score</string>
+		<string>Auton Mobility</string>
 		<key>lucien</key>
-		<string>Total Score</string>
+		<string>Auton Mobility</string>
 		<key>dictionary</key>
-		<string>totalScore</string>
+		<string>triStateDictionary</string>
 	</dict>
 	<dict>
 		<key>key</key>

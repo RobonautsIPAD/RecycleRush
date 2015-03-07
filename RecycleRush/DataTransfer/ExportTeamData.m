@@ -34,7 +34,7 @@
     if (!_dataManager) return nil;
     if (!teamDataList) {
         // Load dictionary with list of parameters for the scouting spreadsheet
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamSpreadsheet" ofType:@"plist"];
         teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     }
     NSArray *teamData = [TeamAccessors getTeamDataForTournament:tournamentName fromDataManager:_dataManager];
