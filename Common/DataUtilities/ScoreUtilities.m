@@ -167,7 +167,9 @@
         id defaultValue = [[teamScoreAttributes valueForKey:key] valueForKey:@"defaultValue"];
         [score setValue:defaultValue forKeyPath:key];
     }
-    score.field = nil;
+    score.fieldPhotoName = nil;
+    score.notes = nil;
+    score.robotType = nil;
     score.autonDrawing = nil;
     score.teleOpDrawing = nil;
     [_dataManager saveContext];
@@ -190,10 +192,6 @@
             [valueList addObject:[score valueForKey:item]];
             // }
         }
-    }
-    if (score.field && score.field.paper) {
-        [keyList addObject:@"fieldPhoto"];
-        [valueList addObject:score.field.paper];
     }
     if (score.autonDrawing && score.autonDrawing.trace) {
         [keyList addObject:@"autonDrawing"];
@@ -281,13 +279,6 @@
     }
     score.teleOpDrawing.trace = [xferDictionary objectForKey:@"teleOpDrawing"];
 
-    if (!score.field) {
-        FieldPhoto *drawing = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
-                                                            inManagedObjectContext:_dataManager.managedObjectContext];
-        score.field = drawing;
-    }
-    score.field.paper = [xferDictionary objectForKey:@"fieldPhoto"];
-    
     score.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     if (![_dataManager saveContext]) {
         NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];

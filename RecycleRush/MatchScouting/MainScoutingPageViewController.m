@@ -234,6 +234,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+#ifdef NOTUSED
     NSLog(@"Main Scouting viewDidLoad");
     NSError *error = nil;
     if (!_dataManager) {
@@ -291,17 +292,18 @@
     [self.view bringSubviewToFront:_imageContainer];
     [_imageContainer sendSubviewToBack:_backgroundImage];
     orgFrame = _imageContainer.frame;
+#endif
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
+#ifdef NOTUSED
     NSLog(@"viewWillAppear");
     // Set the list of match types
     matchTypeList = [self getMatchTypeList];
     numberMatchTypes = [matchTypeList count];
     NSLog(@"%@", matchTypeList);
     setStartPoint = TRUE;
-#ifdef NOTUSED
     // NSLog(@"Match Type List Count = %@", matchTypeList);
     
     // If there are no matches in any section then don't set this stuff. ShowMatch will set currentMatch to
@@ -335,7 +337,6 @@
             }
         }
     }
-#endif
     
     currentMatch = [self getCurrentMatch];
     // NSLog(@"Match = %@, Type = %@, Tournament = %@", currentMatch.number, currentMatch.matchType, currentMatch.tournament);
@@ -345,14 +346,18 @@
     fieldDrawingChange = NO;
     [self setTeamList];
     [self showTeam:teamIndex];
+#endif
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     NSLog(@"viewWillDisappear");
+#ifdef NOTUSED
     [self checkDataStatus];
     [self saveSettings];
+#endif
 }
+#ifdef NOTUSED
 
 -(void)getDrawingSymbols {
     NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"AutonSP" ofType:@"png"];
@@ -2601,5 +2606,6 @@
     NSLog(@"controllerDidChangeContent");
 
 }
+#endif
 
 @end

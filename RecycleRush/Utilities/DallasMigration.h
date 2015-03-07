@@ -13,5 +13,6 @@
 @interface DallasMigration : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
--(void)dallasMigration1;
+//-(void)dallasMigration1;
+//-(void)dallasMigration2;
 @end

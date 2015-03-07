@@ -44,14 +44,6 @@
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -63,10 +55,11 @@
 //    NSNumber *scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
 //    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
 
-/*    NSLog(@"Do not leave Dallas migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    dallasMigration = [[DallasMigration alloc] init:_dataManager];
-    [dallasMigration dallasMigration1];
-*/ 
+//    NSLog(@"Do not leave Dallas migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//    dallasMigration = [[DallasMigration alloc] init:_dataManager];
+//    [dallasMigration dallasMigration1];
+//    [dallasMigration dallasMigration2];
+ 
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     _pictureCaption.text = @"Just Hangin' Out";

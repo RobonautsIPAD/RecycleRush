@@ -2,26 +2,23 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 2/26/15.
+//  Created by FRC on 3/7/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class FieldDrawing, FieldPhoto, MatchData;
+@class FieldDrawing, MatchData;
 
 @interface TeamScore : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * allianceStation;
-@property (nonatomic, retain) NSNumber * autonCanSet;
-@property (nonatomic, retain) NSNumber * autonCansStep;
+@property (nonatomic, retain) NSNumber * autonCansScored;
 @property (nonatomic, retain) NSNumber * autonRobotSet;
-@property (nonatomic, retain) NSNumber * autonTotePickUp;
 @property (nonatomic, retain) NSNumber * autonToteSet;
 @property (nonatomic, retain) NSNumber * autonToteStack;
 @property (nonatomic, retain) NSNumber * blacklist;
-@property (nonatomic, retain) NSNumber * canDomination;
 @property (nonatomic, retain) NSNumber * canDominationTime;
 @property (nonatomic, retain) NSNumber * canIntakeFloor;
 @property (nonatomic, retain) NSNumber * cansFromStep;
@@ -32,13 +29,14 @@
 @property (nonatomic, retain) NSNumber * cansOn4;
 @property (nonatomic, retain) NSNumber * cansOn5;
 @property (nonatomic, retain) NSNumber * cansOn6;
-@property (nonatomic, retain) NSNumber * coopSet;
-@property (nonatomic, retain) NSNumber * coopStack;
+@property (nonatomic, retain) NSNumber * coopSetDenominator;
+@property (nonatomic, retain) NSNumber * coopSetNumerator;
+@property (nonatomic, retain) NSNumber * coopStackDenominator;
+@property (nonatomic, retain) NSNumber * coopStackNumerator;
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSNumber * fouls;
 @property (nonatomic, retain) NSNumber * litterHP;
-@property (nonatomic, retain) NSNumber * litterHPTop;
 @property (nonatomic, retain) NSNumber * litterInCan;
 @property (nonatomic, retain) NSNumber * matchNumber;
 @property (nonatomic, retain) NSNumber * matchType;
@@ -71,14 +69,8 @@
 @property (nonatomic, retain) NSNumber * totalScore;
 @property (nonatomic, retain) NSNumber * totalTotesIntake;
 @property (nonatomic, retain) NSNumber * totalTotesScored;
-@property (nonatomic, retain) NSNumber * toteFloorBottom;
-@property (nonatomic, retain) NSNumber * toteFloorTop;
-@property (nonatomic, retain) NSNumber * toteHPBottom;
-@property (nonatomic, retain) NSNumber * toteHPTop;
-@property (nonatomic, retain) NSNumber * toteIntakeBottomFloor;
 @property (nonatomic, retain) NSNumber * toteIntakeHP;
 @property (nonatomic, retain) NSNumber * toteIntakeStep;
-@property (nonatomic, retain) NSNumber * toteIntakeTopFloor;
 @property (nonatomic, retain) NSNumber * totesOn0;
 @property (nonatomic, retain) NSNumber * totesOn1;
 @property (nonatomic, retain) NSNumber * totesOn2;
@@ -86,19 +78,14 @@
 @property (nonatomic, retain) NSNumber * totesOn4;
 @property (nonatomic, retain) NSNumber * totesOn5;
 @property (nonatomic, retain) NSNumber * totesOn6;
-@property (nonatomic, retain) NSNumber * toteStepBottom;
-@property (nonatomic, retain) NSNumber * toteStepTop;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * wowList;
-@property (nonatomic, retain) NSNumber * coopSetNumerator;
-@property (nonatomic, retain) NSNumber * coopStackNumerator;
-@property (nonatomic, retain) NSNumber * coopSetDenominator;
-@property (nonatomic, retain) NSNumber * coopStackDenominator;
-@property (nonatomic, retain) NSNumber * autonCansScored;
-@property (nonatomic, retain) NSNumber * autonTotesStacked;
-@property (nonatomic, retain) NSNumber * autonTotesSet;
+@property (nonatomic, retain) NSNumber * autonCansFromStep;
+@property (nonatomic, retain) NSNumber * toteIntakeLandfill;
+@property (nonatomic, retain) NSString * fieldPhotoName;
+@property (nonatomic, retain) NSString * robotType;
+@property (nonatomic, retain) NSData * stacks;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
-@property (nonatomic, retain) FieldPhoto *field;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;
 

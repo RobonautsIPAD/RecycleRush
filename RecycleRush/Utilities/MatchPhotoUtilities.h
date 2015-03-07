@@ -13,6 +13,7 @@
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
 -(NSString *)createBaseName:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
--(NSString *)savePhoto:(NSData *)imageData forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
+-(NSString *)savePhoto:(UIImage *)image forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
+-(NSString *)getFullPath:(NSString *)photoName;
 
 @end

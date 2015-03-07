@@ -19,6 +19,7 @@
 #import "ScoreUtilities.h"
 #import "TeamScore.h"
 #import "FieldPhoto.h"
+#import "MatchPhotoUtilities.h"
 #import "TeamDetailViewController.h"
 #import "AddMatchViewController.h"
 #import "MainMatchAnalysisViewController.h"
@@ -83,9 +84,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *cansOn5Text;
 @property (weak, nonatomic) IBOutlet UITextField *cansOn6Text;
 @property (weak, nonatomic) IBOutlet UITextField *toteIntakeHPText;
+@property (weak, nonatomic) IBOutlet UITextField *toteLandfillIntake;
 @property (weak, nonatomic) IBOutlet UITextField *toteStepIntake;
-@property (weak, nonatomic) IBOutlet UITextField *toteBottomFloorIntake;
-@property (weak, nonatomic) IBOutlet UITextField *toteTopFloorIntake;
 @property (weak, nonatomic) IBOutlet UITextField *canFloorIntake;
 @property (weak, nonatomic) IBOutlet UITextField *canStepIntake;
 @property (weak, nonatomic) IBOutlet UITextField *litterInCan;
@@ -94,10 +94,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *canSetButton;
 @property (weak, nonatomic) IBOutlet UIButton *toteStackButton;
 @property (weak, nonatomic) IBOutlet UIButton *canDomTimeButton;
-@property (weak, nonatomic) IBOutlet UIButton *coopSet;
-@property (weak, nonatomic) IBOutlet UIButton *coopStack;
-@property (weak, nonatomic) IBOutlet UIButton *wowlist;
-@property (weak, nonatomic) IBOutlet UIButton *blacklist;
 @property (weak, nonatomic) IBOutlet UITextField *coopSetNumer;
 @property (weak, nonatomic) IBOutlet UITextField *coopSetDenom;
 @property (weak, nonatomic) IBOutlet UITextField *coopStackNumer;
@@ -178,8 +174,6 @@
     NSArray *autonTotePopUpList;
     PopUpPickerViewController *autonTotePicker;
     UIPopoverController *autonTotePickerPopover;
-    PopUpPickerViewController *autonToteIntakePicker;
-    UIPopoverController *autonToteIntakePickerPopover;
 
     NSArray *autonCanPopUpList;
     PopUpPickerViewController *autonCanPicker;
@@ -198,6 +192,7 @@
     DrawingMode drawMode;
     BOOL returnFromScore;
     NSData *savedData;
+    MatchPhotoUtilities *matchPhotoUtilities;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -244,7 +239,8 @@
     matchDictionary = _dataManager.matchTypeDictionary;
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
-
+    matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+    
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     [self setDefaults];
@@ -354,7 +350,7 @@
     _totalCansScored.text = [NSString stringWithFormat:@"%@", currentScore.totalCansScored];
     _totalLandfillLitterScored.text = [NSString stringWithFormat:@"%@", currentScore.totalLandfillLitterScored];
     _landfillOppositeZone.text = [NSString stringWithFormat:@"%@", currentScore.oppositeZoneLitter];    
-    _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.canDomination];
+    _cansDominatedText.text = [NSString stringWithFormat:@"%@", currentScore.autonCansFromStep];
     _stackKnockdownText.text = [NSString stringWithFormat:@"%@", currentScore.stackKnockdowns];
      _totalTotesIntake.text = [NSString stringWithFormat:@"%@", currentScore.totalTotesIntake];
     _canFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.canIntakeFloor];
@@ -362,8 +358,7 @@
     _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
-    _toteTopFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeTopFloor];
-    _toteBottomFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeBottomFloor];
+    _toteLandfillIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeLandfill];
     _coopSetNumer.text = [NSString stringWithFormat:@"%@", currentScore.coopSetNumerator];
     _coopSetDenom.text = [NSString stringWithFormat:@"%@", currentScore.coopSetDenominator];
     _coopStackNumer.text = [NSString stringWithFormat:@"%@", currentScore.coopStackNumerator];
@@ -386,11 +381,7 @@
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
     [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
-    [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotesSet] forState:UIControlStateNormal];    
-    [_autonToteIntake setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotePickUp] forState:UIControlStateNormal];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
-    [self setAutonButton:_coopSet forValue:currentScore.coopSet];
-    [self setAutonButton:_coopStack forValue:currentScore.coopStack];
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", [currentScore.canDominationTime floatValue]] forState:UIControlStateNormal];
     [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
@@ -412,9 +403,9 @@
 -(void)loadDrawing:(NSString *)allianceString {
     // Decide what to load
     // NSLog(@"field = %@, paper = %@", currentScore.field, currentScore.field.paper);
-    if (currentScore.field.paper) {
+    if (currentScore.fieldPhotoName) {
     //    _fieldDrawingContainer.backgroundColor = [UIColor whiteColor];
-        [_paperPhoto setImage:[UIImage imageWithData:currentScore.field.paper]];
+        [_paperPhoto setImage:[UIImage imageWithContentsOfFile:[matchPhotoUtilities getFullPath:currentScore.fieldPhotoName]]];
         [_paperPhoto setHidden:FALSE];
     }
     else {
@@ -625,15 +616,9 @@
         return;
     }
     if (popUp == autonTotePicker) {
-        currentScore.autonTotesSet = [NSNumber numberWithInt:[newPick intValue]];
-        [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotesSet] forState:UIControlStateNormal];
+        currentScore.autonToteSet = [NSNumber numberWithInt:[newPick intValue]];
+        [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonToteSet] forState:UIControlStateNormal];
         [autonTotePickerPopover dismissPopoverAnimated:YES];
-        return;
-    }
-    if (popUp == autonToteIntakePicker) {
-        currentScore.autonTotePickUp = [NSNumber numberWithInt:[newPick intValue]];
-        [_autonToteIntake setTitle:[NSString stringWithFormat:@"%@", currentScore.autonTotePickUp] forState:UIControlStateNormal];
-        [autonToteIntakePickerPopover dismissPopoverAnimated:YES];
         return;
     }
     if (popUp == _driverRating) {
@@ -672,21 +657,6 @@
         [autonCanPickerPopover presentPopoverFromRect:_canSetButton.bounds inView:_canSetButton
                          permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (sender == _autonToteIntake) {
-        if (autonToteIntakePicker == nil) {
-            autonToteIntakePicker = [[PopUpPickerViewController alloc]
-                               initWithStyle:UITableViewStylePlain];
-            autonToteIntakePicker.delegate = self;
-        }
-        autonToteIntakePicker.pickerChoices = autonTotePopUpList;
-        if (!autonToteIntakePickerPopover) {
-            autonToteIntakePickerPopover = [[UIPopoverController alloc]
-                                      initWithContentViewController:autonToteIntakePicker];
-        }
-        popUp = autonToteIntakePicker;
-        [autonToteIntakePickerPopover presentPopoverFromRect:_autonToteIntake.bounds inView:_autonToteIntake
-                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
     else if (sender == _toteSetButton) {
         if (autonTotePicker == nil) {
             autonTotePicker = [[PopUpPickerViewController alloc]
@@ -706,26 +676,6 @@
         if ([currentScore.autonToteStack boolValue]) currentScore.autonToteStack = [NSNumber numberWithBool:FALSE];
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
-    }
-    else if (sender == _coopSet) {
-        if ([currentScore.coopSet boolValue]) currentScore.coopSet = [NSNumber numberWithBool:FALSE];
-        else currentScore.coopSet = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_coopSet forValue:currentScore.coopSet];
-    }
-    else if (sender == _coopStack) {
-        if ([currentScore.coopStack boolValue]) currentScore.coopStack = [NSNumber numberWithBool:FALSE];
-        else currentScore.coopStack = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_coopStack forValue:currentScore.coopStack];
-    }
-    else if (sender == _blacklist) {
-        if ([currentScore.blacklist boolValue]) currentScore.blacklist = [NSNumber numberWithBool:FALSE];
-        else currentScore.blacklist = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_blacklist forValue:currentScore.coopSet];
-    }
-    else if (sender == _wowlist) {
-        if ([currentScore.wowList boolValue]) currentScore.wowList = [NSNumber numberWithBool:FALSE];
-        else currentScore.wowList = [NSNumber numberWithBool:TRUE];
-        [self setAutonButton:_wowlist forValue:currentScore.coopSet];
     }
     [self updateTotal:@"TotalScore"];
 }
@@ -1008,14 +958,7 @@
     //NSLog(@"photo popover");
     _paperPhoto.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_paperPhoto setHidden:FALSE];
-    //NSLog(@"%@", currentScore.field);
-    if (!currentScore.field) {
-        FieldPhoto *photo = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
-                                                              inManagedObjectContext:_dataManager.managedObjectContext];
-        currentScore.field = photo;
-    }
-    currentScore.field.paper = [NSData dataWithData:UIImageJPEGRepresentation(_paperPhoto.image, 1.0)];
-    //NSLog(@"%@", currentScore.field);
+    currentScore.fieldPhotoName = [matchPhotoUtilities savePhoto:_paperPhoto.image forMatch:currentScore.matchNumber forType:matchTypeString forTeam:currentScore.teamNumber];
     [self setDataChange];
     // NSLog(@"image picker finish");*/
     [picker dismissViewControllerAnimated:YES completion:Nil];
@@ -1247,7 +1190,7 @@
         [self updateTotal:@"TotalScore"];
     }
     else if (textField == _cansDominatedText) {
-        currentScore.canDomination = [NSNumber numberWithInt:[_cansDominatedText.text intValue]];
+        currentScore.autonCansFromStep = [NSNumber numberWithInt:[_cansDominatedText.text intValue]];
     }
     else if (textField == _stackKnockdownText) {
         currentScore.stackKnockdowns = [NSNumber numberWithInt:[_stackKnockdownText.text intValue]];
@@ -1330,12 +1273,8 @@
         currentScore.toteIntakeStep = [NSNumber numberWithInt:[_toteStepIntake.text intValue]];
         [self updateTotal:@"TotesIntake"];
     }
-    else if (textField == _toteTopFloorIntake) {
-        currentScore.toteIntakeTopFloor = [NSNumber numberWithInt:[_toteTopFloorIntake.text intValue]];
-        [self updateTotal:@"TotesIntake"];
-    }
-    else if (textField == _toteBottomFloorIntake) {
-        currentScore.toteIntakeBottomFloor = [NSNumber numberWithInt:[_toteBottomFloorIntake.text intValue]];
+    else if (textField == _toteLandfillIntake) {
+        currentScore.toteIntakeLandfill = [NSNumber numberWithInt:[_toteLandfillIntake.text intValue]];
         [self updateTotal:@"TotesIntake"];
     }
     else if (textField == _canFloorIntake) {
@@ -1371,12 +1310,12 @@
         _totalCansScored.text = [NSString stringWithFormat:@"%d", score];
     }
     else if ([scoreObject isEqualToString:@"TotesIntake"]) {
-        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeTopFloor intValue] + [currentScore.toteIntakeBottomFloor intValue];
+        int score = [currentScore.toteIntakeHP intValue] + [currentScore.toteIntakeStep intValue] + [currentScore.toteIntakeLandfill intValue];
          currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
     else if ([scoreObject isEqualToString:@"TotalScore"]) {
-        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCanSet intValue]*8 + [currentScore.autonToteStack intValue]*20 + [currentScore.coopSet intValue]*20 + [currentScore.coopStack intValue]*40;
+        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
         currentScore.totalScore = [NSNumber numberWithInt:score];
         _totalScore.text = [NSString stringWithFormat:@"%d", score];
     }
@@ -1450,8 +1389,6 @@
     [self setBigButtonDefaults:_teamNumber];
     [self setBigButtonDefaults:_canDomTimeButton];
     [self setBigButtonDefaults:_drawingChoiceButton];
-    [self setBigButtonDefaults:_blacklist];
-    [self setBigButtonDefaults:_wowlist];
     [self setBigButtonDefaults:_drawModeButton];
     [self setBigButtonDefaults:_createStacksButton];
     [self setSmallButtonDefaults:_driverRating];
@@ -1460,10 +1397,6 @@
     _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteStackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _canSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-      _coopSet.titleLabel.textAlignment = NSTextAlignmentCenter;
-      _coopStack.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _blacklist.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _wowlist.titleLabel.textAlignment = NSTextAlignmentCenter;
    // Buttons on the drawing
 /*    [self setSmallButtonDefaults:_toteHPTopButton];
     [self setSmallButtonDefaults:_toteHPBottomButton];
@@ -1519,8 +1452,7 @@
     _cansOn6Text.inputView  = [LNNumberpad defaultLNNumberpad];
     _toteIntakeHPText.inputView  = [LNNumberpad defaultLNNumberpad];
     _toteStepIntake.inputView  = [LNNumberpad defaultLNNumberpad];
-    _toteBottomFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
-    _toteTopFloorIntake.inputView  = [LNNumberpad defaultLNNumberpad];
+    _toteLandfillIntake.inputView  = [LNNumberpad defaultLNNumberpad];
     _canStepIntake.inputView  = [LNNumberpad defaultLNNumberpad];
     _litterInCan.inputView  = [LNNumberpad defaultLNNumberpad];
     _coopSetNumer.inputView = [LNNumberpad defaultLNNumberpad];

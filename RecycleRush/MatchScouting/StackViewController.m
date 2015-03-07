@@ -36,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+#ifdef NOTUSED
     stackList = [[NSMutableArray alloc] init];
     if (_currentScore.field.stacks) {
         stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:_currentScore.field.stacks];
@@ -106,7 +107,9 @@
             [stackList addObject:newStack];
         }
     }
+#endif
 }
+#ifdef NOTUSED
 
 -(void)initializeStack:(UIView *)stack forNumber:(int) stackNumber {
     stack.backgroundColor = [UIColor whiteColor];
@@ -266,6 +269,7 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
 }
+#endif
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

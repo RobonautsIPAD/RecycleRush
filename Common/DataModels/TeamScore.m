@@ -2,27 +2,23 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 2/26/15.
+//  Created by FRC on 3/7/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import "TeamScore.h"
 #import "FieldDrawing.h"
-#import "FieldPhoto.h"
 #import "MatchData.h"
 
 
 @implementation TeamScore
 
 @dynamic allianceStation;
-@dynamic autonCanSet;
-@dynamic autonCansStep;
+@dynamic autonCansScored;
 @dynamic autonRobotSet;
-@dynamic autonTotePickUp;
 @dynamic autonToteSet;
 @dynamic autonToteStack;
 @dynamic blacklist;
-@dynamic canDomination;
 @dynamic canDominationTime;
 @dynamic canIntakeFloor;
 @dynamic cansFromStep;
@@ -33,13 +29,14 @@
 @dynamic cansOn4;
 @dynamic cansOn5;
 @dynamic cansOn6;
-@dynamic coopSet;
-@dynamic coopStack;
+@dynamic coopSetDenominator;
+@dynamic coopSetNumerator;
+@dynamic coopStackDenominator;
+@dynamic coopStackNumerator;
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fouls;
 @dynamic litterHP;
-@dynamic litterHPTop;
 @dynamic litterInCan;
 @dynamic matchNumber;
 @dynamic matchType;
@@ -72,14 +69,8 @@
 @dynamic totalScore;
 @dynamic totalTotesIntake;
 @dynamic totalTotesScored;
-@dynamic toteFloorBottom;
-@dynamic toteFloorTop;
-@dynamic toteHPBottom;
-@dynamic toteHPTop;
-@dynamic toteIntakeBottomFloor;
 @dynamic toteIntakeHP;
 @dynamic toteIntakeStep;
-@dynamic toteIntakeTopFloor;
 @dynamic totesOn0;
 @dynamic totesOn1;
 @dynamic totesOn2;
@@ -87,19 +78,14 @@
 @dynamic totesOn4;
 @dynamic totesOn5;
 @dynamic totesOn6;
-@dynamic toteStepBottom;
-@dynamic toteStepTop;
 @dynamic tournamentName;
 @dynamic wowList;
-@dynamic coopSetNumerator;
-@dynamic coopStackNumerator;
-@dynamic coopSetDenominator;
-@dynamic coopStackDenominator;
-@dynamic autonCansScored;
-@dynamic autonTotesStacked;
-@dynamic autonTotesSet;
+@dynamic autonCansFromStep;
+@dynamic toteIntakeLandfill;
+@dynamic fieldPhotoName;
+@dynamic robotType;
+@dynamic stacks;
 @dynamic autonDrawing;
-@dynamic field;
 @dynamic match;
 @dynamic teleOpDrawing;
 

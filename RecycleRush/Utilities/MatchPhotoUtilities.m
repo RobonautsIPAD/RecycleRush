@@ -54,16 +54,22 @@
     return fieldPhotoFile;
 }
 
--(NSString *)savePhoto:(NSData *)imageData forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber {
+-(NSString *)savePhoto:(UIImage *)image forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber {
     NSString *photoName = [self createBaseName:matchNumber forType:matchTypeString forTeam:teamNumber];
     // Create full path name
     NSString *fullPath = [matchPhotoDirectory stringByAppendingPathComponent:photoName];
+    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0)];
     if ([imageData writeToFile:fullPath atomically:YES]) {
         return photoName;
     }
     else {
         return nil;
     }
+}
+
+-(NSString *)getFullPath:(NSString *)photoName {
+    NSString *fullPath = [matchPhotoDirectory stringByAppendingPathComponent:photoName];
+    return fullPath;
 }
 
 -(void)setMatchPhotoDirectory {
