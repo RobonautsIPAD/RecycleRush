@@ -159,6 +159,9 @@
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F9094721A85130400678B81 /* MatchScoutingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9094711A85130400678B81 /* MatchScoutingViewController.m */; };
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
+		2FA17AFE1AAA74190080E836 /* StatCatulate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFD1AAA74190080E836 /* StatCatulate.plist */; };
+		2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */; };
+		2FA17B021AAA7AA20080E836 /* TeamSummaryStats.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17B001AAA7AA20080E836 /* TeamSummaryStats.plist */; };
 		2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */; };
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FB6B0E71A9D49C700ADDBCE /* L.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0E31A9D49C700ADDBCE /* L.png */; };
@@ -204,6 +207,7 @@
 		2FDFE5361A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */; };
 		2FE405521A96C3ED007404CE /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405511A96C3ED007404CE /* TeamData.m */; };
 		2FE405571A96D33A007404CE /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405561A96D33A007404CE /* StackViewController.m */; };
+		2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */; };
 		2FED07B41A9F81E400FF26D3 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */; };
 		2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF00D6D1A7AA384003B63DF /* Red 2015.png */; };
 		2FF58B731A7C5CC300BA280A /* Match Scouting Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */; };
@@ -465,6 +469,9 @@
 		2F9094711A85130400678B81 /* MatchScoutingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchScoutingViewController.m; path = RecycleRush/MatchScouting/MatchScoutingViewController.m; sourceTree = SOURCE_ROOT; };
 		2F9EFF201A1A76CA00F8D73C /* TeamAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamAccessors.h; path = Common/DataUtilities/TeamAccessors.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamAccessors.m; path = Common/DataUtilities/TeamAccessors.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2FA17AFD1AAA74190080E836 /* StatCatulate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = StatCatulate.plist; path = "RecycleRush/Resources/Property Lists/StatCatulate.plist"; sourceTree = SOURCE_ROOT; };
+		2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AnalysisPage.plist; path = "RecycleRush/Resources/Property Lists/AnalysisPage.plist"; sourceTree = SOURCE_ROOT; };
+		2FA17B001AAA7AA20080E836 /* TeamSummaryStats.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamSummaryStats.plist; path = "RecycleRush/Resources/Property Lists/TeamSummaryStats.plist"; sourceTree = SOURCE_ROOT; };
 		2FA1CDFC1964B24900E5B040 /* DataConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DataConvenienceMethods.h; path = Common/DataUtilities/DataConvenienceMethods.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DataConvenienceMethods.m; path = Common/DataUtilities/DataConvenienceMethods.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB358291A731C74005625AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RecycleRush/Images.xcassets; sourceTree = SOURCE_ROOT; };
@@ -521,6 +528,8 @@
 		2FE405511A96C3ED007404CE /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FE405551A96D33A007404CE /* StackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackViewController.h; path = RecycleRush/MatchScouting/StackViewController.h; sourceTree = SOURCE_ROOT; };
 		2FE405561A96D33A007404CE /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackViewController.m; path = RecycleRush/MatchScouting/StackViewController.m; sourceTree = SOURCE_ROOT; };
+		2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisTabViewController.h; path = RecycleRush/MatchAnalysis/AnalysisTabViewController.h; sourceTree = SOURCE_ROOT; };
+		2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisTabViewController.m; path = RecycleRush/MatchAnalysis/AnalysisTabViewController.m; sourceTree = SOURCE_ROOT; };
 		2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2FF00D6D1A7AA384003B63DF /* Red 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Red 2015.png"; path = "RecycleRush/Resources/FieldImages/Red 2015.png"; sourceTree = SOURCE_ROOT; };
 		2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Match Scouting Button.jpg"; sourceTree = SOURCE_ROOT; };
@@ -793,11 +802,14 @@
 				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
 				2FDFE5001A7E888B002FEAD0 /* LiftType.plist */,
 				2FDFE5011A7E888B002FEAD0 /* LucienNumberFields.plist */,
+				2FA17AFD1AAA74190080E836 /* StatCatulate.plist */,
 				2FDFE5021A7E888B002FEAD0 /* MarcusOutput.plist */,
 				2FDFE5031A7E888B002FEAD0 /* MasonPage.plist */,
 				2FDFE5041A7E888B002FEAD0 /* MatchData.plist */,
 				2FDFE5051A7E888B002FEAD0 /* MatchType.plist */,
 				2FDFE5071A7E888B002FEAD0 /* QuadState.plist */,
+				2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */,
+				2FA17B001AAA7AA20080E836 /* TeamSummaryStats.plist */,
 			);
 			name = "Property Lists";
 			sourceTree = "<group>";
@@ -1023,6 +1035,8 @@
 				2F6ADE971A981B1900962D1C /* SketchSpaceViewController.m */,
 				2F8F20661A9963E400679ED6 /* MatchPhotoCollectionViewController.h */,
 				2F8F20671A9963E400679ED6 /* MatchPhotoCollectionViewController.m */,
+				2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */,
+				2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */,
 			);
 			name = "Match Analysis";
 			sourceTree = "<group>";
@@ -1248,6 +1262,9 @@
 				2FB6B0E91A9D49C700ADDBCE /* Next.png in Resources */,
 				2FB6B0EA1A9D49C700ADDBCE /* Prev.png in Resources */,
 				2FB6B0EC1A9D67E600ADDBCE /* StackingMech.plist in Resources */,
+				2FA17AFE1AAA74190080E836 /* StatCatulate.plist in Resources */,
+				2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */,
+				2FA17B021AAA7AA20080E836 /* TeamSummaryStats.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,6 +1379,7 @@
 				2F5D520B1A745522008F1100 /* MatchSummaryViewController.m in Sources */,
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
+				2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

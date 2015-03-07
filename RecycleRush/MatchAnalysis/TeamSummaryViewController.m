@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *matchNumberField;
 @property (weak, nonatomic) IBOutlet UIButton *matchPhotoButton;
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
+@property (weak, nonatomic) IBOutlet UITableView *teamStatsTable;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 
 @end
@@ -172,6 +173,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == _matchInfo) return [matchList count];
+    else if (tableView == _teamStatsTable) return [matchList count];
     else return 0;
 }
 
@@ -226,9 +228,111 @@
         // Set up the cell...
         [self configureMatchCell:cell atIndexPath:indexPath];
     }
-    
-    return cell;
+    else if (tableView == _teamStatsTable){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"MatchStats"];
+        [self configureTeamStatsCell:cell atIndexPath:indexPath];
+    }
+     return cell;
 }
+
+        
+- (void)configureTeamStatsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    
+        if (indexPath.row == 0) {
+            UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+            label1.text = @"";
+            UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+            label2.text = @"Totes Intake Landfill";
+            label2.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+            label3.text = @"Totes Intake Step";
+            label3.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+            label4.text = @"Totes Intake HP";
+            label4.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+            label5.text = @"Cans Intake Step";
+            label5.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+            label6.text = @"Cans Intake Floor";
+            label6.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+            label7.text = @"Litter Intake HP";
+            label7.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+            label8.text = @"Litter In Cans";
+            label8.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+            label9.text = @"Can Dom";
+            label9.font = [UIFont boldSystemFontOfSize:16.0];
+            UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+            label10.text = @"Auton Can Intake";
+            label10.font = [UIFont boldSystemFontOfSize:16.0];
+            
+        } else if (indexPath.row == 1) {
+            UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+            label1.text = @"Total";
+            label1.font = [UIFont boldSystemFontOfSize:16.0];
+            
+        } else if (indexPath.row == 2) {
+            UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+            label1.text = @"Average";
+            label1.font = [UIFont boldSystemFontOfSize:16.0];
+            
+        } else if (indexPath.row == 3) {
+            UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+            label1.text = @"Percent";
+            label1.font = [UIFont boldSystemFontOfSize:16.0];
+            
+        } else if (indexPath.row == 4) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"";
+                UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+                label2.text = @"Knockdowns";
+                label2.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+                label3.text = @"Coop Set";
+                label3.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+                label4.text = @"Coop Stack";
+                label4.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+                label5.text = @"Robot Set";
+                label5.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+                label6.text = @"Can Set";
+                label6.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+                label7.text = @"Tote Set";
+                label7.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+                label8.text = @"Tote Stack";
+                label8.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+                label9.text = @"Total Totes";
+                label9.font = [UIFont boldSystemFontOfSize:16.0];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+                label10.text = @"Total Cans";
+                label10.font = [UIFont boldSystemFontOfSize:16.0];
+            
+            } else if (indexPath.row == 5) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Total";
+                label1.font = [UIFont boldSystemFontOfSize:16.0];
+                
+            } else if (indexPath.row == 6) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Average";
+                label1.font = [UIFont boldSystemFontOfSize:16.0];
+                
+            } else if (indexPath.row == 7) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Percent";
+                label1.font = [UIFont boldSystemFontOfSize:16.0];
+            }
+    }
+
 
 
 - (void)didReceiveMemoryWarning

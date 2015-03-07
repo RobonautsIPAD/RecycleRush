@@ -114,10 +114,10 @@
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     if (tournamentName) {
-        self.title =  [NSString stringWithFormat:@"%@ Brogan Analysis", tournamentName];
+        self.title =  [NSString stringWithFormat:@"%@ Match Analysis", tournamentName];
     }
     else {
-        self.title = @"Brogan Analysis";
+        self.title = @"Match Analysis";
     }
     [self loadSettings];
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -562,7 +562,7 @@
 }
 
 -(void)loadSettings {
-    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/AnalysisPage.plist"]];
     settingsDictionary = [[FileIOMethods getDictionaryFromPListFile:plistPath] mutableCopy];
     if (settingsDictionary) previousTournament = [settingsDictionary valueForKey:@"Tournament"];
     if (!_teamNumber) _teamNumber = [NSNumber numberWithInt:118];
@@ -574,7 +574,7 @@
             rowIndex = [[settingsDictionary valueForKey:@"Row Index"] intValue];
         }
     }
-    plistPath = [[NSBundle mainBundle] pathForResource:@"MasonPage" ofType:@"plist"];
+    plistPath = [[NSBundle mainBundle] pathForResource:@"AnalysisPage" ofType:@"plist"];
     outputDictionary = [[NSArray alloc] initWithContentsOfFile:plistPath];
 }
 
@@ -586,7 +586,7 @@
     [settingsDictionary setObject:[NSNumber numberWithInt:sectionIndex] forKey:@"Section Index"];
     [settingsDictionary setObject:[NSNumber numberWithInt:rowIndex] forKey:@"Row Index"];
 
-    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
+    NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/AnalysisPage.plist"]];
     NSError *error = nil;
     NSData *data = [NSPropertyListSerialization dataWithPropertyList:settingsDictionary format:NSPropertyListXMLFormat_v1_0 options:nil error:&error];
     if(data) {
@@ -790,7 +790,7 @@
         // Edit the section name key path and cache name if appropriate.
         if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
             // NSLog(@"Clear Cache");
-            [NSFetchedResultsController deleteCacheWithName:@"MasonPage"];
+            [NSFetchedResultsController deleteCacheWithName:@"AnalysisPage"];
         }
        // nil for section name key path means "no sections".
         NSFetchedResultsController *aFetchedResultsController =
@@ -798,7 +798,7 @@
          initWithFetchRequest:fetchRequest
          managedObjectContext:_dataManager.managedObjectContext
          sectionNameKeyPath:@"matchType"
-         cacheName:@"MasonPage"];
+         cacheName:@"AnalysisPage"];
         aFetchedResultsController.delegate = self;
         self.fetchedResultsController = aFetchedResultsController;
     }
