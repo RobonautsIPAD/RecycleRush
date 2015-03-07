@@ -40,29 +40,28 @@
 }
 
 + (NSArray *)parseMatchResultList:(NSString *) year eventCode:(NSString *) event matchType:(NSString *) type {
-    return [self parsePageTable:[NSString stringWithFormat:@"http://frc-events.usfirst.org/%@/%@/%@", year, event, type] tableIndex: 2 initialRow: 2];
+    return [self parsePageTable:[NSString stringWithFormat:@"http://frc-events.usfirst.org/%@/%@/%@", year, event, type] tableIndex: 0 initialRow: 0];
 }
 
 + (NSArray *)parsePageTable:(NSString *) url tableIndex:(int)table initialRow:(int)begin {
-    NSMutableArray *ret = [NSMutableArray arrayWithObjects: nil];
     NSError *error;
     NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding: NSASCIIStringEncoding error: &error];
     if (!html) {
         NSLog(@"%@", [error localizedDescription]);
         return nil;
     }
-    NSArray *trs = [self findAll:[[self findAll: html tagToSearch: @"table"] objectAtIndex: table] tagToSearch: @"tr"];
+    NSArray *trs = [self findAll:[[self findAll: html tagToSearch: @"table"] objectAtIndex: table] tagToSearch: @"tbody"];
+    NSMutableArray *row = [NSMutableArray arrayWithObjects: nil];
     for (int i = begin; i < [trs count]; i++) {
+        // tds becomes an array of all of the matches. There are 14 lines per match
         NSArray *tds = [self findAll:[trs objectAtIndex: i] tagToSearch: @"td"];
         if ([tds count] > 7) {
-            NSMutableArray *row = [NSMutableArray arrayWithObjects: nil];
             for (NSString *col in tds) {
                 [row addObject:[self stripTags: col]];
             }
-            [ret addObject:[NSArray arrayWithArray: row]];
         }
     }
-    return [NSArray arrayWithArray: ret];
+    return row;
 }
 
 + (NSArray *)findAll:(NSString *)html tagToSearch:(NSString *)tag {

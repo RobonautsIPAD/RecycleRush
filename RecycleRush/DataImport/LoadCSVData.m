@@ -48,7 +48,7 @@
         filePath = [[NSBundle mainBundle] pathForResource:@"TeamList" ofType:@"csv"];
         inputError |= [self loadTeamFile:filePath];
 
-        filePath = [[NSBundle mainBundle] pathForResource:@"TeamHistory" ofType:@"csv"];
+//        filePath = [[NSBundle mainBundle] pathForResource:@"TeamHistory" ofType:@"csv"];
 //        [self loadTeamHistory:filePath];
         
         filePath = [[NSBundle mainBundle] pathForResource:@"MatchList" ofType:@"csv"];

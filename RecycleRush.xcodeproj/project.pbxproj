@@ -204,7 +204,6 @@
 		2FDFE5361A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */; };
 		2FE405521A96C3ED007404CE /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405511A96C3ED007404CE /* TeamData.m */; };
 		2FE405571A96D33A007404CE /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405561A96D33A007404CE /* StackViewController.m */; };
-		2FED07B41A9F81E400FF26D3 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */; };
 		2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF00D6D1A7AA384003B63DF /* Red 2015.png */; };
 		2FF58B731A7C5CC300BA280A /* Match Scouting Button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */; };
 		2FF623161A7EEAB600145547 /* Blue 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF623151A7EEAB600145547 /* Blue 2015.png */; };
@@ -521,7 +520,6 @@
 		2FE405511A96C3ED007404CE /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FE405551A96D33A007404CE /* StackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackViewController.h; path = RecycleRush/MatchScouting/StackViewController.h; sourceTree = SOURCE_ROOT; };
 		2FE405561A96D33A007404CE /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackViewController.m; path = RecycleRush/MatchScouting/StackViewController.m; sourceTree = SOURCE_ROOT; };
-		2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2FF00D6D1A7AA384003B63DF /* Red 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Red 2015.png"; path = "RecycleRush/Resources/FieldImages/Red 2015.png"; sourceTree = SOURCE_ROOT; };
 		2FF58B721A7C5CC300BA280A /* Match Scouting Button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Match Scouting Button.jpg"; sourceTree = SOURCE_ROOT; };
 		2FF623151A7EEAB600145547 /* Blue 2015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blue 2015.png"; path = "RecycleRush/Resources/FieldImages/Blue 2015.png"; sourceTree = SOURCE_ROOT; };
@@ -1060,7 +1058,6 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
-				2FED07B31A9F81E400FF26D3 /* RecycleRush.sqlite */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
 			);
@@ -1189,7 +1186,6 @@
 				2FDFE50D1A7E888B002FEAD0 /* LucienNumberFields.plist in Resources */,
 				2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */,
 				2F33163A1A93BB6D005B7798 /* Slide14.JPG in Resources */,
-				2FED07B41A9F81E400FF26D3 /* RecycleRush.sqlite in Resources */,
 				2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */,
 				2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */,
 				2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */,
