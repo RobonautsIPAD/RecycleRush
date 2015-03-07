@@ -63,7 +63,7 @@
     NSString *previousTournament;
     NSMutableDictionary *settingsDictionary;
     NSArray *outputDictionary;
-    int numberMatchTypes;
+    NSUInteger numberMatchTypes;
     NSMutableArray *teamList;
     NSUInteger sectionIndex;
     NSUInteger rowIndex;
@@ -172,7 +172,7 @@
     return matchTypes;
 }
 
--(int)getNumberOfMatches:(NSUInteger)section {
+-(NSUInteger)getNumberOfMatches:(NSUInteger)section {
     if ([[_fetchedResultsController sections] count]) {
         return [[[[_fetchedResultsController sections] objectAtIndex:section] objects] count];
     }
@@ -332,7 +332,7 @@
 
 - (IBAction)ourPreviousMatch:(id)sender {
     NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
-    int start = rowIndex-1;
+    NSUInteger start = rowIndex-1;
     int nMatches = [self getNumberOfMatches:sectionIndex];
     BOOL found = FALSE;
     for (int j=0; j<2; j++) {
@@ -356,7 +356,7 @@
 
 - (IBAction)ourNextMatch:(id)sender {
     NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
-    int start = rowIndex + 1;
+    NSUInteger start = rowIndex + 1;
     int nMatches = [self getNumberOfMatches:sectionIndex];
     BOOL found = FALSE;
     for (int j=0; j<2; j++) {
@@ -570,8 +570,8 @@
     rowIndex = 0;
     if ([tournamentName isEqualToString:previousTournament]) {
         if (!_initialMatchType || !_initialMatchNumber) {
-            sectionIndex = [[settingsDictionary valueForKey:@"Section Index"] intValue];
-            rowIndex = [[settingsDictionary valueForKey:@"Row Index"] intValue];
+            sectionIndex = [[settingsDictionary valueForKey:@"Section Index"] unsignedLongValue];
+            rowIndex = [[settingsDictionary valueForKey:@"Row Index"] unsignedLongValue];
         }
     }
     plistPath = [[NSBundle mainBundle] pathForResource:@"MasonPage" ofType:@"plist"];
@@ -583,8 +583,8 @@
         settingsDictionary = [[NSMutableDictionary alloc] init];
     }
     [settingsDictionary setObject:tournamentName forKey:@"Tournament"];
-    [settingsDictionary setObject:[NSNumber numberWithInt:sectionIndex] forKey:@"Section Index"];
-    [settingsDictionary setObject:[NSNumber numberWithInt:rowIndex] forKey:@"Row Index"];
+    [settingsDictionary setObject:[NSNumber numberWithUnsignedLong:sectionIndex] forKey:@"Section Index"];
+    [settingsDictionary setObject:[NSNumber numberWithUnsignedLong:rowIndex] forKey:@"Row Index"];
 
     NSString *plistPath = [[FileIOMethods applicationLibraryDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/MasonPageSettings.plist"]];
     NSError *error = nil;

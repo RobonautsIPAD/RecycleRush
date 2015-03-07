@@ -1143,7 +1143,7 @@
             else if ([defaultAlliance isEqualToString:storedAlliance] == NO) {
                 desiredAlliance = defaultAlliance;
                 msg = [NSString stringWithFormat:@"Switching from stored %@ to default %@", storedAlliance, defaultAlliance];
-                [self alertPrompt:@"Tournament Mode" withMessage:@""];
+                [self alertPrompt:@"Tournament Mode" withMessage:msg];
             }
             else desiredAlliance = defaultAlliance;
         }
