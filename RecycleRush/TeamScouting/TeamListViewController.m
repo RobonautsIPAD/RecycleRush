@@ -85,44 +85,44 @@
     teamLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:teamLabel];
 
-	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(165, 0, 200, 50)];
+	UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(160, 0, 200, 50)];
 	label1.text = @"Drive Type";
     label1.backgroundColor = [UIColor clearColor];
     label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
     
- 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 200, 50)];
+ 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(265, 0, 200, 50)];
 	label2.text = @"Can Intake";
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
-	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(400, 0, 200, 50)];
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(385, 0, 200, 50)];
 	label3.text = @"Tote Intake";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
-	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(530, 0, 200, 50)];
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(505, 0, 200, 50)];
 	label4.text = @"Lift Type";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(625, 0, 200, 50)];
-	label5.text = @"Max Stack";
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(590, 0, 200, 50)];
+	label5.text = @"Stack Mech";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
-    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(710, 0, 200, 50)];
-	label6.text = @"Average Score";
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(695, 0, 200, 50)];
+	label6.text = @"Wheel Type";
     label6.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label6];
 
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(840, 0, 200, 50)];
-	label8.text = @"Blacklisted";
+    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(800, 0, 200, 50)];
+	label8.text = @"Max Stack";
     label8.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label8];
     
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(930, 0, 200, 50)];
-	label9.text = @"Wow Listed";
+    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(900, 0, 200, 50)];
+	label9.text = @"Average Score";
     label9.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label9];
 
@@ -258,18 +258,22 @@
    
     UILabel *label4 = (UILabel *)[cell viewWithTag:50];
 	label4.text = info.liftType;
-   
-    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-    label5.text = [NSString stringWithFormat:@"%d", [info.maxToteStack intValue]];
-    
-    UILabel *label7 = (UILabel *)[cell viewWithTag:80];
-    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MatchScore"] objectForKey:@"average"] intValue]];
-  
-
     
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:60];
     nameLabel.text = info.name;
     
+    UILabel *label8 = (UILabel *)[cell viewWithTag:70];
+    label8.text = info.stackMechanism;
+    
+    UILabel *label9 = (UILabel *)[cell viewWithTag:80];
+    label9.text = info.wheelType;
+   
+    UILabel *label5 = (UILabel *)[cell viewWithTag:90];
+    label5.text = [NSString stringWithFormat:@"%d", [info.maxToteStack intValue]];
+    
+    UILabel *label7 = (UILabel *)[cell viewWithTag:100];
+    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"TotalScore"] objectForKey:@"average"] intValue]];
+       
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
