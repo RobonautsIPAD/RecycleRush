@@ -7,9 +7,9 @@
 //
 
 @class DataManager;
+@class ConnectionUtility;
 
 @interface PhoneSyncViewController : UIViewController <UIActionSheetDelegate>
-
 @property (nonatomic, strong) DataManager *dataManager;
-
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 @end

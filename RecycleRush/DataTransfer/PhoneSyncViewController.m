@@ -16,6 +16,8 @@
 #import "MatchData.h"
 #import "TeamScore.h"
 #import "SharedSyncController.h"
+#import "DataSync.h"
+#import "SyncTableCells.h"
 
 @interface PhoneSyncViewController ()
 
@@ -36,6 +38,8 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
+    DataSync *dataSyncPackage;
+    SyncTableCells *syncTableCells;
     SharedSyncController *syncController;
     
     SyncTypeDictionary *syncTypeDictionary;
@@ -49,6 +53,9 @@
     UIActionSheet *syncOptionAction;
     
     BOOL firstReceipt;
+    SyncType syncType;
+    SyncOptions syncOption;
+    NSArray *filteredSendList;
 }
 GKPeerPickerController *picker;
 
@@ -63,25 +70,7 @@ GKPeerPickerController *picker;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!_dataManager) {
-        _dataManager = [[DataManager alloc] init];
-    }
-    syncController = [SharedSyncController alloc];
-    syncController.xFerOptionButton = _xFerOptionButton;
-    syncController.syncTypeButton = _syncTypeButton;
-    syncController.syncOptionButton = _syncOptionButton;
-    syncController.connectButton = _connectButton;
-    syncController.disconnectButton = _disconnectButton;
-    syncController.peerName = _peerName;
-    syncController.sendButton = _sendButton;
-    syncController.syncDataTable = _syncDataTable;
-    syncController.packageDataButton = _packageDataButton;
-    syncController.importFromiTunesButton = _importFromiTunesButton;
-    syncController = [syncController initWithDataManager:_dataManager];
-    
-    self.syncDataTable.delegate = syncController;
-    self.syncDataTable.dataSource = syncController;
-    
+   
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
@@ -92,6 +81,9 @@ GKPeerPickerController *picker;
         self.title = @"Sync";
     }
     
+    dataSyncPackage = [[DataSync alloc] init:_dataManager];
+    syncTableCells = [[SyncTableCells alloc] init:_dataManager];
+
     [syncController setSyncType:SyncMatchResults];
     syncTypeDictionary = [[SyncTypeDictionary alloc] init];
     syncTypeList = [[syncTypeDictionary getSyncTypes] mutableCopy];
@@ -101,18 +93,23 @@ GKPeerPickerController *picker;
     syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
     
     [self selectXFerOption:Receiving];
-    [self selectSyncType:SyncMatchResults];
-    [self selectSyncOption:SyncAllSavedHere];
+    syncType = SyncMatchList;
+    syncOption = SyncAllSavedSince;
+
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
-    NSError *error;
-    if (![_dataManager.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
 }
 
 #pragma mark - Transfer Options
+
+- (IBAction)tempAction:(id)sender {
+    NSError *error = nil;
+    BOOL transferSuccess = [dataSyncPackage packageDataForiTunes:syncType forData:filteredSendList error:&error];
+    if (!transferSuccess || error) {
+        [_dataManager writeErrorMessage:error forType:[error code]];
+    }
+}
 
 - (IBAction)selectAction:(id)sender {
     if (sender == _xFerOptionButton) {
@@ -155,9 +152,9 @@ GKPeerPickerController *picker;
     if (actionSheet == xFerOptionAction) {
         [self selectXFerOption:buttonIndex];
     } else if (actionSheet == syncTypeAction) {
-        [self selectSyncType:buttonIndex];
+        [self selectSyncType:[syncTypeList objectAtIndex:buttonIndex]];
     } else if (actionSheet == syncOptionAction) {
-        [self selectSyncOption:buttonIndex];
+        [self selectSyncOption:[syncOptionList objectAtIndex:buttonIndex]];
     }
 }
 
@@ -177,17 +174,17 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [syncController updateTableData];
+    [_syncDataTable reloadData];
 }
 
--(void)selectSyncType:(SyncType)typeChoice {
-    [syncController setSyncType:typeChoice];
-    if (typeChoice == SyncMatchList) {
+-(void)selectSyncType:(NSString *)typeChoice {
+    syncType = [SyncMethods getSyncType:typeChoice];
+    if (syncType == SyncMatchList) {
         [_syncDataTable setRowHeight:52];
     } else {
         [_syncDataTable setRowHeight:40];
     }
-    switch (typeChoice) {
+    switch (syncType) {
         case SyncTeams:
             [_syncTypeButton setTitle:@"Teams" forState:UIControlStateNormal];
             break;
@@ -203,12 +200,13 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [syncController updateTableData];
+    [self setSendList];
+    [_syncDataTable reloadData];
 }
 
--(void)selectSyncOption:(SyncOptions)optionChoice {
-    [syncController setSyncOption:optionChoice];
-    switch (optionChoice) {
+-(void)selectSyncOption:(NSString *)optionChoice {
+    syncOption = [SyncMethods getSyncOption:optionChoice];
+    switch (syncOption) {
         case SyncAll:
             [_syncOptionButton setTitle:@"All" forState:UIControlStateNormal];
             break;
@@ -222,8 +220,53 @@ GKPeerPickerController *picker;
         default:
             break;
     }
-    [syncController updateTableData];
+    [self setSendList];
+    [_syncDataTable reloadData];
 }
+
+-(void)setSendList {
+    if (syncType == SyncTeams) {
+        filteredSendList = [dataSyncPackage getFilteredTeamList:syncOption];
+    }
+    else if (syncType == SyncMatchList) {
+        filteredSendList = [dataSyncPackage getFilteredMatchList:syncOption];
+    }
+    else if (syncType == SyncMatchResults) {
+        filteredSendList = [dataSyncPackage getFilteredResultsList:syncOption];
+    }
+    else if (syncType == SyncTournaments) {
+        filteredSendList = [dataSyncPackage getFilteredTournamentList:syncOption];
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+/*    if (tableView == _serverTable) {
+        if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
+        else return 0;
+    }
+    else return [filteredSendList count];*/
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier1 = @"ServerList";
+ //   UITableViewCell *cell;
+/*    if (tableView == _serverTable) {
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
+        UILabel *label1 = (UILabel *)[cell viewWithTag:0];
+        NSString *server = [_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
+        label1.text = [_connectionUtility.matchMakingClient displayNameForPeerID:server];
+        return cell;
+    }
+    else {
+        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
+        return cell;
+    }*/
+    UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
+    return cell;}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
