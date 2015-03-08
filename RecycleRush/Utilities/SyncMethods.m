@@ -77,14 +77,11 @@
     if ([syncOptionString isEqualToString:@"Sync All Since Last Sync"]) {
         return SyncAllSavedSince;
     }
-    if ([syncOptionString isEqualToString:@"Show Quick Request"]) {
-        return SyncQuickRequest;
-    }
     return 0;
 }
 
 +(NSArray *)getSyncOptionList {
-    return  [NSArray arrayWithObjects:@"Sync All", @"Sync All Saved on this Device", @"Sync All Since Last Sync", @"Show Quick Request", nil];
+    return  [NSArray arrayWithObjects:@"Sync All", @"Sync All Saved on this Device", @"Sync All Since Last Sync", nil];
 }
 
 +(NSArray *)getSyncTypeList {

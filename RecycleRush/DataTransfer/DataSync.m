@@ -22,6 +22,7 @@
 #import "ExportScoreData.h"
 #import "ImportDataFromiTunes.h"
 #import "PhotoUtilities.h"
+#import "MatchPhotoUtilities.h"
 #import "FileIOMethods.h"
 
 @implementation DataSync {
@@ -350,6 +351,9 @@
     if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         //NSLog(@"Photo package");
         receivedList = [photoPackage importDataPhoto:importFile error:error];
+    } else if ([importFile.pathExtension compare:@"mph" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        MatchPhotoUtilities *matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+        receivedList = [matchPhotoUtilities importMatchPhotos:importFile error:error];
     } else {
         receivedList = [importPackage importData:importFile error:error];
     }

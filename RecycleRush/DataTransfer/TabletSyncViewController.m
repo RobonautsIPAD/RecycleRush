@@ -13,8 +13,7 @@
 #import "Packet.h"
 #import "DataSync.h"
 #import "SyncTableCells.h"
-#import "SyncTypeDictionary.h"
-#import "SyncOptionDictionary.h"
+#import "SyncMethods.h"
 #import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
 

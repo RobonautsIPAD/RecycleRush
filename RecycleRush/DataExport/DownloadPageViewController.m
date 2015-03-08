@@ -12,13 +12,13 @@
 #import "TeamData.h"
 #import "MatchData.h"
 #import "TeamScore.h"
-#import "SyncMethods.h"
 #import "TabletSyncViewController.h"
 #import "TournamentData.h"
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
 #import "PhotoUtilities.h"
+#import "MatchPhotoUtilities.h"
 #import "FileIOMethods.h"
 
 @interface DownloadPageViewController ()
@@ -40,7 +40,6 @@
     NSFileManager *fileManager;
     NSString *exportPath;
     NSString *mitchPath;
-    NSMutableArray *syncList;
     id popUp;
     PopUpPickerViewController *optionPicker;
     UIPopoverController *optionPopover;
@@ -104,7 +103,7 @@
    
     emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Spreadsheet", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
-    photoOptionList = [[NSMutableArray alloc] initWithObjects:@"iTunes", @"Computer", nil];
+    photoOptionList = [[NSMutableArray alloc] initWithObjects:@"Team Photos", @"Match Photos", nil];
     spreadsheetOptionList = [[NSMutableArray alloc] initWithObjects:@"Scouting Spreadsheet", @"Mitch Data", nil];
 
     // Set Font and Text for Export Buttons
@@ -142,8 +141,7 @@
     optionPicker.delegate = self;
    
     if (sender == _transferPhotosButton) {
-        [[[PhotoUtilities alloc] init:_dataManager] exportTournamentPhotos:tournamentName];
-        return;
+        optionPicker.pickerChoices = photoOptionList;
     }
     else if (sender == _scoutingSheetButton) {
         optionPicker.pickerChoices = spreadsheetOptionList;
@@ -295,10 +293,15 @@
         }
     }
     else if (popUp == _transferPhotosButton) {
-        
+        if ([newPick isEqualToString:@"Team Photos"]) {
+            [[[PhotoUtilities alloc] init:_dataManager] exportTournamentPhotos:tournamentName];
+        }
+        else {
+            [[[MatchPhotoUtilities alloc] init:_dataManager] exportMatchPhotos];
+        }
+
     }
 }
-
 
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:array {
     if ([MFMailComposeViewController canSendMail]) {

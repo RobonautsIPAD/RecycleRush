@@ -94,5 +94,99 @@
     }
 }
 
+-(NSMutableArray *)importMatchPhotos:(NSString *)importFile error:(NSError **)error {
+    NSMutableArray *importedPhotos = [[NSMutableArray alloc] init];
+    NSString *photoImportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithString:importFile]];
+    // Build a temporary directory to hold imported photo directories
+    NSString *tmpPhotoImport = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"tmpPhotoImport"];
+    // Remove the tmp directory to make sure old data is not hanging around
+    [fileManager removeItemAtPath:tmpPhotoImport error:error];
+    NSData *importData = [NSData dataWithContentsOfFile:photoImportPath];
+    
+    if ([fileManager fileExistsAtPath:photoImportPath]) {
+        NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:importData];
+        if (dirWrapper == nil) {
+            return nil;
+        }
+        NSURL *dirUrl = [NSURL fileURLWithPath:tmpPhotoImport];
+        BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:error];
+        if (!success) {
+            return nil;
+        }
+    }
+    NSArray *directoryContents = [fileManager contentsOfDirectoryAtPath:tmpPhotoImport error:error];
+    for (NSString *file in directoryContents) {
+        NSString *destinationPath = [matchPhotoDirectory stringByAppendingPathComponent:file];
+        if (![fileManager fileExistsAtPath:destinationPath]) {
+            [fileManager copyItemAtPath:[tmpPhotoImport stringByAppendingPathComponent:file] toPath:destinationPath error:NULL];
+            [importedPhotos addObject:file];
+        }
+    }
+    [fileManager removeItemAtPath:photoImportPath error:error];
+    [fileManager removeItemAtPath:tmpPhotoImport error:error];
+    
+    NSLog(@"import file = %@", importFile);
+    return importedPhotos;
+}
+
+-(void)exportMatchPhotos {
+    NSError *error;
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer.mph", tournamentName]];
+    NSURL *url = [NSURL fileURLWithPath:matchPhotoDirectory];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:photoExportPath atomically:YES];
+}
+
+#ifdef NOTUSED
+-(void)exportMatchPhotos:(NSString *)tournament {
+    NSError *error;
+    // Build a temporary directory to hold just this tournament's photos
+    NSString *tmpBuildExport = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"tmpPhotoExport"];
+    // Remove the tmp directory to make sure old data does not hang around
+    [fileManager removeItemAtPath:tmpBuildExport error:&error];
+    
+    // Build directory to hold the temporary images
+    if (![fileManager fileExistsAtPath:tmpBuildExport isDirectory:NO]) {
+        if (![fileManager createDirectoryAtPath:tmpBuildExport
+                    withIntermediateDirectories: YES
+                                     attributes: nil
+                                          error: NULL]) {
+            NSLog(@"Dreadful error creating directory to transfer match photos");
+            return;
+        }
+    }
+    
+    // Build the list of files to transfer and create symbolic links in the transfer directory
+    NSArray *teamList = [TeamAccessors getTeamsInTournament:tournament fromDataManager:_dataManager];
+    for (NSNumber *teamNumber in teamList) {
+        for (NSString *photo in [self getPhotoList:teamNumber]) {
+            [fileManager copyItemAtPath:[robotPhotoDirectory stringByAppendingPathComponent:photo] toPath:[tmpPhotoDirectory stringByAppendingPathComponent:photo] error:NULL];
+            
+        }
+        for (NSString *photo in [self getThumbnailList:teamNumber]) {
+            [fileManager copyItemAtPath:[robotThumbnailDirectory stringByAppendingPathComponent:photo] toPath:[tmpThumbnailDirectory stringByAppendingPathComponent:photo] error:NULL];
+            
+        }
+    }
+    
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer.pho", tournament]];
+    NSURL *url = [NSURL fileURLWithPath:tmpBuildExport];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:photoExportPath atomically:YES];
+    // Remove the tmp directory to make sure old data does not hang around
+    [fileManager removeItemAtPath:tmpBuildExport error:&error];
+}
+#endif
+
 
 @end

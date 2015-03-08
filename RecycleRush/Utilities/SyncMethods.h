@@ -16,7 +16,8 @@ typedef enum {
     SyncTournaments,
     SyncMatchResults,
     SyncMatchList,
-    SyncPhotos
+    SyncPhotos,
+    SyncMatchPhotos
 } SyncType;
 
 typedef enum {

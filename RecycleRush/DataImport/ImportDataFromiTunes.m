@@ -60,6 +60,7 @@
     for (NSString *file in files) {
         if ([file.pathExtension compare:@"mrd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
+            [file.pathExtension compare:@"mph" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"msd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"tmd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
             [file.pathExtension compare:@"tnd" options:NSCaseInsensitiveSearch] == NSOrderedSame ||
