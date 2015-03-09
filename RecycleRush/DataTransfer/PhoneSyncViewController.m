@@ -8,14 +8,12 @@
 
 #import "PhoneSyncViewController.h"
 #import "DataManager.h"
-#import "SyncTypeDictionary.h"
-#import "SyncOptionDictionary.h"
+#import "SyncMethods.h"
 #import "TournamentData.h"
 #import "TournamentUtilities.h"
 #import "TeamData.h"
 #import "MatchData.h"
 #import "TeamScore.h"
-#import "SharedSyncController.h"
 #import "DataSync.h"
 #import "SyncTableCells.h"
 
@@ -40,13 +38,9 @@
     NSString *deviceName;
     DataSync *dataSyncPackage;
     SyncTableCells *syncTableCells;
-    SharedSyncController *syncController;
     
-    SyncTypeDictionary *syncTypeDictionary;
-    NSMutableArray *syncTypeList;
-    
-    SyncOptionDictionary *syncOptionDictionary;
-    NSMutableArray *syncOptionList;
+    NSArray *syncTypeList;
+    NSArray *syncOptionList;
     
     UIActionSheet *xFerOptionAction;
     UIActionSheet *syncTypeAction;
@@ -84,18 +78,15 @@ GKPeerPickerController *picker;
     dataSyncPackage = [[DataSync alloc] init:_dataManager];
     syncTableCells = [[SyncTableCells alloc] init:_dataManager];
 
-    [syncController setSyncType:SyncMatchResults];
-    syncTypeDictionary = [[SyncTypeDictionary alloc] init];
-    syncTypeList = [[syncTypeDictionary getSyncTypes] mutableCopy];
-    
-    [syncController setSyncOption:SyncAllSavedSince];
-    syncOptionDictionary = [[SyncOptionDictionary alloc] init];
-    syncOptionList = [[syncOptionDictionary getSyncOptions] mutableCopy];
+    syncTypeList = [SyncMethods getSyncTypeList];
+    syncOptionList = [SyncMethods getSyncOptionList];
     
     [self selectXFerOption:Receiving];
     syncType = SyncMatchList;
     syncOption = SyncAllSavedSince;
-
+    [_syncTypeButton setTitle:[SyncMethods getPhoneSyncTypeString:syncType] forState:UIControlStateNormal];
+    [_syncOptionButton setTitle:[SyncMethods getPhoneSyncOptionString:syncOption] forState:UIControlStateNormal];
+    [self setSendList];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -161,11 +152,9 @@ GKPeerPickerController *picker;
 -(void)selectXFerOption:(NSInteger)xFerChoice {
     switch (xFerChoice) {
         case 0:     // Send button
-            [syncController setXFerOption:Sending];
             [_xFerOptionButton setTitle:@"Sending" forState:UIControlStateNormal];
             break;
         case 1:     // Receive button
-            [syncController setXFerOption:Receiving];
             [_xFerOptionButton setTitle:@"Receiving" forState:UIControlStateNormal];
             break;
         case 2:     // Cancel button
@@ -179,26 +168,11 @@ GKPeerPickerController *picker;
 
 -(void)selectSyncType:(NSString *)typeChoice {
     syncType = [SyncMethods getSyncType:typeChoice];
+    [_syncTypeButton setTitle:[SyncMethods getPhoneSyncTypeString:syncType] forState:UIControlStateNormal];
     if (syncType == SyncMatchList) {
         [_syncDataTable setRowHeight:52];
     } else {
         [_syncDataTable setRowHeight:40];
-    }
-    switch (syncType) {
-        case SyncTeams:
-            [_syncTypeButton setTitle:@"Teams" forState:UIControlStateNormal];
-            break;
-        case SyncTournaments:
-            [_syncTypeButton setTitle:@"Tournaments" forState:UIControlStateNormal];
-            break;
-        case SyncMatchResults:
-            [_syncTypeButton setTitle:@"Results" forState:UIControlStateNormal];
-            break;
-        case SyncMatchList:
-            [_syncTypeButton setTitle:@"Schedule" forState:UIControlStateNormal];
-            break;
-        default:
-            break;
     }
     [self setSendList];
     [_syncDataTable reloadData];
@@ -206,20 +180,7 @@ GKPeerPickerController *picker;
 
 -(void)selectSyncOption:(NSString *)optionChoice {
     syncOption = [SyncMethods getSyncOption:optionChoice];
-    switch (syncOption) {
-        case SyncAll:
-            [_syncOptionButton setTitle:@"All" forState:UIControlStateNormal];
-            break;
-        case SyncAllSavedHere:
-            [_syncOptionButton setTitle:@"Local" forState:UIControlStateNormal];
-            break;
-        case SyncAllSavedSince:
-            [_syncOptionButton setTitle:@"Latest" forState:UIControlStateNormal];
-            break;
-            
-        default:
-            break;
-    }
+    [_syncOptionButton setTitle:[SyncMethods getPhoneSyncOptionString:syncOption] forState:UIControlStateNormal];
     [self setSendList];
     [_syncDataTable reloadData];
 }
@@ -242,8 +203,8 @@ GKPeerPickerController *picker;
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-/*    if (tableView == _serverTable) {
+    return [filteredSendList count];
+    /*    if (tableView == _serverTable) {
         if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
         else return 0;
     }
@@ -265,7 +226,8 @@ GKPeerPickerController *picker;
         return cell;
     }*/
     UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
-    return cell;}
+    return cell;
+}
 
 
 - (void)didReceiveMemoryWarning {

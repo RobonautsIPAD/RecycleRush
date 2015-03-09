@@ -16,7 +16,6 @@
 #import "MatchData.h"
 #import "ExportMatchData.h"
 #import "TeamScore.h"
-#import "TeamScoreInterfaces.h"
 #import "ImportDataFromiTunes.h"
 #import "SyncMethods.h"
 
@@ -54,7 +53,6 @@
     NSArray *matchResultsList;
     NSArray *filteredResultsList;
     NSMutableArray *receivedResultsList;
-    TeamScoreInterfaces *matchResultsPackage;
     
     //NSFileManager *fileManager;
     NSString *exportFilePath;
@@ -104,9 +102,6 @@ GKPeerPickerController *picker;
     }
     if (!matchDataPackage) {
         matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
-    }
-    if (!matchResultsPackage) {
-        matchResultsPackage = [[TeamScoreInterfaces alloc] initWithDataManager:_dataManager];
     }
     importPackage = [[ImportDataFromiTunes alloc] init:_dataManager];
     
@@ -783,7 +778,7 @@ GKPeerPickerController *picker;
         case SyncMatchResults:
             for (int i=0; i<[filteredResultsList count]; i++) {
                 TeamScore *score = [filteredResultsList objectAtIndex:i];
-                [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
+              //  [matchResultsPackage exportScoreForXFer:score toFile:transferFilePath];
                 //  NSLog(@"Match = %@, Type = %@, Team = %@ Saved = %@, SavedBy = %@", score.match.number, score.match.matchType, score.team.number, score.saved, score.savedBy);
             }
             matchResultsSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];

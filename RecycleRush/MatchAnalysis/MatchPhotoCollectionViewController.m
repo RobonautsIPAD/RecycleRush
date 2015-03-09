@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [UIDefaults setBigButtonDefaults:_teamNumberButton];
+    [UIDefaults setBigButtonDefaults:_teamNumberButton withFontSize:nil];
     currectTeamNumber = _teamNumber;
     [self showTeam];
 }

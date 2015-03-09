@@ -10,8 +10,10 @@
 #import <QuartzCore/CALayer.h>
 
 @implementation UIDefaults
-+(UIButton *)setBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20.0];
++(UIButton *)setBigButtonDefaults:(UIButton *)currentButton withFontSize:(NSNumber *)fontSize {
+    CGFloat textSize = 20.0;
+    if (fontSize) textSize = [fontSize floatValue];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:textSize];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
     [btnLayer setMasksToBounds:YES];

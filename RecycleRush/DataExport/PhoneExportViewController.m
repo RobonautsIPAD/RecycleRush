@@ -11,13 +11,14 @@
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
-#import "TeamDataInterfaces.h"
 #import "FileIOMethods.h"
 
 @interface PhoneExportViewController ()
-@property (nonatomic, weak) IBOutlet UIButton *exportTeamData;
-@property (nonatomic, weak) IBOutlet UIButton *exportMatchData;
-@property (nonatomic, weak) IBOutlet UIButton *exportSpreadsheetData;
+@property (weak, nonatomic) IBOutlet UIButton *emailMatchButton;
+@property (weak, nonatomic) IBOutlet UIButton *emailTeamButton;
+@property (weak, nonatomic) IBOutlet UIButton *emailSpreadsheetButton;
+@property (weak, nonatomic) IBOutlet UIButton *createSpreadsheetButton;
+@property (weak, nonatomic) IBOutlet UIButton *createMitchButton;
 @end
 
 @implementation PhoneExportViewController {
@@ -25,7 +26,9 @@
     NSString *tournamentName;
     NSString *gameName;
     NSString *appName;
+    NSFileManager *fileManager;
     NSString *exportPath;
+    NSString *mitchPath;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,9 +57,10 @@
     else {
         self.title = @"Export";
     }
+    fileManager = [NSFileManager defaultManager];
     exportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"Outbox"];
     NSError *error;
-    if (![[NSFileManager defaultManager] createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
+    if (![fileManager createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Email Data Alert"
                                                           message:@"Unable to Save Email Data"
                                                          delegate:nil
@@ -67,61 +71,130 @@
     }
 }
 
-- (IBAction)buttonPress:(id)sender {
+-(IBAction)buttonPress:(id)sender {
+    if (sender == _emailTeamButton) {
+        [self emailTeamData];
+    } else if (sender == _emailMatchButton) {
+        [self emailMatchData];
+    } else if (sender == _emailSpreadsheetButton) {
+        [self emailScoutingSpreadsheet:@"Competition"];
+    } else if (sender == _createSpreadsheetButton) {
+        [self createScoutingSpreadsheet];
+    } else if (sender == _createMitchButton) {
+        [self createMitchData];
+    }
+}
+
+-(void)emailTeamData {
     NSString *csvString;
-    if (sender == _exportTeamData) {
-        csvString = [[[ExportTeamData alloc] init:_dataManager] teamDataCSVExport:tournamentName];
-        if (csvString) {
-            NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
-            [csvString writeToFile:filePath
-                        atomically:YES
-                          encoding:NSUTF8StringEncoding
-                             error:nil];
-            NSString *emailSubject = @"Team Data CSV File";
-            NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
-            NSArray *attachList = [[NSArray alloc] initWithObjects:@"TeamData.csv", nil];
-            NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-            [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
-         }
-    }
-    else if (sender == _exportMatchData) {
-        NSString *filePath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
-        // Export Match List
-        ExportMatchData *matchCSVExport = [[ExportMatchData alloc] init:_dataManager];
-        csvString = [matchCSVExport matchDataCSVExport:tournamentName];
-        if (csvString) {
-            [csvString writeToFile:filePath
-                        atomically:YES
-                        encoding:NSUTF8StringEncoding
-                        error:nil];
-        }
-        NSString *emailSubject = @"Match Data CSV Files";
+    csvString = [[[ExportTeamData alloc] init:_dataManager] teamDataCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [exportPath stringByAppendingPathComponent: @"TeamData.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+        NSString *emailSubject = @"Team Data CSV File";
         NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
-        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchList.csv", nil];
-        NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-
-        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];
-    }
-    else if (sender == _exportSpreadsheetData) {
-        [self createScoutingSpreadsheet:@""];
+        NSArray *attachList = [[NSArray alloc] initWithObjects:@"TeamData.csv", nil];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
     }
 }
 
--(void)createScoutingSpreadsheet:(NSString *)choice {
-/*    NSString *csvString;
-    csvString = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName];
+-(void)emailMatchData {
+    NSString *csvString;
+    csvString = [[[ExportMatchData alloc] init:_dataManager] matchDataCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [exportPath stringByAppendingPathComponent: @"MatchData.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+        NSString *emailSubject = @"Match Schedule CSV File";
+        NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+        NSArray *attachList = [[NSArray alloc] initWithObjects:@"MatchData.csv", nil];
+        NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+        [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Match Data"
+                                                        message:@"No matches were found"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)emailScoutingSpreadsheet:(NSString *)choice {
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    [csvString writeToFile:filePath
-                atomically:YES
-                  encoding:NSUTF8StringEncoding
-                     error:nil];
-    NSString *emailSubject = @"Match Data CSV Files";
-    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
-    NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingData.csv", nil];
-    NSArray *recipients = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
-    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:recipients];*/
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    if (!success) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Scouting Spreadsheet"
+                                                        message:@"No matches were found"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
+-(void)createScoutingSpreadsheet {
+    NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    if (!success) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Scouting Spreadsheet"
+                                                        message:@"No matches were found"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)createMitchData {
+    mitchPath = [exportPath stringByAppendingPathComponent:[NSString stringWithFormat:@"Mitch_%0.f", CFAbsoluteTimeGetCurrent()]];
+    NSError *error;
+    if (![fileManager createDirectoryAtPath:mitchPath withIntermediateDirectories:YES attributes:nil error:&error]) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Scouting Bundle Data Alert"
+                                                          message:@"Unable to Scouting Bundle Data"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
+    // Team data
+    NSString *csvString;
+    csvString = [[[ExportTeamData alloc] init:_dataManager] teamBundleCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"TeamBundle.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
+    // Match Schedule
+    csvString = [[[ExportMatchData alloc] init:_dataManager] matchDataCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"MatchScheduleBundle.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
+    // Score data
+    csvString = [[[ExportScoreData alloc] init:_dataManager] scoreBundleCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"MatchResultsBundle.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
+    
+}
 
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:recipients {
     if ([MFMailComposeViewController canSendMail]) {

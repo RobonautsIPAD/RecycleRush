@@ -819,10 +819,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TeamList" editingAccessoryType="detailDisclosureButton" id="AZR-4T-sYC">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="60"/>
+                                <rect key="frame" x="0.0" y="86" width="1024" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AZR-4T-sYC" id="V3r-dx-bC5">
-                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="991" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="5ez-kh-jzU">
@@ -4955,7 +4955,7 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MatchList" id="UEE-A6-AwH">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEE-A6-AwH" id="7AW-u3-lIM">
                                     <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
@@ -5190,10 +5190,10 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MatchList" id="p0J-9a-oHr">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p0J-9a-oHr" id="IfE-Cy-AFd">
-                                    <rect key="frame" x="0.0" y="0.0" width="1004" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="991" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Number" lineBreakMode="tailTruncation" minimumFontSize="10" id="kE5-oR-KPc">
@@ -5614,10 +5614,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TeamInfo" rowHeight="64" id="Ate-sS-4w3">
-                                        <rect key="frame" x="0.0" y="22" width="979" height="64"/>
+                                        <rect key="frame" x="0.0" y="86" width="979" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ate-sS-4w3" id="iuB-Qn-ahV">
-                                            <rect key="frame" x="0.0" y="0.0" width="959" height="63"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="946" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H2Y-wm-4Ao">
@@ -5864,7 +5864,7 @@
                                         <rect key="frame" x="0.0" y="22" width="521" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wrZ-1l-r2R" id="92s-61-Vuc">
-                                            <rect key="frame" x="0.0" y="0.0" width="501" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="488" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NsM-pY-DJV">
@@ -7099,7 +7099,7 @@
                                         <rect key="frame" x="0.0" y="22" width="443" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QVR-UJ-jnx" id="Z7J-qX-ius">
-                                            <rect key="frame" x="0.0" y="0.0" width="423" height="33"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="410" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Match #" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YUe-o2-adz">
@@ -8121,12 +8121,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="2hQ-n8-lLr"/>
-        <segue reference="GB9-r5-xh5"/>
-        <segue reference="2of-I0-vVw"/>
-        <segue reference="wEf-g4-j4R"/>
         <segue reference="rvd-8o-WNc"/>
-        <segue reference="Pzs-hx-ptZ"/>
-        <segue reference="ILs-8g-vkf"/>
+        <segue reference="GB9-r5-xh5"/>
+        <segue reference="wEf-g4-j4R"/>
+        <segue reference="2of-I0-vVw"/>
         <segue reference="bSz-YR-wcx"/>
+        <segue reference="Pzs-hx-ptZ"/>
+        <segue reference="beS-aj-zfP"/>
     </inferredMetricsTieBreakers>
 </document>

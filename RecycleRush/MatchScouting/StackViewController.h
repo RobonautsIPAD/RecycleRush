@@ -12,7 +12,7 @@
 @class TeamScore;
 
 @protocol StackViewDelegate
-- (void)scoringViewFinished:(NSData *)data;
+- (void)scoringViewFinished;
 @end
 
 

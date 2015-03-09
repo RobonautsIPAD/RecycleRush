@@ -44,23 +44,6 @@
     else {
         self.title = @"Extract some name";
     }
-    
-    
-    // Interface to add a new team. Give it the team number, name and tournament
-    // If the team does not exist, this method creates it.
-    // If the team does exist, it adds the tournament to the list of tournaments
-    //      for this team. If the team already exists for this tournament, it returns
-    //      false and nothing happens.
-/*
-    TeamDataInterfaces *team = [[TeamDataInterfaces alloc] initWithDataManager:_dataManager];
-    if ([team addTeam:newTeamNumber forName:newTeamName forTournament:tournamentName]) {
-        NSError *error;
-        if (![_dataManager.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-    }*/
-    
-
 }
 
 - (void)didReceiveMemoryWarning

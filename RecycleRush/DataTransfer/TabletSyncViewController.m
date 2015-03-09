@@ -7,7 +7,7 @@
 //
 
 #import "TabletSyncViewController.h"
-#import <QuartzCore/CALayer.h>
+#import "UIDefaults.h"
 #import "DataManager.h"
 #import "ConnectionUtility.h"
 #import "Packet.h"
@@ -125,7 +125,7 @@
         _connectionUtility.matchMakingClient = nil;
     }
     
-    [self setBigButtonDefaults:_connectionStatusButton];
+    [UIDefaults setBigButtonDefaults:_connectionStatusButton withFontSize:[NSNumber numberWithFloat:16.0]];
     [_serverTable setHidden:TRUE];
     [_bluetoothView setHidden:FALSE];
     if (_connectionUtility.matchMakingServer) {
@@ -321,12 +321,11 @@
             clientList = [[peerList allKeys] mutableCopy];
             if (connectedClients > 1) {
                 [clientList sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-                [clientList addObject:@"Send All"];
             }
             [_sendButton setHidden:FALSE];
             [_quickRequestButton setHidden:FALSE];
             [_connectedDeviceButton setHidden:FALSE];
-            [_connectedDeviceButton setTitle:@"Send All" forState:UIControlStateNormal];
+            [_connectedDeviceButton setTitle:[clientList objectAtIndex:0] forState:UIControlStateNormal];
         }
         else {
             clientList = [[NSMutableArray alloc] initWithObjects:@"No Clients", nil];
@@ -539,21 +538,6 @@
 		[_connectionUtility.matchMakingClient connectToServerWithPeerID:serverID];
         serverName = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
 	}
-}
-
--(void)setBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0];
-    // Round button corners
-    CALayer *btnLayer = [currentButton layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:10.0f];
-    // Apply a 1 pixel, black border
-    [btnLayer setBorderWidth:1.0f];
-    [btnLayer setBorderColor:[[UIColor blackColor] CGColor]];
-    // Set the button Background Color
-    [currentButton setBackgroundColor:[UIColor whiteColor]];
-    // Set the button Text Color
-    [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning

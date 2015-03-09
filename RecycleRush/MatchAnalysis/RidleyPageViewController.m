@@ -10,7 +10,7 @@
 #import "DataManager.h"
 #import "PopUpPickerViewController.h"
 #import "TeamData.h"
-#import "TeamDataInterfaces.h"
+//#import "TeamDataInterfaces.h"
 #import "TournamentData.h"
 @interface RidleyPageViewController ()
 
@@ -68,7 +68,7 @@
 
     
 	// Do any additional setup after loading the view.
-   NSArray *teamData = [[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
+    NSArray *teamData = nil;//[[[[TeamDataInterfaces alloc] initWithDataManager:_dataManager] getTeamListTournament:tournamentName] mutableCopy];
    
     _firstTeamList = [[NSMutableArray alloc] init];
     _secondTeamList = [[NSMutableArray alloc] init];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface UIDefaults : NSObject
-+(UIButton *)setBigButtonDefaults:(UIButton *)currentButton;
++(UIButton *)setBigButtonDefaults:(UIButton *)currentButton withFontSize:(NSNumber *)fontSize;
 +(UIButton *)setSmallButtonDefaults:(UIButton *)currentButton;
 +(UITextField *)setTextBoxDefaults:(UITextField *)currentTextField;
 @end

@@ -1542,7 +1542,7 @@
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setAllianceString:allianceString];
         [segue.destinationViewController setCurrentScore:currentScore];
-        [segue.destinationViewController setSavedData:savedData];
+        [segue.destinationViewController setSavedData:currentScore.stacks];
         [segue.destinationViewController setDelegate:self];
     }
     else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
@@ -1571,9 +1571,7 @@
     }
 }
 
-- (void)scoringViewFinished:(NSData *)data {
-    UIView *stack1View = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    savedData = data;
+- (void)scoringViewFinished {
     returnFromScore = TRUE;
 }
 

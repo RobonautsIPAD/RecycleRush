@@ -28,7 +28,9 @@ typedef enum {
 } SyncOptions;
 
 +(NSString *)getSyncTypeString:(SyncType)syncType;
++(NSString *)getPhoneSyncTypeString:(SyncType)syncType;
 +(NSString *)getSyncOptionString:(SyncOptions)syncType;
++(NSString *)getPhoneSyncOptionString:(SyncOptions)syncType;
 +(SyncType)getSyncType:(NSString *)syncTypeString;
 +(SyncOptions)getSyncOption:(NSString *)syncOptionString;
 +(NSArray *)getSyncOptionList;

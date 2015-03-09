@@ -36,11 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-#ifdef NOTUSED
+    NSLog(@"Add saved and savedBy stuff for stack view");
     stackList = [[NSMutableArray alloc] init];
-    if (_currentScore.field.stacks) {
-        stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:_currentScore.field.stacks];
-        NSLog(@"%@", stackDictionary);
+    if (_currentScore.stacks) {
+        stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:_currentScore.stacks];
     }
     else {
         stackDictionary = [[NSMutableDictionary alloc] init];
@@ -74,8 +73,8 @@
             [stackList addObject:newStack];
         }
         // Right Column
-        for (int i=0; i<6; i++) {
-            rect = CGRectMake(xRight,yTop+yInterval*i,265,65);
+        for (int i=6; i<12; i++) {
+            rect = CGRectMake(xRight,yTop+yInterval*(i-6),265,65);
             newStack = [[UIView alloc] initWithFrame:rect];
             newStack.frame = rect;
             [self initializeStack:newStack forNumber:i];
@@ -99,21 +98,19 @@
             [stackList addObject:newStack];
         }
         // Right Column
-        for (int i=0; i<6; i++) {
-            rect = CGRectMake(xRight,yBottom+yInterval*i,265,65);
+        for (int i=6; i<12; i++) {
+            rect = CGRectMake(xRight,yBottom+yInterval*(i-6),265,65);
             newStack = [[UIView alloc] initWithFrame:rect];
             newStack.frame = rect;
             [self initializeStack:newStack forNumber:i];
             [stackList addObject:newStack];
         }
     }
-#endif
 }
-#ifdef NOTUSED
 
 -(void)initializeStack:(UIView *)stack forNumber:(int) stackNumber {
+    NSDictionary *savedStack = [stackDictionary objectForKey:[NSNumber numberWithInt:stackNumber]];
     stack.backgroundColor = [UIColor whiteColor];
-
     stack.layer.borderColor = [UIColor colorWithRed:(34.0/255) green:(139.0/255) blue:(34.0/255) alpha:1.0].CGColor;
     stack.layer.borderWidth = 3.0f;
     stack.tag = stackNumber;
@@ -125,22 +122,26 @@
     basePoint.y = 10;
     CGFloat heightSpace = 25;
     CGFloat widthSpace = 65;
-    for (int i=0, tag=5; i<8; i++, tag+=5) {
+    for (int i=0, subTag=5; i<8; i++, subTag+=5) {
         CGPoint location;
         location.x = basePoint.x + (i/2)*widthSpace;
         location.y = basePoint.y + (i%2)*heightSpace;
         textField = [[UITextField alloc] initWithFrame:CGRectMake(location.x, location.y, width, height)];
-        [self textAttributes:textField withTag:(tag+stackNumber*40)];
+        NSUInteger tag = subTag+stackNumber*40;
+        NSString *savedValue = [savedStack objectForKey:[NSNumber numberWithUnsignedInt:tag]];
+        NSLog(@"%u %@", tag, savedValue);
+        [self textAttributes:textField withTag:tag withSavedData:savedValue];
         [stack addSubview:textField];
     }
     [self.view addSubview:stack];
 }
 
--(void)textAttributes:(UITextField *)field withTag:(NSUInteger)newTag {
+-(void)textAttributes:(UITextField *)field withTag:(NSUInteger)newTag withSavedData:(NSString *)savedValue {
     field.borderStyle = UITextBorderStyleRoundedRect;
     field.font = [UIFont systemFontOfSize:15];
    
     field.placeholder = @"";
+    if (savedValue) field.text = savedValue;
 //    field.placeholder = [NSString stringWithFormat:@"%d", newTag];
     field.autocorrectionType = UITextAutocorrectionTypeNo;
     field.keyboardType = UIKeyboardTypeDefault;
@@ -240,12 +241,7 @@
     
     NSLog(@"%@", stackDictionary);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stackDictionary];
-    if (!_currentScore.field) {
-        FieldPhoto *photo = [NSEntityDescription insertNewObjectForEntityForName:@"FieldPhoto"
-                                                          inManagedObjectContext:_dataManager.managedObjectContext];    _currentScore.field.stacks = data;
-        _currentScore.field = photo;
-    }
-    _currentScore.field.stacks = data;
+    _currentScore.stacks = data;
     if (![_dataManager saveContext]) {
         UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
                                                           message:@"Unable to save data"
@@ -262,14 +258,14 @@
     _currentScore.totalTotesScored = [stack1Results objectForKey:@"totes"];
     NSData *dataFields = [NSKeyedArchiver archivedDataWithRootObject:_stack1View];*/
 
- //   [_delegate scoringViewFinished:dataFields];
+    [_delegate scoringViewFinished];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
 }
-#endif
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

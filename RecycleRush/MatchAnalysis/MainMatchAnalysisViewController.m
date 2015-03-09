@@ -137,13 +137,13 @@
     [self setTableDefaults];
     [self createStatsTableHeader];
     [UIDefaults setTextBoxDefaults:_matchNumber];
-    [UIDefaults setBigButtonDefaults:_matchType];
-    [UIDefaults setBigButtonDefaults:_prevMatch];
-    [UIDefaults setBigButtonDefaults:_nextMatch];
-    [UIDefaults setBigButtonDefaults:_ourPrevMatchButton];
-    [UIDefaults setBigButtonDefaults:_ourNextMatchButton];
-    [UIDefaults setBigButtonDefaults:_redSketchButton];
-    [UIDefaults setBigButtonDefaults:_blueSketchButton];
+    [UIDefaults setBigButtonDefaults:_matchType withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_prevMatch withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_nextMatch withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_ourPrevMatchButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_ourNextMatchButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_redSketchButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_blueSketchButton withFontSize:nil];
      _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];

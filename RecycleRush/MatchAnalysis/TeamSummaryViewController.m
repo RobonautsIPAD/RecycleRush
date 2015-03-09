@@ -62,8 +62,8 @@
     else {
         self.title = @"Team Summary";
     }
-    [UIDefaults setBigButtonDefaults:_teamNumberButton];
-    [UIDefaults setBigButtonDefaults:_matchPhotoButton];
+    [UIDefaults setBigButtonDefaults:_teamNumberButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_matchPhotoButton withFontSize:nil];
 
     matchTypeDictionary = _dataManager.matchTypeDictionary;
     allianceDictionary = _dataManager.allianceDictionary;

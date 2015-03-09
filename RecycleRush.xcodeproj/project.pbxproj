@@ -142,11 +142,8 @@
 		2F6D4F9219DB36F700EF3923 /* MatchUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4F9119DB36F700EF3923 /* MatchUtilities.m */; };
 		2F88169B1A5FB0D4001CCA04 /* Competitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816861A5FB0D4001CCA04 /* Competitions.m */; };
 		2F88169D1A5FB0D4001CCA04 /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168A1A5FB0D4001CCA04 /* MatchData.m */; };
-		2F88169E1A5FB0D4001CCA04 /* MatchDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168C1A5FB0D4001CCA04 /* MatchDataInterfaces.m */; };
 		2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */; };
 		2F8816A01A5FB0D4001CCA04 /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816901A5FB0D4001CCA04 /* Regional.m */; };
-		2F8816A21A5FB0D4001CCA04 /* TeamDataInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816941A5FB0D4001CCA04 /* TeamDataInterfaces.m */; };
-		2F8816A41A5FB0D4001CCA04 /* TeamScoreInterfaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816981A5FB0D4001CCA04 /* TeamScoreInterfaces.m */; };
 		2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88169A1A5FB0D4001CCA04 /* TournamentData.m */; };
 		2F8F20481A995D8200679ED6 /* Justin_R.ai in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20471A995D8200679ED6 /* Justin_R.ai */; };
 		2F8F204B1A995E9900679ED6 /* robonauts app banner original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */; };
@@ -177,6 +174,7 @@
 		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC123271A830B240029F086 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC123261A830B240029F086 /* PitScoutingDataSheet.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
+		2FCCD1E71AABFE6800F3F68D /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FCCD1E61AABFE6800F3F68D /* RecycleRush.sqlite */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
 		2FDAF1171A9024C1006D7670 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF1161A9024C1006D7670 /* Packet.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
@@ -448,15 +446,9 @@
 		2F8816861A5FB0D4001CCA04 /* Competitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Competitions.m; sourceTree = "<group>"; };
 		2F8816891A5FB0D4001CCA04 /* MatchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchData.h; sourceTree = "<group>"; };
 		2F88168A1A5FB0D4001CCA04 /* MatchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchData.m; sourceTree = "<group>"; };
-		2F88168B1A5FB0D4001CCA04 /* MatchDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchDataInterfaces.h; sourceTree = "<group>"; };
-		2F88168C1A5FB0D4001CCA04 /* MatchDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchDataInterfaces.m; sourceTree = "<group>"; };
 		2F88168E1A5FB0D4001CCA04 /* RecycleRush.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecycleRush.xcdatamodel; sourceTree = "<group>"; };
 		2F88168F1A5FB0D4001CCA04 /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regional.h; sourceTree = "<group>"; };
 		2F8816901A5FB0D4001CCA04 /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regional.m; sourceTree = "<group>"; };
-		2F8816931A5FB0D4001CCA04 /* TeamDataInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataInterfaces.h; sourceTree = "<group>"; };
-		2F8816941A5FB0D4001CCA04 /* TeamDataInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataInterfaces.m; sourceTree = "<group>"; };
-		2F8816971A5FB0D4001CCA04 /* TeamScoreInterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScoreInterfaces.h; sourceTree = "<group>"; };
-		2F8816981A5FB0D4001CCA04 /* TeamScoreInterfaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScoreInterfaces.m; sourceTree = "<group>"; };
 		2F8816991A5FB0D4001CCA04 /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentData.h; sourceTree = "<group>"; };
 		2F88169A1A5FB0D4001CCA04 /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentData.m; sourceTree = "<group>"; };
 		2F8F20471A995D8200679ED6 /* Justin_R.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Justin_R.ai; path = "RecycleRush/Resources/Logos and Banners/Justin_R.ai"; sourceTree = SOURCE_ROOT; };
@@ -495,6 +487,7 @@
 		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC123261A830B240029F086 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		2FCCD1E61AABFE6800F3F68D /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2FCF9FB719944D1600A872CD /* TeamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamUtilities.h; path = Common/DataUtilities/TeamUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FDAF1151A9024C1006D7670 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
@@ -871,10 +864,6 @@
 				2F2ECA861A5F052300D3386E /* ExportMatchData.m */,
 				2F2ECA871A5F052300D3386E /* ExportScoreData.h */,
 				2F2ECA881A5F052300D3386E /* ExportScoreData.m */,
-				2F2ECA931A5F052300D3386E /* SharedSyncController.h */,
-				2F2ECA941A5F052300D3386E /* SharedSyncController.m */,
-				2F2ECA8F1A5F052300D3386E /* PadSyncViewController.h */,
-				2F2ECA901A5F052300D3386E /* PadSyncViewController.m */,
 				2F2ECA951A5F052300D3386E /* SyncTableCells.h */,
 				2F2ECA961A5F052300D3386E /* SyncTableCells.m */,
 				2F2ECA831A5F052300D3386E /* DataSync.h */,
@@ -963,12 +952,6 @@
 				2F8816901A5FB0D4001CCA04 /* Regional.m */,
 				2F8816991A5FB0D4001CCA04 /* TournamentData.h */,
 				2F88169A1A5FB0D4001CCA04 /* TournamentData.m */,
-				2F88168B1A5FB0D4001CCA04 /* MatchDataInterfaces.h */,
-				2F88168C1A5FB0D4001CCA04 /* MatchDataInterfaces.m */,
-				2F8816931A5FB0D4001CCA04 /* TeamDataInterfaces.h */,
-				2F8816941A5FB0D4001CCA04 /* TeamDataInterfaces.m */,
-				2F8816971A5FB0D4001CCA04 /* TeamScoreInterfaces.h */,
-				2F8816981A5FB0D4001CCA04 /* TeamScoreInterfaces.m */,
 			);
 			name = DataModels;
 			path = Common/DataModels;
@@ -1016,6 +999,10 @@
 				2F5D32721A5FA24300E02523 /* MatchOverlayViewController.m */,
 				2F5D32631A5FA24300E02523 /* FieldDrawingViewController.h */,
 				2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */,
+				2F2ECA931A5F052300D3386E /* SharedSyncController.h */,
+				2F2ECA941A5F052300D3386E /* SharedSyncController.m */,
+				2F2ECA8F1A5F052300D3386E /* PadSyncViewController.h */,
+				2F2ECA901A5F052300D3386E /* PadSyncViewController.m */,
 			);
 			name = Unused;
 			sourceTree = "<group>";
@@ -1082,6 +1069,7 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
+				2FCCD1E61AABFE6800F3F68D /* RecycleRush.sqlite */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
 			);
@@ -1276,6 +1264,7 @@
 				2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */,
 				2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */,
 				2FA17B021AAA7AA20080E836 /* TeamSummaryStats.plist in Resources */,
+				2FCCD1E71AABFE6800F3F68D /* RecycleRush.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1301,7 +1290,6 @@
 				2F2ECAA01A5F052300D3386E /* PhoneSyncViewController.m in Sources */,
 				2F5D32AE1A5FA3D000E02523 /* MatchListViewController.m in Sources */,
 				2F5D32FB1A5FA51000E02523 /* MatchFlow.m in Sources */,
-				2F8816A41A5FB0D4001CCA04 /* TeamScoreInterfaces.m in Sources */,
 				2F5D32C61A5FA45300E02523 /* ImportUSFirstViewController.m in Sources */,
 				2F5D32C31A5FA45300E02523 /* ImportDataFromiTunes.m in Sources */,
 				2F6D4F9219DB36F700EF3923 /* MatchUtilities.m in Sources */,
@@ -1324,9 +1312,7 @@
 				2F88169D1A5FB0D4001CCA04 /* MatchData.m in Sources */,
 				2F2ECAB61A5F059900D3386E /* SettingsViewController.m in Sources */,
 				2F5D32961A5FA32F00E02523 /* AppDelegate.m in Sources */,
-				2F8816A21A5FB0D4001CCA04 /* TeamDataInterfaces.m in Sources */,
 				2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */,
-				2F88169E1A5FB0D4001CCA04 /* MatchDataInterfaces.m in Sources */,
 				2F5D32FD1A5FA51000E02523 /* PhotoCell.m in Sources */,
 				2F5D32821A5FA24300E02523 /* RidleyPageViewController.m in Sources */,
 				2F6A4CCC19EC5C8E002A0A56 /* ScoreUtilities.m in Sources */,

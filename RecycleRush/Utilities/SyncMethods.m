@@ -32,6 +32,29 @@
     return syncString;
 }
 
++(NSString *)getPhoneSyncTypeString:(SyncType)syncType {
+    NSString *syncString;
+    switch (syncType) {
+        case 0:
+            syncString = @"Teams";
+            break;
+        case 1:
+            syncString = @"Tournament";
+            break;
+        case 2:
+            syncString = @"Results";
+            break;
+        case 3:
+            syncString = @"Schedule";
+            break;
+        default:
+            syncString = @"";
+            break;
+    }
+    return syncString;
+}
+
+
 +(NSString *)getSyncOptionString:(SyncOptions)syncOption {
     NSString *syncString;
     switch (syncOption) {
@@ -43,6 +66,25 @@
             break;
         case 2:
             syncString = @"Sync All Since Last Sync";
+            break;
+        default:
+            syncString = @"";
+            break;
+    }
+    return syncString;
+}
+
++(NSString *)getPhoneSyncOptionString:(SyncOptions)syncOption {
+    NSString *syncString;
+    switch (syncOption) {
+        case 0:
+            syncString = @"All";
+            break;
+        case 1:
+            syncString = @"Local";
+            break;
+        case 2:
+            syncString = @"Latest";
             break;
         default:
             syncString = @"";

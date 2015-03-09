@@ -8,18 +8,15 @@
 
 #import "DownloadPageViewController.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
 #import "MainLogo.h"
-#import "TeamData.h"
-#import "MatchData.h"
-#import "TeamScore.h"
-#import "TabletSyncViewController.h"
 #import "TournamentData.h"
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
 #import "PhotoUtilities.h"
 #import "MatchPhotoUtilities.h"
-#import "FileIOMethods.h"
+#import "TabletSyncViewController.h"
 
 @interface DownloadPageViewController ()
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;
