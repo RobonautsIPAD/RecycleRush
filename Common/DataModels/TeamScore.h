@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 3/7/15.
+//  Created by FRC on 3/11/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface TeamScore : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * allianceStation;
+@property (nonatomic, retain) NSNumber * autonCansFromStep;
 @property (nonatomic, retain) NSNumber * autonCansScored;
 @property (nonatomic, retain) NSNumber * autonRobotSet;
 @property (nonatomic, retain) NSNumber * autonToteSet;
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) NSNumber * coopStackNumerator;
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
+@property (nonatomic, retain) NSString * fieldPhotoName;
 @property (nonatomic, retain) NSNumber * fouls;
 @property (nonatomic, retain) NSNumber * litterHP;
 @property (nonatomic, retain) NSNumber * litterInCan;
@@ -49,6 +51,7 @@
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * results;
 @property (nonatomic, retain) NSNumber * robotSpeed;
+@property (nonatomic, retain) NSString * robotType;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
 @property (nonatomic, retain) NSNumber * sc1;
@@ -63,6 +66,7 @@
 @property (nonatomic, retain) NSString * scouter;
 @property (nonatomic, retain) NSNumber * stackKnockdowns;
 @property (nonatomic, retain) NSNumber * stackNumber;
+@property (nonatomic, retain) NSData * stacks;
 @property (nonatomic, retain) NSNumber * teamNumber;
 @property (nonatomic, retain) NSNumber * totalCansScored;
 @property (nonatomic, retain) NSNumber * totalLandfillLitterScored;
@@ -70,6 +74,7 @@
 @property (nonatomic, retain) NSNumber * totalTotesIntake;
 @property (nonatomic, retain) NSNumber * totalTotesScored;
 @property (nonatomic, retain) NSNumber * toteIntakeHP;
+@property (nonatomic, retain) NSNumber * toteIntakeLandfill;
 @property (nonatomic, retain) NSNumber * toteIntakeStep;
 @property (nonatomic, retain) NSNumber * totesOn0;
 @property (nonatomic, retain) NSNumber * totesOn1;
@@ -80,11 +85,16 @@
 @property (nonatomic, retain) NSNumber * totesOn6;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * wowList;
-@property (nonatomic, retain) NSNumber * autonCansFromStep;
-@property (nonatomic, retain) NSNumber * toteIntakeLandfill;
-@property (nonatomic, retain) NSString * fieldPhotoName;
-@property (nonatomic, retain) NSString * robotType;
-@property (nonatomic, retain) NSData * stacks;
+@property (nonatomic, retain) NSNumber * blacklistDriver;
+@property (nonatomic, retain) NSNumber * blacklistHP;
+@property (nonatomic, retain) NSNumber * blacklistRobot;
+@property (nonatomic, retain) NSString * foulNotes;
+@property (nonatomic, retain) NSNumber * redCards;
+@property (nonatomic, retain) NSString * robotNotes;
+@property (nonatomic, retain) NSNumber * wowlistDriver;
+@property (nonatomic, retain) NSNumber * wowlistHP;
+@property (nonatomic, retain) NSNumber * wowlistRobot;
+@property (nonatomic, retain) NSNumber * yellowCards;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

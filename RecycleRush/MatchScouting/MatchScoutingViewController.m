@@ -102,6 +102,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *doaButton;
 @property (weak, nonatomic) IBOutlet UIButton *autonToteIntake;
 @property (nonatomic, weak) IBOutlet UIButton *driverRating;
+@property (weak, nonatomic) IBOutlet UIButton *robotType;
+@property (weak, nonatomic) IBOutlet UITextField *allianceScore;
 
 // Drawing Stuff
 @property (weak, nonatomic) IBOutlet UIButton *drawingChoiceButton;
@@ -171,6 +173,10 @@
     UIPopoverController *alliancePickerPopover;
     NSString *newSelection;
 
+    PopUpPickerViewController *robotTypePicker;
+    UIPopoverController *robotTypePickerPopover;
+    NSArray *robotTypeList;
+    
     NSArray *autonTotePopUpList;
     PopUpPickerViewController *autonTotePicker;
     UIPopoverController *autonTotePickerPopover;
@@ -380,8 +386,9 @@
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
-    [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
+    [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
+    [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonToteSet] forState:UIControlStateNormal];
     [_canDomTimeButton setTitle:[NSString stringWithFormat:@"%2.2f", [currentScore.canDominationTime floatValue]] forState:UIControlStateNormal];
     [self setRadioButtonState:_noShowButton forState:[currentScore.noShow intValue]];
     [self setRadioButtonState:_doaButton forState:[currentScore.deadOnArrival intValue]];
@@ -523,6 +530,18 @@
     [self showTeam:teamIndex];
 }
 
+- (void)robotType:(NSString *)newMatchType {
+    [self checkDataStatus];
+    NSUInteger currectSection = sectionIndex;
+    sectionIndex = [matchTypeList indexOfObject:newMatchType];
+    if (sectionIndex == NSNotFound) sectionIndex = currectSection;
+    //   [self setValidMatchNumber:Nil forType:Nil];
+    rowIndex = 0;
+    currentMatch = [self getCurrentMatch];
+    [self setTeamList];
+    [self showTeam:teamIndex];
+}
+
 -(IBAction)teamSelectionChanged:(id)sender {
     if (teamPicker == nil) {
         teamPicker = [[PopUpPickerViewController alloc]
@@ -609,6 +628,11 @@
         [alliancePickerPopover dismissPopoverAnimated:YES];
         return;
     }
+    else if (popUp == _robotType) {
+        [robotTypePickerPopover dismissPopoverAnimated:YES];
+        [self robotType:newPick];
+
+    }
     if (popUp == autonCanPicker) {
         currentScore.autonCansScored = [NSNumber numberWithInt:[newPick intValue]];
         [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
@@ -676,6 +700,43 @@
         if ([currentScore.autonToteStack boolValue]) currentScore.autonToteStack = [NSNumber numberWithBool:FALSE];
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
+    }
+   // else if (sender == _coopSet) {
+     //   if ([currentScore.coopSet boolValue]) currentScore.coopSet = [NSNumber numberWithBool:FALSE];
+       // else currentScore.coopSet = [NSNumber numberWithBool:TRUE];
+    //    [self setAutonButton:_coopSet forValue:currentScore.coopSet];
+   // }
+   // else if (sender == _coopStack) {
+     //   if ([currentScore.coopStack boolValue]) currentScore.coopStack = [NSNumber numberWithBool:FALSE];
+      //  else currentScore.coopStack = [NSNumber numberWithBool:TRUE];
+   //     [self setAutonButton:_coopStack forValue:currentScore.coopStack];
+    //}
+    //else if (sender == _blacklist) {
+      //  if ([currentScore.blacklist boolValue]) currentScore.blacklist = [NSNumber numberWithBool:FALSE];
+//        else currentScore.blacklist = [NSNumber numberWithBool:TRUE];
+  //      [self setAutonButton:_blacklist forValue:currentScore.coopSet];
+    //}
+    //else if (sender == _wowlist) {
+      //  if ([currentScore.wowList boolValue]) currentScore.wowList = [NSNumber numberWithBool:FALSE];
+        //else currentScore.wowList = [NSNumber numberWithBool:TRUE];
+        //[self setAutonButton:_wowlist forValue:currentScore.coopSet];
+    //}
+    else if (sender == _robotType) {
+        popUp = _robotType;
+        if (!robotTypeList) robotTypeList = [FileIOMethods initializePopUpList:@"RobotType"];
+        if (robotTypePicker == nil) {
+            robotTypePicker = [[PopUpPickerViewController alloc]
+                              initWithStyle:UITableViewStylePlain];
+            robotTypePicker.delegate = self;
+        }
+        robotTypePicker.pickerChoices = robotTypeList;
+        if (!robotTypePickerPopover) {
+            robotTypePickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:robotTypePicker];
+        }
+        popUp = robotTypePicker;
+        [robotTypePickerPopover presentPopoverFromRect:_robotType.bounds inView:_robotType
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     [self updateTotal:@"TotalScore"];
 }
@@ -1034,6 +1095,7 @@
     [_drawModeButton setUserInteractionEnabled:TRUE];
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
+    [_robotType setUserInteractionEnabled:TRUE];
     [_alliance setUserInteractionEnabled:TRUE];
     [self showViews];
 }
@@ -1195,6 +1257,7 @@
     else if (textField == _stackKnockdownText) {
         currentScore.stackKnockdowns = [NSNumber numberWithInt:[_stackKnockdownText.text intValue]];
     }
+
     else if (textField == _totesOn0Text) {
         currentScore.totesOn0 = [NSNumber numberWithInt:[_totesOn0Text.text intValue]];
         [self updateTotal:@"Totes"];
@@ -1389,6 +1452,7 @@
     [self setBigButtonDefaults:_teamNumber];
     [self setBigButtonDefaults:_canDomTimeButton];
     [self setBigButtonDefaults:_drawingChoiceButton];
+    [self setBigButtonDefaults:_robotType];
     [self setBigButtonDefaults:_drawModeButton];
     [self setBigButtonDefaults:_createStacksButton];
     [self setSmallButtonDefaults:_driverRating];
@@ -1459,6 +1523,7 @@
     _coopSetDenom.inputView = [LNNumberpad defaultLNNumberpad];
     _coopStackNumer.inputView = [LNNumberpad defaultLNNumberpad];
     _coopStackDenom.inputView = [LNNumberpad defaultLNNumberpad];
+    _allianceScore.inputView = [LNNumberpad defaultLNNumberpad];
 
 }
 

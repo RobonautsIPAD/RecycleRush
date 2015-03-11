@@ -15,6 +15,7 @@
 #import "ScoreAccessors.h"
 #import "MatchPhotoCollectionViewController.h"
 #import "MatchAccessors.h"
+#import "CalculateTeamStats.h"
 
 @interface TeamSummaryViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -35,6 +36,8 @@
     UIView *matchHeader;
     NSArray *matchList;
     TeamData *currentTeam;
+    CalculateTeamStats *teamStats;
+    NSMutableDictionary *stats;
 
     NSMutableArray *teamPopUpList;
     PopUpPickerViewController *teamPicker;
@@ -75,6 +78,8 @@
     currentTeam = _initialTeam;
     [self createMatchHeader];
     [self showTeam];
+    teamStats = [[CalculateTeamStats alloc] init:_dataManager];
+    stats = [teamStats calculateMasonStats:currentTeam forTournament:tournamentName];
 }
 
 -(void)createMatchHeader {
@@ -173,7 +178,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == _matchInfo) return [matchList count];
-    else if (tableView == _teamStatsTable) return [matchList count];
+    else if (tableView == _teamStatsTable) return 11;
     else return 0;
 }
 
@@ -221,14 +226,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"table view");
+    NSLog(@"table view, team summary");
     UITableViewCell *cell = nil;
     if (tableView == _matchInfo) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"MatchSchedule"];
         // Set up the cell...
         [self configureMatchCell:cell atIndexPath:indexPath];
-    }
-    else if (tableView == _teamStatsTable){
+   }
+    if (tableView == _teamStatsTable){
         cell = [tableView dequeueReusableCellWithIdentifier:@"MatchStats"];
         [self configureTeamStatsCell:cell atIndexPath:indexPath];
     }
@@ -243,93 +248,302 @@
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"";
             UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-            label2.text = @"Totes Intake Landfill";
-            label2.font = [UIFont boldSystemFontOfSize:16.0];
+            label2.text = @"Totes Land";
+            label2.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-            label3.text = @"Totes Intake Step";
-            label3.font = [UIFont boldSystemFontOfSize:16.0];
+            label3.text = @"Totes Step";
+            label3.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-            label4.text = @"Totes Intake HP";
-            label4.font = [UIFont boldSystemFontOfSize:16.0];
+            label4.text = @"Totes HP";
+            label4.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label5 = (UILabel *)[cell viewWithTag:50];
-            label5.text = @"Cans Intake Step";
-            label5.font = [UIFont boldSystemFontOfSize:16.0];
+            label5.text = @"Cans Step";
+            label5.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label6 = (UILabel *)[cell viewWithTag:60];
-            label6.text = @"Cans Intake Floor";
-            label6.font = [UIFont boldSystemFontOfSize:16.0];
+            label6.text = @"Cans Floor";
+            label6.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label7 = (UILabel *)[cell viewWithTag:70];
-            label7.text = @"Litter Intake HP";
-            label7.font = [UIFont boldSystemFontOfSize:16.0];
+            label7.text = @"Driver Rate";
+            label7.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label8 = (UILabel *)[cell viewWithTag:80];
-            label8.text = @"Litter In Cans";
-            label8.font = [UIFont boldSystemFontOfSize:16.0];
+            label8.text = @"Litter Cans";
+            label8.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label9 = (UILabel *)[cell viewWithTag:90];
-            label9.text = @"Can Dom";
-            label9.font = [UIFont boldSystemFontOfSize:16.0];
+            label9.text = @"C Dom Time";
+            label9.font = [UIFont boldSystemFontOfSize:14.0];
             UILabel *label10 = (UILabel *)[cell viewWithTag:100];
-            label10.text = @"Auton Can Intake";
-            label10.font = [UIFont boldSystemFontOfSize:16.0];
+            label10.text = @"C Dom Cans";
+            label10.font = [UIFont boldSystemFontOfSize:14.0];
             
         } else if (indexPath.row == 1) {
+            NSLog(@"%@",stats);
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"Total";
-            label1.font = [UIFont boldSystemFontOfSize:16.0];
+            label1.font = [UIFont boldSystemFontOfSize:14.0];
+            
+            UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+            label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Floor Top"] objectForKey:@"total"] floatValue]];
+            UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+            label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes Intake Step"] objectForKey:@"total"] floatValue]];
+            UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+            label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes Intake HP"] objectForKey:@"total"] floatValue]];
+            UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+            label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans From Step"] objectForKey:@"total"] floatValue]];
+            UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+            label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Floor"] objectForKey:@"total"] floatValue]];
+            UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+            label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Driver"] objectForKey:@"total"] floatValue]];
+            UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+            label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Litter In Cans"] objectForKey:@"total"] floatValue]];
+            UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+            label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Can Dom Time"] objectForKey:@"total"] floatValue]];
+            UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+            label10.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Dom #"] objectForKey:@"total"] floatValue]];
             
         } else if (indexPath.row == 2) {
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"Average";
-            label1.font = [UIFont boldSystemFontOfSize:16.0];
+            label1.font = [UIFont boldSystemFontOfSize:14.0];
+            
+            UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+            label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Floor Top"] objectForKey:@"average"] floatValue]];
+            UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+            label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes Intake Step"] objectForKey:@"average"] floatValue]];
+            UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+            label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes Intake HP"] objectForKey:@"average"] floatValue]];
+            UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+            label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans From Step"] objectForKey:@"average"] floatValue]];
+            UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+            label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Floor"] objectForKey:@"average"] floatValue]];
+            UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+            label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Driver"] objectForKey:@"average"] floatValue]];
+            UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+            label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Litter In Cans"] objectForKey:@"average"] floatValue]];
+            UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+            label9.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"Can Dom Time"] objectForKey:@"average"] floatValue]];
+            UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+            label10.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Dom #"] objectForKey:@"average"] floatValue]];
+            
             
         } else if (indexPath.row == 3) {
-            UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-            label1.text = @"Percent";
-            label1.font = [UIFont boldSystemFontOfSize:16.0];
-            
-        } else if (indexPath.row == 4) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
                 label1.text = @"";
                 UILabel *label2 = (UILabel *)[cell viewWithTag:20];
                 label2.text = @"Knockdowns";
-                label2.font = [UIFont boldSystemFontOfSize:16.0];
+                label2.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-                label3.text = @"Coop Set";
-                label3.font = [UIFont boldSystemFontOfSize:16.0];
+                label3.text = @"Coop Set #";
+                label3.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label4 = (UILabel *)[cell viewWithTag:40];
-                label4.text = @"Coop Stack";
-                label4.font = [UIFont boldSystemFontOfSize:16.0];
+                label4.text = @"Coop Stack #";
+                label4.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label5 = (UILabel *)[cell viewWithTag:50];
                 label5.text = @"Robot Set";
-                label5.font = [UIFont boldSystemFontOfSize:16.0];
+                label5.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label6 = (UILabel *)[cell viewWithTag:60];
                 label6.text = @"Can Set";
-                label6.font = [UIFont boldSystemFontOfSize:16.0];
+                label6.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label7 = (UILabel *)[cell viewWithTag:70];
                 label7.text = @"Tote Set";
-                label7.font = [UIFont boldSystemFontOfSize:16.0];
+                label7.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label8 = (UILabel *)[cell viewWithTag:80];
                 label8.text = @"Tote Stack";
-                label8.font = [UIFont boldSystemFontOfSize:16.0];
+                label8.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label9 = (UILabel *)[cell viewWithTag:90];
                 label9.text = @"Total Totes";
-                label9.font = [UIFont boldSystemFontOfSize:16.0];
+                label9.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label10 = (UILabel *)[cell viewWithTag:100];
                 label10.text = @"Total Cans";
-                label10.font = [UIFont boldSystemFontOfSize:16.0];
+                label10.font = [UIFont boldSystemFontOfSize:14.0];
             
-            } else if (indexPath.row == 5) {
+            } else if (indexPath.row == 4) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
                 label1.text = @"Total";
-                label1.font = [UIFont boldSystemFontOfSize:16.0];
+                label1.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+                label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Knockdowns"] objectForKey:@"total"] floatValue]];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+                label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Coop Set Numerator"] objectForKey:@"total"] floatValue]];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+                label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Coop Stack Numerator"] objectForKey:@"total"] floatValue]];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+                label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Robot Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+                label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+                label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+                label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Stack Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+                label9.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Total Totes Intake"] objectForKey:@"total"] floatValue]];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+                label10.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Total Cans Intake"] objectForKey:@"total"] floatValue]];
+                
+                
+            } else if (indexPath.row == 5) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Average";
+                label1.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+                label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Knockdowns"] objectForKey:@"average"] floatValue]];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+                label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Coop Set Numerator"] objectForKey:@"total"] floatValue]];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+                label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Coop Stack Numerator"] objectForKey:@"total"] floatValue]];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+                label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Robot Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+                label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Can Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+                label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:80];
+                label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Tote Stack Set"] objectForKey:@"total"] floatValue]];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+                label9.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Total Totes Intake"] objectForKey:@"average"] floatValue]];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+                label10.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Total Cans Intake"] objectForKey:@"average"] floatValue]];
                 
             } else if (indexPath.row == 6) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-                label1.text = @"Average";
-                label1.font = [UIFont boldSystemFontOfSize:16.0];
+                label1.text = @"";
+                UILabel *label2 = (UILabel *)[cell viewWithTag:30];
+                label2.text = @"Level 0";
+                label2.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:40];
+                label3.text = @"Level 1";
+                label3.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:50];
+                label4.text = @"Level 2";
+                label4.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:60];
+                label5.text = @"Level 3";
+                label5.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:70];
+                label6.text = @"Level 4";
+                label6.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:80];
+                label7.text = @"Level 5";
+                label7.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:90];
+                label8.text = @"Level 6";
+                label8.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:100];
+                label9.text = @"";
+                label9.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:20];
+                label10.text = @"";
+                label10.font = [UIFont boldSystemFontOfSize:14.0];
                 
             } else if (indexPath.row == 7) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-                label1.text = @"Percent";
-                label1.font = [UIFont boldSystemFontOfSize:16.0];
+                label1.text = @"Totes";
+                label1.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                UILabel *label2 = (UILabel *)[cell viewWithTag:30];
+                label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 0"] objectForKey:@"average"] floatValue]];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:40];
+                label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 1"] objectForKey:@"average"] floatValue]];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:50];
+                label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 2"] objectForKey:@"average"] floatValue]];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:60];
+                label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 3"] objectForKey:@"average"] floatValue]];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:70];
+                label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 4"] objectForKey:@"average"] floatValue]];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:80];
+                label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 5"] objectForKey:@"average"] floatValue]];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:90];
+                label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Totes on 6"] objectForKey:@"average"] floatValue]];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:100];
+                label9.text = @"";
+                label9.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:20];
+                label10.text = @"";
+                label10.font = [UIFont boldSystemFontOfSize:14.0];
+                
+            } else if (indexPath.row == 8) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Cans";
+                label1.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                UILabel *label2 = (UILabel *)[cell viewWithTag:30];
+                label2.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 0"] objectForKey:@"average"] floatValue]];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:40];
+                label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 1"] objectForKey:@"average"] floatValue]];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:50];
+                label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 2"] objectForKey:@"average"] floatValue]];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:60];
+                label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 3"] objectForKey:@"average"] floatValue]];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:70];
+                label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 4"] objectForKey:@"average"] floatValue]];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:80];
+                label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 5"] objectForKey:@"average"] floatValue]];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:90];
+                label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Cans on 6"] objectForKey:@"average"] floatValue]];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:100];
+                label9.text = @"";
+                label9.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:20];
+                label10.text = @"";
+                label10.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                
+            } else if (indexPath.row == 9) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"";
+                UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+                label2.text = @"Wow Robot";
+                label2.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+                label3.text = @"Wow HP";
+                label3.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+                label4.text = @"Wow Driver";
+                label4.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+                label5.text = @"Black Robot";
+                label5.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:60];
+                label6.text = @"Black HP";
+                label6.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:70];
+                label7.text = @"Black Driver";
+                label7.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:90];
+                label8.text = @"Red Cards";
+                label8.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:100];
+                label9.text = @"Yellow Cards";
+                label9.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:80];
+                label10.text = @"";
+                label10.font = [UIFont boldSystemFontOfSize:14.0];
+
+            } else if (indexPath.row == 10) {
+                UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+                label1.text = @"Total";
+                label1.font = [UIFont boldSystemFontOfSize:14.0];
+                
+                UILabel *label12 = (UILabel *)[cell viewWithTag:80];
+                label12.text = @"";
+                label12.font = [UIFont boldSystemFontOfSize:14.0];
+                UILabel *label3 = (UILabel *)[cell viewWithTag:20];
+                label3.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Wowlist Robot"] objectForKey:@"total"] floatValue]];
+                UILabel *label4 = (UILabel *)[cell viewWithTag:30];
+                label4.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Wowlist HP"] objectForKey:@"total"] floatValue]];
+                UILabel *label5 = (UILabel *)[cell viewWithTag:40];
+                label5.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Wowlist Driver"] objectForKey:@"total"] floatValue]];
+                UILabel *label6 = (UILabel *)[cell viewWithTag:50];
+                label6.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Blacklist Robot"] objectForKey:@"total"] floatValue]];
+                UILabel *label7 = (UILabel *)[cell viewWithTag:60];
+                label7.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Blacklist HP"] objectForKey:@"total"] floatValue]];
+                UILabel *label8 = (UILabel *)[cell viewWithTag:70];
+                label8.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Blacklist Driver"] objectForKey:@"total"] floatValue]];
+                UILabel *label9 = (UILabel *)[cell viewWithTag:90];
+                label9.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Red Cards"] objectForKey:@"total"] floatValue]];
+                UILabel *label10 = (UILabel *)[cell viewWithTag:100];
+                label10.text = [NSString stringWithFormat:@"%1.0f", [[[stats objectForKey:@"Yellow Cards"] objectForKey:@"total"] floatValue]];
             }
     }
 

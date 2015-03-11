@@ -99,6 +99,9 @@
         <attribute name="autonToteSet" optional="YES" attributeType="Integer 16" defaultValueString="NO" syncable="YES"/>
         <attribute name="autonToteStack" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="blacklist" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="blacklistDriver" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="blacklistHP" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="blacklistRobot" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="canDominationTime" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="canIntakeFloor" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansFromStep" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -116,6 +119,7 @@
         <attribute name="deadOnArrival" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="driverRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="fieldPhotoName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="foulNotes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fouls" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterHP" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="litterInCan" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -132,7 +136,9 @@
         <attribute name="oppositeZoneLitter" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="otherRating" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="redCards" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="results" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="robotNotes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="robotSpeed" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES">
             <userInfo>
                 <entry key="lucien" value="Speed"/>
@@ -173,6 +179,10 @@
         <attribute name="totesOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="tournamentName" attributeType="String" syncable="YES"/>
         <attribute name="wowList" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="wowlistDriver" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="wowlistHP" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="wowlistRobot" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="yellowCards" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="autonDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="autonDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
         <relationship name="match" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MatchData" inverseName="score" inverseEntity="MatchData" syncable="YES"/>
         <relationship name="teleOpDrawing" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FieldDrawing" inverseName="teleOpDrawing" inverseEntity="FieldDrawing" syncable="YES"/>
@@ -187,7 +197,7 @@
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="628"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1170"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1320"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

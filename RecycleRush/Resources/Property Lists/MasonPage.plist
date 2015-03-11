@@ -142,5 +142,19 @@
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
+	<dict>
+		<key>key</key>
+		<string>robotType</string>
+		<key>header</key>
+		<string>Robot Type</string>
+		<key>format</key>
+		<string>%.1f</string>
+		<key>type</key>
+		<string>float</string>
+		<key>location</key>
+		<integer>523</integer>
+		<key>factor</key>
+		<integer>1</integer>
+	</dict>
 </array>
 </plist>
