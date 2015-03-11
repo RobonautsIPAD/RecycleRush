@@ -661,7 +661,7 @@
     label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxTote#"] objectForKey:@"total"] intValue]];
 
     UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-    label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxCan#"] objectForKey:@"total"] intValue]];
+    label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Robot Type"] objectForKey:@"total"] intValue]];
 
     UILabel *label6 = (UILabel *)[cell viewWithTag:80];
     label6.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Knockdowns"] objectForKey:@"total"] intValue]];
