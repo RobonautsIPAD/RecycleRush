@@ -109,7 +109,9 @@
         TournamentUtilities *tournamentUtilitiesPackage = [[TournamentUtilities alloc] init:_dataManager];
         NSData *importData = [NSData dataWithContentsOfFile:importFile];
         NSArray *tournamentList = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:importData];
-        receivedData = [tournamentUtilitiesPackage unpackageTournamentsForXFer:tournamentList];
+        NSLog(@"Fix this");
+        NSDictionary *tournaments = [tournamentUtilitiesPackage unpackageTournamentsForXFer:tournamentList];
+        receivedData = [tournaments objectForKey:@"tournaments"];
         [fileManager removeItemAtPath:transferPath error:error];        
         return receivedData;
     }
