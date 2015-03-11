@@ -313,7 +313,7 @@
         }
         else {
             NSDictionary *team = [receivedList objectAtIndex:indexPath.row];
-            cell = [SyncTableCells configureReceivedTeamCell:cell forTeam:team];
+ //           cell = [SyncTableCells configureReceivedTeamCell:cell forTeam:team];
         }
     }
     else if (_syncType == SyncMatchList) {
@@ -329,7 +329,7 @@
         id score;
         if (xFerOption == Sending) score = [filteredSendList objectAtIndex:indexPath.row];
         else score = [receivedList objectAtIndex:indexPath.row];
-        cell = [SyncTableCells configureResultsCell:cell forXfer:(XFerOption)xFerOption forScore:score forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
+  //      cell = [SyncTableCells configureResultsCell:cell forXfer:(XFerOption)xFerOption forScore:score forMatchDictionary:matchTypeDictionary forAlliances:allianceDictionary];
     }
     else if (_syncType == SyncPhotos) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier5 forIndexPath:indexPath];

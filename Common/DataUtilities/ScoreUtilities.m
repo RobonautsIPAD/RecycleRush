@@ -247,8 +247,8 @@
 
     if ([score.saved floatValue] > [saved floatValue]) {
         NSLog(@"Match has already transferred, match = %@", score.matchNumber);
-        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber, @"N", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"alliance", @"team", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"TeamScore", score.matchNumber, matchTypeString, allianceString, score.teamNumber, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         return teamTransfer;
     }
@@ -290,8 +290,8 @@
         return matchTransfer;
     }
 
-    NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"alliance", @"team", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:score.matchNumber, matchTypeString, allianceString, score.teamNumber,  @"Y", nil];
+    NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"alliance", @"team", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:@"TeamScore", score.matchNumber, matchTypeString, allianceString, score.teamNumber,  @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }

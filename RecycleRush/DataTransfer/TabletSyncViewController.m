@@ -70,6 +70,8 @@
     SyncType syncType;
     SyncOptions syncOption;
     NSArray *filteredSendList;
+    NSArray *receivedList;
+    NSArray *displayList;
 
 }
 
@@ -475,14 +477,14 @@
     importFilePicker = nil;
     importFilePopover = nil;
     NSError *error;
-    NSArray *receivedList = [dataSyncPackage importiTunesSelected:importFile error:&error];
+    receivedList = [dataSyncPackage importiTunesSelected:importFile error:&error];
     if (error) {
         [_dataManager writeErrorMessage:error forType:[error code]];
     }
+    displayList = receivedList;
 //    importedFile = importFile;
-//    [self checkReceivedDataType];
-//    [_syncDataTable reloadData];
-    NSLog(@"%@", receivedList);
+    [_syncDataTable reloadData];
+    NSLog(@"%@", displayList);
 }
 - (IBAction)createScoutingBundle:(id)sender {
 }
@@ -500,6 +502,7 @@
     else if (syncType == SyncTournaments) {
         filteredSendList = [dataSyncPackage getFilteredTournamentList:syncOption];
     }
+    displayList = filteredSendList;
 }
 
 #pragma mark - Table view data source
@@ -509,7 +512,7 @@
         if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
         else return 0;
     }
-    else return [filteredSendList count];
+    else return [displayList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -523,7 +526,7 @@
         return cell;
     }
     else {
-        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
+        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[displayList objectAtIndex:indexPath.row] atIndexPath:indexPath];
         return cell;
     }
 }

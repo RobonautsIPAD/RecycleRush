@@ -17,7 +17,7 @@
 -(id)init:(DataManager *)initManager;
 -(NSString *)teamScoreCSVExport;
 -(BOOL)spreadsheetCSVExport:(NSString *)tournamentName toFile:(NSString *)fullPath;
--(NSString *)scoreBundleCSVExport:(NSString *)tournamentName;
+-(BOOL)scoreBundleCSVExport:(NSString *)tournamentName toFile:(NSString *)fullPath;
 -(void)exportFullMatchData:(NSArray *)teamList;
 -(void)exportScoreForXFer:(TeamScore *)score toFile:(NSString *)exportFilePath;
 @end

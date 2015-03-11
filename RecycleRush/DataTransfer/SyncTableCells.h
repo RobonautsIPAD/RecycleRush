@@ -17,8 +17,6 @@
 -(id)init:(DataManager *)initManager;
 -(UITableViewCell *)configureCell:(UITableView *)tableView forTableData:tableData atIndexPath:(NSIndexPath *)indexPath;
 
-+(UITableViewCell *)configureReceivedTeamCell:(UITableViewCell *)cell forTeam:(NSDictionary *)team;
-+(UITableViewCell *)configureResultsCell:(UITableViewCell *)cell forXfer:(XFerOption)xFerOption forScore:score forMatchDictionary:(NSDictionary *)matchTypeDictionary forAlliances:(NSDictionary *)allianceDictionary;
 +(UITableViewCell *)configurePhotoCell:(UITableViewCell *)cell forPhotoList:(NSString *)receivedList;
 
 @end

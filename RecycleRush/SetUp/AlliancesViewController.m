@@ -12,6 +12,7 @@
 #import "EnumerationDictionary.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
+#import "MatchAccessors.h"
 #import "LNNumberpad.h"
 
 @interface AlliancesViewController ()
@@ -20,14 +21,6 @@
     @property (nonatomic, weak) IBOutlet UITextField *alliance1Pick2;
     @property (nonatomic, weak) IBOutlet UITextField *alliance1Pick3;
     @property (nonatomic, weak) IBOutlet UIButton *alliance1MatchButton;
-@property (nonatomic, weak) IBOutlet UILabel *match4Red1;
-@property (nonatomic, weak) IBOutlet UILabel *match4Red2;
-@property (nonatomic, weak) IBOutlet UILabel *match4Red3;
-@property (nonatomic, weak) IBOutlet UILabel *match4Red4;
-@property (nonatomic, weak) IBOutlet UILabel *match8Red1;
-@property (nonatomic, weak) IBOutlet UILabel *match8Red2;
-@property (nonatomic, weak) IBOutlet UILabel *match8Red3;
-@property (nonatomic, weak) IBOutlet UILabel *match8Red4;
 
     @property (nonatomic, weak) IBOutlet UITextField *alliance2Captain;
     @property (nonatomic, weak) IBOutlet UITextField *alliance2Pick1;
@@ -132,6 +125,7 @@
 @implementation AlliancesViewController {
     NSString *tournamentName;
     NSUserDefaults *prefs;
+    NSNumber *matchType;
     NSDictionary *matchTypeDictionary;
     NSDictionary *allianceDictionary;
     MatchUtilities *matchUtilities;
@@ -194,16 +188,54 @@
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
     allianceDictionary = [EnumerationDictionary initializeBundledDictionary:@"AllianceList"];
+    matchType = [MatchAccessors getMatchTypeFromString:@"Elimination" fromDictionary:matchTypeDictionary];
+    MatchData *match1 = [MatchAccessors getMatch:[NSNumber numberWithInt:1] forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    MatchData *match2 = [MatchAccessors getMatch:[NSNumber numberWithInt:2] forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    MatchData *match3 = [MatchAccessors getMatch:[NSNumber numberWithInt:3] forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    MatchData *match4 = [MatchAccessors getMatch:[NSNumber numberWithInt:4] forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
+    if (match1) {
+        NSDictionary *teamList = [MatchAccessors buildTeamList:match1 forAllianceDictionary:allianceDictionary];
+        _alliance4Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 1"]];
+        _alliance4Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 2"]];
+        _alliance4Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 3"]];
+        _alliance5Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 1"]];
+        _alliance5Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 2"]];
+        _alliance5Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 3"]];
+    }
+    if (match2) {
+        NSDictionary *teamList = [MatchAccessors buildTeamList:match2 forAllianceDictionary:allianceDictionary];
+        _alliance3Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 1"]];
+        _alliance3Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 2"]];
+        _alliance3Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 3"]];
+        _alliance6Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 1"]];
+        _alliance6Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 2"]];
+        _alliance6Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 3"]];
+    }
+    if (match3) {
+        NSDictionary *teamList = [MatchAccessors buildTeamList:match3 forAllianceDictionary:allianceDictionary];
+        _alliance2Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 1"]];
+        _alliance2Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 2"]];
+        _alliance2Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 3"]];
+        _alliance7Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 1"]];
+        _alliance7Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 2"]];
+        _alliance7Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 3"]];
+    }
+    if (match4) {
+        NSDictionary *teamList = [MatchAccessors buildTeamList:match4 forAllianceDictionary:allianceDictionary];
+        _alliance1Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 1"]];
+        _alliance1Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 2"]];
+        _alliance1Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 3"]];
+        _alliance8Captain.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 1"]];
+        _alliance8Pick1.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 2"]];
+        _alliance8Pick2.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 3"]];
+    }
 }
 
--(NSMutableArray *) buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
+-(NSMutableArray *)buildTeamList:(NSString *)alliance forTextBox:(UITextField *)teamTextField forTeamList:(NSMutableArray *)teamList {
     // Return a thing with the alliance station in the first slot
     // and the team number in the second slot
-    if (!alliance || [alliance isEqualToString:@""]) return teamList;
-    if (!teamTextField.text || [teamTextField.text isEqualToString:@""]) return teamList;
-    NSNumber *teamNumber = [NSNumber numberWithInt:[teamTextField.text intValue]];
-    NSDictionary *teamInfo = [NSDictionary dictionaryWithObject:teamNumber forKey:alliance];
-    [teamList addObject:teamInfo];
+    NSDictionary *teamDictionary = [matchUtilities teamDictionary:alliance forTeam:teamTextField.text];
+    if (teamDictionary) [teamList addObject:teamDictionary];
     return teamList;
 }
 
@@ -215,40 +247,23 @@
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance1Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance1Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
-    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:1] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:4] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 4"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance1Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance1Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance1Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance1Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:5] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
-    else {
-        _match4Red1.text = _alliance1Pick2.text;
-        _match4Red2.text = _alliance1Captain.text;
-        _match4Red3.text = _alliance1Pick1.text;
-        _match4Red4.text = _alliance1Pick3.text;
-    }
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:8] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 8"];
+
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance1Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance1Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance1Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance1Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:9] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match8Red1.text = _alliance1Pick1.text;
-        _match8Red2.text = _alliance1Pick2.text;
-        _match8Red3.text = _alliance1Captain.text;
-        _match8Red4.text = _alliance1Pick3.text;
-    }
-    NSError *err = nil;
     if (match) {
-        if (![_dataManager.managedObjectContext save:&err]) {
-            NSLog(@"Whoops, couldn't save: %@", [err localizedDescription]);
-        }
+        [_dataManager saveContext];
     }
 }
 

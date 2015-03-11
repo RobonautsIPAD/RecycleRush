@@ -185,15 +185,16 @@
                          error:nil];
     }
     // Score data
-    csvString = [[[ExportScoreData alloc] init:_dataManager] scoreBundleCSVExport:tournamentName];
-    if (csvString) {
-        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"MatchResultsBundle.csv"];
-        [csvString writeToFile:filePath
-                    atomically:YES
-                      encoding:NSUTF8StringEncoding
-                         error:nil];
+    NSString *filePath = [mitchPath stringByAppendingPathComponent: @"MatchResultsBundle.csv"];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] scoreBundleCSVExport:tournamentName toFile:filePath];
+    if (!success) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Mitch Data"
+                                                        message:@"No matches were found"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
     }
-    
 }
 
 -(void)buildEmail:(NSArray *)filePaths attach:(NSArray *)emailFiles subject:(NSString *)emailSubject toRecipients:recipients {

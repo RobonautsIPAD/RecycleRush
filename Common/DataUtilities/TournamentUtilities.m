@@ -124,10 +124,17 @@
 }
 
 -(NSData *)packageTournamentsForXFer:(NSArray *)tournamentList {
-    NSMutableArray *allTournaments = [[NSMutableArray alloc] init];
+/*    NSMutableDictionary *allTournaments = [[NSMutableDictionary alloc] init];
+    for (TournamentData *tournament in tournamentList) {
+        NSString *key = tournament.name;
+        if (tournament.code) [allTournaments setObject:tournament.code forKey:key];
+        else [allTournaments setObject:@"" forKey:key];
+    }
+    return  allTournaments;*/
 
-//    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    NSMutableArray *allTournaments = [[NSMutableArray alloc] init];
     // Loop through each tournament and create a dictionary with the name and code
+    
     for (TournamentData *tournament in tournamentList) {
         NSMutableArray *keyList = [NSMutableArray array];
         NSMutableArray *valueList = [NSMutableArray array];
@@ -143,6 +150,7 @@
         // Only create the tournament dictionary if keys and values exist, add dictionary to array of tournament dictionaries
         if (keyList && valueList) {
             NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
+     
             [allTournaments addObject:dictionary];
         }
     }

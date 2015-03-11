@@ -280,8 +280,8 @@
     if ([teamRecord.saved floatValue] > [saved floatValue]) {
         NSLog(@"Team has already transferred, team = %@", teamNumber);
         //NSLog(@"Add a validation check or something");
-        NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"team", @"name", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"TeamData", teamNumber, teamRecord.name, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         NSString *msg = [NSString stringWithFormat:@"Team has already transferred, team = %@", teamNumber];
         error = [NSError errorWithDomain:@"unpackageTeamForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -322,16 +322,16 @@
     teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     NSLog(@"%@", teamRecord);
     if (![_dataManager saveContext]) {
-        NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"N", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"team", @"name", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"TeamData", teamNumber, teamRecord.name, @"N", nil];
         NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         NSString *msg = [NSString stringWithFormat:@"Database Save Error %@", teamNumber];
         error = [NSError errorWithDomain:@"unpackageTeamForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return teamTransfer;
     }
-    NSArray *keyList = [NSArray arrayWithObjects:@"team", @"name", @"transfer", nil];
-    NSArray *objectList = [NSArray arrayWithObjects:teamNumber, teamRecord.name, @"Y", nil];
+    NSArray *keyList = [NSArray arrayWithObjects:@"record", @"team", @"name", @"transfer", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:@"TeamData", teamNumber, teamRecord.name, @"Y", nil];
     NSDictionary *teamTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     return teamTransfer;
 }

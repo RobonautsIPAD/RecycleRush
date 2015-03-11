@@ -294,8 +294,8 @@
         NSNumber *saved = [xferDictionary objectForKey:@"saved"];
         if ([matchRecord.saved floatValue] > [saved floatValue]) {
             // NSLog(@"Match has already transferred, match = %@", score.match.number);
-            NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
-            NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchTypeString, @"N", nil];
+            NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"transfer", nil];
+            NSArray *objectList = [NSArray arrayWithObjects:@"MatchData", matchRecord.number, matchTypeString, @"N", nil];
             NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
             NSString *msg = [NSString stringWithFormat:@"Match has already transferred, %@ %@", matchTypeString, matchNumber];
             error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -307,8 +307,8 @@
     //NSLog(@"%@", teams);
     MatchData *match = [self addMatch:matchNumber forMatchType:matchTypeString forTeams:teams forTournament:tournamentName error:&error];
     if (!match) {
-        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:matchNumber, matchTypeString, @"N", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"MatchData", matchNumber, matchTypeString, @"N", nil];
         NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         [_dataManager writeErrorMessage:error forType:[error code]];
         return matchTransfer;
@@ -316,8 +316,8 @@
 
     match.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     if (![_dataManager saveContext]) {
-        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:matchRecord.number, matchTypeString, @"N", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"MatchData", matchRecord.number, matchTypeString, @"N", nil];
         NSDictionary *matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
         NSString *msg = [NSString stringWithFormat:@"Database Save Error %@ %@", matchTypeString, matchNumber];
         error = [NSError errorWithDomain:@"unpackageMatchForXFer" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
@@ -328,13 +328,13 @@
     NSDictionary *matchTransfer;
     NSDictionary *teamList = [MatchAccessors buildTeamList:match forAllianceDictionary:allianceDictionary];
     if (teamList) {
-        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"teams", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, teamList, @"Y", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"teams", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"MatchData", match.number, matchTypeString, teamList, @"Y", nil];
         matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     }
     else {
-        NSArray *keyList = [NSArray arrayWithObjects:@"match", @"type", @"transfer", nil];
-        NSArray *objectList = [NSArray arrayWithObjects:match.number, matchTypeString, @"Y", nil];
+        NSArray *keyList = [NSArray arrayWithObjects:@"record", @"match", @"type", @"transfer", nil];
+        NSArray *objectList = [NSArray arrayWithObjects:@"MatchData", match.number, matchTypeString, @"Y", nil];
         matchTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
     }
     // NSLog(@"%@", matchTransfer);
