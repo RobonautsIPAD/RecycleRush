@@ -15,6 +15,7 @@
 @interface DataSync : NSObject
 @property (nonatomic, strong) DataManager *dataManager;
 -(id)init:(DataManager *)initManager;
+-(NSArray *)getQuickRequestStatus:(NSNumber *)matchType;
 -(NSArray *)getFilteredTournamentList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredTeamList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredMatchList:(SyncOptions)syncOption;

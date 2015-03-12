@@ -70,6 +70,40 @@
 	return self;
 }
 
+-(NSArray *)getQuickRequestStatus:(NSNumber *)matchType {
+    NSArray *filteredResultsList;
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+    NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND matchType = %@", tournamentName, [NSNumber numberWithBool:YES], matchType];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchNumber" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
+    [fetchRequest setPredicate:pred];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    filteredResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  
+    NSArray *keyList = [NSArray arrayWithObjects:@"record", @"type", @"match", @"alliance", nil];
+    NSArray *objectList;
+    NSMutableArray *quickList = [[NSMutableArray alloc] init];
+    for (int i=0; i<6; i++) {
+        pred = [NSPredicate predicateWithFormat:@"allianceStation = %@ ", [NSNumber numberWithInt:i]];
+        NSArray *allianceList = [filteredResultsList filteredArrayUsingPredicate:pred];
+        if (allianceList && [allianceList count]) {
+            TeamScore *score = [allianceList objectAtIndex:0];
+            objectList = [NSArray arrayWithObjects:@"QuickData", matchType, score.matchNumber, [NSNumber numberWithInt:i], nil];
+        }
+        else {
+            objectList = [NSArray arrayWithObjects:@"QuickData", matchType, [NSNumber numberWithInt:0], [NSNumber numberWithInt:i], nil];
+        }
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+        [quickList addObject:dictionary];
+    }
+    return quickList;
+}
+
 -(NSArray *)getFilteredTournamentList:(SyncOptions)syncOption {
     if (!tournamentList) {
         NSError *error;
@@ -109,10 +143,6 @@
             // For the phone, we are interested in passing along anything
             //  saved or received
             pred = [NSPredicate predicateWithFormat:@"saved > %@ OR received > %@", teamDataSync, teamDataSync];
-            filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
-            break;
-        case SyncQuickRequest:
-            pred = [NSPredicate predicateWithFormat:@"saved > %@", scoutingBundleSync, scoutingBundleSync];
             filteredTeamList = [teamList filteredArrayUsingPredicate:pred];
             break;
         default:
@@ -196,10 +226,6 @@
             // For the phone, we are interested in passing along anything
             //  saved or received
             pred = [NSPredicate predicateWithFormat:@"results = %@ AND saved > %@ OR received > %@", [NSNumber numberWithBool:YES], matchResultsSync, matchResultsSync];
-            filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
-            break;
-        case SyncQuickRequest:
-            pred = [NSPredicate predicateWithFormat:@"saved > %@", scoutingBundleSync, scoutingBundleSync];
             filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
             break;
         default:

@@ -13,17 +13,23 @@
 +(NSString *)getSyncTypeString:(SyncType)syncType {
     NSString *syncString;
     switch (syncType) {
-        case 0:
+        case SyncTeams:
             syncString = @"Sync Team Data";
             break;
-        case 1:
+        case SyncTournaments:
             syncString = @"Sync Tournament Names";
             break;
-        case 2:
+        case SyncMatchResults:
             syncString = @"Sync Match Results";
             break;
-        case 3:
+        case SyncMatchList:
             syncString = @"Sync Match Schedule";
+            break;
+        case SyncQuickRequest:
+            syncString = @"Quick Request Status";
+            break;
+        case SyncMitchData:
+            syncString = @"Sync Mitch Data";
             break;
         default:
             syncString = @"";
@@ -35,16 +41,16 @@
 +(NSString *)getPhoneSyncTypeString:(SyncType)syncType {
     NSString *syncString;
     switch (syncType) {
-        case 0:
+        case SyncTeams:
             syncString = @"Teams";
             break;
-        case 1:
+        case SyncTournaments:
             syncString = @"Tournament";
             break;
-        case 2:
+        case SyncMatchResults:
             syncString = @"Results";
             break;
-        case 3:
+        case SyncMatchList:
             syncString = @"Schedule";
             break;
         default:
@@ -58,13 +64,13 @@
 +(NSString *)getSyncOptionString:(SyncOptions)syncOption {
     NSString *syncString;
     switch (syncOption) {
-        case 0:
+        case SyncAll:
             syncString = @"Sync All";
             break;
-        case 1:
+        case SyncAllSavedHere:
             syncString = @"Sync All Saved on this Device";
             break;
-        case 2:
+        case SyncAllSavedSince:
             syncString = @"Sync All Since Last Sync";
             break;
         default:
@@ -77,13 +83,13 @@
 +(NSString *)getPhoneSyncOptionString:(SyncOptions)syncOption {
     NSString *syncString;
     switch (syncOption) {
-        case 0:
+        case SyncAll:
             syncString = @"All";
             break;
-        case 1:
+        case SyncAllSavedHere:
             syncString = @"Local";
             break;
-        case 2:
+        case SyncAllSavedSince:
             syncString = @"Latest";
             break;
         default:
@@ -106,7 +112,13 @@
     if ([syncTypeString isEqualToString:@"Sync Match Schedule"]) {
         return SyncMatchList;
     }
-   return 0;
+    if ([syncTypeString isEqualToString:@"Quick Request Status"]) {
+        return SyncQuickRequest;
+    }
+    if ([syncTypeString isEqualToString:@"Sync Mitch Data"]) {
+        return SyncMitchData;
+    }
+    return 0;
 }
 
 +(SyncOptions)getSyncOption:(NSString *)syncOptionString {
@@ -127,7 +139,7 @@
 }
 
 +(NSArray *)getSyncTypeList {
-    return [NSArray arrayWithObjects:@"Sync Team Data", @"Sync Tournament Names", @"Sync Match Results", @"Sync Match Schedule", nil];
+    return [NSArray arrayWithObjects:@"Sync Team Data", @"Sync Tournament Names", @"Sync Match Results", @"Sync Match Schedule", @"Quick Request Status", @"Sync Mitch Data", nil];
 }
 
 

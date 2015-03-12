@@ -30,7 +30,6 @@
  	}
 	return self;
 }
-#ifdef NOTUSED
 
 -(void)dallasMigration2 {
     // Get all score record with results
@@ -56,6 +55,7 @@
         }
     }
 }
+#ifdef NOTUSED
 
 -(void)dallasMigration1 {
     // Get all score record with results

@@ -17,14 +17,15 @@ typedef enum {
     SyncMatchResults,
     SyncMatchList,
     SyncPhotos,
-    SyncMatchPhotos
+    SyncMatchPhotos,
+    SyncQuickRequest,
+    SyncMitchData,
 } SyncType;
 
 typedef enum {
     SyncAll,
     SyncAllSavedHere,
     SyncAllSavedSince,
-    SyncQuickRequest,
 } SyncOptions;
 
 +(NSString *)getSyncTypeString:(SyncType)syncType;
