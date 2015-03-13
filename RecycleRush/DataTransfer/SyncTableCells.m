@@ -51,7 +51,6 @@
     else { // This had better be a dictionary type.
      //   NSDictionary *dataDictionary = (NSDictionary *)
         NSString *resultType = [(NSDictionary *)tableData objectForKey:@"record"];
-        NSLog(@"record = %@", resultType);
         if ([resultType isEqualToString:@"TeamData"]) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Team" forIndexPath:indexPath];
             cell = [self configureReceivedTeamCell:cell forTeam:tableData];
@@ -67,6 +66,10 @@
         else if ([dataType isEqualToString:@"TournamentData"]) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Tournament" forIndexPath:indexPath];
             cell = [self configureReceivedTournamentCell:cell forTournament:tableData];
+        }
+        else if ([resultType isEqualToString:@"QuickData"]) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"MatchResult" forIndexPath:indexPath];
+            cell = [self configureQuickCell:cell forQuickData:tableData];
         }
     }
     return cell;
@@ -120,6 +123,31 @@
     label4.textColor = color;
     label5.textColor = color;
     
+    return cell;
+}
+
+-(UITableViewCell *)configureQuickCell:(UITableViewCell *)cell forQuickData:(NSDictionary *)tableData {
+    UIColor *color;
+    UILabel *label1 = (UILabel *)[cell viewWithTag:10];
+    UILabel *label2 = (UILabel *)[cell viewWithTag:20];
+    UILabel *label3 = (UILabel *)[cell viewWithTag:30];
+    UILabel *label4 = (UILabel *)[cell viewWithTag:40];
+    UILabel *label5 = (UILabel *)[cell viewWithTag:50];
+    label1.text = [NSString stringWithFormat:@"%@", [tableData objectForKey:@"match"]];
+    label2.text = [MatchAccessors getMatchTypeString:[tableData objectForKey:@"type"] fromDictionary:matchDictionary];
+    label3.text = [MatchAccessors getAllianceString:[tableData objectForKey:@"alliance"] fromDictionary:allianceDictionary];
+    label4.text = @"";
+    label5.text = @"";
+    if ([[label3.text substringToIndex:1] isEqualToString:@"R"]) {
+        color = [UIColor colorWithRed:1 green: 0 blue: 0 alpha:1];
+    }
+    else {
+        color = [UIColor colorWithRed:0 green: 0 blue: 1 alpha:1];
+    }
+    label1.textColor = color;
+    label2.textColor = color;
+    label3.textColor = color;
+
     return cell;
 }
 
@@ -217,20 +245,24 @@
     label1.text = [NSString stringWithFormat:@"%@", [match objectForKey:@"match"]];
     label2.text = [match objectForKey:@"type"];
 
-    NSDictionary *teamList = [match objectForKey:@"Teams"];
-    label3.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 1"]];
-    label4.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 2"]];
-    label5.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 3"]];
-    label6.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 1"]];
-    label7.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 2"]];
-    label8.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 3"]];
-    label9.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Red 4"]];
-    label10.text = [NSString stringWithFormat:@"%@", [teamList objectForKey:@"Blue 4"]];
-    label11.text = [match objectForKey:@"transfer"];
+    NSDictionary *teamList = [match objectForKey:@"teams"];
+    label3.text = [self getTeam:teamList atAlliance:@"Red 1"];
+    label4.text = [self getTeam:teamList atAlliance:@"Red 2"];
+    label5.text = [self getTeam:teamList atAlliance:@"Red 3"];
+    label6.text = [self getTeam:teamList atAlliance:@"Blue 1"];
+    label7.text = [self getTeam:teamList atAlliance:@"Blue 2"];
+    label8.text = [self getTeam:teamList atAlliance:@"Blue 3"];
+    label9.text = [self getTeam:teamList atAlliance:@"Red 4"];
+    label10.text = [self getTeam:teamList atAlliance:@"Blue 4"];
+   label11.text = [match objectForKey:@"transfer"];
     return cell;
 }
 
-
+-(NSString *)getTeam:(NSDictionary *)teamList atAlliance:(NSString *)allianceString {
+    NSNumber *team = [teamList objectForKey:allianceString];
+    if ([team intValue] > 0) return [NSString stringWithFormat:@"%@", team];
+    else return @"";
+}
 
 
 

@@ -179,8 +179,8 @@
         csvString = [csvString stringByAppendingString:@"\n"];
         [fullPathHandle seekToEndOfFile];
         [fullPathHandle writeData:[csvString dataUsingEncoding:NSUTF8StringEncoding]];
-        [fullPathHandle closeFile];
     }
+    [fullPathHandle closeFile];
     return isData;
 }
 

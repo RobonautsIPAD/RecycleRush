@@ -14,6 +14,7 @@
 #import "DataSync.h"
 #import "SyncTableCells.h"
 #import "SyncMethods.h"
+#import "MatchAccessors.h"
 #import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
 
@@ -22,6 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *connectionStatusButton;
 @property (weak, nonatomic) IBOutlet UITableView *serverTable;
 @property (weak, nonatomic) IBOutlet UIButton *connectedDeviceButton;
+@property (weak, nonatomic) IBOutlet UIButton *eliminationRadio;
+@property (weak, nonatomic) IBOutlet UIButton *qualificationRadio;
+@property (weak, nonatomic) IBOutlet UIButton *oneMatchRadio;
+@property (weak, nonatomic) IBOutlet UITextField *quickRequestMatch;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *syncOptionsButton;
@@ -107,6 +112,8 @@
     syncType = SyncMatchResults;
     syncOption = SyncAllSavedSince;
     [self setSendList];
+    [_qualificationRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+    [_qualificationRadio setSelected:YES];
     // NSLog(@"%@", filteredSendList);
 
     // Check if either server or client already exists. If both exist, bad things.
@@ -153,6 +160,7 @@
     }
     else {
         // We are in an idle, unconnected state
+        [_bluetoothView setHidden:TRUE];
         [_sendButton setHidden:TRUE];
         [_quickRequestButton setHidden:TRUE];
         [_connectedDeviceButton setHidden:TRUE];
@@ -486,23 +494,66 @@
     [_syncDataTable reloadData];
     NSLog(@"%@", displayList);
 }
+
 - (IBAction)createScoutingBundle:(id)sender {
 }
 
 -(void)setSendList {
     if (syncType == SyncTeams) {
         filteredSendList = [dataSyncPackage getFilteredTeamList:syncOption];
+        displayList = filteredSendList;
     }
     else if (syncType == SyncMatchList) {
         filteredSendList = [dataSyncPackage getFilteredMatchList:syncOption];
+        displayList = filteredSendList;
     }
     else if (syncType == SyncMatchResults) {
         filteredSendList = [dataSyncPackage getFilteredResultsList:syncOption];
+        displayList = filteredSendList;
     }
     else if (syncType == SyncTournaments) {
         filteredSendList = [dataSyncPackage getFilteredTournamentList:syncOption];
+        displayList = filteredSendList;
     }
-    displayList = filteredSendList;
+    else if (syncType == SyncQuickRequest) {
+        filteredSendList = nil;
+        NSNumber *matchType;
+        if ([_qualificationRadio isSelected]) matchType = [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:_dataManager.matchTypeDictionary];
+        else if ([_eliminationRadio isSelected]) matchType = [MatchAccessors getMatchTypeFromString:@"Elimination" fromDictionary:_dataManager.matchTypeDictionary];
+        else matchType = [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:_dataManager.matchTypeDictionary];
+        displayList = [dataSyncPackage getQuickRequestStatus:matchType];
+    }
+}
+
+-(IBAction)toggleRadioButtonState:(id)sender {
+    if (sender == _qualificationRadio) {
+        [self coupledRadioButtons:(UIButton *)_qualificationRadio forPair:(UIButton *)_eliminationRadio];
+    }
+    else if (sender == _eliminationRadio) {
+        [self coupledRadioButtons:(UIButton *)_eliminationRadio forPair:(UIButton *)_qualificationRadio];
+    }
+    else if (sender == _oneMatchRadio) {
+        if ([_oneMatchRadio isSelected]) {
+            [_oneMatchRadio setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+            [_oneMatchRadio setSelected:NO];
+        }
+        else {
+            [_oneMatchRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+            [_oneMatchRadio setSelected:YES];
+        }
+    }
+}
+
+-(void) coupledRadioButtons:(UIButton *)button1 forPair:(UIButton *)button2 {
+    if ([button1 isSelected]) {
+        [button1 setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+        [button1 setSelected:NO];
+    } else {
+        [button1 setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+        [button1 setSelected:YES];
+        [button2 setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+        [button2 setSelected:NO];
+    }
 }
 
 #pragma mark - Table view data source

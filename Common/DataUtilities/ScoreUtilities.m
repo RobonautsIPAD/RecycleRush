@@ -17,7 +17,6 @@
 #import "FieldDrawing.h"
 #import "FieldPhoto.h"
 #import "DataConvenienceMethods.h"
-//#import "EnumerationDictionary.h"
 
 @implementation ScoreUtilities {
     NSDictionary *allianceDictionary;

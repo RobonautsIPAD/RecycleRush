@@ -13,7 +13,6 @@
 #import "DataConvenienceMethods.h"
 #import "MatchAccessors.h"
 #import "FileIOMethods.h"
-#import "EnumerationDictionary.h"
 #import "parseCSV.h"
 
 

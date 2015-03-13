@@ -158,7 +158,7 @@
     return myData;
 }
 
--(NSMutableArray *)unpackageTournamentsForXFer:(NSArray *)tournamentList {
+-(NSDictionary *)unpackageTournamentsForXFer:(NSArray *)tournamentList {
     NSMutableArray *receivedList = [[NSMutableArray alloc] init];
     for (NSDictionary *tournamentDictionary in tournamentList) {
         NSString *tournamentName = [tournamentDictionary objectForKey:@"name"];
@@ -171,7 +171,10 @@
             [receivedList addObject:tournament];
         }
     }
-    return receivedList;
+    NSArray *keyList = [NSArray arrayWithObjects:@"record", @"tournaments", nil];
+    NSArray *objectList = [NSArray arrayWithObjects:@"TournamentData", receivedList, nil];
+    NSDictionary *tournamentTransfer = [NSDictionary dictionaryWithObjects:objectList forKeys:keyList];
+    return tournamentTransfer;
 }
 
 -(TournamentData *)createNewTournament:(NSString *)name {

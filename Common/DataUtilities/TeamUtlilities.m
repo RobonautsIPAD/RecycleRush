@@ -303,20 +303,16 @@
         }
         [teamRecord setValue:[xferDictionary objectForKey:key] forKey:key];
     }
-    
-    /*        id value = [_teamDataProperties valueForKey:key];
+    NSArray *tournamentList = [xferDictionary objectForKey:@"tournament"];
+    for (NSString *tournamentName in tournamentList) {
+        [self addTournamentToTeam:teamRecord forTournament:tournamentName];
+    }
+        /*        id value = [_teamDataProperties valueForKey:key];
      if ([value isKindOfClass:[NSAttributeDescription class]]) {
      [teamRecord setValue:[myDictionary objectForKey:key] forKey:key];
      }
      else {   // This is a relationship property
      NSRelationshipDescription *destination = [value inverseRelationship];
-     if ([destination.entity.name isEqualToString:@"TournamentData"]) {
-     // NSLog(@"T dictionary = %@", [myDictionary objectForKey:key]);
-     for (int i=0; i<[[myDictionary objectForKey:key] count]; i++) {
-     [self addTournamentToTeam:teamRecord forTournament:[[myDictionary objectForKey:key] objectAtIndex:i]];
-     }
-     }
-     
      }*/
     
     teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];

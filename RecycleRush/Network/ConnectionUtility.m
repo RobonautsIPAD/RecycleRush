@@ -13,8 +13,6 @@
 #import "MatchUtilities.h"
 #import "ScoreUtilities.h"
 #import "SyncMethods.h"
-#import "SyncTypeDictionary.h"
-#import "SyncOptionDictionary.h"
 
 @implementation ConnectionUtility {
     NSUserDefaults *prefs;

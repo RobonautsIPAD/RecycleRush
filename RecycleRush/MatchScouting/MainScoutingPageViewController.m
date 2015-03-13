@@ -21,7 +21,6 @@
 #import "FieldDrawing.h"
 #import "TeamData.h"
 #import "SyncMethods.h"
-#import "PadSyncViewController.h"
 #import "TeamDetailViewController.h"
 #import "PopUpPickerViewController.h"
 #import <ImageIO/CGImageSource.h>
