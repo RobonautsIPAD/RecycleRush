@@ -22,6 +22,7 @@
     UIView *savedView;
     NSMutableArray *stackList;
     NSMutableDictionary *stackDictionary;
+    BOOL changedData;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    changedData = FALSE;
     NSLog(@"Add saved and savedBy stuff for stack view");
     stackList = [[NSMutableArray alloc] init];
     if (_currentScore.stacks) {
@@ -188,9 +190,10 @@
  }
 
 -(NSMutableDictionary *)saveStacks:(UIView *)currentStack {
-    NSMutableDictionary *currentDictionary = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *currentDictionary;
     for (UITextField *field in [currentStack subviews]) {
-        if (field.text) {
+        if (field.text && ![field.text isEqualToString:@""]) {
+            if (!currentDictionary) currentDictionary = [[NSMutableDictionary alloc]init];
             [currentDictionary setObject:field.text forKey:[NSNumber numberWithInt:field.tag]];
         }
     }
@@ -198,46 +201,52 @@
 }
 
 - (IBAction)finished:(id)sender {
+    if (!changedData) {
+        [_delegate scoringViewFinished];
+        [self dismissViewControllerAnimated:YES completion:Nil];
+        return;
+    }
+    
     NSMutableDictionary *stack = [self saveStacks:[stackList objectAtIndex:0]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:0]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:0]];
     stack = [self saveStacks:[stackList objectAtIndex:1]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
 
     stack = [self saveStacks:[stackList objectAtIndex:1]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
 
     stack = [self saveStacks:[stackList objectAtIndex:2]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:2]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:2]];
 
     stack = [self saveStacks:[stackList objectAtIndex:3]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:3]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:3]];
 
     stack = [self saveStacks:[stackList objectAtIndex:4]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:4]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:4]];
 
     stack = [self saveStacks:[stackList objectAtIndex:5]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:5]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:5]];
 
     stack = [self saveStacks:[stackList objectAtIndex:6]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:6]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:6]];
 
     stack = [self saveStacks:[stackList objectAtIndex:7]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:7]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:7]];
 
     stack = [self saveStacks:[stackList objectAtIndex:8]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:8]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:8]];
 
     stack = [self saveStacks:[stackList objectAtIndex:9]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
 
     stack = [self saveStacks:[stackList objectAtIndex:9]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
 
     stack = [self saveStacks:[stackList objectAtIndex:10]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:10]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:10]];
 
     stack = [self saveStacks:[stackList objectAtIndex:11]];
-    [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:11]];
+    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:11]];
     
     NSLog(@"%@", stackDictionary);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stackDictionary];
@@ -263,6 +272,7 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
+    changedData = TRUE;
     NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
 }
 

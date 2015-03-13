@@ -84,7 +84,6 @@
     else return nil;
 }
 +(NSNumber *)getMatchTypeFromString:(NSString *)matchTypeString fromDictionary:(NSDictionary *)matchTypeDictionary {
-    //    valueObject = [EnumerationDictionary getValueFromKey:key forDictionary:allianceDictionary];
     NSNumber *matchType = [matchTypeDictionary objectForKey:matchTypeString];
     if (!matchType) {
         NSArray *allKeys = [matchTypeDictionary allKeys];
@@ -105,7 +104,6 @@
 }
 
 +(NSNumber *)getAllianceStation:(NSString *)allianceString fromDictionary:(NSDictionary *)allianceDictionary {
-    //    valueObject = [EnumerationDictionary getValueFromKey:key forDictionary:allianceDictionary];
     NSNumber *allianceStation = [allianceDictionary objectForKey:allianceString];
     if (!allianceStation) {
         NSArray *allKeys = [allianceDictionary allKeys];

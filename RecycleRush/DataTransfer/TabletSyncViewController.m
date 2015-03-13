@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *connectedDeviceButton;
 @property (weak, nonatomic) IBOutlet UIButton *eliminationRadio;
 @property (weak, nonatomic) IBOutlet UIButton *qualificationRadio;
+@property (weak, nonatomic) IBOutlet UIButton *oneMatchRadio;
+@property (weak, nonatomic) IBOutlet UITextField *quickRequestMatch;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
 @property (weak, nonatomic) IBOutlet UIButton *syncOptionsButton;
@@ -110,6 +112,8 @@
     syncType = SyncMatchResults;
     syncOption = SyncAllSavedSince;
     [self setSendList];
+    [_qualificationRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+    [_qualificationRadio setSelected:YES];
     // NSLog(@"%@", filteredSendList);
 
     // Check if either server or client already exists. If both exist, bad things.
@@ -156,6 +160,7 @@
     }
     else {
         // We are in an idle, unconnected state
+        [_bluetoothView setHidden:TRUE];
         [_sendButton setHidden:TRUE];
         [_quickRequestButton setHidden:TRUE];
         [_connectedDeviceButton setHidden:TRUE];
@@ -489,6 +494,7 @@
     [_syncDataTable reloadData];
     NSLog(@"%@", displayList);
 }
+
 - (IBAction)createScoutingBundle:(id)sender {
 }
 
@@ -525,6 +531,16 @@
     }
     else if (sender == _eliminationRadio) {
         [self coupledRadioButtons:(UIButton *)_eliminationRadio forPair:(UIButton *)_qualificationRadio];
+    }
+    else if (sender == _oneMatchRadio) {
+        if ([_oneMatchRadio isSelected]) {
+            [_oneMatchRadio setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+            [_oneMatchRadio setSelected:NO];
+        }
+        else {
+            [_oneMatchRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+            [_oneMatchRadio setSelected:YES];
+        }
     }
 }
 
