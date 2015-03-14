@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
+		2F2062681AB3A4F700BAC5E4 /* MatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2062671AB3A4F700BAC5E4 /* MatchCell.m */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -215,6 +216,8 @@
 /* Begin PBXFileReference section */
 		2F0648F11A9BBD65004241FA /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDefaults.h; path = RecycleRush/Utilities/UIDefaults.h; sourceTree = SOURCE_ROOT; };
 		2F0648F21A9BBD65004241FA /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDefaults.m; path = RecycleRush/Utilities/UIDefaults.m; sourceTree = SOURCE_ROOT; };
+		2F2062661AB3A4F700BAC5E4 /* MatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchCell.h; path = RecycleRush/Utilities/MatchCell.h; sourceTree = SOURCE_ROOT; };
+		2F2062671AB3A4F700BAC5E4 /* MatchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchCell.m; path = RecycleRush/Utilities/MatchCell.m; sourceTree = SOURCE_ROOT; };
 		2F22D6FD1A79C7EE006C109E /* AutonSP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutonSP.png; path = RecycleRush/Resources/FieldImages/AutonSP.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1079,6 +1082,8 @@
 				2F5D32F51A5FA51000E02523 /* ValuePromptViewController.m */,
 				2F5D32E61A5FA51000E02523 /* PhotoAttributes.h */,
 				2F5D32E71A5FA51000E02523 /* PhotoAttributes.m */,
+				2F2062661AB3A4F700BAC5E4 /* MatchCell.h */,
+				2F2062671AB3A4F700BAC5E4 /* MatchCell.m */,
 				2F5D32E81A5FA51000E02523 /* PhotoCell.h */,
 				2F5D32E91A5FA51000E02523 /* PhotoCell.m */,
 				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
@@ -1300,6 +1305,7 @@
 				2FA65C451AB08DD70062FFF5 /* TeamScore.m in Sources */,
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
+				2F2062681AB3A4F700BAC5E4 /* MatchCell.m in Sources */,
 				2F2ECA9A1A5F052300D3386E /* ExportMatchData.m in Sources */,
 				2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */,
 				2F5D32F71A5FA51000E02523 /* EnumerationDictionary.m in Sources */,

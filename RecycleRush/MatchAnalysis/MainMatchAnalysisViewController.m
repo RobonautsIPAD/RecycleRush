@@ -646,10 +646,8 @@
 
     
     UILabel *label1 = (UILabel *)[cell viewWithTag:30];
-    int top = [[[stats objectForKey:@"Tote Floor Top"] objectForKey:@"average"] intValue];
-    int bottom = [[[stats objectForKey:@"Tote Floor Bottom"] objectForKey:@"average"] intValue];
 
-    label1.text = [NSString stringWithFormat:@"%d", top+bottom];
+    label1.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Intake Landfill"] objectForKey:@"average"] intValue]];
 
     UILabel *label2 = (UILabel *)[cell viewWithTag:40];
     label2.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"HP Intake"] objectForKey:@"average"] intValue]];

@@ -8,6 +8,7 @@
 
 #import "MatchPhotoCollectionViewController.h"
 #import "UIDefaults.h"
+#import "MatchCell.h"
 
 @interface MatchPhotoCollectionViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -36,10 +37,13 @@
     [UIDefaults setBigButtonDefaults:_teamNumberButton withFontSize:nil];
     currectTeamNumber = _teamNumber;
     [self showTeam];
+    [_matchCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MatchCell"];
 }
 
 -(void)showTeam {
     [_teamNumberButton setTitle:[NSString stringWithFormat:@"%@", currectTeamNumber] forState:UIControlStateNormal];
+    NSLog(@"Get match photo list");
+    [_matchCollection reloadData];
 }
 
 -(IBAction)teamSelectionChanged:(id)sender {
@@ -63,6 +67,44 @@
     if (index != NSNotFound) currectTeamNumber = [_teamList objectAtIndex:index];
     [self showTeam];
 
+}
+
+#pragma mark - UICollectionView Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    NSInteger matchCount = 0;
+    if (matchCount > 0) [_matchCollection setHidden:NO];
+    else [_matchCollection setHidden:YES];
+    return matchCount;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MatchCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCell" forIndexPath:indexPath];
+//    NSString *photo = [photoList objectAtIndex:indexPath.row];
+//    cell.thumbnail = [UIImage imageWithContentsOfFile:[photoUtilities getThumbnailPath:photo]];
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+/*    action = _photoCollectionView;
+    selectedPhoto = [photoList objectAtIndex:indexPath.row];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Set as Prime", @"Show Full Screen",  @"Delete Photo", nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];*/
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(50, 50);
 }
 
 - (void)didReceiveMemoryWarning

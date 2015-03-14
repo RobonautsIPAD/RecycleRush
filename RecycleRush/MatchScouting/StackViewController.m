@@ -56,16 +56,6 @@
         CGFloat yBottom = 210;
         CGFloat yInterval = 75;
         CGRect rect;
-        //       [self initializeStack:newStack forNumber:0];
- //       [stackList addObject:newStack];
-/*        if (_savedData) {
-            savedView = (UIView *) [NSKeyedUnarchiver unarchiveObjectWithData:_savedData];
-            [self.view addSubview:savedView];
-        }
-        else {
-            _stack1View.frame = rect;
-            [self initializeStack:_stack1View forNumber:0];
-        }*/
         // Left Column
         for (int i=0; i<6; i++) {
             rect = CGRectMake(xLeft,yBottom+yInterval*i,265,65);
@@ -155,29 +145,118 @@
     field.tag = newTag;
 }
 
--(NSDictionary *)calculateStackTotals:(UIView *)stack forNumber:(int)stackNumber {
-    NSArray *fields = [stack subviews];
-    int numeratorTotal = 0;
-    int canTotal = 0;
-    int litterTotal = 0;
-    for (UITextField *current in fields) {
-        if (current.tag%10) {
-            for(int i =0 ;i<[current.text length]; i++) {
-                char character = [current.text characterAtIndex:i];
-                if (isdigit(character)) {
-                    numeratorTotal += (int)(character - '0');
-                }
-                else if (character == 'C') canTotal++;
-                else if (character == 'L') litterTotal++;
-            }
+-(NSDictionary *)calculateStackTotals:(NSDictionary *)stackData forStack:(NSInteger)stackIndex {
+    NSArray *allFields = [stackData allKeys];
+    allFields = [allFields sortedArrayUsingSelector:@selector(compare:)];
+    if (![[allFields objectAtIndex:0] intValue]%2) {
+        NSLog(@"Stack Error");
+        return nil;
+    }
+    for (int i=0; i<[allFields count]; i+=2) {
+        NSString *numerator = [stackData objectForKey:[allFields objectAtIndex:i]];
+        NSString *denominator = [stackData objectForKey:[allFields objectAtIndex:i+1]];
+        NSDictionary *numeratorTotal = [self getTextFieldData:numerator];
+        NSDictionary *denominatorTotal = [self getTextFieldData:denominator];
+        NSLog(@"num = %@, denom = %@", numeratorTotal, denominatorTotal);
+        _currentScore.totalTotesScored = [self addNumbers:_currentScore.totalTotesScored forSecondNumber:[numeratorTotal objectForKey:@"totes"]];
+        _currentScore.totalCansScored = [self addNumbers:_currentScore.totalCansScored forSecondNumber:[numeratorTotal objectForKey:@"cans"]];
+        _currentScore.litterInCan = [self addNumbers:_currentScore.litterInCan forSecondNumber:[numeratorTotal objectForKey:@"litter"]];
+        [self calculateTotesOn:numeratorTotal withDenominator:denominatorTotal];
+        [self calculateCansOn:numeratorTotal withDenominator:denominatorTotal];
+    }
+    // Calculate Cans
+    // Calculate Can On
+    // Calculate Litter
+    // Calculate Total Totes
+    // Calculate Totes On
+    return nil;
+}
+
+-(NSDictionary *)getTextFieldData:(NSString *)field {
+    NSNumber *totes = [NSNumber numberWithInt:0];
+    NSNumber *cans = [NSNumber numberWithInt:0];
+    NSNumber *litter = [NSNumber numberWithInt:0];
+    for(int i =0 ;i<[field length]; i++) {
+        char character = [field characterAtIndex:i];
+        if (isdigit(character)) {
+            totes = [NSNumber numberWithInt:(int)(character - '0')];
         }
+        else if (character == 'C') cans = [NSNumber numberWithInt:1];
+        else if (character == 'L') litter = [NSNumber numberWithInt:1];
     }
     NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithInt:numeratorTotal], @"totes",
-                             [NSNumber numberWithInt:canTotal], @"cans",
-                             [NSNumber numberWithInt:litterTotal], @"litter",
+                             totes, @"totes",
+                             cans, @"cans",
+                             litter, @"litter",
                              nil];
     return results;
+}
+
+-(NSNumber *)addNumbers:(NSNumber *)number1 forSecondNumber:(NSNumber *)number2 {
+    int first = [number1 intValue];
+    int second = [number2 intValue];
+    NSNumber *result = [NSNumber numberWithInt:(first+second)];
+    return result;
+}
+
+-(void)calculateTotesOn:(NSDictionary *)numerator withDenominator:(NSDictionary *)denominator {
+    int onBottom = [[denominator objectForKey:@"totes"] intValue];
+    switch (onBottom) {
+        case 0:
+            _currentScore.totesOn0 = [self addNumbers:_currentScore.totesOn0 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 1:
+            _currentScore.totesOn1 = [self addNumbers:_currentScore.totesOn1 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 2:
+            _currentScore.totesOn2 = [self addNumbers:_currentScore.totesOn2 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 3:
+            _currentScore.totesOn3 = [self addNumbers:_currentScore.totesOn3 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 4:
+            _currentScore.totesOn4 = [self addNumbers:_currentScore.totesOn4 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 5:
+            _currentScore.totesOn5 = [self addNumbers:_currentScore.totesOn5 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+        case 6:
+            _currentScore.totesOn6 = [self addNumbers:_currentScore.totesOn6 forSecondNumber:[numerator objectForKey:@"totes"]];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)calculateCansOn:(NSDictionary *)numerator withDenominator:(NSDictionary *)denominator {
+    int onBottom = [[denominator objectForKey:@"totes"] intValue];
+    switch (onBottom) {
+        case 0:
+            _currentScore.cansOn0 = [self addNumbers:_currentScore.cansOn0 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 1:
+            _currentScore.cansOn1 = [self addNumbers:_currentScore.cansOn1 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 2:
+            _currentScore.cansOn2 = [self addNumbers:_currentScore.cansOn2 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 3:
+            _currentScore.cansOn3 = [self addNumbers:_currentScore.cansOn3 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 4:
+            _currentScore.cansOn4 = [self addNumbers:_currentScore.cansOn4 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 5:
+            _currentScore.cansOn5 = [self addNumbers:_currentScore.cansOn5 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+        case 6:
+            _currentScore.cansOn6 = [self addNumbers:_currentScore.cansOn6 forSecondNumber:[numerator objectForKey:@"cans"]];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(NSString *)returnSet:(NSString *)inputString forSet:(NSCharacterSet *)correctSet {
@@ -189,13 +268,16 @@
     return outputString;
  }
 
--(NSMutableDictionary *)saveStacks:(UIView *)currentStack {
+-(NSMutableDictionary *)saveStacks:(UIView *)currentStack forStack:(NSInteger)stackIndex {
     NSMutableDictionary *currentDictionary;
     for (UITextField *field in [currentStack subviews]) {
         if (field.text && ![field.text isEqualToString:@""]) {
             if (!currentDictionary) currentDictionary = [[NSMutableDictionary alloc]init];
             [currentDictionary setObject:field.text forKey:[NSNumber numberWithInt:field.tag]];
         }
+    }
+    if (currentDictionary) {
+        [self calculateStackTotals:currentDictionary forStack:stackIndex];
     }
     return currentDictionary;
 }
@@ -206,49 +288,44 @@
         [self dismissViewControllerAnimated:YES completion:Nil];
         return;
     }
+    // Set save time and savedby
+    _currentScore.savedBy = _deviceName;
+    _currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    _currentScore.results = [NSNumber numberWithBool:YES];
+
+    // Reset all totals
+    _currentScore.cansOn0 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn1 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn2 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn3 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn4 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn5 = [NSNumber numberWithInt:0];
+    _currentScore.cansOn6 = [NSNumber numberWithInt:0];
+    _currentScore.litterInCan = [NSNumber numberWithInt:0];
+    //    _currentScore.maxCanHeight = [NSNumber numberWithInt:0];
+    //    _currentScore.maxToteHeight = [NSNumber numberWithInt:0];
+//    _currentScore.stackNumber = [NSNumber numberWithInt:0];
+    _currentScore.totalCansScored = [NSNumber numberWithInt:0];
+//    _currentScore.totalScore = [NSNumber numberWithInt:0];
+    _currentScore.totalTotesScored = [NSNumber numberWithInt:0];
+    _currentScore.totesOn0 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn1 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn2 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn3 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn4 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn5 = [NSNumber numberWithInt:0];
+    _currentScore.totesOn6 = [NSNumber numberWithInt:0];
+    NSMutableDictionary *savedStack;
     
-    NSMutableDictionary *stack = [self saveStacks:[stackList objectAtIndex:0]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:0]];
-    stack = [self saveStacks:[stackList objectAtIndex:1]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:1]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:1]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:2]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:2]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:3]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:3]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:4]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:4]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:5]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:5]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:6]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:6]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:7]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:7]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:8]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:8]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:9]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:9]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:9]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:10]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:10]];
-
-    stack = [self saveStacks:[stackList objectAtIndex:11]];
-    if (stack) [stackDictionary setObject:stack forKey:[NSNumber numberWithInt:11]];
+    int i = 0;
+    for (UIView *stack in stackList) {
+        savedStack = [self saveStacks:stack forStack:0];
+        if (savedStack) [stackDictionary setObject:savedStack forKey:[NSNumber numberWithInt:i]];
+        i++;
+    }
     
-    NSLog(@"%@", stackDictionary);
+    
+  //  NSLog(@"%@", stackDictionary);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stackDictionary];
     _currentScore.stacks = data;
     if (![_dataManager saveContext]) {
@@ -260,13 +337,6 @@
         [prompt setAlertViewStyle:UIAlertViewStyleDefault];
         [prompt show];
     }
-/*    NSDictionary *stack1Results = [self calculateStackTotals:_stack1View forNumber:0];
-    NSLog(@"%@", stack1Results);
-    _currentScore.litterInCan = [stack1Results objectForKey:@"litter"];
-    _currentScore.totalCansScored = [stack1Results objectForKey:@"cans"];
-    _currentScore.totalTotesScored = [stack1Results objectForKey:@"totes"];
-    NSData *dataFields = [NSKeyedArchiver archivedDataWithRootObject:_stack1View];*/
-
     [_delegate scoringViewFinished];
     [self dismissViewControllerAnimated:YES completion:Nil];
 }

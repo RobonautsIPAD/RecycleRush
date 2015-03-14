@@ -18,7 +18,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>totesFromFloor</string>
+		<string>toteIntakeLandfill</string>
 		<key>header</key>
 		<string>Totes Floor</string>
 		<key>format</key>
@@ -32,7 +32,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>totesFromHP</string>
+		<string>toteIntakeHP</string>
 		<key>header</key>
 		<string>Totes HP</string>
 		<key>format</key>

@@ -246,7 +246,8 @@
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
     scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
     matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
-    
+    _fieldDrawingContainer.layer.borderColor = [UIColor blackColor].CGColor;
+    _fieldDrawingContainer.layer.borderWidth = 2.0f;
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     [self setDefaults];
@@ -1607,8 +1608,8 @@
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setAllianceString:allianceString];
         [segue.destinationViewController setCurrentScore:currentScore];
-        [segue.destinationViewController setSavedData:currentScore.stacks];
-        [segue.destinationViewController setDelegate:self];
+        [segue.destinationViewController setDeviceName:deviceName];
+       [segue.destinationViewController setDelegate:self];
     }
     else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
         [segue.destinationViewController setDataManager:_dataManager];

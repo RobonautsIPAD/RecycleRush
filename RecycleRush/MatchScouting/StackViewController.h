@@ -18,9 +18,9 @@
 
 @interface StackViewController : UIViewController <UITextFieldDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSString *deviceName;
 @property (nonatomic, strong) TeamScore *currentScore;
 @property (nonatomic, strong) NSString *allianceString;
 @property (nonatomic, weak) id<StackViewDelegate> delegate;
-@property (nonatomic, strong) NSData *savedData;
 
 @end

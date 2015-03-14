@@ -35,7 +35,7 @@
     }
 
     // Load dictionary with list of parameters for the scouting spreadsheet
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"StatCalculate" ofType:@"plist"];
     NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
 // fetch all score records for this tournament

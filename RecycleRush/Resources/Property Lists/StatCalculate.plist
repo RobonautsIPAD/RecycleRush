@@ -18,7 +18,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonTotesSet</string>
+		<string>autonToteSet</string>
 		<key>header</key>
 		<string>Tote Set</string>
 		<key>format</key>
