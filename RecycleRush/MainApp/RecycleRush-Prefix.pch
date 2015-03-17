@@ -15,7 +15,7 @@
     #import <GameKit/GameKit.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
-
+#import "CorePlot-CocoaTouch.h"
 //#define TEST_MODE
 
 #define SESSION_ID @"Robonauts Scouting"

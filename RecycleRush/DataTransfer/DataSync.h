@@ -20,6 +20,7 @@
 -(NSArray *)getFilteredTeamList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredMatchList:(SyncOptions)syncOption;
 -(NSArray *)getFilteredResultsList:(SyncOptions)syncOption;
+-(NSArray *)getQuickRequestList:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forOneMatch:(BOOL)oneMatch;
 -(NSArray *)getImportFileList;
 -(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error;
 -(NSArray *)importiTunesSelected:(NSString *)importFile error:(NSError **)error;

@@ -12,7 +12,7 @@
 @class DataManager;
 @class ConnectionUtility;
 
-@interface TabletSyncViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PopUpPickerDelegate>
+@interface TabletSyncViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
 -(void)updateClientStatus:(NSNotification *)notification;

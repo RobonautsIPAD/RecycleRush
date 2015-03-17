@@ -23,6 +23,7 @@
 #import "ImportDataFromiTunes.h"
 #import "PhotoUtilities.h"
 #import "MatchPhotoUtilities.h"
+#import "MatchAccessors.h"
 #import "FileIOMethods.h"
 
 @implementation DataSync {
@@ -46,6 +47,7 @@
     TeamUtilities *teamUtilities;
     MatchUtilities *matchUtilities;
     ScoreUtilities *scoreUtilities;
+    MatchPhotoUtilities *matchPhotoUtilities;
     NSString *exportFilePath;
     NSString *transferFilePath;
 
@@ -240,6 +242,52 @@
     return filteredResultsList;
 }
 
+-(NSArray *)getQuickRequestList:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forOneMatch:(BOOL)oneMatch {
+    // Build List for bluetooth
+    // Team List First
+    NSArray *filteredTeamList = [self getFilteredTeamList:SyncAllSavedSince];
+    // Package Team data for iTunes and set team data sync
+    NSError *error = nil;
+    if (filteredTeamList && [filteredTeamList count]) {
+        [self packageDataForiTunes:SyncTeams forData:filteredTeamList error:&error];
+    }
+    // Score data
+    NSArray *filteredResultsList;
+    NSPredicate *pred;
+    if (!matchResultsList) {
+        NSError *error = nil;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription
+                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        pred = [NSPredicate predicateWithFormat:@"tournamentName = %@", tournamentName];
+        [fetchRequest setPredicate:pred];
+        matchResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+    if (oneMatch) {
+        pred = [NSPredicate predicateWithFormat:@"results = %@ AND savedBy = %@ AND matchType = %@ and matchNumber = %@", [NSNumber numberWithBool:YES], deviceName, matchType, matchNumber];
+    }
+    else {
+        pred = [NSPredicate predicateWithFormat:@"results = %@ AND savedBy = %@ AND matchType = %@ and matchNumber >= %@", [NSNumber numberWithBool:YES], deviceName, matchType, matchNumber];
+    }
+    filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
+    // Package match photos
+    if (filteredResultsList && [filteredResultsList count]) {
+        NSLog(@"Package match photos");
+        if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+        NSMutableArray *photoList = [NSMutableArray array];
+        for (TeamScore *score in filteredResultsList) {
+            NSString *photoName = [matchPhotoUtilities createBaseName:score.matchNumber forType:[MatchAccessors getMatchTypeString:matchType fromDictionary:_dataManager.matchTypeDictionary] forTeam:score.teamNumber];
+            if (photoName) [photoList addObject:photoName];
+        }
+        [matchPhotoUtilities exporttMatchPhotoList:photoList];
+    }
+    
+    NSArray *requestList = [filteredTeamList arrayByAddingObjectsFromArray:filteredResultsList];
+    return requestList;
+}
+
 -(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error {
     NSString *transferDataFile;
     BOOL transferSuccess = TRUE;
@@ -378,7 +426,7 @@
         //NSLog(@"Photo package");
         receivedList = [photoPackage importDataPhoto:importFile error:error];
     } else if ([importFile.pathExtension compare:@"mph" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-        MatchPhotoUtilities *matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+        if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
         receivedList = [matchPhotoUtilities importMatchPhotos:importFile error:error];
     } else {
         receivedList = [importPackage importData:importFile error:error];

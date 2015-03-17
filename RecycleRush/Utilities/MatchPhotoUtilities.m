@@ -142,6 +142,42 @@
     [transferData writeToFile:photoExportPath atomically:YES];
 }
 
+-(BOOL)exporttMatchPhotoList:(NSArray *)matchPhotoList {
+    NSError *error;
+    // Build a temporary directory to hold just this tournament's photos
+    NSString *tmpBuildExport = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"tmpPhotoExport"];
+    // Remove the tmp directory to make sure old data does not hang around
+    [fileManager removeItemAtPath:tmpBuildExport error:&error];
+    
+    // Build directory to hold the temporary images
+    if (![fileManager fileExistsAtPath:tmpBuildExport isDirectory:NO]) {
+        if (![fileManager createDirectoryAtPath:tmpBuildExport
+                    withIntermediateDirectories: YES
+                                     attributes: nil
+                                          error: NULL]) {
+            NSLog(@"Dreadful error creating directory to transfer match photos");
+            return FALSE;
+        }
+    }
+    for (NSString *matchPhoto in matchPhotoList) {
+        [fileManager copyItemAtPath:[matchPhotoDirectory stringByAppendingPathComponent:matchPhoto] toPath:[tmpBuildExport stringByAppendingPathComponent:matchPhoto] error:NULL];
+    }
+    float currentTime = CFAbsoluteTimeGetCurrent();
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer_%.0f.mph", tournamentName, currentTime]];
+    NSURL *url = [NSURL fileURLWithPath:tmpBuildExport];
+    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
+    if (dirWrapper == nil) {
+        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+        return FALSE;
+    }
+    NSData *transferData = [dirWrapper serializedRepresentation];
+    [transferData writeToFile:photoExportPath atomically:YES];
+    // Remove the tmp directory to make sure old data does not hang around
+    [fileManager removeItemAtPath:tmpBuildExport error:&error];
+
+    return FALSE;
+}
+
 #ifdef NOTUSED
 -(void)exportMatchPhotos:(NSString *)tournament {
     NSError *error;
@@ -174,6 +210,7 @@
         }
     }
     
+    float currentTime = CFAbsoluteTimeGetCurrent();
     NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer.pho", tournament]];
     NSURL *url = [NSURL fileURLWithPath:tmpBuildExport];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];

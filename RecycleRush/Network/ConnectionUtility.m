@@ -15,8 +15,6 @@
 #import "SyncMethods.h"
 
 @implementation ConnectionUtility {
-    NSUserDefaults *prefs;
-    NSNumber *scoutingBundleSync;
     int sendPacketNumber;
     DataSync *dataSyncPackage;
     TeamUtilities *teamUtilities;
@@ -30,7 +28,6 @@
         teamUtilities = [[TeamUtilities alloc] init:_dataManager];
         matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
-        prefs = [NSUserDefaults standardUserDefaults];
     }
 	return self;
 }
@@ -67,7 +64,7 @@
 
     switch (packet.packetType) {
 		case PacketTypeQuickRequest:
-            [self sendQuickResponse:peerID inSession:session];
+            [self sendQuickResponse:peerID forRequest:packet inSession:session];
 			break;
         case PacketTypeSendData:
             [self decodeSendData:packet];
@@ -82,34 +79,42 @@
     }
 }
 
-- (void)sendQuickResponse:(NSString *)requesterID inSession:(GKSession *)session {
+- (void)sendQuickResponse:(NSString *)requesterID forRequest:(Packet *)requesterPacket inSession:(GKSession *)session {
+    NSDictionary *dataDictionary = requesterPacket.dataDictionary;
+    NSNumber *matchType = [dataDictionary objectForKey:@"MatchType"];
+    NSNumber *matchRequest = [dataDictionary objectForKey:@"MatchRequest"];
+    NSNumber *oneMatch = [dataDictionary objectForKey:@"OneMatch"];
     if (!dataSyncPackage) dataSyncPackage = [[DataSync alloc] init:_dataManager];
-    NSArray *filteredTeamList = [dataSyncPackage getFilteredTeamList:-1];
-    NSArray *filteredScoreList = [dataSyncPackage getFilteredResultsList:-1];
+    NSArray *filteredList = [dataSyncPackage getQuickRequestList:matchType forMatchNumber:matchRequest forOneMatch:[oneMatch boolValue]];
     NSUInteger nRecords = 0;
-    if (filteredTeamList) nRecords = [filteredTeamList count];
-    if (filteredScoreList) nRecords += [filteredScoreList count];
+    if (filteredList) nRecords = [filteredList count];
     Packet *packet = [Packet packetWithType:PacketTypeSendData];
     [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:nRecords], @"Records", nil]];
     [self sendPacketToClient:packet forClient:requesterID inSession:session];
-    NSLog(@"Quick Records = %lu", nRecords);
-//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-    for (TeamData *team in filteredTeamList) {
-        NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:team];
-        Packet *teamPacket = [Packet packetWithType:PacketTypeTeamData];
-        //NSLog(@"send quick %@", teamDictionary);
-        [teamPacket setDataDictionary:teamDictionary];
-        [self sendPacketToClient:teamPacket forClient:requesterID inSession:session];
+    NSLog(@"Quick Records = %lu", (long int)nRecords);
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    Packet *responsePacket;
+    for (id item in filteredList) {
+        NSString *dataType = NSStringFromClass([item class]);
+        if ([dataType isEqualToString:@"TeamData"]) {
+            NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:(TeamData *)item];
+            responsePacket = [Packet packetWithType:PacketTypeTeamData];
+            [responsePacket setDataDictionary:teamDictionary];
+            NSLog(@"Team dictionary = %@", teamDictionary);
+        }
+        else if ([dataType isEqualToString:@"TeamScore"]) {
+            NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:(TeamScore *)item];
+            responsePacket = [Packet packetWithType:PacketTypeScoreData];
+            [responsePacket setDataDictionary:scoreDictionary];
+            NSLog(@"Score dictionary = %@", scoreDictionary);
+        }
+        else {
+            responsePacket = [Packet packetWithType:PacketTypeScoreData];
+            [responsePacket setDataDictionary:nil];
+        }
+        [self sendPacketToClient:responsePacket forClient:requesterID inSession:session];
     }
-    for (TeamScore *score in filteredScoreList) {
-        NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:score];
-        Packet *scorePacket = [Packet packetWithType:PacketTypeScoreData];
-        [scorePacket setDataDictionary:scoreDictionary];
-        [self sendPacketToClient:scorePacket forClient:requesterID inSession:session];
-    }
-//    });
-    scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
+    });
 
     // Send async
 }

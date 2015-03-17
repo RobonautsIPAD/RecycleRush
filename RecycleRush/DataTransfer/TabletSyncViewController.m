@@ -17,6 +17,7 @@
 #import "MatchAccessors.h"
 #import "MatchIntegrityViewController.h"
 #import "PopUpPickerViewController.h"
+#import "LNNumberpad.h"
 
 @interface TabletSyncViewController ()
 @property (weak, nonatomic) IBOutlet UIView *bluetoothView;
@@ -114,6 +115,9 @@
     [self setSendList];
     [_qualificationRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
     [_qualificationRadio setSelected:YES];
+    _quickRequestMatch.inputView = [LNNumberpad defaultLNNumberpad];
+    [self.view sendSubviewToBack:_bluetoothView];
+
     // NSLog(@"%@", filteredSendList);
 
     // Check if either server or client already exists. If both exist, bad things.
@@ -445,6 +449,26 @@
 - (IBAction)quickRequest:(id)sender {
     // Create quick request packet
     Packet *packet = [Packet packetWithType:PacketTypeQuickRequest];
+    NSNumber *matchType;
+    if ([_qualificationRadio isSelected]) matchType = [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:_dataManager.matchTypeDictionary];
+    else matchType = [MatchAccessors getMatchTypeFromString:@"Elimination" fromDictionary:_dataManager.matchTypeDictionary];
+    NSNumber *matchRequest;
+    if ([_quickRequestMatch.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"Please Enter a Match to Request"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    else {
+        matchRequest = [NSNumber numberWithInt:[_quickRequestMatch.text intValue]];
+    }
+    NSNumber *oneMatch;
+    if ([_oneMatchRadio isSelected]) oneMatch = [NSNumber numberWithBool:YES];
+    else oneMatch = [NSNumber numberWithBool:NO];
+    [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:matchType, @"MatchType", matchRequest, @"MatchRequest", oneMatch, @"OneMatch", nil]];
     // Determine if destination is one or all
     if ([_connectedDeviceButton.titleLabel.text isEqualToString:@"Send All"]) {
         [_connectionUtility sendPacketToAllClients:packet inSession:session];
@@ -592,6 +616,20 @@
 		[_connectionUtility.matchMakingClient connectToServerWithPeerID:serverID];
         serverName = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
 	}
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    //    if (textField != _foulTextField)  return YES;
+    NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+    // This allows backspace
+    if ([resultingString length] == 0) {
+        return true;
+    }
+    
+    NSInteger holder;
+    NSScanner *scan = [NSScanner scannerWithString: resultingString];
+    
+    return [scan scanInteger: &holder] && [scan isAtEnd];
 }
 
 - (void)didReceiveMemoryWarning

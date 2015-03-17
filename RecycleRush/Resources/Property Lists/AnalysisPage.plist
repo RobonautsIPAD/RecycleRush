@@ -46,7 +46,7 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>cansScored</string>
+		<string>totalTotesScored</string>
 		<key>header</key>
 		<string>Totes Stacked</string>
 		<key>format</key>
@@ -60,7 +60,21 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>knockDowns</string>
+		<string>maxToteHeight</string>
+		<key>header</key>
+		<string>Tote Height</string>
+		<key>format</key>
+		<string>%.1f</string>
+		<key>type</key>
+		<string>float</string>
+		<key>location</key>
+		<integer>470</integer>
+		<key>factor</key>
+		<integer>100</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>stackKnockdowns</string>
 		<key>header</key>
 		<string>Knockdowns</string>
 		<key>format</key>
@@ -68,41 +82,27 @@
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>460</integer>
+		<integer>580</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>toteSet</string>
+		<string>autonCansFromStep</string>
 		<key>header</key>
-		<string>Tote Set</string>
+		<string>Step Cans</string>
 		<key>format</key>
 		<string>%.1f</string>
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>630</integer>
+		<integer>690</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>toteStack</string>
-		<key>header</key>
-		<string>Tote Stack</string>
-		<key>format</key>
-		<string>%.1f</string>
-		<key>type</key>
-		<string>float</string>
-		<key>location</key>
-		<integer>760</integer>
-		<key>factor</key>
-		<integer>1</integer>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>canSet</string>
+		<string>autonCansScored</string>
 		<key>header</key>
 		<string>Can Set</string>
 		<key>format</key>
@@ -110,7 +110,21 @@
 		<key>type</key>
 		<string>float</string>
 		<key>location</key>
-		<integer>859</integer>
+		<integer>800</integer>
+		<key>factor</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driverRating</string>
+		<key>header</key>
+		<string>Driver</string>
+		<key>format</key>
+		<string>%.1f</string>
+		<key>type</key>
+		<string>float</string>
+		<key>location</key>
+		<integer>890</integer>
 		<key>factor</key>
 		<integer>1</integer>
 	</dict>

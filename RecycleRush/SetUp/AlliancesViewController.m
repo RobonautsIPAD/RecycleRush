@@ -276,33 +276,19 @@
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance2Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
     MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:3] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 3"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance2Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance2Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance2Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance2Pick3 forTeamList:teamList];
     match = [matchUtilities addMatch:[NSNumber numberWithInt:7] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 7"];
     else {
         _match2Red1.text = _alliance2Pick2.text;
         _match2Red2.text = _alliance2Captain.text;
         _match2Red3.text = _alliance2Pick1.text;
         _match2Red4.text = _alliance2Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance2Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance2Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance2Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance2Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:11] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match6Red1.text = _alliance2Pick1.text;
-        _match6Red2.text = _alliance2Pick2.text;
-        _match6Red3.text = _alliance2Captain.text;
-        _match6Red4.text = _alliance2Pick3.text;
     }
     NSError *err;
     if (match) {
@@ -320,34 +306,20 @@
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance3Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance3Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
-    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:4] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:2] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 2"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance3Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance3Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance3Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance3Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:8] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:6] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 6"];
     else {
         _match3Red1.text = _alliance3Pick2.text;
         _match3Red2.text = _alliance3Captain.text;
         _match3Red3.text = _alliance3Pick1.text;
         _match3Red4.text = _alliance3Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance3Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance3Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance3Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance3Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:12] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match7Red1.text = _alliance3Pick1.text;
-        _match7Red2.text = _alliance3Pick2.text;
-        _match7Red3.text = _alliance3Captain.text;
-        _match7Red4.text = _alliance3Pick3.text;
     }
     NSError *err;
     if (match) {
@@ -380,20 +352,6 @@
         _match1Red3.text = _alliance4Pick1.text;
         _match1Red4.text = _alliance4Pick3.text;
     }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Red 1" forTextBox:_alliance4Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 2" forTextBox:_alliance4Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 3" forTextBox:_alliance4Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Red 4" forTextBox:_alliance4Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:10] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match5Red1.text = _alliance4Pick1.text;
-        _match5Red2.text = _alliance4Pick2.text;
-        _match5Red3.text = _alliance4Captain.text;
-        _match5Red4.text = _alliance4Pick3.text;
-    }
     NSError *err;
     if (match) {
         if (![_dataManager.managedObjectContext save:&err]) {
@@ -418,26 +376,12 @@
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance5Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance5Pick3 forTeamList:teamList];
     match = [matchUtilities addMatch:[NSNumber numberWithInt:6] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 6"];
     else {
         _match1Blue1.text = _alliance5Pick2.text;
         _match1Blue2.text = _alliance5Captain.text;
         _match1Blue3.text = _alliance5Pick1.text;
         _match1Blue4.text = _alliance5Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance5Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance5Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance5Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance5Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:10] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match7Blue1.text = _alliance5Pick1.text;
-        _match7Blue2.text = _alliance5Pick2.text;
-        _match7Blue3.text = _alliance5Captain.text;
-        _match7Blue4.text = _alliance5Pick3.text;
     }
     NSError *err;
     if (match) {
@@ -455,34 +399,20 @@
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance6Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance6Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
-    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:4] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:2] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 2"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance6Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance6Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance6Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance6Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:8] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:6] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 6"];
     else {
         _match3Blue1.text = _alliance6Pick2.text;
         _match3Blue2.text = _alliance6Captain.text;
         _match3Blue3.text = _alliance6Pick1.text;
         _match3Blue4.text = _alliance6Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance6Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance6Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance6Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance6Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:12] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match5Blue1.text = _alliance6Pick1.text;
-        _match5Blue2.text = _alliance6Pick2.text;
-        _match5Blue3.text = _alliance6Captain.text;
-        _match5Blue4.text = _alliance6Pick3.text;
     }
     NSError *err;
     if (match) {
@@ -501,33 +431,19 @@
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance7Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
     MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:3] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 3"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance7Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance7Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance7Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance7Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:7] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:8] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 8"];
     else {
         _match2Blue1.text = _alliance7Pick2.text;
         _match2Blue2.text = _alliance7Captain.text;
         _match2Blue3.text = _alliance7Pick1.text;
         _match2Blue4.text = _alliance7Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance7Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance7Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance7Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance7Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:11] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match8Blue1.text = _alliance7Pick1.text;
-        _match8Blue2.text = _alliance7Pick2.text;
-        _match8Blue3.text = _alliance7Captain.text;
-        _match8Blue4.text = _alliance7Pick3.text;
     }
     NSError *err;
     if (match) {
@@ -545,34 +461,20 @@
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance8Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance8Pick3 forTeamList:teamList];
     NSLog(@"%@", teamList);
-    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:1] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 1"];
+    MatchData *match = [matchUtilities addMatch:[NSNumber numberWithInt:4] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 4"];
     [teamList removeAllObjects];
     teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance8Pick2 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance8Captain forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance8Pick1 forTeamList:teamList];
     teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance8Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:5] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 5"];
+    match = [matchUtilities addMatch:[NSNumber numberWithInt:7] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
+    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 7"];
     else {
         _match4Blue1.text = _alliance8Pick2.text;
         _match4Blue2.text = _alliance8Captain.text;
         _match4Blue3.text = _alliance8Pick1.text;
         _match4Blue4.text = _alliance8Pick3.text;
-    }
-    [teamList removeAllObjects];
-    teamList = [self buildTeamList:@"Blue 1" forTextBox:_alliance8Pick1 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 2" forTextBox:_alliance8Pick2 forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 3" forTextBox:_alliance8Captain forTeamList:teamList];
-    teamList = [self buildTeamList:@"Blue 4" forTextBox:_alliance8Pick3 forTeamList:teamList];
-    match = [matchUtilities addMatch:[NSNumber numberWithInt:9] forMatchType:@"Elimination" forTeams:teamList forTournament:tournamentName error:&error];
-    if (!match) _errorLabel.text = [NSString stringWithFormat:@"Bad things happened creating Match 9"];
-    
-    else {
-        _match6Blue1.text = _alliance8Pick1.text;
-        _match6Blue2.text = _alliance8Pick2.text;
-        _match6Blue3.text = _alliance8Captain.text;
-        _match6Blue4.text = _alliance8Pick3.text;
     }
     NSError *err;
     if (match) {

@@ -506,16 +506,19 @@
         [segue.destinationViewController setAllianceString:@"Red"];
         NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 1" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        //NSLog(@"%@", teamNumber);
         teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 2" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        //NSLog(@"%@", teamNumber);
         teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 3" fromDictionary:allianceDictionary]];
         [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        //NSLog(@"%@", teamNumber);
    }
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
+        NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 1" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 2" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 3" fromDictionary:allianceDictionary]];
+        [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
     }
 /*    else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
     }*/
@@ -647,32 +650,29 @@
     
     UILabel *label1 = (UILabel *)[cell viewWithTag:30];
 
-    label1.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Intake Landfill"] objectForKey:@"average"] intValue]];
+    label1.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"toteIntakeLandfill"] objectForKey:@"average"] floatValue]];
 
     UILabel *label2 = (UILabel *)[cell viewWithTag:40];
-    label2.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"HP Intake"] objectForKey:@"average"] intValue]];
+    label2.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"toteIntakeHP"] objectForKey:@"average"] floatValue]];
 
     UILabel *label3 = (UILabel *)[cell viewWithTag:50];
-    label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Totes Stacked"] objectForKey:@"total"] intValue]];
+    label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"totalTotesScored"] objectForKey:@"total"] intValue]];
 
     UILabel *label4 = (UILabel *)[cell viewWithTag:60];
-    label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"MaxTote#"] objectForKey:@"total"] intValue]];
+    label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"maxToteHeight"] objectForKey:@"total"] intValue]];
 
     UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-    label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Robot Type"] objectForKey:@"total"] intValue]];
+    label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"stackKnockdowns"] objectForKey:@"total"] intValue]];
 
     UILabel *label6 = (UILabel *)[cell viewWithTag:80];
-    label6.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Knockdowns"] objectForKey:@"total"] intValue]];
+    label6.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"autonCansFromStep"] objectForKey:@"total"] intValue]];
 
     UILabel *label7 = (UILabel *)[cell viewWithTag:90];
-    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Set"] objectForKey:@"total"] intValue]];
+    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"autonCansScored"] objectForKey:@"total"] intValue]];
 
     UILabel *label8 = (UILabel *)[cell viewWithTag:100];
-    label8.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Tote Stack Set"] objectForKey:@"total"] intValue]];
+    label8.text = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"driverRating"] objectForKey:@"average"] floatValue]];
 
-    UILabel *label9 = (UILabel *)[cell viewWithTag:110];
-    label9.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"Can Set"] objectForKey:@"total"] intValue]];
-    
     //NSLog(@"%@", stats);
 
 }

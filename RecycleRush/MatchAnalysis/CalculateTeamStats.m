@@ -17,6 +17,8 @@
 
 @implementation CalculateTeamStats {
     NSDictionary *matchTypeDictionary;
+    NSString *plistPath;
+    NSArray *parameterList;
 }
 
 - (id)init:(DataManager *)initManager {
@@ -24,6 +26,9 @@
 	{
         _dataManager = initManager;
         matchTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"MatchType"];
+        // Load dictionary with list of parameters for the scouting spreadsheet
+        plistPath = [[NSBundle mainBundle] pathForResource:@"StatCalculate" ofType:@"plist"];
+        parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
 	}
 	return self;
 }
@@ -33,12 +38,7 @@
    if (!team) {
         return nil;
     }
-
-    // Load dictionary with list of parameters for the scouting spreadsheet
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"StatCalculate" ofType:@"plist"];
-    NSArray *parameterList = [[NSArray alloc] initWithContentsOfFile:plistPath];
-    
-// fetch all score records for this tournament
+    // fetch all score records for this tournament
     NSArray *allMatches = [ScoreAccessors getMatchListForTeam:team.number forTournament:tournament fromDataManager:_dataManager];
     if (![allMatches count]) return stats;
     
@@ -82,7 +82,7 @@
                 float percent  = total/percentDenominator;
                 [calculation setObject:[NSNumber numberWithFloat:percent] forKey:@"percent"];
             }
-            [stats setObject:calculation forKey:[parameter objectForKey:@"header"]];
+            [stats setObject:calculation forKey:[parameter objectForKey:@"name"]];
         }
     }
     [stats setObject:[NSNumber numberWithInteger:numberOfMatches] forKey:@"matches"];

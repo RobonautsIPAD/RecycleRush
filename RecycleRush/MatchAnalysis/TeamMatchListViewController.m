@@ -94,7 +94,6 @@
     NSLog(@"Analysis view - createMatchList - add check for valid team");
     int teamNumber = [teamNumberString intValue];
     fullMatchList = [ScoreAccessors getMatchListForTeam:[NSNumber numberWithInt:teamNumber] forTournament:tournamentName fromDataManager:_dataManager];
-    NSLog(@"score count = %d", [fullMatchList count]);
     [self filterMatchList];
 }
 
@@ -112,9 +111,6 @@
     if (!testState) {
         pred = [NSPredicate predicateWithFormat:@"matchType != %@ AND matchType != %@", [MatchAccessors getMatchTypeFromString:@"Other" fromDictionary:matchTypeDictionary], [MatchAccessors getMatchTypeFromString:@"Testing"  fromDictionary:matchTypeDictionary]];
         [matchList filterUsingPredicate:pred];
-    }
-    for (TeamScore *score in matchList) {
-        NSLog(@"%@", score.matchNumber);
     }
     [_matchesTable reloadData];
 }
@@ -158,7 +154,6 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"Change char");
     // Limit the text field to numbers only.
     NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     
@@ -173,14 +168,12 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    NSLog(@"End edit");
     [self createMatchList:textField.text];
     [_matchesTable reloadData];
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"Resign");
 	[textField resignFirstResponder];
 	return YES;
 }
