@@ -425,9 +425,11 @@
     if ([importFile.pathExtension compare:@"pho" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         //NSLog(@"Photo package");
         receivedList = [photoPackage importDataPhoto:importFile error:error];
+        receivedList = nil;
     } else if ([importFile.pathExtension compare:@"mph" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
         receivedList = [matchPhotoUtilities importMatchPhotos:importFile error:error];
+        receivedList = nil;
     } else {
         receivedList = [importPackage importData:importFile error:error];
     }

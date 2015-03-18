@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FullSizeViewer : UIViewController
+@property (nonatomic, weak) NSString *imagePath;
 @property (nonatomic, weak) UIImage *fullImage;
 
 @end

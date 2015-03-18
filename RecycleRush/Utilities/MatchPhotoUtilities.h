@@ -18,5 +18,5 @@
 -(void)exportMatchPhotos;
 -(BOOL)exporttMatchPhotoList:(NSArray *)matchPhotoList;
 -(NSMutableArray *)importMatchPhotos:(NSString *)importFile error:(NSError **)error;
-
+-(NSArray *)getTeamPhotoList:(NSNumber *)teamNumber;
 @end

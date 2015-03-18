@@ -67,6 +67,27 @@
     }
 }
 
+-(NSArray *)getTeamPhotoList:(NSNumber *)teamNumber {
+    NSString *team = nil;
+    if ([teamNumber intValue] < 100) {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"00%d", [teamNumber intValue]]];
+    } else if ( [teamNumber intValue] < 1000) {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"0%d", [teamNumber intValue]]];
+    } else {
+        team = [NSString stringWithFormat:@"T%@", [NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+    }
+    NSError *error;
+    NSArray *matchPhotoDirectoryContents = [fileManager contentsOfDirectoryAtPath:matchPhotoDirectory error:&error];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", team];
+    NSArray *list = [matchPhotoDirectoryContents filteredArrayUsingPredicate:pred];
+/*    NSMutableArray *fullPathList = [NSMutableArray array];
+    for (NSString *file in list) {
+        NSString *fullPath = [self getFullPath:file];
+        [fullPathList addObject:fullPath];
+    }*/
+    return list;
+}
+
 -(NSString *)getFullPath:(NSString *)photoName {
     NSString *fullPath = [matchPhotoDirectory stringByAppendingPathComponent:photoName];
     return fullPath;

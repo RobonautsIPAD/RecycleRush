@@ -752,7 +752,7 @@
         }
         if (buttonIndex == 1) {
             FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
-            photoViewer.fullImage = [UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:selectedPhoto]];
+            photoViewer.imagePath = [photoUtilities getFullImagePath:selectedPhoto];
             [self.navigationController pushViewController:photoViewer animated:YES];
         }
         if (buttonIndex == 2) {
@@ -918,7 +918,6 @@
     NSString *allianceString = [MatchAccessors getAllianceString:score.allianceStation fromDictionary:allianceDictionary];
     NSArray *allKeys = [allianceMembersDictionary allKeys];
     if ([[allianceString substringToIndex:1] isEqualToString:@"R"]) {
-        NSLog(@"Red Alliance");
         int tag = 40;
         for (NSString *key in allKeys) {
             if ([[key substringToIndex:1] isEqualToString:@"R"]) {
@@ -927,13 +926,10 @@
                 UILabel *label = (UILabel *)[cell viewWithTag:tag];
                 label.text = [NSString stringWithFormat:@"%d", otherMembers];
                 tag = 50;
-
-            NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
             }
         }
          }
     else if ([[allianceString substringToIndex:1] isEqualToString:@"B"]) {
-        NSLog(@"Blue Alliance");
         int tag = 40;
         for (NSString *key in allKeys) {
             if ([[key substringToIndex:1] isEqualToString:@"B"]) {
@@ -942,8 +938,6 @@
                 UILabel *label = (UILabel *)[cell viewWithTag:tag];
                 label.text = [NSString stringWithFormat:@"%d", otherMembers];
                 tag = 50;
-                
-                NSLog(@"%@",[allianceMembersDictionary objectForKey:key]);
             }
         }
     }
@@ -951,7 +945,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"table view");
     UITableViewCell *cell = nil;
     if (tableView == _regionalInfo) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Regional"];

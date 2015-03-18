@@ -43,7 +43,12 @@
     else {
         [imageView setFrame:landscape];
     }
-    imageView.image = _fullImage;
+    if (_fullImage) {
+        imageView.image = _fullImage;
+    }
+    else if (_imagePath) {
+        imageView.image = [UIImage imageWithContentsOfFile:_imagePath];
+    }
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view setBackgroundColor:[UIColor greenColor]];

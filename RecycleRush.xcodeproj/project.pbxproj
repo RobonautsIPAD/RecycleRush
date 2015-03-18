@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
-		2F2062681AB3A4F700BAC5E4 /* MatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2062671AB3A4F700BAC5E4 /* MatchCell.m */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -144,6 +143,8 @@
 		2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */; };
 		2F8816A01A5FB0D4001CCA04 /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816901A5FB0D4001CCA04 /* Regional.m */; };
 		2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88169A1A5FB0D4001CCA04 /* TournamentData.m */; };
+		2F8874481AB905C300404FDF /* RobotType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F8874471AB905C300404FDF /* RobotType.plist */; };
+		2F88744A1AB90E3400404FDF /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F8874491AB90E3400404FDF /* RecycleRush.sqlite */; };
 		2F8F20481A995D8200679ED6 /* Justin_R.ai in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20471A995D8200679ED6 /* Justin_R.ai */; };
 		2F8F204B1A995E9900679ED6 /* robonauts app banner original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */; };
 		2F8F204C1A995E9900679ED6 /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F204A1A995E9900679ED6 /* robonauts app banner.jpg */; };
@@ -162,7 +163,6 @@
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F9094721A85130400678B81 /* MatchScoutingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9094711A85130400678B81 /* MatchScoutingViewController.m */; };
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
-		2FA099791AB0F7FE00974537 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2FA099781AB0F7FE00974537 /* RecycleRush.sqlite */; };
 		2FA0BE0D1AAB5FAD00A193A2 /* TeamSpreadsheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */; };
 		2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFD1AAA74190080E836 /* StatCalculate.plist */; };
 		2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */; };
@@ -218,8 +218,6 @@
 /* Begin PBXFileReference section */
 		2F0648F11A9BBD65004241FA /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDefaults.h; path = RecycleRush/Utilities/UIDefaults.h; sourceTree = SOURCE_ROOT; };
 		2F0648F21A9BBD65004241FA /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDefaults.m; path = RecycleRush/Utilities/UIDefaults.m; sourceTree = SOURCE_ROOT; };
-		2F2062661AB3A4F700BAC5E4 /* MatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchCell.h; path = RecycleRush/Utilities/MatchCell.h; sourceTree = SOURCE_ROOT; };
-		2F2062671AB3A4F700BAC5E4 /* MatchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchCell.m; path = RecycleRush/Utilities/MatchCell.m; sourceTree = SOURCE_ROOT; };
 		2F22D6FD1A79C7EE006C109E /* AutonSP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutonSP.png; path = RecycleRush/Resources/FieldImages/AutonSP.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -524,6 +522,8 @@
 		2F8816901A5FB0D4001CCA04 /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regional.m; sourceTree = "<group>"; };
 		2F8816991A5FB0D4001CCA04 /* TournamentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentData.h; sourceTree = "<group>"; };
 		2F88169A1A5FB0D4001CCA04 /* TournamentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentData.m; sourceTree = "<group>"; };
+		2F8874471AB905C300404FDF /* RobotType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = RobotType.plist; path = "RecycleRush/Resources/Property Lists/RobotType.plist"; sourceTree = SOURCE_ROOT; };
+		2F8874491AB90E3400404FDF /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2F8F20471A995D8200679ED6 /* Justin_R.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Justin_R.ai; path = "RecycleRush/Resources/Logos and Banners/Justin_R.ai"; sourceTree = SOURCE_ROOT; };
 		2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner original.jpg"; path = "RecycleRush/Resources/Logos and Banners/robonauts app banner original.jpg"; sourceTree = SOURCE_ROOT; };
 		2F8F204A1A995E9900679ED6 /* robonauts app banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "robonauts app banner.jpg"; path = "RecycleRush/Resources/Logos and Banners/robonauts app banner.jpg"; sourceTree = SOURCE_ROOT; };
@@ -546,7 +546,6 @@
 		2F9094711A85130400678B81 /* MatchScoutingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchScoutingViewController.m; path = RecycleRush/MatchScouting/MatchScoutingViewController.m; sourceTree = SOURCE_ROOT; };
 		2F9EFF201A1A76CA00F8D73C /* TeamAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamAccessors.h; path = Common/DataUtilities/TeamAccessors.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamAccessors.m; path = Common/DataUtilities/TeamAccessors.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2FA099781AB0F7FE00974537 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
 		2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamSpreadsheet.plist; path = "RecycleRush/Resources/Property Lists/TeamSpreadsheet.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFD1AAA74190080E836 /* StatCalculate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = StatCalculate.plist; path = "RecycleRush/Resources/Property Lists/StatCalculate.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AnalysisPage.plist; path = "RecycleRush/Resources/Property Lists/AnalysisPage.plist"; sourceTree = SOURCE_ROOT; };
@@ -869,6 +868,7 @@
 		2F312BC01A7D6D13002EF938 /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
+				2F8874471AB905C300404FDF /* RobotType.plist */,
 				2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */,
 				2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */,
 				2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */,
@@ -1239,7 +1239,7 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
-				2FA099781AB0F7FE00974537 /* RecycleRush.sqlite */,
+				2F8874491AB90E3400404FDF /* RecycleRush.sqlite */,
 				2F6DEB0C1AAFFC37000D3C67 /* MatchList.csv */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
@@ -1263,8 +1263,6 @@
 				2F5D32F51A5FA51000E02523 /* ValuePromptViewController.m */,
 				2F5D32E61A5FA51000E02523 /* PhotoAttributes.h */,
 				2F5D32E71A5FA51000E02523 /* PhotoAttributes.m */,
-				2F2062661AB3A4F700BAC5E4 /* MatchCell.h */,
-				2F2062671AB3A4F700BAC5E4 /* MatchCell.m */,
 				2F5D32E81A5FA51000E02523 /* PhotoCell.h */,
 				2F5D32E91A5FA51000E02523 /* PhotoCell.m */,
 				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
@@ -1348,6 +1346,7 @@
 				2F5D33811A5FA98B00E02523 /* InfoPlist.strings in Resources */,
 				2F3316331A93BB6D005B7798 /* Slide7.JPG in Resources */,
 				2F5D33351A5FA69E00E02523 /* Gold Fade.gif in Resources */,
+				2F8874481AB905C300404FDF /* RobotType.plist in Resources */,
 				2FDFE5111A7E888B002FEAD0 /* MatchType.plist in Resources */,
 				2FDFE51D1A7E88B7002FEAD0 /* TriState.plist in Resources */,
 				2FDFE5091A7E888B002FEAD0 /* CanIntake.plist in Resources */,
@@ -1386,7 +1385,6 @@
 				2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */,
 				2FDFE50E1A7E888B002FEAD0 /* MarcusOutput.plist in Resources */,
 				2F5D33191A5FA5F700E02523 /* Blue Fade.gif in Resources */,
-				2FA099791AB0F7FE00974537 /* RecycleRush.sqlite in Resources */,
 				2FDFE5271A7E891E002FEAD0 /* RadioButton-Selected.png in Resources */,
 				2FDFE51B1A7E88B7002FEAD0 /* TeamData.plist in Resources */,
 				2F5D33121A5FA5F700E02523 /* 2014_field_grid.png in Resources */,
@@ -1427,6 +1425,7 @@
 				2FDFE52A1A7E891E002FEAD0 /* Small Green Button.jpg in Resources */,
 				2FDFE51C1A7E88B7002FEAD0 /* TournamentData.plist in Resources */,
 				2F8F20641A99617A00679ED6 /* recycle rush robonauts.001.png in Resources */,
+				2F88744A1AB90E3400404FDF /* RecycleRush.sqlite in Resources */,
 				2F3316321A93BB6D005B7798 /* Slide6.JPG in Resources */,
 				2F3316361A93BB6D005B7798 /* Slide10.JPG in Resources */,
 				2F3316341A93BB6D005B7798 /* Slide8.JPG in Resources */,
@@ -1486,7 +1485,6 @@
 				2FA65C451AB08DD70062FFF5 /* TeamScore.m in Sources */,
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
-				2F2062681AB3A4F700BAC5E4 /* MatchCell.m in Sources */,
 				2F2ECA9A1A5F052300D3386E /* ExportMatchData.m in Sources */,
 				2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */,
 				2F5D32F71A5FA51000E02523 /* EnumerationDictionary.m in Sources */,

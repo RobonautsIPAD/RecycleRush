@@ -385,6 +385,7 @@
     _cansOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn4];
     _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
+    [_robotType setTitle:currentScore.robotType forState:UIControlStateNormal];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
@@ -531,18 +532,6 @@
     [self showTeam:teamIndex];
 }
 
-- (void)robotType:(NSString *)newMatchType {
-    [self checkDataStatus];
-    NSUInteger currectSection = sectionIndex;
-    sectionIndex = [matchTypeList indexOfObject:newMatchType];
-    if (sectionIndex == NSNotFound) sectionIndex = currectSection;
-    //   [self setValidMatchNumber:Nil forType:Nil];
-    rowIndex = 0;
-    currentMatch = [self getCurrentMatch];
-    [self setTeamList];
-    [self showTeam:teamIndex];
-}
-
 -(IBAction)teamSelectionChanged:(id)sender {
     if (teamPicker == nil) {
         teamPicker = [[PopUpPickerViewController alloc]
@@ -629,10 +618,11 @@
         [alliancePickerPopover dismissPopoverAnimated:YES];
         return;
     }
-    else if (popUp == _robotType) {
+    if (popUp == robotTypePicker) {
         [robotTypePickerPopover dismissPopoverAnimated:YES];
-        [self robotType:newPick];
-
+        currentScore.robotType = newPick;
+        [_robotType setTitle:newPick forState:UIControlStateNormal];
+        return;
     }
     if (popUp == autonCanPicker) {
         currentScore.autonCansScored = [NSNumber numberWithInt:[newPick intValue]];
@@ -702,28 +692,7 @@
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
     }
-   // else if (sender == _coopSet) {
-     //   if ([currentScore.coopSet boolValue]) currentScore.coopSet = [NSNumber numberWithBool:FALSE];
-       // else currentScore.coopSet = [NSNumber numberWithBool:TRUE];
-    //    [self setAutonButton:_coopSet forValue:currentScore.coopSet];
-   // }
-   // else if (sender == _coopStack) {
-     //   if ([currentScore.coopStack boolValue]) currentScore.coopStack = [NSNumber numberWithBool:FALSE];
-      //  else currentScore.coopStack = [NSNumber numberWithBool:TRUE];
-   //     [self setAutonButton:_coopStack forValue:currentScore.coopStack];
-    //}
-    //else if (sender == _blacklist) {
-      //  if ([currentScore.blacklist boolValue]) currentScore.blacklist = [NSNumber numberWithBool:FALSE];
-//        else currentScore.blacklist = [NSNumber numberWithBool:TRUE];
-  //      [self setAutonButton:_blacklist forValue:currentScore.coopSet];
-    //}
-    //else if (sender == _wowlist) {
-      //  if ([currentScore.wowList boolValue]) currentScore.wowList = [NSNumber numberWithBool:FALSE];
-        //else currentScore.wowList = [NSNumber numberWithBool:TRUE];
-        //[self setAutonButton:_wowlist forValue:currentScore.coopSet];
-    //}
     else if (sender == _robotType) {
-        popUp = _robotType;
         if (!robotTypeList) robotTypeList = [FileIOMethods initializePopUpList:@"RobotType"];
         if (robotTypePicker == nil) {
             robotTypePicker = [[PopUpPickerViewController alloc]
@@ -739,7 +708,7 @@
         [robotTypePickerPopover presentPopoverFromRect:_robotType.bounds inView:_robotType
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    [self updateTotal:@"TotalScore"];
+   // [self updateTotal:@"TotalScore"];
 }
 
 -(void)setAutonButton:(UIButton *)button forValue:(NSNumber *)value {

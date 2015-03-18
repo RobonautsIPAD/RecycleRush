@@ -18,5 +18,6 @@
 -(void)updateClientStatus:(NSNotification *)notification;
 -(void)updateServerStatus:(NSNotification *)notification;
 -(void)dataReceived:(NSNotification *)notification;
+-(void)startReceiving:(NSNotification *)notification;
 
 @end

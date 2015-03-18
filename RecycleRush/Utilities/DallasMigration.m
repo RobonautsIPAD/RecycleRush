@@ -50,6 +50,15 @@
         score.toteIntakeLandfill = score.sc1;
         score.autonToteSet = score.sc2;
         score.autonCansFromStep = score.sc3;
+        score.blacklistDriver = [NSNumber numberWithBool:FALSE];
+        score.blacklistHP = [NSNumber numberWithBool:FALSE];
+        score.blacklistRobot = [NSNumber numberWithBool:FALSE];
+        score.redCards = [NSNumber numberWithInt:0];
+        score.yellowCards = [NSNumber numberWithInt:0];
+        score.wowList = [NSNumber numberWithBool:FALSE];
+        score.wowlistDriver = [NSNumber numberWithBool:FALSE];
+        score.wowlistHP = [NSNumber numberWithBool:FALSE];
+        score.wowlistRobot = [NSNumber numberWithBool:FALSE];
         if (![_dataManager saveContext]) {
             NSLog(@"Bad save");
         }

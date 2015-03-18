@@ -8,7 +8,9 @@
 
 #import "MatchPhotoCollectionViewController.h"
 #import "UIDefaults.h"
-#import "MatchCell.h"
+#import "MatchPhotoUtilities.h"
+#import "FullSizeViewer.h"
+#import "PhotoCell.h"
 
 @interface MatchPhotoCollectionViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -18,8 +20,12 @@
 
 @implementation MatchPhotoCollectionViewController {
     NSNumber *currectTeamNumber;
+    MatchPhotoUtilities *matchPhotoUtilities;
+    NSArray *matchPhotoList;
     PopUpPickerViewController *teamPicker;
     UIPopoverController *teamPickerPopover;
+    float ratio;
+    NSUInteger nPhotos;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,15 +40,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
     [UIDefaults setBigButtonDefaults:_teamNumberButton withFontSize:nil];
     currectTeamNumber = _teamNumber;
+    ratio = 567/437;
     [self showTeam];
     [_matchCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MatchCell"];
 }
 
 -(void)showTeam {
     [_teamNumberButton setTitle:[NSString stringWithFormat:@"%@", currectTeamNumber] forState:UIControlStateNormal];
-    NSLog(@"Get match photo list");
+    matchPhotoList = [matchPhotoUtilities getTeamPhotoList:currectTeamNumber];
+    if (matchPhotoList) nPhotos = [matchPhotoList count];
+    else nPhotos = 0;
     [_matchCollection reloadData];
 }
 
@@ -72,10 +82,7 @@
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    NSInteger matchCount = 0;
-    if (matchCount > 0) [_matchCollection setHidden:NO];
-    else [_matchCollection setHidden:YES];
-    return matchCount;
+    return nPhotos;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
@@ -85,13 +92,16 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MatchCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCell" forIndexPath:indexPath];
-//    NSString *photo = [photoList objectAtIndex:indexPath.row];
-//    cell.thumbnail = [UIImage imageWithContentsOfFile:[photoUtilities getThumbnailPath:photo]];
+    PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"thumbnail" forIndexPath:indexPath];
+    NSString *photo = [matchPhotoList objectAtIndex:indexPath.row];
+    cell.thumbnail = [UIImage imageWithContentsOfFile:[matchPhotoUtilities getFullPath:photo]];
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    FullSizeViewer *photoViewer = [[FullSizeViewer alloc] init];
+    photoViewer.imagePath = [matchPhotoUtilities getFullPath:[matchPhotoList objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:photoViewer animated:YES];
 /*    action = _photoCollectionView;
     selectedPhoto = [photoList objectAtIndex:indexPath.row];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Set as Prime", @"Show Full Screen",  @"Delete Photo", nil];
@@ -104,7 +114,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(50, 50);
+    return CGSizeMake(317, 244);
 }
 
 - (void)didReceiveMemoryWarning

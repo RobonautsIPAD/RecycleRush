@@ -38,7 +38,6 @@
 {
     [super viewDidLoad];
     changedData = FALSE;
-    NSLog(@"Add saved and savedBy stuff for stack view");
     stackList = [[NSMutableArray alloc] init];
     if (_currentScore.stacks) {
         stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:_currentScore.stacks];
@@ -121,7 +120,7 @@
         textField = [[UITextField alloc] initWithFrame:CGRectMake(location.x, location.y, width, height)];
         NSUInteger tag = subTag+stackNumber*40;
         NSString *savedValue = [savedStack objectForKey:[NSNumber numberWithUnsignedInt:tag]];
-        NSLog(@"%u %@", tag, savedValue);
+        //NSLog(@"%u %@", tag, savedValue);
         [self textAttributes:textField withTag:tag withSavedData:savedValue];
         [stack addSubview:textField];
     }
@@ -157,7 +156,7 @@
         NSString *denominator = [stackData objectForKey:[allFields objectAtIndex:i+1]];
         NSDictionary *numeratorTotal = [self getTextFieldData:numerator];
         NSDictionary *denominatorTotal = [self getTextFieldData:denominator];
-        NSLog(@"num = %@, denom = %@", numeratorTotal, denominatorTotal);
+        //NSLog(@"num = %@, denom = %@", numeratorTotal, denominatorTotal);
         _currentScore.totalTotesScored = [self addNumbers:_currentScore.totalTotesScored forSecondNumber:[numeratorTotal objectForKey:@"totes"]];
         _currentScore.totalCansScored = [self addNumbers:_currentScore.totalCansScored forSecondNumber:[numeratorTotal objectForKey:@"cans"]];
         _currentScore.litterInCan = [self addNumbers:_currentScore.litterInCan forSecondNumber:[numeratorTotal objectForKey:@"litter"]];
@@ -201,6 +200,10 @@
 
 -(void)calculateTotesOn:(NSDictionary *)numerator withDenominator:(NSDictionary *)denominator {
     int onBottom = [[denominator objectForKey:@"totes"] intValue];
+    int maxToteHeight = [_currentScore.maxToteHeight intValue];
+    NSNumber *newHeight = [self addNumbers:[numerator objectForKey:@"totes"] forSecondNumber:[denominator objectForKey:@"totes"]];
+    if ([newHeight intValue] > maxToteHeight) _currentScore.maxToteHeight = newHeight;
+    //NSLog(@"max tote height = %@", _currentScore.maxToteHeight);
     switch (onBottom) {
         case 0:
             _currentScore.totesOn0 = [self addNumbers:_currentScore.totesOn0 forSecondNumber:[numerator objectForKey:@"totes"]];
@@ -231,6 +234,10 @@
 
 -(void)calculateCansOn:(NSDictionary *)numerator withDenominator:(NSDictionary *)denominator {
     int onBottom = [[denominator objectForKey:@"totes"] intValue];
+    int maxCanHeight = [_currentScore.maxCanHeight intValue];
+    NSNumber *newHeight = [self addNumbers:[numerator objectForKey:@"totes"] forSecondNumber:[denominator objectForKey:@"totes"]];
+    if ([newHeight intValue] > maxCanHeight) _currentScore.maxCanHeight = newHeight;
+    //NSLog(@"max Can height = %@", _currentScore.maxCanHeight);
     switch (onBottom) {
         case 0:
             _currentScore.cansOn0 = [self addNumbers:_currentScore.cansOn0 forSecondNumber:[numerator objectForKey:@"cans"]];
@@ -302,9 +309,9 @@
     _currentScore.cansOn5 = [NSNumber numberWithInt:0];
     _currentScore.cansOn6 = [NSNumber numberWithInt:0];
     _currentScore.litterInCan = [NSNumber numberWithInt:0];
-    //    _currentScore.maxCanHeight = [NSNumber numberWithInt:0];
-    //    _currentScore.maxToteHeight = [NSNumber numberWithInt:0];
-//    _currentScore.stackNumber = [NSNumber numberWithInt:0];
+    _currentScore.maxCanHeight = [NSNumber numberWithInt:0];
+    _currentScore.maxToteHeight = [NSNumber numberWithInt:0];
+    _currentScore.stackNumber = [NSNumber numberWithInt:0];
     _currentScore.totalCansScored = [NSNumber numberWithInt:0];
 //    _currentScore.totalScore = [NSNumber numberWithInt:0];
     _currentScore.totalTotesScored = [NSNumber numberWithInt:0];
@@ -318,12 +325,17 @@
     NSMutableDictionary *savedStack;
     
     int i = 0;
+    int nstacks = 0;
     for (UIView *stack in stackList) {
         savedStack = [self saveStacks:stack forStack:0];
-        if (savedStack) [stackDictionary setObject:savedStack forKey:[NSNumber numberWithInt:i]];
+        if (savedStack) {
+            [stackDictionary setObject:savedStack forKey:[NSNumber numberWithInt:i]];
+            nstacks++;
+        }
         i++;
     }
-    
+    _currentScore.stackNumber = [NSNumber numberWithInt:nstacks];
+
     
   //  NSLog(@"%@", stackDictionary);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:stackDictionary];
@@ -343,7 +355,7 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     changedData = TRUE;
-    NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
+    //NSLog(@"textFieldDidEndEditing tag = %d", textField.tag);
 }
 
 - (void)didReceiveMemoryWarning

@@ -78,7 +78,9 @@
     NSArray *filteredSendList;
     NSArray *receivedList;
     NSArray *displayList;
-
+    NSUInteger nRecordsReceived;
+    NSUInteger nRecordsSent;
+    NSMutableArray *recordsReceived;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -117,7 +119,7 @@
     [_qualificationRadio setSelected:YES];
     _quickRequestMatch.inputView = [LNNumberpad defaultLNNumberpad];
     [self.view sendSubviewToBack:_bluetoothView];
-
+    recordsReceived = [NSMutableArray array];
     // NSLog(@"%@", filteredSendList);
 
     // Check if either server or client already exists. If both exist, bad things.
@@ -140,7 +142,6 @@
     
     [UIDefaults setBigButtonDefaults:_connectionStatusButton withFontSize:[NSNumber numberWithFloat:16.0]];
     [_serverTable setHidden:TRUE];
-    [_bluetoothView setHidden:FALSE];
     if (_connectionUtility.matchMakingServer) {
         // We are already set up as the server
         bluetoothRole = Master;
@@ -164,7 +165,6 @@
     }
     else {
         // We are in an idle, unconnected state
-        [_bluetoothView setHidden:TRUE];
         [_sendButton setHidden:TRUE];
         [_quickRequestButton setHidden:TRUE];
         [_connectedDeviceButton setHidden:TRUE];
@@ -181,8 +181,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
     // Set the notification to receive information after data is received via bluetooth
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataReceived:) name:@"ReceivedData" object:nil];
-//    [_matchIntegrityButton setTitle:@"Match Integrity" forState:UIControlStateNormal];
-//    _matchIntegrityButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:20.0];
+    // Set the notification to expect to receive data via bluetooth
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startReceiving:) name:@"StartReceivingData" object:nil];
 }
 
 - (IBAction)goHome:(id)sender {
@@ -246,14 +246,13 @@
         [_connectionStatusButton setTitle:[NSString stringWithFormat:@"Server Running %lu", (unsigned long)connectedClients] forState:UIControlStateNormal];
         [_connectionStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
         [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_bluetoothView setHidden:FALSE];
     }
     else {
         [_connectionStatusButton setTitle:@"Start Server" forState:UIControlStateNormal];
         [_connectionStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
         [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_sendButton setHidden:TRUE];
-        [_quickRequestButton setHidden:TRUE];
-        [_connectedDeviceButton setHidden:TRUE];
+        [_bluetoothView setHidden:TRUE];
     }
 }
 
@@ -264,6 +263,7 @@
             [_connectionStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
             [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             [_serverTable setHidden:TRUE];
+            [_bluetoothView setHidden:TRUE];
             break;
             
         case ClientStateSearchingForServers:
@@ -284,6 +284,7 @@
             [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             peerID = _connectionUtility.matchMakingClient.session.peerID;
             displayID = [_connectionUtility.matchMakingClient displayNameForPeerID:peerID];
+            [_bluetoothView setHidden:FALSE];
             [self buildClientList];
             break;
 
@@ -295,7 +296,8 @@
 -(void)updateClientStatus:(NSNotification *)notification {
     if (bluetoothRole == Scouter) {
         [self setClientStatus];
-    }
+        [_connectedDeviceButton setHidden:TRUE];
+ }
     else {
         connectedClients = [_connectionUtility.matchMakingServer connectedClientCount];
         NSLog(@"%@", notification);
@@ -503,6 +505,24 @@
 
 -(void)dataReceived:(NSNotification *)notification {
     NSLog(@"%@", notification);
+    NSDictionary *dictionary = [notification userInfo];
+    if (![dictionary objectForKey:@"Error"]) {
+        [recordsReceived addObject:dictionary];
+    }
+    nRecordsReceived++;
+    if (nRecordsReceived == nRecordsSent) {
+        displayList = recordsReceived;
+        [_syncDataTable reloadData];
+    }
+}
+
+-(void)startReceiving:(NSNotification *)notification {
+    NSLog(@"%@", notification);
+    NSDictionary *dictionary = [notification userInfo];
+    NSNumber *records = [dictionary objectForKey:@"Records"];
+    nRecordsSent = [records unsignedLongValue];
+    nRecordsReceived = 0;
+    [recordsReceived removeAllObjects];
 }
 
 -(void)iTunesImportSelected:(NSString *)importFile {
