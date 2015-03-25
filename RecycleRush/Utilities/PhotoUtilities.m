@@ -15,6 +15,8 @@
 
 @implementation PhotoUtilities {
     NSFileManager *fileManager;
+    NSUserDefaults *prefs;
+    NSString *deviceName;
     NSString *robotPhotoLibrary;
     NSString *robotPhotoDirectory;
     NSString *robotThumbnailDirectory;
@@ -24,6 +26,8 @@
 	if ((self = [super init])) {
         _dataManager = initManager;
         fileManager = [NSFileManager defaultManager];
+        prefs = [NSUserDefaults standardUserDefaults];
+        deviceName = [prefs objectForKey:@"deviceName"];
         [self setPhotoDirectories];
         [self createPhotoDirectories];
  	}
@@ -72,7 +76,7 @@
         }
     }
 
-    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Team Photo Transfer.pho", tournament]];
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@ Team Photo Transfer.pho", deviceName, tournament]];
     NSURL *url = [NSURL fileURLWithPath:tmpBuildExport];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
     if (dirWrapper == nil) {

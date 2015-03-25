@@ -317,7 +317,7 @@
             if (!matchDataPackage) matchDataPackage = [[ExportMatchData alloc] init:_dataManager];
             for (MatchData *match in transferList) {
                 [matchDataPackage exportMatchForXFer:match toFile:transferFilePath];
-                NSLog(@"Match = %@, saved = %@", match.number, match.saved);
+                //NSLog(@"Match = %@, saved = %@", match.number, match.saved);
                 matchScheduleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
                 [prefs setObject:matchScheduleSync forKey:@"matchScheduleSync"];
                 transferDataFile = [exportFilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@ %@ Match Schedule %0.f.msd", deviceName, tournamentName, [matchScheduleSync floatValue]]];

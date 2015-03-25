@@ -1669,22 +1669,22 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            NSLog(@"didChangeObject 1");
+            //NSLog(@"didChangeObject 1");
             // [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            NSLog(@"didChangeObject 2");
+            //NSLog(@"didChangeObject 2");
             //[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            NSLog(@"didChangeObject 3");
+            //NSLog(@"didChangeObject 3");
             //  [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:
-            NSLog(@"didChangeObject 4");
+           // NSLog(@"didChangeObject 4");
             // [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             //[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -1696,12 +1696,12 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            NSLog(@"didChangeSection 1");
+            //NSLog(@"didChangeSection 1");
             //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            NSLog(@"didChangeSection 2");
+            //NSLog(@"didChangeSection 2");
             //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
@@ -1710,7 +1710,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     //[self.tableView endUpdates];
-    NSLog(@"controllerDidChangeContent");
+    //NSLog(@"controllerDidChangeContent");
     
 }
 

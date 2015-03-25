@@ -153,7 +153,6 @@
 */
 
 -(void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -445,6 +444,7 @@
 {
     [self checkDataStatus];
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(IBAction)detailChanged:(id)sender {
@@ -548,7 +548,7 @@
 -(void)pickerSelected:(NSString *)newPick {
     // The user has made a selection on one of the pop-ups. Dismiss the pop-up
     //  and call the correct method to change the right field.
-    NSLog(@"new pick = %@", newPick);
+    //NSLog(@"new pick = %@", newPick);
     if (popUp == _driveType) {
         [drivePickerPopover dismissPopoverAnimated:YES];
         _team.driveTrainType = newPick;

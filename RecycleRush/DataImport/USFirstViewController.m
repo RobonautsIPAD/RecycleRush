@@ -122,9 +122,9 @@
         [alert show];
     } else {
         displayData = [NSMutableArray array];
-        for (int line=0; line<[data count]; line+=14) {
+        for (int line=0; line<[data count]; line+=10) {
             NSMutableArray *newrow = [NSMutableArray array];
-            for (int i = 0; i < 14; i++) {
+            for (int i = 0; i < 10; i++) {
                 if (i==1) continue;
                 NSString *row = [data objectAtIndex:line+i];
                 NSString *newString = [[row componentsSeparatedByCharactersInSet:

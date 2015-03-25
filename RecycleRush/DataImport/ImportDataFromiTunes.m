@@ -41,7 +41,7 @@
 
 -(NSArray *)getImportFileList {
     NSArray *fileList = [self showImportFile:documentImportPath];
-    NSLog(@"import file list = %@", fileList);
+    //NSLog(@"import file list = %@", fileList);
 /*    fileList = [self showImportFile:alreadyImportedPath];
     NSLog(@"already file list = %@", fileList);*/
     return fileList;

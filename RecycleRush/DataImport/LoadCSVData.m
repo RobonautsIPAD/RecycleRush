@@ -64,7 +64,6 @@
     }
     NSString *filePath = [url path];
     NSLog(@"Emailed File = %@", filePath);
-    NSLog(@"Add decision for team or match file");
     [self loadTournamentFile:filePath];
     inputError |= [self loadTeamFile:filePath];
  //   [self loadTeamHistory:filePath];

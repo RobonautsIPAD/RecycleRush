@@ -14,6 +14,7 @@
     NSFileManager *fileManager;
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *deviceName;
     NSString *matchPhotoDirectory;
 }
 
@@ -23,6 +24,7 @@
         fileManager = [NSFileManager defaultManager];
         prefs = [NSUserDefaults standardUserDefaults];
         tournamentName = [prefs objectForKey:@"tournament"];
+        deviceName = [prefs objectForKey:@"deviceName"];
         [self setMatchPhotoDirectory];
         [self createMatchPhotoDirectory];
  	}
@@ -152,7 +154,7 @@
 
 -(void)exportMatchPhotos {
     NSError *error;
-    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer.mph", tournamentName]];
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@ Match Photo Transfer.mph", deviceName, tournamentName]];
     NSURL *url = [NSURL fileURLWithPath:matchPhotoDirectory];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
     if (dirWrapper == nil) {

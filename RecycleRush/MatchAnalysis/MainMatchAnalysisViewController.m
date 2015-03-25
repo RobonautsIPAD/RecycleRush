@@ -659,7 +659,7 @@
     label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"totalTotesScored"] objectForKey:@"total"] intValue]];
 
     UILabel *label4 = (UILabel *)[cell viewWithTag:60];
-    label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"maxToteHeight"] objectForKey:@"total"] intValue]];
+    label4.text = [NSString stringWithFormat:@"%@", team.maxToteStack];
 
     UILabel *label5 = (UILabel *)[cell viewWithTag:70];
     label5.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"stackKnockdowns"] objectForKey:@"total"] intValue]];

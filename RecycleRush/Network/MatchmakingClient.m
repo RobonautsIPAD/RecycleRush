@@ -192,13 +192,13 @@
 - (void)serverBecameAvailable:(NSString *)peerID
 {
     NSLog(@"serverBecameAvailable");
-    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became available", @"Message", nil];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became available", @"Message", [NSNumber numberWithInt:ServerAvailable], @"status", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)serverBecameUnavailable:(NSString *)peerID
 {
-    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became unavailable", @"Message", nil];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Server became unavailable", @"Message", [NSNumber numberWithInt:ServerUnavailable], @"status", nil];
     NSLog(@"serverBecameUnavailable");
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serverStatusChanged" object:nil userInfo:userDict]];
 }

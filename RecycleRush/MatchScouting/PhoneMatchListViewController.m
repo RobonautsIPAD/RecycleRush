@@ -213,10 +213,10 @@
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
+//        if (!previousTournament && ![previousTournament isEqualToString:tournamentName]) {
             // NSLog(@"Clear Cache");
             [NSFetchedResultsController deleteCacheWithName:@"MatchList"];
-        }
+//        }
         
         NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc]

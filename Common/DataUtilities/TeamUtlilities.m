@@ -316,7 +316,7 @@
      }*/
     
     teamRecord.received = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-    NSLog(@"%@", teamRecord);
+    //NSLog(@"%@", teamRecord);
     if (![_dataManager saveContext]) {
         NSArray *keyList = [NSArray arrayWithObjects:@"record", @"team", @"name", @"transfer", nil];
         NSArray *objectList = [NSArray arrayWithObjects:@"TeamData", teamNumber, teamRecord.name, @"N", nil];

@@ -131,7 +131,7 @@
     NSError *error = nil;
     NSFileHandle *fullPathHandle;
     BOOL isData = FALSE;
-    int maxMatches = 0;
+    //int maxMatches = 0;
     if (!_dataManager) {
         error = [NSError errorWithDomain:@"teamScoreCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"Missing data manager" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
@@ -163,12 +163,12 @@
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         NSString *csvString = nil;
-        int nmatches = [teamScores count];
-        if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %d", teamNumber, nmatches];
-        else csvString = [csvString stringByAppendingFormat:@"%@, %d", teamNumber, nmatches];
+        NSUInteger nmatches = [teamScores count];
+        if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %lu", teamNumber, nmatches];
+        else csvString = [csvString stringByAppendingFormat:@"%@, %lu", teamNumber, nmatches];
         if (nmatches) {
             isData = TRUE;
-            if (nmatches > maxMatches) maxMatches = nmatches;
+            //if (nmatches > maxMatches) maxMatches = nmatches;
             for (TeamScore *score in teamScores) {
                 for (NSDictionary *spreadsheetParameters in scoutingSpreadsheetList) {
                     NSString *key = [spreadsheetParameters objectForKey:@"key"];

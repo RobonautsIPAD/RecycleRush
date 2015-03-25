@@ -37,22 +37,22 @@
     landscape.size.height = portrait.size.width;
     landscape.size.width = portrait.size.height;
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
-        [imageView setFrame:portrait];
-    }
-    else {
-        [imageView setFrame:landscape];
-    }
     if (_fullImage) {
         imageView.image = _fullImage;
     }
     else if (_imagePath) {
         imageView.image = [UIImage imageWithContentsOfFile:_imagePath];
     }
+    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        [imageView setFrame:portrait];
+    }
+    else {
+        [imageView setFrame:landscape];
+    }
 //    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view setBackgroundColor:[UIColor greenColor]];
-    [imageView setBackgroundColor:[UIColor redColor]];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [imageView setBackgroundColor:[UIColor blackColor]];
 
   [self.view addSubview:imageView];
 }

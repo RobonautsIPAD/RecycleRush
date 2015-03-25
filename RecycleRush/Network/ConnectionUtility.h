@@ -22,5 +22,9 @@
 -(MatchmakingClient *)setMatchMakingClient;
 -(void)sendPacketToAllClients:(Packet *)packet inSession:(GKSession *)session;
 -(void)sendPacketToClient:(Packet *)packet forClient:(NSString *)receiverID inSession:(GKSession *)session;
+-(void)autoConnect;
+-(void)disconnectOnResign;
+-(void)updateClientStatus:(NSNotification *)notification;
+-(void)updateServerStatus:(NSNotification *)notification;
 
 @end

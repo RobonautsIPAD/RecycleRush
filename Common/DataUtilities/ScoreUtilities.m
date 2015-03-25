@@ -223,23 +223,26 @@
     NSNumber *teamNumber = [xferDictionary objectForKey:@"teamNumber"];
     NSNumber *allianceStation = [xferDictionary objectForKey:@"allianceStation"];
     NSString *allianceString = [MatchAccessors getAllianceString:allianceStation fromDictionary:allianceDictionary];
-    NSLog(@"Unpackage Scores %@ %@", matchTypeString, matchNumber);
+    // NSLog(@"Unpackage Scores %@ %@", matchTypeString, matchNumber);
     MatchData *match = [MatchAccessors getMatch:matchNumber forType:matchType forTournament:tournamentName fromDataManager:_dataManager];
     if (!match) {
         // Match does not already exist (someone probably forgot to transfer the match schedule)
         if(!matchUtilities) matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         NSArray *teamList = [[NSArray alloc] initWithObjects:[NSDictionary dictionaryWithObject:teamNumber forKey:allianceString], nil];
         match = [matchUtilities addMatch:matchNumber forMatchType:matchTypeString forTeams:teamList forTournament:tournamentName  error:&error];
-        if (!match) return Nil;
+        if (!match) return nil;
     }
-    NSLog(@"move addmatch outside of !match condition");
 
     // Fetch score record
     // Copy the data into the right places
     // Put the match drawing in the correct directory
     TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:allianceStation forTournament:tournamentName fromDataManager:_dataManager];
-    if (!score) return Nil;
-    
+    if (!score) {
+        score = [self addTeamScoreToMatch:match forAlliance:allianceString forTeam:teamNumber error:&error];
+        if (!score) {
+            return nil;
+        }
+    }
     if (!teamScoreAttributes) teamScoreAttributes = [[score entity] attributesByName];
     // check retrieved match, if the saved and saveby match the imcoming data then just do nothing
     NSNumber *saved = [xferDictionary objectForKey:@"saved"];

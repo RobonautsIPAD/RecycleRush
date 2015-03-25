@@ -69,6 +69,7 @@
     if (_connectionUtility == nil) {
         _connectionUtility = [[ConnectionUtility alloc] init:_dataManager];
     }
+    [_connectionUtility autoConnect];
     LoadCSVData *loadData = [[LoadCSVData alloc] initWithDataManager:_dataManager];
     inputError = [loadData loadCSVDataFromBundle];
     NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
@@ -165,6 +166,8 @@
 {
     NSLog(@"Resign active");
     [_dataManager saveContext];
+    [_connectionUtility disconnectOnResign];
+    
    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -180,6 +183,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"Enter Foreground");
+    [_connectionUtility autoConnect];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 

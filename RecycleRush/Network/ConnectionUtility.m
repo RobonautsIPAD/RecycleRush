@@ -55,7 +55,7 @@
     //NSLog(@"dataDictionary = %@", packet.dataDictionary);
 //    NSString *myType = (NSString*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    NSLog(@"%@, %@", peerID, [session displayNameForPeer:peerID]);
+    //NSLog(@"%@, %@", peerID, [session displayNameForPeer:peerID]);
 
      if (packet == nil) {
          NSLog(@"Invalid packet: %@", data);
@@ -91,7 +91,7 @@
     Packet *packet = [Packet packetWithType:PacketTypeSendData];
     [packet setDataDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:nRecords], @"Records", nil]];
     [self sendPacketToClient:packet forClient:requesterID inSession:session];
-    NSLog(@"Quick Records = %lu", (long int)nRecords);
+    //NSLog(@"Quick Records = %lu", (long int)nRecords);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     Packet *responsePacket;
     for (id item in filteredList) {
@@ -100,13 +100,13 @@
             NSDictionary *teamDictionary = [teamUtilities packageTeamForXFer:(TeamData *)item];
             responsePacket = [Packet packetWithType:PacketTypeTeamData];
             [responsePacket setDataDictionary:teamDictionary];
-            NSLog(@"Team dictionary = %@", teamDictionary);
+            //NSLog(@"Team dictionary = %@", teamDictionary);
         }
         else if ([dataType isEqualToString:@"TeamScore"]) {
             NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:(TeamScore *)item];
             responsePacket = [Packet packetWithType:PacketTypeScoreData];
             [responsePacket setDataDictionary:scoreDictionary];
-            NSLog(@"Score dictionary = %@", scoreDictionary);
+            //NSLog(@"Score dictionary = %@", scoreDictionary);
         }
         else {
             responsePacket = [Packet packetWithType:PacketTypeScoreData];
@@ -135,7 +135,7 @@
 		packet.packetNumber = sendPacketNumber++;
  
 	GKSendDataMode dataMode = GKSendDataReliable;
-    NSLog(@"Receiver = %@", receiverID);
+    //NSLog(@"Receiver = %@", receiverID);
     [packet setReceiverId:receiverID];
     [packet setSenderId:session.peerID];
 	NSData *data = [self archiveData:packet];
@@ -207,5 +207,90 @@
     }
     return _matchMakingClient;
 }
+/*
+-(void)checkConnectionStatus {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    BOOL autonConnectMode = [[prefs objectForKey:@"autoConnect"] boolValue];
+    if (!autonConnectMode) return;
+    
+    NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
+    if ([bluetoothMode intValue] == Scouter) {
+        if ([_matchMakingClient getClientState] == ClientStateSearchingForServers) {
+        }
+    }
+}*/
 
+-(void)autoConnect {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    BOOL autonConnectMode = [[prefs objectForKey:@"autoConnect"] boolValue];
+    if (!autonConnectMode) return;
+    
+    NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
+    if ([bluetoothMode intValue] == Scouter) {
+        if ([_matchMakingClient getClientState] == ClientStateIdle) {
+            // Set the notification to receive information after a client had connected or disconnected
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
+            // Set the notification to receive information after the server changes status
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateServerStatus:) name:@"serverStatusChanged" object:nil];
+            _matchMakingClient = [self setMatchMakingClient];
+            [_matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
+            [_matchMakingClient.session setDataReceiveHandler:self withContext:nil];
+        }
+    }
+    else {
+        if ([_matchMakingServer getServerState] == ServerStateIdle) {
+            _matchMakingServer = [self setMatchMakingServer];
+            [_matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
+        }
+    }
+}
+
+-(void)updateClientStatus:(NSNotification *)notification {
+    if ([_matchMakingClient getClientState] == ClientStateConnected) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+}
+
+-(void)updateServerStatus:(NSNotification *)notification {
+    // check if available server is the one we want
+    NSDictionary *dictionary = [notification userInfo];
+    NSString *connectToServer = nil;
+    if ([[dictionary objectForKey:@"status"] intValue] == ServerAvailable) {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *serverName = [prefs objectForKey:@"serverName"];
+        NSUInteger serverCount = [_matchMakingClient availableServerCount];
+        for (int i=0; i<serverCount; i++) {
+            NSString *serverID = [_matchMakingClient peerIDForAvailableServerAtIndex:i];
+            if ([serverName isEqualToString:[_matchMakingClient displayNameForPeerID:serverID]]) {
+                connectToServer = serverID;
+                break;
+            }
+        }
+        if (connectToServer) {
+            [_matchMakingClient connectToServerWithPeerID:connectToServer];
+        }
+    }
+}
+
+-(void)disconnectOnResign {
+    if (_matchMakingServer) {
+        [_matchMakingServer endSession];
+        _matchMakingServer = nil;
+    }
+    if (_matchMakingClient) {
+        [_matchMakingClient disconnectFromServer];
+        _matchMakingClient = nil;
+    }
+}
+/*    switch ([_connectionUtility.matchMakingClient getClientState]) {
+ case ClientStateIdle:
+ _connectionUtility.matchMakingClient = [_connectionUtility setMatchMakingClient];
+ [_connectionUtility.matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
+ session = _connectionUtility.matchMakingClient.session;
+ [session setDataReceiveHandler:_connectionUtility withContext:nil];
+ break;
+ 
+*/
 @end

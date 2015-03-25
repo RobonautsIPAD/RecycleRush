@@ -69,7 +69,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    NSLog(@"Download Page");
+    //NSLog(@"Download Page");
     if (!_dataManager) {
         _dataManager = [DataManager new];
     }

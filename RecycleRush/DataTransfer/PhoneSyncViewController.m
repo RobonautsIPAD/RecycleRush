@@ -9,6 +9,9 @@
 #import "PhoneSyncViewController.h"
 #import "DataManager.h"
 #import "SyncMethods.h"
+#import "ConnectionUtility.h"
+#import "Packet.h"
+#import "SyncMethods.h"
 #import "TournamentData.h"
 #import "TournamentUtilities.h"
 #import "TeamData.h"
@@ -22,10 +25,8 @@
 @property (nonatomic, weak) IBOutlet UITableView *syncDataTable;
 @property (nonatomic, weak) IBOutlet UIButton *syncTypeButton;
 @property (nonatomic, weak) IBOutlet UIButton *syncOptionButton;
-@property (nonatomic, weak) IBOutlet UIButton *xFerOptionButton;
-@property (nonatomic, weak) IBOutlet UIButton *connectButton;
-@property (nonatomic, weak) IBOutlet UIButton *disconnectButton;
-@property (nonatomic, weak) IBOutlet UILabel *peerName;
+@property (weak, nonatomic) IBOutlet UIButton *connectionStatusButton;
+@property (weak, nonatomic) IBOutlet UITableView *serverTable;
 @property (nonatomic, weak) IBOutlet UIButton *sendButton;
 @property (nonatomic, weak) IBOutlet UIButton *packageDataButton;
 @property (nonatomic, weak) IBOutlet UIButton *importFromiTunesButton;
@@ -36,6 +37,7 @@
     NSUserDefaults *prefs;
     NSString *tournamentName;
     NSString *deviceName;
+    BlueToothType bluetoothRole;
     DataSync *dataSyncPackage;
     SyncTableCells *syncTableCells;
     
@@ -50,6 +52,16 @@
     SyncType syncType;
     SyncOptions syncOption;
     NSArray *filteredSendList;
+    NSArray *receivedList;
+    NSArray *displayList;
+    NSUInteger nRecordsReceived;
+    NSUInteger nRecordsSent;
+    NSMutableArray *recordsReceived;
+	GKSession *session;
+    NSString *serverID;
+    NSString *serverName;
+    NSString *displayID;
+    NSString *peerID;
 }
 GKPeerPickerController *picker;
 
@@ -61,13 +73,13 @@ GKPeerPickerController *picker;
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
    
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
+    bluetoothRole = [[prefs objectForKey:@"bluetooth"] intValue];
     
     if (tournamentName) {
         self.title =  [NSString stringWithFormat:@"%@ Sync", tournamentName];
@@ -102,32 +114,55 @@ GKPeerPickerController *picker;
     }
 }
 
+- (IBAction)connectionAction:(id)sender {
+    if (bluetoothRole == Master) {
+       // [self serverAction:sender];
+    }
+    else {
+        [self clientAction:sender];
+    }
+}
+
+- (void)clientAction:(id)sender {
+    switch ([_connectionUtility.matchMakingClient getClientState]) {
+        case ClientStateIdle:
+            _connectionUtility.matchMakingClient = [_connectionUtility setMatchMakingClient];
+            [_connectionUtility.matchMakingClient startSearchingForServersWithSessionID:SESSION_ID];
+            session = _connectionUtility.matchMakingClient.session;
+            [session setDataReceiveHandler:_connectionUtility withContext:nil];
+            break;
+            
+        case ClientStateSearchingForServers:
+        case ClientStateConnecting:
+        case ClientStateConnected:
+            NSLog(@"End Session");
+            [_connectionUtility.matchMakingClient disconnectFromServer];
+            session = nil;
+            _connectionUtility.matchMakingClient = nil;
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (IBAction)selectAction:(id)sender {
-    if (sender == _xFerOptionButton) {
-        if (!xFerOptionAction) {
-            xFerOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Transfer Mode" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            [xFerOptionAction addButtonWithTitle:@"Send Data"];
-            [xFerOptionAction addButtonWithTitle:@"Receive Data"];
-            [xFerOptionAction addButtonWithTitle:@"Cancel"];
-            [xFerOptionAction setCancelButtonIndex:2];
-            xFerOptionAction.actionSheetStyle = UIActionSheetStyleDefault;
-        }
-        [xFerOptionAction showInView:self.view];
-    } else if (sender == _syncTypeButton) {
+    if (sender == _syncTypeButton) {
         if (!syncTypeAction) {
             syncTypeAction = [[UIActionSheet alloc] initWithTitle:@"Select Data Sync" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
             for (NSString *item in syncTypeList) {
                 [syncTypeAction addButtonWithTitle:item];
+ 
             }
             [syncTypeAction addButtonWithTitle:@"Cancel"];
             [syncTypeAction setCancelButtonIndex:[syncTypeList count]];
             syncTypeAction.actionSheetStyle = UIActionSheetStyleDefault;
         }
         [syncTypeAction showInView:self.view];
-    } else if (sender == _syncOptionButton) {
-        if (!syncOptionAction) {
-            syncOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Data Type" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-            for (NSString *item in syncOptionList) {
+        } else if (sender == _syncOptionButton) {
+            if (!syncOptionAction) {
+                syncOptionAction = [[UIActionSheet alloc] initWithTitle:@"Select Data Type" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                for (NSString *item in syncOptionList) {
                 [syncOptionAction addButtonWithTitle:item];
             }
             [syncOptionAction addButtonWithTitle:@"Cancel"];
@@ -152,10 +187,10 @@ GKPeerPickerController *picker;
 -(void)selectXFerOption:(NSInteger)xFerChoice {
     switch (xFerChoice) {
         case 0:     // Send button
-            [_xFerOptionButton setTitle:@"Sending" forState:UIControlStateNormal];
+ //           [_xFerOptionButton setTitle:@"Sending" forState:UIControlStateNormal];
             break;
         case 1:     // Receive button
-            [_xFerOptionButton setTitle:@"Receiving" forState:UIControlStateNormal];
+//            [_xFerOptionButton setTitle:@"Receiving" forState:UIControlStateNormal];
             break;
         case 2:     // Cancel button
             NSLog(@"Cancelled");
@@ -203,18 +238,17 @@ GKPeerPickerController *picker;
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [filteredSendList count];
-    /*    if (tableView == _serverTable) {
+    if (tableView == _serverTable) {
         if (_connectionUtility.matchMakingClient != nil) return [_connectionUtility.matchMakingClient availableServerCount];
         else return 0;
     }
-    else return [filteredSendList count];*/
+    else return [displayList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier1 = @"ServerList";
- //   UITableViewCell *cell;
-/*    if (tableView == _serverTable) {
+    UITableViewCell *cell;
+    if (tableView == _serverTable) {
         cell = [tableView dequeueReusableCellWithIdentifier:identifier1 forIndexPath:indexPath];
         UILabel *label1 = (UILabel *)[cell viewWithTag:0];
         NSString *server = [_connectionUtility.matchMakingClient peerIDForAvailableServerAtIndex:indexPath.row];
@@ -222,11 +256,9 @@ GKPeerPickerController *picker;
         return cell;
     }
     else {
-        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
+        UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[displayList objectAtIndex:indexPath.row] atIndexPath:indexPath];
         return cell;
-    }*/
-    UITableViewCell *cell = [syncTableCells configureCell:tableView forTableData:[filteredSendList objectAtIndex:indexPath.row] atIndexPath:indexPath];
-    return cell;
+    }
 }
 
 

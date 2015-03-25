@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *eliminationRadio;
 @property (weak, nonatomic) IBOutlet UIButton *qualificationRadio;
 @property (weak, nonatomic) IBOutlet UIButton *oneMatchRadio;
+@property (weak, nonatomic) IBOutlet UIButton *autoConnectButton;
 @property (weak, nonatomic) IBOutlet UITextField *quickRequestMatch;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *quickRequestButton;
@@ -46,6 +47,7 @@
     NSString *tournamentName;
     NSString *deviceName;
     BlueToothType bluetoothRole;
+    BOOL autoConnect;
     DataSync *dataSyncPackage;
     SyncTableCells *syncTableCells;
     id popUp;
@@ -92,6 +94,11 @@
     return self;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -99,6 +106,7 @@
     tournamentName = [prefs objectForKey:@"tournament"];
     deviceName = [prefs objectForKey:@"deviceName"];
     bluetoothRole = [[prefs objectForKey:@"bluetooth"] intValue];
+    autoConnect = [[prefs objectForKey:@"autoConnect"] boolValue];
     
     if (tournamentName) {
         self.title = [NSString stringWithFormat:@"%@ Sync", tournamentName];
@@ -115,6 +123,14 @@
     syncType = SyncMatchResults;
     syncOption = SyncAllSavedSince;
     [self setSendList];
+    if (autoConnect) {
+        [_autoConnectButton setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+        [_autoConnectButton setSelected:YES];
+    }
+    else {
+        [_autoConnectButton setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateSelected];
+        [_autoConnectButton setSelected:NO];
+    }
     [_qualificationRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
     [_qualificationRadio setSelected:YES];
     _quickRequestMatch.inputView = [LNNumberpad defaultLNNumberpad];
@@ -504,7 +520,7 @@
 }
 
 -(void)dataReceived:(NSNotification *)notification {
-    NSLog(@"%@", notification);
+    //NSLog(@"%@", notification);
     NSDictionary *dictionary = [notification userInfo];
     if (![dictionary objectForKey:@"Error"]) {
         [recordsReceived addObject:dictionary];
@@ -517,7 +533,7 @@
 }
 
 -(void)startReceiving:(NSNotification *)notification {
-    NSLog(@"%@", notification);
+    //NSLog(@"%@", notification);
     NSDictionary *dictionary = [notification userInfo];
     NSNumber *records = [dictionary objectForKey:@"Records"];
     nRecordsSent = [records unsignedLongValue];
@@ -536,7 +552,7 @@
     displayList = receivedList;
 //    importedFile = importFile;
     [_syncDataTable reloadData];
-    NSLog(@"%@", displayList);
+    //NSLog(@"%@", displayList);
 }
 
 - (IBAction)createScoutingBundle:(id)sender {
@@ -584,6 +600,24 @@
         else {
             [_oneMatchRadio setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
             [_oneMatchRadio setSelected:YES];
+        }
+    }
+    else if (sender == _autoConnectButton) {
+        if ([_autoConnectButton isSelected]) {
+            [_autoConnectButton setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
+            [_autoConnectButton setSelected:NO];
+            [prefs setObject:[NSNumber numberWithBool:FALSE] forKey:@"autoConnect"];
+        }
+        else {
+            [_autoConnectButton setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
+            [_autoConnectButton setSelected:YES];
+            [prefs setObject:[NSNumber numberWithBool:TRUE] forKey:@"autoConnect"];
+            if (bluetoothRole == Scouter) {
+                [prefs setObject:serverName forKey:@"serverName"];
+            }
+            else {
+                [prefs setObject:@"" forKey:@"serverName"];
+            }
         }
     }
 }
