@@ -299,7 +299,7 @@
 }
 
 -(IBAction)nextButton {
-    int nrows;
+    NSUInteger nrows;
     nrows =  [self getNumberOfMatches:sectionIndex];
     if (rowIndex < (nrows-1)) rowIndex++;
     else {
@@ -333,10 +333,10 @@
 - (IBAction)ourPreviousMatch:(id)sender {
     NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
     NSUInteger start = rowIndex-1;
-    int nMatches = [self getNumberOfMatches:sectionIndex];
+    NSUInteger nMatches = [self getNumberOfMatches:sectionIndex];
     BOOL found = FALSE;
     for (int j=0; j<2; j++) {
-        for(int i=start; i > 0; i--) {
+        for(NSUInteger i=start; i > 0; i--) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:sectionIndex];
             MatchData *match = [_fetchedResultsController objectAtIndexPath:index];
             NSArray *scores = [[match.score allObjects] filteredArrayUsingPredicate:pred];
@@ -357,10 +357,10 @@
 - (IBAction)ourNextMatch:(id)sender {
     NSPredicate *pred =  [NSPredicate predicateWithFormat:@"teamNumber = %@", _teamNumber];
     NSUInteger start = rowIndex + 1;
-    int nMatches = [self getNumberOfMatches:sectionIndex];
+    NSUInteger nMatches = [self getNumberOfMatches:sectionIndex];
     BOOL found = FALSE;
     for (int j=0; j<2; j++) {
-        for(int i=start; i < nMatches; i++) {
+        for(NSUInteger i=start; i < nMatches; i++) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:sectionIndex];
             MatchData *match = [_fetchedResultsController objectAtIndexPath:index];
             NSArray *scores = [[match.score allObjects] filteredArrayUsingPredicate:pred];

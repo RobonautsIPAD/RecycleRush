@@ -95,7 +95,7 @@
 - (IBAction)bluetoothSelectionChanged:(id)sender {
     NSLog(@"Bluetooth selection change");
     UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    int current;
+    NSUInteger current;
     current = segmentedControl.selectedSegmentIndex;
 }
 

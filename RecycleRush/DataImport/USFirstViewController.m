@@ -28,7 +28,7 @@
     NSMutableArray *tournamentList; // list of all tournaments
     NSString *deviceName;
     NSArray *tourData; // data of the selected tournament (code, name)
-    int matchType; // selected match type
+    NSUInteger matchType; // selected match type
     NSMutableArray *displayData; // data to be displayed in the TableView
     MatchUtilities *matchUtilities;
 }
