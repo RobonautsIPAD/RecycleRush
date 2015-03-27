@@ -136,8 +136,8 @@
 		2F6ADE981A981B1900962D1C /* SketchSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6ADE971A981B1900962D1C /* SketchSpaceViewController.m */; };
 		2F6D4F9219DB36F700EF3923 /* MatchUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6D4F9119DB36F700EF3923 /* MatchUtilities.m */; };
 		2F6DEB0D1AAFFC37000D3C67 /* MatchList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2F6DEB0C1AAFFC37000D3C67 /* MatchList.csv */; };
-		2F7302B51AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7302B41AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a */; };
 		2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7302B61AB7B8A7005D30D7 /* QuartzCore.framework */; };
+		2F7486891AC38442002AD262 /* ProgrammingLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F7486881AC38442002AD262 /* ProgrammingLanguage.plist */; };
 		2F88169B1A5FB0D4001CCA04 /* Competitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816861A5FB0D4001CCA04 /* Competitions.m */; };
 		2F88169D1A5FB0D4001CCA04 /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168A1A5FB0D4001CCA04 /* MatchData.m */; };
 		2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */; };
@@ -177,6 +177,7 @@
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
 		2FDAF1171A9024C1006D7670 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF1161A9024C1006D7670 /* Packet.m */; };
+		2FDC58141AC5FD1B00029161 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC58131AC5FD1B00029161 /* TeamData.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
 		2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA151A6F27AD0007412E /* MatchmakingClient.m */; };
@@ -207,7 +208,6 @@
 		2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */; };
 		2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */; };
 		2FDFE5361A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */; };
-		2FE405521A96C3ED007404CE /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405511A96C3ED007404CE /* TeamData.m */; };
 		2FE405571A96D33A007404CE /* StackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE405561A96D33A007404CE /* StackViewController.m */; };
 		2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */; };
 		2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FF00D6D1A7AA384003B63DF /* Red 2015.png */; };
@@ -511,6 +511,7 @@
 		2F7302B31AB7B7E6005D30D7 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		2F7302B41AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "RecycleRush/CorePlot/libCorePlot-CocoaTouch.a"; sourceTree = SOURCE_ROOT; };
 		2F7302B61AB7B8A7005D30D7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2F7486881AC38442002AD262 /* ProgrammingLanguage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ProgrammingLanguage.plist; path = "RecycleRush/Resources/Property Lists/ProgrammingLanguage.plist"; sourceTree = SOURCE_ROOT; };
 		2F759FE71A5F036D0006900E /* RecycleRush-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RecycleRush-Prefix.pch"; path = "RecycleRush/MainApp/RecycleRush-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		2F759FE81A5F03830006900E /* RecycleRush-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "RecycleRush-Info.plist"; path = "RecycleRush/MainApp/RecycleRush-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2F8816851A5FB0D4001CCA04 /* Competitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Competitions.h; sourceTree = "<group>"; };
@@ -566,6 +567,9 @@
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FDAF1151A9024C1006D7670 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
 		2FDAF1161A9024C1006D7670 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = RecycleRush/Network/Packet.m; sourceTree = SOURCE_ROOT; };
+		2FDC58111AC5FCA300029161 /* RecycleRush LS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RecycleRush LS.xcdatamodel"; sourceTree = "<group>"; };
+		2FDC58121AC5FD1B00029161 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
+		2FDC58131AC5FD1B00029161 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FDECA0F1A6F0A7A0007412E /* TabletSyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabletSyncViewController.h; path = RecycleRush/DataTransfer/TabletSyncViewController.h; sourceTree = SOURCE_ROOT; };
 		2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabletSyncViewController.m; path = RecycleRush/DataTransfer/TabletSyncViewController.m; sourceTree = SOURCE_ROOT; };
 		2FDECA121A6F27AD0007412E /* ConnectionUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionUtility.h; path = RecycleRush/Network/ConnectionUtility.h; sourceTree = SOURCE_ROOT; };
@@ -600,8 +604,6 @@
 		2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TeamList.csv; path = "RecycleRush/Resources/Init Data/TeamList.csv"; sourceTree = SOURCE_ROOT; };
 		2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TournamentList.csv; path = "RecycleRush/Resources/Init Data/TournamentList.csv"; sourceTree = SOURCE_ROOT; };
 		2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Robonauts.RecycleRush.plist; path = "RecycleRush/Resources/Property Lists/Robonauts.RecycleRush.plist"; sourceTree = SOURCE_ROOT; };
-		2FE405501A96C3ED007404CE /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
-		2FE405511A96C3ED007404CE /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FE405551A96D33A007404CE /* StackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackViewController.h; path = RecycleRush/MatchScouting/StackViewController.h; sourceTree = SOURCE_ROOT; };
 		2FE405561A96D33A007404CE /* StackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackViewController.m; path = RecycleRush/MatchScouting/StackViewController.m; sourceTree = SOURCE_ROOT; };
 		2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisTabViewController.h; path = RecycleRush/MatchAnalysis/AnalysisTabViewController.h; sourceTree = SOURCE_ROOT; };
@@ -630,7 +632,6 @@
 				2F30EABE16A0EB4F0026B258 /* Foundation.framework in Frameworks */,
 				2F30EAC016A0EB4F0026B258 /* CoreGraphics.framework in Frameworks */,
 				2F30EAC216A0EB4F0026B258 /* CoreData.framework in Frameworks */,
-				2F7302B51AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,28 +869,29 @@
 		2F312BC01A7D6D13002EF938 /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
-				2F8874471AB905C300404FDF /* RobotType.plist */,
-				2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */,
-				2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */,
-				2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */,
-				2FDFE5181A7E88B7002FEAD0 /* TeamData.plist */,
-				2FDFE5191A7E88B7002FEAD0 /* TournamentData.plist */,
-				2FDFE51A1A7E88B7002FEAD0 /* TriState.plist */,
-				2FDFE5141A7E88A5002FEAD0 /* ScouterName.plist */,
 				2FDFE4FC1A7E888B002FEAD0 /* AllianceList.plist */,
+				2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */,
 				2FDFE4FD1A7E888B002FEAD0 /* CanIntake.plist */,
 				2FDFE4FE1A7E888B002FEAD0 /* DriveType.plist */,
-				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
 				2FDFE5001A7E888B002FEAD0 /* LiftType.plist */,
 				2FDFE5011A7E888B002FEAD0 /* LucienNumberFields.plist */,
-				2FA17AFD1AAA74190080E836 /* StatCalculate.plist */,
 				2FDFE5021A7E888B002FEAD0 /* MarcusOutput.plist */,
 				2FDFE5031A7E888B002FEAD0 /* MasonPage.plist */,
 				2FDFE5041A7E888B002FEAD0 /* MatchData.plist */,
 				2FDFE5051A7E888B002FEAD0 /* MatchType.plist */,
+				2F7486881AC38442002AD262 /* ProgrammingLanguage.plist */,
 				2FDFE5071A7E888B002FEAD0 /* QuadState.plist */,
-				2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */,
+				2FDFE5351A7E8B2B002FEAD0 /* Robonauts.RecycleRush.plist */,
+				2F8874471AB905C300404FDF /* RobotType.plist */,
+				2FDFE5141A7E88A5002FEAD0 /* ScouterName.plist */,
+				2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */,
+				2FA17AFD1AAA74190080E836 /* StatCalculate.plist */,
+				2FDFE5181A7E88B7002FEAD0 /* TeamData.plist */,
+				2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */,
 				2FA17B001AAA7AA20080E836 /* TeamSummaryStats.plist */,
+				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
+				2FDFE5191A7E88B7002FEAD0 /* TournamentData.plist */,
+				2FDFE51A1A7E88B7002FEAD0 /* TriState.plist */,
 			);
 			name = "Property Lists";
 			sourceTree = "<group>";
@@ -1110,12 +1112,12 @@
 			isa = PBXGroup;
 			children = (
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
+				2FDC58121AC5FD1B00029161 /* TeamData.h */,
+				2FDC58131AC5FD1B00029161 /* TeamData.m */,
 				2FA65C431AB08DD70062FFF5 /* TeamScore.h */,
 				2FA65C441AB08DD70062FFF5 /* TeamScore.m */,
 				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
 				2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */,
-				2FE405501A96C3ED007404CE /* TeamData.h */,
-				2FE405511A96C3ED007404CE /* TeamData.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
 				2F8816861A5FB0D4001CCA04 /* Competitions.m */,
 				2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */,
@@ -1157,8 +1159,6 @@
 				2F5D32A51A5FA3D000E02523 /* MainScoutingPageViewController.m */,
 				2F5D32A61A5FA3D000E02523 /* MatchDetailViewController.h */,
 				2F5D32A71A5FA3D000E02523 /* MatchDetailViewController.m */,
-				2F5D52091A745522008F1100 /* MatchSummaryViewController.h */,
-				2F5D520A1A745522008F1100 /* MatchSummaryViewController.m */,
 				2F5D32731A5FA24300E02523 /* RidleyPageViewController.h */,
 				2F5D32741A5FA24300E02523 /* RidleyPageViewController.m */,
 				2F5D32771A5FA24300E02523 /* TournamentAnalysisViewController.h */,
@@ -1180,6 +1180,8 @@
 		2FB3A4B016CEB7C400E895E5 /* Match Analysis */ = {
 			isa = PBXGroup;
 			children = (
+				2F5D52091A745522008F1100 /* MatchSummaryViewController.h */,
+				2F5D520A1A745522008F1100 /* MatchSummaryViewController.m */,
 				2F33DCF01A86EA1700331B12 /* TeamMatchListViewController.h */,
 				2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */,
 				2F5D326B1A5FA24300E02523 /* MainMatchAnalysisViewController.h */,
@@ -1434,6 +1436,7 @@
 				2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */,
 				2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */,
 				2FA17B021AAA7AA20080E836 /* TeamSummaryStats.plist in Resources */,
+				2F7486891AC38442002AD262 /* ProgrammingLanguage.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1482,6 +1485,7 @@
 				2F5D32FD1A5FA51000E02523 /* PhotoCell.m in Sources */,
 				2F5D32821A5FA24300E02523 /* RidleyPageViewController.m in Sources */,
 				2F6A4CCC19EC5C8E002A0A56 /* ScoreUtilities.m in Sources */,
+				2FDC58141AC5FD1B00029161 /* TeamData.m in Sources */,
 				2FA65C451AB08DD70062FFF5 /* TeamScore.m in Sources */,
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
@@ -1496,7 +1500,6 @@
 				2F33DCF21A86EA1700331B12 /* TeamMatchListViewController.m in Sources */,
 				2F39F5D71A919EF2004D323B /* LNNumberpad.m in Sources */,
 				2F369C9F1A7C8F3100CAD6C0 /* Iphoneteamlist.m in Sources */,
-				2FE405521A96C3ED007404CE /* TeamData.m in Sources */,
 				2F2ECAB21A5F059900D3386E /* AlliancesViewController.m in Sources */,
 				2F5D32C91A5FA45300E02523 /* parseUSFirst.m in Sources */,
 				2F2ECAA21A5F052300D3386E /* SyncTableCells.m in Sources */,
@@ -1628,6 +1631,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1648,6 +1652,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RecycleRush;
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1681,9 +1686,10 @@
 			isa = XCVersionGroup;
 			children = (
 				2F479A261AAB8E7D001D01DE /* RecycleRush Sacramento.xcdatamodel */,
+				2FDC58111AC5FCA300029161 /* RecycleRush LS.xcdatamodel */,
 				2F88168E1A5FB0D4001CCA04 /* RecycleRush.xcdatamodel */,
 			);
-			currentVersion = 2F479A261AAB8E7D001D01DE /* RecycleRush Sacramento.xcdatamodel */;
+			currentVersion = 2FDC58111AC5FCA300029161 /* RecycleRush LS.xcdatamodel */;
 			path = RecycleRush.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
