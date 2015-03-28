@@ -48,7 +48,6 @@
     // Set Font and Text for Tournament Set-Up Button
     [_tournamentButton setTitle:[prefs objectForKey:@"tournament"] forState:UIControlStateNormal];
     _tournamentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:14.0];
-    [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
 
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -71,6 +70,17 @@
         }
     }
     NSLog(@"Tournament List = %@", tournamentList);
+
+    // Set Bluetooth segment
+//    NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
+    NSNumber *bluetoothMode = [NSNumber numberWithInt:Scouter];
+    [prefs setObject:[NSNumber numberWithInt:Scouter] forKey:@"bluetooth"];
+    if ([bluetoothMode intValue] == Scouter) {
+        _bluetoothSegment.selectedSegmentIndex = 0;
+    }
+    else {
+        _bluetoothSegment.selectedSegmentIndex = 1;
+    }
 }
 
 - (IBAction)tournamentSelection:(id)sender {
