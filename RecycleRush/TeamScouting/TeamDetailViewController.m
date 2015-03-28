@@ -25,6 +25,7 @@
 #import "LNNumberpad.h"
 #import "MainMatchAnalysisViewController.h"
 #import "MatchAccessors.h"
+#import "TeamSummaryViewController.h"
 
 
 @interface TeamDetailViewController ()
@@ -330,20 +331,25 @@
     label1.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label1];
     
-	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 200, 35)];
+	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(120, 0, 200, 35)];
 	label2.text = @"Type";
     label2.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label2];
     
- 	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 200, 35)];
+ 	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 200, 35)];
 	label3.text = @"Score";
     label3.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label3];
     
-    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(255, 0, 200, 35)];
+    UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(290, 0, 200, 35)];
 	label4.text = @"Alliance Members";
     label4.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label4];
+    
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(450, 0, 200, 35)];
+	label5.text = @"Robot Type";
+    label5.backgroundColor = [UIColor clearColor];
+    [matchHeader addSubview:label5];
 }
 
 -(void)showTeam {
@@ -834,6 +840,13 @@
         [segue.destinationViewController setMatchList:matchList];
         [segue.destinationViewController setNumberTeam:_team];
     }
+    else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
+        TeamSummaryViewController *detailViewController = [segue destinationViewController];
+        // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
+        detailViewController.initialTeam = _team;
+        detailViewController.teamList = [NSArray arrayWithObject:_team];
+        //detailViewController.matchNumber = currentMatch.number;
+           }
 }
 
 - (IBAction)goHome:(id)sender {
@@ -911,6 +924,9 @@
     
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
+    
+    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
+   // label5.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
     
     //UILabel *label4 = (UILabel *)[cell viewWithTag:40];
 	//label4.text = [NSString stringWithFormat:@"%d", [matchList.  intValue]];

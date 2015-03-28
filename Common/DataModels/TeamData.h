@@ -2,7 +2,7 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 2/19/15.
+//  Created by FRC on 3/27/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
+@property (nonatomic, retain) NSString * stackMechanism;
 @property (nonatomic, retain) NSString * sthing1;
 @property (nonatomic, retain) NSString * sthing3;
 @property (nonatomic, retain) NSString * sthing4;
@@ -49,7 +50,9 @@
 @property (nonatomic, retain) NSString * visionTracker;
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
-@property (nonatomic, retain) NSString * stackMechanism;
+@property (nonatomic, retain) NSNumber * weight;
+@property (nonatomic, retain) NSString * language;
+@property (nonatomic, retain) NSNumber * maxCanHeight;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournaments;
 @end

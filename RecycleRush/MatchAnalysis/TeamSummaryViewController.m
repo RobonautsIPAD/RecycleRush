@@ -16,6 +16,7 @@
 #import "MatchPhotoCollectionViewController.h"
 #import "MatchAccessors.h"
 #import "CalculateTeamStats.h"
+#import "TeamDetailViewController.h"
 
 @interface TeamSummaryViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -107,6 +108,11 @@
 	label4.text = @"Alliance Members";
     label4.backgroundColor = [UIColor clearColor];
     [matchHeader addSubview:label4];
+    
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(405, 0, 200, 35)];
+	label5.text = @"Robot Type";
+    label5.backgroundColor = [UIColor clearColor];
+    [matchHeader addSubview:label5];
 }
 
 -(void)showTeam {
@@ -157,6 +163,9 @@
         [segue.destinationViewController setMatchList:matchList];
         [segue.destinationViewController setTeamList:teamPopUpList];
    }
+    else if ([segue.identifier isEqualToString:@"TeamDetail"]) {
+     [segue.destinationViewController setTeam:currentTeam];
+    }
 }
 
 #pragma mark - Table view data source
@@ -246,7 +255,7 @@
         
 - (void)configureTeamStatsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
-    
+   // NSLog(@"%@", stats);
         if (indexPath.row == 0) {
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"";

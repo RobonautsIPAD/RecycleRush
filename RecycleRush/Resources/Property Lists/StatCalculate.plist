@@ -316,14 +316,6 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>robotType</string>
-		<key>header</key>
-		<string>Robot Type</string>
-		<key>name</key>
-		<string>robotType</string>
-	</dict>
-	<dict>
-		<key>key</key>
 		<string>redCards</string>
 		<key>header</key>
 		<string>Red Cards</string>
