@@ -13,8 +13,7 @@
 #import "FullSizeViewer.h"
 #import "PhotoUtilities.h"
 #import "TeamData.h"
-#import "pitScoutingDataSheet.h"
-
+#import "PhoneTeamDetailViewController.h"
 
 @interface pitScoutingImagePage ()
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;

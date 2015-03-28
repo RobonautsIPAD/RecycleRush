@@ -53,7 +53,7 @@
 		2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */; };
 		2F39F5D71A919EF2004D323B /* LNNumberpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F39F5D51A919EF2004D323B /* LNNumberpad.m */; };
 		2F39F5D81A919EF2004D323B /* LNNumberpad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F39F5D61A919EF2004D323B /* LNNumberpad.xib */; };
-		2F3B8CCA1AC6EB0F00FCA6A9 /* PitScoutingDataSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B8CC91AC6EB0F00FCA6A9 /* PitScoutingDataSheet.m */; };
+		2F3B8CCD1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */; };
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
 		2F484D661A84648B00690185 /* Blue 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D651A84648B00690185 /* Blue 2015 New.png */; };
 		2F484D681A84649D00690185 /* Red 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D671A84649D00690185 /* Red 2015 New.png */; };
@@ -286,7 +286,8 @@
 		2F39F5D41A919EF2004D323B /* LNNumberpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LNNumberpad.h; path = RecycleRush/Utilities/LNNumberpad.h; sourceTree = SOURCE_ROOT; };
 		2F39F5D51A919EF2004D323B /* LNNumberpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LNNumberpad.m; path = RecycleRush/Utilities/LNNumberpad.m; sourceTree = SOURCE_ROOT; };
 		2F39F5D61A919EF2004D323B /* LNNumberpad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LNNumberpad.xib; path = RecycleRush/Utilities/LNNumberpad.xib; sourceTree = SOURCE_ROOT; };
-		2F3B8CC91AC6EB0F00FCA6A9 /* PitScoutingDataSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PitScoutingDataSheet.m; path = RecycleRush/TeamScouting/PitScoutingDataSheet.m; sourceTree = SOURCE_ROOT; };
+		2F3B8CCB1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneTeamDetailViewController.h; path = RecycleRush/TeamScouting/PhoneTeamDetailViewController.h; sourceTree = SOURCE_ROOT; };
+		2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneTeamDetailViewController.m; path = RecycleRush/TeamScouting/PhoneTeamDetailViewController.m; sourceTree = SOURCE_ROOT; };
 		2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_ipad.storyboard; path = RecycleRush/MainApp/RecycleRush_ipad.storyboard; sourceTree = SOURCE_ROOT; };
 		2F479A261AAB8E7D001D01DE /* RecycleRush Sacramento.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RecycleRush Sacramento.xcdatamodel"; sourceTree = "<group>"; };
 		2F484D651A84648B00690185 /* Blue 2015 New.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blue 2015 New.png"; path = "RecycleRush/Resources/FieldImages/Blue 2015 New.png"; sourceTree = SOURCE_ROOT; };
@@ -560,7 +561,6 @@
 		2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RobonautsLogo.jpg; path = "RecycleRush/Resources/Logos and Banners/RobonautsLogo.jpg"; sourceTree = SOURCE_ROOT; };
 		2FC087891A9EA67A00050864 /* PhoneMatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneMatchListViewController.h; path = RecycleRush/MatchScouting/PhoneMatchListViewController.h; sourceTree = SOURCE_ROOT; };
 		2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneMatchListViewController.m; path = RecycleRush/MatchScouting/PhoneMatchListViewController.m; sourceTree = SOURCE_ROOT; };
-		2FC123251A830B240029F086 /* PitScoutingDataSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PitScoutingDataSheet.h; path = RecycleRush/TeamScouting/PitScoutingDataSheet.h; sourceTree = SOURCE_ROOT; };
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2FCF9FB719944D1600A872CD /* TeamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamUtilities.h; path = Common/DataUtilities/TeamUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -786,8 +786,8 @@
 				2F5D32D41A5FA4F400E02523 /* TeamDetailViewController.m */,
 				2F5D32D51A5FA4F400E02523 /* TeamListViewController.h */,
 				2F5D32D61A5FA4F400E02523 /* TeamListViewController.m */,
-				2FC123251A830B240029F086 /* PitScoutingDataSheet.h */,
-				2F3B8CC91AC6EB0F00FCA6A9 /* PitScoutingDataSheet.m */,
+				2F3B8CCB1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.h */,
+				2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */,
 			);
 			name = "Team Scouting";
 			sourceTree = "<group>";
@@ -1506,6 +1506,7 @@
 				2F5D32CA1A5FA45300E02523 /* USFirstViewController.m in Sources */,
 				2F5D32FE1A5FA51000E02523 /* PhotoUtilities.m in Sources */,
 				2F5D32FA1A5FA51000E02523 /* MainLogo.m in Sources */,
+				2F3B8CCD1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m in Sources */,
 				2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */,
 				2F5D32841A5FA24300E02523 /* TournamentAnalysisViewController.m in Sources */,
 				2F2ECA9C1A5F052300D3386E /* ExportTeamData.m in Sources */,
@@ -1517,7 +1518,6 @@
 				2F9094721A85130400678B81 /* MatchScoutingViewController.m in Sources */,
 				2F2ECA991A5F052300D3386E /* DataSync.m in Sources */,
 				2F5D32C51A5FA45300E02523 /* ImportDeviceViewController.m in Sources */,
-				2F3B8CCA1AC6EB0F00FCA6A9 /* PitScoutingDataSheet.m in Sources */,
 				2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */,
 				2F5D32971A5FA32F00E02523 /* iPhoneMainViewController.m in Sources */,
 				2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */,

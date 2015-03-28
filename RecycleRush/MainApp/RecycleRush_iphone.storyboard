@@ -756,10 +756,10 @@
             </objects>
             <point key="canvasLocation" x="173" y="-524"/>
         </scene>
-        <!--Pit Scouting Data Sheet - Pit Information-->
+        <!--Phone Team Detail View Controller - Pit Information-->
         <scene sceneID="KcW-gP-ZUx">
             <objects>
-                <viewController id="uwB-pY-BpC" customClass="PitScoutingDataSheet" sceneMemberID="viewController">
+                <viewController id="uwB-pY-BpC" customClass="PhoneTeamDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="zHL-5i-rFH">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -861,7 +861,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="DriveTypeSelection:" destination="uwB-pY-BpC" eventType="touchUpInside" id="GVw-LU-WKn"/>
+                                    <action selector="driveTypeSelection:" destination="uwB-pY-BpC" eventType="touchUpInside" id="3qR-u5-1IR"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wheel Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="khv-0E-4wB">
