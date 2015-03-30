@@ -15,6 +15,7 @@
 #import "ScoreAccessors.h"
 #import "MatchPhotoCollectionViewController.h"
 #import "MatchAccessors.h"
+#import "PieCharts.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 
@@ -43,6 +44,10 @@
     NSMutableArray *teamPopUpList;
     PopUpPickerViewController *teamPicker;
     UIPopoverController *teamPickerPopover;
+
+    PieCharts *pieCharts;
+    UIView *graphView;
+    NSArray *prices;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -81,6 +86,21 @@
     [self showTeam];
     teamStats = [[CalculateTeamStats alloc] init:_dataManager];
     stats = [teamStats calculateMasonStats:currentTeam forTournament:tournamentName];
+    prices = [NSArray arrayWithObjects:
+              [[stats objectForKey:@"toteIntakeLandfill"] objectForKey:@"total"],
+              [[stats objectForKey:@"toteIntakeHP"] objectForKey:@"total"],
+              nil];
+    NSLog(@"prices = %@", prices);
+    
+    pieCharts = [[PieCharts alloc] init];
+	CGRect parentRect = self.view.bounds;
+	parentRect = CGRectMake(605.0,
+							20.0,
+							400.0,
+							285.0);
+    graphView = [[UIView alloc] initWithFrame:parentRect];
+	[self.view addSubview:graphView];
+    [pieCharts initPlot:graphView withData:prices];
 }
 
 -(void)createMatchHeader {

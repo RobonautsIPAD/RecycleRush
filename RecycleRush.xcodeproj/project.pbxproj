@@ -175,8 +175,10 @@
 		2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */; };
 		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
+		2FCF7B4E1AC768B000983026 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7302B41AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
 		2FDAF1171A9024C1006D7670 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF1161A9024C1006D7670 /* Packet.m */; };
+		2FDB50741AC8E5D200D98405 /* PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDB50731AC8E5D200D98405 /* PieCharts.m */; };
 		2FDC58141AC5FD1B00029161 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC58131AC5FD1B00029161 /* TeamData.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
@@ -567,6 +569,8 @@
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FDAF1151A9024C1006D7670 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
 		2FDAF1161A9024C1006D7670 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = RecycleRush/Network/Packet.m; sourceTree = SOURCE_ROOT; };
+		2FDB50721AC8E5D200D98405 /* PieCharts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieCharts.h; path = RecycleRush/Utilities/PieCharts.h; sourceTree = SOURCE_ROOT; };
+		2FDB50731AC8E5D200D98405 /* PieCharts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieCharts.m; path = RecycleRush/Utilities/PieCharts.m; sourceTree = SOURCE_ROOT; };
 		2FDC58111AC5FCA300029161 /* RecycleRush LS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RecycleRush LS.xcdatamodel"; sourceTree = "<group>"; };
 		2FDC58121AC5FD1B00029161 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
 		2FDC58131AC5FD1B00029161 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FCF7B4E1AC768B000983026 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */,
 				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
@@ -1018,6 +1023,8 @@
 			children = (
 				2F7302651AB7B7E5005D30D7 /* CorePlotHeaders */,
 				2F7302B41AB7B7E6005D30D7 /* libCorePlot-CocoaTouch.a */,
+				2FDB50721AC8E5D200D98405 /* PieCharts.h */,
+				2FDB50731AC8E5D200D98405 /* PieCharts.m */,
 			);
 			name = "Core Plot";
 			sourceTree = "<group>";
@@ -1490,6 +1497,7 @@
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
 				2F2ECA9A1A5F052300D3386E /* ExportMatchData.m in Sources */,
+				2FDB50741AC8E5D200D98405 /* PieCharts.m in Sources */,
 				2FDECA191A6F27AD0007412E /* MatchmakingClient.m in Sources */,
 				2F5D32F71A5FA51000E02523 /* EnumerationDictionary.m in Sources */,
 				2F5D32AA1A5FA3D000E02523 /* AddMatchViewController.m in Sources */,
