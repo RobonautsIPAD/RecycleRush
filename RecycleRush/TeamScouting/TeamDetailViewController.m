@@ -26,6 +26,7 @@
 #import "MainMatchAnalysisViewController.h"
 #import "MatchAccessors.h"
 #import "TeamSummaryViewController.h"
+#import "MatchSummaryViewController.h"
 
 
 @interface TeamDetailViewController ()
@@ -373,13 +374,13 @@
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
     _robotWeight.text = [NSString stringWithFormat:@"%.0f", [_team.weight floatValue]];
-    _stackLevelText.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
 
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
     matchList = [ScoreAccessors getMatchListForTeam:_team.number forTournament:tournamentName fromDataManager:_dataManager];
-    
+    _stackLevelText.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
+
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
     [_intakeType setTitle:_team.toteIntake forState:UIControlStateNormal];
     [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
@@ -389,7 +390,6 @@
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
     
-
     [self getPhoto];
     photoList = [self getPhotoList:_team.number];
     [_photoCollectionView reloadData];
@@ -882,7 +882,10 @@
            }
     else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
         [segue.destinationViewController setDataManager:_dataManager];
-}
+        NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
+        [segue.destinationViewController setCurrentScore:[matchList objectAtIndex:indexPath.row]];
+        [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (IBAction)goHome:(id)sender {

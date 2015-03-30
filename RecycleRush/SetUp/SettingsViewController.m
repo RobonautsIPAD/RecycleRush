@@ -154,6 +154,11 @@
     if (index == NSNotFound) return;
     [prefs setObject:newTournament forKey:@"tournament"];
     [_tournamentButton setTitle:newTournament forState:UIControlStateNormal];
+    // Reset all sync timers
+    [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"teamDataSync"];
+    [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"matchScheduleSync"];
+    [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"matchResultsSync"];
+    [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"scoutingBundleSync"];
 }
 
 

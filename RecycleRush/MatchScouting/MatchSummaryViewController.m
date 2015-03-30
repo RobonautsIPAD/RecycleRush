@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "TeamScore.h"
 #import "TeamData.h"
+#import "MatchAccessors.h"
 
 @interface MatchSummaryViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *teamNumber;
@@ -127,7 +128,9 @@ TeamData *currentTeam;
     [self setLabels:(UILabel *) _c4];
     [self setLabels:(UILabel *) _c5];
     [self setLabels:(UILabel *) _c6];
-    
+    [self setLabels:(UILabel *) _matchType];
+    [self setLabels:(UILabel *) _alliance];
+
     if (_currentScore.matchNumber) {
         self.title =  [NSString stringWithFormat:@"Match %@ : Match Summary", _currentScore.matchNumber];
     }
@@ -149,6 +152,12 @@ TeamData *currentTeam;
 	}
     else if (label == _matchNumber) {
 		_matchNumber.text = [NSString stringWithFormat:@"%@", _currentScore.matchNumber];
+	}
+    else if (label == _matchType) {
+		_matchType.text = [MatchAccessors getMatchTypeString:_currentScore.matchType fromDictionary:_dataManager.matchTypeDictionary];
+	}
+    else if (label == _alliance) {
+		_alliance.text = [MatchAccessors getAllianceString:_currentScore.allianceStation fromDictionary:_dataManager.allianceDictionary];
 	}
     else if (label == _driverRating) {
 		_driverRating.text = [NSString stringWithFormat:@"%@", _currentScore.driverRating];

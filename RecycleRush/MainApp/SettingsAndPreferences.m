@@ -44,8 +44,6 @@
         prefs = [NSUserDefaults standardUserDefaults];        
     }
     
-    // delete this block!
-    NSLog(@"SettingsAndPreferences Delete!");
     [prefs setObject:[NSNumber numberWithInt:2015] forKey:@"year"];
     
     NSNumber *teamDataSync = [prefs objectForKey:@"teamDataSync"];

@@ -236,6 +236,7 @@
     int onBottom = [[denominator objectForKey:@"totes"] intValue];
     int maxCanHeight = [_currentScore.maxCanHeight intValue];
     NSNumber *newHeight = [self addNumbers:[numerator objectForKey:@"totes"] forSecondNumber:[denominator objectForKey:@"totes"]];
+    NSLog(@"newHeight = %@", newHeight);
     if ([newHeight intValue] > maxCanHeight) _currentScore.maxCanHeight = newHeight;
     //NSLog(@"max Can height = %@", _currentScore.maxCanHeight);
     switch (onBottom) {
@@ -327,7 +328,7 @@
     int i = 0;
     int nstacks = 0;
     for (UIView *stack in stackList) {
-        savedStack = [self saveStacks:stack forStack:0];
+        savedStack = [self saveStacks:stack forStack:i];
         if (savedStack) {
             [stackDictionary setObject:savedStack forKey:[NSNumber numberWithInt:i]];
             nstacks++;

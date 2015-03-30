@@ -25,6 +25,8 @@
 @implementation TeamUtilities {
     NSDictionary *teamDataAttributes;
     NSArray *attributeNames;
+    NSUserDefaults *prefs;
+    NSString *deviceName;
     NSArray *teamDataList;
     NSDictionary *triStateDictionary;
     NSDictionary *quadStateDictionary;
@@ -43,8 +45,17 @@
         attributeNames = teamDataAttributes.allKeys;
         // NSLog(@"attirbute name = %@", attributeNames);
         [self initializePreferences];
+        prefs = [NSUserDefaults standardUserDefaults];
+        deviceName = [prefs objectForKey:@"deviceName"];
 	}
 	return self;
+}
+
+-(TeamData *)saveTeam:(TeamData *)team {
+    team.savedBy = deviceName;
+    team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+    [_dataManager saveContext];
+    return team;
 }
 
 -(BOOL)createTeamFromFile:(NSString *)filePath {

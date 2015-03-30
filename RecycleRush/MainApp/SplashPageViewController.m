@@ -48,13 +48,10 @@
 - (void)viewDidLoad
 {
     NSLog(@"Splash Page");
-
+    NSLog(@"Finish mitch stuff");
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
-//    NSNumber *scoutingBundleSync = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-//    [prefs setObject:scoutingBundleSync forKey:@"scoutingBundleSync"];
-
 //    NSLog(@"Do not leave Dallas migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //    dallasMigration = [[DallasMigration alloc] init:_dataManager];
 //    [dallasMigration dallasMigration1];

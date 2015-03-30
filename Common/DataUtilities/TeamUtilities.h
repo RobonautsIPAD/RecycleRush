@@ -19,5 +19,5 @@
 -(TeamData *)addTeam:(NSNumber *)teamNumber forName:(NSString *)teamName forTournament:(NSString *)tournamentName error:(NSError **)error;
 -(NSDictionary *)unpackageTeamForXFer:(NSDictionary *)xferDictionary;
 -(NSDictionary *)packageTeamForXFer:(TeamData *)team;
-
+-(TeamData *)saveTeam:(TeamData *)team;
 @end

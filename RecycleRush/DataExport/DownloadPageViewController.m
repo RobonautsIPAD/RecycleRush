@@ -98,7 +98,7 @@
         [prompt show];
     }
    
-    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Spreadsheet", nil];
+    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Spreadsheet", @"Mitch Data", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
     photoOptionList = [[NSMutableArray alloc] initWithObjects:@"Team Photos", @"Match Photos", nil];
     spreadsheetOptionList = [[NSMutableArray alloc] initWithObjects:@"Scouting Spreadsheet", @"Mitch Data", nil];
@@ -182,14 +182,6 @@
     }
     // Team data
     NSString *csvString;
-    csvString = [[[ExportTeamData alloc] init:_dataManager] teamBundleCSVExport:tournamentName];
-    if (csvString) {
-        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"TeamBundle.csv"];
-        [csvString writeToFile:filePath
-                    atomically:YES
-                      encoding:NSUTF8StringEncoding
-                         error:nil];
-    }
     // Match Schedule
     csvString = [[[ExportMatchData alloc] init:_dataManager] matchDataCSVExport:tournamentName];
     if (csvString) {
@@ -210,7 +202,14 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
-
+    csvString = [[[ExportTeamData alloc] init:_dataManager] teamBundleCSVExport:tournamentName];
+    if (csvString) {
+        NSString *filePath = [mitchPath stringByAppendingPathComponent: @"TeamBundle.csv"];
+        [csvString writeToFile:filePath
+                    atomically:YES
+                      encoding:NSUTF8StringEncoding
+                         error:nil];
+    }
 }
 
 -(void)emailTeamData {

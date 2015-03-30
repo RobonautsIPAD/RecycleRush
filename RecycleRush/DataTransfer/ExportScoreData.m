@@ -207,6 +207,7 @@
         [_dataManager writeErrorMessage:error forType:[error code]];
         return FALSE;
     }
+    NSNumber *scoutingBundleSync = [prefs objectForKey:@"scoutingBundleSync"];
 
     NSString *csvString;
     NSArray *teamList = [TeamAccessors getTeamsInTournament:tournament fromDataManager:_dataManager];
