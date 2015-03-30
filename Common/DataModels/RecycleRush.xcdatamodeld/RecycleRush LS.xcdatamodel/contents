@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F2501" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Competitions" representedClassName="Competitions" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
@@ -62,6 +62,7 @@
         <attribute name="fthing4" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing5" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="length" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="liftType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="maxCanHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxHeight" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
@@ -91,6 +92,7 @@
         <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="wheelDiameter" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="regional" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
         <relationship name="tournaments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Competitions" inverseName="team" inverseEntity="Competitions" syncable="YES"/>
     </entity>
@@ -200,7 +202,7 @@
         <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
-        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="675"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="705"/>
         <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1335"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>

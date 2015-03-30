@@ -85,7 +85,7 @@ TeamData *currentTeam;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSLog(@"%@",_score);
+    NSLog(@"%@",_currentScore);
     [self setLabels:(UILabel *) _teamNumber];
     [self setLabels:(UILabel *) _matchNumber];
     [self setLabels:(UILabel *) _driverRating];
@@ -128,8 +128,8 @@ TeamData *currentTeam;
     [self setLabels:(UILabel *) _c5];
     [self setLabels:(UILabel *) _c6];
     
-    if (_score.matchNumber) {
-        self.title =  [NSString stringWithFormat:@"Match %@ : Match Summary", _score.matchNumber];
+    if (_currentScore.matchNumber) {
+        self.title =  [NSString stringWithFormat:@"Match %@ : Match Summary", _currentScore.matchNumber];
     }
     else {
         self.title = @"Match Summary";
@@ -145,125 +145,125 @@ TeamData *currentTeam;
 - (void)setLabels:(UILabel *)label {
     //    NSLog(@"should end editing");
     if (label == _teamNumber) {
-		_teamNumber.text = [NSString stringWithFormat:@"%@", _score.teamNumber];
+		_teamNumber.text = [NSString stringWithFormat:@"%@", _currentScore.teamNumber];
 	}
     else if (label == _matchNumber) {
-		_matchNumber.text = [NSString stringWithFormat:@"%@", _score.matchNumber];
+		_matchNumber.text = [NSString stringWithFormat:@"%@", _currentScore.matchNumber];
 	}
     else if (label == _driverRating) {
-		_driverRating.text = [NSString stringWithFormat:@"%@", _score.driverRating];
+		_driverRating.text = [NSString stringWithFormat:@"%@", _currentScore.driverRating];
 	}
     else if (label == _knockdowns) {
-		_knockdowns.text = [NSString stringWithFormat:@"%@", _score.stackKnockdowns];
+		_knockdowns.text = [NSString stringWithFormat:@"%@", _currentScore.stackKnockdowns];
 	}
     else if (label == _canDomTime) {
-		_canDomTime.text = [NSString stringWithFormat:@"%@", _score.canDominationTime];
+		_canDomTime.text = [NSString stringWithFormat:@"%@", _currentScore.canDominationTime];
 	}
     else if (label == _canDomCans) {
-		_canDomCans.text = [NSString stringWithFormat:@"%@", _score.autonCansFromStep];
+		_canDomCans.text = [NSString stringWithFormat:@"%@", _currentScore.autonCansFromStep];
 	}
     else if (label == _coopSetBottom) {
-		_coopSetBottom.text = [NSString stringWithFormat:@"%@", _score.coopSetDenominator];
+		_coopSetBottom.text = [NSString stringWithFormat:@"%@", _currentScore.coopSetDenominator];
 	}
     else if (label == _coopSetTop) {
-		_coopSetTop.text = [NSString stringWithFormat:@"%@", _score.coopSetNumerator];
+		_coopSetTop.text = [NSString stringWithFormat:@"%@", _currentScore.coopSetNumerator];
 	}
     else if (label == _coopStackBottom) {
-		_coopStackBottom.text = [NSString stringWithFormat:@"%@", _score.coopStackDenominator];
+		_coopStackBottom.text = [NSString stringWithFormat:@"%@", _currentScore.coopStackDenominator];
 	}
     else if (label == _coopStackTop) {
-		_coopStackTop.text = [NSString stringWithFormat:@"%@", _score.coopStackNumerator];
+		_coopStackTop.text = [NSString stringWithFormat:@"%@", _currentScore.coopStackNumerator];
 	}
     else if (label == _toteSet) {
-		_toteSet.text = [NSString stringWithFormat:@"%@", _score.autonToteSet];
+		_toteSet.text = [NSString stringWithFormat:@"%@", _currentScore.autonToteSet];
 	}
     else if (label == _canSet) {
-		_canSet.text = [NSString stringWithFormat:@"%@", _score.autonCansScored];
+		_canSet.text = [NSString stringWithFormat:@"%@", _currentScore.autonCansScored];
 	}
     else if (label == _totalScore) {
-		_totalScore.text = [NSString stringWithFormat:@"%@", _score.totalScore];
+		_totalScore.text = [NSString stringWithFormat:@"%@", _currentScore.totalScore];
 	}
     else if (label == _totes) {
-		_totes.text = [NSString stringWithFormat:@"%@", _score.totalTotesScored];
+		_totes.text = [NSString stringWithFormat:@"%@", _currentScore.totalTotesScored];
 	}
     else if (label == _cans) {
-		_cans.text = [NSString stringWithFormat:@"%@", _score.totalCansScored];
+		_cans.text = [NSString stringWithFormat:@"%@", _currentScore.totalCansScored];
 	}
     else if (label == _litterInCans) {
-		_litterInCans.text = [NSString stringWithFormat:@"%@", _score.litterInCan];
+		_litterInCans.text = [NSString stringWithFormat:@"%@", _currentScore.litterInCan];
 	}
     else if (label == _dataSavedBy) {
-		_dataSavedBy.text = [NSString stringWithFormat:@"%@", _score.savedBy];
+		_dataSavedBy.text = [NSString stringWithFormat:@"%@", _currentScore.savedBy];
 	}
     else if (label == _totesLandfill) {
-		_totesLandfill.text = [NSString stringWithFormat:@"%@", _score.toteIntakeLandfill];
+		_totesLandfill.text = [NSString stringWithFormat:@"%@", _currentScore.toteIntakeLandfill];
 	}
     else if (label == _totesStep) {
-		_totesStep.text = [NSString stringWithFormat:@"%@", _score.toteIntakeStep];
+		_totesStep.text = [NSString stringWithFormat:@"%@", _currentScore.toteIntakeStep];
 	}
     else if (label == _totesHP) {
-		_totesHP.text = [NSString stringWithFormat:@"%@", _score.toteIntakeHP];
+		_totesHP.text = [NSString stringWithFormat:@"%@", _currentScore.toteIntakeHP];
 	}
     else if (label == _totalTotes) {
-		_totalTotes.text = [NSString stringWithFormat:@"%@", _score.totalTotesIntake];
+		_totalTotes.text = [NSString stringWithFormat:@"%@", _currentScore.totalTotesIntake];
 	}
     else if (label == _canStep) {
-		_canStep.text = [NSString stringWithFormat:@"%@", _score.cansFromStep];
+		_canStep.text = [NSString stringWithFormat:@"%@", _currentScore.cansFromStep];
 	}
     else if (label == _canlandfill) {
-		_canlandfill.text = [NSString stringWithFormat:@"%@", _score.canIntakeFloor];
+		_canlandfill.text = [NSString stringWithFormat:@"%@", _currentScore.canIntakeFloor];
 	}
     else if (label == _robotSet) {
-		_robotSet.text = [NSString stringWithFormat:@"%@", [_score.autonRobotSet boolValue] ? @"Yes": @"No"];
+		_robotSet.text = [NSString stringWithFormat:@"%@", [_currentScore.autonRobotSet boolValue] ? @"Yes": @"No"];
 	}
     else if (label == _toteStack) {
-		_toteStack.text = [NSString stringWithFormat:@"%@", [_score.autonToteStack boolValue] ? @"Yes": @"No"];
+		_toteStack.text = [NSString stringWithFormat:@"%@", [_currentScore.autonToteStack boolValue] ? @"Yes": @"No"];
     }
     else if (label == _robotType) {
-		_robotType.text = [NSString stringWithFormat:@"%@", _score.robotType];
+		_robotType.text = [NSString stringWithFormat:@"%@", _currentScore.robotType];
 	}
     
     else if (label == _t0) {
-		_t0.text = [NSString stringWithFormat:@"%@", _score.totesOn0];
+		_t0.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn0];
 	}
     else if (label == _t1) {
-		_t1.text = [NSString stringWithFormat:@"%@", _score.totesOn1];
+		_t1.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn1];
 	}
     else if (label == _t2) {
-		_t2.text = [NSString stringWithFormat:@"%@", _score.totesOn2];
+		_t2.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn2];
 	}
     else if (label == _t3) {
-		_t3.text = [NSString stringWithFormat:@"%@", _score.totesOn3];
+		_t3.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn3];
 	}
     else if (label == _t4) {
-		_t4.text = [NSString stringWithFormat:@"%@", _score.totesOn4];
+		_t4.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn4];
 	}
     else if (label == _t5) {
-		_t5.text = [NSString stringWithFormat:@"%@", _score.totesOn5];
+		_t5.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn5];
 	}
     else if (label == _t6) {
-		_t6.text = [NSString stringWithFormat:@"%@", _score.totesOn6];
+		_t6.text = [NSString stringWithFormat:@"%@", _currentScore.totesOn6];
 	}
     else if (label == _c0) {
-		_c0.text = [NSString stringWithFormat:@"%@", _score.cansOn0];
+		_c0.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn0];
 	}
     else if (label == _c1) {
-		_c1.text = [NSString stringWithFormat:@"%@", _score.cansOn1];
+		_c1.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn1];
 	}
     else if (label == _c2) {
-		_c2.text = [NSString stringWithFormat:@"%@", _score.cansOn2];
+		_c2.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn2];
 	}
     else if (label == _c3) {
-		_c3.text = [NSString stringWithFormat:@"%@", _score.cansOn3];
+		_c3.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn3];
 	}
     else if (label == _c4) {
-		_c4.text = [NSString stringWithFormat:@"%@", _score.cansOn4];
+		_c4.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn4];
 	}
     else if (label == _c5) {
-		_c5.text = [NSString stringWithFormat:@"%@", _score.cansOn5];
+		_c5.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn5];
 	}
     else if (label == _c6) {
-		_c6.text = [NSString stringWithFormat:@"%@", _score.cansOn6];
+		_c6.text = [NSString stringWithFormat:@"%@", _currentScore.cansOn6];
 	}
 
 }

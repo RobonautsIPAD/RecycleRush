@@ -1618,9 +1618,9 @@
     }
     else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
         [segue.destinationViewController setDataManager:_dataManager];
-        [segue.destinationViewController setScore:currentScore];
+        [segue.destinationViewController setCurrentScore:currentScore];
        // [segue.destinationViewController setTeam:currentTeam];
-}
+    }
 }
 
 - (void)scoringViewFinished {

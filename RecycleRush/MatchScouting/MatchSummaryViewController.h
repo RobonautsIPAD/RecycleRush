@@ -12,6 +12,6 @@
 
 @interface MatchSummaryViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
-@property (nonatomic, strong) TeamScore *score;
+@property (nonatomic, strong) TeamScore *currentScore;
 
 @end

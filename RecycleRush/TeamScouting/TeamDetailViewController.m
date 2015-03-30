@@ -662,7 +662,7 @@
 		_team.weight = [NSNumber numberWithFloat:[_robotWeight.text floatValue]];
 	}
 	else if (textField == _cims) {
-		_team.cims = [NSNumber numberWithInt:[_cims.text intValue]];
+		_team.cims = [NSNumber numberWithFloat:[_cims.text floatValue]];
 	}
     else if (textField == _stackLevelText) {
 		_team.maxToteStack = [NSNumber numberWithInt:[_stackLevelText.text intValue]];
@@ -685,7 +685,7 @@
     if ([resultingString length] == 0) {
         return true;
     }
-    if (textField == _cims || textField == _robotWeight ||textField == _nwheels || textField == _numberText) {
+    if (textField == _robotWeight ||textField == _nwheels || textField == _numberText) {
         NSInteger holder;
         NSScanner *scan = [NSScanner scannerWithString: resultingString];
         
