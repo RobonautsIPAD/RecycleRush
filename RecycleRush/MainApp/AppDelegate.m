@@ -114,7 +114,7 @@
     if (hardware == UIUserInterfaceIdiomPhone) {
         _phoneSplashViewController = (PhoneSplashViewController *)navigationController.topViewController;
         _phoneSplashViewController.dataManager = self.dataManager;
- //       _phoneSplashViewController.dataManager = self.dataManager;
+        _phoneSplashViewController.connectionUtility = self.connectionUtility;
     }
     else {
         splashPageViewController = (SplashPageViewController *)navigationController.topViewController;

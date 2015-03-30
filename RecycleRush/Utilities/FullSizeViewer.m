@@ -14,8 +14,9 @@
 
 @implementation FullSizeViewer {
     UIImageView *imageView;
-    CGRect portrait;
-    CGRect landscape;
+    UIImage *originalImage;
+    UIImageOrientation originalOrientation;
+    CGRect viewSize;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,54 +33,73 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     imageView =  [[UIImageView alloc] init];
-    portrait = [[UIScreen mainScreen] bounds];
-    landscape = portrait;
-    landscape.size.height = portrait.size.width;
-    landscape.size.width = portrait.size.height;
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if (_fullImage) {
-        imageView.image = _fullImage;
+        originalImage = _fullImage;
     }
     else if (_imagePath) {
-        imageView.image = [UIImage imageWithContentsOfFile:_imagePath];
+        originalImage = [UIImage imageWithContentsOfFile:_imagePath];
     }
-    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
-        [imageView setFrame:portrait];
+    originalOrientation = originalImage.imageOrientation;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    // [self.view setBackgroundColor:[UIColor redColor]];
+    // [imageView setBackgroundColor:[UIColor greenColor]];
+    [self.view addSubview:imageView];
+}
+
+- (void)viewWillLayoutSubviews {
+    viewSize = self.view.frame;
+    viewSize.origin.x = 0.0;
+    viewSize.origin.y = 0.0;
+    viewSize.size.height = viewSize.size.height-45.0;
+    [imageView setFrame:viewSize];
+    //NSLog(@"viewWillLayoutSubviews");
+    imageView.image = [[UIImage alloc] initWithCGImage: originalImage.CGImage
+                                                 scale: 1.0
+                                           orientation: originalOrientation];
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        //NSLog(@"Landscape");
+        switch (originalOrientation) {
+            case UIImageOrientationRight:
+                imageView.image = [[UIImage alloc] initWithCGImage: originalImage.CGImage
+                                                           scale: 1.0
+                                                     orientation: UIImageOrientationUp];
+                //NSLog(@"rotating");
+                break;
+                
+            default:
+                break;
+        }
     }
     else {
-        [imageView setFrame:landscape];
+        //NSLog(@"Portrait");
+        switch (imageView.image.imageOrientation) {
+            case UIImageOrientationUp:
+                imageView.image = [[UIImage alloc] initWithCGImage: originalImage.CGImage
+                                                             scale: 1.0
+                                                       orientation: UIImageOrientationRight];
+                //NSLog(@"rotating");
+                break;
+            case UIImageOrientationDown:
+                imageView.image = [[UIImage alloc] initWithCGImage: originalImage.CGImage
+                                                             scale: 1.0
+                                                       orientation: UIImageOrientationRight];
+                //NSLog(@"rotating");
+                break;
+                
+            default:
+                break;
+        }
     }
-//    imageView.contentMode = UIViewContentModeScaleAspectFill;//UIViewContentModeScaleAspectFit;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    [imageView setBackgroundColor:[UIColor blackColor]];
+    // NSLog(@"original orientation = %d", originalOrientation);
+    // NSLog(@"size = %lf, %lf, %lf, %lf", viewSize.origin.x, viewSize.origin.y, viewSize.size.width, viewSize.size.height);
 
-  [self.view addSubview:imageView];
 }
-
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            [imageView setFrame:portrait];
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            [imageView setFrame:portrait];
-            break;
-        default:
-            break;
-    }
-    // Return YES for supported orientations
-	return YES;
-}
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    _fullImage = nil;
 }
 
 @end

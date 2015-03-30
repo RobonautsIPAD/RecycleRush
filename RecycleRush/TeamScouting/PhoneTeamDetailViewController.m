@@ -1,17 +1,17 @@
 //
-//  PitScoutingDataSheet.m
+//  PhoneTeamDetailViewController.m
 //  RecycleRush
 //
-//  Created by FRC on 1/24/15.
+//  Created by FRC on 3/28/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
-#import "PitScoutingDataSheet.h"
+#import "PhoneTeamDetailViewController.h"
 #import "DataManager.h"
-#import "FileIOMethods.h" 
+#import "FileIOMethods.h"
 #import "TeamData.h"
 
-@interface PitScoutingDataSheet ()
+@interface PhoneTeamDetailViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *toteIntakeButton;
 @property (weak, nonatomic) IBOutlet UIButton *canIntakeButton;
 @property (weak, nonatomic) IBOutlet UIButton *liftTypeButton;
@@ -23,23 +23,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *maxHeight;
 @property (weak, nonatomic) IBOutlet UITextField *wheelDiameter;
 @property (weak, nonatomic) IBOutlet UITextField *maxToteStack;
-
-
-
-
-
-
-
-
 @end
 
-@implementation PitScoutingDataSheet {
+@implementation PhoneTeamDetailViewController {
     id popUp;
     NSUserDefaults *prefs;
     NSString *deviceName;
     BOOL dataChange;
-    
-    
     
     NSArray *toteIntakeList;
     NSArray *canIntakeList;
@@ -63,8 +53,8 @@
     [super viewDidLoad];
     prefs = [NSUserDefaults standardUserDefaults];
     deviceName = [prefs objectForKey:@"deviceName"];
+    [self showTeam];
 }
-
 
 -(void)setDataChange {
     //  A change to one of the database fields has been detected. Set the time tag for the
@@ -93,6 +83,23 @@
     }
 }
 
+-(void)showTeam {
+    //  Set the display fields for the currently selected team.
+    self.title = [NSString stringWithFormat:@"%d - %@", [_team.number intValue], _team.name];
+    _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
+    _wheelType.text = _team.wheelType;
+    _numberOfWheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
+    _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
+    _cimsSide.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
+    _maxToteStack.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
+    
+    [_driveTypeButton setTitle:_team.driveTrainType forState:UIControlStateNormal];
+    [_toteIntakeButton setTitle:_team.toteIntake forState:UIControlStateNormal];
+    [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
+    [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
+    [_stackingMech setTitle:_team.stackMechanism forState:UIControlStateNormal];
+    dataChange = NO;
+}
 
 - (IBAction)toteIntakeSelection:(id)sender {
     NSLog(@"toteIntakeButton");
@@ -113,7 +120,7 @@
     popUp= sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Can Intake" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     if (!canIntakeList) canIntakeList = [FileIOMethods initializePopUpList:@"CanIntake"];
-    NSLog(@"%@", canIntakeList);
+    //NSLog(@"%@", canIntakeList);
     for (NSString *canIntake in canIntakeList) {
         [actionSheet addButtonWithTitle:canIntake];
     }
@@ -137,39 +144,11 @@
     [actionSheet showInView:self.view];
 }
 
-- (IBAction)NoodlerOption:(id)sender {
-    NSLog(@"NoodlerOptionButton");
-    popUp= sender;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Noodler Option " delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    if (!triStateList) triStateList = [FileIOMethods initializePopUpList:@"TriState"];
-    for (NSString *noodlerOption in triStateList) {
-        [actionSheet addButtonWithTitle:noodlerOption];
-    }
-    [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet setCancelButtonIndex:[triStateList count]];
-    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    [actionSheet showInView:self.view];
-}
-
 - (IBAction)stackingOptionSelected:(id)sender {
     popUp= sender;
 }
 
-- (IBAction)TrackerOption:(id)sender {
-    NSLog(@"TrackerOptionButton");
-    popUp= sender;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tracker Option " delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    if (!triStateList) triStateList = [FileIOMethods initializePopUpList:@"Tracker Option"];
-    for (NSString *trackerOption in triStateList) {
-        [actionSheet addButtonWithTitle:trackerOption];
-    }
-    [actionSheet addButtonWithTitle:@"Cancel"];
-    [actionSheet setCancelButtonIndex:[triStateList count]];
-    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-    [actionSheet showInView:self.view];
-}
-
-- (IBAction)DriveTypeSelection:(id)sender {
+- (IBAction)driveTypeSelection:(id)sender {
     NSLog(@"DriveTypeButton");
     popUp= sender;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Drive Type " delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -192,57 +171,30 @@
     }
 }
 
-
-
-
-/*
-- (IBAction)toteIntakeSelection:(id)sender {
-        NSLog(@"noodlerOptionButton");
-        popUp= sender;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Noodler Option" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        if (!intakeList) intakeList = [FileIOMethods initializePopUpList:@"NoodlerOption"];
-        for (NSString *intake in intakeList) {
-            [actionSheet addButtonWithTitle:intake];
-        }
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        [actionSheet setCancelButtonIndex:[noodlerList count]];
-        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-        [actionSheet showInView:self.view];
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self setDataChange];
 }
-
-*/
-
-/*
-    - (IBAction)trackerOptionSelection:(id)sender {
-        NSLog(@"trackerOptionButton");
-        popUp= sender;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Tracker Option" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        if (!trackerOptionList) trackerOptionList = [FileIOMethods initializePopUpList:@"TrackerOption"];
-        for (NSString *trackerOption in trackerOptionList) {
-            [actionSheet addButtonWithTitle:trackerOption];
-        }
-        [actionSheet addButtonWithTitle:@"Cancel"];
-        [actionSheet setCancelButtonIndex:[trackerOptionList count]];
-        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-        [actionSheet showInView:self.view];
-    }
-
-    */
-
-
-
-
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

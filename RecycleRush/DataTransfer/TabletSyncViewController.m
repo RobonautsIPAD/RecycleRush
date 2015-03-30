@@ -118,11 +118,10 @@
     syncTableCells = [[SyncTableCells alloc] init:_dataManager];
     syncTypeList = [SyncMethods getSyncTypeList];
     syncOptionList = [SyncMethods getSyncOptionList];
-    [_syncTypeButton setTitle:@"SyncMatchResults" forState:UIControlStateNormal];
-    [_syncOptionsButton setTitle:@"SyncAllSavedSince" forState:UIControlStateNormal];
+    [_syncTypeButton setTitle:@"Sync Match Results" forState:UIControlStateNormal];
+    [_syncOptionsButton setTitle:@"Sync All Since Last Sync" forState:UIControlStateNormal];
     syncType = SyncMatchResults;
     syncOption = SyncAllSavedSince;
-    [self setSendList];
     if (autoConnect) {
         [_autoConnectButton setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateSelected];
         [_autoConnectButton setSelected:YES];
@@ -168,6 +167,11 @@
         [self setServerStatus];
         connectedClients = [_connectionUtility.matchMakingServer connectedClientCount];
         [self buildClientList];
+        syncType = SyncQuickRequest;
+        [_syncTypeButton setTitle:@"Quick Request Status" forState:UIControlStateNormal];
+        [_syncOptionsButton setTitle:@"Sync All Since Last Sync" forState:UIControlStateNormal];
+        syncType = SyncQuickRequest;
+        syncOption = SyncAllSavedSince;
     }
     else if (_connectionUtility.matchMakingClient) {
         // We are already set up as a client
@@ -191,6 +195,8 @@
             [self setClientStatus];
         }
     }
+    [self setSendList];
+
     // Set the notification to receive information after a client had connected or disconnected
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
     // Set the notification to receive information after the server changes status
@@ -289,11 +295,13 @@
             break;
 
         case ClientStateConnecting:
+            [_serverTable setUserInteractionEnabled:NO];
             [_connectionStatusButton setTitle:@"Connecting in Process" forState:UIControlStateNormal];
             [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
             break;
 
         case ClientStateConnected:
+            [_serverTable setUserInteractionEnabled:NO];
             [_serverTable setHidden:TRUE];
             [_connectionStatusButton setTitle:serverName forState:UIControlStateNormal];
             [_connectionStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
@@ -415,11 +423,11 @@
         clientPicker = [[PopUpPickerViewController alloc]
                             initWithStyle:UITableViewStylePlain];
         clientPicker.delegate = self;
-        clientPicker.pickerChoices = clientList;
         clientPickerPopover = [[UIPopoverController alloc]
                                    initWithContentViewController:clientPicker];
     }
     popUp = sender;
+    clientPicker.pickerChoices = clientList;
     [clientPickerPopover presentPopoverFromRect:_connectedDeviceButton.bounds inView:_connectedDeviceButton
                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }

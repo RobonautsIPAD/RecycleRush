@@ -37,7 +37,7 @@
         _session = [[GKSession alloc] initWithSessionID:sessionID displayName:nil sessionMode:GKSessionModeClient];
         _session.delegate = self;
         _session.available = YES;
-        NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientStateSearchingForServers], @"Message", nil];
+        NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientStateSearchingForServers], @"Message", [NSNumber numberWithInt:ClientStateSearchingForServers], @"status", nil];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 	}
 }
@@ -106,7 +106,7 @@
             
             // You're now no longer connected to the server.
 		case GKPeerStateDisconnected:
-			if (_clientState == ClientStateConnected)
+			if (_clientState == ClientStateConnected && [peerID isEqualToString:_serverPeerID])
 			{
 				[self disconnectFromServer];
 			}
@@ -205,13 +205,13 @@
 
 - (void)didDisconnectFromServer:(NSString *)peerID
 {
-    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Disconnected from Server", @"Message", nil];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Disconnected from Server", @"Message", [NSNumber numberWithInt:ClientDisconnect], @"status", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 
 - (void)didConnectToServer:(NSString *)peerID
 {
-    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Connected to server", @"Message", nil];
+    NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Connected to server", @"Message", [NSNumber numberWithInt:ClientConnect], @"status", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }
 

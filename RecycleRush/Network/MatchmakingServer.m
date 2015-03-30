@@ -169,8 +169,8 @@
 }
 
 -(void)clientDidDisconnect:(NSString *)peerID {
-    NSString *msg = [NSString stringWithFormat:@"%@ %@", [self displayNameForPeerID:peerID], @"Disconnected"];
-    [self alertPrompt:msg];
+//    NSString *msg = [NSString stringWithFormat:@"%@ %@", [self displayNameForPeerID:peerID], @"Disconnected"];
+//    [self alertPrompt:msg];
     NSDictionary *userDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:ClientDisconnect], @"Message", [self displayNameForPeerID:peerID], @"PeerID", nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"clientStatusChanged" object:nil userInfo:userDict]];
 }

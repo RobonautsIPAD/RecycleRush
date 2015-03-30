@@ -164,8 +164,8 @@
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         NSString *csvString = nil;
         NSUInteger nmatches = [teamScores count];
-        if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %lu", teamNumber, nmatches];
-        else csvString = [csvString stringByAppendingFormat:@"%@, %lu", teamNumber, nmatches];
+        if (!csvString) csvString = [[NSString alloc] initWithFormat:@"%@, %lu", teamNumber, (unsigned long)nmatches];
+        else csvString = [csvString stringByAppendingFormat:@"%@, %lu", teamNumber, (unsigned long)nmatches];
         if (nmatches) {
             isData = TRUE;
             //if (nmatches > maxMatches) maxMatches = nmatches;
