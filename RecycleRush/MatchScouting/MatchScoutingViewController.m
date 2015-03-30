@@ -26,6 +26,7 @@
 #import "StackViewController.h"
 #import "MatchDrawingViewController.h"
 #import "LNNumberpad.h"
+#import "MatchSummaryViewController.h"
 
 @interface MatchDrawingSegue : UIStoryboardSegue
 @end
@@ -251,6 +252,8 @@
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     [self setDefaults];
+    
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -375,6 +378,7 @@
     _totesOn1Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn1];
     _totesOn2Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn2];
     _totesOn3Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn3];
+    _allianceScore.text = [NSString stringWithFormat:@"%@", currentScore.allianceScore];
     _totesOn4Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn4];
     _totesOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn5];
     _totesOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.totesOn6];
@@ -800,15 +804,16 @@
     [self showTeam:teamIndex];
 }
 - (IBAction)matchResetTapped:(id)sender {
-        NSString *title = @"Confirm Match Reset";
-        NSString *button = @"Reset";
+        NSString *title = @"Empire Says: Are you sure you want to rest?";
+        NSString *button = @"Yes, Reset";
         popUp = sender;
         
         [self confirmationActionSheet:title withButton:button];
+    
 }
     
 -(void)confirmationActionSheet:title withButton:(NSString *)button {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Cancel",  nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Nevermind",  nil];
         
     actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
     [actionSheet showInView:self.view];
@@ -1227,6 +1232,9 @@
     else if (textField == _stackKnockdownText) {
         currentScore.stackKnockdowns = [NSNumber numberWithInt:[_stackKnockdownText.text intValue]];
     }
+    else if (textField == _allianceScore) {
+        currentScore.allianceScore = [NSNumber numberWithInt:[_allianceScore.text intValue]];
+    }
 
     else if (textField == _totesOn0Text) {
         currentScore.totesOn0 = [NSNumber numberWithInt:[_totesOn0Text.text intValue]];
@@ -1359,7 +1367,7 @@
         case DrawOff:
             if (!currentScore.teamNumber || [currentScore.teamNumber intValue] == 0) {
                 UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Team Check Alert"
-                                                                  message:@"No team in this slot"
+                                                                  message:@"FYI There's No Team in This Slot"
                                                                  delegate:nil
                                                         cancelButtonTitle:@"Ok"
                                                         otherButtonTitles:nil];
@@ -1385,7 +1393,7 @@
             break;*/
         case DrawLock:
             popUp = sender;
-            [self confirmationActionSheet:@"Confirm Match Unlock" withButton:@"Unlock"];
+            [self confirmationActionSheet:@"Empire Wants To Know if You Want To Confirm Match Unlock" withButton:@"Yes (Unlock)"];
             break;
         default:
             NSLog(@"Bad things have happened in drawModeChange");
@@ -1580,6 +1588,10 @@
         [segue.destinationViewController setDeviceName:deviceName];
        [segue.destinationViewController setDelegate:self];
     }
+    else if ([segue.identifier isEqualToString:@"FlagView"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setCurrentScore:currentScore];
+    }
     else if ([segue.identifier isEqualToString:@"MainAnalysis"]) {
         [segue.destinationViewController setDataManager:_dataManager];
         // NSLog(@"Match list = %@", matchList);
@@ -1604,6 +1616,11 @@
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
+    else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setScore:currentScore];
+       // [segue.destinationViewController setTeam:currentTeam];
+}
 }
 
 - (void)scoringViewFinished {

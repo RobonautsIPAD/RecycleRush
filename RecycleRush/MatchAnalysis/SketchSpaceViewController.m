@@ -169,7 +169,7 @@
         }
         else {
             CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-            brush = 3.0;
+            brush = 5.0;
         }
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
         CGContextStrokePath(UIGraphicsGetCurrentContext());

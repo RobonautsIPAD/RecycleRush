@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 3/11/15.
+//  Created by FRC on 3/28/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -20,6 +20,9 @@
 @dynamic autonToteSet;
 @dynamic autonToteStack;
 @dynamic blacklist;
+@dynamic blacklistDriver;
+@dynamic blacklistHP;
+@dynamic blacklistRobot;
 @dynamic canDominationTime;
 @dynamic canIntakeFloor;
 @dynamic cansFromStep;
@@ -37,6 +40,7 @@
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fieldPhotoName;
+@dynamic foulNotes;
 @dynamic fouls;
 @dynamic litterHP;
 @dynamic litterInCan;
@@ -49,7 +53,9 @@
 @dynamic oppositeZoneLitter;
 @dynamic otherRating;
 @dynamic received;
+@dynamic redCards;
 @dynamic results;
+@dynamic robotNotes;
 @dynamic robotSpeed;
 @dynamic robotType;
 @dynamic saved;
@@ -85,16 +91,11 @@
 @dynamic totesOn6;
 @dynamic tournamentName;
 @dynamic wowList;
-@dynamic blacklistDriver;
-@dynamic blacklistHP;
-@dynamic blacklistRobot;
-@dynamic foulNotes;
-@dynamic redCards;
-@dynamic robotNotes;
 @dynamic wowlistDriver;
 @dynamic wowlistHP;
 @dynamic wowlistRobot;
 @dynamic yellowCards;
+@dynamic allianceScore;
 @dynamic autonDrawing;
 @dynamic match;
 @dynamic teleOpDrawing;

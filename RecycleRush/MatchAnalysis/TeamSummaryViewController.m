@@ -206,6 +206,9 @@
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
     label3.text = [NSString stringWithFormat:@"%@", score.totalScore];
     
+    UILabel *label5 = (UILabel *)[cell viewWithTag:70];
+    label5.text = [score.robotType substringToIndex:4];
+    
     //UILabel *label4 = (UILabel *)[cell viewWithTag:40];
 	//label4.text = [NSString stringWithFormat:@"%d", [matchList.  intValue]];
     NSDictionary *allianceMembersDictionary = [MatchAccessors buildTeamList:score.match forAllianceDictionary:allianceDictionary];
@@ -255,7 +258,7 @@
         
 - (void)configureTeamStatsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
-   // NSLog(@"%@", stats);
+    NSLog(@"%@", stats);
         if (indexPath.row == 0) {
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"";

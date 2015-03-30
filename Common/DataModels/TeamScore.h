@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 3/11/15.
+//  Created by FRC on 3/28/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -20,6 +20,9 @@
 @property (nonatomic, retain) NSNumber * autonToteSet;
 @property (nonatomic, retain) NSNumber * autonToteStack;
 @property (nonatomic, retain) NSNumber * blacklist;
+@property (nonatomic, retain) NSNumber * blacklistDriver;
+@property (nonatomic, retain) NSNumber * blacklistHP;
+@property (nonatomic, retain) NSNumber * blacklistRobot;
 @property (nonatomic, retain) NSNumber * canDominationTime;
 @property (nonatomic, retain) NSNumber * canIntakeFloor;
 @property (nonatomic, retain) NSNumber * cansFromStep;
@@ -37,6 +40,7 @@
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSString * fieldPhotoName;
+@property (nonatomic, retain) NSString * foulNotes;
 @property (nonatomic, retain) NSNumber * fouls;
 @property (nonatomic, retain) NSNumber * litterHP;
 @property (nonatomic, retain) NSNumber * litterInCan;
@@ -49,7 +53,9 @@
 @property (nonatomic, retain) NSNumber * oppositeZoneLitter;
 @property (nonatomic, retain) NSNumber * otherRating;
 @property (nonatomic, retain) NSNumber * received;
+@property (nonatomic, retain) NSNumber * redCards;
 @property (nonatomic, retain) NSNumber * results;
+@property (nonatomic, retain) NSString * robotNotes;
 @property (nonatomic, retain) NSNumber * robotSpeed;
 @property (nonatomic, retain) NSString * robotType;
 @property (nonatomic, retain) NSNumber * saved;
@@ -85,16 +91,11 @@
 @property (nonatomic, retain) NSNumber * totesOn6;
 @property (nonatomic, retain) NSString * tournamentName;
 @property (nonatomic, retain) NSNumber * wowList;
-@property (nonatomic, retain) NSNumber * blacklistDriver;
-@property (nonatomic, retain) NSNumber * blacklistHP;
-@property (nonatomic, retain) NSNumber * blacklistRobot;
-@property (nonatomic, retain) NSString * foulNotes;
-@property (nonatomic, retain) NSNumber * redCards;
-@property (nonatomic, retain) NSString * robotNotes;
 @property (nonatomic, retain) NSNumber * wowlistDriver;
 @property (nonatomic, retain) NSNumber * wowlistHP;
 @property (nonatomic, retain) NSNumber * wowlistRobot;
 @property (nonatomic, retain) NSNumber * yellowCards;
+@property (nonatomic, retain) NSNumber * allianceScore;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

@@ -272,7 +272,7 @@
     label5.text = [NSString stringWithFormat:@"%d", [info.maxToteStack intValue]];
     
     UILabel *label7 = (UILabel *)[cell viewWithTag:100];
-    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"TotalScore"] objectForKey:@"average"] intValue]];
+    label7.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"totalScore"] objectForKey:@"average"] intValue]];
        
 }
 

@@ -199,7 +199,7 @@
     label2.text = [MatchAccessors getMatchTypeString:score.matchType  fromDictionary:matchTypeDictionary];
     
     UILabel *label3 = (UILabel *)[cell viewWithTag:30];
-    label3.text = @"";
+    label3.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
     
     UILabel *label4 = (UILabel *)[cell viewWithTag:40];
     label4.text = [NSString stringWithFormat:@"%@", [score.results boolValue] ? @"Y": @"N"];

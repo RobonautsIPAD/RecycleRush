@@ -8,12 +8,68 @@
 
 #import "MatchSummaryViewController.h"
 #import "DataManager.h"
+#import "TeamScore.h"
+#import "TeamData.h"
 
 @interface MatchSummaryViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *teamNumber;
+@property (weak, nonatomic) IBOutlet UILabel *teamName;
+@property (weak, nonatomic) IBOutlet UILabel *matchType;
+@property (weak, nonatomic) IBOutlet UILabel *matchNumber;
+@property (weak, nonatomic) IBOutlet UILabel *alliance;
+//Auton
+@property (weak, nonatomic) IBOutlet UILabel *canDomCans;
+@property (weak, nonatomic) IBOutlet UILabel *canDomTime;
+@property (weak, nonatomic) IBOutlet UILabel *toteSet;
+@property (weak, nonatomic) IBOutlet UILabel *canSet;
+@property (weak, nonatomic) IBOutlet UILabel *toteStack;
+@property (weak, nonatomic) IBOutlet UILabel *robotSet;
+//Tele-Op
+@property (weak, nonatomic) IBOutlet UILabel *totes;
+@property (weak, nonatomic) IBOutlet UILabel *cans;
+@property (weak, nonatomic) IBOutlet UILabel *litterInCans;
+@property (weak, nonatomic) IBOutlet UILabel *totalScore;
+@property (weak, nonatomic) IBOutlet UILabel *allianceScore;
+@property (weak, nonatomic) IBOutlet UITableViewCell *totesandcansTable;
+@property (weak, nonatomic) IBOutlet UITableViewCell *totalsTable;
+@property (weak, nonatomic) IBOutlet UILabel *totesStep;
+@property (weak, nonatomic) IBOutlet UILabel *totesLandfill;
+@property (weak, nonatomic) IBOutlet UILabel *totesHP;
+@property (weak, nonatomic) IBOutlet UILabel *totalTotes;
+@property (weak, nonatomic) IBOutlet UILabel *canlandfill;
+@property (weak, nonatomic) IBOutlet UILabel *canStep;
+@property (weak, nonatomic) IBOutlet UILabel *t0;
+@property (weak, nonatomic) IBOutlet UILabel *t1;
+@property (weak, nonatomic) IBOutlet UILabel *t2;
+@property (weak, nonatomic) IBOutlet UILabel *t3;
+@property (weak, nonatomic) IBOutlet UILabel *t4;
+@property (weak, nonatomic) IBOutlet UILabel *t5;
+@property (weak, nonatomic) IBOutlet UILabel *t6;
+@property (weak, nonatomic) IBOutlet UILabel *c0;
+@property (weak, nonatomic) IBOutlet UILabel *c1;
+@property (weak, nonatomic) IBOutlet UILabel *c2;
+@property (weak, nonatomic) IBOutlet UILabel *c3;
+@property (weak, nonatomic) IBOutlet UILabel *c4;
+@property (weak, nonatomic) IBOutlet UILabel *c5;
+@property (weak, nonatomic) IBOutlet UILabel *c6;
+
+//Other Match Info
+@property (weak, nonatomic) IBOutlet UILabel *coopSetTop;
+@property (weak, nonatomic) IBOutlet UILabel *coopSetBottom;
+@property (weak, nonatomic) IBOutlet UILabel *coopStackTop;
+@property (weak, nonatomic) IBOutlet UILabel *coopStackBottom;
+@property (weak, nonatomic) IBOutlet UILabel *knockdowns;
+@property (weak, nonatomic) IBOutlet UILabel *driverRating;
+@property (weak, nonatomic) IBOutlet UILabel *robotType;
+@property (weak, nonatomic) IBOutlet UILabel *dataSavedBy;
+
+
 
 @end
 
 @implementation MatchSummaryViewController
+TeamScore *currentScore;
+TeamData *currentTeam;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -29,6 +85,55 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    NSLog(@"%@",_score);
+    [self setLabels:(UILabel *) _teamNumber];
+    [self setLabels:(UILabel *) _matchNumber];
+    [self setLabels:(UILabel *) _driverRating];
+    [self setLabels:(UILabel *) _knockdowns];
+    [self setLabels:(UILabel *) _canDomTime];
+    [self setLabels:(UILabel *) _canDomCans];
+    [self setLabels:(UILabel *) _coopSetBottom];
+    [self setLabels:(UILabel *) _coopSetTop];
+    [self setLabels:(UILabel *) _coopStackBottom];
+    [self setLabels:(UILabel *) _coopStackTop];
+    [self setLabels:(UILabel *) _toteSet];
+    [self setLabels:(UILabel *) _canSet];
+    [self setLabels:(UILabel *) _totalScore];
+    [self setLabels:(UILabel *) _totes];
+    [self setLabels:(UILabel *) _cans];
+    [self setLabels:(UILabel *) _litterInCans];
+    [self setLabels:(UILabel *) _dataSavedBy];
+    [self setLabels:(UILabel *) _totesLandfill];
+    [self setLabels:(UILabel *) _totesStep];
+    [self setLabels:(UILabel *) _totesHP];
+    [self setLabels:(UILabel *) _totalTotes];
+    [self setLabels:(UILabel *) _canStep];
+    [self setLabels:(UILabel *) _canlandfill];
+    [self setLabels:(UILabel *) _teamName];
+    [self setLabels:(UILabel *) _robotSet];
+    [self setLabels:(UILabel *) _toteStack];
+    [self setLabels:(UILabel *) _robotType];
+    [self setLabels:(UILabel *) _t0];
+    [self setLabels:(UILabel *) _t1];
+    [self setLabels:(UILabel *) _t2];
+    [self setLabels:(UILabel *) _t3];
+    [self setLabels:(UILabel *) _t4];
+    [self setLabels:(UILabel *) _t5];
+    [self setLabels:(UILabel *) _t6];
+    [self setLabels:(UILabel *) _c0];
+    [self setLabels:(UILabel *) _c1];
+    [self setLabels:(UILabel *) _c2];
+    [self setLabels:(UILabel *) _c3];
+    [self setLabels:(UILabel *) _c4];
+    [self setLabels:(UILabel *) _c5];
+    [self setLabels:(UILabel *) _c6];
+    
+    if (_score.matchNumber) {
+        self.title =  [NSString stringWithFormat:@"Match %@ : Match Summary", _score.matchNumber];
+    }
+    else {
+        self.title = @"Match Summary";
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,4 +142,129 @@
     // Dispose of any resources that can be recreated.
 }
 
-@end
+- (void)setLabels:(UILabel *)label {
+    //    NSLog(@"should end editing");
+    if (label == _teamNumber) {
+		_teamNumber.text = [NSString stringWithFormat:@"%@", _score.teamNumber];
+	}
+    else if (label == _matchNumber) {
+		_matchNumber.text = [NSString stringWithFormat:@"%@", _score.matchNumber];
+	}
+    else if (label == _driverRating) {
+		_driverRating.text = [NSString stringWithFormat:@"%@", _score.driverRating];
+	}
+    else if (label == _knockdowns) {
+		_knockdowns.text = [NSString stringWithFormat:@"%@", _score.stackKnockdowns];
+	}
+    else if (label == _canDomTime) {
+		_canDomTime.text = [NSString stringWithFormat:@"%@", _score.canDominationTime];
+	}
+    else if (label == _canDomCans) {
+		_canDomCans.text = [NSString stringWithFormat:@"%@", _score.autonCansFromStep];
+	}
+    else if (label == _coopSetBottom) {
+		_coopSetBottom.text = [NSString stringWithFormat:@"%@", _score.coopSetDenominator];
+	}
+    else if (label == _coopSetTop) {
+		_coopSetTop.text = [NSString stringWithFormat:@"%@", _score.coopSetNumerator];
+	}
+    else if (label == _coopStackBottom) {
+		_coopStackBottom.text = [NSString stringWithFormat:@"%@", _score.coopStackDenominator];
+	}
+    else if (label == _coopStackTop) {
+		_coopStackTop.text = [NSString stringWithFormat:@"%@", _score.coopStackNumerator];
+	}
+    else if (label == _toteSet) {
+		_toteSet.text = [NSString stringWithFormat:@"%@", _score.autonToteSet];
+	}
+    else if (label == _canSet) {
+		_canSet.text = [NSString stringWithFormat:@"%@", _score.autonCansScored];
+	}
+    else if (label == _totalScore) {
+		_totalScore.text = [NSString stringWithFormat:@"%@", _score.totalScore];
+	}
+    else if (label == _totes) {
+		_totes.text = [NSString stringWithFormat:@"%@", _score.totalTotesScored];
+	}
+    else if (label == _cans) {
+		_cans.text = [NSString stringWithFormat:@"%@", _score.totalCansScored];
+	}
+    else if (label == _litterInCans) {
+		_litterInCans.text = [NSString stringWithFormat:@"%@", _score.litterInCan];
+	}
+    else if (label == _dataSavedBy) {
+		_dataSavedBy.text = [NSString stringWithFormat:@"%@", _score.savedBy];
+	}
+    else if (label == _totesLandfill) {
+		_totesLandfill.text = [NSString stringWithFormat:@"%@", _score.toteIntakeLandfill];
+	}
+    else if (label == _totesStep) {
+		_totesStep.text = [NSString stringWithFormat:@"%@", _score.toteIntakeStep];
+	}
+    else if (label == _totesHP) {
+		_totesHP.text = [NSString stringWithFormat:@"%@", _score.toteIntakeHP];
+	}
+    else if (label == _totalTotes) {
+		_totalTotes.text = [NSString stringWithFormat:@"%@", _score.totalTotesIntake];
+	}
+    else if (label == _canStep) {
+		_canStep.text = [NSString stringWithFormat:@"%@", _score.cansFromStep];
+	}
+    else if (label == _canlandfill) {
+		_canlandfill.text = [NSString stringWithFormat:@"%@", _score.canIntakeFloor];
+	}
+    else if (label == _robotSet) {
+		_robotSet.text = [NSString stringWithFormat:@"%@", [_score.autonRobotSet boolValue] ? @"Yes": @"No"];
+	}
+    else if (label == _toteStack) {
+		_toteStack.text = [NSString stringWithFormat:@"%@", [_score.autonToteStack boolValue] ? @"Yes": @"No"];
+    }
+    else if (label == _robotType) {
+		_robotType.text = [NSString stringWithFormat:@"%@", _score.robotType];
+	}
+    
+    else if (label == _t0) {
+		_t0.text = [NSString stringWithFormat:@"%@", _score.totesOn0];
+	}
+    else if (label == _t1) {
+		_t1.text = [NSString stringWithFormat:@"%@", _score.totesOn1];
+	}
+    else if (label == _t2) {
+		_t2.text = [NSString stringWithFormat:@"%@", _score.totesOn2];
+	}
+    else if (label == _t3) {
+		_t3.text = [NSString stringWithFormat:@"%@", _score.totesOn3];
+	}
+    else if (label == _t4) {
+		_t4.text = [NSString stringWithFormat:@"%@", _score.totesOn4];
+	}
+    else if (label == _t5) {
+		_t5.text = [NSString stringWithFormat:@"%@", _score.totesOn5];
+	}
+    else if (label == _t6) {
+		_t6.text = [NSString stringWithFormat:@"%@", _score.totesOn6];
+	}
+    else if (label == _c0) {
+		_c0.text = [NSString stringWithFormat:@"%@", _score.cansOn0];
+	}
+    else if (label == _c1) {
+		_c1.text = [NSString stringWithFormat:@"%@", _score.cansOn1];
+	}
+    else if (label == _c2) {
+		_c2.text = [NSString stringWithFormat:@"%@", _score.cansOn2];
+	}
+    else if (label == _c3) {
+		_c3.text = [NSString stringWithFormat:@"%@", _score.cansOn3];
+	}
+    else if (label == _c4) {
+		_c4.text = [NSString stringWithFormat:@"%@", _score.cansOn4];
+	}
+    else if (label == _c5) {
+		_c5.text = [NSString stringWithFormat:@"%@", _score.cansOn5];
+	}
+    else if (label == _c6) {
+		_c6.text = [NSString stringWithFormat:@"%@", _score.cansOn6];
+	}
+
+}
+  @end

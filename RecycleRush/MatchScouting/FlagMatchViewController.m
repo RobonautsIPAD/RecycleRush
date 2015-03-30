@@ -2,23 +2,13 @@
 //  FlagMatchViewController.m
 //  RecycleRush
 //
-//  Created by FRC on 3/7/15.
+//  Created by FRC on 3/28/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import "FlagMatchViewController.h"
 
 @interface FlagMatchViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *blacklistRobot;
-@property (weak, nonatomic) IBOutlet UIButton *blacklistDriver;
-@property (weak, nonatomic) IBOutlet UIButton *blacklistHP;
-@property (weak, nonatomic) IBOutlet UIButton *wowRobot;
-@property (weak, nonatomic) IBOutlet UIButton *wowDriver;
-@property (weak, nonatomic) IBOutlet UIButton *wowHP;
-@property (weak, nonatomic) IBOutlet UITextView *robotNotes;
-@property (weak, nonatomic) IBOutlet UITextView *foulNotes;
-@property (weak, nonatomic) IBOutlet UITextField *redCardNumber;
-@property (weak, nonatomic) IBOutlet UITextField *yellowCardNumber;
 
 @end
 

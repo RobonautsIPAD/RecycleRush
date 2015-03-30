@@ -29,6 +29,7 @@
 
 
 @interface TeamDetailViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *robotWeight;
     @property (nonatomic, weak) IBOutlet UIButton *prevTeamButton;
     @property (nonatomic, weak) IBOutlet UIButton *nextTeamButton;
     @property (nonatomic, weak) IBOutlet UITextField *numberText;
@@ -68,6 +69,7 @@
     @property (nonatomic, weak) IBOutlet UIButton *classEButton;
     @property (nonatomic, weak) IBOutlet UIButton *classFButton;
     @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
+@property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
     @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
 @end
 
@@ -93,10 +95,15 @@
     NSDictionary *matchTypeDictionary;
     NSDictionary *allianceDictionary;
     NSDictionary *triStateDictionary;
+    TeamScore *currentScore;
     
     PopUpPickerViewController *liftTypePicker;
     UIPopoverController *liftTypePickerPopover;
     NSArray *liftTypeList;
+    
+    PopUpPickerViewController *programmingLanguagePicker;
+    UIPopoverController *programmingLanguagePickerPopover;
+    NSArray *programmingLanguageList;
     
     PopUpPickerViewController *stackingMechPicker;
     UIPopoverController *stackingMechPickerPopover;
@@ -190,20 +197,22 @@
     [self setTextBoxDefaults:_nwheels];
     [self setTextBoxDefaults:_wheelDiameter];
     [self setTextBoxDefaults:_cims];
+    [self setTextBoxDefaults:_robotWeight];
     [self setTextBoxDefaults:_stackLevelText];
     
     _stackLevelText.inputView  = [LNNumberpad defaultLNNumberpad];
     _cims.inputView  = [LNNumberpad defaultLNNumberpad];
+    _robotWeight.inputView  = [LNNumberpad defaultLNNumberpad];
     _maxHeight.inputView  = [LNNumberpad defaultLNNumberpad];
     _wheelDiameter.inputView  = [LNNumberpad defaultLNNumberpad];
     _nwheels.inputView  = [LNNumberpad defaultLNNumberpad];
     _numberText.inputView  = [LNNumberpad defaultLNNumberpad];
     
-    
-   // Set defaults for all the buttons
+       // Set defaults for all the buttons
     [self setBigButtonDefaults:_intakeType];
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
+    [self setBigButtonDefaults:_programmingLanguage];
     [self setBigButtonDefaults:_stackingMechButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
@@ -363,6 +372,7 @@
     _nwheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
+    _robotWeight.text = [NSString stringWithFormat:@"%.0f", [_team.weight floatValue]];
     _stackLevelText.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
 
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
@@ -377,6 +387,8 @@
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
+    [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
+    
 
     [self getPhoto];
     photoList = [self getPhotoList:_team.number];
@@ -534,6 +546,21 @@
         [liftTypePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if (PressedButton == _programmingLanguage) {
+        if (!programmingLanguageList) programmingLanguageList = [FileIOMethods initializePopUpList:@"ProgrammingLanguage"];
+        if (programmingLanguagePicker == nil) {
+            programmingLanguagePicker = [[PopUpPickerViewController alloc]
+                              initWithStyle:UITableViewStylePlain];
+            programmingLanguagePicker.delegate = self;
+            programmingLanguagePicker.pickerChoices = programmingLanguageList;
+        }
+        if (!programmingLanguagePickerPopover) {
+            programmingLanguagePickerPopover = [[UIPopoverController alloc]
+                                     initWithContentViewController:programmingLanguagePicker];
+        }
+        [programmingLanguagePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                             permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
     else if (PressedButton == _stackingMechButton) {
         if (!stackingMechList) stackingMechList = [FileIOMethods initializePopUpList:@"StackingMech"];
         if (stackingMechPicker == nil) {
@@ -574,6 +601,10 @@
     else if (popUp == _canIntakeButton) {
         [canIntakePickerPopover dismissPopoverAnimated:YES];
         _team.canIntake = newPick;
+    }
+    else if (popUp == _programmingLanguage) {
+        [programmingLanguagePickerPopover dismissPopoverAnimated:YES];
+        _team.language = newPick;
     }
     [self setDataChange];
     [popUp setTitle:newPick forState:UIControlStateNormal];
@@ -627,6 +658,9 @@
 	else if (textField == _wheelDiameter) {
 		_team.wheelDiameter = [NSNumber numberWithFloat:[_wheelDiameter.text floatValue]];
 	}
+    else if (textField == _robotWeight) {
+		_team.weight = [NSNumber numberWithFloat:[_robotWeight.text floatValue]];
+	}
 	else if (textField == _cims) {
 		_team.cims = [NSNumber numberWithInt:[_cims.text intValue]];
 	}
@@ -651,7 +685,7 @@
     if ([resultingString length] == 0) {
         return true;
     }
-    if (textField == _cims || textField == _nwheels || textField == _numberText) {
+    if (textField == _cims || textField == _robotWeight ||textField == _nwheels || textField == _numberText) {
         NSInteger holder;
         NSScanner *scan = [NSScanner scannerWithString: resultingString];
         
@@ -836,8 +870,7 @@
         [segue.destinationViewController setStartingIndex:indexPath.row];
         [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
     }
-    else if ([segue.identifier isEqualToString:@"MatchOverlay"]) {
-        [segue.destinationViewController setMatchList:matchList];
+    else if ([segue.identifier isEqualToString:@"TeamMatchSummary"]) {
         [segue.destinationViewController setNumberTeam:_team];
     }
     else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
@@ -847,6 +880,9 @@
         detailViewController.teamList = [NSArray arrayWithObject:_team];
         //detailViewController.matchNumber = currentMatch.number;
            }
+    else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
+        [segue.destinationViewController setDataManager:_dataManager];
+}
 }
 
 - (IBAction)goHome:(id)sender {
@@ -926,7 +962,7 @@
     label3.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
     
     UILabel *label5 = (UILabel *)[cell viewWithTag:70];
-   // label5.text = [NSString stringWithFormat:@"%d", [score.totalScore intValue]];
+    label5.text = [score.robotType substringToIndex:4];
     
     //UILabel *label4 = (UILabel *)[cell viewWithTag:40];
 	//label4.text = [NSString stringWithFormat:@"%d", [matchList.  intValue]];
