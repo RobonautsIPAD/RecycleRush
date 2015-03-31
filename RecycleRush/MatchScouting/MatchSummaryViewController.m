@@ -63,6 +63,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *driverRating;
 @property (weak, nonatomic) IBOutlet UILabel *robotType;
 @property (weak, nonatomic) IBOutlet UILabel *dataSavedBy;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *goAnaylsis;
 
 
 
@@ -130,6 +131,7 @@ TeamData *currentTeam;
     [self setLabels:(UILabel *) _c6];
     [self setLabels:(UILabel *) _matchType];
     [self setLabels:(UILabel *) _alliance];
+    [self setLabels:(UILabel *) _teamName];
 
     if (_currentScore.matchNumber) {
         self.title =  [NSString stringWithFormat:@"Match %@ : Match Summary", _currentScore.matchNumber];
@@ -276,4 +278,13 @@ TeamData *currentTeam;
 	}
 
 }
+- (IBAction)goAnaylsis:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:Nil];
+    return;
+}
+- (IBAction)goScouting:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:Nil];
+    return;
+}
+
   @end

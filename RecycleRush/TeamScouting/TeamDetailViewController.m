@@ -71,6 +71,8 @@
     @property (nonatomic, weak) IBOutlet UIButton *classFButton;
     @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
+@property (weak, nonatomic) IBOutlet UITextField *robotLength;
+@property (weak, nonatomic) IBOutlet UITextField *robotWidth;
     @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
 @end
 
