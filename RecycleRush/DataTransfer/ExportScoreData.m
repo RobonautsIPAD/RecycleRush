@@ -15,6 +15,7 @@
 #import "ScoreUtilities.h"
 #import "TeamData.h"
 #import "TeamAccessors.h"
+#import "TeamUtilities.h"
 #import "MatchData.h"
 
 @implementation ExportScoreData {
@@ -207,7 +208,7 @@
         [_dataManager writeErrorMessage:error forType:[error code]];
         return FALSE;
     }
-    NSNumber *scoutingBundleSync = [prefs objectForKey:@"scoutingBundleSync"];
+    long int scoutingBundleSyncInt = [[prefs objectForKey:@"scoutingBundleSync"] longValue];
 
     NSString *csvString;
     NSArray *teamList = [TeamAccessors getTeamsInTournament:tournament fromDataManager:_dataManager];
@@ -218,6 +219,7 @@
         return FALSE;
     }
 
+    TeamUtilities *teamUtilities = [[TeamUtilities alloc] init:_dataManager];
     NSArray *allKeys = [teamScoreAttributes allKeys];
     csvString = @"teamNumber, matchNumber, matchType";
     for (NSString *key in allKeys) {
@@ -240,7 +242,26 @@
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        // Update Max Tote Height and Max Can height for the team.
+        TeamData *team = [TeamAccessors getTeam:teamNumber fromDataManager:_dataManager];
+        if (team) {
+            int max = [[teamScores valueForKeyPath:@"@max.maxToteHeight"] intValue];
+            //NSLog(@"Max tote = %d", max);
+            if ([team.maxToteStack intValue] != max) {
+                team.maxToteStack = [NSNumber numberWithInt:max];
+                team = [teamUtilities saveTeam:team];
+            }
+            max = [[teamScores valueForKeyPath:@"@max.maxCanHeight"] intValue];
+            //NSLog(@"Max can = %d", max);
+            if ([team.maxCanHeight intValue] != max) {
+                team.maxCanHeight = [NSNumber numberWithInt:max];
+                team = [teamUtilities saveTeam:team];
+            }
+        }
         for (TeamScore *score in teamScores) {
+            // Skip if this record has been printed out already. So, always print if
+            // the scoutingBundleSync is zero or the saved time is greater than the scoutingBundleSync
+            if (scoutingBundleSyncInt && [score.saved longValue]<scoutingBundleSyncInt) continue;
             csvString = [NSString stringWithFormat:@"\n%@, %@, %@", score.teamNumber, score.matchNumber, score.matchType];
             for (NSString *key in allKeys) {
                 if ([key isEqualToString:@"teamNumber"] || [key isEqualToString:@"matchNumber"] || [key isEqualToString:@"matchType"]) continue;

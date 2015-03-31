@@ -13,6 +13,7 @@
     NSArray *dataToPlot;
     CPTTheme *selectedTheme;
 }
+#ifdef __IPHONE_7_0
 
 -(void)initPlot:(UIView *)graphView withData:(NSArray *)plotData {
     dataToPlot = plotData;
@@ -155,5 +156,6 @@
      }*/
 	return @"N/A";
 }
-
+#endif
 @end
+

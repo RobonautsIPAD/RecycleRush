@@ -111,7 +111,9 @@
         error = [NSError errorWithDomain:@"teamBundleCSVExport" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:@"No Team data to export" forKey:NSLocalizedDescriptionKey]];
         [_dataManager writeErrorMessage:error forType:[error code]];
     }
-    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    float scoutingBundleSync = [[prefs objectForKey:@"scoutingBundleSync"] floatValue];
+
     NSString *csvString;
     NSArray *allKeys = [teamDataAttributes allKeys];
     csvString = @"number, name";
@@ -121,6 +123,7 @@
     }
  
     for (TeamData *team in teamData) {
+        if (scoutingBundleSync && [team.saved floatValue]<scoutingBundleSync) continue;
         csvString = [csvString stringByAppendingFormat:@"\n%@, %@", team.number, team.name];
         for (NSString *key in allKeys) {
             if ([key isEqualToString:@"name"] || [key isEqualToString:@"number"]) continue;

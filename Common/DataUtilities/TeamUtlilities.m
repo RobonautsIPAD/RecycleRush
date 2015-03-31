@@ -146,8 +146,6 @@
         return nil;
     }
 
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
     TeamData *team = [self createNewTeam:teamNumber error:error];
     if (!team) return nil; // Unable to create team, error retains value from getTeam
 
