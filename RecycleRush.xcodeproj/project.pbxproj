@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
 		2F0AF5261ACAF8DE0091A71C /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
+		2F0AF5291ACAF9400091A71C /* PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AF5281ACAF9400091A71C /* PieCharts.m */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -224,6 +225,8 @@
 /* Begin PBXFileReference section */
 		2F0648F11A9BBD65004241FA /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDefaults.h; path = RecycleRush/Utilities/UIDefaults.h; sourceTree = SOURCE_ROOT; };
 		2F0648F21A9BBD65004241FA /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDefaults.m; path = RecycleRush/Utilities/UIDefaults.m; sourceTree = SOURCE_ROOT; };
+		2F0AF5271ACAF9400091A71C /* PieCharts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieCharts.h; path = RecycleRush/Utilities/PieCharts.h; sourceTree = SOURCE_ROOT; };
+		2F0AF5281ACAF9400091A71C /* PieCharts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieCharts.m; path = RecycleRush/Utilities/PieCharts.m; sourceTree = SOURCE_ROOT; };
 		2F22D6FD1A79C7EE006C109E /* AutonSP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutonSP.png; path = RecycleRush/Resources/FieldImages/AutonSP.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1288,6 +1291,8 @@
 				2F5D32E71A5FA51000E02523 /* PhotoAttributes.m */,
 				2F5D32E81A5FA51000E02523 /* PhotoCell.h */,
 				2F5D32E91A5FA51000E02523 /* PhotoCell.m */,
+				2F0AF5271ACAF9400091A71C /* PieCharts.h */,
+				2F0AF5281ACAF9400091A71C /* PieCharts.m */,
 				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
 				2F5D32E11A5FA51000E02523 /* FullSizeViewer.m */,
 				2F5D32DE1A5FA51000E02523 /* FileIOMethods.h */,
@@ -1570,6 +1575,7 @@
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
 				2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */,
+				2F0AF5291ACAF9400091A71C /* PieCharts.m in Sources */,
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
 				2FFE723D1AC78890007BCA46 /* TeamScore.m in Sources */,
 				2FB0B33C1ACA1E8000DA007F /* ProjectBaneViewController.m in Sources */,
