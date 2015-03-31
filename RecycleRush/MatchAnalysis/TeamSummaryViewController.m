@@ -92,7 +92,6 @@
               nil];
     NSLog(@"prices = %@", prices);
     
-    pieCharts = [[PieCharts alloc] init];
 	CGRect parentRect = self.view.bounds;
 	parentRect = CGRectMake(605.0,
 							20.0,
@@ -100,7 +99,10 @@
 							285.0);
     graphView = [[UIView alloc] initWithFrame:parentRect];
 	[self.view addSubview:graphView];
+#ifdef __IPHONE_7_0
+    pieCharts = [[PieCharts alloc] init];
     [pieCharts initPlot:graphView withData:prices];
+#endif
 }
 
 -(void)createMatchHeader {

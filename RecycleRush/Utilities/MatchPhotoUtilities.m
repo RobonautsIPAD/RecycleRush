@@ -165,7 +165,7 @@
     [transferData writeToFile:photoExportPath atomically:YES];
 }
 
--(BOOL)exporttMatchPhotoList:(NSArray *)matchPhotoList {
+-(BOOL)exportMatchPhotoList:(NSArray *)matchPhotoList {
     NSError *error;
     // Build a temporary directory to hold just this tournament's photos
     NSString *tmpBuildExport = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:@"tmpPhotoExport"];
@@ -186,7 +186,7 @@
         [fileManager copyItemAtPath:[matchPhotoDirectory stringByAppendingPathComponent:matchPhoto] toPath:[tmpBuildExport stringByAppendingPathComponent:matchPhoto] error:NULL];
     }
     float currentTime = CFAbsoluteTimeGetCurrent();
-    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ Match Photo Transfer_%.0f.mph", tournamentName, currentTime]];
+    NSString *photoExportPath = [[FileIOMethods applicationDocumentsDirectory] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@ %@ Match Photo Transfer_%.0f.mph", deviceName, tournamentName, currentTime]];
     NSURL *url = [NSURL fileURLWithPath:tmpBuildExport];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
     if (dirWrapper == nil) {

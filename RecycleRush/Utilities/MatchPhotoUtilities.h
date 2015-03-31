@@ -16,7 +16,7 @@
 -(NSString *)savePhoto:(UIImage *)image forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
 -(NSString *)getFullPath:(NSString *)photoName;
 -(void)exportMatchPhotos;
--(BOOL)exporttMatchPhotoList:(NSArray *)matchPhotoList;
+-(BOOL)exportMatchPhotoList:(NSArray *)matchPhotoList;
 -(NSMutableArray *)importMatchPhotos:(NSString *)importFile error:(NSError **)error;
 -(NSArray *)getTeamPhotoList:(NSNumber *)teamNumber;
 @end

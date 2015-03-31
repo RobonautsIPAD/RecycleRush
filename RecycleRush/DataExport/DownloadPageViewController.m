@@ -210,6 +210,7 @@
                       encoding:NSUTF8StringEncoding
                          error:nil];
     }
+    [prefs setObject:[NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()] forKey:@"scoutingBundleSync"];
 }
 
 -(void)emailTeamData {

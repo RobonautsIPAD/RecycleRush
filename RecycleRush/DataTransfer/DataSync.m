@@ -281,7 +281,7 @@
             NSString *photoName = [matchPhotoUtilities createBaseName:score.matchNumber forType:[MatchAccessors getMatchTypeString:matchType fromDictionary:_dataManager.matchTypeDictionary] forTeam:score.teamNumber];
             if (photoName) [photoList addObject:photoName];
         }
-        [matchPhotoUtilities exporttMatchPhotoList:photoList];
+        [matchPhotoUtilities exportMatchPhotoList:photoList];
     }
     
     NSArray *requestList = [filteredTeamList arrayByAddingObjectsFromArray:filteredResultsList];
