@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
+		2F0AF5261ACAF8DE0091A71C /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -53,8 +54,6 @@
 		2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */; };
 		2F39F5D71A919EF2004D323B /* LNNumberpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F39F5D51A919EF2004D323B /* LNNumberpad.m */; };
 		2F39F5D81A919EF2004D323B /* LNNumberpad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F39F5D61A919EF2004D323B /* LNNumberpad.xib */; };
-		2F3AECD41AC8F54E0043815F /* PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3AECD31AC8F54E0043815F /* PieCharts.m */; };
-		2F3AECD51AC8F6320043815F /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2F3AECD81AC8F7F50043815F /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3AECD71AC8F7F50043815F /* TeamData.m */; };
 		2F3B8CCD1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */; };
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
@@ -632,6 +631,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0AF5261ACAF8DE0091A71C /* libCorePlot-CocoaTouch.a in Frameworks */,
 				2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */,
 				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
