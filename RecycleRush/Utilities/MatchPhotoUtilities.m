@@ -69,6 +69,11 @@
     }
 }
 
+-(void)saveTransferPhoto:(NSData *)imageData forName:(NSString *)photoName {
+    NSString *fullPath = [matchPhotoDirectory stringByAppendingPathComponent:photoName];
+    [imageData writeToFile:fullPath atomically:YES];
+}
+
 -(NSArray *)getTeamPhotoList:(NSNumber *)teamNumber {
     NSString *team = nil;
     if ([teamNumber intValue] < 100) {

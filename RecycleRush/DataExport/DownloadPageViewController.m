@@ -11,6 +11,7 @@
 #import "FileIOMethods.h"
 #import "MainLogo.h"
 #import "TournamentData.h"
+#import "TeamScore.h"
 #import "ExportTeamData.h"
 #import "ExportScoreData.h"
 #import "ExportMatchData.h"
@@ -32,6 +33,7 @@
 @implementation DownloadPageViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
+    NSString *deviceName;
     NSString *appName;
     NSString *gameName;
     NSFileManager *fileManager;
@@ -76,6 +78,7 @@
 
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
+    deviceName = [prefs objectForKey:@"deviceName"];
     appName = [prefs objectForKey:@"appName"];
     gameName = [prefs objectForKey:@"gameName"];
     if (tournamentName) {
@@ -296,7 +299,21 @@
             [[[PhotoUtilities alloc] init:_dataManager] exportTournamentPhotos:tournamentName];
         }
         else {
-            [[[MatchPhotoUtilities alloc] init:_dataManager] exportMatchPhotos];
+            NSError *error = nil;
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            
+            NSEntityDescription *entity = [NSEntityDescription
+                                           entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+            [fetchRequest setEntity:entity];
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND savedBy = %@", tournamentName, deviceName];
+            [fetchRequest setPredicate:pred];
+            NSArray *matchResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            NSMutableArray *photoList = [NSMutableArray array];
+            for (TeamScore *score in matchResultsList) {
+                NSString *photoName = score.fieldPhotoName;
+                if (photoName) [photoList addObject:photoName];
+            }
+            [[[MatchPhotoUtilities alloc] init:_dataManager] exportMatchPhotoList:photoList];
         }
 
     }

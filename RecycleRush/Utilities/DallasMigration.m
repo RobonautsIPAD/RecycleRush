@@ -9,7 +9,7 @@
 #import "DallasMigration.h"
 #import "DataManager.h"
 #import "MatchPhotoUtilities.h"
-#import "TeamScore.h"
+#import "TeamData.h"
 #import "MatchAccessors.h"
 #import "FieldPhoto.h"
 
@@ -30,6 +30,31 @@
  	}
 	return self;
 }
+
+-(void)sacramentoMigration {
+    // Get all team records
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@", tournamentName, [NSNumber numberWithBool:YES]];
+    //    pred = [NSPredicate predicateWithFormat:@"results = %@", [NSNumber numberWithBool:YES]];
+//    [fetchRequest setPredicate:pred];
+    NSArray *teamDataList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (TeamData *team in teamDataList) {
+        NSLog(@"Team %@ %@", team.number, team.name);
+        team.language = @"Unknown";
+        team.width = [NSNumber numberWithFloat:0.0];
+        team.length = [NSNumber numberWithFloat:0.0];
+        if (!team.maxCanHeight) team.maxCanHeight = [NSNumber numberWithInt:0];
+        if (![_dataManager saveContext]) {
+            NSLog(@"Bad save");
+        }
+    }
+}
+#ifdef NOTUSED
 
 -(void)dallasMigration2 {
     // Get all score record with results
@@ -64,7 +89,6 @@
         }
     }
 }
-#ifdef NOTUSED
 
 -(void)dallasMigration1 {
     // Get all score record with results

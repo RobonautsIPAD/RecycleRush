@@ -14,6 +14,7 @@
 -(id)init:(DataManager *)initManager;
 -(NSString *)createBaseName:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
 -(NSString *)savePhoto:(UIImage *)image forMatch:(NSNumber *)matchNumber forType:(NSString *)matchTypeString forTeam:(NSNumber *)teamNumber;
+-(void)saveTransferPhoto:(NSData *)imageData forName:(NSString *)photoName;
 -(NSString *)getFullPath:(NSString *)photoName;
 -(void)exportMatchPhotos;
 -(BOOL)exportMatchPhotoList:(NSArray *)matchPhotoList;

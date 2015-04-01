@@ -48,13 +48,12 @@
 - (void)viewDidLoad
 {
     NSLog(@"Splash Page");
-    NSLog(@"Finish mitch stuff");
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
-//    NSLog(@"Do not leave Dallas migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//    NSLog(@"Do not leave Sacrament migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //    dallasMigration = [[DallasMigration alloc] init:_dataManager];
-//    [dallasMigration dallasMigration1];
+//    [dallasMigration sacramentoMigration];
 //    [dallasMigration dallasMigration2];
  
     // Display the Label for the Picture
