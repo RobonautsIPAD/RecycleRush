@@ -73,6 +73,7 @@
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
         <attribute name="nwheels" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectBane" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="NO" syncable="YES"/>
         <attribute name="savedBy" optional="YES" attributeType="String" defaultValueString="None" syncable="YES"/>
@@ -118,6 +119,12 @@
         <attribute name="cansOn4" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansOn5" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="cansOn6" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop10" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop13" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop20" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop22" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop30" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coop31" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopSetDenominator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopSetNumerator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopStackDenominator" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -202,8 +209,8 @@
         <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
-        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="705"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1335"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="718"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1425"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

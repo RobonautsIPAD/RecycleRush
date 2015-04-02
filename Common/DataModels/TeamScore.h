@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 3/28/15.
+//  Created by FRC on 4/1/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @interface TeamScore : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * allianceScore;
 @property (nonatomic, retain) NSNumber * allianceStation;
 @property (nonatomic, retain) NSNumber * autonCansFromStep;
 @property (nonatomic, retain) NSNumber * autonCansScored;
@@ -95,7 +96,12 @@
 @property (nonatomic, retain) NSNumber * wowlistHP;
 @property (nonatomic, retain) NSNumber * wowlistRobot;
 @property (nonatomic, retain) NSNumber * yellowCards;
-@property (nonatomic, retain) NSNumber * allianceScore;
+@property (nonatomic, retain) NSNumber * coop10;
+@property (nonatomic, retain) NSNumber * coop20;
+@property (nonatomic, retain) NSNumber * coop30;
+@property (nonatomic, retain) NSNumber * coop31;
+@property (nonatomic, retain) NSNumber * coop13;
+@property (nonatomic, retain) NSNumber * coop22;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

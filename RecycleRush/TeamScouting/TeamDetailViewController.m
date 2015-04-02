@@ -747,8 +747,7 @@
         _imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
         _imagePickerController.delegate = self;
     }
-    _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;// UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    
+    _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;    
     if (!_pictureController) {
         _pictureController = [[UIPopoverController alloc]
                                   initWithContentViewController:_imagePickerController];
