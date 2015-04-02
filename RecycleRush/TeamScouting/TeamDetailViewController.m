@@ -57,18 +57,7 @@
     @property (nonatomic, weak) IBOutlet UICollectionView *photoCollectionView;
 //    @property (nonatomic, weak) IBOutlet UIButton *autonCapacityButton;
     @property (nonatomic, weak) IBOutlet UIButton *autonMobilityButton;
-    @property (nonatomic, weak) IBOutlet UIButton *catcherButton;
-    @property (nonatomic, weak) IBOutlet UIButton *goalieButton;
-    @property (nonatomic, weak) IBOutlet UIButton *hotTrackerButton;
 //    @property (nonatomic, weak) IBOutlet UIButton *robotClassButton;
-    @property (nonatomic, weak) IBOutlet UIButton *shooterButton;
-    @property (nonatomic, weak) IBOutlet UITextField *ballReleaseHeightText;
-    @property (nonatomic, weak) IBOutlet UIButton *classAButton;
-    @property (nonatomic, weak) IBOutlet UIButton *classBButton;
-    @property (nonatomic, weak) IBOutlet UIButton *classCButton;
-    @property (nonatomic, weak) IBOutlet UIButton *classDButton;
-    @property (nonatomic, weak) IBOutlet UIButton *classEButton;
-    @property (nonatomic, weak) IBOutlet UIButton *classFButton;
     @property (weak, nonatomic) IBOutlet UIButton *matchOverlayButton;
 @property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
 @property (weak, nonatomic) IBOutlet UITextField *robotLength;
@@ -197,13 +186,14 @@ TeamData *currentteam;
     // Set defaults for all the text boxes
     [self setTextBoxDefaults:_numberText];
     [self setTextBoxDefaults:_nameTextField];
-    [self setTextBoxDefaults:_ballReleaseHeightText];
     [self setTextBoxDefaults:_maxHeight];
     [self setTextBoxDefaults:_wheelType];
     [self setTextBoxDefaults:_nwheels];
     [self setTextBoxDefaults:_wheelDiameter];
     [self setTextBoxDefaults:_cims];
     [self setTextBoxDefaults:_robotWeight];
+    [self setTextBoxDefaults:_robotWidth];
+    [self setTextBoxDefaults:_robotLength];
     [self setTextBoxDefaults:_stackLevelText];
     
     _stackLevelText.inputView  = [LNNumberpad defaultLNNumberpad];
@@ -213,7 +203,10 @@ TeamData *currentteam;
     _wheelDiameter.inputView  = [LNNumberpad defaultLNNumberpad];
     _nwheels.inputView  = [LNNumberpad defaultLNNumberpad];
     _numberText.inputView  = [LNNumberpad defaultLNNumberpad];
-    
+    _robotWeight.inputView  = [LNNumberpad defaultLNNumberpad];
+    _robotLength.inputView  = [LNNumberpad defaultLNNumberpad];
+    _robotWidth.inputView  = [LNNumberpad defaultLNNumberpad];
+
        // Set defaults for all the buttons
     [self setBigButtonDefaults:_intakeType];
     [self setBigButtonDefaults:_canIntakeButton];
@@ -379,6 +372,8 @@ TeamData *currentteam;
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cims.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
     _robotWeight.text = [NSString stringWithFormat:@"%.0f", [_team.weight floatValue]];
+    _robotWidth.text = [NSString stringWithFormat:@"%.0f", [_team.width floatValue]];
+    _robotLength.text = [NSString stringWithFormat:@"%.0f", [_team.length floatValue]];
 
     NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
@@ -392,7 +387,6 @@ TeamData *currentteam;
     [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
-    [_hotTrackerButton setTitle:_team.visionTracker forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
     
     [self getPhoto];
@@ -668,6 +662,12 @@ TeamData *currentteam;
     else if (textField == _robotWeight) {
 		_team.weight = [NSNumber numberWithFloat:[_robotWeight.text floatValue]];
 	}
+    else if (textField == _robotWidth) {
+		_team.width = [NSNumber numberWithFloat:[_robotWidth.text floatValue]];
+	}
+    else if (textField == _robotLength) {
+		_team.length = [NSNumber numberWithFloat:[_robotLength.text floatValue]];
+	}
 	else if (textField == _cims) {
 		_team.cims = [NSNumber numberWithFloat:[_cims.text floatValue]];
 	}
@@ -692,7 +692,7 @@ TeamData *currentteam;
     if ([resultingString length] == 0) {
         return true;
     }
-    if (textField == _robotWeight ||textField == _nwheels || textField == _numberText) {
+    if (textField == _nwheels || textField == _numberText) {
         NSInteger holder;
         NSScanner *scan = [NSScanner scannerWithString: resultingString];
         
