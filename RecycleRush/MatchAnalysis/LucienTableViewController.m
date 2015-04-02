@@ -10,6 +10,7 @@
 #import "TeamDetailViewController.h"
 #import "TeamData.h"
 #import "TeamAccessors.h"
+#import "DataManager.h"
 
 @interface LucienTableViewController ()
 @property (nonatomic, strong) UIView *headerView;
@@ -19,9 +20,12 @@
 @implementation LucienTableViewController {
     int numberOfColumns;
 }
+
+TeamData *currentteam;
 @synthesize lucienNumbers = _lucienNumbers;
 @synthesize headerView = _headerView;
 @synthesize dataManager = _dataManager;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,22 +52,36 @@
     teamLabel.backgroundColor = [UIColor lightGrayColor];
     [_headerView addSubview:teamLabel];
     
-	UILabel *lucienNumber = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 200, 50)];
-	lucienNumber.text = @"Lucien";
-    lucienNumber.backgroundColor = [UIColor lightGrayColor];
-    [_headerView addSubview:lucienNumber];
-
-    NSArray *Xaxis = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:170],[NSNumber numberWithInt:260],[NSNumber numberWithInt:370], [NSNumber numberWithInt:460], [NSNumber numberWithInt:550], [NSNumber numberWithInt:660], [NSNumber numberWithInt:770], [NSNumber numberWithInt:880], nil];
+	UILabel *teamnumber = [[UILabel alloc] initWithFrame:CGRectMake(150, 0, 200, 50)];
+	teamnumber.text = @"Team #";
+    teamnumber.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:teamnumber];
     
-    for (int i = 1; i<[_lucienSelections count]+1; i++) {
-        NSDictionary *row = [_lucienSelections objectForKey:[NSString stringWithFormat:@"%d",i]];
-        NSString *header = [row objectForKey:@"name"];
-        UILabel *parameterHeader = [[UILabel alloc] initWithFrame:CGRectMake([[Xaxis objectAtIndex:i-1] floatValue], 0, 200, 50)];
-        parameterHeader.text = header;
-        parameterHeader.backgroundColor = [UIColor lightGrayColor];
-        [_headerView addSubview:parameterHeader];
-    }
-    if (numberOfColumns >2) numberOfColumns -= 1;
+    UILabel *language = [[UILabel alloc] initWithFrame:CGRectMake(300, 0, 200, 50)];
+	language.text = @"Language";
+    language.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:language];
+    
+    UILabel *weight = [[UILabel alloc] initWithFrame:CGRectMake(400, 0, 200, 50)];
+	weight.text = @"Weight";
+    weight.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:weight];
+    
+    UILabel *length = [[UILabel alloc] initWithFrame:CGRectMake(500, 0, 200, 50)];
+	length.text = @"Length";
+    length.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:length];
+    
+    UILabel *width = [[UILabel alloc] initWithFrame:CGRectMake(600, 0, 200, 50)];
+	width.text = @"Width";
+    width.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:width];
+    
+    UILabel *highth = [[UILabel alloc] initWithFrame:CGRectMake(700, 0, 200, 50)];
+	highth.text = @"Highth";
+    highth.backgroundColor = [UIColor lightGrayColor];
+    [_headerView addSubview:highth];
+
     
     [super viewDidLoad];
 
@@ -72,6 +90,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,33 +135,23 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_lucienNumbers count];
+    id <NSFetchedResultsSectionInfo> sectionInfo =
+    [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *info = [_lucienNumbers objectAtIndex:indexPath.row];
+    TeamData *_info = [_fetchedResultsController objectAtIndexPath:indexPath];
     // Configure the cell...
     // Set a background for the cell
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
 //    UIImage *image = [UIImage imageNamed:@"Blue Fade.gif"];
 //    imageView.image = image;
+    
     UILabel *teamLabel = (UILabel *)[cell viewWithTag:10];
-	teamLabel.text = [NSString stringWithFormat:@"%@", [info objectForKey:@"team"]];
+	teamLabel.text = [NSString stringWithFormat:@"%@", [info objectForKey:@"ProjectBane"]];
 
-    UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20];
-	lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:@"lucien"] floatValue]];
-
-    for (int i=1; i<=[_lucienSelections count]+1; i++) {
-        UILabel *lucienLabel = (UILabel *)[cell viewWithTag:20+i*10];
-        NSString *key = [NSString stringWithFormat:@"%d", i];
-        NSNumber *value = [info objectForKey:key];
-        if (value) {
-            lucienLabel.text = [NSString stringWithFormat:@"%.1f", [[info objectForKey:key] floatValue]];
-        }
-        else {
-            lucienLabel.text = @"";
-        }
-    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -159,7 +169,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *goldColor = [UIColor colorWithRed:(255.0/255.0) green:(190.0/255.0) blue:(0.0/255.0) alpha:(100.0/100.0)];
+    UIColor *goldColor = [UIColor colorWithRed:(0.0/255.0) green:(100.0/255.0) blue:(255.0/255.0) alpha:(100.0/100.0)];
     cell.backgroundColor = goldColor;
 
 }
@@ -214,6 +224,18 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    // Set up the fetched results controller if needed.
+    if (_fetchedResultsController == nil) {
+        // Create the fetch request for the entity.
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        // Edit the entity name as appropriate.
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LucienNumberFields" inManagedObjectContext:_dataManager.managedObjectContext];
+        [fetchRequest setEntity:entity];
+    }
 }
 
 @end

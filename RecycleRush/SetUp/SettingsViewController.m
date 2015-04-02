@@ -34,6 +34,7 @@
 @property (nonatomic, strong) PopUpPickerViewController *alliancePicker;
 @property (nonatomic, strong) UIPopoverController *alliancePickerPopover;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *modeSegment;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *bluetoothMode;
 @end
 
@@ -282,6 +283,10 @@
 
 -(void)viewWillLayoutSubviews {
     _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
+}
+- (IBAction)goHome:(id)sender {
+    UINavigationController * navigationController = self.navigationController;
+    [navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

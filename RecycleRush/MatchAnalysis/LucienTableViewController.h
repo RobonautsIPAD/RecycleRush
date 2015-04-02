@@ -15,4 +15,5 @@
 @property (nonatomic, strong) NSArray *lucienNumbers;
 @property (nonatomic, strong) NSDictionary *lucienSelections;
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end

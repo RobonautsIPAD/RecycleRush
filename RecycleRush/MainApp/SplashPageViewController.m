@@ -46,8 +46,9 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
-{
-    NSLog(@"Splash Page");
+{ 
+  //  NSLog(@"Splash Page");
+    NSLog(@"FINISH PROJECT BANE BUTTON STUFF & FINISH FLAG PAGE STUFF");
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
@@ -73,7 +74,7 @@
     _tournamentAnalysisButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     [super viewDidLoad];
     
-    NSLog(@"Analysis Pages");
+  //  NSLog(@"Analysis Pages");
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -17,6 +17,8 @@
     @property (nonatomic, weak) IBOutlet UIButton *masonPageButton;
     @property (nonatomic, weak) IBOutlet UIButton *lucianPageButton;
     @property (nonatomic, weak) IBOutlet UIButton *ridleyPageButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancel;
+@property (weak, nonatomic) IBOutlet UIButton *addTeam;
 @end
 
 @implementation TournamentAnalysisViewController
@@ -60,5 +62,12 @@
     _mainLogo = [MainLogo rotate:self.view forImageView:_mainLogo forOrientation:self.interfaceOrientation];
 }
 
+- (IBAction)addTeam:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
+
+- (IBAction)opps:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
 
 @end

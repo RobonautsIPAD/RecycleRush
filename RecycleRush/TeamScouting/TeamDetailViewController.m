@@ -74,6 +74,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *robotLength;
 @property (weak, nonatomic) IBOutlet UITextField *robotWidth;
     @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *projectBaneButton;
 @end
 
 @implementation TeamDetailViewController {
@@ -136,6 +137,8 @@
     NSArray *photoList;
     NSString *selectedPhoto;
 }
+
+TeamData *currentteam;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -563,6 +566,7 @@
         [programmingLanguagePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+
     else if (PressedButton == _stackingMechButton) {
         if (!stackingMechList) stackingMechList = [FileIOMethods initializePopUpList:@"StackingMech"];
         if (stackingMechPicker == nil) {
@@ -608,6 +612,7 @@
         [programmingLanguagePickerPopover dismissPopoverAnimated:YES];
         _team.language = newPick;
     }
+    
     [self setDataChange];
     [popUp setTitle:newPick forState:UIControlStateNormal];
 }
@@ -1039,5 +1044,15 @@
     // Set the button Text Color
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
 }
+- (IBAction)projectBane:(id)sender {
+    [self setDataChange];
+    if (sender == _projectBaneButton) {
+        if ([currentteam.projectBane boolValue]) currentteam.projectBane = [NSNumber numberWithBool:YES];
+        if (_projectBaneButton == nil) NSLog(@"no team");
+        else currentteam.projectBane = [NSNumber numberWithBool:NO];
+            }
+
+}
+
 
 @end

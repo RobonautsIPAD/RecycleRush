@@ -24,9 +24,9 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>catcher</string>
+		<string>projectBane</string>
 		<key>name</key>
-		<string>Catcher</string>
+		<string>ProjectBane</string>
 		<key>table</key>
 		<string>TeamData</string>
 		<key>operators</key>
