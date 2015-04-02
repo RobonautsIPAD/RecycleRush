@@ -81,6 +81,7 @@
     // Customization for different devices and iOS versions
     UIDevice *thisDevice = [UIDevice currentDevice];
     UIUserInterfaceIdiom *hardware = [thisDevice userInterfaceIdiom];
+    float sysVersion = [[thisDevice systemVersion] floatValue];
     // Common to all devices and iOS versions
     navigationController = (UINavigationController *)self.window.rootViewController;
     self.navigationController.navigationBar.translucent = NO;
@@ -91,18 +92,24 @@
                                                            UITextAttributeTextShadowOffset,
                                                            [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], UITextAttributeFont, nil]];
 #ifdef __IPHONE_7_0
-    // iOS 7 and higher
-    // Color of the navigation bar button text
-    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0], UITextAttributeTextColor,
-                                                            [UIColor colorWithRed:0.0 green:0.0 blue:50.0 alpha:0.8],UITextAttributeTextShadowColor,
-                                                            [NSValue valueWithUIOffset:UIOffsetMake(2, 1)],
-                                                            UITextAttributeTextShadowOffset,
-                                                            [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0], UITextAttributeFont, nil] forState:UIControlStateNormal];
-    // The color of the entire navigation bar
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
-    // The color of the arrow thingy for the back button
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    if (sysVersion < 7) {
+        // iOS 6
+        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    }
+    else {
+        // iOS 7 and higher
+        // Color of the navigation bar button text
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0], UITextAttributeTextColor,
+                                                              [UIColor colorWithRed:0.0 green:0.0 blue:50.0 alpha:0.8],UITextAttributeTextShadowColor,
+                                                              [NSValue valueWithUIOffset:UIOffsetMake(2, 1)],
+                                                              UITextAttributeTextShadowOffset,
+                                                              [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0], UITextAttributeFont, nil] forState:UIControlStateNormal];
+        // The color of the entire navigation bar
+        [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
+        // The color of the arrow thingy for the back button
+        [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0]];
+    }
 #else
     // iOS 6
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];

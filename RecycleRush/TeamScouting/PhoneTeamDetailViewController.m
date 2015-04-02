@@ -23,6 +23,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *maxHeight;
 @property (weak, nonatomic) IBOutlet UITextField *wheelDiameter;
 @property (weak, nonatomic) IBOutlet UITextField *maxToteStack;
+@property (weak, nonatomic) IBOutlet UITextField *maxCanStack;
+@property (weak, nonatomic) IBOutlet UITextField *weight;
+@property (weak, nonatomic) IBOutlet UITextField *width;
+@property (weak, nonatomic) IBOutlet UITextField *length;
+@property (weak, nonatomic) IBOutlet UIButton *programmingButton;
 @end
 
 @implementation PhoneTeamDetailViewController {
@@ -36,6 +41,8 @@
     NSArray *liftTypeList;
     NSArray *driveTypeList;
     NSArray *wheelTypeList;
+    NSArray *stackingMechList;
+    NSArray *programmingLanguageList;
     NSArray *triStateList;
 }
 
@@ -53,6 +60,8 @@
     [super viewDidLoad];
     prefs = [NSUserDefaults standardUserDefaults];
     deviceName = [prefs objectForKey:@"deviceName"];
+    self.title = [NSString stringWithFormat:@"%d - %@", [_team.number intValue], _team.name];
+    NSLog(@"%@", _team);
     [self showTeam];
 }
 
@@ -85,19 +94,23 @@
 
 -(void)showTeam {
     //  Set the display fields for the currently selected team.
-    self.title = [NSString stringWithFormat:@"%d - %@", [_team.number intValue], _team.name];
     _maxHeight.text = [NSString stringWithFormat:@"%.1f", [_team.maxHeight floatValue]];
     _wheelType.text = _team.wheelType;
     _numberOfWheels.text = [NSString stringWithFormat:@"%d", [_team.nwheels intValue]];
     _wheelDiameter.text = [NSString stringWithFormat:@"%.1f", [_team.wheelDiameter floatValue]];
     _cimsSide.text = [NSString stringWithFormat:@"%.0f", [_team.cims floatValue]];
     _maxToteStack.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
+    _maxCanStack.text = [NSString stringWithFormat:@"%d", [_team.maxCanHeight intValue]];
+    _weight.text = [NSString stringWithFormat:@"%.1f", [_team.weight floatValue]];
+    _length.text = [NSString stringWithFormat:@"%.1f", [_team.length floatValue]];
+    _width.text = [NSString stringWithFormat:@"%.1f", [_team.width floatValue]];
     
     [_driveTypeButton setTitle:_team.driveTrainType forState:UIControlStateNormal];
     [_toteIntakeButton setTitle:_team.toteIntake forState:UIControlStateNormal];
     [_canIntakeButton setTitle:_team.canIntake forState:UIControlStateNormal];
     [_liftTypeButton setTitle:_team.liftType forState:UIControlStateNormal];
     [_stackingMech setTitle:_team.stackMechanism forState:UIControlStateNormal];
+    [_programmingButton setTitle:_team.language forState:UIControlStateNormal];
     dataChange = NO;
 }
 
@@ -146,6 +159,15 @@
 
 - (IBAction)stackingOptionSelected:(id)sender {
     popUp= sender;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Stacking Mech" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if (!stackingMechList) stackingMechList = [FileIOMethods initializePopUpList:@"StackingMech"];
+    for (NSString *stackType in stackingMechList) {
+        [actionSheet addButtonWithTitle:stackType];
+    }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[stackingMechList count]];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
 }
 
 - (IBAction)driveTypeSelection:(id)sender {
@@ -162,13 +184,57 @@
     [actionSheet showInView:self.view];
 }
 
+- (IBAction)programmingSelection:(id)sender {
+    popUp= sender;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Programming" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if (!programmingLanguageList) programmingLanguageList = [FileIOMethods initializePopUpList:@"ProgrammingLanguage"];
+    for (NSString *programType in programmingLanguageList) {
+        [actionSheet addButtonWithTitle:programType];
+    }
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:[programmingLanguageList count]];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
+}
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [self setDataChange];
     if (popUp == _toteIntakeButton) {
+        if (buttonIndex >= [toteIntakeList count]) return;
         NSString *selection = [toteIntakeList objectAtIndex:buttonIndex];
         _team.toteIntake = selection;
         [_toteIntakeButton setTitle:selection forState:UIControlStateNormal];
     }
+    else if (popUp == _canIntakeButton) {
+        if (buttonIndex >= [canIntakeList count]) return;
+        NSString *selection = [canIntakeList objectAtIndex:buttonIndex];
+        _team.canIntake = selection;
+        [_canIntakeButton setTitle:selection forState:UIControlStateNormal];
+    }
+    else if (popUp == _liftTypeButton) {
+        if (buttonIndex >= [liftTypeList count]) return;
+        NSString *selection = [liftTypeList objectAtIndex:buttonIndex];
+        _team.liftType = selection;
+        [_liftTypeButton setTitle:selection forState:UIControlStateNormal];
+    }
+    else if (popUp == _stackingMech) {
+        if (buttonIndex >= [stackingMechList count]) return;
+        NSString *selection = [stackingMechList objectAtIndex:buttonIndex];
+        _team.stackMechanism = selection;
+        [_stackingMech setTitle:selection forState:UIControlStateNormal];
+    }
+    else if (popUp == _driveTypeButton) {
+        if (buttonIndex >= [driveTypeList count]) return;
+        NSString *selection = [driveTypeList objectAtIndex:buttonIndex];
+        _team.driveTrainType = selection;
+        [_driveTypeButton setTitle:selection forState:UIControlStateNormal];
+    }
+    else if (popUp == _programmingButton) {
+        if (buttonIndex >= [programmingLanguageList count]) return;
+        NSString *selection = [programmingLanguageList objectAtIndex:buttonIndex];
+        _team.language = selection;
+        [_programmingButton setTitle:selection forState:UIControlStateNormal];
+    }
+    [self setDataChange];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -178,6 +244,30 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Limit these text fields to numbers only.
+    if (textField == _wheelType)  return YES;
+    
+    NSString *resultingString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+    
+    // This allows backspace
+    if ([resultingString length] == 0) {
+        return true;
+    }
+    if (textField == _maxCanStack || textField == _numberOfWheels || textField == _maxToteStack) {
+        NSInteger holder;
+        NSScanner *scan = [NSScanner scannerWithString: resultingString];
+        
+        return [scan scanInteger: &holder] && [scan isAtEnd];
+    }
+    else {
+        float holder;
+        NSScanner *scan = [NSScanner scannerWithString: resultingString];
+        
+        return [scan scanFloat: &holder] && [scan isAtEnd];
+    }
 }
 
 - (void)didReceiveMemoryWarning

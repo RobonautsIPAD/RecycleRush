@@ -36,7 +36,55 @@
 		<key>key</key>
 		<string>autonToteStack</string>
 		<key>header</key>
-		<string>Tote Stack Set</string>
+		<string>Stack Set</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop10</string>
+		<key>header</key>
+		<string>Co-Op 1/0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop20</string>
+		<key>header</key>
+		<string>Co-Op 2/0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop30</string>
+		<key>header</key>
+		<string>Co-Op 3/0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop31</string>
+		<key>header</key>
+		<string>Co-Op 3/1</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop13</string>
+		<key>header</key>
+		<string>Co-Op 1/3</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coop22</string>
+		<key>header</key>
+		<string>Co-Op 2/2</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>
@@ -52,7 +100,15 @@
 		<key>key</key>
 		<string>cansFromStep</string>
 		<key>header</key>
-		<string>Cans From Step</string>
+		<string>Cans From Step T</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>toteIntakeHP</string>
+		<key>header</key>
+		<string>HP Tote</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>
@@ -60,7 +116,7 @@
 		<key>key</key>
 		<string>toteIntakeLandfill</string>
 		<key>header</key>
-		<string>Tote Landfill Intake</string>
+		<string>Floor Tote Intake</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>
@@ -68,7 +124,135 @@
 		<key>key</key>
 		<string>canIntakeFloor</string>
 		<key>header</key>
-		<string>Can Floor</string>
+		<string>Floor Can Intake</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>stackKnockdowns</string>
+		<key>header</key>
+		<string>Knockdowns</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>driverRating</string>
+		<key>header</key>
+		<string>Driver</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn0</string>
+		<key>header</key>
+		<string>Totes 0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn1</string>
+		<key>header</key>
+		<string>Totes 1</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn2</string>
+		<key>header</key>
+		<string>Totes 2</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn3</string>
+		<key>header</key>
+		<string>Totes 3</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn4</string>
+		<key>header</key>
+		<string>Totes 4</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn5</string>
+		<key>header</key>
+		<string>Totes 5</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>totesOn6</string>
+		<key>header</key>
+		<string>Totes 6</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn0</string>
+		<key>header</key>
+		<string>Can 0</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn1</string>
+		<key>header</key>
+		<string>Can 1</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn2</string>
+		<key>header</key>
+		<string>Can 2</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn3</string>
+		<key>header</key>
+		<string>Can 3</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn4</string>
+		<key>header</key>
+		<string>Can 4</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn5</string>
+		<key>header</key>
+		<string>Can 5</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>cansOn6</string>
+		<key>header</key>
+		<string>Can 6</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>
@@ -85,150 +269,6 @@
 		<string>maxCanHeight</string>
 		<key>header</key>
 		<string>Max Can Level</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>toteIntakeHP</string>
-		<key>header</key>
-		<string>HP Intake</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>driverRating</string>
-		<key>header</key>
-		<string>Driver</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>stackKnockdowns</string>
-		<key>header</key>
-		<string>Knockdowns</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn0</string>
-		<key>header</key>
-		<string>Totes on 0</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn1</string>
-		<key>header</key>
-		<string>Totes on 1</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn2</string>
-		<key>header</key>
-		<string>Totes on 2</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn3</string>
-		<key>header</key>
-		<string>Totes on 3</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn4</string>
-		<key>header</key>
-		<string>Totes on 4</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn5</string>
-		<key>header</key>
-		<string>Totes on 5</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totesOn6</string>
-		<key>header</key>
-		<string>Totes on 6</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn0</string>
-		<key>header</key>
-		<string>Cans on 0</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn1</string>
-		<key>header</key>
-		<string>Cans on 1</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn2</string>
-		<key>header</key>
-		<string>Cans on 2</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn3</string>
-		<key>header</key>
-		<string>Cans on 3</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn4</string>
-		<key>header</key>
-		<string>Cans on 4</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn5</string>
-		<key>header</key>
-		<string>Cans on 5</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>cansOn6</string>
-		<key>header</key>
-		<string>Cans on 6</string>
-		<key>format</key>
-		<string>integer</string>
-	</dict>
-	<dict>
-		<key>key</key>
-		<string>totalScore</string>
-		<key>header</key>
-		<string>Score</string>
 		<key>format</key>
 		<string>integer</string>
 	</dict>

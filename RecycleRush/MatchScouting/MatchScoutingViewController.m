@@ -311,6 +311,7 @@
          [self setDataChange];*/
     }
     if (dataChange) {
+        [self calculateCoop];
         currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
         currentScore.savedBy = deviceName;
         if (![_dataManager saveContext]) {
@@ -322,6 +323,42 @@
             [prompt setAlertViewStyle:UIAlertViewStyleDefault];
             [prompt show];
         }
+    }
+}
+
+-(void)calculateCoop {
+    if ([currentScore.coopSetNumerator intValue] != 0 && [currentScore.coopStackNumerator intValue] != 0) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Check Co-op Data"
+                                                          message:@"Both Stack and Set data present"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 1 && [currentScore.coopSetDenominator intValue] == 0) ||
+        ([currentScore.coopStackNumerator intValue] == 1 && [currentScore.coopStackDenominator intValue] == 0)) {
+        currentScore.coop10 = [NSNumber numberWithInt:1];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 2 && [currentScore.coopSetDenominator intValue] == 0) ||
+        ([currentScore.coopStackNumerator intValue] == 2 && [currentScore.coopStackDenominator intValue] == 0)) {
+        currentScore.coop20 = [NSNumber numberWithInt:1];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 3 && [currentScore.coopSetDenominator intValue] == 0) ||
+        ([currentScore.coopStackNumerator intValue] == 3 && [currentScore.coopStackDenominator intValue] == 0)) {
+        currentScore.coop30 = [NSNumber numberWithInt:1];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 3 && [currentScore.coopSetDenominator intValue] == 1) ||
+        ([currentScore.coopStackNumerator intValue] == 3 && [currentScore.coopStackDenominator intValue] == 1)) {
+        currentScore.coop31 = [NSNumber numberWithInt:1];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 1 && [currentScore.coopSetDenominator intValue] == 3) ||
+        ([currentScore.coopStackNumerator intValue] == 1 && [currentScore.coopStackDenominator intValue] == 3)) {
+        currentScore.coop13 = [NSNumber numberWithInt:1];
+    }
+    if (([currentScore.coopSetNumerator intValue] == 2 && [currentScore.coopSetDenominator intValue] == 2) ||
+        ([currentScore.coopStackNumerator intValue] == 2 && [currentScore.coopStackDenominator intValue] == 2)) {
+        currentScore.coop22 = [NSNumber numberWithInt:1];
     }
 }
 

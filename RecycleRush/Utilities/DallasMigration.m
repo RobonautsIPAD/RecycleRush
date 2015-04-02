@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "MatchPhotoUtilities.h"
 #import "TeamData.h"
+#import "TeamScore.h"
 #import "MatchAccessors.h"
 #import "FieldPhoto.h"
 
@@ -48,11 +49,56 @@
         team.language = @"Unknown";
         team.width = [NSNumber numberWithFloat:0.0];
         team.length = [NSNumber numberWithFloat:0.0];
+        team.projectBane = [NSNumber numberWithBool:NO];
         if (!team.maxCanHeight) team.maxCanHeight = [NSNumber numberWithInt:0];
         if (![_dataManager saveContext]) {
             NSLog(@"Bad save");
         }
     }
+    entity = [NSEntityDescription entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@", tournamentName, [NSNumber numberWithBool:YES]];
+    //    pred = [NSPredicate predicateWithFormat:@"results = %@", [NSNumber numberWithBool:YES]];
+    [fetchRequest setPredicate:pred];
+    NSArray *matchResultsList = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (TeamScore *score in matchResultsList) {
+        NSString *matchTypeString = [MatchAccessors getMatchTypeString:score.matchType fromDictionary:matchTypeDictionary];
+        NSLog(@"%@ %@ Team %@", matchTypeString, score.matchNumber, score.teamNumber);
+        score.coop10 = [NSNumber numberWithInt:0];
+        score.coop20 = [NSNumber numberWithInt:0];
+        score.coop30 = [NSNumber numberWithInt:0];
+        score.coop31 = [NSNumber numberWithInt:0];
+        score.coop13 = [NSNumber numberWithInt:0];
+        score.coop22 = [NSNumber numberWithInt:0];
+        if (([score.coopSetNumerator intValue] == 1 && [score.coopSetDenominator intValue] == 0) ||
+            ([score.coopStackNumerator intValue] == 1 && [score.coopStackDenominator intValue] == 0)) {
+            score.coop10 = [NSNumber numberWithInt:1];
+        }
+        if (([score.coopSetNumerator intValue] == 2 && [score.coopSetDenominator intValue] == 0) ||
+            ([score.coopStackNumerator intValue] == 2 && [score.coopStackDenominator intValue] == 0)) {
+            score.coop20 = [NSNumber numberWithInt:1];
+        }
+        if (([score.coopSetNumerator intValue] == 3 && [score.coopSetDenominator intValue] == 0) ||
+            ([score.coopStackNumerator intValue] == 3 && [score.coopStackDenominator intValue] == 0)) {
+            score.coop30 = [NSNumber numberWithInt:1];
+        }
+        if (([score.coopSetNumerator intValue] == 3 && [score.coopSetDenominator intValue] == 1) ||
+            ([score.coopStackNumerator intValue] == 3 && [score.coopStackDenominator intValue] == 1)) {
+            score.coop31 = [NSNumber numberWithInt:1];
+        }
+        if (([score.coopSetNumerator intValue] == 1 && [score.coopSetDenominator intValue] == 3) ||
+            ([score.coopStackNumerator intValue] == 1 && [score.coopStackDenominator intValue] == 3)) {
+            score.coop13 = [NSNumber numberWithInt:1];
+        }
+        if (([score.coopSetNumerator intValue] == 2 && [score.coopSetDenominator intValue] == 2) ||
+            ([score.coopStackNumerator intValue] == 2 && [score.coopStackDenominator intValue] == 2)) {
+            score.coop22 = [NSNumber numberWithInt:1];
+        }
+        if (![_dataManager saveContext]) {
+            NSLog(@"Bad save");
+        }
+    }
+
 }
 #ifdef NOTUSED
 

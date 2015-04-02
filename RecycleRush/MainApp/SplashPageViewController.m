@@ -52,7 +52,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
-//    NSLog(@"Do not leave Sacrament migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//    NSLog(@"Do not leave Sacramento migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //    dallasMigration = [[DallasMigration alloc] init:_dataManager];
 //    [dallasMigration sacramentoMigration];
 //    [dallasMigration dallasMigration2];

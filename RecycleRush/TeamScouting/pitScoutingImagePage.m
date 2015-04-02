@@ -203,8 +203,7 @@ _imageView.image = nil;
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setTeam:_team];
     }
-
-    }
+}
 
 
 
