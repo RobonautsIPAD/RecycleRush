@@ -128,7 +128,7 @@
     else return [NSString stringWithFormat:@"%@", data];
 }
 
--(BOOL)spreadsheetCSVExport:(NSString *)tournament toFile:(NSString *)fullPath {
+-(BOOL)spreadsheetCSVExport:(NSString *)tournament withTypes:(NSString *)dataType toFile:(NSString *)fullPath {
     NSError *error = nil;
     NSFileHandle *fullPathHandle;
     BOOL isData = FALSE;
@@ -149,18 +149,25 @@
     [fullData writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     fullPathHandle = [NSFileHandle fileHandleForWritingAtPath:fullPath];
 
+    NSNumber *spreadsheetSync = [prefs objectForKey:@"spreadsheetSync"];
+
     NSArray *teamList = [TeamAccessors getTeamsInTournament:tournamentName fromDataManager:_dataManager];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchType" ascending:YES];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
     for (NSNumber *teamNumber in teamList) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription
-                                       entityForName:@"TeamScore" inManagedObjectContext:_dataManager.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        NSSortDescriptor *typeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.matchType" ascending:YES];
-        NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"match.number" ascending:YES];
-        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:typeDescriptor, numberDescriptor, nil];
-        [fetchRequest setSortDescriptors:sortDescriptors];
-//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], teamNumber];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber];
+        NSPredicate *pred;
+        if ([dataType isEqualToString:@"Practice"]) {
+            pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND teamNumber = %@ && saved > %@", tournament, [NSNumber numberWithBool:YES], teamNumber, spreadsheetSync];
+        }
+        else {
+            pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND match.matchType = %@ AND teamNumber = %@ && saved > %@", tournament, [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchDictionary], teamNumber, spreadsheetSync];
+        }
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         for (TeamScore *score in teamScores) {
@@ -174,6 +181,8 @@
             [fullPathHandle writeData:[csvString dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
+    [prefs setObject:[NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()] forKey:@"spreadsheetSync"];
+
     [fullPathHandle closeFile];
     return isData;
 }

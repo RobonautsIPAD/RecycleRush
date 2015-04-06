@@ -129,7 +129,7 @@
 
 -(void)emailScoutingSpreadsheet:(NSString *)choice {
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName withTypes:@"Competition"  toFile:filePath];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Scouting Spreadsheet"
                                                         message:@"No matches were found"
@@ -138,11 +138,16 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
+    NSString *emailSubject = @"Spreadsheet Data CSV File";
+    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingSpreadsheet.csv", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
 -(void)createScoutingSpreadsheet {
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName withTypes:@"Competition" toFile:filePath];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Scouting Spreadsheet"
                                                         message:@"No matches were found"

@@ -101,10 +101,10 @@
         [prompt show];
     }
    
-    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Spreadsheet", @"Mitch Data", nil];
+    emailOptionList = [[NSMutableArray alloc] initWithObjects:@"Team", @"Match List", @"Practice Spreadsheet", @"Competition Spreadsheet", @"Mitch Data", nil];
     exportOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice", @"Competition", nil];
     photoOptionList = [[NSMutableArray alloc] initWithObjects:@"Team Photos", @"Match Photos", nil];
-    spreadsheetOptionList = [[NSMutableArray alloc] initWithObjects:@"Scouting Spreadsheet", @"Mitch Data", nil];
+    spreadsheetOptionList = [[NSMutableArray alloc] initWithObjects:@"Practice Spreadsheet", @"Competition Spreadsheet", @"Mitch Data", nil];
 
     // Set Font and Text for Export Buttons
     [_emailDataButton setTitle:@"Email Data" forState:UIControlStateNormal];
@@ -158,9 +158,9 @@
                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
--(void)createScoutingSpreadsheet {
+-(void)createScoutingSpreadsheet:(NSString *)choice {
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName withTypes:choice toFile:filePath];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Scouting Spreadsheet"
                                                         message:@"No matches were found"
@@ -260,7 +260,7 @@
 
 -(void)emailScoutingSpreadsheet:(NSString *)choice {
     NSString *filePath = [exportPath stringByAppendingPathComponent: @"ScoutingSpreadsheet.csv"];
-    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName toFile:filePath];
+    BOOL success = [[[ExportScoreData alloc] init:_dataManager] spreadsheetCSVExport:tournamentName withTypes:choice toFile:filePath];
     if (!success) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Scouting Spreadsheet"
                                                         message:@"No matches were found"
@@ -268,7 +268,13 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
+        return;
     }
+    NSString *emailSubject = @"Spreadsheet Data CSV File";
+    NSArray *fileList = [[NSArray alloc] initWithObjects:filePath, nil];
+    NSArray *attachList = [[NSArray alloc] initWithObjects:@"ScoutingSpreadsheet.csv", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"kpettinger@comcast.net", @"BESTRobonauts@gmail.com",nil];
+    [self buildEmail:fileList attach:attachList subject:emailSubject toRecipients:array];
 }
 
 - (void)pickerSelected:(NSString *)newPick {
@@ -282,13 +288,19 @@
         else if ([newPick isEqualToString:@"Match List"]) {
             [self emailMatchData];
         }
-        else if ([newPick isEqualToString:@"Spreadsheet"]) {
+        else if ([newPick isEqualToString:@"Practice Spreadsheet"]) {
+            [self emailScoutingSpreadsheet:@"Practice"];
+        }
+        else if ([newPick isEqualToString:@"Competition Spreadsheet"]) {
             [self emailScoutingSpreadsheet:@"Competition"];
         }
     }
     else if (popUp == _scoutingSheetButton) {
-        if ([newPick isEqualToString:@"Scouting Spreadsheet"]) {
-            [self createScoutingSpreadsheet];
+        if ([newPick isEqualToString:@"Practice Spreadsheet"]) {
+            [self createScoutingSpreadsheet:@"Practice"];
+        }
+        else if ([newPick isEqualToString:@"Competition Spreadsheet"]) {
+            [self createScoutingSpreadsheet:@"Competition"];
         }
         else {
             [self createMitchData];

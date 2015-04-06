@@ -15,7 +15,7 @@
 #import "ScoreAccessors.h"
 #import "MatchPhotoCollectionViewController.h"
 #import "MatchAccessors.h"
-#import "PieCharts.h"
+//#import "PieCharts.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 
@@ -45,7 +45,7 @@
     PopUpPickerViewController *teamPicker;
     UIPopoverController *teamPickerPopover;
 
-    PieCharts *pieCharts;
+//    PieCharts *pieCharts;
     UIView *graphView;
     NSArray *prices;
 }
@@ -100,8 +100,8 @@
     graphView = [[UIView alloc] initWithFrame:parentRect];
 	[self.view addSubview:graphView];
 #ifdef __IPHONE_7_0
-    pieCharts = [[PieCharts alloc] init];
-    [pieCharts initPlot:graphView withData:prices];
+//    pieCharts = [[PieCharts alloc] init];
+//    [pieCharts initPlot:graphView withData:prices];
 #endif
 }
 

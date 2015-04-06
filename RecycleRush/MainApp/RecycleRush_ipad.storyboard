@@ -3019,10 +3019,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ServerList" id="NsG-L0-5aG">
-                                        <rect key="frame" x="0.0" y="22" width="232" height="73"/>
+                                        <rect key="frame" x="0.0" y="22" width="704" height="73"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="232" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="704" height="72"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -7746,6 +7746,13 @@
                                 <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Bane" lineBreakMode="tailTruncation" minimumFontSize="10" id="gmf-bC-dbW">
+                                <rect key="frame" x="357" y="415" width="112" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="22"/>
+                                <color key="textColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="inches" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="qlt-9j-k2Z">
                                 <rect key="frame" x="535" y="374" width="72" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -8009,6 +8016,17 @@
                                     <outlet property="delegate" destination="kha-eL-sUY" id="vlC-Ja-kmB"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PBa-99-BGF">
+                                <rect key="frame" x="560" y="422" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" backgroundImage="RadioButton-Unselected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="radioButtonTapped:" destination="kha-eL-sUY" eventType="touchUpInside" id="L6K-uI-jFR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -8028,17 +8046,12 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="pk5-Vw-oce"/>
-                        <barButtonItem enabled="NO" title="Add to &quot;Project Bane&quot;" id="nor-6O-wOh">
-                            <color key="tintColor" red="1" green="0.18624937320000001" blue="0.67327536759999995" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="projectBane:" destination="kha-eL-sUY" id="qD1-zj-vJd"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="fSa-9J-J2z"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="baneRadioButton" destination="PBa-99-BGF" id="EeM-fx-nZ0"/>
                         <outlet property="cameraBtn" destination="YPO-D8-BGh" id="DPu-3S-2vc"/>
                         <outlet property="canIntakeButton" destination="PQs-ZQ-cgO" id="g6e-ZH-Gjj"/>
                         <outlet property="cims" destination="hmT-a2-kJh" id="4h6-uT-Dcq"/>
@@ -8056,7 +8069,6 @@
                         <outlet property="photoCollectionView" destination="A9r-PP-tDh" id="BPX-Iu-Yi1"/>
                         <outlet property="prevTeamButton" destination="Mji-Qb-Ii1" id="R63-Oc-d6G"/>
                         <outlet property="programmingLanguage" destination="lyq-ib-Dp0" id="nJ0-mH-7Ia"/>
-                        <outlet property="projectBaneButton" destination="nor-6O-wOh" id="vUY-6u-BAj"/>
                         <outlet property="robotLength" destination="Xgh-Ee-Gwz" id="leK-Qa-jed"/>
                         <outlet property="robotWeight" destination="Ego-RH-i5F" id="uAI-Ln-uJL"/>
                         <outlet property="robotWidth" destination="rHC-qa-ble" id="cqx-1Q-61K"/>

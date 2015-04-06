@@ -82,11 +82,35 @@
 		<key>input</key>
 		<string>Tote Stack #</string>
 		<key>output</key>
-		<string>Tote Stack #</string>
+		<string>Max Tote Stack</string>
 		<key>lucien</key>
 		<string># of Totes Stacked</string>
 		<key>dictionary</key>
-		<string>triStateDictionary</string>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>stackMechanism</string>
+		<key>input</key>
+		<string>Stacking, Stacker</string>
+		<key>output</key>
+		<string>Stacking Mechanism</string>
+		<key>lucien</key>
+		<string>Stacking Mech</string>
+		<key>dictionary</key>
+		<string>stackingMechDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxCanHeight</string>
+		<key>input</key>
+		<string>Max Can Height</string>
+		<key>output</key>
+		<string>Max Can Height</string>
+		<key>lucien</key>
+		<string>Max Can Height</string>
+		<key>dictionary</key>
+		<string>integer</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -120,6 +144,14 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>cims</string>
+		<key>output</key>
+		<string>CIMS</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>driveTrainType</string>
 		<key>input</key>
 		<string>drive train type, drive train, drive, drivetrain type, drive traintype, drive type</string>
@@ -130,35 +162,51 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>cims</string>
+		<string>weight</string>
+		<key>input</key>
+		<string>Weight</string>
 		<key>output</key>
-		<string>CIMS</string>
+		<string>Weight</string>
+		<key>lucien</key>
+		<string>Weight</string>
 		<key>format</key>
-		<string>integer</string>
+		<string>float</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>stackMechanism</string>
+		<string>length</string>
 		<key>input</key>
-		<string>Stacking, Stacker</string>
+		<string>Length</string>
 		<key>output</key>
-		<string>Stacking Mechanism</string>
+		<string>Length</string>
 		<key>lucien</key>
-		<string>Stacking Mech</string>
-		<key>dictionary</key>
-		<string>stackingMechDictionary</string>
+		<string>Length</string>
+		<key>format</key>
+		<string>float</string>
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>totalScore</string>
+		<string>width</string>
 		<key>input</key>
-		<string>Total Score</string>
+		<string>Width</string>
 		<key>output</key>
-		<string>Total Score</string>
+		<string>Width</string>
 		<key>lucien</key>
-		<string>Total Score</string>
-		<key>dictionary</key>
-		<string>totalScore</string>
+		<string>Width</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>projectBane</string>
+		<key>input</key>
+		<string>Bane</string>
+		<key>output</key>
+		<string>Bane</string>
+		<key>lucien</key>
+		<string>Bane</string>
+		<key>format</key>
+		<string>boolean</string>
 	</dict>
 	<dict>
 		<key>key</key>
