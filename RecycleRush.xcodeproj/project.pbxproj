@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
-		2F0AF5291ACAF9400091A71C /* PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AF5281ACAF9400091A71C /* PieCharts.m */; };
 		2F0BAE4B1ACCC0180056E730 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */; };
 		2F0BAE4E1ACCE1F50056E730 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0BAE4D1ACCE1F50056E730 /* TeamData.m */; };
 		2F0BAE511ACCE20A0056E730 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0BAE501ACCE20A0056E730 /* TeamScore.m */; };
@@ -223,8 +222,6 @@
 /* Begin PBXFileReference section */
 		2F0648F11A9BBD65004241FA /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDefaults.h; path = RecycleRush/Utilities/UIDefaults.h; sourceTree = SOURCE_ROOT; };
 		2F0648F21A9BBD65004241FA /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDefaults.m; path = RecycleRush/Utilities/UIDefaults.m; sourceTree = SOURCE_ROOT; };
-		2F0AF5271ACAF9400091A71C /* PieCharts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieCharts.h; path = RecycleRush/Utilities/PieCharts.h; sourceTree = SOURCE_ROOT; };
-		2F0AF5281ACAF9400091A71C /* PieCharts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieCharts.m; path = RecycleRush/Utilities/PieCharts.m; sourceTree = SOURCE_ROOT; };
 		2F0BAE491ACCC0180056E730 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = RecycleRush/TeamScouting/DetailScrollViewController.h; sourceTree = SOURCE_ROOT; };
 		2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = RecycleRush/TeamScouting/DetailScrollViewController.m; sourceTree = SOURCE_ROOT; };
 		2F0BAE4C1ACCE1F50056E730 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
@@ -1284,8 +1281,6 @@
 				2F5D32E71A5FA51000E02523 /* PhotoAttributes.m */,
 				2F5D32E81A5FA51000E02523 /* PhotoCell.h */,
 				2F5D32E91A5FA51000E02523 /* PhotoCell.m */,
-				2F0AF5271ACAF9400091A71C /* PieCharts.h */,
-				2F0AF5281ACAF9400091A71C /* PieCharts.m */,
 				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
 				2F5D32E11A5FA51000E02523 /* FullSizeViewer.m */,
 				2F5D32DE1A5FA51000E02523 /* FileIOMethods.h */,
@@ -1569,7 +1564,6 @@
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
 				2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */,
-				2F0AF5291ACAF9400091A71C /* PieCharts.m in Sources */,
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

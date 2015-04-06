@@ -179,8 +179,6 @@
         session = _connectionUtility.matchMakingClient.session;
         peerID = _connectionUtility.matchMakingClient.session.peerID;
         displayID = [_connectionUtility.matchMakingClient displayNameForPeerID:peerID];
-        serverID = [_connectionUtility.matchMakingClient getServerID];
-        serverName = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
         [self setClientStatus];
     }
     else {
@@ -303,6 +301,8 @@
         case ClientStateConnected:
             [_serverTable setUserInteractionEnabled:NO];
             [_serverTable setHidden:TRUE];
+            serverID = [_connectionUtility.matchMakingClient getServerID];
+            serverName = [_connectionUtility.matchMakingClient displayNameForPeerID:serverID];
             [_connectionStatusButton setTitle:serverName forState:UIControlStateNormal];
             [_connectionStatusButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
             [_connectionStatusButton setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
@@ -320,6 +320,13 @@
 -(void)updateClientStatus:(NSNotification *)notification {
     if (bluetoothRole == Scouter) {
         [self setClientStatus];
+        NSDictionary *dictionary = [notification userInfo];
+        NSNumber *connectionMessage = [dictionary objectForKey:@"status"];
+        if ([connectionMessage intValue] == ClientConnect) {
+            if ([_autoConnectButton isSelected]) {
+                [prefs setObject:serverName forKey:@"serverName"];
+           }
+        }
         [_connectedDeviceButton setHidden:TRUE];
  }
     else {

@@ -253,7 +253,7 @@
         
        // if (previousTournament && ![previousTournament isEqualToString:tournamentName]) {
             // NSLog(@"Clear Cache");
-            //[NSFetchedResultsController deleteCacheWithName:@"TeamList"];
+            [NSFetchedResultsController deleteCacheWithName:@"TeamList"];
        // }
         NSFetchedResultsController *aFetchedResultsController =
         [[NSFetchedResultsController alloc]

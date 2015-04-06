@@ -245,12 +245,12 @@
 -(NSArray *)getQuickRequestList:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forOneMatch:(BOOL)oneMatch {
     // Build List for bluetooth
     // Team List First
-    NSArray *filteredTeamList = [self getFilteredTeamList:SyncAllSavedSince];
+/*    NSArray *filteredTeamList = [self getFilteredTeamList:SyncAllSavedSince];
     // Package Team data for iTunes and set team data sync
     NSError *error = nil;
     if (filteredTeamList && [filteredTeamList count]) {
         [self packageDataForiTunes:SyncTeams forData:filteredTeamList error:&error];
-    }
+    }*/
     // Score data
     NSArray *filteredResultsList;
     NSPredicate *pred;
@@ -283,8 +283,9 @@
         }
         [matchPhotoUtilities exportMatchPhotoList:photoList];
     }
+//    NSArray *requestList = [filteredTeamList arrayByAddingObjectsFromArray:filteredResultsList];
     
-    NSArray *requestList = [filteredTeamList arrayByAddingObjectsFromArray:filteredResultsList];
+    NSArray *requestList = filteredResultsList;
     return requestList;
 }
 

@@ -101,7 +101,7 @@
         // Color of the navigation bar button text
         [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                               [UIColor colorWithRed:255.0/255.0 green:190.0/255.0 blue:0.0/255.0 alpha:1.0], UITextAttributeTextColor,
-                                                              [UIColor colorWithRed:0.0 green:0.0 blue:50.0 alpha:0.8],UITextAttributeTextShadowColor,
+                                                              [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],UITextAttributeTextShadowColor,
                                                               [NSValue valueWithUIOffset:UIOffsetMake(2, 1)],
                                                               UITextAttributeTextShadowOffset,
                                                               [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:18.0], UITextAttributeFont, nil] forState:UIControlStateNormal];

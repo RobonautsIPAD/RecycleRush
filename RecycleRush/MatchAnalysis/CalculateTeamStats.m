@@ -47,20 +47,6 @@
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (matchType = %@ || matchType = %@)", tournament, [NSNumber numberWithBool:YES], [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary], [EnumerationDictionary getValueFromKey:@"Elimination" forDictionary:matchTypeDictionary]];
     NSArray *matches = [allMatches filteredArrayUsingPredicate:pred];
-    int max = [[matches valueForKeyPath:@"@max.maxToteHeight"] intValue];
-    if (max > 6) NSLog(@"matches = %@", matches);
-    NSLog(@"Max tote = %d", max);
-    if ([team.maxToteStack intValue] != max) {
-        team.maxToteStack = [NSNumber numberWithInt:max];
-        team = [teamUtilities saveTeam:team];
-    }
-    max = [[matches valueForKeyPath:@"@max.maxCanHeight"] intValue];
-    NSLog(@"Max can = %d", max);
-    if ([team.maxCanHeight intValue] != max) {
-        team.maxCanHeight = [NSNumber numberWithInt:max];
-        team = [teamUtilities saveTeam:team];
-    }
-
     NSUInteger numberOfMatches = [matches count];
     for (int j=1; j<[parameterList count]; j++) {
         NSDictionary *parameter = [parameterList objectAtIndex:j];

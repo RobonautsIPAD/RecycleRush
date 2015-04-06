@@ -80,13 +80,23 @@
 		<key>key</key>
 		<string>maxToteStack</string>
 		<key>input</key>
-		<string>Tote Stack #</string>
+		<string>Max Tote Stack</string>
 		<key>output</key>
-		<string>Tote Stack #</string>
+		<string>Max Tote Stack</string>
 		<key>lucien</key>
-		<string># of Totes Stacked</string>
+		<string>Max Tote Stack</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>maxCanHeight</string>
+		<key>input</key>
+		<string>Max Can Height</string>
+		<key>output</key>
+		<string>Max Can Height</string>
+		<key>lucien</key>
+		<string>Max Can Height</string>
 		<key>dictionary</key>
-		<string>triStateDictionary</string>
+		<string>integer</string>
 	</dict>
 	<dict>
 		<key>key</key>
@@ -150,15 +160,51 @@
 	</dict>
 	<dict>
 		<key>key</key>
-		<string>autonMobility</string>
+		<string>weight</string>
 		<key>input</key>
-		<string>Auton Mobility</string>
+		<string>Weight</string>
 		<key>output</key>
-		<string>Auton Mobility</string>
+		<string>Weight</string>
 		<key>lucien</key>
-		<string>Auton Mobility</string>
-		<key>dictionary</key>
-		<string>triStateDictionary</string>
+		<string>Weight</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>length</string>
+		<key>input</key>
+		<string>Length</string>
+		<key>output</key>
+		<string>Length</string>
+		<key>lucien</key>
+		<string>Length</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>width</string>
+		<key>input</key>
+		<string>Width</string>
+		<key>output</key>
+		<string>Width</string>
+		<key>lucien</key>
+		<string>Width</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>projectBane</string>
+		<key>input</key>
+		<string>Bane</string>
+		<key>output</key>
+		<string>Bane</string>
+		<key>lucien</key>
+		<string>Bane</string>
+		<key>format</key>
+		<string>boolean</string>
 	</dict>
 	<dict>
 		<key>key</key>

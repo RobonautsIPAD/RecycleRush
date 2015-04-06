@@ -62,8 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
 @property (weak, nonatomic) IBOutlet UITextField *robotLength;
 @property (weak, nonatomic) IBOutlet UITextField *robotWidth;
-    @property (weak, nonatomic) IBOutlet UIButton *spitBotButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *projectBaneButton;
+@property (weak, nonatomic) IBOutlet UIButton *baneRadioButton;
 @end
 
 @implementation TeamDetailViewController {
@@ -268,6 +267,7 @@ TeamData *currentteam;
     // At some point, we really need to decide on real error handling.
     if (dataChange) {
         _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
+        if (!_team.weight) _team.weight = [NSNumber numberWithFloat:0.0];
         if (![_dataManager saveContext]) {
             UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
                                                               message:@"Unable to save data"
@@ -379,6 +379,31 @@ TeamData *currentteam;
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
     matchList = [ScoreAccessors getMatchListForTeam:_team.number forTournament:tournamentName fromDataManager:_dataManager];
+
+    // Look for Qual or Elim matches Only
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"matchType = %@ || matchType = %@", [EnumerationDictionary getValueFromKey:@"Qualification" forDictionary:matchTypeDictionary], [EnumerationDictionary getValueFromKey:@"Elimination" forDictionary:matchTypeDictionary]];
+    NSArray *matches = [matchList filteredArrayUsingPredicate:pred];
+    // If there aren't any Qual or Elim matches, then use practice matches
+    if (![matches count]) {
+        pred = [NSPredicate predicateWithFormat:@"matchType = %@", [EnumerationDictionary getValueFromKey:@"Practice" forDictionary:matchTypeDictionary]];
+        matches = [matchList filteredArrayUsingPredicate:pred];
+    }
+    int max = [[matches valueForKeyPath:@"@max.maxToteHeight"] intValue];
+    if (max > 6) NSLog(@"matches = %@", matches);
+    // NSLog(@"Max tote = %d", max);
+    if ([_team.maxToteStack intValue] != max) {
+        _team.maxToteStack = [NSNumber numberWithInt:max];
+        [self setDataChange];
+        [self checkDataStatus];
+    }
+    max = [[matches valueForKeyPath:@"@max.maxCanHeight"] intValue];
+    // NSLog(@"Max can = %d", max);
+    if ([_team.maxCanHeight intValue] != max) {
+        _team.maxCanHeight = [NSNumber numberWithInt:max];
+        [self setDataChange];
+        [self checkDataStatus];
+    }
+    
     _stackLevelText.text = [NSString stringWithFormat:@"%d", [_team.maxToteStack intValue]];
 
     [_driveType setTitle:_team.driveTrainType forState:UIControlStateNormal];
@@ -388,21 +413,34 @@ TeamData *currentteam;
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
-    
+    [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
+
     [self getPhoto];
     photoList = [self getPhotoList:_team.number];
     [_photoCollectionView reloadData];
     dataChange = NO;
 }
 
--(void)setRadioButtonState:(UIButton *)button forState:(NSString *)selection {
-    NSNumber *newState = [triStateDictionary objectForKey:selection];
-    if ([newState intValue] == -1 || [newState intValue] == 0) {
+-(void)setRadioButtonState:(UIButton *)button forState:(NSUInteger)selection {
+    if (selection == -1 || selection == 0) {
         [button setImage:[UIImage imageNamed:@"RadioButton-Unselected.png"] forState:UIControlStateNormal];
     }
     else {
         [button setImage:[UIImage imageNamed:@"RadioButton-Selected.png"] forState:UIControlStateNormal];
     }
+}
+
+- (IBAction)radioButtonTapped:(id)sender {
+    if (sender == _baneRadioButton) { // It is on, turn it off
+        if ([_team.projectBane intValue]) {
+            _team.projectBane = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            _team.projectBane = [NSNumber numberWithBool:YES];
+        }
+        [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
+    }
+    [self setDataChange];
 }
 
 -(NSInteger)getNumberOfTeams {
@@ -514,21 +552,6 @@ TeamData *currentteam;
         }
         [canIntakePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                                permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-    else if (PressedButton == _spitBotButton) {
-        if (!quadStateList) quadStateList = [FileIOMethods initializePopUpList:@"QuadState"];
-        if (quadStatePicker == nil) {
-            quadStatePicker = [[PopUpPickerViewController alloc]
-                            initWithStyle:UITableViewStylePlain];
-            quadStatePicker.delegate = self;
-            quadStatePicker.pickerChoices = quadStateList;
-        }
-        if (!quadStatePickerPopover) {
-            quadStatePickerPopover = [[UIPopoverController alloc]
-                                   initWithContentViewController:quadStatePicker];
-        }
-        [quadStatePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
-                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else if (PressedButton == _liftTypeButton) {
         if (!liftTypeList) liftTypeList = [FileIOMethods initializePopUpList:@"LiftType"];
@@ -782,7 +805,7 @@ TeamData *currentteam;
     [actionSheet showFromRect:_cameraBtn.frame inView:self.view animated:YES];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (action == _cameraBtn) {
         if (buttonIndex == 0) {
             [self takePhoto];
@@ -1042,15 +1065,6 @@ TeamData *currentteam;
     [currentButton setBackgroundColor:[UIColor whiteColor]];
     // Set the button Text Color
     [currentButton setTitleColor:[UIColor colorWithRed:(0.0/255) green:(0.0/255) blue:(120.0/255) alpha:1.0 ]forState: UIControlStateNormal];
-}
-- (IBAction)projectBane:(id)sender {
-    [self setDataChange];
-    if (sender == _projectBaneButton) {
-        if ([currentteam.projectBane boolValue]) currentteam.projectBane = [NSNumber numberWithBool:YES];
-        if (_projectBaneButton == nil) NSLog(@"no team");
-        else currentteam.projectBane = [NSNumber numberWithBool:NO];
-            }
-
 }
 
 

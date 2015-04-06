@@ -160,6 +160,7 @@
     [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"matchScheduleSync"];
     [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"matchResultsSync"];
     [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"scoutingBundleSync"];
+    [prefs setObject:[NSNumber numberWithFloat:0] forKey:@"spreadsheetSync"];
 }
 
 

@@ -50,7 +50,7 @@
 #ifdef DEBUG
 	//NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
 #endif
-    NSLog(@"Receiving");
+    // NSLog(@"Receiving");
     Packet *packet = [self unarchiveData:data];
     //NSLog(@"dataDictionary = %@", packet.dataDictionary);
 //    NSString *myType = (NSString*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -243,6 +243,7 @@
         if ([_matchMakingServer getServerState] == ServerStateIdle) {
             _matchMakingServer = [self setMatchMakingServer];
             [_matchMakingServer startAcceptingConnectionsForSessionID:SESSION_ID];
+            [_matchMakingServer.session setDataReceiveHandler:self withContext:nil];
         }
     }
 }

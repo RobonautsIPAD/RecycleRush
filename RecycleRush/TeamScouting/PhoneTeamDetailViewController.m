@@ -197,7 +197,7 @@
     [actionSheet showInView:self.view];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (popUp == _toteIntakeButton) {
         if (buttonIndex >= [toteIntakeList count]) return;
         NSString *selection = [toteIntakeList objectAtIndex:buttonIndex];
