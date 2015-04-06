@@ -177,7 +177,6 @@
 		2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */; };
 		2FB3582A1A731C74005625AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB358291A731C74005625AD /* Images.xcassets */; };
 		2FB6B0EC1A9D67E600ADDBCE /* StackingMech.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */; };
-		2FBA669F1ACCF5A9001FCAE4 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */; };
 		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
@@ -631,7 +630,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FBA669F1ACCF5A9001FCAE4 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */,
 				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
