@@ -128,7 +128,11 @@
         green = green3;
         blue = blue3;
     }
-
+    if (![_team1Button isSelected] && ![_team2Button isSelected] && ![_team3Button isSelected]) {
+        red = 0;
+        green = 0;
+        blue = 0;
+    }
 }
 
 -(void)coupledRadioButtons:(UIButton *)button1 forSecond:(UIButton *)button2 forThird:(UIButton *)button3 {
