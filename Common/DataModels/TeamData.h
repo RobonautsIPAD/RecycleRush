@@ -2,7 +2,7 @@
 //  TeamData.h
 //  RecycleRush
 //
-//  Created by FRC on 4/1/15.
+//  Created by FRC on 4/8/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * nwheels;
 @property (nonatomic, retain) NSString * primePhoto;
+@property (nonatomic, retain) NSNumber * projectBane;
 @property (nonatomic, retain) NSNumber * received;
 @property (nonatomic, retain) NSNumber * saved;
 @property (nonatomic, retain) NSString * savedBy;
@@ -55,7 +56,7 @@
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
 @property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSNumber * projectBane;
+@property (nonatomic, retain) NSString * canDom;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournaments;
 @end
