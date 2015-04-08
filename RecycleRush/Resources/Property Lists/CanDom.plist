@@ -4,11 +4,11 @@
 <dict>
 	<key>Unknown</key>
 	<integer>-1</integer>
-	<key>Java</key>
+	<key>Sub 1</key>
 	<integer>0</integer>
-	<key>C++</key>
+	<key>Sub 2</key>
 	<integer>1</integer>
-	<key>LabView</key>
+	<key>Sub 5</key>
 	<integer>2</integer>
 </dict>
 </plist>
