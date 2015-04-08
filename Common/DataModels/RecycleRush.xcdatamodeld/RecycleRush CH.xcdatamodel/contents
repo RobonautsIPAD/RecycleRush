@@ -72,7 +72,7 @@
         <attribute name="noodler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
-        <attribute name="nwheels" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nwheels" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="primePhoto" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="projectBane" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="received" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -93,7 +93,7 @@
         <attribute name="visionTracker" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="weight" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="wheelDiameter" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="wheelType" attributeType="String" syncable="YES"/>
+        <attribute name="wheelType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="width" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="regional" toMany="YES" deletionRule="Nullify" destinationEntity="Regional" inverseName="team" inverseEntity="Regional" syncable="YES"/>
         <relationship name="tournaments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Competitions" inverseName="team" inverseEntity="Competitions" syncable="YES"/>

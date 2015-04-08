@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * autonMobility;
 @property (nonatomic, retain) NSString * bumpers;
+@property (nonatomic, retain) NSString * canDom;
 @property (nonatomic, retain) NSString * canIntake;
 @property (nonatomic, retain) NSNumber * cims;
 @property (nonatomic, retain) NSString * driveTrainType;
@@ -56,7 +57,6 @@
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
 @property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSString * canDom;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournaments;
 @end

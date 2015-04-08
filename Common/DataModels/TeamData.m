@@ -15,6 +15,7 @@
 
 @dynamic autonMobility;
 @dynamic bumpers;
+@dynamic canDom;
 @dynamic canIntake;
 @dynamic cims;
 @dynamic driveTrainType;
@@ -56,7 +57,6 @@
 @dynamic wheelDiameter;
 @dynamic wheelType;
 @dynamic width;
-@dynamic canDom;
 @dynamic regional;
 @dynamic tournaments;
 
