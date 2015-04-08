@@ -62,6 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
 @property (weak, nonatomic) IBOutlet UITextField *robotLength;
 @property (weak, nonatomic) IBOutlet UITextField *robotWidth;
+@property (weak, nonatomic) IBOutlet UIButton *canDom;
 @property (weak, nonatomic) IBOutlet UIButton *baneRadioButton;
 @end
 
@@ -97,6 +98,10 @@
     UIPopoverController *programmingLanguagePickerPopover;
     NSArray *programmingLanguageList;
     
+    PopUpPickerViewController *canDomPicker;
+    UIPopoverController *canDomPickerPopover;
+    NSArray *canDomList;
+
     PopUpPickerViewController *stackingMechPicker;
     UIPopoverController *stackingMechPickerPopover;
     NSArray *stackingMechList;
@@ -211,6 +216,7 @@ TeamData *currentteam;
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
     [self setBigButtonDefaults:_programmingLanguage];
+    [self setBigButtonDefaults:_canDom];
     [self setBigButtonDefaults:_stackingMechButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
@@ -413,6 +419,7 @@ TeamData *currentteam;
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
+    [_canDom setTitle:_team.canDom forState:UIControlStateNormal];
     [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
 
     [self getPhoto];
@@ -583,7 +590,21 @@ TeamData *currentteam;
         [programmingLanguagePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-
+    else if (PressedButton == _canDom) {
+        if (!canDomList) canDomList = [FileIOMethods initializePopUpList:@"CanDom"];
+        if (canDomPicker == nil) {
+            canDomPicker = [[PopUpPickerViewController alloc]
+                            initWithStyle:UITableViewStylePlain];
+            canDomPicker.delegate = self;
+            canDomPicker.pickerChoices = canDomList;
+        }
+        if (!canDomPickerPopover) {
+            canDomPickerPopover = [[UIPopoverController alloc]
+                                   initWithContentViewController:canDomPicker];
+        }
+        [canDomPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                           permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
     else if (PressedButton == _stackingMechButton) {
         if (!stackingMechList) stackingMechList = [FileIOMethods initializePopUpList:@"StackingMech"];
         if (stackingMechPicker == nil) {
@@ -628,6 +649,10 @@ TeamData *currentteam;
     else if (popUp == _programmingLanguage) {
         [programmingLanguagePickerPopover dismissPopoverAnimated:YES];
         _team.language = newPick;
+    }
+    else if (popUp == _canDom) {
+        [canDomPickerPopover dismissPopoverAnimated:YES];
+        _team.canDom = newPick;
     }
     
     [self setDataChange];

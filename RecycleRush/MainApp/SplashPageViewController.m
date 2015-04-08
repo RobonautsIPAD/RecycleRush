@@ -48,7 +48,7 @@
 - (void)viewDidLoad
 { 
   //  NSLog(@"Splash Page");
-    NSLog(@"FINISH PROJECT BANE BUTTON STUFF & FINISH FLAG PAGE STUFF");
+    NSLog(@"All Good :)");
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
