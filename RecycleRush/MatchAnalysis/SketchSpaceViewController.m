@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *team3Label;
 @property (weak, nonatomic) IBOutlet UIButton *team3Button;
 @property (weak, nonatomic) IBOutlet UIButton *drawModeButton;
+@property (weak, nonatomic) IBOutlet UIButton *eraseButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @end
 
@@ -59,6 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [_saveButton setHidden:TRUE];
     if ([[_allianceString substringToIndex:1] isEqualToString:@"R"]) {
         [_fieldView setImage:[UIImage imageNamed:@"Red 2015 New.png"]];
         red1 = 255.0/255.0;
@@ -107,6 +110,12 @@
         [_drawModeButton setTitle:@"On" forState:UIControlStateNormal];
         [_traceView setUserInteractionEnabled:TRUE];
     }
+}
+
+- (IBAction)eraseTapped:(id)sender {
+}
+
+- (IBAction)saveTapped:(id)sender {
 }
 
 - (IBAction)radioButtonTapped:(id)sender {

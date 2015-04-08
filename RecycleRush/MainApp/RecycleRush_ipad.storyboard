@@ -5920,6 +5920,24 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="eraseTapped:" destination="riE-96-DgI" eventType="touchUpInside" id="Mmn-Ht-OYo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="r8G-zn-6xO">
+                                        <rect key="frame" x="23" y="77" width="65" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Save" backgroundImage="button_robonaut_gold.png">
+                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveTapped:" destination="riE-96-DgI" eventType="touchUpInside" id="dcL-Ew-PjH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -5987,8 +6005,10 @@
                     <connections>
                         <outlet property="containerView" destination="UnA-3Z-2UP" id="kPX-OO-eZI"/>
                         <outlet property="drawModeButton" destination="gBJ-xi-Jis" id="cnB-2F-sUo"/>
+                        <outlet property="eraseButton" destination="4YW-Is-NMu" id="13g-Mx-31H"/>
                         <outlet property="fieldView" destination="qUn-oU-ZYZ" id="1e5-wN-fX8"/>
                         <outlet property="homeButton" destination="gPj-Xw-SeQ" id="v4C-lV-uh0"/>
+                        <outlet property="saveButton" destination="r8G-zn-6xO" id="73P-q8-anV"/>
                         <outlet property="team1Button" destination="kGC-9R-DLC" id="3OB-y0-WwR"/>
                         <outlet property="team1Label" destination="p6M-qO-bfb" id="FHy-MM-HGk"/>
                         <outlet property="team2Button" destination="bc8-Ye-uJX" id="SHs-Mf-SDw"/>
