@@ -62,7 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *programmingLanguage;
 @property (weak, nonatomic) IBOutlet UITextField *robotLength;
 @property (weak, nonatomic) IBOutlet UITextField *robotWidth;
-@property (weak, nonatomic) IBOutlet UIButton *canDom;
+@property (weak, nonatomic) IBOutlet UIButton *canDomRadio;
 @property (weak, nonatomic) IBOutlet UIButton *baneRadioButton;
 @end
 
@@ -216,7 +216,6 @@ TeamData *currentteam;
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
     [self setBigButtonDefaults:_programmingLanguage];
-    [self setBigButtonDefaults:_canDom];
     [self setBigButtonDefaults:_stackingMechButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
@@ -419,8 +418,8 @@ TeamData *currentteam;
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
-    [_canDom setTitle:_team.canDom forState:UIControlStateNormal];
     [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
+    [self setRadioButtonState:_canDomRadio forState:[_team.canDom intValue]];
 
     [self getPhoto];
     photoList = [self getPhotoList:_team.number];
@@ -446,6 +445,17 @@ TeamData *currentteam;
             _team.projectBane = [NSNumber numberWithBool:YES];
         }
         [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
+    }
+    [self setDataChange];
+   
+if (sender == _canDomRadio) { // It is on, turn it off
+        if ([_team.canDom intValue]) {
+            _team.canDom = [NSNumber numberWithBool:NO];
+        }
+        else { // It is off, turn it on
+            _team.canDom = [NSNumber numberWithBool:YES];
+        }
+        [self setRadioButtonState:_canDomRadio forState:[_team.canDom intValue]];
     }
     [self setDataChange];
 }
@@ -590,7 +600,7 @@ TeamData *currentteam;
         [programmingLanguagePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    else if (PressedButton == _canDom) {
+    else if (PressedButton == _canDomRadio) {
         if (!canDomList) canDomList = [FileIOMethods initializePopUpList:@"CanDom"];
         if (canDomPicker == nil) {
             canDomPicker = [[PopUpPickerViewController alloc]
@@ -649,10 +659,6 @@ TeamData *currentteam;
     else if (popUp == _programmingLanguage) {
         [programmingLanguagePickerPopover dismissPopoverAnimated:YES];
         _team.language = newPick;
-    }
-    else if (popUp == _canDom) {
-        [canDomPickerPopover dismissPopoverAnimated:YES];
-        _team.canDom = newPick;
     }
     
     [self setDataChange];
