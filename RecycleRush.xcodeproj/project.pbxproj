@@ -71,6 +71,7 @@
 		2F56B56C17052BB30093A976 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56B17052BB30093A976 /* MobileCoreServices.framework */; };
 		2F56B56E17052BC80093A976 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56D17052BC80093A976 /* SystemConfiguration.framework */; };
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
+		2F56D83B1AD8267400A42374 /* ScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F56D83A1AD8267400A42374 /* ScatterPlot.m */; };
 		2F5D32791A5FA24300E02523 /* CalculateTeamStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */; };
 		2F5D327A1A5FA24300E02523 /* FieldDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */; };
 		2F5D327D1A5FA24300E02523 /* LucienTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D326A1A5FA24300E02523 /* LucienTableViewController.m */; };
@@ -182,6 +183,9 @@
 		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
+		2FD0D4161AD6D63E0065A121 /* PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0D4111AD6D63E0065A121 /* PieCharts.m */; };
+		2FD0D4171AD6D63E0065A121 /* PieSlices.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0D4131AD6D63E0065A121 /* PieSlices.m */; };
+		2FD0D4181AD6D63E0065A121 /* PlotDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0D4151AD6D63E0065A121 /* PlotDefinition.m */; };
 		2FD634721AD357DE004A21CB /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2FDAF1171A9024C1006D7670 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF1161A9024C1006D7670 /* Packet.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
@@ -323,6 +327,8 @@
 		2F56B56B17052BB30093A976 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F56B56D17052BC80093A976 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F56B56F17052BDA0093A976 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2F56D8391AD8267400A42374 /* ScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScatterPlot.h; path = RecycleRush/Graphs/ScatterPlot.h; sourceTree = SOURCE_ROOT; };
+		2F56D83A1AD8267400A42374 /* ScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScatterPlot.m; path = RecycleRush/Graphs/ScatterPlot.m; sourceTree = SOURCE_ROOT; };
 		2F5D32611A5FA24300E02523 /* CalculateTeamStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateTeamStats.h; path = RecycleRush/MatchAnalysis/CalculateTeamStats.h; sourceTree = SOURCE_ROOT; };
 		2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculateTeamStats.m; path = RecycleRush/MatchAnalysis/CalculateTeamStats.m; sourceTree = SOURCE_ROOT; };
 		2F5D32631A5FA24300E02523 /* FieldDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawingViewController.h; path = RecycleRush/MatchAnalysis/FieldDrawingViewController.h; sourceTree = SOURCE_ROOT; };
@@ -581,6 +587,12 @@
 		2FC3B1E716E8107900DF70F4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2FCF9FB719944D1600A872CD /* TeamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamUtilities.h; path = Common/DataUtilities/TeamUtilities.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2FCF9FB819944D1600A872CD /* TeamUtlilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamUtlilities.m; path = Common/DataUtilities/TeamUtlilities.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2FD0D4101AD6D63E0065A121 /* PieCharts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieCharts.h; path = RecycleRush/Graphs/PieCharts.h; sourceTree = SOURCE_ROOT; };
+		2FD0D4111AD6D63E0065A121 /* PieCharts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieCharts.m; path = RecycleRush/Graphs/PieCharts.m; sourceTree = SOURCE_ROOT; };
+		2FD0D4121AD6D63E0065A121 /* PieSlices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PieSlices.h; path = RecycleRush/Graphs/PieSlices.h; sourceTree = SOURCE_ROOT; };
+		2FD0D4131AD6D63E0065A121 /* PieSlices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieSlices.m; path = RecycleRush/Graphs/PieSlices.m; sourceTree = SOURCE_ROOT; };
+		2FD0D4141AD6D63E0065A121 /* PlotDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlotDefinition.h; path = RecycleRush/Graphs/PlotDefinition.h; sourceTree = SOURCE_ROOT; };
+		2FD0D4151AD6D63E0065A121 /* PlotDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlotDefinition.m; path = RecycleRush/Graphs/PlotDefinition.m; sourceTree = SOURCE_ROOT; };
 		2FDAF1151A9024C1006D7670 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = RecycleRush/Network/Packet.h; sourceTree = SOURCE_ROOT; };
 		2FDAF1161A9024C1006D7670 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Packet.m; path = RecycleRush/Network/Packet.m; sourceTree = SOURCE_ROOT; };
 		2FDC58111AC5FCA300029161 /* RecycleRush LS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RecycleRush LS.xcdatamodel"; sourceTree = "<group>"; };
@@ -717,6 +729,7 @@
 				2F50BF9716F2D799004569F2 /* Data Transfer */,
 				2F5247E71963B8C800468E4F /* Data Utilities */,
 				2F8816841A5FB0D4001CCA04 /* DataModels */,
+				2FD0D40F1AD6D5900065A121 /* Graphs */,
 				2F30EAE216A0F56E0026B258 /* Main App */,
 				2FB3A4B016CEB7C400E895E5 /* Match Analysis */,
 				2F88648716B7688A00867385 /* Match Scouting */,
@@ -1248,6 +1261,21 @@
 			name = SetUp;
 			sourceTree = "<group>";
 		};
+		2FD0D40F1AD6D5900065A121 /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				2FD0D4101AD6D63E0065A121 /* PieCharts.h */,
+				2FD0D4111AD6D63E0065A121 /* PieCharts.m */,
+				2FD0D4121AD6D63E0065A121 /* PieSlices.h */,
+				2FD0D4131AD6D63E0065A121 /* PieSlices.m */,
+				2FD0D4141AD6D63E0065A121 /* PlotDefinition.h */,
+				2FD0D4151AD6D63E0065A121 /* PlotDefinition.m */,
+				2F56D8391AD8267400A42374 /* ScatterPlot.h */,
+				2F56D83A1AD8267400A42374 /* ScatterPlot.m */,
+			);
+			name = Graphs;
+			sourceTree = "<group>";
+		};
 		2FDECA0E1A6EC6F90007412E /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -1493,6 +1521,7 @@
 				2F5D32C31A5FA45300E02523 /* ImportDataFromiTunes.m in Sources */,
 				2F0BAE4B1ACCC0180056E730 /* DetailScrollViewController.m in Sources */,
 				2F6D4F9219DB36F700EF3923 /* MatchUtilities.m in Sources */,
+				2FD0D4161AD6D63E0065A121 /* PieCharts.m in Sources */,
 				2F88169B1A5FB0D4001CCA04 /* Competitions.m in Sources */,
 				2F2ECAB31A5F059900D3386E /* ElimDataViewController.m in Sources */,
 				2F5D32D71A5FA4F400E02523 /* AddTeamViewController.m in Sources */,
@@ -1514,6 +1543,7 @@
 				2F5D32FD1A5FA51000E02523 /* PhotoCell.m in Sources */,
 				2F5D32821A5FA24300E02523 /* RidleyPageViewController.m in Sources */,
 				2F6A4CCC19EC5C8E002A0A56 /* ScoreUtilities.m in Sources */,
+				2FD0D4181AD6D63E0065A121 /* PlotDefinition.m in Sources */,
 				2F8816A51A5FB0D4001CCA04 /* TournamentData.m in Sources */,
 				2F5D329C1A5FA32F00E02523 /* SettingsAndPreferences.m in Sources */,
 				2F0BAE511ACCE20A0056E730 /* TeamScore.m in Sources */,
@@ -1537,6 +1567,7 @@
 				2F2ABCF61AD5E3AB00DB8B3F /* ProjectBaneListViewController.m in Sources */,
 				2F5D32CA1A5FA45300E02523 /* USFirstViewController.m in Sources */,
 				2F5D32FE1A5FA51000E02523 /* PhotoUtilities.m in Sources */,
+				2F56D83B1AD8267400A42374 /* ScatterPlot.m in Sources */,
 				2F5D32FA1A5FA51000E02523 /* MainLogo.m in Sources */,
 				2F3B8CCD1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m in Sources */,
 				2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */,
@@ -1577,6 +1608,7 @@
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
 				2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */,
+				2FD0D4171AD6D63E0065A121 /* PieSlices.m in Sources */,
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

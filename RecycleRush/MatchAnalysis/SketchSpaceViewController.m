@@ -7,6 +7,7 @@
 //
 
 #import "SketchSpaceViewController.h"
+#import "UIDefaults.h"
 #import "MatchAccessors.h"
 
 @interface SketchSpaceViewController ()
@@ -96,6 +97,8 @@
     drawingChanged = FALSE;
     drawMode = FALSE;
     eraseMode = FALSE;
+    [UIDefaults setSmallButtonDefaults:_eraseButton];
+    [_eraseButton setBackgroundImage:nil forState:UIControlStateNormal];
     [_containerView sendSubviewToBack:_fieldView];
 }
 
@@ -113,6 +116,14 @@
 }
 
 - (IBAction)eraseTapped:(id)sender {
+    if (eraseMode) {
+        [_eraseButton setBackgroundImage:nil forState:UIControlStateNormal];
+        eraseMode = FALSE;
+    }
+    else {
+        [_eraseButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
+        eraseMode = TRUE;
+    }
 }
 
 - (IBAction)saveTapped:(id)sender {
