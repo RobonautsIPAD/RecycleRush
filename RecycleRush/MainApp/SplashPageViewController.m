@@ -79,11 +79,19 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"SetUp"] || [segue.identifier isEqualToString:@"Scouting"]) {
+    if ([segue.identifier isEqualToString:@"SetUp"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
-    [segue.destinationViewController setDataManager:_dataManager];
+    
+    if ([segue.identifier isEqualToString:@"Add"]) {
+        [segue.destinationViewController setDataManager:_dataManager];
 }
+    if ([segue.identifier isEqualToString:@"Scouting"]){
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
+}
+
 
 - (void)scoutingPageStatus:(NSUInteger)sectionIndex forRow:(NSUInteger)rowIndex forTeam:(NSUInteger)teamIndex {
     NSLog(@"scouting delegate");    

@@ -15,7 +15,7 @@
 
 @property (nonatomic, retain) NSString * autonMobility;
 @property (nonatomic, retain) NSString * bumpers;
-@property (nonatomic, retain) NSString * canDom;
+@property (nonatomic, retain) NSNumber * canDom;
 @property (nonatomic, retain) NSString * canIntake;
 @property (nonatomic, retain) NSNumber * cims;
 @property (nonatomic, retain) NSString * driveTrainType;

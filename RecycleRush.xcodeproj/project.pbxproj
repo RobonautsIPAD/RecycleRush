@@ -14,7 +14,6 @@
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
 		2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */; };
 		2F2ABCF01AD5E19300DB8B3F /* CanDom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */; };
-		2F2ABCF31AD5E37100DB8B3F /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2ABCF21AD5E37100DB8B3F /* TeamData.m */; };
 		2F2ABCF61AD5E3AB00DB8B3F /* ProjectBaneListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
 		2F2CE08B1A21113D00646BB5 /* MatchAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */; };
@@ -36,6 +35,8 @@
 		2F30EAC216A0EB4F0026B258 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F30EAC116A0EB4F0026B258 /* CoreData.framework */; };
 		2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */; };
 		2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */; };
+		2F316B6E1AD5FE410016D2B4 /* SortListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F316B6D1AD5FE410016D2B4 /* SortListViewController.m */; };
+		2F316B711AD608250016D2B4 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F316B701AD608250016D2B4 /* TeamData.m */; };
 		2F33162D1A93BB6D005B7798 /* Slide1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 2F33161E1A93BB6D005B7798 /* Slide1.JPG */; };
 		2F33162E1A93BB6D005B7798 /* Slide2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 2F33161F1A93BB6D005B7798 /* Slide2.JPG */; };
 		2F33162F1A93BB6D005B7798 /* Slide3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 2F3316201A93BB6D005B7798 /* Slide3.JPG */; };
@@ -73,7 +74,7 @@
 		2F56B57017052BDB0093A976 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F56B56F17052BDA0093A976 /* Security.framework */; };
 		2F5D32791A5FA24300E02523 /* CalculateTeamStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */; };
 		2F5D327A1A5FA24300E02523 /* FieldDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */; };
-		2F5D327D1A5FA24300E02523 /* LucienTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D326A1A5FA24300E02523 /* LucienTableViewController.m */; };
+		2F5D327D1A5FA24300E02523 /* CanDomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D326A1A5FA24300E02523 /* CanDomListViewController.m */; };
 		2F5D327E1A5FA24300E02523 /* MainMatchAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D326C1A5FA24300E02523 /* MainMatchAnalysisViewController.m */; };
 		2F5D32801A5FA24300E02523 /* MatchIntegrityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32701A5FA24300E02523 /* MatchIntegrityViewController.m */; };
 		2F5D32811A5FA24300E02523 /* MatchOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D32721A5FA24300E02523 /* MatchOverlayViewController.m */; };
@@ -182,7 +183,6 @@
 		2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */; };
 		2FC3B1E816E8107900DF70F4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC3B1E716E8107900DF70F4 /* MessageUI.framework */; };
 		2FCF9FB919944D1600A872CD /* TeamUtlilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCF9FB819944D1600A872CD /* TeamUtlilities.m */; };
-		2FD634721AD357DE004A21CB /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2FDAF1171A9024C1006D7670 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAF1161A9024C1006D7670 /* Packet.m */; };
 		2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */; };
 		2FDECA181A6F27AD0007412E /* ConnectionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDECA131A6F27AD0007412E /* ConnectionUtility.m */; };
@@ -233,8 +233,6 @@
 		2F22D6FD1A79C7EE006C109E /* AutonSP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutonSP.png; path = RecycleRush/Resources/FieldImages/AutonSP.png; sourceTree = SOURCE_ROOT; };
 		2F27EA0A18675ECC00B642BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CanDom.plist; path = "RecycleRush/Resources/Property Lists/CanDom.plist"; sourceTree = SOURCE_ROOT; };
-		2F2ABCF11AD5E37100DB8B3F /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
-		2F2ABCF21AD5E37100DB8B3F /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2F2ABCF41AD5E3AB00DB8B3F /* ProjectBaneListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectBaneListViewController.h; path = RecycleRush/MatchAnalysis/ProjectBaneListViewController.h; sourceTree = SOURCE_ROOT; };
 		2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectBaneListViewController.m; path = RecycleRush/MatchAnalysis/ProjectBaneListViewController.m; sourceTree = SOURCE_ROOT; };
 		2F2C33C618A09C24003475C3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -274,6 +272,10 @@
 		2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoutingBundleViewController.m; path = RecycleRush/MatchAnalysis/ScoutingBundleViewController.m; sourceTree = SOURCE_ROOT; };
 		2F312BCE1A7D9E60002EF938 /* TeamStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamStatsViewController.h; path = RecycleRush/MatchAnalysis/TeamStatsViewController.h; sourceTree = SOURCE_ROOT; };
 		2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamStatsViewController.m; path = RecycleRush/MatchAnalysis/TeamStatsViewController.m; sourceTree = SOURCE_ROOT; };
+		2F316B6C1AD5FE400016D2B4 /* SortListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortListViewController.h; path = RecycleRush/MatchAnalysis/SortListViewController.h; sourceTree = SOURCE_ROOT; };
+		2F316B6D1AD5FE410016D2B4 /* SortListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SortListViewController.m; path = RecycleRush/MatchAnalysis/SortListViewController.m; sourceTree = SOURCE_ROOT; };
+		2F316B6F1AD608250016D2B4 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
+		2F316B701AD608250016D2B4 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2F33161E1A93BB6D005B7798 /* Slide1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Slide1.JPG; path = RecycleRush/Resources/NumberPad/Slide1.JPG; sourceTree = SOURCE_ROOT; };
 		2F33161F1A93BB6D005B7798 /* Slide2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Slide2.JPG; path = RecycleRush/Resources/NumberPad/Slide2.JPG; sourceTree = SOURCE_ROOT; };
 		2F3316201A93BB6D005B7798 /* Slide3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Slide3.JPG; path = RecycleRush/Resources/NumberPad/Slide3.JPG; sourceTree = SOURCE_ROOT; };
@@ -327,8 +329,8 @@
 		2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculateTeamStats.m; path = RecycleRush/MatchAnalysis/CalculateTeamStats.m; sourceTree = SOURCE_ROOT; };
 		2F5D32631A5FA24300E02523 /* FieldDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldDrawingViewController.h; path = RecycleRush/MatchAnalysis/FieldDrawingViewController.h; sourceTree = SOURCE_ROOT; };
 		2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldDrawingViewController.m; path = RecycleRush/MatchAnalysis/FieldDrawingViewController.m; sourceTree = SOURCE_ROOT; };
-		2F5D32691A5FA24300E02523 /* LucienTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LucienTableViewController.h; path = RecycleRush/MatchAnalysis/LucienTableViewController.h; sourceTree = SOURCE_ROOT; };
-		2F5D326A1A5FA24300E02523 /* LucienTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LucienTableViewController.m; path = RecycleRush/MatchAnalysis/LucienTableViewController.m; sourceTree = SOURCE_ROOT; };
+		2F5D32691A5FA24300E02523 /* CanDomListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanDomListViewController.h; path = RecycleRush/MatchAnalysis/CanDomListViewController.h; sourceTree = SOURCE_ROOT; };
+		2F5D326A1A5FA24300E02523 /* CanDomListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanDomListViewController.m; path = RecycleRush/MatchAnalysis/CanDomListViewController.m; sourceTree = SOURCE_ROOT; };
 		2F5D326B1A5FA24300E02523 /* MainMatchAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMatchAnalysisViewController.h; path = RecycleRush/MatchAnalysis/MainMatchAnalysisViewController.h; sourceTree = SOURCE_ROOT; };
 		2F5D326C1A5FA24300E02523 /* MainMatchAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMatchAnalysisViewController.m; path = RecycleRush/MatchAnalysis/MainMatchAnalysisViewController.m; sourceTree = SOURCE_ROOT; };
 		2F5D326F1A5FA24300E02523 /* MatchIntegrityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchIntegrityViewController.h; path = RecycleRush/MatchAnalysis/MatchIntegrityViewController.h; sourceTree = SOURCE_ROOT; };
@@ -634,7 +636,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FD634721AD357DE004A21CB /* libCorePlot-CocoaTouch.a in Frameworks */,
 				2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */,
 				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
@@ -1134,9 +1135,9 @@
 		2F8816841A5FB0D4001CCA04 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				2F316B6F1AD608250016D2B4 /* TeamData.h */,
+				2F316B701AD608250016D2B4 /* TeamData.m */,
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
-				2F2ABCF11AD5E37100DB8B3F /* TeamData.h */,
-				2F2ABCF21AD5E37100DB8B3F /* TeamData.m */,
 				2F0BAE4F1ACCE20A0056E730 /* TeamScore.h */,
 				2F0BAE501ACCE20A0056E730 /* TeamScore.m */,
 				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
@@ -1225,10 +1226,12 @@
 				2F8F20671A9963E400679ED6 /* MatchPhotoCollectionViewController.m */,
 				2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */,
 				2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */,
-				2F5D32691A5FA24300E02523 /* LucienTableViewController.h */,
-				2F5D326A1A5FA24300E02523 /* LucienTableViewController.m */,
+				2F5D32691A5FA24300E02523 /* CanDomListViewController.h */,
+				2F5D326A1A5FA24300E02523 /* CanDomListViewController.m */,
 				2F2ABCF41AD5E3AB00DB8B3F /* ProjectBaneListViewController.h */,
 				2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */,
+				2F316B6C1AD5FE400016D2B4 /* SortListViewController.h */,
+				2F316B6D1AD5FE410016D2B4 /* SortListViewController.m */,
 			);
 			name = "Match Analysis";
 			sourceTree = "<group>";
@@ -1555,7 +1558,6 @@
 				2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */,
 				2F2ECAB41A5F059900D3386E /* PhoneSetUpViewController.m in Sources */,
 				2F5D32811A5FA24300E02523 /* MatchOverlayViewController.m in Sources */,
-				2F2ABCF31AD5E37100DB8B3F /* TeamData.m in Sources */,
 				2F5D329E1A5FA32F00E02523 /* SplashPageViewController.m in Sources */,
 				2F5D32C71A5FA45300E02523 /* LoadCSVData.m in Sources */,
 				2F5D32D81A5FA4F400E02523 /* TeamDetailViewController.m in Sources */,
@@ -1564,7 +1566,7 @@
 				2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */,
 				2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */,
 				2F8F20681A9963E400679ED6 /* MatchPhotoCollectionViewController.m in Sources */,
-				2F5D327D1A5FA24300E02523 /* LucienTableViewController.m in Sources */,
+				2F5D327D1A5FA24300E02523 /* CanDomListViewController.m in Sources */,
 				2F5D32981A5FA32F00E02523 /* main.m in Sources */,
 				2F5D32991A5FA32F00E02523 /* PhoneSplashViewController.m in Sources */,
 				2F5D32F81A5FA51000E02523 /* FileIOMethods.m in Sources */,
@@ -1578,6 +1580,8 @@
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
 				2FEA03321AA7F06800C24C15 /* AnalysisTabViewController.m in Sources */,
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
+				2F316B6E1AD5FE410016D2B4 /* SortListViewController.m in Sources */,
+				2F316B711AD608250016D2B4 /* TeamData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

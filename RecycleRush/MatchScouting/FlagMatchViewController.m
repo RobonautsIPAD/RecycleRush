@@ -19,6 +19,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *yellowFlag;
 @property (weak, nonatomic) IBOutlet UITextView *robotFlagNotes;
 @property (weak, nonatomic) IBOutlet UIButton *finishedButton;
+@property (weak, nonatomic) IBOutlet UIButton *wowRobot;
+@property (weak, nonatomic) IBOutlet UIButton *wowDriver;
+@property (weak, nonatomic) IBOutlet UIButton *wowHP;
+@property (weak, nonatomic) IBOutlet UIButton *blackRobot;
+@property (weak, nonatomic) IBOutlet UIButton *blackDriver;
+@property (weak, nonatomic) IBOutlet UIButton *blackHP;
 
 
 @end
