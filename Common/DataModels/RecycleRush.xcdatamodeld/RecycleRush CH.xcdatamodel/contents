@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F2501" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Competitions" representedClassName="Competitions" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
@@ -53,7 +53,7 @@
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
         <attribute name="autonMobility" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="bumpers" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="canDom" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
+        <attribute name="canDom" attributeType="Boolean" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="canIntake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ProjectBaneListViewController.h"
+#import "CanDomListViewController.h"
 #import "TeamDetailViewController.h"
 #import "TeamUtilities.h"
 #import "TeamData.h"
@@ -15,7 +15,7 @@
 #import "FileIOMethods.h"
 #import "CalculateTeamStats.h"
 
-@implementation ProjectBaneListViewController {
+@implementation CanDomListViewController {
     NSUserDefaults *prefs;
     NSString *tournamentName;
     UIView *headerView;
@@ -45,7 +45,7 @@
 }
 
 #pragma mark - View lifecycle
- 
+
 - (void)viewDidLoad
 {
     
@@ -56,12 +56,12 @@
     
     prefs = [NSUserDefaults standardUserDefaults];
     tournamentName = [prefs objectForKey:@"tournament"];
-  //  if (tournamentName) {
-   //     self.title =  [NSString stringWithFormat:@"%@: Project Bane List", tournamentName];
-  //  }
- //   else {
-        self.title = @"Project Bane";
-    
+   // if (tournamentName) {
+   //     self.title =  [NSString stringWithFormat:@"%@: Can Dom List", tournamentName];
+   // }
+   // else {
+        self.title = @"Can Dom";
+ //   }
     
     [self loadSettings];
     teamStats = [[CalculateTeamStats alloc] init:_dataManager];
@@ -92,40 +92,31 @@
     label1.adjustsFontSizeToFitWidth = NO;
     [headerView addSubview:label1];
     
- 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(270, 0, 200, 50)];
-	label2.text = @"Project Bane?";
+ 	UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(320, 0, 200, 50)];
+	label2.text = @"Can Dom?";
     label2.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label2];
     
-	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(400, 0, 200, 50)];
-	label3.text = @"Height";
+	UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(450, 0, 200, 50)];
+	label3.text = @"Cans Total";
     label3.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label3];
     
-	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(490, 0, 200, 50)];
-	label4.text = @"Weight";
+	UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(560, 0, 200, 50)];
+	label4.text = @"Cans Average";
     label4.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label4];
     
-    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(580, 0, 200, 50)];
-	label5.text = @"Lengh";
+    UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(720, 0, 200, 50)];
+	label5.text = @"Time Total";
     label5.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label5];
     
-    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(670, 0, 200, 50)];
-	label6.text = @"Width";
+    UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(860, 0, 200, 50)];
+	label6.text = @"Time Average";
     label6.backgroundColor = [UIColor clearColor];
     [headerView addSubview:label6];
     
-    UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(770, 0, 200, 50)];
-	label8.text = @"Language";
-    label8.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:label8];
-    
-    UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(900, 0, 200, 50)];
-	label9.text = @"Drive Type";
-    label9.backgroundColor = [UIColor clearColor];
-    [headerView addSubview:label9];
     
     [super viewDidLoad];
     
@@ -252,32 +243,27 @@
     label1.text = info.name;
     
 	UILabel *label2 = (UILabel *)[cell viewWithTag:30];
-	label2.text = [NSString stringWithFormat:@"%@", [info.projectBane boolValue] ? @"BANE BOT": @"False"];
+	label2.text = [NSString stringWithFormat:@"%@", [info.canDom boolValue] ? @"CAN DOM": @"False"];
     
 	UILabel *label3 = (UILabel *)[cell viewWithTag:40];
-	label3.text = [NSString stringWithFormat:@"%.0f", [info.maxHeight floatValue]];
+	label3.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"autonCansFromStep"] objectForKey:@"total"] intValue]];
     
     UILabel *label4 = (UILabel *)[cell viewWithTag:50];
-	label4.text = [NSString stringWithFormat:@"%.0f", [info.weight floatValue]];
+	label4.text = [NSString stringWithFormat:@"%d", [[[stats objectForKey:@"autonCansFromStep"] objectForKey:@"average"] intValue]];
     
-    UILabel *nameLabel = (UILabel *)[cell viewWithTag:60];
-    nameLabel.text = [NSString stringWithFormat:@"%.0f", [info.length floatValue]];
+    UILabel *label7 = (UILabel *)[cell viewWithTag:60];
+    label7.text = [NSString stringWithFormat:@"%1.1d", [[[stats objectForKey:@"canDominationTime"] objectForKey:@"total"] intValue]];
     
     UILabel *label8 = (UILabel *)[cell viewWithTag:70];
-    label8.text = [NSString stringWithFormat:@"%.0f", [info.width floatValue]];
+    label8.text = [NSString stringWithFormat:@"%1.1d", [[[stats objectForKey:@"canDominationTime"] objectForKey:@"average"] intValue]];
     
-    UILabel *label9 = (UILabel *)[cell viewWithTag:80];
-    label9.text = info.language;
-    
-    UILabel *label5 = (UILabel *)[cell viewWithTag:90];
-    label5.text = info.driveTrainType;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	UITableViewCell *cell = [tableView
-                             dequeueReusableCellWithIdentifier:@"BaneList"];
+                             dequeueReusableCellWithIdentifier:@"CanDomList"];
     // NSLog(@"IndexPath =%@", indexPath);
     // Set up the cell...
     [self configureCell:cell atIndexPath:indexPath];
