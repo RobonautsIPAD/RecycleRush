@@ -903,6 +903,7 @@ CGFloat opacity;
     currentMatch = [self getCurrentMatch];
     [self setTeamList];
     [self showTeam:teamIndex];
+    [_connectionUtility checkConnectionStatus];
     
     [_label setAlpha:1];
 }
