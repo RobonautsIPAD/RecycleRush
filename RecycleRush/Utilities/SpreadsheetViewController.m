@@ -8,6 +8,9 @@
 
 #import "SpreadsheetViewController.h"
 #import "DataManager.h"
+#import "MMGridCell.h"
+#import "MMTopRowCell.h"
+#import "MMLeftColumnCell.h"
 
 @interface SpreadsheetViewController ()
 
@@ -27,9 +30,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Create the spreadsheet in code.
+    MMSpreadsheetView *spreadSheetView = [[MMSpreadsheetView alloc] initWithNumberOfHeaderRows:1 numberOfHeaderColumns:1 frame:self.view.bounds];
+    
+    // Register your cell classes.
+    [spreadSheetView registerCellClass:[MMGridCell class] forCellWithReuseIdentifier:@"GridCell"];
+    [spreadSheetView registerCellClass:[MMTopRowCell class] forCellWithReuseIdentifier:@"TopRowCell"];
+    [spreadSheetView registerCellClass:[MMLeftColumnCell class] forCellWithReuseIdentifier:@"LeftColumnCell"];
+    
+    // Set the delegate & datasource for the spreadsheet view.
+    spreadSheetView.delegate = self;
+    spreadSheetView.dataSource = self;
+    
+    // Add the spreadsheet view as a subview.
+    [self.view addSubview:spreadSheetView];
 }
 
+- (NSInteger)numberOfRowsInSpreadsheetView:(MMSpreadsheetView *)spreadsheetView {
+    NSInteger rows = 1;//[self.tableData count];
+    return rows;
+}
+
+- (NSInteger)numberOfColumnsInSpreadsheetView:(MMSpreadsheetView *)spreadsheetView {
+   // NSArray *rowData = [self.tableData lastObject];
+    NSInteger cols = 1;//[rowData count];
+    return cols;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMSpreadsheetView.h"
 
 @class DataManager;
 
-@interface SpreadsheetViewController : UIViewController
+@interface SpreadsheetViewController : UIViewController <MMSpreadsheetViewDataSource, MMSpreadsheetViewDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 
 @end
