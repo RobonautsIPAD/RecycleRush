@@ -27,6 +27,7 @@
 #import "MatchDrawingViewController.h"
 #import "LNNumberpad.h"
 #import "MatchSummaryViewController.h"
+#import "ConnectionUtility.h"
 
 @interface MatchDrawingSegue : UIStoryboardSegue
 @end

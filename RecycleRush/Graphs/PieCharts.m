@@ -7,17 +7,21 @@
 //
 
 #import "PieCharts.h"
+#import "PlotDefinition.h"
+#import "PieSlices.h"
 
 @implementation PieCharts {
     CPTGraphHostingView *hostView;
+    NSString *plotTitle;
     NSArray *dataToPlot;
     CPTTheme *selectedTheme;
 }
 #ifdef __IPHONE_7_0
 
--(void)initPlot:(UIView *)graphView withData:(NSArray *)plotData {
-    dataToPlot = plotData;
-    [self configureHost:(UIView *)graphView];
+-(void)initPlot:(UIView *)graphView withDefinition:(PlotDefinition *)plotDefinition {
+    plotTitle = plotDefinition.plotTitle;
+    dataToPlot = plotDefinition.plotData;
+    [self configureHost:graphView];
     [self configureGraph];
     [self configureChart];
     [self configureLegend];
@@ -49,7 +53,7 @@
 	textStyle.fontName = @"Helvetica-Bold";
 	textStyle.fontSize = 16.0f;
 	// 3 - Configure title
-	NSString *title = @"Human vs Landfill Intake";
+	NSString *title = plotTitle;
 	graph.title = title;
 	graph.titleTextStyle = textStyle;
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
@@ -84,17 +88,16 @@
 	// 1 - Get graph instance
 	CPTGraph *graph = hostView.hostedGraph;
 	// 2 - Create legend
-    //	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-	// 3 - Configure legen
-    /*	theLegend.numberOfColumns = 1;
-     theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
-     theLegend.borderLineStyle = [CPTLineStyle lineStyle];
-     theLegend.cornerRadius = 5.0;
-     // 4 - Add legend to graph
-     graph.legend = theLegend;
-     graph.legendAnchor = CPTRectAnchorRight;
-     CGFloat legendPadding = -(self.view.bounds.size.width / 8);
-     graph.legendDisplacement = CGPointMake(legendPadding, 0.0);*/
+    CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
+	// 3 - Configure legend
+    theLegend.numberOfColumns = 1;
+    theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
+    theLegend.borderLineStyle = [CPTLineStyle lineStyle];
+    theLegend.cornerRadius = 5.0;
+    // 4 - Add legend to graph
+    graph.legend = theLegend;
+    graph.legendAnchor = CPTRectAnchorBottomRight;
+    graph.legendDisplacement = CGPointMake(-10, 10);
 }
 
 #pragma mark - CPTPlotDataSource methods
@@ -103,10 +106,8 @@
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    /*	if (CPTPieChartFieldSliceWidth == fieldEnum) {
-     return [[[CPDStockPriceStore sharedInstance] dailyPortfolioPrices] objectAtIndex:index];
-     }*/
-	return [dataToPlot objectAtIndex:index];
+    PieSlices *slice = [dataToPlot objectAtIndex:index];
+	return slice.sliceValue;
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index
@@ -144,17 +145,15 @@
      NSDecimalNumber *percent = [price decimalNumberByDividingBy:portfolioSum];*/
 	// 4 - Set up display label
     NSString *labelValue;
-    if (index == 0) labelValue = [NSString stringWithFormat:@"Totes from Landfill"];
-    else labelValue = [NSString stringWithFormat:@"Totes from HP"];
+    PieSlices *slice = [dataToPlot objectAtIndex:index];
+    labelValue = slice.sliceTitle;
 	// 5 - Create and return layer with label text
 	return [[CPTTextLayer alloc] initWithText:labelValue style:labelText];
 }
 
 -(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index {
-    /*	if (index < [[[CPDStockPriceStore sharedInstance] tickerSymbols] count]) {
-     return [[[CPDStockPriceStore sharedInstance] tickerSymbols] objectAtIndex:index];
-     }*/
-	return @"N/A";
+    PieSlices *slice = [dataToPlot objectAtIndex:index];
+	return slice.legendTitle;
 }
 #endif
 @end

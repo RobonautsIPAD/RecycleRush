@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class PlotDefinition;
+
 #ifdef __IPHONE_7_0
 @interface PieCharts : NSObject <CPTPlotDataSource>
--(void)initPlot:(UIView *)hostView withData:(NSArray *)plotData;
+-(void)initPlot:(UIView *)graphView withDefinition:(PlotDefinition *)plotDefinition;
 
 #else
 @interface PieCharts : NSObject

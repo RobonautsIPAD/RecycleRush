@@ -7,6 +7,7 @@
 //
 
 #import "SketchSpaceViewController.h"
+#import "UIDefaults.h"
 #import "MatchAccessors.h"
 
 @interface SketchSpaceViewController ()
@@ -98,6 +99,8 @@
     drawingChanged = FALSE;
     drawMode = FALSE;
     eraseMode = FALSE;
+    [UIDefaults setSmallButtonDefaults:_eraseButton];
+    [_eraseButton setBackgroundImage:nil forState:UIControlStateNormal];
     [_containerView sendSubviewToBack:_fieldView];
 }
 

@@ -15,7 +15,10 @@
 #import "ScoreAccessors.h"
 #import "MatchPhotoCollectionViewController.h"
 #import "MatchAccessors.h"
-//#import "PieCharts.h"
+#import "PlotDefinition.h"
+#import "PieSlices.h"
+#import "PieCharts.h"
+#import "ScatterPlot.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 
@@ -45,9 +48,9 @@
     PopUpPickerViewController *teamPicker;
     UIPopoverController *teamPickerPopover;
 
-//    PieCharts *pieCharts;
+    PieCharts *totePieChart;
+    ScatterPlot *toteCanScatterPlot;
     UIView *graphView;
-    NSArray *prices;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -83,15 +86,7 @@
     }
     currentTeam = _initialTeam;
     [self createMatchHeader];
-    [self showTeam];
     teamStats = [[CalculateTeamStats alloc] init:_dataManager];
-    stats = [teamStats calculateMasonStats:currentTeam forTournament:tournamentName];
-    prices = [NSArray arrayWithObjects:
-              [[stats objectForKey:@"toteIntakeLandfill"] objectForKey:@"total"],
-              [[stats objectForKey:@"toteIntakeHP"] objectForKey:@"total"],
-              nil];
-    NSLog(@"prices = %@", prices);
-    
 	CGRect parentRect = self.view.bounds;
 	parentRect = CGRectMake(605.0,
 							20.0,
@@ -99,10 +94,51 @@
 							285.0);
     graphView = [[UIView alloc] initWithFrame:parentRect];
 	[self.view addSubview:graphView];
+    [self showTeam];
+}
+
+-(void)createTotePieChart {
+    PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Human vs Landfill Intake"];
 #ifdef __IPHONE_7_0
-//    pieCharts = [[PieCharts alloc] init];
-//    [pieCharts initPlot:graphView withData:prices];
+    totePieChart = [[PieCharts alloc] init];
+    PieSlices *slice1 = [[PieSlices alloc] init:@"" withLegend:@"Totes from Landfill" forValue:[[stats objectForKey:@"toteIntakeLandfill"] objectForKey:@"total"]];
+    PieSlices *slice2 = [[PieSlices alloc] init:@"" withLegend:@"Totes from HP" forValue:[[stats objectForKey:@"toteIntakeHP"] objectForKey:@"total"]];
+    NSArray *slices = [NSArray arrayWithObjects:slice1, slice2, nil];
+    plotDefinition.plotData = slices;
+    [totePieChart initPlot:graphView withDefinition:plotDefinition];
 #endif
+}
+
+-(void)createToteCanScatterPlot {
+    PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Totes and Cans Stacked Per Match"];
+#ifdef __IPHONE_7_0
+    plotDefinition.xAxisTitle = @"Match Number";
+    plotDefinition.yAxisTitle = @"Totes/Cans Stacked";
+    toteCanScatterPlot = [[ScatterPlot alloc] init];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@ AND matchType = %@", [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchTypeDictionary]];
+
+    NSArray *matches = [matchList filteredArrayUsingPredicate:pred];
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"matchNumber" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
+    matches = [matches sortedArrayUsingDescriptors:sortDescriptors];
+
+    NSArray *totes = [self getPlotValues:@"matchNumber" forYKey:@"totalTotesScored" fromMatches:matches];
+    NSArray *cans = [self getPlotValues:@"matchNumber" forYKey:@"totalCansScored" fromMatches:matches];
+    plotDefinition.plotData = [[NSArray alloc] initWithObjects:totes, cans, nil];
+    [toteCanScatterPlot initPlot:graphView withDefinition:plotDefinition];
+#endif
+}
+
+-(NSArray *)getPlotValues:(NSString *)xKey forYKey:(NSString *)yKey fromMatches:(NSArray *)scores {
+    NSMutableArray *plotData = [[NSMutableArray alloc] init];
+    for (TeamScore *score in scores) {
+        NSNumber *xValue = [score valueForKey:xKey];
+        NSNumber *yValue = [score valueForKey:yKey];
+        NSArray *dataPoint = [[NSArray alloc] initWithObjects:xValue, yValue, nil];
+        [plotData addObject:dataPoint];
+    }
+    //NSLog(@"%@", plotData);
+    return plotData;
 }
 
 -(void)createMatchHeader {
@@ -145,6 +181,8 @@
     stats = [teamStats calculateMasonStats:currentTeam forTournament:tournamentName];
     [_matchInfo reloadData];
     [_teamStatsTable reloadData];
+    //  [self createTotePieChart];
+    [self createToteCanScatterPlot];
 }
 
 - (IBAction)goHome:(id)sender {
@@ -280,7 +318,7 @@
         
 - (void)configureTeamStatsCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"%@", stats);
+    //NSLog(@"%@", stats);
         if (indexPath.row == 0) {
             UILabel *label1 = (UILabel *)[cell viewWithTag:10];
             label1.text = @"";
