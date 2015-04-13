@@ -10,11 +10,13 @@
 #import "AddTeamViewController.h"
 
 @class DataManager;
+@class ConnectionUtility;
 @class TeamData;
 
 @interface TeamListViewController : UITableViewController <NSFetchedResultsControllerDelegate, AddTeamDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) ConnectionUtility *connectionUtility;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 

@@ -87,7 +87,7 @@ TeamData *currentTeam;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSLog(@"%@",_currentScore);
+    // NSLog(@"%@",_currentScore);
     [self setLabels:(UILabel *) _teamNumber];
     [self setLabels:(UILabel *) _matchNumber];
     [self setLabels:(UILabel *) _driverRating];

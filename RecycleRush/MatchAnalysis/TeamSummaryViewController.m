@@ -21,6 +21,7 @@
 #import "ScatterPlot.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
+#import "MatchSummaryViewController.h"
 
 @interface TeamSummaryViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *teamNumberButton;
@@ -30,6 +31,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *matchInfo;
 @property (weak, nonatomic) IBOutlet UITableView *teamStatsTable;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *homeButton;
+@property (weak, nonatomic) IBOutlet UIView *graphView;
 
 @end
 
@@ -48,9 +50,10 @@
     PopUpPickerViewController *teamPicker;
     UIPopoverController *teamPickerPopover;
 
+    UIView *pieView;
+    UIView *scatterView;
     PieCharts *totePieChart;
     ScatterPlot *toteCanScatterPlot;
-    UIView *graphView;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -87,31 +90,33 @@
     currentTeam = _initialTeam;
     [self createMatchHeader];
     teamStats = [[CalculateTeamStats alloc] init:_dataManager];
-	CGRect parentRect = self.view.bounds;
-	parentRect = CGRectMake(605.0,
-							20.0,
-							400.0,
-							285.0);
-    graphView = [[UIView alloc] initWithFrame:parentRect];
-	[self.view addSubview:graphView];
     [self showTeam];
+    [scatterView setHidden:TRUE];
 }
 
 -(void)createTotePieChart {
     PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Human vs Landfill Intake"];
 #ifdef __IPHONE_7_0
+    if (!pieView) {
+        pieView = [[UIView alloc] initWithFrame:_graphView.bounds];
+        [_graphView addSubview:pieView];
+    }
     totePieChart = [[PieCharts alloc] init];
     PieSlices *slice1 = [[PieSlices alloc] init:@"" withLegend:@"Totes from Landfill" forValue:[[stats objectForKey:@"toteIntakeLandfill"] objectForKey:@"total"]];
     PieSlices *slice2 = [[PieSlices alloc] init:@"" withLegend:@"Totes from HP" forValue:[[stats objectForKey:@"toteIntakeHP"] objectForKey:@"total"]];
     NSArray *slices = [NSArray arrayWithObjects:slice1, slice2, nil];
     plotDefinition.plotData = slices;
-    [totePieChart initPlot:graphView withDefinition:plotDefinition];
+    [totePieChart initPlot:pieView withDefinition:plotDefinition];
 #endif
 }
 
 -(void)createToteCanScatterPlot {
     PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Totes and Cans Stacked Per Match"];
 #ifdef __IPHONE_7_0
+    if (!scatterView) {
+        scatterView = [[UIView alloc] initWithFrame:_graphView.bounds];
+        [_graphView addSubview:scatterView];
+    }
     plotDefinition.xAxisTitle = @"Match Number";
     plotDefinition.yAxisTitle = @"Totes/Cans Stacked";
     toteCanScatterPlot = [[ScatterPlot alloc] init];
@@ -125,7 +130,7 @@
     NSArray *totes = [self getPlotValues:@"matchNumber" forYKey:@"totalTotesScored" fromMatches:matches];
     NSArray *cans = [self getPlotValues:@"matchNumber" forYKey:@"totalCansScored" fromMatches:matches];
     plotDefinition.plotData = [[NSArray alloc] initWithObjects:totes, cans, nil];
-    [toteCanScatterPlot initPlot:graphView withDefinition:plotDefinition];
+    [toteCanScatterPlot initPlot:scatterView withDefinition:plotDefinition];
 #endif
 }
 
@@ -139,6 +144,16 @@
     }
     //NSLog(@"%@", plotData);
     return plotData;
+}
+
+-(IBAction)showIntakePie:(id)sender {
+    [pieView setHidden:FALSE];
+    [scatterView setHidden:TRUE];
+}
+
+-(IBAction)showStackScatter:(id)sender {
+    [pieView setHidden:TRUE];
+    [scatterView setHidden:FALSE];
 }
 
 -(void)createMatchHeader {
@@ -181,7 +196,7 @@
     stats = [teamStats calculateMasonStats:currentTeam forTournament:tournamentName];
     [_matchInfo reloadData];
     [_teamStatsTable reloadData];
-    //  [self createTotePieChart];
+    [self createTotePieChart];
     [self createToteCanScatterPlot];
 }
 
@@ -225,6 +240,12 @@
    }
     else if ([segue.identifier isEqualToString:@"TeamDetail"]) {
      [segue.destinationViewController setTeam:currentTeam];
+    }
+    else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
+        [segue.destinationViewController setDataManager:_dataManager];
+        NSIndexPath *indexPath = [self.matchInfo indexPathForCell:sender];
+        [segue.destinationViewController setCurrentScore:[matchList objectAtIndex:indexPath.row]];
+        [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0648F21A9BBD65004241FA /* UIDefaults.m */; };
+		2F0A0E5B1ADC1E4A00B62114 /* SpreadsheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A0E5A1ADC1E4A00B62114 /* SpreadsheetViewController.m */; };
 		2F0BAE4B1ACCC0180056E730 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */; };
 		2F0BAE551ACCE7E80056E730 /* RecycleRush.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2F0BAE541ACCE7E80056E730 /* RecycleRush.sqlite */; };
 		2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F22D6FD1A79C7EE006C109E /* AutonSP.png */; };
@@ -15,6 +16,9 @@
 		2F29A2651ADB5D4B00FAE32D /* Bane.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F29A2621ADB5D4B00FAE32D /* Bane.png */; };
 		2F29A2661ADB5D4B00FAE32D /* Can Dom.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F29A2631ADB5D4B00FAE32D /* Can Dom.png */; };
 		2F29A2671ADB5D4B00FAE32D /* Pit.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F29A2641ADB5D4B00FAE32D /* Pit.png */; };
+		2F2A24741ADBEFE8004A65E2 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A24731ADBEFE8004A65E2 /* TeamData.m */; };
+		2F2A24801ADBF0D0004A65E2 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A247F1ADBF0D0004A65E2 /* TeamScore.m */; };
+		2F2A24831ADC0BA4004A65E2 /* DetailedTransferViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A24821ADC0BA4004A65E2 /* DetailedTransferViewController.m */; };
 		2F2ABCF01AD5E19300DB8B3F /* CanDom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */; };
 		2F2ABCF61AD5E3AB00DB8B3F /* ProjectBaneListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */; };
 		2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2C33C818A09E28003475C3 /* ImageIO.framework */; };
@@ -175,10 +179,8 @@
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F9094721A85130400678B81 /* MatchScoutingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9094711A85130400678B81 /* MatchScoutingViewController.m */; };
 		2F9866871AD9DC1400C4C640 /* AnalysisListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9866861AD9DC1400C4C640 /* AnalysisListViewController.m */; };
-		2F98668A1AD9E50C00C4C640 /* TeamScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9866891AD9E50C00C4C640 /* TeamScore.m */; };
 		2F98668C1AD9F8AF00C4C640 /* Bane.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F98668B1AD9F8AF00C4C640 /* Bane.plist */; };
 		2F98668E1AD9F8CA00C4C640 /* CanDomNumber.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */; };
-		2F9866911AD9F97700C4C640 /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9866901AD9F97700C4C640 /* TeamData.m */; };
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
 		2FA0BE0D1AAB5FAD00A193A2 /* TeamSpreadsheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */; };
 		2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFD1AAA74190080E836 /* StatCalculate.plist */; };
@@ -236,6 +238,8 @@
 /* Begin PBXFileReference section */
 		2F0648F11A9BBD65004241FA /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDefaults.h; path = RecycleRush/Utilities/UIDefaults.h; sourceTree = SOURCE_ROOT; };
 		2F0648F21A9BBD65004241FA /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDefaults.m; path = RecycleRush/Utilities/UIDefaults.m; sourceTree = SOURCE_ROOT; };
+		2F0A0E591ADC1E4A00B62114 /* SpreadsheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpreadsheetViewController.h; path = RecycleRush/Utilities/SpreadsheetViewController.h; sourceTree = SOURCE_ROOT; };
+		2F0A0E5A1ADC1E4A00B62114 /* SpreadsheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpreadsheetViewController.m; path = RecycleRush/Utilities/SpreadsheetViewController.m; sourceTree = SOURCE_ROOT; };
 		2F0BAE491ACCC0180056E730 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = RecycleRush/TeamScouting/DetailScrollViewController.h; sourceTree = SOURCE_ROOT; };
 		2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = RecycleRush/TeamScouting/DetailScrollViewController.m; sourceTree = SOURCE_ROOT; };
 		2F0BAE541ACCE7E80056E730 /* RecycleRush.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = RecycleRush.sqlite; path = "RecycleRush/Resources/Init Data/RecycleRush.sqlite"; sourceTree = SOURCE_ROOT; };
@@ -244,6 +248,12 @@
 		2F29A2621ADB5D4B00FAE32D /* Bane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bane.png; path = RecycleRush/Resources/Buttons/Bane.png; sourceTree = SOURCE_ROOT; };
 		2F29A2631ADB5D4B00FAE32D /* Can Dom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Can Dom.png"; path = "RecycleRush/Resources/Buttons/Can Dom.png"; sourceTree = SOURCE_ROOT; };
 		2F29A2641ADB5D4B00FAE32D /* Pit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pit.png; path = RecycleRush/Resources/Buttons/Pit.png; sourceTree = SOURCE_ROOT; };
+		2F2A24721ADBEFE8004A65E2 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
+		2F2A24731ADBEFE8004A65E2 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
+		2F2A247E1ADBF0D0004A65E2 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
+		2F2A247F1ADBF0D0004A65E2 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
+		2F2A24811ADC0BA4004A65E2 /* DetailedTransferViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailedTransferViewController.h; path = RecycleRush/DataTransfer/DetailedTransferViewController.h; sourceTree = SOURCE_ROOT; };
+		2F2A24821ADC0BA4004A65E2 /* DetailedTransferViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailedTransferViewController.m; path = RecycleRush/DataTransfer/DetailedTransferViewController.m; sourceTree = SOURCE_ROOT; };
 		2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CanDom.plist; path = "RecycleRush/Resources/Property Lists/CanDom.plist"; sourceTree = SOURCE_ROOT; };
 		2F2ABCF41AD5E3AB00DB8B3F /* ProjectBaneListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectBaneListViewController.h; path = RecycleRush/MatchAnalysis/ProjectBaneListViewController.h; sourceTree = SOURCE_ROOT; };
 		2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectBaneListViewController.m; path = RecycleRush/MatchAnalysis/ProjectBaneListViewController.m; sourceTree = SOURCE_ROOT; };
@@ -580,12 +590,8 @@
 		2F9094711A85130400678B81 /* MatchScoutingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchScoutingViewController.m; path = RecycleRush/MatchScouting/MatchScoutingViewController.m; sourceTree = SOURCE_ROOT; };
 		2F9866851AD9DC1400C4C640 /* AnalysisListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisListViewController.h; path = RecycleRush/MatchAnalysis/AnalysisListViewController.h; sourceTree = SOURCE_ROOT; };
 		2F9866861AD9DC1400C4C640 /* AnalysisListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisListViewController.m; path = RecycleRush/MatchAnalysis/AnalysisListViewController.m; sourceTree = SOURCE_ROOT; };
-		2F9866881AD9E50C00C4C640 /* TeamScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScore.h; sourceTree = "<group>"; };
-		2F9866891AD9E50C00C4C640 /* TeamScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScore.m; sourceTree = "<group>"; };
 		2F98668B1AD9F8AF00C4C640 /* Bane.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Bane.plist; path = "RecycleRush/Resources/Property Lists/Bane.plist"; sourceTree = SOURCE_ROOT; };
 		2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CanDomNumber.plist; path = "RecycleRush/Resources/Property Lists/CanDomNumber.plist"; sourceTree = SOURCE_ROOT; };
-		2F98668F1AD9F97700C4C640 /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
-		2F9866901AD9F97700C4C640 /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2F9EFF201A1A76CA00F8D73C /* TeamAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TeamAccessors.h; path = Common/DataUtilities/TeamAccessors.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamAccessors.m; path = Common/DataUtilities/TeamAccessors.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamSpreadsheet.plist; path = "RecycleRush/Resources/Property Lists/TeamSpreadsheet.plist"; sourceTree = SOURCE_ROOT; };
@@ -1006,6 +1012,8 @@
 				2F2ECA841A5F052300D3386E /* DataSync.m */,
 				2FDECA0F1A6F0A7A0007412E /* TabletSyncViewController.h */,
 				2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */,
+				2F2A24811ADC0BA4004A65E2 /* DetailedTransferViewController.h */,
+				2F2A24821ADC0BA4004A65E2 /* DetailedTransferViewController.m */,
 			);
 			name = "Data Transfer";
 			sourceTree = "<group>";
@@ -1166,11 +1174,11 @@
 		2F8816841A5FB0D4001CCA04 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				2F9866881AD9E50C00C4C640 /* TeamScore.h */,
-				2F9866891AD9E50C00C4C640 /* TeamScore.m */,
+				2F2A24721ADBEFE8004A65E2 /* TeamData.h */,
+				2F2A24731ADBEFE8004A65E2 /* TeamData.m */,
+				2F2A247E1ADBF0D0004A65E2 /* TeamScore.h */,
+				2F2A247F1ADBF0D0004A65E2 /* TeamScore.m */,
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
-				2F98668F1AD9F97700C4C640 /* TeamData.h */,
-				2F9866901AD9F97700C4C640 /* TeamData.m */,
 				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
 				2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
@@ -1341,6 +1349,8 @@
 				2F39F5D41A919EF2004D323B /* LNNumberpad.h */,
 				2F39F5D51A919EF2004D323B /* LNNumberpad.m */,
 				2F39F5D61A919EF2004D323B /* LNNumberpad.xib */,
+				2F0A0E591ADC1E4A00B62114 /* SpreadsheetViewController.h */,
+				2F0A0E5A1ADC1E4A00B62114 /* SpreadsheetViewController.m */,
 				2F5D32DC1A5FA51000E02523 /* EnumerationDictionary.h */,
 				2F5D32DD1A5FA51000E02523 /* EnumerationDictionary.m */,
 				2F5D32DA1A5FA51000E02523 /* AlertPromptViewController.h */,
@@ -1620,6 +1630,7 @@
 				2F5D32C51A5FA45300E02523 /* ImportDeviceViewController.m in Sources */,
 				2F0648F31A9BBD65004241FA /* UIDefaults.m in Sources */,
 				2F5D32971A5FA32F00E02523 /* iPhoneMainViewController.m in Sources */,
+				2F2A24831ADC0BA4004A65E2 /* DetailedTransferViewController.m in Sources */,
 				2FA1CDFE1964B24900E5B040 /* DataConvenienceMethods.m in Sources */,
 				2F2ECAB41A5F059900D3386E /* PhoneSetUpViewController.m in Sources */,
 				2F5D32811A5FA24300E02523 /* MatchOverlayViewController.m in Sources */,
@@ -1636,10 +1647,13 @@
 				2F5D32991A5FA32F00E02523 /* PhoneSplashViewController.m in Sources */,
 				2F5D32F81A5FA51000E02523 /* FileIOMethods.m in Sources */,
 				2FE405571A96D33A007404CE /* StackViewController.m in Sources */,
+				2F0A0E5B1ADC1E4A00B62114 /* SpreadsheetViewController.m in Sources */,
 				2FDECA111A6F0A7A0007412E /* TabletSyncViewController.m in Sources */,
 				2F5D32FC1A5FA51000E02523 /* PhotoAttributes.m in Sources */,
 				2FDAF1171A9024C1006D7670 /* Packet.m in Sources */,
+				2F2A24801ADBF0D0004A65E2 /* TeamScore.m in Sources */,
 				2F5D52081A745330008F1100 /* AnalysisTeamPageViewController.m in Sources */,
+				2F2A24741ADBEFE8004A65E2 /* TeamData.m in Sources */,
 				2F5D520B1A745522008F1100 /* MatchSummaryViewController.m in Sources */,
 				2F312BCD1A7D8C3E002EF938 /* ScoutingBundleViewController.m in Sources */,
 				2F312BD01A7D9E60002EF938 /* TeamStatsViewController.m in Sources */,
@@ -1648,8 +1662,6 @@
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
 				2F316B6E1AD5FE410016D2B4 /* SortListViewController.m in Sources */,
 				2F9866871AD9DC1400C4C640 /* AnalysisListViewController.m in Sources */,
-				2F98668A1AD9E50C00C4C640 /* TeamScore.m in Sources */,
-				2F9866911AD9F97700C4C640 /* TeamData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

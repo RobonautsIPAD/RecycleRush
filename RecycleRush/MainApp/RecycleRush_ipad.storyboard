@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="C3f-kE-sTi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5056" systemVersion="12F2501" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="C3f-kE-sTi">
     <dependencies>
-        <deployment version="1536" defaultVersion="1552" identifier="iOS"/>
+        <deployment version="1536" defaultVersion="1536" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Splash Page View Controller - Root View Controller-->
@@ -26,7 +26,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="sfH-IK-sHV" kind="push" identifier="Add" id="mxb-62-Dxg"/>
+                                    <segue destination="sfH-IK-sHV" kind="push" identifier="Full" id="mxb-62-Dxg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gyL-zM-4xJ" userLabel="Set-Up Button">
@@ -41,7 +41,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jO0-sC-Asm" kind="push" identifier="SetUp" id="sKt-FA-aZH"/>
+                                    <segue destination="jO0-sC-Asm" kind="push" identifier="Full" id="sKt-FA-aZH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YhQ-tx-sI9" userLabel="Match Scouting Button">
@@ -56,7 +56,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="1Bn-R0-uqK" kind="push" identifier="Scouting" id="FZb-Sm-ijL"/>
+                                    <segue destination="1Bn-R0-uqK" kind="push" identifier="Full" id="FZb-Sm-ijL"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="home image.004.png" id="LIX-OB-TXE">
@@ -82,7 +82,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Svo-Ej-nRw" kind="push" identifier="Add" id="Tm6-FM-heh"/>
+                                    <segue destination="Svo-Ej-nRw" kind="push" identifier="Full" id="Tm6-FM-heh"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RobonautsLogo.jpg" id="AxM-XR-Mww">
@@ -97,21 +97,21 @@
                         <barButtonItem title="View Errors" id="gqN-IB-noI">
                             <color key="tintColor" red="0.86734693880000002" green="0.0" blue="0.047009417689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="jd0-tT-BzE" kind="push" identifier="Add" id="2hQ-n8-lLr"/>
+                                <segue destination="jd0-tT-BzE" kind="push" identifier="Base" id="2hQ-n8-lLr"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="8a6-Ha-qkf"/>
                         <barButtonItem title="Project Bane" id="tUD-ga-05U">
                             <color key="tintColor" red="1" green="0.18624937320000001" blue="0.67327536759999995" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="bxp-VI-tf2" kind="push" identifier="" id="mih-GY-rOC"/>
+                                <segue destination="bxp-VI-tf2" kind="push" identifier="Base" id="mih-GY-rOC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="QPw-5H-8Fz"/>
                         <barButtonItem title="Can Dom" id="OMP-GX-kmm">
                             <color key="tintColor" red="1" green="0.18624937320000001" blue="0.67327536759999995" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="2ef-z3-d2b" kind="push" identifier="" id="EeK-Wh-Srv"/>
+                                <segue destination="2ef-z3-d2b" kind="push" identifier="Base" id="EeK-Wh-Srv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ufo-ih-yWL"/>
@@ -120,7 +120,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Root View Controller" id="V5d-b0-9qD"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -386,6 +386,23 @@
             </objects>
             <point key="canvasLocation" x="-5206" y="-6765"/>
         </scene>
+        <!--Spreadsheet View Controller-->
+        <scene sceneID="AI7-mq-yw9">
+            <objects>
+                <viewController id="Zt2-0p-cK0" customClass="SpreadsheetViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HuV-OJ-xSw">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="0.34198222010000001" blue="0.6034874147" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JoI-3f-QpM"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kfL-rU-8V0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4040" y="-6754"/>
+        </scene>
         <!--Team Summary View Controller-->
         <scene sceneID="ytr-WD-hJZ">
             <objects>
@@ -487,7 +504,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Gnp-7A-Zit">
-                                <rect key="frame" x="793" y="295" width="154" height="41"/>
+                                <rect key="frame" x="20" y="299" width="154" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Match Photos">
@@ -506,6 +523,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <segue destination="ilm-CR-Fta" kind="push" id="zbF-Ae-oKj"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Match #" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="yMh-7J-v70">
                                 <rect key="frame" x="477" y="23" width="97" height="30"/>
@@ -514,7 +534,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="46" sectionHeaderHeight="22" sectionFooterHeight="22" id="MIL-hd-ESw">
-                                <rect key="frame" x="20" y="61" width="568" height="200"/>
+                                <rect key="frame" x="20" y="61" width="568" height="223"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -570,6 +590,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="ilm-CR-Fta" kind="push" identifier="MatchSummary" id="GmM-TI-JC7"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -599,30 +622,28 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RtC-Qr-cx5">
-                                <rect key="frame" x="671" y="295" width="69" height="41"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3i3-Dm-AHo">
+                                <rect key="frame" x="596" y="295" width="408" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Graph">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <view contentMode="scaleToFill" id="ejE-Ci-3vg">
-                                <rect key="frame" x="616" y="20" width="388" height="255"/>
+                                <items>
+                                    <barButtonItem title="Intake" width="111" id="n6y-cO-Man">
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <connections>
+                                            <action selector="showIntakePie:" destination="H4b-d7-tJx" id="XQ4-Cd-2yw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Stacking" width="111" id="e5U-h0-DXi" userLabel="Bar Button Item - Stacks">
+                                        <connections>
+                                            <action selector="showStackScatter:" destination="H4b-d7-tJx" id="kw6-LI-rT4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" id="c3G-Un-LSb">
+                                <rect key="frame" x="596" y="11" width="408" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3i3-Dm-AHo">
-                                <rect key="frame" x="420" y="284" width="184" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Item" id="n6y-cO-Man"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -646,6 +667,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="graphView" destination="c3G-Un-LSb" id="dpZ-9h-7Kg"/>
                         <outlet property="homeButton" destination="o4Q-al-wNo" id="kns-lG-zUp"/>
                         <outlet property="matchInfo" destination="MIL-hd-ESw" id="lsK-Eq-q7E"/>
                         <outlet property="matchNumberField" destination="yMh-7J-v70" id="3Li-g3-5aK"/>
@@ -2469,7 +2491,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Button">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -3570,6 +3592,13 @@
                                 <segue destination="jd0-tT-BzE" kind="push" id="VhA-KP-rwj"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="vD5-bt-ryp"/>
+                        <barButtonItem title="Detailed Transfer" id="6d8-R3-AhU">
+                            <color key="tintColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="RUt-gn-WC2" kind="push" identifier="DetailedTransfer" id="pNS-zR-tyx"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="vw5-Zf-GFh"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -3598,7 +3627,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMt-Gp-LFM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9920" y="2553"/>
+            <point key="canvasLocation" x="8016" y="2081"/>
+        </scene>
+        <!--Detailed Transfer View Controller-->
+        <scene sceneID="PSF-Ji-m6a">
+            <objects>
+                <viewController id="RUt-gn-WC2" customClass="DetailedTransferViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bMo-C5-FBa">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="0.34198222010000001" blue="0.6034874147" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="C2N-go-fdY"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aS-SY-AW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8016" y="2956"/>
         </scene>
         <!--Alliances View Controller-->
         <scene sceneID="VH8-TG-cfZ">
@@ -4884,7 +4930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gla-fc-rTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5204" y="4013"/>
+            <point key="canvasLocation" x="5892" y="3509"/>
         </scene>
         <!--Match Integrity View Controller-->
         <scene sceneID="R3r-cr-8Pe">
@@ -5160,11 +5206,12 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ueb-S3-4rq">
-                                <rect key="frame" x="205" y="421" width="208" height="30"/>
+                                <rect key="frame" x="205" y="421" width="251" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Meeting"/>
                                     <segment title="Tournament"/>
+                                    <segment title="Analysis"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.88640234159999998" blue="0.23999005109999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -5172,7 +5219,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="0da-2S-zBN">
-                                <rect key="frame" x="205" y="566" width="208" height="30"/>
+                                <rect key="frame" x="205" y="566" width="251" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Scouter"/>
@@ -5430,15 +5477,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJ9-kC-7Hd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7022" y="2868"/>
+            <point key="canvasLocation" x="6238" y="2380"/>
         </scene>
         <!--Top Level Navigation Controller-->
         <scene sceneID="PvB-tc-fQH">
             <objects>
                 <navigationController toolbarHidden="NO" id="C3f-kE-sTi" userLabel="Top Level Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="eE1-mm-os8"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="d7C-1d-qzy">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="d7C-1d-qzy">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
@@ -5687,8 +5734,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="USD-kx-EdI">
-                                <rect key="frame" x="25" y="91" width="980" height="424"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="25" y="91" width="980" height="470"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TeamInfo" rowHeight="70" id="Ate-sS-4w3">
@@ -5867,7 +5914,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rTh-Fa-Qvf">
-                                <rect key="frame" x="74" y="579" width="197" height="44"/>
+                                <rect key="frame" x="25" y="565" width="197" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Red Sketch Space">
@@ -5882,7 +5929,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IjR-Q9-DAP">
-                                <rect key="frame" x="293" y="579" width="197" height="44"/>
+                                <rect key="frame" x="274" y="565" width="197" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Blue Sketch Space">
@@ -5894,6 +5941,21 @@
                                 </state>
                                 <connections>
                                     <segue destination="riE-96-DgI" kind="push" identifier="BlueSketch" id="Pzs-hx-ptZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BTv-nv-cUZ">
+                                <rect key="frame" x="25" y="613" width="197" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Spreadsheet">
+                                    <color key="titleColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Zt2-0p-cK0" kind="push" identifier="Spreadsheet" id="OtG-IK-H8l"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Red Team Alliance Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y4N-h7-Se0">
@@ -5947,6 +6009,7 @@
                         <outlet property="ourPrevMatchButton" destination="oZu-Ql-RZc" id="vjj-S8-ffv"/>
                         <outlet property="prevMatch" destination="BVc-Xr-pij" id="id9-0D-17G"/>
                         <outlet property="redSketchButton" destination="rTh-Fa-Qvf" id="ncO-ej-eva"/>
+                        <outlet property="spreadsheetButton" destination="BTv-nv-cUZ" id="meg-xc-yT2"/>
                         <outlet property="teamInfo" destination="USD-kx-EdI" id="PvY-vk-lYa"/>
                     </connections>
                 </viewController>
@@ -5957,7 +6020,7 @@
         <!--Team Match List View Controller-->
         <scene sceneID="eVS-XA-5k6">
             <objects>
-                <viewController id="Svo-Ej-nRw" customClass="TeamMatchListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeamMatchListViewController" id="Svo-Ej-nRw" customClass="TeamMatchListViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="lJg-R7-d7N">
                         <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -5967,7 +6030,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SNH-87-8GP">
-                                <rect key="frame" x="483" y="20" width="521" height="1028"/>
+                                <rect key="frame" x="483" y="20" width="521" height="1136"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -6086,7 +6149,13 @@
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Set-Up" id="EmI-yW-JiL">
+                            <connections>
+                                <segue destination="jO0-sC-Asm" kind="push" identifier="Set-Up" id="YLj-Be-DHH"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="bZX-e4-3xb"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -7309,6 +7378,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="ilm-CR-Fta" kind="push" identifier="MatchSummary" id="XcF-QC-r3i"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -7610,7 +7682,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Button">
-                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -7625,7 +7697,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Button">
-                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -8151,10 +8223,10 @@
             </objects>
             <point key="canvasLocation" x="-10551" y="4961"/>
         </scene>
-        <!--Match Scouting View Controller-->
+        <!--Match Summary View Controller-->
         <scene sceneID="kMe-8c-wH8">
             <objects>
-                <viewController id="ilm-CR-Fta" userLabel="Match Scouting View Controller" customClass="MatchSummaryViewController" sceneMemberID="viewController">
+                <viewController id="ilm-CR-Fta" userLabel="Match Summary View Controller" customClass="MatchSummaryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0mc-64-QhH">
                         <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -8814,15 +8886,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="2hQ-n8-lLr"/>
-        <segue reference="beS-aj-zfP"/>
-        <segue reference="wEf-g4-j4R"/>
-        <segue reference="2of-I0-vVw"/>
-        <segue reference="GB9-r5-xh5"/>
-        <segue reference="rvd-8o-WNc"/>
-        <segue reference="Ocj-Fx-NrV"/>
-        <segue reference="aFR-Zh-4lt"/>
-        <segue reference="5oi-PP-XUW"/>
+        <segue reference="Tm6-FM-heh"/>
+        <segue reference="YLj-Be-DHH"/>
+        <segue reference="dB5-hO-37s"/>
+        <segue reference="lOv-Ju-tuz"/>
+        <segue reference="ILs-8g-vkf"/>
+        <segue reference="VhA-KP-rwj"/>
         <segue reference="bSz-YR-wcx"/>
+        <segue reference="fst-fR-8qn"/>
+        <segue reference="5oi-PP-XUW"/>
+        <segue reference="FCB-fh-Wqd"/>
+        <segue reference="GmM-TI-JC7"/>
+        <segue reference="GB9-r5-xh5"/>
     </inferredMetricsTieBreakers>
 </document>

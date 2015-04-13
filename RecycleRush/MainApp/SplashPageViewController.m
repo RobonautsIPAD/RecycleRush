@@ -8,22 +8,29 @@
 
 #import "SplashPageViewController.h"
 #import "SetUpPageViewController.h"
+#import "TeamMatchListViewController.h"
 #import "DallasMigration.h"
+
+@interface TeamMatchListSegue : UIStoryboardSegue
+@end
+
+@implementation TeamMatchListSegue
+- (void)perform {
+    // our custom segue is being fired, push the tablet error view controller
+    UINavigationController *sourceViewController = self.sourceViewController;
+    TeamMatchListViewController *destinationViewController = self.destinationViewController;
+    [sourceViewController pushViewController:destinationViewController animated:YES];
+}
+@end
+
+@interface SplashPageViewController ()
+@property (nonatomic, strong) TeamMatchListSegue *teamMatchListSegue;
+@end
 
 @implementation SplashPageViewController {
     NSUserDefaults *prefs;
     DallasMigration *dallasMigration;
 }
-
-@synthesize dataManager = _dataManager;
-@synthesize mainLogo = _mainLogo;
-@synthesize pictureCaption = _pictureCaption;
-@synthesize teamScoutingButton = _teamScoutingButton;
-@synthesize matchSetUpButton = _matchSetUpButton;
-@synthesize matchScoutingButton = _matchScoutingButton;
-@synthesize matchAnalysisButton = _matchAnalysisButton;
-@synthesize splashPicture = _splashPicture;
-@synthesize tournamentAnalysisButton = _tournamentAnalysisButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +59,17 @@
     prefs = [NSUserDefaults standardUserDefaults];
     NSString *gameName = [prefs objectForKey:@"gameName"];
     self.title = gameName;
+    NSString *mode = [prefs objectForKey:@"mode"];
+    if ([mode isEqualToString:@"Analysis"]) {
+        NSLog(@"Jump to Anaysis");
+        TeamMatchListViewController *teamMatchListView = [[self.navigationController storyboard] instantiateViewControllerWithIdentifier:@"TeamMatchListViewController"];
+        [teamMatchListView setDataManager:_dataManager];
+        [teamMatchListView setConnectionUtility:_connectionUtility];
+        self.teamMatchListSegue = [[TeamMatchListSegue alloc] initWithIdentifier:@"TeamMatchListViewController"
+                                                                          source:self.navigationController
+                                                                     destination:teamMatchListView];
+        [self.teamMatchListSegue perform];
+    }
 //    NSLog(@"Do not leave Sacramento migration in place !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //    dallasMigration = [[DallasMigration alloc] init:_dataManager];
 //    [dallasMigration sacramentoMigration];
@@ -79,15 +97,8 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"SetUp"]) {
-        [segue.destinationViewController setConnectionUtility:_connectionUtility];
-    }
-    
-    if ([segue.identifier isEqualToString:@"Add"]) {
-        [segue.destinationViewController setDataManager:_dataManager];
-}
-    if ([segue.identifier isEqualToString:@"Scouting"]){
-        [segue.destinationViewController setDataManager:_dataManager];
+    [segue.destinationViewController setDataManager:_dataManager];
+    if ([segue.identifier isEqualToString:@"Full"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
 }
