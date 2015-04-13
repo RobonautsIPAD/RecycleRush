@@ -8,26 +8,20 @@
 
 #import "TeamMatchListViewController.h"
 #import "DataManager.h"
+#import "FileIOMethods.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "MatchAccessors.h"
 #import "ScoreAccessors.h"
-#import "MainMatchAnalysisViewController.h"
-#import "LNNumberpad.h"
-#import "MainMatchAnalysisViewController.h"
 #import "TournamentData.h"
-#import "DataManager.h"
-#import "DataConvenienceMethods.h"
 #import "TeamAccessors.h"
 #import "MatchData.h"
 #import "MatchUtilities.h"
-#import "TeamData.h"
-#import "TeamScore.h"
 #import "MatchFlow.h"
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
-#import "FieldDrawingViewController.h"
-#import "FileIOMethods.h"
+#import "MainMatchAnalysisViewController.h"
+#import "SettingsViewController.h"
 #import <QuartzCore/CALayer.h>
 #import "LNNumberpad.h"
 
@@ -124,7 +118,7 @@
     }
 }
 
-- (IBAction)matchTypeSelected:(id)sender {
+-(IBAction)matchTypeSelected:(id)sender {
     if (sender == _competitionButton) {
         competitionState = !competitionState;
         [self setRadioButtonState:_competitionButton forState:competitionState];
@@ -140,17 +134,23 @@
     [self filterMatchList];
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Segue occurs when the user selects a match out of the match list table. Receiving
-    //  VC is the Main Match Anaylsis Page VC.
-    NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [segue.destinationViewController setDataManager:_dataManager];
-    // NSLog(@"Match list = %@", matchList);
-    [segue.destinationViewController setTeamNumber:[NSNumber numberWithInt:[_teamNumberText.text intValue]]];
-    TeamScore  *current = [matchList objectAtIndex:indexPath.row];
-    [segue.destinationViewController setInitialMatchNumber:current.matchNumber];
-    [segue.destinationViewController setInitialMatchType:current.matchType];
-    [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
+    if ([segue.identifier isEqualToString:@"Set-Up"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
+    else {
+        // Segue occurs when the user selects a match out of the match list table. Receiving
+        //  VC is the Main Match Anaylsis Page VC.
+        NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];
+        [segue.destinationViewController setDataManager:_dataManager];
+        // NSLog(@"Match list = %@", matchList);
+        [segue.destinationViewController setTeamNumber:[NSNumber numberWithInt:[_teamNumberText.text intValue]]];
+        TeamScore  *current = [matchList objectAtIndex:indexPath.row];
+        [segue.destinationViewController setInitialMatchNumber:current.matchNumber];
+        [segue.destinationViewController setInitialMatchType:current.matchType];
+        [_matchesTable deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

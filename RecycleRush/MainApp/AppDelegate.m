@@ -21,8 +21,7 @@
 
 @implementation TabletErrorSegue
 
-- (void)perform
-{
+- (void)perform {
     // our custom segue is being fired, push the tablet error view controller
     UINavigationController *sourceViewController = self.sourceViewController;
     TabletInputErrorViewController *destinationViewController = self.destinationViewController;

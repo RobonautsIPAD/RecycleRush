@@ -1,8 +1,8 @@
 //
-//  TeamMatchListViewController.h
+//  DetailedTransferViewController.h
 //  RecycleRush
 //
-//  Created by FRC on 2/7/15.
+//  Created by FRC on 4/13/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -10,7 +10,8 @@
 @class DataManager;
 @class ConnectionUtility;
 
-@interface TeamMatchListViewController : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface DetailedTransferViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
+
 @end

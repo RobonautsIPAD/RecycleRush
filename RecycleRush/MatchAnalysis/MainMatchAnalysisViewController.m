@@ -23,6 +23,7 @@
 #import "SketchSpaceViewController.h"
 #import "TeamSummaryViewController.h"
 #import "FieldDrawingViewController.h"
+#import "SpreadsheetViewController.h"
 #import "FileIOMethods.h"
 #import "LNNumberpad.h"
 #import "MatchAccessors.h"
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) NSMutableArray *teamData;
 @property (weak, nonatomic) IBOutlet UIButton *redSketchButton;
 @property (weak, nonatomic) IBOutlet UIButton *blueSketchButton;
+@property (weak, nonatomic) IBOutlet UIButton *spreadsheetButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
 @property (nonatomic, strong) UIView *teamHeader;
@@ -144,6 +146,7 @@
     [UIDefaults setBigButtonDefaults:_ourNextMatchButton withFontSize:nil];
     [UIDefaults setBigButtonDefaults:_redSketchButton withFontSize:nil];
     [UIDefaults setBigButtonDefaults:_blueSketchButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_spreadsheetButton withFontSize:nil];
      _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
@@ -494,7 +497,7 @@
 {
     [segue.destinationViewController setDataManager:_dataManager];
     if ([segue.identifier isEqualToString:@"TeamSummary"]) {
-        NSIndexPath *indexPath = [ self.teamInfo indexPathForCell:sender];
+        NSIndexPath *indexPath = [self.teamInfo indexPathForCell:sender];
         TeamSummaryViewController *detailViewController = [segue destinationViewController];
         // NSLog(@"Team = %@", [_teamList objectAtIndex:indexPath.row]);
         detailViewController.initialTeam = [teamList objectAtIndex:indexPath.row];
@@ -526,8 +529,8 @@
     else if ([segue.identifier isEqualToString:@"BlueSketchHome"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
     }
-/*    else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
-    }*/
+    else if ([segue.identifier isEqualToString:@"Spreadsheet"]) {
+    }
     else {
         NSIndexPath *indexPath;
         if ([segue.identifier isEqualToString:@"Red1"]) {

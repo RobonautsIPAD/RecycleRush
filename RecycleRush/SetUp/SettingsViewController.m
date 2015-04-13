@@ -112,8 +112,11 @@
     if ([[prefs objectForKey:@"mode"] isEqualToString:@"Meeting"]) {
         _modeSegment.selectedSegmentIndex = 0;
     }
-    else {
+    else if ([[prefs objectForKey:@"mode"] isEqualToString:@"Tournament"]) {
         _modeSegment.selectedSegmentIndex = 1;
+    }
+    else if ([[prefs objectForKey:@"mode"] isEqualToString:@"Analysis"]) {
+        _modeSegment.selectedSegmentIndex = 2;
     }
     // Set Bluetooth segment
     NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
@@ -236,7 +239,7 @@
     if (current == 0) {
         [prefs setObject:@"Meeting" forKey:@"mode"];
     }
-    else {
+    else if (current == 1) {
         NSString *currentAlliance = _allianceButton.titleLabel.text;
         NSUInteger allianceIndex = [_allianceList indexOfObject:currentAlliance];
         if (allianceIndex == NSNotFound) {
@@ -250,6 +253,9 @@
         else {
             [prefs setObject:@"Tournament" forKey:@"mode"];
         }
+    }
+    else {
+        [prefs setObject:@"Analysis" forKey:@"mode"];
     }
 }
 
