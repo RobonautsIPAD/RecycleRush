@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 4/1/15.
+//  Created by FRC on 4/11/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -34,6 +34,12 @@
 @property (nonatomic, retain) NSNumber * cansOn4;
 @property (nonatomic, retain) NSNumber * cansOn5;
 @property (nonatomic, retain) NSNumber * cansOn6;
+@property (nonatomic, retain) NSNumber * coop10;
+@property (nonatomic, retain) NSNumber * coop13;
+@property (nonatomic, retain) NSNumber * coop20;
+@property (nonatomic, retain) NSNumber * coop22;
+@property (nonatomic, retain) NSNumber * coop30;
+@property (nonatomic, retain) NSNumber * coop31;
 @property (nonatomic, retain) NSNumber * coopSetDenominator;
 @property (nonatomic, retain) NSNumber * coopSetNumerator;
 @property (nonatomic, retain) NSNumber * coopStackDenominator;
@@ -96,12 +102,6 @@
 @property (nonatomic, retain) NSNumber * wowlistHP;
 @property (nonatomic, retain) NSNumber * wowlistRobot;
 @property (nonatomic, retain) NSNumber * yellowCards;
-@property (nonatomic, retain) NSNumber * coop10;
-@property (nonatomic, retain) NSNumber * coop20;
-@property (nonatomic, retain) NSNumber * coop30;
-@property (nonatomic, retain) NSNumber * coop31;
-@property (nonatomic, retain) NSNumber * coop13;
-@property (nonatomic, retain) NSNumber * coop22;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

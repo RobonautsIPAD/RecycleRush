@@ -504,21 +504,27 @@
     }
     else if ([segue.identifier isEqualToString:@"RedSketch"]) {
         [segue.destinationViewController setAllianceString:@"Red"];
-        NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 1" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 2" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 3" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+       // NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 1" fromDictionary:allianceDictionary]];
+      //  [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+       // teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 2" fromDictionary:allianceDictionary]];
+      //  [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+      //  teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Red 3" fromDictionary:allianceDictionary]];
+      //  [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
    }
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
-        NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 1" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 2" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
-        teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 3" fromDictionary:allianceDictionary]];
-        [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+       // NSNumber *teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 1" fromDictionary:allianceDictionary]];
+      //  [segue.destinationViewController setAlliance1:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+      //  teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 2" fromDictionary:allianceDictionary]];
+       // [segue.destinationViewController setAlliance2:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+    //    teamNumber = [matchUtilities getTeamFromList:scoreList forAllianceStation:[MatchAccessors getAllianceStation:@"Blue 3" fromDictionary:allianceDictionary]];
+    //    [segue.destinationViewController setAlliance3:[NSString stringWithFormat:@"%d", [teamNumber intValue]]];
+    }
+    else if ([segue.identifier isEqualToString:@"RedSketchHome"]) {
+        [segue.destinationViewController setAllianceString:@"Red"];
+    }
+    else if ([segue.identifier isEqualToString:@"BlueSketchHome"]) {
+        [segue.destinationViewController setAllianceString:@"Blue"];
     }
 /*    else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
     }*/

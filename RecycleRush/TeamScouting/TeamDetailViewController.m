@@ -64,6 +64,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *robotWidth;
 @property (weak, nonatomic) IBOutlet UIButton *canDomRadio;
 @property (weak, nonatomic) IBOutlet UIButton *baneRadioButton;
+@property (weak, nonatomic) IBOutlet UIButton *typeOfBane;
+@property (weak, nonatomic) IBOutlet UIButton *canDomNumber;
 @end
 
 @implementation TeamDetailViewController {
@@ -97,6 +99,14 @@
     PopUpPickerViewController *programmingLanguagePicker;
     UIPopoverController *programmingLanguagePickerPopover;
     NSArray *programmingLanguageList;
+    
+    PopUpPickerViewController *typeBanePicker;
+    UIPopoverController *typeBanePickerPopover;
+    NSArray *typeBaneList;
+    
+    PopUpPickerViewController *canDomNumberPicker;
+    UIPopoverController *canDomNumberPickerPopover;
+    NSArray *canDomNumberList;
     
     PopUpPickerViewController *canDomPicker;
     UIPopoverController *canDomPickerPopover;
@@ -216,6 +226,8 @@ TeamData *currentteam;
     [self setBigButtonDefaults:_canIntakeButton];
     [self setBigButtonDefaults:_liftTypeButton];
     [self setBigButtonDefaults:_programmingLanguage];
+    [self setBigButtonDefaults:_typeOfBane];
+    [self setBigButtonDefaults:_canDomNumber];
     [self setBigButtonDefaults:_stackingMechButton];
     [self setBigButtonDefaults:_driveType];
     [self setBigButtonDefaults:_matchOverlayButton];
@@ -418,6 +430,8 @@ TeamData *currentteam;
     [_stackingMechButton setTitle:_team.stackMechanism forState:UIControlStateNormal];
     [_autonMobilityButton setTitle:_team.autonMobility forState:UIControlStateNormal];
     [_programmingLanguage setTitle:_team.language forState:UIControlStateNormal];
+    [_typeOfBane setTitle:_team.typeOfBane forState:UIControlStateNormal];
+    [_canDomNumber setTitle:_team.numberOfCans forState:UIControlStateNormal];
     [self setRadioButtonState:_baneRadioButton forState:[_team.projectBane intValue]];
     [self setRadioButtonState:_canDomRadio forState:[_team.canDom intValue]];
 
@@ -600,6 +614,37 @@ if (sender == _canDomRadio) { // It is on, turn it off
         [programmingLanguagePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if (PressedButton == _typeOfBane) {
+        if (!typeBaneList) typeBaneList = [FileIOMethods initializePopUpList:@"Bane"];
+        if (typeBanePicker == nil) {
+            typeBanePicker = [[PopUpPickerViewController alloc]
+                                         initWithStyle:UITableViewStylePlain];
+            typeBanePicker.delegate = self;
+            typeBanePicker.pickerChoices = typeBaneList;
+        }
+        if (!typeBanePickerPopover) {
+            typeBanePickerPopover = [[UIPopoverController alloc]
+                                                initWithContentViewController:typeBanePicker];
+        }
+        [typeBanePickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else if (PressedButton == _canDomNumber) {
+        if (!canDomNumberList) canDomNumberList = [FileIOMethods initializePopUpList:@"CanDomNumber"];
+        if (canDomNumberPicker == nil) {
+            canDomNumberPicker = [[PopUpPickerViewController alloc]
+                                         initWithStyle:UITableViewStylePlain];
+            canDomNumberPicker.delegate = self;
+            canDomNumberPicker.pickerChoices = canDomNumberList;
+        }
+        if (!canDomNumberPickerPopover) {
+            canDomNumberPickerPopover = [[UIPopoverController alloc]
+                                                initWithContentViewController:canDomNumberPicker];
+        }
+        [canDomNumberPickerPopover presentPopoverFromRect:PressedButton.bounds inView:PressedButton
+                                        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+
     else if (PressedButton == _canDomRadio) {
         if (!canDomList) canDomList = [FileIOMethods initializePopUpList:@"CanDom"];
         if (canDomPicker == nil) {
@@ -659,6 +704,14 @@ if (sender == _canDomRadio) { // It is on, turn it off
     else if (popUp == _programmingLanguage) {
         [programmingLanguagePickerPopover dismissPopoverAnimated:YES];
         _team.language = newPick;
+    }
+    else if (popUp == _canDomNumber) {
+        [canDomNumberPickerPopover dismissPopoverAnimated:YES];
+        _team.numberOfCans = newPick;
+    }
+    else if (popUp == _typeOfBane) {
+        [typeBanePickerPopover dismissPopoverAnimated:YES];
+        _team.typeOfBane = newPick;
     }
     
     [self setDataChange];

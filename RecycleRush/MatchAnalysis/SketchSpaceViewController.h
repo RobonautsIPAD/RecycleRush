@@ -10,7 +10,7 @@
 
 @class DataManager;
 
-@interface SketchSpaceViewController : UIViewController
+@interface SketchSpaceViewController : UIViewController <UIActionSheetDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSString *allianceString;
 @property (nonatomic, strong) NSString *alliance1;

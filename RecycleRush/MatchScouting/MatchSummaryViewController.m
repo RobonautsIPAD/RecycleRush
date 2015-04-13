@@ -204,7 +204,7 @@ TeamData *currentTeam;
 		_litterInCans.text = [NSString stringWithFormat:@"%@", _currentScore.litterInCan];
 	}
     else if (label == _dataSavedBy) {
-		_dataSavedBy.text = [NSString stringWithFormat:@"%@", _currentScore.savedBy];
+		_dataSavedBy.text = [NSString stringWithFormat:@"%@", _currentScore.scouter];
 	}
     else if (label == _totesLandfill) {
 		_totesLandfill.text = [NSString stringWithFormat:@"%@", _currentScore.toteIntakeLandfill];

@@ -33,6 +33,8 @@
 
 @implementation MatchDrawingSegue
 
+CGFloat opacity;
+
 -(void)perform {
     // our custom segue is being fired, push the tablet error view controller
     UINavigationController *sourceViewController = self.sourceViewController;
@@ -115,6 +117,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *paperPhoto;
 @property (weak, nonatomic) IBOutlet UIButton *drawModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *createStacksButton;
+@property (weak, nonatomic) IBOutlet UIButton *scouterName;
+@property (weak, nonatomic) IBOutlet UILabel *stepLabelThingy;
+@property (nonatomic, strong) IBOutlet UILabel *label;
 
 @end
 
@@ -177,6 +182,10 @@
     PopUpPickerViewController *robotTypePicker;
     UIPopoverController *robotTypePickerPopover;
     NSArray *robotTypeList;
+    
+    PopUpPickerViewController *scouterPicker;
+    UIPopoverController *scouterPickerPopover;
+    NSArray *scouterList;
     
     NSArray *autonTotePopUpList;
     PopUpPickerViewController *autonTotePicker;
@@ -252,7 +261,6 @@
     teamList = [[NSMutableArray alloc] init];
     allianceList = [[NSMutableArray alloc] init];
     [self setDefaults];
-    
     
 }
 
@@ -403,6 +411,7 @@
     _canFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.canIntakeFloor];
    _canStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.cansFromStep];
     _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
+    _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
     _toteLandfillIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeLandfill];
@@ -427,6 +436,7 @@
     _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
     [_robotType setTitle:currentScore.robotType forState:UIControlStateNormal];
+    [_scouterName setTitle:currentScore.scouter forState:UIControlStateNormal];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
@@ -665,6 +675,12 @@
         [_robotType setTitle:newPick forState:UIControlStateNormal];
         return;
     }
+    if (popUp == scouterPicker) {
+        [scouterPickerPopover dismissPopoverAnimated:YES];
+        currentScore.scouter = newPick;
+        [_scouterName setTitle:newPick forState:UIControlStateNormal];
+        return;
+    }
     if (popUp == autonCanPicker) {
         currentScore.autonCansScored = [NSNumber numberWithInt:[newPick intValue]];
         [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
@@ -749,6 +765,23 @@
         [robotTypePickerPopover presentPopoverFromRect:_robotType.bounds inView:_robotType
                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+    else if (sender == _scouterName) {
+        if (!scouterList) scouterList = [FileIOMethods initializePopUpList:@"ScouterName"];
+        if (scouterPicker == nil) {
+            scouterPicker = [[PopUpPickerViewController alloc]
+                               initWithStyle:UITableViewStylePlain];
+            scouterPicker.delegate = self;
+        }
+        scouterPicker.pickerChoices = scouterList;
+        if (!scouterPickerPopover) {
+            scouterPickerPopover = [[UIPopoverController alloc]
+                                      initWithContentViewController:scouterPicker];
+        }
+        popUp = scouterPicker;
+        [scouterPickerPopover presentPopoverFromRect:_scouterName.bounds inView:_scouterName
+                              permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+
    // [self updateTotal:@"TotalScore"];
 }
 
@@ -869,6 +902,8 @@
     currentMatch = [self getCurrentMatch];
     [self setTeamList];
     [self showTeam:teamIndex];
+    
+    [_label setAlpha:1];
 }
 
 -(NSUInteger)getNextSection:(NSNumber *) currentType {
@@ -1108,6 +1143,7 @@
     [_matchNumber setUserInteractionEnabled:TRUE];
     [_matchType setUserInteractionEnabled:TRUE];
     [_robotType setUserInteractionEnabled:TRUE];
+    [_scouterName setUserInteractionEnabled:TRUE];
     [_alliance setUserInteractionEnabled:TRUE];
     [self showViews];
 }
@@ -1392,11 +1428,11 @@
          currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
-    else if ([scoreObject isEqualToString:@"TotalScore"]) {
-        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
-        currentScore.totalScore = [NSNumber numberWithInt:score];
-        _totalScore.text = [NSString stringWithFormat:@"%d", score];
-    }
+   // else if ([scoreObject isEqualToString:@"TotalScore"]) {
+     //   int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
+       // currentScore.totalScore = [NSNumber numberWithInt:score];
+    //    _totalScore.text = [NSString stringWithFormat:@"%d", score];
+   // }
 }
 
 -(IBAction)drawModeChange: (id)sender {
@@ -1468,6 +1504,7 @@
     [self setBigButtonDefaults:_canDomTimeButton];
     [self setBigButtonDefaults:_drawingChoiceButton];
     [self setBigButtonDefaults:_robotType];
+    [self setBigButtonDefaults:_scouterName];
     [self setBigButtonDefaults:_drawModeButton];
     [self setBigButtonDefaults:_createStacksButton];
     [self setSmallButtonDefaults:_driverRating];
@@ -1773,5 +1810,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(IBAction)fade {
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:2.5];
+    [_label setAlpha:0];
+    [UIView commitAnimations];
+
+    
+}
+
 
 @end

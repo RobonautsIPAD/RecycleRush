@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *drawModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *eraseButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *resetSketch;
 
 @end
 
@@ -47,6 +48,7 @@
     CGFloat brush;
     CGFloat opacity;
     BOOL eraseMode;
+    id popUp;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -113,6 +115,40 @@
 }
 
 - (IBAction)eraseTapped:(id)sender {
+    if (eraseMode) {
+        [_eraseButton setBackgroundImage:nil forState:UIControlStateNormal];
+        eraseMode = FALSE;
+    }
+    else {
+        [_eraseButton setBackgroundImage:[UIImage imageNamed:@"Small Red Button.jpg"] forState:UIControlStateNormal];
+        eraseMode = TRUE;
+    }
+}
+
+- (IBAction)sketchReset:(id)sender {
+    NSString *title = @"Empire Says: Are you sure you want to rest?";
+    NSString *button = @"Yes, Reset";
+    popUp = sender;
+    
+    [self confirmationActionSheet:title withButton:button];
+}
+
+-(void)matchReset {
+    drawMode = FALSE;
+}
+                                                                                             
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            if (popUp == _resetSketch) [self matchReset];
+           }
+}
+
+-(void)confirmationActionSheet:title withButton:(NSString *)button {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:button otherButtonTitles:@"Nevermind",  nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
 }
 
 - (IBAction)saveTapped:(id)sender {
@@ -190,6 +226,10 @@
         [currentView setAlpha:opacity];
         UIGraphicsEndImageContext();
         lastPoint = currentPoint;
+        if (eraseMode) {
+            CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+            brush = 15.0;
+        }
     }
 }
 

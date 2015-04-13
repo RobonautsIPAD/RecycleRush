@@ -92,7 +92,6 @@
     }
 }
 
-
 - (void)scoutingPageStatus:(NSUInteger)sectionIndex forRow:(NSUInteger)rowIndex forTeam:(NSUInteger)teamIndex {
     NSLog(@"scouting delegate");    
 }

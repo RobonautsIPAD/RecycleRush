@@ -14,6 +14,7 @@
 @class ConnectionUtility;
 
 @interface MatchScoutingViewController : UIViewController <NSFetchedResultsControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PopUpPickerDelegate, AlertPromptDelegate>
+
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
 

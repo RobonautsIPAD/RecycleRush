@@ -4,13 +4,43 @@
 <dict>
 	<key>Enter Name</key>
 	<integer>-1</integer>
-	<key>Name 1</key>
+	<key>Annlyn Chiles</key>
 	<integer>0</integer>
-	<key>Name 2</key>
+	<key>Christine Ryan</key>
 	<integer>1</integer>
-	<key>Name 3</key>
+	<key>Devin Powell</key>
 	<integer>2</integer>
-	<key>Name 4</key>
+	<key>Elena Michnovicz</key>
 	<integer>3</integer>
+	<key>Emily Fernald</key>
+	<integer>4</integer>
+	<key>Erica Lee</key>
+	<integer>5</integer>
+	<key>Haley Crews</key>
+	<integer>6</integer>
+	<key>James Trapp</key>
+	<integer>7</integer>
+	<key>Jessa Westheimer</key>
+	<integer>8</integer>
+	<key>Josh Brannon</key>
+	<integer>9</integer>
+	<key>Kyle Anderson</key>
+	<integer>10</integer>
+	<key>Megan Perry</key>
+	<integer>11</integer>
+	<key>Mekiah Hickman</key>
+	<integer>12</integer>
+	<key>Mila Wetz</key>
+	<integer>13</integer>
+	<key>Robert Fernandez</key>
+	<integer>14</integer>
+	<key>Santosh Balachandra</key>
+	<integer>15</integer>
+	<key>Sylas Anderson</key>
+	<integer>16</integer>
+	<key>Zane Hickman</key>
+	<integer>17</integer>
+	<key>Other</key>
+	<integer>18</integer>
 </dict>
 </plist>

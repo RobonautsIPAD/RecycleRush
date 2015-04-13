@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class DataManager;
+@class TeamScore;
+
 @interface FlagMatchViewController : UIViewController
+@property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) TeamScore *currentScore;
 
 @end
