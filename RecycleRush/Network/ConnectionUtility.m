@@ -20,6 +20,7 @@
     TeamUtilities *teamUtilities;
     MatchUtilities *matchUtilities;
     ScoreUtilities *scoreUtilities;
+    NSUInteger connectionPasses;
 }
 
 - (id)init:(DataManager *)initManager {
@@ -28,23 +29,11 @@
         teamUtilities = [[TeamUtilities alloc] init:_dataManager];
         matchUtilities = [[MatchUtilities alloc] init:_dataManager];
         scoreUtilities = [[ScoreUtilities alloc] init:_dataManager];
+        connectionPasses = 0;
     }
 	return self;
 }
-/*-(void)setSendList {
- if (_syncType == SyncTeams) {
- filteredSendList = [dataSyncPackage getFilteredTeamList:_syncOption];
- }
- else if (_syncType == SyncMatchList) {
- filteredSendList = [dataSyncPackage getFilteredMatchList:_syncOption];
- }
- else if (_syncType == SyncMatchResults) {
- filteredSendList = [dataSyncPackage getFilteredResultsList:_syncOption];
- }
- else if (_syncType == SyncTournaments) {
- filteredSendList = [dataSyncPackage getFilteredTournamentList:_syncOption];
- }
- }*/
+
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peerID inSession:(GKSession *)session context:(void *)context
 {
 #ifdef DEBUG
@@ -207,7 +196,7 @@
     }
     return _matchMakingClient;
 }
-/*
+
 -(void)checkConnectionStatus {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -217,16 +206,34 @@
     NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
     if ([bluetoothMode intValue] == Scouter) {
         if ([_matchMakingClient getClientState] == ClientStateSearchingForServers) {
+            if (connectionPasses > 5) {
+                [self disconnectOnResign];
+                [self autoConnect];
+                return;
+            }
+            connectionPasses++;
+        }
+        else if ([_matchMakingClient getClientState] == ClientStateIdle) {
+            _matchMakingClient = nil;
+            [self autoConnect];
+        }
+        else if ([_matchMakingClient getClientState] == ClientStateConnecting) {
+            if (connectionPasses > 5) {
+                _matchMakingClient = nil;
+                [self autoConnect];
+                return;
+            }
+            connectionPasses++;
         }
     }
-}*/
+}
 
 -(void)autoConnect {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
+ 
     BOOL autonConnectMode = [[prefs objectForKey:@"autoConnect"] boolValue];
     if (!autonConnectMode) return;
-    
+    connectionPasses = 0;
     NSNumber *bluetoothMode = [prefs objectForKey:@"bluetooth"];
     if ([bluetoothMode intValue] == Scouter) {
         if ([_matchMakingClient getClientState] == ClientStateIdle) {

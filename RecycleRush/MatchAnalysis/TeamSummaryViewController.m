@@ -110,10 +110,10 @@
 }
 
 -(void)createToteCanScatterPlot {
-    PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Totes Stacked Per Match"];
+    PlotDefinition *plotDefinition = [[PlotDefinition alloc] init:@"Totes and Cans Stacked Per Match"];
 #ifdef __IPHONE_7_0
-    plotDefinition.xAxisTitle = @"Match";
-    plotDefinition.yAxisTitle = @"Totes Stacked";
+    plotDefinition.xAxisTitle = @"Match Number";
+    plotDefinition.yAxisTitle = @"Totes/Cans Stacked";
     toteCanScatterPlot = [[ScatterPlot alloc] init];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@ AND matchType = %@", [NSNumber numberWithBool:YES], [MatchAccessors getMatchTypeFromString:@"Qualification" fromDictionary:matchTypeDictionary]];
 
@@ -123,8 +123,8 @@
     matches = [matches sortedArrayUsingDescriptors:sortDescriptors];
 
     NSArray *totes = [self getPlotValues:@"matchNumber" forYKey:@"totalTotesScored" fromMatches:matches];
-    plotDefinition.plotData = [[NSArray alloc] initWithObjects:totes, nil];
     NSArray *cans = [self getPlotValues:@"matchNumber" forYKey:@"totalCansScored" fromMatches:matches];
+    plotDefinition.plotData = [[NSArray alloc] initWithObjects:totes, cans, nil];
     [toteCanScatterPlot initPlot:graphView withDefinition:plotDefinition];
 #endif
 }
@@ -137,7 +137,7 @@
         NSArray *dataPoint = [[NSArray alloc] initWithObjects:xValue, yValue, nil];
         [plotData addObject:dataPoint];
     }
-    NSLog(@"%@", plotData);
+    //NSLog(@"%@", plotData);
     return plotData;
 }
 

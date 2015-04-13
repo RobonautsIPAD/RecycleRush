@@ -15,13 +15,19 @@
     NSString *xAxisTitle;
     NSString *yAxisTitle;
     NSArray *dataToPlot;
+    NSArray *colors;
+    NSArray *symbols;
 }
 
 #ifdef __IPHONE_7_0
 
 -(void)initPlot:(UIView *)graphView withDefinition:(PlotDefinition *)plotDefinition {
+    colors = [[NSArray alloc] initWithObjects:[CPTColor redColor], [CPTColor greenColor], [CPTColor blueColor], nil];
+    symbols = [[NSArray alloc] initWithObjects:[CPTPlotSymbol ellipsePlotSymbol], [CPTPlotSymbol diamondPlotSymbol], [CPTPlotSymbol rectanglePlotSymbol], nil];
     plotTitle = plotDefinition.plotTitle;
     dataToPlot = plotDefinition.plotData;
+    xAxisTitle = plotDefinition.xAxisTitle;
+    yAxisTitle = plotDefinition.yAxisTitle;
     [self configureHost:graphView];
     [self configureGraph:graphView];
     [self configurePlots];
@@ -70,7 +76,7 @@
         CPTScatterPlot *scatter = [[CPTScatterPlot alloc] init];
         scatter.dataSource = self;
         scatter.identifier = [NSNumber numberWithInt:i];
-        CPTColor *scatterColor = [CPTColor redColor];
+        CPTColor *scatterColor = [colors objectAtIndex:i];
         [graph addPlot:scatter toPlotSpace:plotSpace];
         [plot addObject:scatter];
         // 4 - Create styles and symbols
@@ -80,7 +86,7 @@
         scatter.dataLineStyle = myLineStyle;
         CPTMutableLineStyle *mySymbolLineStyle = [CPTMutableLineStyle lineStyle];
         mySymbolLineStyle.lineColor = scatterColor;
-        CPTPlotSymbol *symbol = [CPTPlotSymbol ellipsePlotSymbol];
+        CPTPlotSymbol *symbol = [symbols objectAtIndex:i];
         symbol.fill = [CPTFill fillWithColor:scatterColor];
         symbol.lineStyle = mySymbolLineStyle;
         symbol.size = CGSizeMake(6.0f, 6.0f);
@@ -120,7 +126,7 @@
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
 	CPTAxis *x = axisSet.xAxis;
-	x.title = @"Day of Month";
+	x.title = xAxisTitle;
 	x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
@@ -147,7 +153,7 @@
 	x.majorTickLocations = xLocations;*/
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
-	y.title = @"Price";
+	y.title = yAxisTitle;
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
 	y.axisLineStyle = axisLineStyle;

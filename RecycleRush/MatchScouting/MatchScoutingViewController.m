@@ -27,6 +27,7 @@
 #import "MatchDrawingViewController.h"
 #import "LNNumberpad.h"
 #import "MatchSummaryViewController.h"
+#import "ConnectionUtility.h"
 
 @interface MatchDrawingSegue : UIStoryboardSegue
 @end
@@ -869,6 +870,7 @@
     currentMatch = [self getCurrentMatch];
     [self setTeamList];
     [self showTeam:teamIndex];
+    [_connectionUtility checkConnectionStatus];
 }
 
 -(NSUInteger)getNextSection:(NSNumber *) currentType {
