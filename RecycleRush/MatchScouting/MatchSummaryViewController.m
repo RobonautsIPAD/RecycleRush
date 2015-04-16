@@ -71,7 +71,7 @@
 
 @implementation MatchSummaryViewController
 TeamScore *currentScore;
-TeamData *currentTeam;
+TeamData *info;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -163,6 +163,9 @@ TeamData *currentTeam;
 	}
     else if (label == _driverRating) {
 		_driverRating.text = [NSString stringWithFormat:@"%@", _currentScore.driverRating];
+	}
+    else if (label == _teamName) {
+		_teamName.text = [NSString stringWithFormat:@"%@", info.name];
 	}
     else if (label == _knockdowns) {
 		_knockdowns.text = [NSString stringWithFormat:@"%@", _currentScore.stackKnockdowns];

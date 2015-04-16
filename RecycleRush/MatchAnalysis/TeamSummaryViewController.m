@@ -505,25 +505,25 @@
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
                 label1.text = @"";
                 UILabel *label2 = (UILabel *)[cell viewWithTag:30];
-                label2.text = @"Level 0";
+                label2.text = @"Non Scored";
                 label2.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label3 = (UILabel *)[cell viewWithTag:40];
-                label3.text = @"Level 1";
+                label3.text = @"#1";
                 label3.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label4 = (UILabel *)[cell viewWithTag:50];
-                label4.text = @"Level 2";
+                label4.text = @"#2";
                 label4.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label5 = (UILabel *)[cell viewWithTag:60];
-                label5.text = @"Level 3";
+                label5.text = @"#3";
                 label5.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label6 = (UILabel *)[cell viewWithTag:70];
-                label6.text = @"Level 4";
+                label6.text = @"#4";
                 label6.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label7 = (UILabel *)[cell viewWithTag:80];
-                label7.text = @"Level 5";
+                label7.text = @"#5";
                 label7.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label8 = (UILabel *)[cell viewWithTag:90];
-                label8.text = @"Level 6";
+                label8.text = @"#6";
                 label8.font = [UIFont boldSystemFontOfSize:14.0];
                 UILabel *label9 = (UILabel *)[cell viewWithTag:100];
                 label9.text = @"";
@@ -534,7 +534,7 @@
                 
             } else if (indexPath.row == 7) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-                label1.text = @"Totes";
+                label1.text = @"Stack Of";
                 label1.font = [UIFont boldSystemFontOfSize:14.0];
                 
                 UILabel *label2 = (UILabel *)[cell viewWithTag:30];
@@ -560,7 +560,7 @@
                 
             } else if (indexPath.row == 8) {
                 UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-                label1.text = @"Cans";
+                label1.text = @"w/Cans";
                 label1.font = [UIFont boldSystemFontOfSize:14.0];
                 
                 UILabel *label2 = (UILabel *)[cell viewWithTag:30];

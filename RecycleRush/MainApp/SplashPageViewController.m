@@ -78,6 +78,7 @@
     // Display the Label for the Picture
     _pictureCaption.font = [UIFont fontWithName:@"Nasalization" size:36.0];
     _pictureCaption.text = @"Just Hangin' Out";
+    _pictureCaption.lineBreakMode = 2;
     // Set Font and Text for Team Scouting Button
     [_teamScoutingButton setTitle:@"Team/Pit Scouting" forState:UIControlStateNormal];
     _teamScoutingButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:36.0];
@@ -94,6 +95,10 @@
     
   //  NSLog(@"Analysis Pages");
 }
+                    
+ -(void) moveObject {
+     image.center = CGPointMake(image.center.x, image.center.y +5);
+                       }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
