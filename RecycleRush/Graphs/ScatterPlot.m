@@ -56,13 +56,13 @@
 	titleStyle.fontSize = 16.0f;
 	graph.titleTextStyle = titleStyle;
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-	graph.titleDisplacement = CGPointMake(0.0f, 10.0f);
+	graph.titleDisplacement = CGPointMake(0.0f, 15.0f);
 	// 4 - Set padding for plot area
-	[graph.plotAreaFrame setPaddingLeft:30.0f];
-	[graph.plotAreaFrame setPaddingBottom:30.0f];
+	[graph.plotAreaFrame setPaddingLeft:40.0f];
+	[graph.plotAreaFrame setPaddingBottom:40.0f];
 	// 5 - Enable user interactions for plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-	plotSpace.allowsUserInteraction = YES;
+	plotSpace.allowsUserInteraction = NO;
 }
 
 -(void)configurePlots {
@@ -95,12 +95,14 @@
 
 	// 3 - Set up plot space
 	[plotSpace scaleToFitPlots:plot];
-	CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+/*	CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
 	[xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
 	plotSpace.xRange = xRange;
 	CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
 	[yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
-	plotSpace.yRange = yRange;
+	plotSpace.yRange = yRange;*/
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(100.0)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(24.0)];
 }
 
 -(void)configureAxes {
@@ -130,27 +132,36 @@
 	x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
+	x.labelOffset = -10.0f;
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
 	x.labelTextStyle = axisTextStyle;
 	x.majorTickLineStyle = axisLineStyle;
 	x.majorTickLength = 4.0f;
 	x.tickDirection = CPTSignNegative;
-/*	CGFloat dateCount = [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
-	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
-	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
-	NSInteger i = 0;
-	for (NSString *date in [[CPDStockPriceStore sharedInstance] datesInMonth]) {
-		CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:date  textStyle:x.labelTextStyle];
-		CGFloat location = i++;
-		label.tickLocation = CPTDecimalFromCGFloat(location);
-		label.offset = x.majorTickLength;
-		if (label) {
-			[xLabels addObject:label];
-			[xLocations addObject:[NSNumber numberWithFloat:location]];
+	CGFloat xMax = 110.0f;  // should determine dynamically based on max price
+	NSInteger majorXIncrement = 10;
+	NSInteger minorXIncrement = 10;
+	NSMutableSet *xLabels = [NSMutableSet set];
+	NSMutableSet *xMajorLocations = [NSMutableSet set];
+	NSMutableSet *xMinorLocations = [NSMutableSet set];
+	for (NSInteger j = majorXIncrement; j <= xMax; j += minorXIncrement) {
+		NSUInteger mod = j % minorXIncrement;
+		if (mod == 0) {
+			CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:x.labelTextStyle];
+			NSDecimal location = CPTDecimalFromInteger(j);
+			label.tickLocation = location;
+			label.offset = -x.majorTickLength - x.labelOffset;
+			if (label) {
+				[xLabels addObject:label];
+			}
+			[xMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
+		} else {
+			[xMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
 		}
 	}
 	x.axisLabels = xLabels;
-	x.majorTickLocations = xLocations;*/
+	x.majorTickLocations = xMajorLocations;
+
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
 	y.title = yAxisTitle;
@@ -165,9 +176,9 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = 100;
-	NSInteger minorIncrement = 50;
-	CGFloat yMax = 700.0f;  // should determine dynamically based on max price
+	NSInteger majorIncrement = 5;
+	NSInteger minorIncrement = 5;
+	CGFloat yMax = 30.0f;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];
 	NSMutableSet *yMinorLocations = [NSMutableSet set];
@@ -188,7 +199,7 @@
 	}
 	y.axisLabels = yLabels;
 	y.majorTickLocations = yMajorLocations;
-	y.minorTickLocations = yMinorLocations;
+//	y.minorTickLocations = yMinorLocations;
 }
 
 #pragma mark - CPTPlotDataSource methods
