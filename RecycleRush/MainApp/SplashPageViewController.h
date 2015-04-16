@@ -11,6 +11,10 @@
 @class ConnectionUtility;
 
 @interface SplashPageViewController : UIViewController
+{
+IBOutlet UIImageView *image;
+NSTimer *moveObjectTimer;
+}
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
 @property (nonatomic, weak) IBOutlet UIImageView *mainLogo;

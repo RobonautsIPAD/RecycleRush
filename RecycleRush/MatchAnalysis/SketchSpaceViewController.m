@@ -66,7 +66,7 @@
     [super viewDidLoad];
     [_saveButton setHidden:TRUE];
     if ([[_allianceString substringToIndex:1] isEqualToString:@"R"]) {
-        [_fieldView setImage:[UIImage imageNamed:@"Red 2015 New.png"]];
+        [_fieldView setImage:[UIImage imageNamed:@"Red 2015.png"]];
         red1 = 255.0/255.0;
         green1 = 0.0/255.0;
         blue1 = 0.0/255.0;
@@ -78,7 +78,7 @@
         blue3 = 114.0/255.0;
     }
     else {
-        [_fieldView setImage:[UIImage imageNamed:@"Blue 2015 New.png"]];
+        [_fieldView setImage:[UIImage imageNamed:@"Blue 2015.png"]];
         red1 = 0.0/255.0;
         green1 = 0.0/255.0;
         blue1 = 255.0/255.0;
@@ -102,6 +102,17 @@
     [UIDefaults setSmallButtonDefaults:_eraseButton];
     [_eraseButton setBackgroundImage:nil forState:UIControlStateNormal];
     [_containerView sendSubviewToBack:_fieldView];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [segue.destinationViewController setDataManager:_dataManager];
+    if  ([segue.identifier isEqualToString:@"RedSketchHome"]) {
+        [segue.destinationViewController setAllianceString:@"Red"];
+    }
+    else if ([segue.identifier isEqualToString:@"BlueSketchHome"]) {
+        [segue.destinationViewController setAllianceString:@"Blue"];
+    }
 }
 
 - (IBAction)drawModeChanged:(id)sender {

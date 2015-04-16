@@ -63,11 +63,11 @@
 		2F369C9F1A7C8F3100CAD6C0 /* Iphoneteamlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F369C9A1A7C8F3100CAD6C0 /* Iphoneteamlist.m */; };
 		2F369CA11A7C8F3100CAD6C0 /* pitScoutingImagePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */; };
 		2F369CA31A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */; };
+		2F3869CC1ADF3B0400E7AB26 /* FlagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3869CB1ADF3B0400E7AB26 /* FlagViewController.m */; };
 		2F39F5D71A919EF2004D323B /* LNNumberpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F39F5D51A919EF2004D323B /* LNNumberpad.m */; };
 		2F39F5D81A919EF2004D323B /* LNNumberpad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F39F5D61A919EF2004D323B /* LNNumberpad.xib */; };
 		2F3B8CCD1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */; };
 		2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */; };
-		2F41DD0D1AD994B600B2A0A3 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2F484D661A84648B00690185 /* Blue 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D651A84648B00690185 /* Blue 2015 New.png */; };
 		2F484D681A84649D00690185 /* Red 2015 New.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F484D671A84649D00690185 /* Red 2015 New.png */; };
 		2F49FC921A7D5551005E6051 /* parseCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F49FC911A7D5551005E6051 /* parseCSV.m */; };
@@ -139,8 +139,6 @@
 		2F5D33471A5FA69E00E02523 /* Pick Up Miss.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */; };
 		2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33301A5FA69E00E02523 /* Pick Up.png */; };
 		2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33781A5FA96F00E02523 /* Default-568h@2x.png */; };
-		2F5D337C1A5FA96F00E02523 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D33791A5FA96F00E02523 /* Default.png */; };
-		2F5D337D1A5FA96F00E02523 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D337A1A5FA96F00E02523 /* Default@2x.png */; };
 		2F5D33811A5FA98B00E02523 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F5D337F1A5FA98B00E02523 /* InfoPlist.strings */; };
 		2F5D52081A745330008F1100 /* AnalysisTeamPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D52071A745330008F1100 /* AnalysisTeamPageViewController.m */; };
 		2F5D520B1A745522008F1100 /* MatchSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D520A1A745522008F1100 /* MatchSummaryViewController.m */; };
@@ -159,8 +157,6 @@
 		2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7302B61AB7B8A7005D30D7 /* QuartzCore.framework */; };
 		2F7486891AC38442002AD262 /* ProgrammingLanguage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F7486881AC38442002AD262 /* ProgrammingLanguage.plist */; };
 		2F7CBA121AC8F235004D6BC9 /* robonautshomeimage2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CBA111AC8F235004D6BC9 /* robonautshomeimage2.pdf */; };
-		2F7CBA151AC8F2A6004D6BC9 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CBA131AC8F2A6004D6BC9 /* Default-Portrait@2x~ipad.png */; };
-		2F7CBA161AC8F2A6004D6BC9 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CBA141AC8F2A6004D6BC9 /* Default-Portrait~ipad.png */; };
 		2F88169B1A5FB0D4001CCA04 /* Competitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8816861A5FB0D4001CCA04 /* Competitions.m */; };
 		2F88169D1A5FB0D4001CCA04 /* MatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168A1A5FB0D4001CCA04 /* MatchData.m */; };
 		2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */; };
@@ -170,8 +166,6 @@
 		2F8F20481A995D8200679ED6 /* Justin_R.ai in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20471A995D8200679ED6 /* Justin_R.ai */; };
 		2F8F204B1A995E9900679ED6 /* robonauts app banner original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */; };
 		2F8F204C1A995E9900679ED6 /* robonauts app banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F204A1A995E9900679ED6 /* robonauts app banner.jpg */; };
-		2F8F20501A995EC900679ED6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F204D1A995EC900679ED6 /* Default-Landscape@2x~ipad.png */; };
-		2F8F20511A995EC900679ED6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F204E1A995EC900679ED6 /* Default-Landscape~ipad.png */; };
 		2F8F20521A995EC900679ED6 /* home image.004.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F204F1A995EC900679ED6 /* home image.004.png */; };
 		2F8F20551A995EDC00679ED6 /* banner copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20531A995EDC00679ED6 /* banner copy.png */; };
 		2F8F20561A995EDC00679ED6 /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F20541A995EDC00679ED6 /* banner.png */; };
@@ -184,6 +178,11 @@
 		2F8F20681A9963E400679ED6 /* MatchPhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8F20671A9963E400679ED6 /* MatchPhotoCollectionViewController.m */; };
 		2F8FC26016E999E500992F85 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8FC25F16E999E500992F85 /* GameKit.framework */; };
 		2F9094721A85130400678B81 /* MatchScoutingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9094711A85130400678B81 /* MatchScoutingViewController.m */; };
+		2F980E9C1ADF4C330063A989 /* imageedit_1_8111572194.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F980E991ADF4C330063A989 /* imageedit_1_8111572194.gif */; };
+		2F980E9D1ADF4C330063A989 /* imageedit_1_9414974614.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F980E9A1ADF4C330063A989 /* imageedit_1_9414974614.gif */; };
+		2F980E9E1ADF4C330063A989 /* imageedit_4_9802473895.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F980E9B1ADF4C330063A989 /* imageedit_4_9802473895.gif */; };
+		2F980EA01ADF4C490063A989 /* SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F980E9F1ADF4C490063A989 /* SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg */; };
+		2F980EA11ADF4CED0063A989 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */; };
 		2F9866871AD9DC1400C4C640 /* AnalysisListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9866861AD9DC1400C4C640 /* AnalysisListViewController.m */; };
 		2F98668C1AD9F8AF00C4C640 /* Bane.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F98668B1AD9F8AF00C4C640 /* Bane.plist */; };
 		2F98668E1AD9F8CA00C4C640 /* CanDomNumber.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */; };
@@ -328,6 +327,8 @@
 		2F369C9D1A7C8F3100CAD6C0 /* pitScoutingImagePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pitScoutingImagePage.h; path = RecycleRush/TeamScouting/pitScoutingImagePage.h; sourceTree = SOURCE_ROOT; };
 		2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pitScoutingImagePage.m; path = RecycleRush/TeamScouting/pitScoutingImagePage.m; sourceTree = SOURCE_ROOT; };
 		2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = RecycleRush_iphone.storyboard; path = RecycleRush/MainApp/RecycleRush_iphone.storyboard; sourceTree = SOURCE_ROOT; };
+		2F3869CA1ADF3B0400E7AB26 /* FlagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlagViewController.h; path = RecycleRush/MatchScouting/FlagViewController.h; sourceTree = SOURCE_ROOT; };
+		2F3869CB1ADF3B0400E7AB26 /* FlagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlagViewController.m; path = RecycleRush/MatchScouting/FlagViewController.m; sourceTree = SOURCE_ROOT; };
 		2F39F5D41A919EF2004D323B /* LNNumberpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LNNumberpad.h; path = RecycleRush/Utilities/LNNumberpad.h; sourceTree = SOURCE_ROOT; };
 		2F39F5D51A919EF2004D323B /* LNNumberpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LNNumberpad.m; path = RecycleRush/Utilities/LNNumberpad.m; sourceTree = SOURCE_ROOT; };
 		2F39F5D61A919EF2004D323B /* LNNumberpad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LNNumberpad.xib; path = RecycleRush/Utilities/LNNumberpad.xib; sourceTree = SOURCE_ROOT; };
@@ -455,8 +456,6 @@
 		2F5D32EF1A5FA51000E02523 /* SyncMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncMethods.m; path = RecycleRush/Utilities/SyncMethods.m; sourceTree = SOURCE_ROOT; };
 		2F5D32F41A5FA51000E02523 /* ValuePromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValuePromptViewController.h; path = RecycleRush/Utilities/ValuePromptViewController.h; sourceTree = SOURCE_ROOT; };
 		2F5D32F51A5FA51000E02523 /* ValuePromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValuePromptViewController.m; path = RecycleRush/Utilities/ValuePromptViewController.m; sourceTree = SOURCE_ROOT; };
-		2F5D33041A5FA5F700E02523 /* 2013_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2013_logo.png; path = /Users/frc/Programming/Scouting/RecycleRush/RecycleRush/Resources/2013_logo.png; sourceTree = "<absolute>"; };
-		2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2013_logo~ipad.png"; path = "/Users/frc/Programming/Scouting/RecycleRush/RecycleRush/Resources/2013_logo~ipad.png"; sourceTree = "<absolute>"; };
 		2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field_grid.png; path = RecycleRush/Resources/2014_field_grid.png; sourceTree = SOURCE_ROOT; };
 		2F5D33071A5FA5F700E02523 /* 2014_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 2014_field.png; path = RecycleRush/Resources/2014_field.png; sourceTree = SOURCE_ROOT; };
 		2F5D330D1A5FA5F700E02523 /* Blue Fade.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "Blue Fade.gif"; path = "RecycleRush/Resources/Blue Fade.gif"; sourceTree = SOURCE_ROOT; };
@@ -606,6 +605,10 @@
 		2F8FC25F16E999E500992F85 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2F9094701A85130400678B81 /* MatchScoutingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchScoutingViewController.h; path = RecycleRush/MatchScouting/MatchScoutingViewController.h; sourceTree = SOURCE_ROOT; };
 		2F9094711A85130400678B81 /* MatchScoutingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchScoutingViewController.m; path = RecycleRush/MatchScouting/MatchScoutingViewController.m; sourceTree = SOURCE_ROOT; };
+		2F980E991ADF4C330063A989 /* imageedit_1_8111572194.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = imageedit_1_8111572194.gif; path = "RecycleRush/Resources/Assorted Images/imageedit_1_8111572194.gif"; sourceTree = SOURCE_ROOT; };
+		2F980E9A1ADF4C330063A989 /* imageedit_1_9414974614.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = imageedit_1_9414974614.gif; path = "RecycleRush/Resources/Assorted Images/imageedit_1_9414974614.gif"; sourceTree = SOURCE_ROOT; };
+		2F980E9B1ADF4C330063A989 /* imageedit_4_9802473895.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = imageedit_4_9802473895.gif; path = "RecycleRush/Resources/Assorted Images/imageedit_4_9802473895.gif"; sourceTree = SOURCE_ROOT; };
+		2F980E9F1ADF4C490063A989 /* SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg"; path = "RecycleRush/Resources/Assorted Images/SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg"; sourceTree = SOURCE_ROOT; };
 		2F9866851AD9DC1400C4C640 /* AnalysisListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalysisListViewController.h; path = RecycleRush/MatchAnalysis/AnalysisListViewController.h; sourceTree = SOURCE_ROOT; };
 		2F9866861AD9DC1400C4C640 /* AnalysisListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalysisListViewController.m; path = RecycleRush/MatchAnalysis/AnalysisListViewController.m; sourceTree = SOURCE_ROOT; };
 		2F98668B1AD9F8AF00C4C640 /* Bane.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Bane.plist; path = "RecycleRush/Resources/Property Lists/Bane.plist"; sourceTree = SOURCE_ROOT; };
@@ -686,7 +689,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F41DD0D1AD994B600B2A0A3 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				2F980EA11ADF4CED0063A989 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				2F7302B71AB7B8A7005D30D7 /* QuartzCore.framework in Frameworks */,
 				2F2C33C918A09E28003475C3 /* ImageIO.framework in Frameworks */,
 				2F27EA0B18675ECC00B642BB /* AssetsLibrary.framework in Frameworks */,
@@ -710,11 +713,11 @@
 		2F28D7731A793E6B00491092 /* FieldImages */ = {
 			isa = PBXGroup;
 			children = (
-				2F484D671A84649D00690185 /* Red 2015 New.png */,
+				2F22D6FD1A79C7EE006C109E /* AutonSP.png */,
 				2F484D651A84648B00690185 /* Blue 2015 New.png */,
 				2FF623151A7EEAB600145547 /* Blue 2015.png */,
+				2F484D671A84649D00690185 /* Red 2015 New.png */,
 				2FF00D6D1A7AA384003B63DF /* Red 2015.png */,
-				2F22D6FD1A79C7EE006C109E /* AutonSP.png */,
 			);
 			name = FieldImages;
 			sourceTree = "<group>";
@@ -789,10 +792,10 @@
 		2F30EAC416A0EB4F0026B258 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D337E1A5FA98B00E02523 /* en.lproj */,
 				2F5D33781A5FA96F00E02523 /* Default-568h@2x.png */,
 				2F5D33791A5FA96F00E02523 /* Default.png */,
 				2F5D337A1A5FA96F00E02523 /* Default@2x.png */,
+				2F5D337E1A5FA98B00E02523 /* en.lproj */,
 				2F759FE81A5F03830006900E /* RecycleRush-Info.plist */,
 				2F759FE71A5F036D0006900E /* RecycleRush-Prefix.pch */,
 			);
@@ -802,10 +805,10 @@
 		2F30EADD16A0F3F40026B258 /* Data Export */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D32CD1A5FA4CB00E02523 /* PhoneExportViewController.h */,
-				2F5D32CE1A5FA4CB00E02523 /* PhoneExportViewController.m */,
 				2F5D32CB1A5FA4CB00E02523 /* DownloadPageViewController.h */,
 				2F5D32CC1A5FA4CB00E02523 /* DownloadPageViewController.m */,
+				2F5D32CD1A5FA4CB00E02523 /* PhoneExportViewController.h */,
+				2F5D32CE1A5FA4CB00E02523 /* PhoneExportViewController.m */,
 			);
 			name = "Data Export";
 			sourceTree = "<group>";
@@ -813,21 +816,21 @@
 		2F30EADE16A0F40B0026B258 /* Data Import */ = {
 			isa = PBXGroup;
 			children = (
-				2F49FC901A7D5551005E6051 /* parseCSV.h */,
-				2F49FC911A7D5551005E6051 /* parseCSV.m */,
-				2F49FC8D1A7D5541005E6051 /* JXArcCompatibilityMacros.h */,
-				2F49FC8E1A7D5541005E6051 /* LICENSE */,
-				2F5D32B81A5FA45300E02523 /* ImportUSFirstViewController.h */,
-				2F5D32B91A5FA45300E02523 /* ImportUSFirstViewController.m */,
 				2F5D32AF1A5FA45300E02523 /* AddRecordResults.h */,
-				2F5D32BA1A5FA45300E02523 /* LoadCSVData.h */,
-				2F5D32BB1A5FA45300E02523 /* LoadCSVData.m */,
+				2F5D32B21A5FA45300E02523 /* ImportDataFromiTunes.h */,
+				2F5D32B31A5FA45300E02523 /* ImportDataFromiTunes.m */,
 				2F5D32B41A5FA45300E02523 /* ImportDataViewController.h */,
 				2F5D32B51A5FA45300E02523 /* ImportDataViewController.m */,
 				2F5D32B61A5FA45300E02523 /* ImportDeviceViewController.h */,
 				2F5D32B71A5FA45300E02523 /* ImportDeviceViewController.m */,
-				2F5D32B21A5FA45300E02523 /* ImportDataFromiTunes.h */,
-				2F5D32B31A5FA45300E02523 /* ImportDataFromiTunes.m */,
+				2F5D32B81A5FA45300E02523 /* ImportUSFirstViewController.h */,
+				2F5D32B91A5FA45300E02523 /* ImportUSFirstViewController.m */,
+				2F49FC8D1A7D5541005E6051 /* JXArcCompatibilityMacros.h */,
+				2F49FC8E1A7D5541005E6051 /* LICENSE */,
+				2F5D32BA1A5FA45300E02523 /* LoadCSVData.h */,
+				2F5D32BB1A5FA45300E02523 /* LoadCSVData.m */,
+				2F49FC901A7D5551005E6051 /* parseCSV.h */,
+				2F49FC911A7D5551005E6051 /* parseCSV.m */,
 				2F5D32BE1A5FA45300E02523 /* parseUSFirst.h */,
 				2F5D32BF1A5FA45300E02523 /* parseUSFirst.m */,
 				2F5D32C01A5FA45300E02523 /* USFirstViewController.h */,
@@ -848,20 +851,20 @@
 		2F30EAE016A0F4E50026B258 /* Team Scouting */ = {
 			isa = PBXGroup;
 			children = (
-				2F369C991A7C8F3100CAD6C0 /* Iphoneteamlist.h */,
-				2F369C9A1A7C8F3100CAD6C0 /* Iphoneteamlist.m */,
-				2F369C9D1A7C8F3100CAD6C0 /* pitScoutingImagePage.h */,
-				2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */,
 				2F5D32D11A5FA4F400E02523 /* AddTeamViewController.h */,
 				2F5D32D21A5FA4F400E02523 /* AddTeamViewController.m */,
+				2F0BAE491ACCC0180056E730 /* DetailScrollViewController.h */,
+				2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */,
+				2F369C991A7C8F3100CAD6C0 /* Iphoneteamlist.h */,
+				2F369C9A1A7C8F3100CAD6C0 /* Iphoneteamlist.m */,
+				2F3B8CCB1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.h */,
+				2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */,
+				2F369C9D1A7C8F3100CAD6C0 /* pitScoutingImagePage.h */,
+				2F369C9E1A7C8F3100CAD6C0 /* pitScoutingImagePage.m */,
 				2F5D32D31A5FA4F400E02523 /* TeamDetailViewController.h */,
 				2F5D32D41A5FA4F400E02523 /* TeamDetailViewController.m */,
 				2F5D32D51A5FA4F400E02523 /* TeamListViewController.h */,
 				2F5D32D61A5FA4F400E02523 /* TeamListViewController.m */,
-				2F0BAE491ACCC0180056E730 /* DetailScrollViewController.h */,
-				2F0BAE4A1ACCC0180056E730 /* DetailScrollViewController.m */,
-				2F3B8CCB1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.h */,
-				2F3B8CCC1AC6EBE300FCA6A9 /* PhoneTeamDetailViewController.m */,
 			);
 			name = "Team Scouting";
 			sourceTree = "<group>";
@@ -869,21 +872,21 @@
 		2F30EAE216A0F56E0026B258 /* Main App */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D32901A5FA32F00E02523 /* SetUpPageViewController.h */,
-				2F5D32911A5FA32F00E02523 /* SetUpPageViewController.m */,
-				2F5D32921A5FA32F00E02523 /* SplashPageViewController.h */,
-				2F5D32931A5FA32F00E02523 /* SplashPageViewController.m */,
 				2F5D32851A5FA32F00E02523 /* AppDelegate.h */,
 				2F5D32861A5FA32F00E02523 /* AppDelegate.m */,
-				2F5D32891A5FA32F00E02523 /* main.m */,
 				2F5D32871A5FA32F00E02523 /* iPhoneMainViewController.h */,
 				2F5D32881A5FA32F00E02523 /* iPhoneMainViewController.m */,
+				2F5D32891A5FA32F00E02523 /* main.m */,
 				2F5D328A1A5FA32F00E02523 /* PhoneSplashViewController.h */,
 				2F5D328B1A5FA32F00E02523 /* PhoneSplashViewController.m */,
 				2F40F8F31A77DC9F0008491A /* RecycleRush_ipad.storyboard */,
 				2F369CA21A7C8F8A00CAD6C0 /* RecycleRush_iphone.storyboard */,
 				2F5D328E1A5FA32F00E02523 /* SettingsAndPreferences.h */,
 				2F5D328F1A5FA32F00E02523 /* SettingsAndPreferences.m */,
+				2F5D32901A5FA32F00E02523 /* SetUpPageViewController.h */,
+				2F5D32911A5FA32F00E02523 /* SetUpPageViewController.m */,
+				2F5D32921A5FA32F00E02523 /* SplashPageViewController.h */,
+				2F5D32931A5FA32F00E02523 /* SplashPageViewController.m */,
 				2F5D32941A5FA32F00E02523 /* TabletInputErrorViewController.h */,
 				2F5D32951A5FA32F00E02523 /* TabletInputErrorViewController.m */,
 			);
@@ -893,16 +896,16 @@
 		2F30EAE316A0F66F0026B258 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F9866731AD9957400C4C640 /* Tab Bar */,
-				2F5270DC1A92B48900C325CE /* Number Pad */,
-				2FDFE52E1A7E89A7002FEAD0 /* Init Data */,
 				2F312BBE1A7D6CF7002EF938 /* App Icon */,
-				2F28D7731A793E6B00491092 /* FieldImages */,
 				2F312BBF1A7D6D09002EF938 /* Buttons */,
-				2F312BC01A7D6D13002EF938 /* Property Lists */,
-				2F312BC11A7D6D24002EF938 /* Old Images */,
-				2F312BC21A7D6D4F002EF938 /* New Images */,
+				2F28D7731A793E6B00491092 /* FieldImages */,
+				2FDFE52E1A7E89A7002FEAD0 /* Init Data */,
 				2F312BC31A7D6DBE002EF938 /* Misc */,
+				2F312BC21A7D6D4F002EF938 /* New Images */,
+				2F5270DC1A92B48900C325CE /* Number Pad */,
+				2F312BC11A7D6D24002EF938 /* Old Images */,
+				2F312BC01A7D6D13002EF938 /* Property Lists */,
+				2F9866731AD9957400C4C640 /* Tab Bar */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -910,16 +913,14 @@
 		2F312BBE1A7D6CF7002EF938 /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
-				2F65A0AF1AAB6F330096C199 /* Slide1.png */,
-				2F8F20611A99611D00679ED6 /* App Icons.003.png */,
-				2F8F205F1A99610D00679ED6 /* App Icons.002.png */,
-				2F8F205B1A99604D00679ED6 /* App Icons.001.png */,
-				2F8F205D1A99606900679ED6 /* App LOGO Icon.png */,
 				2F8F20571A995F0100679ED6 /* 2013_logo.png */,
 				2F8F20581A995F0100679ED6 /* 2013_logo~ipad.png */,
+				2F8F205B1A99604D00679ED6 /* App Icons.001.png */,
+				2F8F205F1A99610D00679ED6 /* App Icons.002.png */,
+				2F8F20611A99611D00679ED6 /* App Icons.003.png */,
+				2F8F205D1A99606900679ED6 /* App LOGO Icon.png */,
 				2F8F20471A995D8200679ED6 /* Justin_R.ai */,
-				2F5D33041A5FA5F700E02523 /* 2013_logo.png */,
-				2F5D33051A5FA5F700E02523 /* 2013_logo~ipad.png */,
+				2F65A0AF1AAB6F330096C199 /* Slide1.png */,
 			);
 			name = "App Icon";
 			sourceTree = "<group>";
@@ -927,8 +928,8 @@
 		2F312BBF1A7D6D09002EF938 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				2F65A0B11AAB6F900096C199 /* Match Scouting Button.jpg */,
 				2FDFE51E1A7E891E002FEAD0 /* button_robonaut_gold.png */,
+				2F65A0B11AAB6F900096C199 /* Match Scouting Button.jpg */,
 				2FDFE51F1A7E891E002FEAD0 /* RadioButton-Selected.png */,
 				2FDFE5201A7E891E002FEAD0 /* RadioButton-Unselected.png */,
 				2FDFE5211A7E891E002FEAD0 /* Small Blue Button.jpg */,
@@ -943,9 +944,11 @@
 		2F312BC01A7D6D13002EF938 /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
-				2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */,
 				2FDFE4FC1A7E888B002FEAD0 /* AllianceList.plist */,
 				2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */,
+				2F98668B1AD9F8AF00C4C640 /* Bane.plist */,
+				2F2ABCEF1AD5E19300DB8B3F /* CanDom.plist */,
+				2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */,
 				2FDFE4FD1A7E888B002FEAD0 /* CanIntake.plist */,
 				2FDFE4FE1A7E888B002FEAD0 /* DriveType.plist */,
 				2FDFE5001A7E888B002FEAD0 /* LiftType.plist */,
@@ -967,8 +970,6 @@
 				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
 				2FDFE5191A7E88B7002FEAD0 /* TournamentData.plist */,
 				2FDFE51A1A7E88B7002FEAD0 /* TriState.plist */,
-				2F98668B1AD9F8AF00C4C640 /* Bane.plist */,
-				2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */,
 			);
 			name = "Property Lists";
 			sourceTree = "<group>";
@@ -976,14 +977,14 @@
 		2F312BC11A7D6D24002EF938 /* Old Images */ = {
 			isa = PBXGroup;
 			children = (
+				2F5D33071A5FA5F700E02523 /* 2014_field.png */,
+				2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */,
 				2F5D330D1A5FA5F700E02523 /* Blue Fade.gif */,
+				2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */,
+				2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */,
+				2F5D33301A5FA69E00E02523 /* Pick Up.png */,
 				2F8F20491A995E9900679ED6 /* robonauts app banner original.jpg */,
 				2F8F204A1A995E9900679ED6 /* robonauts app banner.jpg */,
-				2F5D33061A5FA5F700E02523 /* 2014_field_grid.png */,
-				2F5D33071A5FA5F700E02523 /* 2014_field.png */,
-				2F5D33241A5FA69E00E02523 /* ios-7-camera-icon.png */,
-				2F5D33301A5FA69E00E02523 /* Pick Up.png */,
-				2F5D332F1A5FA69E00E02523 /* Pick Up Miss.png */,
 			);
 			name = "Old Images";
 			sourceTree = "<group>";
@@ -991,16 +992,20 @@
 		2F312BC21A7D6D4F002EF938 /* New Images */ = {
 			isa = PBXGroup;
 			children = (
-				2F7CBA131AC8F2A6004D6BC9 /* Default-Portrait@2x~ipad.png */,
-				2F7CBA141AC8F2A6004D6BC9 /* Default-Portrait~ipad.png */,
-				2F7CBA111AC8F235004D6BC9 /* robonautshomeimage2.pdf */,
-				2F8F20631A99617A00679ED6 /* recycle rush robonauts.001.png */,
-				2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */,
-				2F8F204D1A995EC900679ED6 /* Default-Landscape@2x~ipad.png */,
-				2F8F204E1A995EC900679ED6 /* Default-Landscape~ipad.png */,
-				2F8F204F1A995EC900679ED6 /* home image.004.png */,
+				2F980E991ADF4C330063A989 /* imageedit_1_8111572194.gif */,
+				2F980E9A1ADF4C330063A989 /* imageedit_1_9414974614.gif */,
+				2F980E9B1ADF4C330063A989 /* imageedit_4_9802473895.gif */,
 				2F8F20531A995EDC00679ED6 /* banner copy.png */,
 				2F8F20541A995EDC00679ED6 /* banner.png */,
+				2F980E9F1ADF4C490063A989 /* SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg */,
+				2F8F204D1A995EC900679ED6 /* Default-Landscape@2x~ipad.png */,
+				2F8F204E1A995EC900679ED6 /* Default-Landscape~ipad.png */,
+				2F7CBA131AC8F2A6004D6BC9 /* Default-Portrait@2x~ipad.png */,
+				2F7CBA141AC8F2A6004D6BC9 /* Default-Portrait~ipad.png */,
+				2F8F204F1A995EC900679ED6 /* home image.004.png */,
+				2F8F20631A99617A00679ED6 /* recycle rush robonauts.001.png */,
+				2F7CBA111AC8F235004D6BC9 /* robonautshomeimage2.pdf */,
+				2FBEF7AC1A9652DD001DAD9C /* RobonautsLogo.jpg */,
 			);
 			name = "New Images";
 			sourceTree = "<group>";
@@ -1008,8 +1013,8 @@
 		2F312BC31A7D6DBE002EF938 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */,
 				2F5D331D1A5FA69E00E02523 /* Gold Fade.gif */,
+				2F5D332B1A5FA69E00E02523 /* nasalization rg.ttf */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1017,22 +1022,22 @@
 		2F50BF9716F2D799004569F2 /* Data Transfer */ = {
 			isa = PBXGroup;
 			children = (
-				2F2ECA911A5F052300D3386E /* PhoneSyncViewController.h */,
-				2F2ECA921A5F052300D3386E /* PhoneSyncViewController.m */,
-				2F2ECA891A5F052300D3386E /* ExportTeamData.h */,
-				2F2ECA8A1A5F052300D3386E /* ExportTeamData.m */,
+				2F2ECA831A5F052300D3386E /* DataSync.h */,
+				2F2ECA841A5F052300D3386E /* DataSync.m */,
+				2F2A24811ADC0BA4004A65E2 /* DetailedTransferViewController.h */,
+				2F2A24821ADC0BA4004A65E2 /* DetailedTransferViewController.m */,
 				2F2ECA851A5F052300D3386E /* ExportMatchData.h */,
 				2F2ECA861A5F052300D3386E /* ExportMatchData.m */,
 				2F2ECA871A5F052300D3386E /* ExportScoreData.h */,
 				2F2ECA881A5F052300D3386E /* ExportScoreData.m */,
+				2F2ECA891A5F052300D3386E /* ExportTeamData.h */,
+				2F2ECA8A1A5F052300D3386E /* ExportTeamData.m */,
+				2F2ECA911A5F052300D3386E /* PhoneSyncViewController.h */,
+				2F2ECA921A5F052300D3386E /* PhoneSyncViewController.m */,
 				2F2ECA951A5F052300D3386E /* SyncTableCells.h */,
 				2F2ECA961A5F052300D3386E /* SyncTableCells.m */,
-				2F2ECA831A5F052300D3386E /* DataSync.h */,
-				2F2ECA841A5F052300D3386E /* DataSync.m */,
 				2FDECA0F1A6F0A7A0007412E /* TabletSyncViewController.h */,
 				2FDECA101A6F0A7A0007412E /* TabletSyncViewController.m */,
-				2F2A24811ADC0BA4004A65E2 /* DetailedTransferViewController.h */,
-				2F2A24821ADC0BA4004A65E2 /* DetailedTransferViewController.m */,
 			);
 			name = "Data Transfer";
 			sourceTree = "<group>";
@@ -1040,22 +1045,22 @@
 		2F5247E71963B8C800468E4F /* Data Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				2F5247E81963BC4700468E4F /* TournamentUtilities.h */,
-				2F5247E91963BC4700468E4F /* TournamentUtilities.m */,
-				2FCF9FB719944D1600A872CD /* TeamUtilities.h */,
-				2FCF9FB819944D1600A872CD /* TeamUtlilities.m */,
-				2F9EFF201A1A76CA00F8D73C /* TeamAccessors.h */,
-				2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */,
-				2F6D4F9019DB36F700EF3923 /* MatchUtilities.h */,
-				2F6D4F9119DB36F700EF3923 /* MatchUtilities.m */,
-				2F2CE0891A21113D00646BB5 /* MatchAccessors.h */,
-				2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */,
-				2F6A4CCA19EC5C8E002A0A56 /* ScoreUtilities.h */,
-				2F6A4CCB19EC5C8E002A0A56 /* ScoreUtilities.m */,
-				2F2CE08C1A21277800646BB5 /* ScoreAccessors.h */,
-				2F2CE08D1A21277800646BB5 /* ScoreAccessors.m */,
 				2FA1CDFC1964B24900E5B040 /* DataConvenienceMethods.h */,
 				2FA1CDFD1964B24900E5B040 /* DataConvenienceMethods.m */,
+				2F2CE0891A21113D00646BB5 /* MatchAccessors.h */,
+				2F2CE08A1A21113D00646BB5 /* MatchAccessors.m */,
+				2F6D4F9019DB36F700EF3923 /* MatchUtilities.h */,
+				2F6D4F9119DB36F700EF3923 /* MatchUtilities.m */,
+				2F2CE08C1A21277800646BB5 /* ScoreAccessors.h */,
+				2F2CE08D1A21277800646BB5 /* ScoreAccessors.m */,
+				2F6A4CCA19EC5C8E002A0A56 /* ScoreUtilities.h */,
+				2F6A4CCB19EC5C8E002A0A56 /* ScoreUtilities.m */,
+				2F9EFF201A1A76CA00F8D73C /* TeamAccessors.h */,
+				2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */,
+				2FCF9FB719944D1600A872CD /* TeamUtilities.h */,
+				2FCF9FB819944D1600A872CD /* TeamUtlilities.m */,
+				2F5247E81963BC4700468E4F /* TournamentUtilities.h */,
+				2F5247E91963BC4700468E4F /* TournamentUtilities.m */,
 			);
 			name = "Data Utilities";
 			sourceTree = "<group>";
@@ -1068,6 +1073,12 @@
 				2F65A0A91AAB6F0D0096C199 /* Next.png */,
 				2F65A0AA1AAB6F0D0096C199 /* Prev.png */,
 				2F33161E1A93BB6D005B7798 /* Slide1.JPG */,
+				2F3316271A93BB6D005B7798 /* Slide10.JPG */,
+				2F3316281A93BB6D005B7798 /* Slide11.JPG */,
+				2F3316291A93BB6D005B7798 /* Slide12.JPG */,
+				2F33162A1A93BB6D005B7798 /* Slide13.JPG */,
+				2F33162B1A93BB6D005B7798 /* Slide14.JPG */,
+				2F33162C1A93BB6D005B7798 /* Slide15.JPG */,
 				2F33161F1A93BB6D005B7798 /* Slide2.JPG */,
 				2F3316201A93BB6D005B7798 /* Slide3.JPG */,
 				2F3316211A93BB6D005B7798 /* Slide4.JPG */,
@@ -1076,12 +1087,6 @@
 				2F3316241A93BB6D005B7798 /* Slide7.JPG */,
 				2F3316251A93BB6D005B7798 /* Slide8.JPG */,
 				2F3316261A93BB6D005B7798 /* Slide9.JPG */,
-				2F3316271A93BB6D005B7798 /* Slide10.JPG */,
-				2F3316281A93BB6D005B7798 /* Slide11.JPG */,
-				2F3316291A93BB6D005B7798 /* Slide12.JPG */,
-				2F33162A1A93BB6D005B7798 /* Slide13.JPG */,
-				2F33162B1A93BB6D005B7798 /* Slide14.JPG */,
-				2F33162C1A93BB6D005B7798 /* Slide15.JPG */,
 			);
 			name = "Number Pad";
 			sourceTree = "<group>";
@@ -1091,14 +1096,14 @@
 			children = (
 				2F56822F1ADC4B7F002D137B /* MMGridCell.h */,
 				2F5682301ADC4B7F002D137B /* MMGridCell.m */,
-				2F5682311ADC4B7F002D137B /* MMLeftColumnCell.h */,
-				2F5682321ADC4B7F002D137B /* MMLeftColumnCell.m */,
-				2F5682331ADC4B7F002D137B /* MMTopRowCell.h */,
-				2F5682341ADC4B7F002D137B /* MMTopRowCell.m */,
 				2F5682261ADC4A62002D137B /* MMGridLayout.h */,
 				2F5682271ADC4A62002D137B /* MMGridLayout.m */,
+				2F5682311ADC4B7F002D137B /* MMLeftColumnCell.h */,
+				2F5682321ADC4B7F002D137B /* MMLeftColumnCell.m */,
 				2F5682281ADC4A62002D137B /* MMSpreadsheetView.h */,
 				2F5682291ADC4A62002D137B /* MMSpreadsheetView.m */,
+				2F5682331ADC4B7F002D137B /* MMTopRowCell.h */,
+				2F5682341ADC4B7F002D137B /* MMTopRowCell.m */,
 				2F56822A1ADC4A62002D137B /* NSIndexPath+MMSpreadsheetView.h */,
 				2F56822B1ADC4A62002D137B /* NSIndexPath+MMSpreadsheetView.m */,
 			);
@@ -1117,8 +1122,8 @@
 		2F7302641AB7B7CF005D30D7 /* Core Plot */ = {
 			isa = PBXGroup;
 			children = (
-				2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */,
 				2F7302651AB7B7E5005D30D7 /* CorePlotHeaders */,
+				2FB70C931AC71EFE00CC2F46 /* libCorePlot-CocoaTouch.a */,
 			);
 			name = "Core Plot";
 			sourceTree = "<group>";
@@ -1212,21 +1217,21 @@
 		2F8816841A5FB0D4001CCA04 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				2F2A24721ADBEFE8004A65E2 /* TeamData.h */,
-				2F2A24731ADBEFE8004A65E2 /* TeamData.m */,
-				2F2A247E1ADBF0D0004A65E2 /* TeamScore.h */,
-				2F2A247F1ADBF0D0004A65E2 /* TeamScore.m */,
-				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
-				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
-				2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
 				2F8816861A5FB0D4001CCA04 /* Competitions.m */,
 				2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */,
 				2F33DCE81A86A9CC00331B12 /* FieldDrawing.m */,
+				2F533E011A9F6F7600CD5F09 /* FieldPhoto.h */,
+				2F533E021A9F6F7600CD5F09 /* FieldPhoto.m */,
 				2F8816891A5FB0D4001CCA04 /* MatchData.h */,
 				2F88168A1A5FB0D4001CCA04 /* MatchData.m */,
+				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
 				2F88168F1A5FB0D4001CCA04 /* Regional.h */,
 				2F8816901A5FB0D4001CCA04 /* Regional.m */,
+				2F2A24721ADBEFE8004A65E2 /* TeamData.h */,
+				2F2A24731ADBEFE8004A65E2 /* TeamData.m */,
+				2F2A247E1ADBF0D0004A65E2 /* TeamScore.h */,
+				2F2A247F1ADBF0D0004A65E2 /* TeamScore.m */,
 				2F8816991A5FB0D4001CCA04 /* TournamentData.h */,
 				2F88169A1A5FB0D4001CCA04 /* TournamentData.m */,
 			);
@@ -1239,16 +1244,18 @@
 			children = (
 				2F5D32A01A5FA3D000E02523 /* AddMatchViewController.h */,
 				2F5D32A11A5FA3D000E02523 /* AddMatchViewController.m */,
-				2F5D32A81A5FA3D000E02523 /* MatchListViewController.h */,
-				2F5D32A91A5FA3D000E02523 /* MatchListViewController.m */,
 				2F2E19BF1A9A5EB8004EEB8F /* MatchDrawingViewController.h */,
 				2F2E19C01A9A5EB8004EEB8F /* MatchDrawingViewController.m */,
+				2F5D32A81A5FA3D000E02523 /* MatchListViewController.h */,
+				2F5D32A91A5FA3D000E02523 /* MatchListViewController.m */,
+				2F9094701A85130400678B81 /* MatchScoutingViewController.h */,
+				2F9094711A85130400678B81 /* MatchScoutingViewController.m */,
 				2FC087891A9EA67A00050864 /* PhoneMatchListViewController.h */,
 				2FC0878A1A9EA67A00050864 /* PhoneMatchListViewController.m */,
 				2FE405551A96D33A007404CE /* StackViewController.h */,
 				2FE405561A96D33A007404CE /* StackViewController.m */,
-				2F9094701A85130400678B81 /* MatchScoutingViewController.h */,
-				2F9094711A85130400678B81 /* MatchScoutingViewController.m */,
+				2F3869CA1ADF3B0400E7AB26 /* FlagViewController.h */,
+				2F3869CB1ADF3B0400E7AB26 /* FlagViewController.m */,
 			);
 			name = "Match Scouting";
 			sourceTree = "<group>";
@@ -1256,22 +1263,22 @@
 		2F8F20651A99634000679ED6 /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				2F5D32631A5FA24300E02523 /* FieldDrawingViewController.h */,
+				2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */,
 				2FFE72381AC76791007BCA46 /* FlagMatchViewController.h */,
 				2FFE72391AC76791007BCA46 /* FlagMatchViewController.m */,
 				2F5D32A41A5FA3D000E02523 /* MainScoutingPageViewController.h */,
 				2F5D32A51A5FA3D000E02523 /* MainScoutingPageViewController.m */,
 				2F5D32A61A5FA3D000E02523 /* MatchDetailViewController.h */,
 				2F5D32A71A5FA3D000E02523 /* MatchDetailViewController.m */,
-				2F5D32731A5FA24300E02523 /* RidleyPageViewController.h */,
-				2F5D32741A5FA24300E02523 /* RidleyPageViewController.m */,
-				2F5D32771A5FA24300E02523 /* TournamentAnalysisViewController.h */,
-				2F5D32781A5FA24300E02523 /* TournamentAnalysisViewController.m */,
-				2F5D32751A5FA24300E02523 /* RossPageViewController.h */,
-				2F5D32761A5FA24300E02523 /* RossPageViewController.m */,
 				2F5D32711A5FA24300E02523 /* MatchOverlayViewController.h */,
 				2F5D32721A5FA24300E02523 /* MatchOverlayViewController.m */,
-				2F5D32631A5FA24300E02523 /* FieldDrawingViewController.h */,
-				2F5D32641A5FA24300E02523 /* FieldDrawingViewController.m */,
+				2F5D32731A5FA24300E02523 /* RidleyPageViewController.h */,
+				2F5D32741A5FA24300E02523 /* RidleyPageViewController.m */,
+				2F5D32751A5FA24300E02523 /* RossPageViewController.h */,
+				2F5D32761A5FA24300E02523 /* RossPageViewController.m */,
+				2F5D32771A5FA24300E02523 /* TournamentAnalysisViewController.h */,
+				2F5D32781A5FA24300E02523 /* TournamentAnalysisViewController.m */,
 			);
 			name = Unused;
 			sourceTree = "<group>";
@@ -1289,38 +1296,38 @@
 		2FB3A4B016CEB7C400E895E5 /* Match Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				2F5D52091A745522008F1100 /* MatchSummaryViewController.h */,
-				2F5D520A1A745522008F1100 /* MatchSummaryViewController.m */,
-				2F33DCF01A86EA1700331B12 /* TeamMatchListViewController.h */,
-				2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */,
-				2F5D326B1A5FA24300E02523 /* MainMatchAnalysisViewController.h */,
-				2F5D326C1A5FA24300E02523 /* MainMatchAnalysisViewController.m */,
-				2F33DCF31A86F64B00331B12 /* TeamSummaryViewController.h */,
-				2F33DCF41A86F64B00331B12 /* TeamSummaryViewController.m */,
-				2F5D32611A5FA24300E02523 /* CalculateTeamStats.h */,
-				2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */,
-				2F5D326F1A5FA24300E02523 /* MatchIntegrityViewController.h */,
-				2F5D32701A5FA24300E02523 /* MatchIntegrityViewController.m */,
-				2F5D52061A745330008F1100 /* AnalysisTeamPageViewController.h */,
-				2F5D52071A745330008F1100 /* AnalysisTeamPageViewController.m */,
-				2F312BCB1A7D8C3E002EF938 /* ScoutingBundleViewController.h */,
-				2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */,
-				2F312BCE1A7D9E60002EF938 /* TeamStatsViewController.h */,
-				2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */,
-				2F6ADE961A981B1900962D1C /* SketchSpaceViewController.h */,
-				2F6ADE971A981B1900962D1C /* SketchSpaceViewController.m */,
-				2F8F20661A9963E400679ED6 /* MatchPhotoCollectionViewController.h */,
-				2F8F20671A9963E400679ED6 /* MatchPhotoCollectionViewController.m */,
-				2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */,
-				2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */,
-				2F5D32691A5FA24300E02523 /* CanDomListViewController.h */,
-				2F5D326A1A5FA24300E02523 /* CanDomListViewController.m */,
-				2F2ABCF41AD5E3AB00DB8B3F /* ProjectBaneListViewController.h */,
-				2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */,
-				2F316B6C1AD5FE400016D2B4 /* SortListViewController.h */,
-				2F316B6D1AD5FE410016D2B4 /* SortListViewController.m */,
 				2F9866851AD9DC1400C4C640 /* AnalysisListViewController.h */,
 				2F9866861AD9DC1400C4C640 /* AnalysisListViewController.m */,
+				2FEA03301AA7F06700C24C15 /* AnalysisTabViewController.h */,
+				2FEA03311AA7F06700C24C15 /* AnalysisTabViewController.m */,
+				2F5D52061A745330008F1100 /* AnalysisTeamPageViewController.h */,
+				2F5D52071A745330008F1100 /* AnalysisTeamPageViewController.m */,
+				2F5D32611A5FA24300E02523 /* CalculateTeamStats.h */,
+				2F5D32621A5FA24300E02523 /* CalculateTeamStats.m */,
+				2F5D32691A5FA24300E02523 /* CanDomListViewController.h */,
+				2F5D326A1A5FA24300E02523 /* CanDomListViewController.m */,
+				2F5D326B1A5FA24300E02523 /* MainMatchAnalysisViewController.h */,
+				2F5D326C1A5FA24300E02523 /* MainMatchAnalysisViewController.m */,
+				2F5D326F1A5FA24300E02523 /* MatchIntegrityViewController.h */,
+				2F5D32701A5FA24300E02523 /* MatchIntegrityViewController.m */,
+				2F8F20661A9963E400679ED6 /* MatchPhotoCollectionViewController.h */,
+				2F8F20671A9963E400679ED6 /* MatchPhotoCollectionViewController.m */,
+				2F5D52091A745522008F1100 /* MatchSummaryViewController.h */,
+				2F5D520A1A745522008F1100 /* MatchSummaryViewController.m */,
+				2F2ABCF41AD5E3AB00DB8B3F /* ProjectBaneListViewController.h */,
+				2F2ABCF51AD5E3AB00DB8B3F /* ProjectBaneListViewController.m */,
+				2F312BCB1A7D8C3E002EF938 /* ScoutingBundleViewController.h */,
+				2F312BCC1A7D8C3E002EF938 /* ScoutingBundleViewController.m */,
+				2F6ADE961A981B1900962D1C /* SketchSpaceViewController.h */,
+				2F6ADE971A981B1900962D1C /* SketchSpaceViewController.m */,
+				2F316B6C1AD5FE400016D2B4 /* SortListViewController.h */,
+				2F316B6D1AD5FE410016D2B4 /* SortListViewController.m */,
+				2F33DCF01A86EA1700331B12 /* TeamMatchListViewController.h */,
+				2F33DCF11A86EA1700331B12 /* TeamMatchListViewController.m */,
+				2F312BCE1A7D9E60002EF938 /* TeamStatsViewController.h */,
+				2F312BCF1A7D9E60002EF938 /* TeamStatsViewController.m */,
+				2F33DCF31A86F64B00331B12 /* TeamSummaryViewController.h */,
+				2F33DCF41A86F64B00331B12 /* TeamSummaryViewController.m */,
 			);
 			name = "Match Analysis";
 			sourceTree = "<group>";
@@ -1328,14 +1335,14 @@
 		2FB3A4B516CEC00600E895E5 /* SetUp */ = {
 			isa = PBXGroup;
 			children = (
+				2F2ECAA41A5F059900D3386E /* AlliancesViewController.h */,
+				2F2ECAA51A5F059900D3386E /* AlliancesViewController.m */,
 				2F2ECAA61A5F059900D3386E /* ElimDataViewController.h */,
 				2F2ECAA71A5F059900D3386E /* ElimDataViewController.m */,
 				2F2ECAA81A5F059900D3386E /* PhoneSetUpViewController.h */,
 				2F2ECAA91A5F059900D3386E /* PhoneSetUpViewController.m */,
 				2F2ECAAC1A5F059900D3386E /* SettingsViewController.h */,
 				2F2ECAAD1A5F059900D3386E /* SettingsViewController.m */,
-				2F2ECAA41A5F059900D3386E /* AlliancesViewController.h */,
-				2F2ECAA51A5F059900D3386E /* AlliancesViewController.m */,
 			);
 			name = SetUp;
 			sourceTree = "<group>";
@@ -1358,14 +1365,14 @@
 		2FDECA0E1A6EC6F90007412E /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				2FDAF1151A9024C1006D7670 /* Packet.h */,
-				2FDAF1161A9024C1006D7670 /* Packet.m */,
 				2FDECA121A6F27AD0007412E /* ConnectionUtility.h */,
 				2FDECA131A6F27AD0007412E /* ConnectionUtility.m */,
 				2FDECA141A6F27AD0007412E /* MatchmakingClient.h */,
 				2FDECA151A6F27AD0007412E /* MatchmakingClient.m */,
 				2FDECA161A6F27AD0007412E /* MatchmakingServer.h */,
 				2FDECA171A6F27AD0007412E /* MatchmakingServer.m */,
+				2FDAF1151A9024C1006D7670 /* Packet.h */,
+				2FDAF1161A9024C1006D7670 /* Packet.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1373,8 +1380,8 @@
 		2FDFE52E1A7E89A7002FEAD0 /* Init Data */ = {
 			isa = PBXGroup;
 			children = (
-				2F0BAE541ACCE7E80056E730 /* RecycleRush.sqlite */,
 				2F6DEB0C1AAFFC37000D3C67 /* MatchList.csv */,
+				2F0BAE541ACCE7E80056E730 /* RecycleRush.sqlite */,
 				2FDFE5301A7E89D9002FEAD0 /* TeamList.csv */,
 				2FDFE5311A7E89D9002FEAD0 /* TournamentList.csv */,
 			);
@@ -1384,41 +1391,41 @@
 		2FFAE1B016D29B8200B180F9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2F5D32DA1A5FA51000E02523 /* AlertPromptViewController.h */,
+				2F5D32DB1A5FA51000E02523 /* AlertPromptViewController.m */,
+				2F65A0A11AAB6EA70096C199 /* DallasMigration.h */,
+				2F65A0A21AAB6EA70096C199 /* DallasMigration.m */,
+				2F5D32DC1A5FA51000E02523 /* EnumerationDictionary.h */,
+				2F5D32DD1A5FA51000E02523 /* EnumerationDictionary.m */,
+				2F5D32DE1A5FA51000E02523 /* FileIOMethods.h */,
+				2F5D32DF1A5FA51000E02523 /* FileIOMethods.m */,
+				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
+				2F5D32E11A5FA51000E02523 /* FullSizeViewer.m */,
 				2F39F5D41A919EF2004D323B /* LNNumberpad.h */,
 				2F39F5D51A919EF2004D323B /* LNNumberpad.m */,
 				2F39F5D61A919EF2004D323B /* LNNumberpad.xib */,
-				2F0A0E591ADC1E4A00B62114 /* SpreadsheetViewController.h */,
-				2F0A0E5A1ADC1E4A00B62114 /* SpreadsheetViewController.m */,
-				2F5D32DC1A5FA51000E02523 /* EnumerationDictionary.h */,
-				2F5D32DD1A5FA51000E02523 /* EnumerationDictionary.m */,
-				2F5D32DA1A5FA51000E02523 /* AlertPromptViewController.h */,
-				2F5D32DB1A5FA51000E02523 /* AlertPromptViewController.m */,
-				2F5D32EC1A5FA51000E02523 /* PopUpPickerViewController.h */,
-				2F5D32ED1A5FA51000E02523 /* PopUpPickerViewController.m */,
-				2F5D32F41A5FA51000E02523 /* ValuePromptViewController.h */,
-				2F5D32F51A5FA51000E02523 /* ValuePromptViewController.m */,
+				2F5D32E21A5FA51000E02523 /* MainLogo.h */,
+				2F5D32E31A5FA51000E02523 /* MainLogo.m */,
+				2F5D32E41A5FA51000E02523 /* MatchFlow.h */,
+				2F5D32E51A5FA51000E02523 /* MatchFlow.m */,
+				2F65A0A41AAB6EBA0096C199 /* MatchPhotoUtilities.h */,
+				2F65A0A51AAB6EBA0096C199 /* MatchPhotoUtilities.m */,
 				2F5D32E61A5FA51000E02523 /* PhotoAttributes.h */,
 				2F5D32E71A5FA51000E02523 /* PhotoAttributes.m */,
 				2F5D32E81A5FA51000E02523 /* PhotoCell.h */,
 				2F5D32E91A5FA51000E02523 /* PhotoCell.m */,
-				2F5D32E01A5FA51000E02523 /* FullSizeViewer.h */,
-				2F5D32E11A5FA51000E02523 /* FullSizeViewer.m */,
-				2F5D32DE1A5FA51000E02523 /* FileIOMethods.h */,
-				2F5D32DF1A5FA51000E02523 /* FileIOMethods.m */,
 				2F5D32EA1A5FA51000E02523 /* PhotoUtilities.h */,
 				2F5D32EB1A5FA51000E02523 /* PhotoUtilities.m */,
-				2F5D32E41A5FA51000E02523 /* MatchFlow.h */,
-				2F5D32E51A5FA51000E02523 /* MatchFlow.m */,
+				2F5D32EC1A5FA51000E02523 /* PopUpPickerViewController.h */,
+				2F5D32ED1A5FA51000E02523 /* PopUpPickerViewController.m */,
+				2F0A0E591ADC1E4A00B62114 /* SpreadsheetViewController.h */,
+				2F0A0E5A1ADC1E4A00B62114 /* SpreadsheetViewController.m */,
 				2F5D32EE1A5FA51000E02523 /* SyncMethods.h */,
 				2F5D32EF1A5FA51000E02523 /* SyncMethods.m */,
-				2F5D32E21A5FA51000E02523 /* MainLogo.h */,
-				2F5D32E31A5FA51000E02523 /* MainLogo.m */,
 				2F0648F11A9BBD65004241FA /* UIDefaults.h */,
 				2F0648F21A9BBD65004241FA /* UIDefaults.m */,
-				2F65A0A11AAB6EA70096C199 /* DallasMigration.h */,
-				2F65A0A21AAB6EA70096C199 /* DallasMigration.m */,
-				2F65A0A41AAB6EBA0096C199 /* MatchPhotoUtilities.h */,
-				2F65A0A51AAB6EBA0096C199 /* MatchPhotoUtilities.m */,
+				2F5D32F41A5FA51000E02523 /* ValuePromptViewController.h */,
+				2F5D32F51A5FA51000E02523 /* ValuePromptViewController.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1489,7 +1496,6 @@
 				2FDFE52D1A7E891E002FEAD0 /* Small White Button.jpg in Resources */,
 				2FF00D6E1A7AA384003B63DF /* Red 2015.png in Resources */,
 				2F33163B1A93BB6D005B7798 /* Slide15.JPG in Resources */,
-				2F8F20501A995EC900679ED6 /* Default-Landscape@2x~ipad.png in Resources */,
 				2FDFE5291A7E891E002FEAD0 /* Small Blue Button.jpg in Resources */,
 				2F8F205E1A99606900679ED6 /* App LOGO Icon.png in Resources */,
 				2FDFE5081A7E888B002FEAD0 /* AllianceList.plist in Resources */,
@@ -1501,7 +1507,6 @@
 				2FDFE52B1A7E891E002FEAD0 /* Small Grey Button.jpg in Resources */,
 				2FDFE50B1A7E888B002FEAD0 /* ToteIntakeType.plist in Resources */,
 				2FDFE5281A7E891E002FEAD0 /* RadioButton-Unselected.png in Resources */,
-				2F7CBA151AC8F2A6004D6BC9 /* Default-Portrait@2x~ipad.png in Resources */,
 				2FDFE5101A7E888B002FEAD0 /* MatchData.plist in Resources */,
 				2F2ABCF01AD5E19300DB8B3F /* CanDom.plist in Resources */,
 				2F3316391A93BB6D005B7798 /* Slide13.JPG in Resources */,
@@ -1509,17 +1514,16 @@
 				2F65A0AE1AAB6F0D0096C199 /* Prev.png in Resources */,
 				2F65A0AD1AAB6F0D0096C199 /* Next.png in Resources */,
 				2FDFE5331A7E89D9002FEAD0 /* TeamList.csv in Resources */,
+				2F980EA01ADF4C490063A989 /* SolidWorks-Tote-Bin-Assembly-Recycle-Rush.jpg in Resources */,
 				2F33163A1A93BB6D005B7798 /* Slide14.JPG in Resources */,
 				2F5D33131A5FA5F700E02523 /* 2014_field.png in Resources */,
 				2FDFE5341A7E89D9002FEAD0 /* TournamentList.csv in Resources */,
 				2F5D33481A5FA69E00E02523 /* Pick Up.png in Resources */,
-				2F5D337D1A5FA96F00E02523 /* Default@2x.png in Resources */,
 				2F3316351A93BB6D005B7798 /* Slide9.JPG in Resources */,
 				2F65A0B01AAB6F330096C199 /* Slide1.png in Resources */,
 				2F0BAE551ACCE7E80056E730 /* RecycleRush.sqlite in Resources */,
 				2F8F20591A995F0100679ED6 /* 2013_logo.png in Resources */,
 				2F29A2671ADB5D4B00FAE32D /* Pit.png in Resources */,
-				2F8F20511A995EC900679ED6 /* Default-Landscape~ipad.png in Resources */,
 				2F8F20551A995EDC00679ED6 /* banner copy.png in Resources */,
 				2F5D33431A5FA69E00E02523 /* nasalization rg.ttf in Resources */,
 				2F40F8F41A77DC9F0008491A /* RecycleRush_ipad.storyboard in Resources */,
@@ -1535,10 +1539,8 @@
 				2FDFE5161A7E88A5002FEAD0 /* ScouterName.plist in Resources */,
 				2FBEF7AD1A9652DD001DAD9C /* RobonautsLogo.jpg in Resources */,
 				2F8F20601A99610D00679ED6 /* App Icons.002.png in Resources */,
-				2F7CBA161AC8F2A6004D6BC9 /* Default-Portrait~ipad.png in Resources */,
 				2F6DEB0D1AAFFC37000D3C67 /* MatchList.csv in Resources */,
 				2F22D6FE1A79C7EE006C109E /* AutonSP.png in Resources */,
-				2F5D337C1A5FA96F00E02523 /* Default.png in Resources */,
 				2F33162E1A93BB6D005B7798 /* Slide2.JPG in Resources */,
 				2F39F5D81A919EF2004D323B /* LNNumberpad.xib in Resources */,
 				2F65A0AC1AAB6F0D0096C199 /* L.png in Resources */,
@@ -1550,6 +1552,7 @@
 				2F5D337B1A5FA96F00E02523 /* Default-568h@2x.png in Resources */,
 				2F8F20481A995D8200679ED6 /* Justin_R.ai in Resources */,
 				2FB3582A1A731C74005625AD /* Images.xcassets in Resources */,
+				2F980E9E1ADF4C330063A989 /* imageedit_4_9802473895.gif in Resources */,
 				2F8F204C1A995E9900679ED6 /* robonauts app banner.jpg in Resources */,
 				2F484D661A84648B00690185 /* Blue 2015 New.png in Resources */,
 				2FDFE5261A7E891E002FEAD0 /* button_robonaut_gold.png in Resources */,
@@ -1560,6 +1563,7 @@
 				2F8F20561A995EDC00679ED6 /* banner.png in Resources */,
 				2F8F204B1A995E9900679ED6 /* robonauts app banner original.jpg in Resources */,
 				2FF623161A7EEAB600145547 /* Blue 2015.png in Resources */,
+				2F980E9C1ADF4C330063A989 /* imageedit_1_8111572194.gif in Resources */,
 				2F29A2661ADB5D4B00FAE32D /* Can Dom.png in Resources */,
 				2FDFE50A1A7E888B002FEAD0 /* DriveType.plist in Resources */,
 				2F8F20521A995EC900679ED6 /* home image.004.png in Resources */,
@@ -1573,6 +1577,7 @@
 				2F3316361A93BB6D005B7798 /* Slide10.JPG in Resources */,
 				2F3316341A93BB6D005B7798 /* Slide8.JPG in Resources */,
 				2F8F205A1A995F0100679ED6 /* 2013_logo~ipad.png in Resources */,
+				2F980E9D1ADF4C330063A989 /* imageedit_1_9414974614.gif in Resources */,
 				2FB6B0EC1A9D67E600ADDBCE /* StackingMech.plist in Resources */,
 				2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */,
 				2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */,
@@ -1706,6 +1711,7 @@
 				2FFE723A1AC76791007BCA46 /* FlagMatchViewController.m in Sources */,
 				2F316B6E1AD5FE410016D2B4 /* SortListViewController.m in Sources */,
 				2F9866871AD9DC1400C4C640 /* AnalysisListViewController.m in Sources */,
+				2F3869CC1ADF3B0400E7AB26 /* FlagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

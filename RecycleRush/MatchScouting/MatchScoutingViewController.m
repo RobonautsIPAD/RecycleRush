@@ -412,7 +412,6 @@ CGFloat opacity;
     _canFloorIntake.text = [NSString stringWithFormat:@"%@", currentScore.canIntakeFloor];
    _canStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.cansFromStep];
     _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
-    _totalScore.text = [NSString stringWithFormat:@"%@", currentScore.totalScore];
     _toteIntakeHPText.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeHP];
     _toteStepIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeStep];
     _toteLandfillIntake.text = [NSString stringWithFormat:@"%@", currentScore.toteIntakeLandfill];
@@ -1166,6 +1165,7 @@ CGFloat opacity;
     [_fieldDrawingContainer setUserInteractionEnabled:FALSE];
     [_controlsView setUserInteractionEnabled:FALSE];
     [_stackView setUserInteractionEnabled:FALSE];
+   // [_label setAlpha:0];
 }
 
 -(void)enableInputs {
@@ -1430,11 +1430,11 @@ CGFloat opacity;
          currentScore.totalTotesIntake = [NSNumber numberWithInt:score];
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
-   // else if ([scoreObject isEqualToString:@"TotalScore"]) {
-     //   int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
-       // currentScore.totalScore = [NSNumber numberWithInt:score];
-    //    _totalScore.text = [NSString stringWithFormat:@"%d", score];
-   // }
+    else if ([scoreObject isEqualToString:@"TotalScore"]) {
+        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
+        currentScore.totalScore = [NSNumber numberWithInt:score];
+        _totalScore.text = [NSString stringWithFormat:@"%d", score];
+    }
 }
 
 -(IBAction)drawModeChange: (id)sender {
@@ -1577,7 +1577,7 @@ CGFloat opacity;
     _coopSetDenom.inputView = [LNNumberpad defaultLNNumberpad];
     _coopStackNumer.inputView = [LNNumberpad defaultLNNumberpad];
     _coopStackDenom.inputView = [LNNumberpad defaultLNNumberpad];
-    _allianceScore.inputView = [LNNumberpad defaultLNNumberpad];
+    _totalScore.inputView = [LNNumberpad defaultLNNumberpad];
 
 }
 
@@ -1695,8 +1695,12 @@ CGFloat opacity;
     else if ([segue.identifier isEqualToString:@"MatchSummary"])  {
         [segue.destinationViewController setDataManager:_dataManager];
         [segue.destinationViewController setCurrentScore:currentScore];
-       // [segue.destinationViewController setTeam:currentTeam];
     }
+    else if ([segue.identifier isEqualToString:@"Flag"])  {
+        [segue.destinationViewController setDataManager:_dataManager];
+        [segue.destinationViewController setCurrentScore:currentScore];
+    }
+
 }
 
 - (void)scoringViewFinished {

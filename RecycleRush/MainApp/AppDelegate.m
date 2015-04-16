@@ -177,17 +177,33 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    NSLog(@"Enter background");
+    //NSLog(@"Enter background");
     [_dataManager saveContext];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSDate *AlarmTime = [[NSDate date] dateByAddingTimeInterval:2];
+    UIApplication *app = [UIApplication sharedApplication];
+    UILocalNotification *notifyAlarm = [[UILocalNotification alloc] init];
+    if (notifyAlarm) {
+        notifyAlarm.fireDate = AlarmTime;
+        notifyAlarm.timeZone = [NSTimeZone defaultTimeZone];
+        notifyAlarm.repeatInterval = 0;
+       // notifyAlarm.soundName = @"reminder.wav";
+        notifyAlarm.alertBody = @"Leaving So Soon? Come back and scout with us!";
+        [app scheduleLocalNotification:notifyAlarm];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"Enter Foreground");
+    //NSLog(@"Enter Foreground");
     [_connectionUtility autoConnect];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *oldNotifications = [app scheduledLocalNotifications];
+    if ([oldNotifications count] > 100) {
+        [app cancelAllLocalNotifications];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
