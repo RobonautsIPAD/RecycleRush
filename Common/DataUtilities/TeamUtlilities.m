@@ -25,9 +25,12 @@
 @implementation TeamUtilities {
     NSDictionary *teamDataAttributes;
     NSArray *attributeNames;
+    NSDictionary *teamHistoryAttributes;
+    NSArray *historyAttributeNames;
     NSUserDefaults *prefs;
     NSString *deviceName;
     NSArray *teamDataList;
+    NSArray *teamHistoryList;
     NSDictionary *triStateDictionary;
     NSDictionary *quadStateDictionary;
     NSDictionary *driveTypeDictionary;
@@ -43,6 +46,9 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"TeamData" inManagedObjectContext:_dataManager.managedObjectContext];
         teamDataAttributes = [entity propertiesByName];
         attributeNames = teamDataAttributes.allKeys;
+        entity = [NSEntityDescription entityForName:@"Regional" inManagedObjectContext:_dataManager.managedObjectContext];
+        teamHistoryAttributes = [entity propertiesByName];
+        historyAttributeNames = teamHistoryAttributes.allKeys;
         // NSLog(@"attirbute name = %@", attributeNames);
         [self initializePreferences];
         prefs = [NSUserDefaults standardUserDefaults];
@@ -342,6 +348,72 @@
 }
 
 -(BOOL)addTeamHistoryFromFile:(NSString *)filePath {
+    CSVParser *parser = [CSVParser new];
+    [parser openFile: filePath];
+    NSMutableArray *csvContent = [parser parseFile];
+    BOOL inputError = FALSE;
+    NSError *error = nil;
+    if (![csvContent count]) return inputError;
+    // Get the first row, column headers
+    NSMutableArray *headerLine = [NSMutableArray arrayWithArray:[csvContent objectAtIndex: 0]];
+    
+    // Check the first header to make sure this is a team file
+    if (![[headerLine objectAtIndex:0] isEqualToString:@"Team History"]) return inputError;
+    
+    NSMutableArray *columnDetails = [NSMutableArray array];
+    // NSLog(@"Header line = %@", headerLine);
+    for (NSString *item in headerLine) {
+        NSDictionary *column = [DataConvenienceMethods findKey:item forAttributes:historyAttributeNames forDictionary:teamHistoryList error:&error];
+        [columnDetails addObject:column];
+    }
+    if (error) {
+        [_dataManager writeErrorMessage:error forType:kErrorMessage];
+        inputError = TRUE;
+    }
+    for (int c = 1; c < [csvContent count]; c++) {
+        NSArray *line = [NSArray arrayWithArray:[csvContent objectAtIndex:c]];
+        NSNumber *teamNumber = [NSNumber numberWithInt:[[line objectAtIndex: 0] intValue]];
+        NSLog(@"addTeamHistoryFromFile:Team = %@", teamNumber);
+        TeamData *team = [TeamAccessors getTeam:teamNumber fromDataManager:_dataManager];
+        error = nil;
+        if (error) [_dataManager writeErrorMessage:error forType:[error code]];
+        if (!team) { // Unable to create team
+            NSString *msg = [NSString stringWithFormat:@"Team %@, in Team History file, does not exist", teamNumber];
+            error = [NSError errorWithDomain:@"addTeamHistoryFromFile" code:kWarningMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+            [_dataManager writeErrorMessage:error forType:[error code]];
+            inputError = TRUE;
+            continue;
+        }
+        NSLog(@"%@", line);
+#ifdef NOTYET
+        
+        // Parse the rest of the line for any more data
+        for (int i=1; i<[line count]; i++) {
+            NSDictionary *column = [columnDetails objectAtIndex:i];
+            // NSLog(@"%@", column);
+            NSString *key = [column valueForKey:@"key"];
+            if ([key isEqualToString:@"Invalid Key"]) continue; // Error message already generated
+            NSDictionary *enumDictionary = [self getEnumDictionary:[column valueForKey:@"dictionary"]];
+            NSDictionary *description = [teamDataAttributes valueForKey:key];
+            if ([description isKindOfClass:[NSAttributeDescription class]]) {
+                // NSLog(@"Key = %@", key);
+                if ([DataConvenienceMethods setAttributeValue:team forValue:[line objectAtIndex:i] forAttribute:description forEnumDictionary:enumDictionary]) {
+                    NSString *msg = [NSString stringWithFormat:@"Unable to decode, %@ = %@, from Team History file", [headerLine objectAtIndex:i], [line objectAtIndex:i]];
+                    error = [NSError errorWithDomain:@"createTeamFromFile" code:kErrorMessage userInfo:[NSDictionary dictionaryWithObject:msg forKey:NSLocalizedDescriptionKey]];
+                    inputError = TRUE;
+                    [_dataManager writeErrorMessage:error forType:[error code]];
+                    error = nil;
+                }
+            }
+        }
+        if (![_dataManager saveContext]) {
+            inputError = TRUE;
+        }
+        // NSLog(@"Team after full line = %@", team);
+#endif
+    }
+    [parser closeFile];
+    
 /*    NSNumber *teamNumber;
     TeamData *team;
     AddRecordResults results = DB_ADDED;
@@ -434,6 +506,8 @@
     // Create a dictionary with
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"TeamData" ofType:@"plist"];
     teamDataList = [[NSArray alloc] initWithContentsOfFile:plistPath];
+    plistPath = [[NSBundle mainBundle] pathForResource:@"TeamHistory" ofType:@"plist"];
+    teamHistoryList = [[NSArray alloc] initWithContentsOfFile:plistPath];
 }
 
 #ifdef TEST_MODE

@@ -284,7 +284,6 @@ TeamData *currentteam;
     // At some point, we really need to decide on real error handling.
     if (dataChange) {
         _team.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
-        if (!_team.weight) _team.weight = [NSNumber numberWithFloat:0.0];
         if (![_dataManager saveContext]) {
             UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Horrible Problem"
                                                               message:@"Unable to save data"

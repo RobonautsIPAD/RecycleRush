@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>number</string>
+		<key>input</key>
+		<string>Team History</string>
+		<key>output</key>
+		<string>Team History</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>eventNumber</string>
+		<key>input</key>
+		<string>EventNumber, Event Number</string>
+		<key>output</key>
+		<string>Event Number</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>eventName</string>
+		<key>input</key>
+		<string>EventName, Event Name, Event</string>
+		<key>output</key>
+		<string>Event Name</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>averageScore</string>
+		<key>input</key>
+		<string>averageScore, Average Score</string>
+		<key>output</key>
+		<string>Average Score</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>ccwm</string>
+		<key>input</key>
+		<string>ccwm</string>
+		<key>output</key>
+		<string>CCWM</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>opr</string>
+		<key>input</key>
+		<string>opr</string>
+		<key>output</key>
+		<string>OPR</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>finalRank</string>
+		<key>input</key>
+		<string>Rank, final rank</string>
+		<key>output</key>
+		<string>Rank</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>alliance</string>
+		<key>input</key>
+		<string>alliance</string>
+		<key>output</key>
+		<string>Alliance</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>finishPosition</string>
+		<key>input</key>
+		<string>Finish</string>
+		<key>output</key>
+		<string>Finish</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+</array>
+</plist>

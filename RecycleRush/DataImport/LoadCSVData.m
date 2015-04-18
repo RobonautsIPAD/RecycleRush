@@ -66,7 +66,7 @@
     NSLog(@"Emailed File = %@", filePath);
     [self loadTournamentFile:filePath];
     inputError |= [self loadTeamFile:filePath];
- //   [self loadTeamHistory:filePath];
+    inputError |= [self loadTeamHistory:filePath];
     NSLog(@"loaded history");
     inputError |= [self loadMatchFile:filePath];
     return inputError;
@@ -84,8 +84,10 @@
     return inputError;
 }
 
--(void)loadTeamHistory:(NSString *)filePath {
-    NSLog(@"Team History");
+-(BOOL)loadTeamHistory:(NSString *)filePath {
+    TeamUtilities *teamUtil = [[TeamUtilities alloc] init:_dataManager];
+    BOOL inputError = [teamUtil addTeamHistoryFromFile:filePath];
+    return inputError;
 }
 
 -(BOOL)loadMatchFile:(NSString *)filePath {

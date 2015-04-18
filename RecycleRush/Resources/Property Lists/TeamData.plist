@@ -210,6 +210,66 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>coverAverageScore</string>
+		<key>input</key>
+		<string>AverageScore, Average Score</string>
+		<key>output</key>
+		<string>Average Score</string>
+		<key>lucien</key>
+		<string>Ave Score</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coverOPR</string>
+		<key>input</key>
+		<string>OPR, Overall OPR</string>
+		<key>output</key>
+		<string>Overall OPR</string>
+		<key>lucien</key>
+		<string>OPR</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coverCCWM</string>
+		<key>input</key>
+		<string>CCWM, Overall CCWM</string>
+		<key>output</key>
+		<string>Overall CCWM</string>
+		<key>lucien</key>
+		<string>CCWM</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coverCanDomCans</string>
+		<key>input</key>
+		<string>Cover Sheet Cans</string>
+		<key>format</key>
+		<string>integer</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coverCanDomTime</string>
+		<key>input</key>
+		<string>Cover Sheet Can Dom Time</string>
+		<key>format</key>
+		<string>float</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>coverNotes</string>
+		<key>input</key>
+		<string>Cover Sheet Notes</string>
+		<key>format</key>
+		<string>string</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>notes</string>
 		<key>output</key>
 		<string>Notes</string>

@@ -188,6 +188,7 @@
 		2F9F572B1AE28871003256FF /* CoverSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F572A1AE28871003256FF /* CoverSheetViewController.m */; };
 		2F9F57431AE2A343003256FF /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F57421AE2A343003256FF /* Regional.m */; };
 		2F9F57461AE2A410003256FF /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F57451AE2A410003256FF /* TeamData.m */; };
+		2F9F57481AE2A795003256FF /* TeamHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F9F57471AE2A795003256FF /* TeamHistory.plist */; };
 		2FA0BE0D1AAB5FAD00A193A2 /* TeamSpreadsheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */; };
 		2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFD1AAA74190080E836 /* StatCalculate.plist */; };
 		2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */; };
@@ -618,6 +619,7 @@
 		2F9F57421AE2A343003256FF /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regional.m; sourceTree = "<group>"; };
 		2F9F57441AE2A410003256FF /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
 		2F9F57451AE2A410003256FF /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
+		2F9F57471AE2A795003256FF /* TeamHistory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamHistory.plist; path = "RecycleRush/Resources/Property Lists/TeamHistory.plist"; sourceTree = SOURCE_ROOT; };
 		2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamSpreadsheet.plist; path = "RecycleRush/Resources/Property Lists/TeamSpreadsheet.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFD1AAA74190080E836 /* StatCalculate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = StatCalculate.plist; path = "RecycleRush/Resources/Property Lists/StatCalculate.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AnalysisPage.plist; path = "RecycleRush/Resources/Property Lists/AnalysisPage.plist"; sourceTree = SOURCE_ROOT; };
@@ -970,6 +972,7 @@
 				2FB6B0EB1A9D67E600ADDBCE /* StackingMech.plist */,
 				2FA17AFD1AAA74190080E836 /* StatCalculate.plist */,
 				2FDFE5181A7E88B7002FEAD0 /* TeamData.plist */,
+				2F9F57471AE2A795003256FF /* TeamHistory.plist */,
 				2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */,
 				2FA17B001AAA7AA20080E836 /* TeamSummaryStats.plist */,
 				2FDFE4FF1A7E888B002FEAD0 /* ToteIntakeType.plist */,
@@ -1515,6 +1518,7 @@
 				2FDFE5101A7E888B002FEAD0 /* MatchData.plist in Resources */,
 				2F2ABCF01AD5E19300DB8B3F /* CanDom.plist in Resources */,
 				2F3316391A93BB6D005B7798 /* Slide13.JPG in Resources */,
+				2F9F57481AE2A795003256FF /* TeamHistory.plist in Resources */,
 				2FDFE50D1A7E888B002FEAD0 /* LucienNumberFields.plist in Resources */,
 				2F65A0AE1AAB6F0D0096C199 /* Prev.png in Resources */,
 				2F65A0AD1AAB6F0D0096C199 /* Next.png in Resources */,

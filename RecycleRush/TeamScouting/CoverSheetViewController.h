@@ -12,5 +12,6 @@
 
 @interface CoverSheetViewController : UIViewController
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSArray *teamList;
 
 @end

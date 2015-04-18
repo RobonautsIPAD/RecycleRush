@@ -16,8 +16,5 @@
 -(id)initWithDataManager:(DataManager *)initManager;
 -(BOOL)loadCSVDataFromBundle;
 -(BOOL)handleOpenURL:(NSURL *)url;
--(BOOL)loadTournamentFile:(NSString *)filePath;
--(void)loadTeamHistory:(NSString *)filePath;
 -(BOOL)loadMatchFile:(NSString *)filePath;
-
 @end
