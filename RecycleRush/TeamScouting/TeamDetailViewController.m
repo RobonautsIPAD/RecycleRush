@@ -1038,10 +1038,10 @@ if (sender == _canDomRadio) { // It is on, turn it off
     Regional *regional = [regionalList objectAtIndex:indexPath.row];
     
 	UILabel *label1 = (UILabel *)[cell viewWithTag:10];
-	label1.text = [NSString stringWithFormat:@"%d", [regional.week intValue]];
+	label1.text = [NSString stringWithFormat:@"%d", [regional.eventNumber intValue]];
 
 	UILabel *label2 = (UILabel *)[cell viewWithTag:20];
-    label2.text = regional.name;
+    label2.text = regional.eventName;
 
 	UILabel *label3 = (UILabel *)[cell viewWithTag:30];
 	label3.text = [NSString stringWithFormat:@"%d", [regional.rank intValue]];
