@@ -392,7 +392,7 @@ TeamData *currentteam;
     _robotWidth.text = [NSString stringWithFormat:@"%.0f", [_team.width floatValue]];
     _robotLength.text = [NSString stringWithFormat:@"%.0f", [_team.length floatValue]];
 
-    NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"week" ascending:YES];
+    NSSortDescriptor *regionalSort = [NSSortDescriptor sortDescriptorWithKey:@"eventNumber" ascending:YES];
     regionalList = [[_team.regional allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:regionalSort]];
     
     matchList = [ScoreAccessors getMatchListForTeam:_team.number forTournament:tournamentName fromDataManager:_dataManager];

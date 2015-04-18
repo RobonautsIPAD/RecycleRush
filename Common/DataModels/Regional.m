@@ -1,9 +1,9 @@
 //
 //  Regional.m
-// Robonauts Scouting
+//  RecycleRush
 //
-//  Created by FRC on 12/7/13.
-//  Copyright (c) 2013 FRC. All rights reserved.
+//  Created by FRC on 4/18/15.
+//  Copyright (c) 2015 FRC. All rights reserved.
 //
 
 #import "Regional.h"
@@ -14,11 +14,9 @@
 
 @dynamic awards;
 @dynamic ccwm;
-@dynamic dpr;
 @dynamic eliminated;
 @dynamic eliminationRecord;
 @dynamic finishPosition;
-@dynamic name;
 @dynamic opr;
 @dynamic rank;
 @dynamic reg1;
@@ -28,7 +26,11 @@
 @dynamic reg5;
 @dynamic reg6;
 @dynamic seedingRecord;
-@dynamic week;
+@dynamic finalRank;
+@dynamic alliance;
+@dynamic averageScore;
+@dynamic eventName;
+@dynamic eventNumber;
 @dynamic team;
 
 @end

@@ -23,14 +23,17 @@
         <relationship name="score" optional="YES" toMany="YES" maxCount="8" deletionRule="Cascade" destinationEntity="TeamScore" inverseName="match" inverseEntity="TeamScore" syncable="YES"/>
     </entity>
     <entity name="Regional" representedClassName="Regional" syncable="YES">
+        <attribute name="alliance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="averageScore" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="awards" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="ccwm" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="dpr" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="ccwm" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="eliminated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eliminationRecord" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventNumber" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="finalRank" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="finishPosition" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="opr" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="opr" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reg1" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reg2" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -47,7 +50,6 @@
         </attribute>
         <attribute name="reg6" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="seedingRecord" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="week" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="regional" inverseEntity="TeamData" syncable="YES"/>
     </entity>
     <entity name="TeamData" representedClassName="TeamData" syncable="YES">
@@ -56,6 +58,12 @@
         <attribute name="canDom" attributeType="Boolean" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="canIntake" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="cims" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="coverAverageScore" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coverCanDomCans" attributeType="Integer 16" minValueString="0" maxValueString="4" defaultValueString="0" syncable="YES"/>
+        <attribute name="coverCanDomTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverCCWM" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coverNotes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverOPR" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="driveTrainType" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="fthing1" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="fthing2" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
@@ -211,8 +219,8 @@
         <element name="Competitions" positionX="-342" positionY="18" width="128" height="73"/>
         <element name="FieldDrawing" positionX="-47" positionY="177" width="128" height="118"/>
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
-        <element name="Regional" positionX="-848" positionY="9" width="128" height="315"/>
-        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="765"/>
+        <element name="Regional" positionX="-848" positionY="9" width="128" height="345"/>
+        <element name="TeamData" positionX="-180" positionY="-117" width="128" height="855"/>
         <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1423"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>

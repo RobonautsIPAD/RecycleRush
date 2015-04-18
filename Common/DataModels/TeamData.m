@@ -2,7 +2,7 @@
 //  TeamData.m
 //  RecycleRush
 //
-//  Created by FRC on 4/13/15.
+//  Created by FRC on 4/18/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -59,6 +59,12 @@
 @dynamic wheelDiameter;
 @dynamic wheelType;
 @dynamic width;
+@dynamic coverAverageScore;
+@dynamic coverCanDomCans;
+@dynamic coverCanDomTime;
+@dynamic coverCCWM;
+@dynamic coverNotes;
+@dynamic coverOPR;
 @dynamic regional;
 @dynamic tournaments;
 

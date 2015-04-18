@@ -239,7 +239,7 @@
     NSArray *allRegionals = [team.regional allObjects];
     NSMutableArray *regionalData = [NSMutableArray array];
     for (NSString *regional in allRegionals) {
-        [regionalData addObject:[regional valueForKey:@"week"]];
+        [regionalData addObject:[regional valueForKey:@"eventNumber"]];
     }
     if ([regionalData count]) {
         [keyList addObject:allRegionals];

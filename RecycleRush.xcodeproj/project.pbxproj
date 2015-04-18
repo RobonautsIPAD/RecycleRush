@@ -186,8 +186,8 @@
 		2F98668E1AD9F8CA00C4C640 /* CanDomNumber.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F98668D1AD9F8C900C4C640 /* CanDomNumber.plist */; };
 		2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */; };
 		2F9F572B1AE28871003256FF /* CoverSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F572A1AE28871003256FF /* CoverSheetViewController.m */; };
-		2F9F572E1AE29BED003256FF /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F572D1AE29BED003256FF /* Regional.m */; };
-		2F9F57341AE29C38003256FF /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F57331AE29C38003256FF /* TeamData.m */; };
+		2F9F57431AE2A343003256FF /* Regional.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F57421AE2A343003256FF /* Regional.m */; };
+		2F9F57461AE2A410003256FF /* TeamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F57451AE2A410003256FF /* TeamData.m */; };
 		2FA0BE0D1AAB5FAD00A193A2 /* TeamSpreadsheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */; };
 		2FA17AFE1AAA74190080E836 /* StatCalculate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFD1AAA74190080E836 /* StatCalculate.plist */; };
 		2FA17B011AAA7AA20080E836 /* AnalysisPage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */; };
@@ -614,10 +614,10 @@
 		2F9EFF211A1A76CA00F8D73C /* TeamAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TeamAccessors.m; path = Common/DataUtilities/TeamAccessors.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F9F57291AE28871003256FF /* CoverSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoverSheetViewController.h; path = RecycleRush/TeamScouting/CoverSheetViewController.h; sourceTree = SOURCE_ROOT; };
 		2F9F572A1AE28871003256FF /* CoverSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoverSheetViewController.m; path = RecycleRush/TeamScouting/CoverSheetViewController.m; sourceTree = SOURCE_ROOT; };
-		2F9F572C1AE29BED003256FF /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regional.h; sourceTree = "<group>"; };
-		2F9F572D1AE29BED003256FF /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regional.m; sourceTree = "<group>"; };
-		2F9F57321AE29C38003256FF /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
-		2F9F57331AE29C38003256FF /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
+		2F9F57411AE2A343003256FF /* Regional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regional.h; sourceTree = "<group>"; };
+		2F9F57421AE2A343003256FF /* Regional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regional.m; sourceTree = "<group>"; };
+		2F9F57441AE2A410003256FF /* TeamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamData.h; sourceTree = "<group>"; };
+		2F9F57451AE2A410003256FF /* TeamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamData.m; sourceTree = "<group>"; };
 		2FA0BE0C1AAB5FAD00A193A2 /* TeamSpreadsheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = TeamSpreadsheet.plist; path = "RecycleRush/Resources/Property Lists/TeamSpreadsheet.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFD1AAA74190080E836 /* StatCalculate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = StatCalculate.plist; path = "RecycleRush/Resources/Property Lists/StatCalculate.plist"; sourceTree = SOURCE_ROOT; };
 		2FA17AFF1AAA7AA20080E836 /* AnalysisPage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AnalysisPage.plist; path = "RecycleRush/Resources/Property Lists/AnalysisPage.plist"; sourceTree = SOURCE_ROOT; };
@@ -1222,11 +1222,11 @@
 		2F8816841A5FB0D4001CCA04 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				2F9F57321AE29C38003256FF /* TeamData.h */,
-				2F9F57331AE29C38003256FF /* TeamData.m */,
 				2F88168D1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld */,
-				2F9F572C1AE29BED003256FF /* Regional.h */,
-				2F9F572D1AE29BED003256FF /* Regional.m */,
+				2F9F57411AE2A343003256FF /* Regional.h */,
+				2F9F57421AE2A343003256FF /* Regional.m */,
+				2F9F57441AE2A410003256FF /* TeamData.h */,
+				2F9F57451AE2A410003256FF /* TeamData.m */,
 				2F8816851A5FB0D4001CCA04 /* Competitions.h */,
 				2F8816861A5FB0D4001CCA04 /* Competitions.m */,
 				2F33DCE71A86A9CC00331B12 /* FieldDrawing.h */,
@@ -1674,7 +1674,7 @@
 				2F56822C1ADC4A62002D137B /* MMGridLayout.m in Sources */,
 				2FC0878B1A9EA67A00050864 /* PhoneMatchListViewController.m in Sources */,
 				2F5D33001A5FA51000E02523 /* SyncMethods.m in Sources */,
-				2F9F57341AE29C38003256FF /* TeamData.m in Sources */,
+				2F9F57461AE2A410003256FF /* TeamData.m in Sources */,
 				2F33DCE91A86A9CC00331B12 /* FieldDrawing.m in Sources */,
 				2F6ADE981A981B1900962D1C /* SketchSpaceViewController.m in Sources */,
 				2F5D327E1A5FA24300E02523 /* MainMatchAnalysisViewController.m in Sources */,
@@ -1696,8 +1696,8 @@
 				2F88169F1A5FB0D4001CCA04 /* RecycleRush.xcdatamodeld in Sources */,
 				2F9EFF221A1A76CA00F8D73C /* TeamAccessors.m in Sources */,
 				2F8F20681A9963E400679ED6 /* MatchPhotoCollectionViewController.m in Sources */,
+				2F9F57431AE2A343003256FF /* Regional.m in Sources */,
 				2F5D327D1A5FA24300E02523 /* CanDomListViewController.m in Sources */,
-				2F9F572E1AE29BED003256FF /* Regional.m in Sources */,
 				2F5D32981A5FA32F00E02523 /* main.m in Sources */,
 				2F5D32991A5FA32F00E02523 /* PhoneSplashViewController.m in Sources */,
 				2F5682371ADC4B7F002D137B /* MMTopRowCell.m in Sources */,
