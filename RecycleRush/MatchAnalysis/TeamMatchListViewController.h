@@ -13,4 +13,5 @@
 @interface TeamMatchListViewController : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
+@property (nonatomic, strong) NSNumber *teamNumber;
 @end

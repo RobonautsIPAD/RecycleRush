@@ -18,6 +18,12 @@
 @dynamic canDom;
 @dynamic canIntake;
 @dynamic cims;
+@dynamic coverAverageScore;
+@dynamic coverCanDomCans;
+@dynamic coverCanDomTime;
+@dynamic coverCCWM;
+@dynamic coverNotes;
+@dynamic coverOPR;
 @dynamic driveTrainType;
 @dynamic fthing1;
 @dynamic fthing2;
@@ -59,12 +65,6 @@
 @dynamic wheelDiameter;
 @dynamic wheelType;
 @dynamic width;
-@dynamic coverAverageScore;
-@dynamic coverCanDomCans;
-@dynamic coverCanDomTime;
-@dynamic coverCCWM;
-@dynamic coverNotes;
-@dynamic coverOPR;
 @dynamic regional;
 @dynamic tournaments;
 

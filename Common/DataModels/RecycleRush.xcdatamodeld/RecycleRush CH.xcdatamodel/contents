@@ -60,7 +60,7 @@
         <attribute name="cims" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="coverAverageScore" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="coverCanDomCans" attributeType="Integer 16" minValueString="0" maxValueString="4" defaultValueString="0" syncable="YES"/>
-        <attribute name="coverCanDomTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverCanDomTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coverCCWM" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="coverNotes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coverOPR" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -76,7 +76,7 @@
         <attribute name="maxCanHeight" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxHeight" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="maxToteStack" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="75" defaultValueString="None" syncable="YES"/>
         <attribute name="noodler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
