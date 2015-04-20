@@ -42,8 +42,10 @@
 @property (nonatomic, retain) NSNumber * coop31;
 @property (nonatomic, retain) NSNumber * coopSetDenominator;
 @property (nonatomic, retain) NSNumber * coopSetNumerator;
+@property (nonatomic, retain) NSNumber * coopSetNY;
 @property (nonatomic, retain) NSNumber * coopStackDenominator;
 @property (nonatomic, retain) NSNumber * coopStackNumerator;
+@property (nonatomic, retain) NSNumber * coopYN;
 @property (nonatomic, retain) NSNumber * deadOnArrival;
 @property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSString * fieldPhotoName;
@@ -102,8 +104,6 @@
 @property (nonatomic, retain) NSNumber * wowlistHP;
 @property (nonatomic, retain) NSNumber * wowlistRobot;
 @property (nonatomic, retain) NSNumber * yellowCards;
-@property (nonatomic, retain) NSNumber * coopSetNY;
-@property (nonatomic, retain) NSNumber * coopYN;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

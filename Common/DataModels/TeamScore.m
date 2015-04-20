@@ -42,8 +42,10 @@
 @dynamic coop31;
 @dynamic coopSetDenominator;
 @dynamic coopSetNumerator;
+@dynamic coopSetNY;
 @dynamic coopStackDenominator;
 @dynamic coopStackNumerator;
+@dynamic coopYN;
 @dynamic deadOnArrival;
 @dynamic driverRating;
 @dynamic fieldPhotoName;
@@ -102,8 +104,6 @@
 @dynamic wowlistHP;
 @dynamic wowlistRobot;
 @dynamic yellowCards;
-@dynamic coopSetNY;
-@dynamic coopYN;
 @dynamic autonDrawing;
 @dynamic match;
 @dynamic teleOpDrawing;
