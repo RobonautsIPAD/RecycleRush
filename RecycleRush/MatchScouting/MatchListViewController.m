@@ -80,42 +80,42 @@
     headerView.backgroundColor = [UIColor lightGrayColor];
     headerView.opaque = YES;
 
- 	UILabel *matchLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, 200, 50)];
+ 	UILabel *matchLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, 200, 50)];
 	matchLabel.text = @"Match";
     matchLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:matchLabel];
 
- 	UILabel *matchTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(82, 0, 200, 50)];
+ 	UILabel *matchTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 0, 200, 50)];
 	matchTypeLabel.text = @"Type";
     matchTypeLabel.backgroundColor = [UIColor clearColor];
     [headerView addSubview:matchTypeLabel];
 
- 	UILabel *red1Label = [[UILabel alloc] initWithFrame:CGRectMake(145, 0, 200, 50)];
+ 	UILabel *red1Label = [[UILabel alloc] initWithFrame:CGRectMake(390, 0, 200, 50)];
 	red1Label.text = @"Red 1";
     red1Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red1Label];
 
-    UILabel *red2Label = [[UILabel alloc] initWithFrame:CGRectMake(211, 0, 200, 50)];
+    UILabel *red2Label = [[UILabel alloc] initWithFrame:CGRectMake(470, 0, 200, 50)];
 	red2Label.text = @"Red 2";
     red2Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red2Label];
 
-    UILabel *red3Label = [[UILabel alloc] initWithFrame:CGRectMake(281, 0, 200, 50)];
+    UILabel *red3Label = [[UILabel alloc] initWithFrame:CGRectMake(550, 0, 200, 50)];
 	red3Label.text = @"Red 3";
     red3Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:red3Label];
 
-    UILabel *blue1Label = [[UILabel alloc] initWithFrame:CGRectMake(387, 0, 200, 50)];
+    UILabel *blue1Label = [[UILabel alloc] initWithFrame:CGRectMake(690, 0, 200, 50)];
 	blue1Label.text = @"Blue 1";
     blue1Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue1Label];
     
-    UILabel *blue2Label = [[UILabel alloc] initWithFrame:CGRectMake(461, 0, 200, 50)];
+    UILabel *blue2Label = [[UILabel alloc] initWithFrame:CGRectMake(790, 0, 200, 50)];
 	blue2Label.text = @"Blue 2";
     blue2Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue2Label];
     
-    UILabel *blue3Label = [[UILabel alloc] initWithFrame:CGRectMake(532, 0, 200, 50)];
+    UILabel *blue3Label = [[UILabel alloc] initWithFrame:CGRectMake(890, 0, 200, 50)];
 	blue3Label.text = @"Blue 3";
     blue3Label.backgroundColor = [UIColor clearColor];
     [headerView addSubview:blue3Label];
@@ -246,7 +246,7 @@
 	numberLabel.text = [NSString stringWithFormat:@"%d", [info.number intValue]];
     
 	UILabel *matchTypeLabel = (UILabel *)[cell viewWithTag:15];
-    matchTypeLabel.text = [[MatchAccessors getMatchTypeString:info.matchType fromDictionary:matchTypeDictionary] substringToIndex:4];
+    matchTypeLabel.text = [MatchAccessors getMatchTypeString:info.matchType fromDictionary:matchTypeDictionary];
 
     NSArray *scoreList = [info.score allObjects];
 	UILabel *red1Label = (UILabel *)[cell viewWithTag:20];
