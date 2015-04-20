@@ -529,6 +529,9 @@
     else if ([segue.identifier isEqualToString:@"BlueSketchHome"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
     }
+    else if ([segue.identifier isEqualToString:@"CoverSheet"]) {
+        [segue.destinationViewController setTeamList:teamList];
+    }
     else if ([segue.identifier isEqualToString:@"Spreadsheet"]) {
     }
     else {

@@ -23,10 +23,10 @@
 #import "MatchOverlayViewController.h"
 #import "FullSizeViewer.h"
 #import "LNNumberpad.h"
-#import "MainMatchAnalysisViewController.h"
 #import "MatchAccessors.h"
 #import "TeamSummaryViewController.h"
 #import "MatchSummaryViewController.h"
+#import "TeamMatchListViewController.h"
 
 
 @interface TeamDetailViewController ()
@@ -983,7 +983,7 @@ if (sender == _canDomRadio) { // It is on, turn it off
         [_matchInfo deselectRowAtIndexPath:indexPath animated:YES];
     }
     else if ([segue.identifier isEqualToString:@"TeamMatchSummary"]) {
-        [segue.destinationViewController setNumberTeam:_team];
+        [segue.destinationViewController setTeamNumber:_team.number];
     }
     else if ([segue.identifier isEqualToString:@"TeamSummary"]) {
         TeamSummaryViewController *detailViewController = [segue destinationViewController];

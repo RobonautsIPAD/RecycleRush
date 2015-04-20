@@ -10,7 +10,8 @@
 
 @class DataManager;
 
-@interface CoverSheetViewController : UIViewController
+@interface CoverSheetViewController : UIViewController <UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) NSArray *teamList;
 

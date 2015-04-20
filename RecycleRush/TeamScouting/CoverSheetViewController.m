@@ -10,7 +10,9 @@
 #import <QuartzCore/CALayer.h>
 #import "DataManager.h"
 #import "TeamData.h"
+#import "Regional.h"
 #import "TeamAccessors.h"
+#import "PhotoUtilities.h"
 #import "LNNumberpad.h"
 
 @interface CoverSheetViewController ()
@@ -40,6 +42,9 @@
     NSString *tournamentName;
     NSString *deviceName;
     TeamData *currentTeam;
+    NSUInteger currentTeamIndex;
+    NSMutableArray *regionalLabels;
+    PhotoUtilities *photoUtilities;
     BOOL dataChange;
 }
 
@@ -80,8 +85,9 @@
     }
     if (_teamList && [_teamList count]) {
         currentTeam = [_teamList objectAtIndex:0];
+        currentTeamIndex = 0;
     }
-    [self showTeam];
+    photoUtilities = [[PhotoUtilities alloc] init:_dataManager];
     _robotInfoView.layer.borderColor = [UIColor blackColor].CGColor;
     _robotInfoView.layer.borderWidth = 2.0f;
     _robotHistoryView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -92,6 +98,34 @@
     _canDomField.inputView  = [LNNumberpad defaultLNNumberpad];
     _ccwmField.inputView  = [LNNumberpad defaultLNNumberpad];
     _scoreField.inputView  = [LNNumberpad defaultLNNumberpad];
+    regionalLabels = [[NSMutableArray alloc] init];
+    CGFloat yAnchor = 5.0;
+    CGFloat yInterval = 25.0;
+    for (int i=0; i<5; i++) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20,yAnchor+yInterval*i,700,21)];
+        label.textColor = [UIColor blackColor];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:17.0];
+        [regionalLabels addObject:label];
+        [_robotHistoryView addSubview:label];
+    }
+    [self showTeam];
+    [_event1Label setHidden:TRUE];
+    [_event2Label setHidden:TRUE];
+    [_event3Label setHidden:TRUE];
+    [_event4Label setHidden:TRUE];
+    [_event5Label setHidden:TRUE];
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoNextTeam:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    swipeLeft.numberOfTouchesRequired = 1;
+    swipeLeft.delegate = self;
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoPrevTeam:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.numberOfTouchesRequired = 1;
+    swipeRight.delegate = self;
+    [self.view addGestureRecognizer:swipeRight];
 }
 
 -(void)setDataChange {
@@ -129,33 +163,72 @@
     _scoreField.text = [NSString stringWithFormat:@"%.1f", [currentTeam.coverAverageScore floatValue]];
     _ccwmField.text = [NSString stringWithFormat:@"%.1f", [currentTeam.coverCCWM floatValue]];
     _notesField.text = currentTeam.coverNotes;
+    NSSortDescriptor *numberDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventNumber" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:numberDescriptor, nil];
+    NSArray *regionals = [[currentTeam.regional allObjects] sortedArrayUsingDescriptors:sortDescriptors];
+    [[regionalLabels objectAtIndex:0] setHidden:TRUE];
+    [[regionalLabels objectAtIndex:1] setHidden:TRUE];
+    [[regionalLabels objectAtIndex:2] setHidden:TRUE];
+    [[regionalLabels objectAtIndex:3] setHidden:TRUE];
+    [[regionalLabels objectAtIndex:4] setHidden:TRUE];
+    int i = 0;
+    for (Regional *regional in regionals) {
+        NSString *event = [NSString stringWithFormat:@"%@ Regional:%@, %@, Avg. Score:%.1f", regional.eventName, regional.finishPosition, regional.alliance, [regional.averageScore floatValue]];
+        UILabel *label = [regionalLabels objectAtIndex:i];
+        label.text = event;
+        [label setHidden:FALSE];
+        i++;
+        NSLog(@"regional event = %@", regional.eventName);
+    }
+    [self getPhoto];
     dataChange = NO;
 }
 
-- (IBAction)teamNumberChanged:(id)sender {
+-(void)getPhoto {
+    _robotPhotoImageView.image = nil;
+    _robotPhotoImageView.userInteractionEnabled = NO;
+    _robotPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    if (!currentTeam.primePhoto) return;
+    [_robotPhotoImageView setImage:[UIImage imageWithContentsOfFile:[photoUtilities getFullImagePath:currentTeam.primePhoto]]];
+}
 
- /*   // The user has typed a new team number in the field. Access that team and display it.
+- (IBAction)teamNumberChanged:(id)sender {
+    // The user has typed a new team number in the field. Access that team and display it.
     // NSLog(@"teamNumberChanged");
     [self checkDataStatus];
-    if ([_numberText.text isEqualToString:@""]) {
-        _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];
+    if ([_teamNumberField.text isEqualToString:@""]) {
+        _teamNumberField.text = [NSString stringWithFormat:@"%@", currentTeam.number];
         return;
     }
-    
-    int currentTeam = [_numberText.text intValue];
-    BOOL found = FALSE;
-    for(int x = 0; x < [self getNumberOfTeams]; x++){
-        NSIndexPath *teamIndex = [NSIndexPath indexPathForRow:x inSection:0];
-        TeamData* team = [_fetchedResultsController objectAtIndexPath: teamIndex];
-        if([team.number intValue] == currentTeam) {
-            _teamIndex = teamIndex;
-            _team = team;
-            [self showTeam];
-            found = TRUE;
-            break;
+    int desiredTeam = [_teamNumberField.text intValue];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"number = %@", [NSNumber numberWithInt:desiredTeam]];
+    NSArray *team = [_teamList filteredArrayUsingPredicate:pred];
+    if (team && [team count]) {
+        TeamData *newTeam = [team objectAtIndex:0];
+        NSUInteger newIndex = [_teamList indexOfObject:newTeam];
+        if (newIndex == NSNotFound) {
+            newIndex = currentTeamIndex;
         }
+        else {
+            currentTeamIndex = [_teamList indexOfObject:newTeam];
+        }
+        currentTeam = [_teamList objectAtIndex:currentTeamIndex];
+        [self showTeam];
     }
-    if (!found) _numberText.text = [NSString stringWithFormat:@"%d", [_team.number intValue]];*/
+}
+
+-(void)gotoNextTeam:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (currentTeamIndex < ([_teamList count]-1)) currentTeamIndex++;
+    else currentTeamIndex = 0;
+    currentTeam = [_teamList objectAtIndex:currentTeamIndex];
+    [self showTeam];
+}
+
+-(void)gotoPrevTeam:(UISwipeGestureRecognizer *)gestureRecognizer {
+    if (currentTeamIndex == 0) currentTeamIndex = [_teamList count] - 1;
+    else currentTeamIndex--;
+    currentTeam = [_teamList objectAtIndex:currentTeamIndex];
+    [self showTeam];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -170,7 +243,7 @@
 		currentTeam.coverCCWM = [NSNumber numberWithFloat:[_ccwmField.text floatValue]];
 	}
 	else if (textField == _canDomTimeField) {
-		currentTeam.coverCanDomTime = _canDomTimeField.text;
+		currentTeam.coverCanDomTime = [NSNumber numberWithInt:[_canDomTimeField.text intValue]];
 	}
 	else if (textField == _scoreField) {
 		currentTeam.coverAverageScore = [NSNumber numberWithFloat:[_scoreField.text floatValue]];

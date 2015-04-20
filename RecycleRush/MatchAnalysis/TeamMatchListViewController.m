@@ -9,6 +9,7 @@
 #import "TeamMatchListViewController.h"
 #import "DataManager.h"
 #import "FileIOMethods.h"
+#import "UIDefaults.h"
 #import "TeamData.h"
 #import "TeamScore.h"
 #import "MatchAccessors.h"
@@ -21,6 +22,7 @@
 #import "CalculateTeamStats.h"
 #import "TeamDetailViewController.h"
 #import "MainMatchAnalysisViewController.h"
+#import "SketchSpaceViewController.h"
 #import "SettingsViewController.h"
 #import <QuartzCore/CALayer.h>
 #import "LNNumberpad.h"
@@ -71,9 +73,13 @@
 
     matchTypeDictionary = _dataManager.matchTypeDictionary;
     
-    // Default to our team. Someday create saveable preferences
-    _teamNumberText.text = @"118";
-    
+    if (_teamNumber) {
+        _teamNumberText.text = [NSString stringWithFormat:@"%@", _teamNumber];
+    }
+    else {
+        // Default to our team. Someday create saveable preferences
+        _teamNumberText.text = @"118";
+    }
     competitionState = TRUE;
     practiceState = FALSE;
     testState = FALSE;
@@ -136,10 +142,16 @@
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [segue.destinationViewController setDataManager:_dataManager];
-    if ([segue.identifier isEqualToString:@"Set-Up"]) {
+    if ([segue.identifier isEqualToString:@"Set-Up"] || [segue.identifier isEqualToString:@"TeamList"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
-    else {
+    else if ([segue.identifier isEqualToString:@"RedSketch"]) {
+        [segue.destinationViewController setAllianceString:@"Red"];
+    }
+    else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
+        [segue.destinationViewController setAllianceString:@"Blue"];
+    }
+    else if (![segue.identifier isEqualToString:@"CoverSheet"]) {
         // Segue occurs when the user selects a match out of the match list table. Receiving
         //  VC is the Main Match Anaylsis Page VC.
         NSIndexPath *indexPath = [self.matchesTable indexPathForCell:sender];

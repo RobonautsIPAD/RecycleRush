@@ -2,7 +2,7 @@
 //  TeamScore.h
 //  RecycleRush
 //
-//  Created by FRC on 4/13/15.
+//  Created by FRC on 4/20/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -102,6 +102,8 @@
 @property (nonatomic, retain) NSNumber * wowlistHP;
 @property (nonatomic, retain) NSNumber * wowlistRobot;
 @property (nonatomic, retain) NSNumber * yellowCards;
+@property (nonatomic, retain) NSNumber * coopSetNY;
+@property (nonatomic, retain) NSNumber * coopYN;
 @property (nonatomic, retain) FieldDrawing *autonDrawing;
 @property (nonatomic, retain) MatchData *match;
 @property (nonatomic, retain) FieldDrawing *teleOpDrawing;

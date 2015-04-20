@@ -68,6 +68,7 @@
     prefs = [NSUserDefaults standardUserDefaults];
     deviceName = [prefs objectForKey:@"deviceName"];
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
+    [_matchTypeButton setBackgroundImage:[UIImage imageNamed:@"button_robonaut_gold.png"] forState:UIControlStateNormal];
     NSLog(@"Add blue 4 and red 4 for elim matches");
     [_red4 setHidden:YES];
     [_blue4 setHidden:YES];

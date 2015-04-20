@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F2501" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F2518" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Competitions" representedClassName="Competitions" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TeamData" inverseName="tournaments" inverseEntity="TeamData" syncable="YES"/>
@@ -60,7 +60,7 @@
         <attribute name="cims" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="coverAverageScore" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="coverCanDomCans" attributeType="Integer 16" minValueString="0" maxValueString="4" defaultValueString="0" syncable="YES"/>
-        <attribute name="coverCanDomTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverCanDomTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coverCCWM" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="coverNotes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coverOPR" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -76,7 +76,7 @@
         <attribute name="maxCanHeight" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="maxHeight" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="maxToteStack" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" maxValueString="50" defaultValueString="None" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="75" defaultValueString="None" syncable="YES"/>
         <attribute name="noodler" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" maxValueString="1000" syncable="YES"/>
         <attribute name="number" attributeType="Integer 16" minValueString="1" syncable="YES"/>
@@ -138,8 +138,10 @@
         <attribute name="coop31" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopSetDenominator" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopSetNumerator" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coopSetNY" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="coopStackDenominator" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="coopStackNumerator" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coopYN" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="deadOnArrival" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="driverRating" attributeType="Integer 16" minValueString="0" maxValueString="5" defaultValueString="0" syncable="YES"/>
         <attribute name="fieldPhotoName" optional="YES" attributeType="String" syncable="YES"/>
@@ -221,7 +223,7 @@
         <element name="MatchData" positionX="-45" positionY="-117" width="128" height="180"/>
         <element name="Regional" positionX="-848" positionY="9" width="128" height="345"/>
         <element name="TeamData" positionX="-180" positionY="-117" width="128" height="855"/>
-        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1423"/>
+        <element name="TeamScore" positionX="88" positionY="-36" width="128" height="1455"/>
         <element name="TournamentData" positionX="-333" positionY="-117" width="128" height="73"/>
     </elements>
 </model>

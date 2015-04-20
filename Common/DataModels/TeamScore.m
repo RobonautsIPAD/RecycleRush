@@ -2,7 +2,7 @@
 //  TeamScore.m
 //  RecycleRush
 //
-//  Created by FRC on 4/13/15.
+//  Created by FRC on 4/20/15.
 //  Copyright (c) 2015 FRC. All rights reserved.
 //
 
@@ -102,6 +102,8 @@
 @dynamic wowlistHP;
 @dynamic wowlistRobot;
 @dynamic yellowCards;
+@dynamic coopSetNY;
+@dynamic coopYN;
 @dynamic autonDrawing;
 @dynamic match;
 @dynamic teleOpDrawing;

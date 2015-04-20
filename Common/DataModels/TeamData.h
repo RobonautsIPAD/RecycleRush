@@ -18,6 +18,12 @@
 @property (nonatomic, retain) NSNumber * canDom;
 @property (nonatomic, retain) NSString * canIntake;
 @property (nonatomic, retain) NSNumber * cims;
+@property (nonatomic, retain) NSNumber * coverAverageScore;
+@property (nonatomic, retain) NSNumber * coverCanDomCans;
+@property (nonatomic, retain) NSNumber * coverCanDomTime;
+@property (nonatomic, retain) NSNumber * coverCCWM;
+@property (nonatomic, retain) NSString * coverNotes;
+@property (nonatomic, retain) NSNumber * coverOPR;
 @property (nonatomic, retain) NSString * driveTrainType;
 @property (nonatomic, retain) NSNumber * fthing1;
 @property (nonatomic, retain) NSNumber * fthing2;
@@ -59,12 +65,6 @@
 @property (nonatomic, retain) NSNumber * wheelDiameter;
 @property (nonatomic, retain) NSString * wheelType;
 @property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSNumber * coverAverageScore;
-@property (nonatomic, retain) NSNumber * coverCanDomCans;
-@property (nonatomic, retain) NSString * coverCanDomTime;
-@property (nonatomic, retain) NSNumber * coverCCWM;
-@property (nonatomic, retain) NSString * coverNotes;
-@property (nonatomic, retain) NSNumber * coverOPR;
 @property (nonatomic, retain) NSSet *regional;
 @property (nonatomic, retain) NSSet *tournaments;
 @end
