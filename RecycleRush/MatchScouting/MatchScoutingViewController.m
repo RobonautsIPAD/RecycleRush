@@ -118,9 +118,16 @@ CGFloat opacity;
 @property (weak, nonatomic) IBOutlet UIImageView *paperPhoto;
 @property (weak, nonatomic) IBOutlet UIButton *drawModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *createStacksButton;
+//Last Minute Adds
 @property (weak, nonatomic) IBOutlet UIButton *scouterName;
 @property (weak, nonatomic) IBOutlet UILabel *stepLabelThingy;
 @property (nonatomic, strong) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIButton *coopYN;
+@property (weak, nonatomic) IBOutlet UIButton *coopSetYN;
+@property (weak, nonatomic) IBOutlet UIButton *bRobot;
+@property (weak, nonatomic) IBOutlet UIButton *wRobot;
+@property (weak, nonatomic) IBOutlet UIButton *bHP;
+@property (weak, nonatomic) IBOutlet UIButton *wHP;
 
 @end
 
@@ -439,6 +446,12 @@ CGFloat opacity;
     [_scouterName setTitle:currentScore.scouter forState:UIControlStateNormal];
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
+    [self setAutonButton:_coopYN forValue:currentScore.coopYN];
+    [self setAutonButton:_coopSetYN forValue:currentScore.coopSetNY];
+    [self setAutonButton:_bHP forValue:currentScore.blacklistHP];
+    [self setAutonButton:_wHP forValue:currentScore.wowlistHP];
+    [self setAutonButton:_bRobot forValue:currentScore.blacklistRobot];
+    [self setAutonButton:_wRobot forValue:currentScore.wowlistRobot];
     [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
     [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
     [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonToteSet] forState:UIControlStateNormal];
@@ -749,6 +762,36 @@ CGFloat opacity;
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
     }
+    else if (sender == _coopYN) {
+        if ([currentScore.coopYN boolValue]) currentScore.coopYN = [NSNumber numberWithBool:FALSE];
+        else currentScore.coopYN = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_coopYN forValue:currentScore.coopYN];
+    }
+    else if (sender == _coopSetYN) {
+        if ([currentScore.coopSetNY boolValue]) currentScore.coopSetNY = [NSNumber numberWithBool:FALSE];
+        else currentScore.coopSetNY = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_coopSetYN forValue:currentScore.coopSetNY];
+    }
+    else if (sender == _bHP) {
+        if ([currentScore.blacklistHP boolValue]) currentScore.blacklistHP = [NSNumber numberWithBool:FALSE];
+        else currentScore.blacklistHP = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_bHP forValue:currentScore.blacklistHP];
+    }
+    else if (sender == _wHP) {
+        if ([currentScore.wowlistHP boolValue]) currentScore.wowlistHP = [NSNumber numberWithBool:FALSE];
+        else currentScore.wowlistHP = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_wHP forValue:currentScore.wowlistHP];
+    }
+    else if (sender == _bRobot) {
+        if ([currentScore.blacklistRobot boolValue]) currentScore.blacklistRobot = [NSNumber numberWithBool:FALSE];
+        else currentScore.blacklistRobot = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_bRobot forValue:currentScore.blacklistRobot];
+    }
+    else if (sender == _wRobot) {
+        if ([currentScore.wowlistRobot boolValue]) currentScore.wowlistRobot = [NSNumber numberWithBool:FALSE];
+        else currentScore.wowlistRobot = [NSNumber numberWithBool:TRUE];
+        [self setAutonButton:_wRobot forValue:currentScore.wowlistRobot];
+    }
     else if (sender == _robotType) {
         if (!robotTypeList) robotTypeList = [FileIOMethods initializePopUpList:@"RobotType"];
         if (robotTypePicker == nil) {
@@ -903,8 +946,6 @@ CGFloat opacity;
     [self setTeamList];
     [self showTeam:teamIndex];
     [_connectionUtility checkConnectionStatus];
-    
-    [_label setAlpha:1];
 }
 
 -(NSUInteger)getNextSection:(NSNumber *) currentType {
@@ -1081,6 +1122,7 @@ CGFloat opacity;
             [_drawModeButton setTitle:@"Off" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self disableInputs];
+            [_label setAlpha:1];
             break;
         case DrawInput:
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
@@ -1123,6 +1165,7 @@ CGFloat opacity;
             [_drawModeButton setTitle:@"Locked" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor colorWithRed:255.0 green:190.0 blue:0 alpha:1.0] forState:UIControlStateNormal];
             [self disableInputs];
+            [_label setAlpha:0];
             break;
         default:
             break;
@@ -1165,7 +1208,6 @@ CGFloat opacity;
     [_fieldDrawingContainer setUserInteractionEnabled:FALSE];
     [_controlsView setUserInteractionEnabled:FALSE];
     [_stackView setUserInteractionEnabled:FALSE];
-   // [_label setAlpha:0];
 }
 
 -(void)enableInputs {
@@ -1431,7 +1473,7 @@ CGFloat opacity;
         _totalTotesIntake.text = [NSString stringWithFormat:@"%d", score];
     }
     else if ([scoreObject isEqualToString:@"TotalScore"]) {
-        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*2 + [currentScore.totesOn3 intValue]*2 + [currentScore.totesOn4 intValue]*2 + [currentScore.totesOn5 intValue]*2 + [currentScore.totesOn6 intValue]*2 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*4 + [currentScore.cansOn2 intValue]*8 + [currentScore.cansOn3 intValue]*12 + [currentScore.cansOn4 intValue]*16 + [currentScore.cansOn5 intValue]*20 + [currentScore.cansOn6 intValue]*24 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue] + [currentScore.oppositeZoneLitter intValue]*4 + [currentScore.autonRobotSet intValue]*4 + [currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*20;
+        int score = [currentScore.totesOn0 intValue]*0 + [currentScore.totesOn1 intValue]*2 + [currentScore.totesOn2 intValue]*4 + [currentScore.totesOn3 intValue]*6 + [currentScore.totesOn4 intValue]*8 + [currentScore.totesOn5 intValue]*10 + [currentScore.totesOn6 intValue]*12 + [currentScore.cansOn0 intValue]*0 + [currentScore.cansOn1 intValue]*6 + [currentScore.cansOn2 intValue]*12 + [currentScore.cansOn3 intValue]*18 + [currentScore.cansOn4 intValue]*24 + [currentScore.cansOn5 intValue]*30 + [currentScore.cansOn6 intValue]*36 + [currentScore.litterInCan intValue]*6 + [currentScore.totalLandfillLitterScored intValue]*0 + [currentScore.oppositeZoneLitter intValue]*1 + [currentScore.autonRobotSet intValue]*4 + [currentScore.coopYN intValue]*20 + [currentScore.coopSetNY intValue]*20 +[currentScore.autonToteSet intValue]*6 + [currentScore.autonCansScored intValue]*8 + [currentScore.autonToteStack intValue]*12;
         currentScore.totalScore = [NSNumber numberWithInt:score];
         _totalScore.text = [NSString stringWithFormat:@"%d", score];
     }
@@ -1512,6 +1554,12 @@ CGFloat opacity;
     [self setSmallButtonDefaults:_driverRating];
 
     _robotSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _coopYN.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _coopSetYN.titleLabel.textAlignment = NSTextAlignmentCenter;
+     _bRobot.titleLabel.textAlignment = NSTextAlignmentCenter;
+     _wRobot.titleLabel.textAlignment = NSTextAlignmentCenter;
+     _bHP.titleLabel.textAlignment = NSTextAlignmentCenter;
+     _wHP.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _toteStackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _canSetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -1586,7 +1634,7 @@ CGFloat opacity;
 }
 
 -(void)setBigButtonDefaults:(UIButton *)currentButton {
-    currentButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:20.0];
+    currentButton.titleLabel.font = [UIFont fontWithName:@"Nasalization" size:17.0];
     // Round button corners
     CALayer *btnLayer = [currentButton layer];
     [btnLayer setMasksToBounds:YES];
@@ -1697,8 +1745,8 @@ CGFloat opacity;
         [segue.destinationViewController setCurrentScore:currentScore];
     }
     else if ([segue.identifier isEqualToString:@"Flag"])  {
-        [segue.destinationViewController setDataManager:_dataManager];
-        [segue.destinationViewController setCurrentScore:currentScore];
+       // [segue.destinationViewController setDataManager:_dataManager];
+       // [segue.destinationViewController setCurrentScore:currentScore];
     }
 
 }

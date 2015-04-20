@@ -63,6 +63,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *driverRating;
 @property (weak, nonatomic) IBOutlet UILabel *robotType;
 @property (weak, nonatomic) IBOutlet UILabel *dataSavedBy;
+@property (weak, nonatomic) IBOutlet UILabel *setYN;
+@property (weak, nonatomic) IBOutlet UILabel *stackYN;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *goAnaylsis;
 
 
@@ -114,6 +116,8 @@ TeamData *info;
     [self setLabels:(UILabel *) _teamName];
     [self setLabels:(UILabel *) _robotSet];
     [self setLabels:(UILabel *) _toteStack];
+    [self setLabels:(UILabel *) _setYN];
+    [self setLabels:(UILabel *) _stackYN];
     [self setLabels:(UILabel *) _robotType];
     [self setLabels:(UILabel *) _t0];
     [self setLabels:(UILabel *) _t1];
@@ -232,6 +236,12 @@ TeamData *info;
 	}
     else if (label == _toteStack) {
 		_toteStack.text = [NSString stringWithFormat:@"%@", [_currentScore.autonToteStack boolValue] ? @"Yes": @"No"];
+    }
+    else if (label == _setYN) {
+		_setYN.text = [NSString stringWithFormat:@"%@", [_currentScore.coopYN boolValue] ? @"Yes": @"No"];
+	}
+    else if (label == _stackYN) {
+		_stackYN.text = [NSString stringWithFormat:@"%@", [_currentScore.coopSetNY boolValue] ? @"Yes": @"No"];
     }
     else if (label == _robotType) {
 		_robotType.text = [NSString stringWithFormat:@"%@", _currentScore.robotType];
