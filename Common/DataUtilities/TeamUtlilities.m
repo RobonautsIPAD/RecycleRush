@@ -37,7 +37,8 @@
     NSDictionary *driveTypeDictionary;
     NSDictionary *intakeTypeDictionary;
     NSDictionary *shooterTypeDictionary;
-    NSDictionary *tunnelDictionary;
+    NSDictionary *baneDictionary;
+    NSDictionary *canDomDictionary;
 }
 
 - (id)init:(DataManager *)initManager {
@@ -243,7 +244,7 @@
         [valueList addObject:tournamentNames];
     }
     
-    NSArray *allRegionals = [team.regional allObjects];
+/*    NSArray *allRegionals = [team.regional allObjects];
     NSMutableArray *regionalData = [NSMutableArray array];
     for (NSString *regional in allRegionals) {
         [regionalData addObject:[regional valueForKey:@"eventNumber"]];
@@ -251,7 +252,7 @@
     if ([regionalData count]) {
         [keyList addObject:allRegionals];
         [valueList addObject:regionalData];
-    }
+    }*/
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:valueList forKeys:keyList];
     return dictionary;
 }
@@ -487,9 +488,13 @@
         if (!shooterTypeDictionary) shooterTypeDictionary = [EnumerationDictionary initializeBundledDictionary:@"ShooterType"];
         return shooterTypeDictionary;
     }
-    else if ([dictionaryName isEqualToString:@"tunnelDictionary"]) {
-        if (!tunnelDictionary) tunnelDictionary = [EnumerationDictionary initializeBundledDictionary:@"Tunnel"];
-        return tunnelDictionary;
+    else if ([dictionaryName isEqualToString:@"baneDictionary"]) {
+        if (!baneDictionary) baneDictionary = [EnumerationDictionary initializeBundledDictionary:@"Bane"];
+        return baneDictionary;
+    }
+    else if ([dictionaryName isEqualToString:@"canDomDictionary"]) {
+        if (!canDomDictionary) canDomDictionary = [EnumerationDictionary initializeBundledDictionary:@"CanDom"];
+        return canDomDictionary;
     }
     else {
         NSLog(@"Couldn't find team dictionary");

@@ -461,6 +461,7 @@ CGFloat opacity;
     [self showViews];
     if (returnFromScore) {
         drawMode = DrawInput;
+        [_label setAlpha:0];
         returnFromScore = FALSE;
     }
     else if ([currentScore.results boolValue]) {

@@ -61,7 +61,12 @@
         case PacketTypeTeamData:
         case PacketTypeMatchData:
         case PacketTypeScoreData:
+        case PacketTypePhoto:
             [self decodeReceivedData:packet];
+            break;
+        case PacketTypeMatchRequest:
+        case PacketTypePhotoRequest:
+            [self processRequest:peerID forRequest:packet inSession:session];
             break;
         default:
             break;
@@ -129,6 +134,7 @@
     [packet setSenderId:session.peerID];
 	NSData *data = [self archiveData:packet];
 	NSError *error;
+    //NSLog(@"peer = %@", session.peerID);
 	if (![session sendData:data toPeers:[NSArray arrayWithObject:receiverID] withDataMode:dataMode error:&error])
 	{
 		NSLog(@"Error sending data to clients: %@", error);
@@ -148,6 +154,37 @@
 	{
 		NSLog(@"Error sending data to clients: %@", error);
 	}
+}
+
+-(void)processRequest:(NSString *)requesterID forRequest:(Packet *)packet inSession:(GKSession *)session {
+    NSDictionary *dataDictionary = packet.dataDictionary;
+    //NSLog(@"%@", packet);
+    if (!dataDictionary) {
+        NSDictionary *errorDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Empty Packet Received", @"Error", nil];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:errorDictionary]];
+        return;
+    }
+    Packet *responsePacket;
+    if (packet.packetType == PacketTypeMatchRequest) {
+        //NSLog(@"1");
+        NSNumber *matchType = [dataDictionary objectForKey:@"MatchType"];
+        NSNumber *alliance = [dataDictionary objectForKey:@"Alliance"];
+        NSNumber *matchNumber = [dataDictionary objectForKey:@"MatchNumber"];
+        TeamScore *score = [dataSyncPackage getScoreRecord:matchNumber forMatchNumber:matchType forAlliance:alliance];
+        NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:score];
+        responsePacket = [Packet packetWithType:PacketTypeScoreData];
+        [responsePacket setDataDictionary:scoreDictionary];
+    }
+    if (packet.packetType == PacketTypePhotoRequest) {
+       // NSLog(@"2");
+        NSNumber *matchType = [dataDictionary objectForKey:@"MatchType"];
+        NSNumber *alliance = [dataDictionary objectForKey:@"Alliance"];
+        NSNumber *matchNumber = [dataDictionary objectForKey:@"MatchNumber"];
+        NSDictionary *photoDictionary = [dataSyncPackage getMatchPhoto:matchType forMatchNumber:matchNumber forAlliance:alliance];
+        responsePacket = [Packet packetWithType:PacketTypePhoto];
+        [responsePacket setDataDictionary:photoDictionary];
+    }
+    [self sendPacketToClient:responsePacket forClient:requesterID inSession:session];
 }
 
 -(void)decodeSendData:(Packet *)packet {

@@ -28,6 +28,9 @@ enum PacketType : NSInteger {
 	PacketTypeMatchRequest,
 	PacketTypeMatchData,
 
+    PacketTypePhotoRequest,
+    PacketTypePhoto,
+
     PacketTypeTournamentRequest,
 	PacketTypeTournamentData,
 };

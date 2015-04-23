@@ -103,7 +103,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDataManager:_dataManager];
-    if ([segue.identifier isEqualToString:@"Full"]) {
+    if ([segue.identifier isEqualToString:@"Full"] || [segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
 }

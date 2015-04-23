@@ -210,6 +210,30 @@
 	</dict>
 	<dict>
 		<key>key</key>
+		<string>typeOfBane</string>
+		<key>input</key>
+		<string>Bane Type</string>
+		<key>output</key>
+		<string>Bane Type</string>
+		<key>lucien</key>
+		<string>Bane</string>
+		<key>dictionary</key>
+		<string>baneDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>canDom</string>
+		<key>input</key>
+		<string>canDom, Can Dom</string>
+		<key>output</key>
+		<string>Can Dom</string>
+		<key>lucien</key>
+		<string>Can Dom</string>
+		<key>dictionary</key>
+		<string>canDomDictionary</string>
+	</dict>
+	<dict>
+		<key>key</key>
 		<string>coverAverageScore</string>
 		<key>input</key>
 		<string>AverageScore, Average Score</string>
@@ -264,7 +288,7 @@
 		<key>key</key>
 		<string>coverNotes</string>
 		<key>input</key>
-		<string>Cover Sheet Notes</string>
+		<string>Cover Sheet Notes, Cover Notes</string>
 		<key>format</key>
 		<string>string</string>
 	</dict>

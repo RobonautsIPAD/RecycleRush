@@ -127,6 +127,12 @@
                                 <segue destination="YMy-by-vW9" kind="push" identifier="CoverSheet" id="SNR-Wk-R8d"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="iZt-7E-QzF"/>
+                        <barButtonItem title="Sync" id="R0u-f0-j7k">
+                            <connections>
+                                <segue destination="qzw-3b-Tvg" kind="push" identifier="Sync" id="Yfi-Bj-YOc"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Root View Controller" id="V5d-b0-9qD"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -3781,11 +3787,247 @@
                     <view key="view" contentMode="scaleToFill" id="bMo-C5-FBa">
                         <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="71D-Bj-7VI">
+                                <rect key="frame" x="40" y="65" width="155" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deviceButtonSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="lEo-2r-p1e"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dkE-tN-70f">
+                                <rect key="frame" x="40" y="306" width="155" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deviceButtonSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="pwu-Ga-aVR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get Match Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5A4-hD-hUz">
+                                <rect key="frame" x="254" y="75" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Match Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xXs-vU-aJL">
+                                <rect key="frame" x="254" y="317" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="VCL-GJ-Y2B">
+                                <rect key="frame" x="469" y="145" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="RUt-gn-WC2" id="Jvy-lE-Xf7"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dYG-6e-Urd">
+                                <rect key="frame" x="620" y="138" width="166" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Request Match">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestButtonPressed:" destination="RUt-gn-WC2" eventType="touchUpInside" id="ueF-B3-4aF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cFt-IK-IWO">
+                                <rect key="frame" x="621" y="182" width="165" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Request Photo">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestButtonPressed:" destination="RUt-gn-WC2" eventType="touchUpInside" id="Ngr-i4-HT0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Match Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xrs-pZ-3f1">
+                                <rect key="frame" x="457" y="359" width="133" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Match Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gdy-xh-G4R">
+                                <rect key="frame" x="469" y="121" width="133" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="XCn-Xl-d5i">
+                                <rect key="frame" x="457" y="381" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="RUt-gn-WC2" id="tr5-bs-59Z"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="axk-yg-XdG">
+                                <rect key="frame" x="613" y="359" width="147" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Match">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="RUt-gn-WC2" eventType="touchUpInside" id="yUk-vY-FhZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="a9h-6J-Gk7">
+                                <rect key="frame" x="614" y="403" width="146" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Photo">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="RUt-gn-WC2" eventType="touchUpInside" id="Re4-fI-px7"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dea-Ps-tkV">
+                                <rect key="frame" x="40" y="36" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AlE-SK-fFJ">
+                                <rect key="frame" x="254" y="133" width="155" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Choose Alliance">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="allianceButtonSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="Pk9-ka-a1k"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requested Alliance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="loK-2R-aTP">
+                                <rect key="frame" x="254" y="104" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aIx-gZ-OEK">
+                                <rect key="frame" x="246" y="374" width="155" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Choose Alliance">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="allianceButtonSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="xfo-PJ-ebg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending Alliance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AJV-ty-k3b">
+                                <rect key="frame" x="254" y="350" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jco-dZ-1mC">
+                                <rect key="frame" x="40" y="277" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8KW-3A-jKu">
+                                <rect key="frame" x="40" y="133" width="139" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Match Type">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="matchTypeSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="yGS-8V-iGw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bt7-2v-Wjm">
+                                <rect key="frame" x="40" y="374" width="139" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Match Type">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="matchTypeSelection:" destination="RUt-gn-WC2" eventType="touchUpInside" id="H4f-iq-9uK"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.34198222010000001" blue="0.6034874147" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="C2N-go-fdY"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="getMatchText" destination="VCL-GJ-Y2B" id="SlV-0I-gBd"/>
+                        <outlet property="requestAllianceButton" destination="AlE-SK-fFJ" id="hpf-av-EQf"/>
+                        <outlet property="requestFromButton" destination="71D-Bj-7VI" id="Wdd-ue-jgY"/>
+                        <outlet property="requestMatchButton" destination="dYG-6e-Urd" id="dqf-dr-XyK"/>
+                        <outlet property="requestMatchPhotoButton" destination="cFt-IK-IWO" id="hhW-aD-Qeu"/>
+                        <outlet property="requestTypeButton" destination="8KW-3A-jKu" id="bvC-rd-huO"/>
+                        <outlet property="sendAllianceButton" destination="aIx-gZ-OEK" id="zv0-PW-F5n"/>
+                        <outlet property="sendMatchButton" destination="axk-yg-XdG" id="cUg-6M-d7Q"/>
+                        <outlet property="sendMatchPhotoButton" destination="a9h-6J-Gk7" id="dY6-tV-EZR"/>
+                        <outlet property="sendMatchText" destination="XCn-Xl-d5i" id="gpo-q4-yR1"/>
+                        <outlet property="sendToButton" destination="dkE-tN-70f" id="GFx-Ys-nH4"/>
+                        <outlet property="sendTypeButton" destination="bt7-2v-Wjm" id="J7q-fA-sPN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2aS-SY-AW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -5567,7 +5809,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DDK-qi-wjA" userLabel="Image View - Photo">
-                                <rect key="frame" x="573" y="121" width="409" height="226"/>
+                                <rect key="frame" x="573" y="163" width="409" height="226"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sq1-vZ-FQD" userLabel="Label - Team">
@@ -5706,7 +5948,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Notes:" borderStyle="roundedRect" placeholder="Notes:" minimumFontSize="17" id="bTs-1y-dUt" userLabel="Text Field - Notes:">
-                                        <rect key="frame" x="20" y="124" width="483" height="30"/>
+                                        <rect key="frame" x="20" y="124" width="932" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -5730,6 +5972,13 @@
                                 <rect key="frame" x="573" y="85" width="63" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to change teams or type new team number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c9K-7i-2q5">
+                                <rect key="frame" x="573" y="123" width="409" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -6313,6 +6562,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="blueSketchButton" destination="IjR-Q9-DAP" id="32Y-Ya-iaH"/>
+                        <outlet property="coverSheetButton" destination="SWI-un-aaH" id="M31-Zk-2qE"/>
                         <outlet property="homeButton" destination="iql-Bh-54S" id="cGD-MG-FCw"/>
                         <outlet property="matchNumber" destination="tXO-EW-CyZ" id="W9d-Bl-Igk"/>
                         <outlet property="matchType" destination="6NP-lr-NKe" id="LeO-eG-Anz"/>
@@ -6342,7 +6592,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SNH-87-8GP">
-                                <rect key="frame" x="483" y="20" width="521" height="582"/>
+                                <rect key="frame" x="483" y="20" width="521" height="530"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -6457,6 +6707,66 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jlr-pM-pTY">
+                                <rect key="frame" x="483" y="559" width="142" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Team List">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="sfH-IK-sHV" kind="push" identifier="TeamList" id="HnQ-EB-gxc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="42D-yq-QAU">
+                                <rect key="frame" x="483" y="610" width="142" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Cover Sheets">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="YMy-by-vW9" kind="push" identifier="CoverSheet" id="rXj-H2-eeb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="w3H-lt-bNS">
+                                <rect key="frame" x="716" y="558" width="142" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Red Sketch">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="riE-96-DgI" kind="push" identifier="RedSketch" id="sM2-cp-afM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vhx-bx-eIJ">
+                                <rect key="frame" x="716" y="610" width="142" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Blue Sketch">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="riE-96-DgI" kind="push" identifier="BlueSketch" id="cLA-ig-Fiq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.74509803919999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -6468,32 +6778,11 @@
                                 <segue destination="jO0-sC-Asm" kind="push" identifier="Set-Up" id="YLj-Be-DHH"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="SQ0-Yx-M6h"/>
-                        <barButtonItem title="Team List" id="7Wq-zZ-Rtl">
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="euo-EX-a82"/>
+                        <barButtonItem title="Sync" id="Lo9-bG-VRP">
                             <color key="tintColor" red="0.86734693880000002" green="0.0" blue="0.047009417689999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="sfH-IK-sHV" kind="push" identifier="TeamList" id="nVZ-aD-z0J"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="HyS-Z6-EEh"/>
-                        <barButtonItem title="Cover Sheet" id="TkH-aO-EjB">
-                            <color key="tintColor" red="0.86734693880000002" green="0.0" blue="0.047009417689999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="Zt2-0p-cK0" kind="push" identifier="CoverSheet" id="AZq-FU-Cdb"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="96W-HX-28X"/>
-                        <barButtonItem title="Red Sketch" id="3xz-WW-Hoj">
-                            <color key="tintColor" red="0.86734693880000002" green="0.0" blue="0.047009417689999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="riE-96-DgI" kind="push" identifier="RedSketch" id="reU-dU-qA7"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="7Kx-YJ-6Fy"/>
-                        <barButtonItem title="Blue Sketch" id="5yS-EG-fQb">
-                            <color key="tintColor" red="0.86734693880000002" green="0.0" blue="0.047009417689999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="riE-96-DgI" kind="push" identifier="BlueSketch" id="mwF-fe-Kk8"/>
+                                <segue destination="qzw-3b-Tvg" kind="push" identifier="Sync" id="z3x-td-1s0"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -6501,9 +6790,13 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="blueSketchButton" destination="vhx-bx-eIJ" id="gfZ-VO-Jcn"/>
                         <outlet property="competitionButton" destination="uFd-1v-gan" id="3WE-pK-76W"/>
+                        <outlet property="coverSheetButton" destination="42D-yq-QAU" id="hvp-pN-fse"/>
                         <outlet property="matchesTable" destination="SNH-87-8GP" id="oe2-yS-7sO"/>
                         <outlet property="practiceButton" destination="IHc-JX-quW" id="paj-1k-qML"/>
+                        <outlet property="redSketchButton" destination="w3H-lt-bNS" id="kjP-pJ-nUz"/>
+                        <outlet property="teamListButton" destination="jlr-pM-pTY" id="3Sf-z2-F23"/>
                         <outlet property="teamNumberText" destination="BCG-dq-z5v" id="vg3-ER-r0M"/>
                         <outlet property="testButton" destination="SEw-IB-l9L" id="M66-4q-XTO"/>
                     </connections>
@@ -9252,20 +9545,19 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="q9X-Cf-XkP"/>
+        <segue reference="2hQ-n8-lLr"/>
         <segue reference="Tm6-FM-heh"/>
-        <segue reference="SNR-Wk-R8d"/>
-        <segue reference="AZq-FU-Cdb"/>
-        <segue reference="mwF-fe-Kk8"/>
+        <segue reference="HnQ-EB-gxc"/>
+        <segue reference="sM2-cp-afM"/>
         <segue reference="YLj-Be-DHH"/>
-        <segue reference="nVZ-aD-z0J"/>
-        <segue reference="beS-aj-zfP"/>
+        <segue reference="rXj-H2-eeb"/>
+        <segue reference="q9X-Cf-XkP"/>
+        <segue reference="wEf-g4-j4R"/>
+        <segue reference="2of-I0-vVw"/>
         <segue reference="rvd-8o-WNc"/>
         <segue reference="yrM-pY-tJO"/>
-        <segue reference="2of-I0-vVw"/>
-        <segue reference="wEf-g4-j4R"/>
-        <segue reference="VhA-KP-rwj"/>
-        <segue reference="bSz-YR-wcx"/>
         <segue reference="fst-fR-8qn"/>
+        <segue reference="bSz-YR-wcx"/>
+        <segue reference="ILs-8g-vkf"/>
     </inferredMetricsTieBreakers>
 </document>

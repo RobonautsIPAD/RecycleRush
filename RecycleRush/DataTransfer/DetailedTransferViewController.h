@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopUpPickerViewController.h"
+
 @class DataManager;
 @class ConnectionUtility;
 
-@interface DetailedTransferViewController : UIViewController
+@interface DetailedTransferViewController : UIViewController <UITextFieldDelegate, PopUpPickerDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
 @property (nonatomic, strong) ConnectionUtility *connectionUtility;
+-(void)dataReceived:(NSNotification *)notification;
 
 @end

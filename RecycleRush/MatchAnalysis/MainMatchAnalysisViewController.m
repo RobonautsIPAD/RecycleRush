@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *redSketchButton;
 @property (weak, nonatomic) IBOutlet UIButton *blueSketchButton;
 @property (weak, nonatomic) IBOutlet UIButton *spreadsheetButton;
+@property (weak, nonatomic) IBOutlet UIButton *coverSheetButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *teamInfo;
 @property (nonatomic, strong) UIView *teamHeader;
@@ -88,6 +89,7 @@
     NSArray *blue2Scores;
     NSArray *blue3Scores;
     NSMutableArray *teamStats;
+    NSMutableArray *spreadsheetData;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -147,6 +149,7 @@
     [UIDefaults setBigButtonDefaults:_redSketchButton withFontSize:nil];
     [UIDefaults setBigButtonDefaults:_blueSketchButton withFontSize:nil];
     [UIDefaults setBigButtonDefaults:_spreadsheetButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_coverSheetButton withFontSize:nil];
      _matchNumber.inputView  = [LNNumberpad defaultLNNumberpad];
 
     matchUtilities = [[MatchUtilities alloc] init:_dataManager];
@@ -474,6 +477,29 @@
     return scores;
 }
 
+-(void)createSpreadsheetData {
+    int i = 0;
+    NSMutableDictionary *stats = [teamStats objectAtIndex:0];
+    NSArray *headers = [NSArray arrayWithObjects:@"Team Number",
+                          @"Ave Totes",
+                          @"Ave Cans",
+                          @"Ave Litter",
+                          @"Ave CanDom", nil];
+    spreadsheetData = [[NSMutableArray alloc] init];
+    [spreadsheetData addObject:headers];
+    for (TeamData *team in teamList) {
+        stats = [teamStats objectAtIndex:i];
+        NSString *teamNumber = [NSString stringWithFormat:@"%@", team.number];
+        NSString *column2 = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"totalTotesScored"] objectForKey:@"average"] floatValue]];
+        NSString *column3 = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"totalCansScored"] objectForKey:@"average"] floatValue]];
+        NSString *column4 = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"litterInCan"] objectForKey:@"average"] floatValue]];
+        NSString *column5 = [NSString stringWithFormat:@"%.1f", [[[stats objectForKey:@"autonCansFromStep"] objectForKey:@"average"] floatValue]];
+        NSArray *row = [NSArray arrayWithObjects:teamNumber, column2, column3, column4, column5, nil];
+        i++;
+        [spreadsheetData addObject:row];
+    }
+}
+
 -(void)createStatsTableHeader {
     _teamHeader = [[UIView alloc] initWithFrame:CGRectMake(0,0,768,50)];
     _teamHeader.backgroundColor = [UIColor lightGrayColor];
@@ -533,6 +559,8 @@
         [segue.destinationViewController setTeamList:teamList];
     }
     else if ([segue.identifier isEqualToString:@"Spreadsheet"]) {
+        [self createSpreadsheetData];
+        [segue.destinationViewController setDataRows:spreadsheetData];
     }
     else {
         NSIndexPath *indexPath;

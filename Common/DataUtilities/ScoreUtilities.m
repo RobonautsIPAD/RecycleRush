@@ -168,9 +168,12 @@
     }
     score.fieldPhotoName = nil;
     score.notes = nil;
-    score.robotType = nil;
-    score.autonDrawing = nil;
-    score.teleOpDrawing = nil;
+//    score.robotType = nil;
+/*    score.autonDrawing = nil;
+    if (![_dataManager saveContext]) {
+        NSLog(@"4");
+    }
+    score.teleOpDrawing = nil;*/
     [_dataManager saveContext];
     return score;
 }

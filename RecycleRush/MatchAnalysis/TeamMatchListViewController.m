@@ -33,6 +33,10 @@
 @property (nonatomic, weak) IBOutlet UIButton *practiceButton;
 @property (nonatomic, weak) IBOutlet UIButton *testButton;
 @property  (nonatomic, weak) IBOutlet UITableView *matchesTable;
+@property (weak, nonatomic) IBOutlet UIButton *teamListButton;
+@property (weak, nonatomic) IBOutlet UIButton *coverSheetButton;
+@property (weak, nonatomic) IBOutlet UIButton *redSketchButton;
+@property (weak, nonatomic) IBOutlet UIButton *blueSketchButton;
 
 @end
 
@@ -88,6 +92,10 @@
     [self setRadioButtonState:_competitionButton forState:competitionState];
     [self setRadioButtonState:_practiceButton forState:practiceState];
     [self setRadioButtonState:_testButton forState:testState];
+    [UIDefaults setBigButtonDefaults:_teamListButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_coverSheetButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_redSketchButton withFontSize:nil];
+    [UIDefaults setBigButtonDefaults:_blueSketchButton withFontSize:nil];
 }
 
 -(void)createMatchList:(NSString *)teamNumberString {
@@ -150,6 +158,9 @@
     }
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
+    }
+    if ([segue.identifier isEqualToString:@"Sync"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
     else if (![segue.identifier isEqualToString:@"CoverSheet"]) {
         // Segue occurs when the user selects a match out of the match list table. Receiving

@@ -24,6 +24,7 @@
 #import "PhotoUtilities.h"
 #import "MatchPhotoUtilities.h"
 #import "MatchAccessors.h"
+#import "ScoreAccessors.h"
 #import "FileIOMethods.h"
 
 @implementation DataSync {
@@ -273,7 +274,7 @@
     }
     filteredResultsList = [matchResultsList filteredArrayUsingPredicate:pred];
     // Package match photos
-    if (filteredResultsList && [filteredResultsList count]) {
+/*    if (filteredResultsList && [filteredResultsList count]) {
         NSLog(@"Package match photos");
         if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
         NSMutableArray *photoList = [NSMutableArray array];
@@ -282,11 +283,26 @@
             if (photoName) [photoList addObject:photoName];
         }
         [matchPhotoUtilities exportMatchPhotoList:photoList];
-    }
+    }*/
 //    NSArray *requestList = [filteredTeamList arrayByAddingObjectsFromArray:filteredResultsList];
     
     NSArray *requestList = filteredResultsList;
     return requestList;
+}
+
+-(TeamScore *)getScoreRecord:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forAlliance:(NSNumber *)alliance {
+    TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:alliance forTournament:tournamentName fromDataManager:_dataManager];
+    return score;
+}
+
+-(NSDictionary *)getMatchPhoto:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forAlliance:(NSNumber *)alliance {
+    TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:alliance forTournament:tournamentName fromDataManager:_dataManager];
+    if (!score) return nil;
+    if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+    NSData *matchPhoto = [NSData dataWithContentsOfFile:[matchPhotoUtilities getFullPath:score.fieldPhotoName]];
+    if (!matchPhoto) return nil;
+    NSDictionary *photoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:score.fieldPhotoName, @"name", matchPhoto, @"photo", nil];
+    return photoDictionary;
 }
 
 -(BOOL)packageDataForiTunes:(SyncType)syncType forData:(NSArray *)transferList error:(NSError **)error {
@@ -376,9 +392,9 @@
         }
         else if ([dataType isEqualToString:@"TournamentData"]) {
 /*            if (!tournamentUtilities) tournamentUtilities = [[TournamentUtilities alloc] init:_dataManager];
-            NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:data];
-            Packet *packet = [Packet packetWithType:PacketTypeScoreData];
-            [packet setDataDictionary:scoreDictionary];*/
+                NSDictionary *scoreDictionary = [scoreUtilities packageScoreForXFer:data];
+                Packet *packet = [Packet packetWithType:PacketTypeScoreData];
+                [packet setDataDictionary:scoreDictionary];*/
         }
         else if ([dataType isEqualToString:@"TeamData"]) {
             if (!teamUtilities) teamUtilities = [[TeamUtilities alloc] init:_dataManager];
@@ -391,6 +407,13 @@
             NSDictionary *matchDictionary = [matchUtilities packageMatchForXFer:data];
             packet = [Packet packetWithType:PacketTypeMatchData];
             [packet setDataDictionary:matchDictionary];
+        }
+        else {
+            if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
+            NSData *matchPhoto = [NSData dataWithContentsOfFile:[matchPhotoUtilities getFullPath:data]];
+            NSDictionary *photoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:data, @"name", matchPhoto, @"photo", nil];
+            packet = [Packet packetWithType:PacketTypePhoto];
+            [packet setDataDictionary:photoDictionary];
         }
         //NSLog(@"Send packet %@", packet);
         if (destination) [connectionUtility sendPacketToClient:packet forClient:destination inSession:session];

@@ -16,6 +16,7 @@
 #import "SyncMethods.h"
 #import "MatchAccessors.h"
 #import "MatchIntegrityViewController.h"
+#import "DetailedTransferViewController.h"
 #import "PopUpPickerViewController.h"
 #import "LNNumberpad.h"
 
@@ -195,6 +196,10 @@
     }
     [self setSendList];
 
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
     // Set the notification to receive information after a client had connected or disconnected
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateClientStatus:) name:@"clientStatusChanged" object:nil];
     // Set the notification to receive information after the server changes status
@@ -434,6 +439,7 @@
                                    initWithContentViewController:clientPicker];
     }
     popUp = sender;
+    [self buildClientList];
     clientPicker.pickerChoices = clientList;
     [clientPickerPopover presentPopoverFromRect:_connectedDeviceButton.bounds inView:_connectedDeviceButton
                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -523,7 +529,9 @@
     else {
         receiver = serverID;
     }
-    [dataSyncPackage bluetoothDataTranfer:filteredSendList toPeers:receiver forConnection:_connectionUtility inSession:session];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [dataSyncPackage bluetoothDataTranfer:filteredSendList toPeers:receiver forConnection:_connectionUtility inSession:session];
+    });
 }
 
 - (IBAction)selectPackageData:(id)sender {
@@ -718,6 +726,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDataManager:_dataManager];
+    if ([segue.identifier isEqualToString:@"DetailedTransfer"]) {
+        [segue.destinationViewController setConnectionUtility:_connectionUtility];
+    }
+
 }
 
 @end

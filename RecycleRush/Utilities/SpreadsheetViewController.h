@@ -13,5 +13,6 @@
 
 @interface SpreadsheetViewController : UIViewController <MMSpreadsheetViewDataSource, MMSpreadsheetViewDelegate>
 @property (nonatomic, strong) DataManager *dataManager;
+@property (nonatomic, strong) NSArray *dataRows;
 
 @end
