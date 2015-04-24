@@ -39,7 +39,7 @@
 #ifdef DEBUG
 	//NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
 #endif
-    // NSLog(@"Receiving");
+    NSLog(@"Receiving");
     Packet *packet = [self unarchiveData:data];
     //NSLog(@"dataDictionary = %@", packet.dataDictionary);
 //    NSString *myType = (NSString*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -127,7 +127,7 @@
 -(void)sendPacketToClient:(Packet *)packet forClient:(NSString *)receiverID inSession:(GKSession *)session {
     if (packet.packetNumber != -1)
 		packet.packetNumber = sendPacketNumber++;
- 
+    //NSLog(@"destination = %@", receiverID);
 	GKSendDataMode dataMode = GKSendDataReliable;
     //NSLog(@"Receiver = %@", receiverID);
     [packet setReceiverId:receiverID];
@@ -158,7 +158,7 @@
 
 -(void)processRequest:(NSString *)requesterID forRequest:(Packet *)packet inSession:(GKSession *)session {
     NSDictionary *dataDictionary = packet.dataDictionary;
-    //NSLog(@"%@", packet);
+    NSLog(@"processRequest");
     if (!dataDictionary) {
         NSDictionary *errorDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Empty Packet Received", @"Error", nil];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ReceivedData" object:nil userInfo:errorDictionary]];

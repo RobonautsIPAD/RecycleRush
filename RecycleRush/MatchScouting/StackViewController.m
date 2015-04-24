@@ -203,6 +203,16 @@
     int maxToteHeight = [_currentScore.maxToteHeight intValue];
     NSNumber *newHeight = [self addNumbers:[numerator objectForKey:@"totes"] forSecondNumber:[denominator objectForKey:@"totes"]];
     if ([newHeight intValue] > maxToteHeight) _currentScore.maxToteHeight = newHeight;
+    if ([newHeight intValue] > 6) {
+        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Stack Error"
+                                                          message:@"Stack Higher than 6 Totes"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
+        [prompt show];
+
+    }
     //NSLog(@"max tote height = %@", _currentScore.maxToteHeight);
     switch (onBottom) {
         case 0:

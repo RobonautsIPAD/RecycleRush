@@ -435,12 +435,12 @@
         clientPicker = [[PopUpPickerViewController alloc]
                             initWithStyle:UITableViewStylePlain];
         clientPicker.delegate = self;
+        [self buildClientList];
+        clientPicker.pickerChoices = clientList;
         clientPickerPopover = [[UIPopoverController alloc]
                                    initWithContentViewController:clientPicker];
     }
     popUp = sender;
-    [self buildClientList];
-    clientPicker.pickerChoices = clientList;
     [clientPickerPopover presentPopoverFromRect:_connectedDeviceButton.bounds inView:_connectedDeviceButton
                            permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }

@@ -298,9 +298,11 @@
 -(NSDictionary *)getMatchPhoto:(NSNumber *)matchType forMatchNumber:(NSNumber *)matchNumber forAlliance:(NSNumber *)alliance {
     TeamScore *score = [ScoreAccessors getScoreRecord:matchNumber forType:matchType forAlliance:alliance forTournament:tournamentName fromDataManager:_dataManager];
     if (!score) return nil;
+    NSLog(@"photo = %@", score.fieldPhotoName);
     if (!matchPhotoUtilities) matchPhotoUtilities = [[MatchPhotoUtilities alloc] init:_dataManager];
     NSData *matchPhoto = [NSData dataWithContentsOfFile:[matchPhotoUtilities getFullPath:score.fieldPhotoName]];
     if (!matchPhoto) return nil;
+    NSLog(@"found photo");
     NSDictionary *photoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:score.fieldPhotoName, @"name", matchPhoto, @"photo", nil];
     return photoDictionary;
 }

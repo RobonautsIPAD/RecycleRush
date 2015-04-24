@@ -307,7 +307,6 @@ CGFloat opacity;
     currentScore.results = [NSNumber numberWithBool:YES];
     currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
     currentScore.savedBy = deviceName;
-    currentScore.scouter = scouter;
     NSLog(@"Team = %@, Match = %@ Saved by:%@\tTime = %@", currentScore.teamNumber, currentScore.matchNumber, currentScore.savedBy, currentScore.saved);
     dataChange = TRUE;
 }
@@ -328,6 +327,7 @@ CGFloat opacity;
     }
     if (dataChange) {
         [self calculateCoop];
+        if (currentScore.scouter && [currentScore.scouter isEqualToString:@"Enter Name"]) currentScore.scouter = nil;
         currentScore.saved = [NSNumber numberWithFloat:CFAbsoluteTimeGetCurrent()];
         currentScore.savedBy = deviceName;
         if (![_dataManager saveContext]) {
@@ -443,7 +443,12 @@ CGFloat opacity;
     _cansOn5Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn5];
     _cansOn6Text.text = [NSString stringWithFormat:@"%@", currentScore.cansOn6];
     [_robotType setTitle:currentScore.robotType forState:UIControlStateNormal];
-    [_scouterName setTitle:currentScore.scouter forState:UIControlStateNormal];
+    if (currentScore.scouter) {
+        [_scouterName setTitle:currentScore.scouter forState:UIControlStateNormal];
+    }
+    else {
+        [_scouterName setTitle:@"Enter Name" forState:UIControlStateNormal];
+    }
     [_driverRating setTitle:[NSString stringWithFormat:@"%d", [currentScore.driverRating intValue]] forState:UIControlStateNormal];
     [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
     [self setAutonButton:_coopYN forValue:currentScore.coopYN];
@@ -466,8 +471,10 @@ CGFloat opacity;
     }
     else if ([currentScore.results boolValue]) {
         drawMode = DrawLock;
+        dataChange = NO;
     }
     else {
+        dataChange = NO;
         drawMode = DrawOff;
     }
     [self loadDrawing:allianceString];
@@ -687,27 +694,32 @@ CGFloat opacity;
         [robotTypePickerPopover dismissPopoverAnimated:YES];
         currentScore.robotType = newPick;
         [_robotType setTitle:newPick forState:UIControlStateNormal];
+        [self setDataChange];
         return;
     }
     if (popUp == scouterPicker) {
         [scouterPickerPopover dismissPopoverAnimated:YES];
         currentScore.scouter = newPick;
         [_scouterName setTitle:newPick forState:UIControlStateNormal];
+        [self setDataChange];
         return;
     }
     if (popUp == autonCanPicker) {
+        [self setDataChange];
         currentScore.autonCansScored = [NSNumber numberWithInt:[newPick intValue]];
         [_canSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonCansScored] forState:UIControlStateNormal];
         [autonCanPickerPopover dismissPopoverAnimated:YES];
         return;
     }
     if (popUp == autonTotePicker) {
+        [self setDataChange];
         currentScore.autonToteSet = [NSNumber numberWithInt:[newPick intValue]];
         [_toteSetButton setTitle:[NSString stringWithFormat:@"%@", currentScore.autonToteSet] forState:UIControlStateNormal];
         [autonTotePickerPopover dismissPopoverAnimated:YES];
         return;
     }
     if (popUp == _driverRating) {
+        [self setDataChange];
         [ratingPickerPopover dismissPopoverAnimated:YES];
         [self setDriverRate:newPick];
         return;
@@ -721,11 +733,11 @@ CGFloat opacity;
 }
 
 - (IBAction)autonSelection:(id)sender {
-    [self setDataChange];
     if (sender == _robotSetButton) {
         if ([currentScore.autonRobotSet boolValue]) currentScore.autonRobotSet = [NSNumber numberWithBool:FALSE];
         else currentScore.autonRobotSet = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_robotSetButton forValue:currentScore.autonRobotSet];
+        [self setDataChange];
     }
     else if (sender == _canSetButton) {
         popUp = _canSetButton;
@@ -762,35 +774,42 @@ CGFloat opacity;
         if ([currentScore.autonToteStack boolValue]) currentScore.autonToteStack = [NSNumber numberWithBool:FALSE];
         else currentScore.autonToteStack = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_toteStackButton forValue:currentScore.autonToteStack];
+        [self setDataChange];
     }
     else if (sender == _coopYN) {
         if ([currentScore.coopYN boolValue]) currentScore.coopYN = [NSNumber numberWithBool:FALSE];
         else currentScore.coopYN = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_coopYN forValue:currentScore.coopYN];
+        [self setDataChange];
     }
     else if (sender == _coopSetYN) {
         if ([currentScore.coopSetNY boolValue]) currentScore.coopSetNY = [NSNumber numberWithBool:FALSE];
         else currentScore.coopSetNY = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_coopSetYN forValue:currentScore.coopSetNY];
+        [self setDataChange];
     }
     else if (sender == _bHP) {
         if ([currentScore.blacklistHP boolValue]) currentScore.blacklistHP = [NSNumber numberWithBool:FALSE];
         else currentScore.blacklistHP = [NSNumber numberWithBool:TRUE];
         [self setAutonButton:_bHP forValue:currentScore.blacklistHP];
+        [self setDataChange];
     }
     else if (sender == _wHP) {
         if ([currentScore.wowlistHP boolValue]) currentScore.wowlistHP = [NSNumber numberWithBool:FALSE];
         else currentScore.wowlistHP = [NSNumber numberWithBool:TRUE];
+        [self setDataChange];
         [self setAutonButton:_wHP forValue:currentScore.wowlistHP];
     }
     else if (sender == _bRobot) {
         if ([currentScore.blacklistRobot boolValue]) currentScore.blacklistRobot = [NSNumber numberWithBool:FALSE];
         else currentScore.blacklistRobot = [NSNumber numberWithBool:TRUE];
+        [self setDataChange];
         [self setAutonButton:_bRobot forValue:currentScore.blacklistRobot];
     }
     else if (sender == _wRobot) {
         if ([currentScore.wowlistRobot boolValue]) currentScore.wowlistRobot = [NSNumber numberWithBool:FALSE];
         else currentScore.wowlistRobot = [NSNumber numberWithBool:TRUE];
+        [self setDataChange];
         [self setAutonButton:_wRobot forValue:currentScore.wowlistRobot];
     }
     else if (sender == _robotType) {
@@ -1123,7 +1142,7 @@ CGFloat opacity;
             [_drawModeButton setTitle:@"Off" forState:UIControlStateNormal];
             [_drawModeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self disableInputs];
-            [_label setAlpha:1];
+            [_label setAlpha:0];
             break;
         case DrawInput:
             [_drawModeButton setBackgroundImage:[UIImage imageNamed:@"Small Green Button.jpg"] forState:UIControlStateNormal];
@@ -1493,12 +1512,19 @@ CGFloat opacity;
                 [prompt show];
             }
             else {
+                if (currentScore.scouter && ![currentScore.scouter isEqualToString:@"Enter Name"]) {
+                    [_label setAlpha:0];
+                }
+                else {
+                    [_label setAlpha:1];
+                }
                 drawMode = DrawInput;
                // [self enlargeDrawing];
             }
             break;
         case DrawInput:
             drawMode = DrawOff;
+            [_label setAlpha:1];
             break;
 /*        case DrawAuton:
             drawMode = DrawTeleop;

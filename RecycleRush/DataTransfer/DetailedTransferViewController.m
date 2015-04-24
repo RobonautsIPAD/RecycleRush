@@ -225,24 +225,31 @@
     // NSLog(@"Picker = %@", newPick);
     if (popUp == _requestFromButton) {
         [devicePopover dismissPopoverAnimated:YES];
-       // [self newDestination:newPick];
+        [self newDevice:newPick];
     } else if (popUp == _sendToButton) {
         [devicePopover dismissPopoverAnimated:YES];
-    //    [self selectSyncType:newPick];
+        [self newDevice:newPick];
     } else if (popUp == _requestAllianceButton) {
         [alliancePopover dismissPopoverAnimated:YES];
         [self newAlliance:newPick];
     } else if (popUp == _sendAllianceButton) {
         [alliancePopover dismissPopoverAnimated:YES];
         [self newAlliance:newPick];
-    }
-    else if (popUp == _requestTypeButton) {
+    } else if (popUp == _requestTypeButton) {
         [matchTypePickerPopover dismissPopoverAnimated:YES];
         [self newMatchType:newPick];
     } else if (popUp == _sendTypeButton) {
         [matchTypePickerPopover dismissPopoverAnimated:YES];
         [self newMatchType:newPick];
     }
+}
+
+
+-(void)newDevice:(NSString *)device {
+    NSUInteger index = [clientList indexOfObject:device];
+    if (index == NSNotFound) return;
+    UIButton *pressedButton = (UIButton *)popUp;
+    [pressedButton setTitle:device forState:UIControlStateNormal];
 }
 
 -(void)newAlliance:(NSString *)alliance {

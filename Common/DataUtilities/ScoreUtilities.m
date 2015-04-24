@@ -168,6 +168,7 @@
     }
     score.fieldPhotoName = nil;
     score.notes = nil;
+    score.scouter = nil;
 //    score.robotType = nil;
 /*    score.autonDrawing = nil;
     if (![_dataManager saveContext]) {

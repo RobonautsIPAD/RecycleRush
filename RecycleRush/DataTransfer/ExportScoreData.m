@@ -171,11 +171,46 @@
         [fetchRequest setPredicate:pred];
         NSArray *teamScores = [_dataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
         for (TeamScore *score in teamScores) {
+            if([score.matchNumber intValue] == 4 && [score.teamNumber intValue] == 118) {
+                NSLog(@"Stop here");
+            }
             isData = TRUE;
+            BOOL firstStack = TRUE;
+            BOOL firstCan = TRUE;
+            BOOL firstCap = TRUE;
             NSString *csvString = [NSString stringWithFormat:@"\n%@", teamNumber];
             for (NSDictionary *spreadsheetParameters in scoutingSpreadsheetList) {
                 NSString *key = [spreadsheetParameters objectForKey:@"key"];
-                csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
+                if ([key isEqualToString:@"stack"]) {
+                    if (firstStack) {
+                        NSString *junk = [self getStackData:score];
+                        csvString = [csvString stringByAppendingString:junk];
+                        firstStack = FALSE;
+                        continue;
+                    }
+                }
+                else if ([key isEqualToString:@"blank"]) {
+                    csvString = [csvString stringByAppendingFormat:@", "];
+                }
+                else if ([key isEqualToString:@"can"]) {
+                    if (firstCan) {
+                        NSString *junk = [self getCanData:score];
+                        csvString = [csvString stringByAppendingString:junk];
+                        firstCan = FALSE;
+                        continue;
+                    }
+                }
+                else if ([key isEqualToString:@"cap"]) {
+                    if (firstCap) {
+                        NSString *junk = [self getCapData:score];
+                        csvString = [csvString stringByAppendingString:junk];
+                        firstCap = FALSE;
+                        continue;
+                    }
+                }
+                else {
+                    csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
+                }
             }
             [fullPathHandle seekToEndOfFile];
             [fullPathHandle writeData:[csvString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -198,6 +233,126 @@
     
     return csvString;
 }
+
+-(NSString *)getStackData:(TeamScore *)score {
+    NSDictionary *stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:score.stacks];
+    NSString *stacks = [[NSString alloc] init];
+    //NSLog(@"%@", stackDictionary);
+    NSArray *allKeys = [stackDictionary allKeys];
+    allKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+    int count = 0;
+    for (NSString *key in allKeys) {
+        NSDictionary *cell = [stackDictionary objectForKey:key];
+        NSArray *allFields = [cell allKeys];
+        allFields = [allFields sortedArrayUsingSelector:@selector(compare:)];
+        int stackTotal = 0;
+        for (int i=0; i<[allFields count]; i+=2) {
+            NSString *numerator = [cell objectForKey:[allFields objectAtIndex:i]];
+            NSString *denominator = [cell objectForKey:[allFields objectAtIndex:i+1]];
+            NSDictionary *numeratorTotal = [self getTextFieldData:numerator];
+            NSDictionary *denominatorTotal = [self getTextFieldData:denominator];
+            stackTotal += [[numeratorTotal objectForKey:@"totes"] intValue];
+        }
+        stacks = [stacks stringByAppendingFormat:@", %d", stackTotal];
+        count++;
+        if (count >5) break;
+    }
+    for (int i=count; i<6; i++) {
+        stacks = [stacks stringByAppendingString:@", 0"];
+    }
+    return stacks;
+}
+
+-(NSString *)getCanData:(TeamScore *)score {
+    NSDictionary *stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:score.stacks];
+    NSString *stacks = [[NSString alloc] init];
+    //NSLog(@"%@", stackDictionary);
+    NSArray *allKeys = [stackDictionary allKeys];
+    allKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+    int count = 0;
+    for (NSString *key in allKeys) {
+        NSDictionary *cell = [stackDictionary objectForKey:key];
+        NSArray *allFields = [cell allKeys];
+        allFields = [allFields sortedArrayUsingSelector:@selector(compare:)];
+        int can = 0;
+        int canDenom = 0;
+        for (int i=0; i<[allFields count]; i+=2) {
+            NSString *numerator = [cell objectForKey:[allFields objectAtIndex:i]];
+            NSString *denominator = [cell objectForKey:[allFields objectAtIndex:i+1]];
+            NSDictionary *numeratorTotal = [self getTextFieldData:numerator];
+            NSDictionary *denominatorTotal = [self getTextFieldData:denominator];
+            can = [[numeratorTotal objectForKey:@"cans"] intValue];
+            if (can > 0) canDenom = [[denominatorTotal objectForKey:@"totes"] intValue];
+        }
+        if (can) {
+            if (!canDenom) stacks = [stacks stringByAppendingFormat:@", %d", can];
+            else stacks = [stacks stringByAppendingFormat:@", 0"];
+        }
+        else stacks = [stacks stringByAppendingFormat:@", 0"];
+        count++;
+        if (count >5) break;
+    }
+    for (int i=count; i<6; i++) {
+        stacks = [stacks stringByAppendingString:@", 0"];
+    }
+    return stacks;
+}
+
+-(NSString *)getCapData:(TeamScore *)score {
+    NSDictionary *stackDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:score.stacks];
+    NSString *stacks = [[NSString alloc] init];
+    //NSLog(@"%@", stackDictionary);
+    NSArray *allKeys = [stackDictionary allKeys];
+    allKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+    int count = 0;
+    for (NSString *key in allKeys) {
+        NSDictionary *cell = [stackDictionary objectForKey:key];
+        NSArray *allFields = [cell allKeys];
+        allFields = [allFields sortedArrayUsingSelector:@selector(compare:)];
+        int can = 0;
+        int canDenom = 0;
+        for (int i=0; i<[allFields count]; i+=2) {
+            NSString *numerator = [cell objectForKey:[allFields objectAtIndex:i]];
+            NSString *denominator = [cell objectForKey:[allFields objectAtIndex:i+1]];
+            NSDictionary *numeratorTotal = [self getTextFieldData:numerator];
+            NSDictionary *denominatorTotal = [self getTextFieldData:denominator];
+            can = [[numeratorTotal objectForKey:@"cans"] intValue];
+            if (can > 0) canDenom = [[denominatorTotal objectForKey:@"totes"] intValue];
+        }
+        if (can) {
+            if (canDenom) stacks = [stacks stringByAppendingFormat:@", %d", can];
+            else stacks = [stacks stringByAppendingFormat:@", 0"];
+        }
+        else stacks = [stacks stringByAppendingFormat:@", 0"];
+        count++;
+        if (count >5) break;
+    }
+    for (int i=count; i<6; i++) {
+        stacks = [stacks stringByAppendingString:@", 0"];
+    }
+    return stacks;
+}
+
+-(NSDictionary *)getTextFieldData:(NSString *)field {
+    NSNumber *totes = [NSNumber numberWithInt:0];
+    NSNumber *cans = [NSNumber numberWithInt:0];
+    NSNumber *litter = [NSNumber numberWithInt:0];
+    for(int i =0 ;i<[field length]; i++) {
+        char character = [field characterAtIndex:i];
+        if (isdigit(character)) {
+            totes = [NSNumber numberWithInt:(int)(character - '0')];
+        }
+        else if (character == 'C') cans = [NSNumber numberWithInt:1];
+        else if (character == 'L') litter = [NSNumber numberWithInt:1];
+    }
+    NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
+                             totes, @"totes",
+                             cans, @"cans",
+                             litter, @"litter",
+                             nil];
+    return results;
+}
+
 
 -(BOOL)scoreBundleCSVExport:(NSString *)tournament toFile:(NSString *)fullPath {
     // Check if init function has run properly
@@ -277,62 +432,6 @@
     return TRUE;
 }
 
--(void)exportFullMatchData:(NSArray *)teamList {
-/*    prefs = [NSUserDefaults standardUserDefaults];
-    tournamentName = [prefs objectForKey:@"tournament"];
-    NSString *dirName = [NSString stringWithFormat:@"%@ FieldDrawings", tournamentName];
-
-    NSString *exportPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:dirName];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    if (![fileManager createDirectoryAtPath:exportPath withIntermediateDirectories:YES attributes:nil error:&error]) {
-        UIAlertView *prompt  = [[UIAlertView alloc] initWithTitle:@"Export Data Alert"
-                                                          message:@"Unable to Create Export Directory"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-        [prompt setAlertViewStyle:UIAlertViewStyleDefault];
-        [prompt show];
-        return;
-    }
-    NSString *fileName = [NSString stringWithFormat:@"NewScoutingSheet_%.0f.csv", CFAbsoluteTimeGetCurrent()];
-    NSString *filePath = [exportPath stringByAppendingPathComponent:fileName];
-
-    CreateMatch *createMatch = [[CreateMatch alloc] initWithDataManager:_dataManager];
-
-    if (!scoutingSpreadsheetList) {
-        // Load dictionary with list of parameters for the scouting spreadsheet
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"MarcusOutput" ofType:@"plist"];
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
-        scoutingSpreadsheetList = [[[NSArray alloc] initWithContentsOfFile:plistPath] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
-    }
-//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"tournamentName = %@ AND results = %@ AND (match.matchType = %@ || match.matchType = %@)", tournament, [NSNumber numberWithBool:YES], @"Seeding", @"Elimination"];
-    
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString *csvString = [self createFullHeader:scoutingSpreadsheetList];
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@"results = %@", [NSNumber numberWithBool:YES]];
-        for (TeamData *team in teamList) {
-            NSArray *matchList = [createMatch getMatchListTournament:team.number forTournament:tournamentName];
-            matchList = [matchList filteredArrayUsingPredicate:pred];
-            for (TeamScore *score in matchList) {
-                csvString = [csvString stringByAppendingFormat:@"%@, %@, %@", team.number, score.match.matchType, score.match.number];
-                for (NSDictionary *item in scoutingSpreadsheetList) {
-                    NSString *key = [item objectForKey:@"key"];
-                    if ([key isEqualToString:@"match.number"]) continue;
-                    csvString = [csvString stringByAppendingFormat:@", %@", [score valueForKey:key]];
-                }
-                NSString *fieldDrawingName = [self createFieldDrawing:score toPath:exportPath];
-                csvString = [csvString stringByAppendingFormat:@", %@\n", fieldDrawingName];
-            }
-        }
-        [csvString writeToFile:filePath
-                    atomically:YES
-                      encoding:NSUTF8StringEncoding
-                         error:nil];
-        NSLog(@"%@", csvString);
-        csvString = nil;
-    });*/
-}
 
 -(NSString *)createFullHeader:(NSArray *)scoreList {
     NSString *csvString;
