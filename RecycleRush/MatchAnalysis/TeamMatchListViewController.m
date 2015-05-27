@@ -159,7 +159,7 @@
     else if ([segue.identifier isEqualToString:@"BlueSketch"]) {
         [segue.destinationViewController setAllianceString:@"Blue"];
     }
-    if ([segue.identifier isEqualToString:@"Sync"]) {
+    else if ([segue.identifier isEqualToString:@"Sync"]) {
         [segue.destinationViewController setConnectionUtility:_connectionUtility];
     }
     else if (![segue.identifier isEqualToString:@"CoverSheet"]) {

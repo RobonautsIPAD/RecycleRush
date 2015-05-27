@@ -9545,19 +9545,19 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="2of-I0-vVw"/>
         <segue reference="2hQ-n8-lLr"/>
         <segue reference="Tm6-FM-heh"/>
-        <segue reference="HnQ-EB-gxc"/>
-        <segue reference="sM2-cp-afM"/>
         <segue reference="YLj-Be-DHH"/>
+        <segue reference="HnQ-EB-gxc"/>
         <segue reference="rXj-H2-eeb"/>
+        <segue reference="sM2-cp-afM"/>
         <segue reference="q9X-Cf-XkP"/>
-        <segue reference="wEf-g4-j4R"/>
-        <segue reference="2of-I0-vVw"/>
         <segue reference="rvd-8o-WNc"/>
-        <segue reference="yrM-pY-tJO"/>
-        <segue reference="fst-fR-8qn"/>
         <segue reference="bSz-YR-wcx"/>
         <segue reference="ILs-8g-vkf"/>
+        <segue reference="fst-fR-8qn"/>
+        <segue reference="zbF-Ae-oKj"/>
+        <segue reference="FCB-fh-Wqd"/>
     </inferredMetricsTieBreakers>
 </document>
